@@ -202,6 +202,10 @@ class ScrollableButtonBar: BeamControl {
         self.maskLayer.locations = locations
     }
     
+    override var intrinsicContentSize: CGSize {
+        return CGSize(width: UIViewNoIntrinsicMetric, height: 30)
+    }
+    
     func buttonFrameForSelectedItemIndex() -> CGRect? {
         guard let index = self.selectedItemIndex, index < buttons.count && index > 0 else {
             return nil

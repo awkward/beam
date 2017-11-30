@@ -32,7 +32,7 @@ class InternalLinkRoutingController: JLRoutes {
         let subredditRoutes: [String] = ["subreddit/:name",
                                          "r/:name",
                                          "reddit.com/r/:name"]
-        self.add(subredditRoutes) { (parameters:[AnyHashable: Any]?) -> Bool in
+        self.addRoutes(subredditRoutes) { (parameters:[String: Any]?) -> Bool in
             return self.handleSubredditCallWithParameters(parameters)
         }
         //Multireddit routes, required parameter: username, multiredditname
@@ -40,14 +40,14 @@ class InternalLinkRoutingController: JLRoutes {
                                  "user/:username/m/:multiredditname",
                                  "reddit.com/user/:username/m/:multiredditname",
                                  "reddit.com/u/:username/m/:multiredditname"]
-        self.add(multiredditRoutes) { (parameters:[AnyHashable: Any]?) -> Bool in
+        self.addRoutes(multiredditRoutes) { (parameters:[String: Any]?) -> Bool in
             return self.handleMultiredditCallWithParameters(parameters)
         }
         //User routes, required parameter: username
         let userRoutes: [String] = ["user/:username",
                                     "u/:username",
                                     "reddit.com/u/:username"]
-        self.add(userRoutes) { (parameters:[AnyHashable: Any]?) -> Bool in
+        self.addRoutes(userRoutes) { (parameters:[String: Any]?) -> Bool in
             return self.handleUserCallWithParameters(parameters)
         }
         //Post routes, required parameter: postid, subredditname optional
@@ -58,14 +58,15 @@ class InternalLinkRoutingController: JLRoutes {
                                     "/r/:subredditname/comments/:postid/:postname/*",
                                     "post/:postid/:postname",
                                     "post/:postid"]
-        self.add(postRoutes) { (parameters:[AnyHashable: Any]?) -> Bool in
+        self.addRoutes(postRoutes) { (parameters:[String: Any]?) -> Bool in
             return self.handlePostCallWithParameters(parameters)
         }
+        
     }
     
     //MARK: - Handle methods
     
-    fileprivate func handleSubredditCallWithParameters(_ parameters: [AnyHashable: Any]!) -> Bool {
+    fileprivate func handleSubredditCallWithParameters(_ parameters: [String: Any]!) -> Bool {
         //Get the subreddit name
         if let rawSubredditName: String = parameters["name"] as? String {
             SubredditQuery.fetchSubreddit(rawSubredditName, handler: { (subreddit: Subreddit?, error: Error?) in
@@ -293,7 +294,7 @@ class InternalLinkRoutingController: JLRoutes {
         return InternalLinkRoutingController.shared.routeURL(URL)
     }
     
-    override class func routeURL(_ URL: Foundation.URL!, withParameters parameters: [AnyHashable: Any]!) -> Bool {
+    override class func routeURL(_ URL: Foundation.URL!, withParameters parameters: [String: Any]!) -> Bool {
         return InternalLinkRoutingController.shared.routeURL(URL, withParameters: parameters)
     }
     
@@ -310,7 +311,7 @@ class InternalLinkRoutingController: JLRoutes {
         return false
     }
     
-    override func routeURL(_ URL: Foundation.URL!, withParameters parameters: [AnyHashable: Any]!) -> Bool {
+    override func routeURL(_ URL: Foundation.URL!, withParameters parameters: [String: Any]!) -> Bool {
         if let rootViewController = AppDelegate.shared.galleryWindow?.rootViewController?.presentedViewController as? AWKGalleryViewController {
             //Check if the window or rootViewController exist, otherwise we can't navigate. This also sets the currentViewController to present all the other views on.
             self.currentViewController = AppDelegate.topViewController(rootViewController)

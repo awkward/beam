@@ -9,8 +9,7 @@
 import UIKit
 import SafariServices
 
-/// Fix for the SafariViewController bug introducted in 9.2: https://gist.github.com/alexruperez/ab5e175d40413faea0a8
-class BeamSafariViewController: SFSafariViewController {
+final class BeamSafariViewController: SFSafariViewController {
     
     init(url URL: URL) {
         super.init(url: URL, entersReaderIfAvailable: UserSettings[.prefersSafariViewControllerReaderMode])
@@ -26,36 +25,6 @@ class BeamSafariViewController: SFSafariViewController {
             self.preferredBarTintColor = UIColor.black
             self.preferredControlTintColor = UIColor.white
         }
-    }
-    
-    var isSwipingBack = false {
-        didSet {
-            self.setNeedsStatusBarAppearanceUpdate()
-        }
-    }
-    
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        if self.isSwipingBack && self.presentingViewController != nil {
-            return self.presentingViewController!.preferredStatusBarStyle
-        }
-        return super.preferredStatusBarStyle
-    }
-    
-    override var prefersStatusBarHidden : Bool {
-        if self.isSwipingBack && self.presentingViewController != nil {
-            return self.presentingViewController!.prefersStatusBarHidden
-        }
-        return super.prefersStatusBarHidden
-    }
-    
-    override func viewWillDisappear(_ animated: Bool) {
-        self.isSwipingBack = true
-        
-        self.transitionCoordinator?.notifyWhenInteractionEnds({ (context) in
-            self.isSwipingBack = false
-        })
-        
-        super.viewWillDisappear(animated)
     }
 
 }

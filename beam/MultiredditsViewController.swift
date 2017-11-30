@@ -13,7 +13,7 @@ import CherryKit
 
 private let reuseIdentifier = "multireddit"
 
-class MultiredditsViewController: BeamTableViewController, NSFetchedResultsControllerDelegate, BeamViewControllerLoading {
+final class MultiredditsViewController: BeamTableViewController, NSFetchedResultsControllerDelegate, BeamViewControllerLoading {
     
     typealias CollectionItem = Multireddit
     
@@ -57,6 +57,8 @@ class MultiredditsViewController: BeamTableViewController, NSFetchedResultsContr
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.register(SubredditTableViewCell.self)
         
         self.title = "My Multireddits"
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(MultiredditsViewController.createMultireddit(_:)))
@@ -159,11 +161,14 @@ extension MultiredditsViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let multireddit = self.content![indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! MultiredditTableViewCell
-        
-        cell.multireddit = multireddit
+        let cell: SubredditTableViewCell = tableView.dequeueReusable(for: indexPath)
+        cell.subreddit = multireddit
         
         return cell
+    }
+    
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        return 62.5
     }
     
 }

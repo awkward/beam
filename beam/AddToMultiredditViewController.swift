@@ -59,6 +59,8 @@ class AddToMultiredditViewController: BeamTableViewController, BeamViewControlle
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.register(SubredditTableViewCell.self)
+        
         assert(self.subreddit?.managedObjectContext == AppDelegate.shared.managedObjectContext)
         
         self.title = AWKLocalizedString("add-to-multireddit")
@@ -143,10 +145,10 @@ extension AddToMultiredditViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let multireddit = self.content![indexPath.row]
         
-        let cell = tableView.dequeueReusableCell(withIdentifier: AddToMultiredditCellReuseIdentifier, for: indexPath) as! MultiredditTableViewCell
-        
-        cell.multireddit = multireddit
-        
+        let cell: SubredditTableViewCell = tableView.dequeueReusable(for: indexPath)
+        cell.allowPromimentDisplay = false
+        cell.subreddit = multireddit
+       
         return cell
     }
     

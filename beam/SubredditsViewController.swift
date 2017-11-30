@@ -12,7 +12,7 @@ import CoreData
 import Trekker
 import StoreKit
 
-class SubredditsViewControllerSection: NSObject {
+final class SubredditsViewControllerSection: NSObject {
     var sectionName: String
     var subreddits: [Subreddit]
     
@@ -24,7 +24,7 @@ class SubredditsViewControllerSection: NSObject {
     
 }
 
-class SubredditsViewController: BeamTableViewController, BeamViewControllerLoading {
+final class SubredditsViewController: BeamTableViewController, BeamViewControllerLoading {
     
     // MARK: - Properties
     
@@ -218,14 +218,29 @@ class SubredditsViewController: BeamTableViewController, BeamViewControllerLoadi
     
     // MARK: - Lifecycle
     
-    required init?(coder aDecoder: NSCoder) {
+    override init(style: UITableViewStyle) {
+        super.init(style: style)
         
+        self.setupViewController()
+    }
+    
+    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
+        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
+        
+        self.setupViewController()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+
+        self.setupViewController()
+    }
+    
+    private func setupViewController() {
         let query = SubredditsCollectionQuery()
         query.userIdentifier = AppDelegate.shared.authenticationController.activeUserIdentifier
         
         self.collectionController.query = query
-        
-        super.init(coder: aDecoder)
         
         self.collectionController.delegate = self
         
@@ -456,6 +471,7 @@ extension SubredditsViewController {
         let subreddit: Subreddit? = section?.subreddits[indexPath.row]
         
         let cell: SubredditTableViewCell = tableView.dequeueReusable(for: indexPath)
+        cell.delegate = self
         cell.subreddit = subreddit
         return cell
     }
@@ -485,7 +501,7 @@ extension SubredditsViewController {
         let section: SubredditsViewControllerSection? = self.content?[(indexPath as IndexPath).section]
         let subreddit: Subreddit? = section?.subreddits[indexPath.row]
         if subreddit?.isBookmarked.boolValue == true || subreddit?.isPrepopulated == true {
-            return 62.5
+            return 62
         }
         return 44
     }
@@ -606,26 +622,115 @@ extension SubredditsViewController {
         return true
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        //This method has to be implemented but be empty for the swipe to unsubscribe to work!
+    override func tableView(_ tableView: UITableView, leadingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let subreddit = self.content?[indexPath.section].subreddits[indexPath.row] else {
+            return nil
+        }
+        
+        var actions = [UIContextualAction]()
+        
+        let title = subreddit.isBookmarked.boolValue ? "Unfavorite" : "Favorite"
+        let style: UIContextualAction.Style = subreddit.isBookmarked.boolValue ? .destructive : .normal
+        let favoriteAction = UIContextualAction(style: style, title: title, handler: { (action, sourceView, callback) in
+            guard let subreddits = self.content?[indexPath.section].subreddits, !subreddit.isPrepopulated else {
+                callback(false)
+                return
+            }
+            guard let subredditToEdit: Subreddit = self.editContext?.object(with: subreddit.objectID) as? Subreddit else {
+                NSLog("The subreddit to edit could not be found")
+                return
+            }
+            
+            subredditToEdit.changeBookmark(!subredditToEdit.isBookmarked.boolValue)
+            if subredditToEdit.isBookmarked.boolValue {
+                Trekker.default.track(event: TrekkerEvent(event: "Favorite subreddit", properties: ["View": "Subreddits list"]))
+                
+                subredditToEdit.order = NSNumber(value: self.content?[0].subreddits.count ?? 0)
+            } else {
+                subredditToEdit.order = NSNumber(value: 0)
+            }
+            
+            do {
+                try self.editContext!.save()
+            } catch {
+                NSLog("Could not save edit context: \(error)")
+                return
+            }
+            
+            guard let content = self.content else {
+                fatalError("The content is missing when tapping a star in the list that is powered by the content, something has gone seriously wrong")
+            }
+            let previousSection: SubredditsViewControllerSection = content[(indexPath as IndexPath).section]
+            
+            self.tableView.beginUpdates()
+            
+            self.content = self.contentWithCollectionID(self.collectionController.collectionID)
+            
+            guard let newContent = self.content else {
+                fatalError("Content is missing after self.contentWithCollectionID(), this should happen at all!")
+            }
+            
+            if let newIndexPath: IndexPath = self.indexPathForSubreddit(subreddit) {
+                let newSection: SubredditsViewControllerSection = newContent[(newIndexPath as IndexPath).section]
+                if previousSection.subreddits.count == 1 && newSection.subreddits.count == 1 {
+                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                    self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                } else if previousSection.subreddits.count == 1 && newSection.subreddits.count > 1 {
+                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                    self.tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
+                } else if previousSection.subreddits.count > 1 && newSection.subreddits.count == 1 {
+                    self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                    self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                } else {
+                    self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                    self.tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
+                }
+            } else {
+                if previousSection.subreddits.count == 1 {
+                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                } else {
+                    self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                }
+            }
+            
+            self.tableView.endUpdates()
+            callback(true)
+            
+        })
+        actions.append(favoriteAction)
+        
+        let config = UISwipeActionsConfiguration(actions: actions)
+        config.performsFirstActionWithFullSwipe = true
+        return config
+        
     }
     
-    override func tableView(_ tableView: UITableView, editActionsForRowAt indexPath: IndexPath) -> [UITableViewRowAction]? {
-        if let subreddit = self.content?[(indexPath as IndexPath).section].subreddits[indexPath.row] {
-            if !subreddit.isPrepopulated {
-                let unsubscribeAction = UITableViewRowAction(style: .default, title: AWKLocalizedString("unsubscribe-button")) { (action, indexPath) -> Void in
-                    if let subreddits = self.content?[(indexPath as IndexPath).section].subreddits {
-                        let subreddit = subreddits[indexPath.row]
-                        self.content?[indexPath.section].subreddits.remove(at: subreddits.index(of: subreddit)!)
-                        self.tableView.deleteRows(at: [indexPath], with: .automatic)
-                        self.unsubscribeSubreddit(subreddit, indexPath: indexPath)
-                    }
-                    
-                }
-                return [unsubscribeAction]
-            }
+    override func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
+        guard let subreddit = self.content?[indexPath.section].subreddits[indexPath.row] else {
+            return nil
         }
-        return nil
+        var actions = [UIContextualAction]()
+        
+        if !subreddit.isPrepopulated {
+            let unsubscribeAction = UIContextualAction(style: .destructive, title: AWKLocalizedString("unsubscribe-button"), handler: { (action, sourceView, callback) in
+                guard let subreddits = self.content?[indexPath.section].subreddits, let index = subreddits.index(of: subreddit), !subreddit.isPrepopulated else {
+                    callback(false)
+                    return
+                }
+                
+                self.content?[indexPath.section].subreddits.remove(at: index)
+                self.tableView.deleteRows(at: [indexPath], with: .automatic)
+                self.unsubscribeSubreddit(subreddit, indexPath: indexPath)
+                callback(true)
+               
+            })
+            unsubscribeAction.backgroundColor = .blue
+            actions.append(unsubscribeAction)
+        }
+
+        let config = UISwipeActionsConfiguration(actions: actions)
+        config.performsFirstActionWithFullSwipe = false
+        return config
     }
     
     fileprivate func unsubscribeSubreddit(_ subreddit: Subreddit, indexPath: IndexPath) {
@@ -649,7 +754,7 @@ extension SubredditsViewController {
 
 extension SubredditsViewController: SubredditTableViewCellDelegate {
     
-    func subredditTableViewCell(_ cell: SubredditTableViewCell, didTapStarOnSubreddit subreddit: Subreddit) {
+    func subredditTableViewCell(_ cell: SubredditTableViewCell, toggleFavoriteOnSubreddit subreddit: Subreddit) {
         guard let subredditToEdit: Subreddit = self.editContext?.object(with: subreddit.objectID) as? Subreddit else {
             NSLog("The subreddit to edit could not be found")
             return

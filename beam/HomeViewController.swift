@@ -8,28 +8,8 @@
 
 import UIKit
 import Snoo
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
 
-fileprivate func <= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l <= r
-  default:
-    return !(rhs < lhs)
-  }
-}
-
-
-class HomeViewController: BeamViewController, UIToolbarDelegate {
+final class HomeViewController: BeamViewController, UIToolbarDelegate {
     
     @IBOutlet weak var toolbar: UIToolbar!
     @IBOutlet weak var topButtonBarConstraint: NSLayoutConstraint!
@@ -42,14 +22,12 @@ class HomeViewController: BeamViewController, UIToolbarDelegate {
     
     @IBOutlet weak var buttonBar: ButtonBar!
     
-    let subredditsViewController: SubredditsViewController = {
-        let storyboard = UIStoryboard(name: "MySubreddits", bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: "MySubreddits") as! SubredditsViewController
+    lazy private var subredditsViewController: SubredditsViewController = {
+        return SubredditsViewController(style: .plain)
     }()
     
-    let multiredditsViewController: MultiredditsViewController = {
-        let storyboard = UIStoryboard(name: "MySubreddits", bundle: nil)
-        return storyboard.instantiateViewController(withIdentifier: "MyMultireddits") as! MultiredditsViewController
+    lazy private var multiredditsViewController: MultiredditsViewController = {
+        return MultiredditsViewController(style: .grouped)
     }()
     
     var currentViewController: UIViewController! {
@@ -107,11 +85,19 @@ class HomeViewController: BeamViewController, UIToolbarDelegate {
     
     fileprivate func addContainerViewConstraints(viewController: UIViewController, containerView: UIView) {
         viewController.view.translatesAutoresizingMaskIntoConstraints = false
-        //Add horizontal constraints to make the view center with a max width
-        containerView.addConstraint(NSLayoutConstraint(item: viewController.view, attribute: .leading, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: containerView, attribute: .leading, multiplier: 1.0, constant: 0))
-        containerView.addConstraint(NSLayoutConstraint(item: containerView, attribute: .trailing, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: viewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
-        containerView.addConstraint(NSLayoutConstraint(item: viewController.view, attribute: .centerX, relatedBy: NSLayoutRelation.equal, toItem: containerView, attribute: .centerX, multiplier: 1.0, constant: 0))
-        viewController.view.addConstraint(NSLayoutConstraint(item: viewController.view, attribute: .width, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
+        
+        let constraints = [
+            viewController.view.topAnchor.constraint(equalTo: containerView.topAnchor),
+            viewController.view.leftAnchor.constraint(greaterThanOrEqualTo: containerView.leftAnchor),
+            containerView.bottomAnchor.constraint(equalTo: viewController.view.bottomAnchor),
+            containerView.rightAnchor.constraint(greaterThanOrEqualTo: viewController.view.rightAnchor),
+            
+            //Add horizontal constraints to make the view center with a max width
+            viewController.view.centerXAnchor.constraint(equalTo: containerView.centerXAnchor),
+            viewController.view.widthAnchor.constraint(lessThanOrEqualToConstant: UIView.MaximumViewportWidth)
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
         let widthConstraint = NSLayoutConstraint(item: viewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
@@ -140,19 +126,18 @@ class HomeViewController: BeamViewController, UIToolbarDelegate {
     }
     
     func configureContentInsets() {
-        // Top layout guide is currently unreliable due to a problem with the custom view controller animation
-        let contentInsets = UIEdgeInsetsMake(self.toolbar.bounds.height, 0, 49, 0)
+        let contentInsets = UIEdgeInsets(top: self.toolbar.bounds.height, left: 0, bottom: 0, right: 0)
         
         self.subredditsViewController.tableView.contentInset = contentInsets
         self.subredditsViewController.tableView.scrollIndicatorInsets = contentInsets
         if self.subredditsViewController.tableView.contentOffset.y <= 0 {
-            self.subredditsViewController.tableView.contentOffset = CGPoint(x: 0, y: -1*contentInsets.top)
+            self.subredditsViewController.tableView.contentOffset = CGPoint(x: 0, y: -1 * contentInsets.top)
         }
         
-        self.multiredditsViewController.tableView?.contentInset = contentInsets
-        self.multiredditsViewController.tableView?.scrollIndicatorInsets = contentInsets
-        if self.multiredditsViewController.tableView?.contentOffset.y <= 0 {
-            self.multiredditsViewController.tableView?.contentOffset = CGPoint(x: 0, y: -1*contentInsets.top)
+        self.multiredditsViewController.tableView.contentInset = contentInsets
+        self.multiredditsViewController.tableView.scrollIndicatorInsets = contentInsets
+        if self.multiredditsViewController.tableView.contentOffset.y <= 0 {
+            self.multiredditsViewController.tableView.contentOffset = CGPoint(x: 0, y: -1 * contentInsets.top)
         }
     }
     
@@ -171,10 +156,7 @@ class HomeViewController: BeamViewController, UIToolbarDelegate {
             self.currentViewController = self.subredditsViewController
         }
     }
-    
-    @IBAction func unwindFromSubredditToSubredditsTab(_ segue: UIStoryboardSegue) {
-        
-    }
+
 }
 
 extension HomeViewController: NavigationBarNotificationDisplayingDelegate {

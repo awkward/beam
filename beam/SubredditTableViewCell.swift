@@ -11,12 +11,22 @@ import Snoo
 
 protocol SubredditTableViewCellDelegate: class {
     
-    func subredditTableViewCell(_ cell: SubredditTableViewCell, didTapStarOnSubreddit subreddit: Subreddit)
+    func subredditTableViewCell(_ cell: SubredditTableViewCell, toggleFavoriteOnSubreddit subreddit: Subreddit)
 }
 
 final class SubredditTableViewCell: BeamTableViewCell {
 
     weak var delegate: SubredditTableViewCellDelegate?
+    
+    lazy private var starButton: UIButton = {
+        let button = UIButton()
+        button.setImage(#imageLiteral(resourceName: "tableview_star_filled"), for: .normal)
+        button.isHidden = true
+        button.setContentHuggingPriority(UILayoutPriorityRequired, for: .horizontal)
+        button.addTarget(self, action: #selector(toggleFavoriteSubreddit(_:)), for: .touchUpInside)
+        button.translatesAutoresizingMaskIntoConstraints = false
+        return button
+    }()
     
     lazy private var subredditPreview: SubredditPreviewView = {
         let view = SubredditPreviewView()
@@ -28,12 +38,17 @@ final class SubredditTableViewCell: BeamTableViewCell {
     lazy private var titleLabel: UILabel = {
         let label = UILabel()
         label.font = self.titleLabelFont
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.8
+        label.isOpaque = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
     lazy private var subtitleLabel: UILabel = {
         let label = UILabel()
+        label.font = UIFont.systemFont(ofSize: 13)
+        label.isOpaque = true
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -41,14 +56,19 @@ final class SubredditTableViewCell: BeamTableViewCell {
     lazy private var titleStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.titleLabel, self.subtitleLabel])
         stackView.axis = .vertical
+        stackView.spacing = 3
         stackView.translatesAutoresizingMaskIntoConstraints = false
         return stackView
     }()
     
+    
     lazy private var horizontalStackView: UIStackView = {
-        let stackView = UIStackView(arrangedSubviews: [self.titleStackView])
+        let stackView = UIStackView(arrangedSubviews: [self.starButton, self.subredditPreview, self.titleStackView])
         stackView.axis = .horizontal
+        stackView.alignment = .center
+        stackView.spacing = 7
         stackView.translatesAutoresizingMaskIntoConstraints = false
+        stackView.setCustomSpacing(14, after: self.starButton)
         return stackView
     }()
     
@@ -72,21 +92,15 @@ final class SubredditTableViewCell: BeamTableViewCell {
     
     private func setupConstraints() {
         let constraints = [
-            self.horizontalStackView.topAnchor.constraint(greaterThanOrEqualTo: self.contentView.layoutMarginsGuide.topAnchor),
+            self.horizontalStackView.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
             self.horizontalStackView.leftAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leftAnchor),
-            self.horizontalStackView.centerYAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.centerYAnchor),
-            self.contentView.layoutMarginsGuide.bottomAnchor.constraint(greaterThanOrEqualTo: self.horizontalStackView.bottomAnchor),
-            self.contentView.layoutMarginsGuide.rightAnchor.constraint(lessThanOrEqualTo: self.horizontalStackView.rightAnchor)
+            self.contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: self.horizontalStackView.bottomAnchor),
+            self.contentView.layoutMarginsGuide.rightAnchor.constraint(lessThanOrEqualTo: self.horizontalStackView.rightAnchor),
+            
+            self.subredditPreview.widthAnchor.constraint(equalTo: self.subredditPreview.heightAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)
-    }
-    
-    override func awakeFromNib() {
-        super.awakeFromNib()
-        
-        self.titleLabel.adjustsFontSizeToFitWidth = true
-        self.titleLabel.minimumScaleFactor = 0.8
     }
     
     fileprivate var showStar = false {
@@ -95,42 +109,41 @@ final class SubredditTableViewCell: BeamTableViewCell {
         }
     }
     
-    fileprivate var subredditIsBookmarked: Bool {
-        return (self.subreddit?.isBookmarked.boolValue ?? false)
+    fileprivate var displayProminently: Bool {
+        guard self.allowPromimentDisplay else {
+            return false
+        }
+        return self.subreddit?.isBookmarked.boolValue == true || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier || self.subreddit is Multireddit
     }
 
+    var allowPromimentDisplay = true
+    
     var subreddit: Subreddit? {
         didSet {
-            
             self.titleLabel.font = self.titleLabelFont
-            self.titleLabel.attributedText = self.attributedTitle
-            self.titleLabel.numberOfLines = self.starButtonEnabled ? 1 : 2
+            self.titleLabel.text = self.subreddit?.displayName
             self.subredditPreview.subreddit = subreddit
-            //self.starButton.isEnabled = self.starButtonEnabled
+            self.subredditPreview.isHidden = !(self.displayProminently)
             
-            if let multireddit = self.subreddit as? Multireddit {
+            if self.subreddit is Multireddit || self.displayProminently {
                 self.subredditPreview.isHidden = false
                 self.subtitleLabel.isHidden = false
-            } else if self.subreddit?.isBookmarked.boolValue == true || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier {
-                self.subredditPreview.isHidden = false
-                self.subtitleLabel.isHidden = false
+                if let multireddit = self.subreddit as? Multireddit {
+                    self.subtitleLabel.text = "\(multireddit.subreddits?.count ?? 0) subreddits"
+                } else if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
+                    self.subtitleLabel.text = AWKLocalizedString("frontpage-description")
+                } else if self.subreddit?.identifier == Subreddit.allIdentifier {
+                    self.subtitleLabel.text = AWKLocalizedString("all-description")
+                } else {
+                    self.subtitleLabel.text = nil
+                }
             } else {
                 self.subredditPreview.isHidden = true
-                self.subtitleLabel.isHidden = true
+                self.subtitleLabel.text = nil
             }
             
-            if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
-                //Use frontpage icon
-//                self.previewImageView?.image = UIImage(named: "subreddit_icon_frontpage")
-//                self.previewLabel?.isHidden = true
-            } else if self.subreddit?.identifier == Subreddit.allIdentifier {
-                //Use all icon
-//                self.previewImageView?.image = UIImage(named: "subreddit_icon_all")
-//                self.previewLabel?.isHidden = true
-            } else {
-//                self.previewImageView?.image = nil
-//                self.previewLabel?.isHidden = false
-            }
+            self.subtitleLabel.isHidden = !((self.displayProminently || self.subreddit is Multireddit) && self.subtitleLabel.text != nil)
+            
             self.updateImageMask()
             
             self.displayModeDidChange()
@@ -139,31 +152,12 @@ final class SubredditTableViewCell: BeamTableViewCell {
         }
     }
     
-    fileprivate var attributedTitle: NSAttributedString {
-        let title = NSMutableAttributedString()
-        
-        if let titleString = self.subreddit?.displayName {
-            let titleColor = self.displayMode == .dark ? UIColor.white : UIColor.black
-            title.append(NSAttributedString(string: titleString,attributes: [NSForegroundColorAttributeName: titleColor]))
-        }
-        
-        let subtitleColor = DisplayModeValue(UIColor.black.withAlphaComponent(0.8), darkValue: UIColor.white.withAlphaComponent(0.8))
-        
-        if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
-            title.append(NSAttributedString(string: "\n\(AWKLocalizedString("frontpage-description"))", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 13), NSForegroundColorAttributeName: subtitleColor]))
-        } else if self.subreddit?.identifier == Subreddit.allIdentifier {
-            title.append(NSAttributedString(string: "\n\(AWKLocalizedString("all-description"))", attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 13), NSForegroundColorAttributeName: subtitleColor]))
-        }
-        
-        return title
-    }
-    
     fileprivate var starButtonEnabled: Bool {
         return (self.subreddit?.isPrepopulated != true)
     }
     
     fileprivate var titleLabelFont: UIFont {
-        if self.subredditIsBookmarked {
+        if self.displayProminently {
             return UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold)
         } else {
             return UIFont.systemFont(ofSize: 17, weight: UIFontWeightRegular)
@@ -171,14 +165,13 @@ final class SubredditTableViewCell: BeamTableViewCell {
     }
     
     func configureStarButton() {
-//        if self.subredditIsBookmarked {
-//            self.starButton.setImage(UIImage(named: "tableview_star_filled"), for: UIControlState())
-//        } else {
-//            self.starButton.setImage(UIImage(named: "tableview_star"), for: UIControlState())
-//        }
-//
-//        self.starButtonLeftConstraint.constant = (self.showStar ? -6 : -38)
-//        self.titleLabelLeftConstraint.constant = (self.showStar ? 38 : 15)
+        if self.subreddit?.isBookmarked.boolValue == true {
+            self.starButton.setImage(UIImage(named: "tableview_star_filled"), for: .normal)
+        } else {
+            self.starButton.setImage(UIImage(named: "tableview_star"), for: .normal)
+        }
+
+        self.starButton.isHidden = !self.showStar
         
         self.displayModeDidChange()
     }
@@ -187,41 +180,43 @@ final class SubredditTableViewCell: BeamTableViewCell {
         super.displayModeDidChange()
         
         self.titleLabel.backgroundColor = self.contentView.backgroundColor
+        self.subtitleLabel.backgroundColor = self.contentView.backgroundColor
+        
+        self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         self.titleLabel.isOpaque = true
         
-        self.titleLabel.attributedText = self.attributedTitle
+        self.subtitleLabel.textColor = self.titleLabel.textColor.withAlphaComponent(0.8)
         
-//        let starHighlighted = self.starButton.isHighlighted || self.subreddit?.isBookmarked.boolValue == true
-//
-//        switch self.displayMode {
-//        case .default:
-//            if starHighlighted {
-//                self.starButton.tintColor = UIColor(red: 250/255, green: 212/255, blue: 25/255, alpha: 1.0)
-//            } else {
-//                self.starButton.tintColor = UIColor(red: 201/255, green: 200/255, blue: 204/255, alpha: 1.0)
-//            }
-//            self.selectedBackgroundView = nil
-//            self.previewImageView?.backgroundColor = UIColor.beamGreyExtraExtraLight()
-//        case .dark:
-//            if starHighlighted {
-//                self.starButton.tintColor = UIColor(red: 250/255, green: 212/255, blue: 25/255, alpha: 0.6)
-//            } else {
-//                self.starButton.tintColor = UIColor(red: 201/255, green: 200/255, blue: 204/255, alpha: 1.0)
-//            }
-//            let view = UIView()
-//            view.backgroundColor = UIColor(red:0.16, green:0.16, blue:0.16, alpha:1)
-//            self.selectedBackgroundView = view
-//            self.previewImageView?.backgroundColor = UIColor.beamGreyDark()
-//        }
-//        if self.subreddit?.isPrepopulated == true {
-//            self.starButton.tintColor = UIColor(red:0.4, green:0.7, blue:1, alpha:1)
-//        }
+        let starHighlighted = self.starButton.isHighlighted || self.subreddit?.isBookmarked.boolValue == true
+
+        switch self.displayMode {
+        case .default:
+            if starHighlighted {
+                self.starButton.tintColor = UIColor(red: 250/255, green: 212/255, blue: 25/255, alpha: 1.0)
+            } else {
+                self.starButton.tintColor = UIColor(red: 201/255, green: 200/255, blue: 204/255, alpha: 1.0)
+            }
+            self.selectedBackgroundView = nil
+        case .dark:
+            if starHighlighted {
+                self.starButton.tintColor = UIColor(red: 250/255, green: 212/255, blue: 25/255, alpha: 0.6)
+            } else {
+                self.starButton.tintColor = UIColor(red: 201/255, green: 200/255, blue: 204/255, alpha: 1.0)
+            }
+            let view = UIView()
+            view.backgroundColor = UIColor(red:0.16, green:0.16, blue:0.16, alpha:1)
+            self.selectedBackgroundView = view
+        }
+        if self.subreddit?.isPrepopulated == true {
+            self.starButton.tintColor = UIColor(red:0.4, green:0.7, blue:1, alpha:1)
+        }
     }
     
-    @IBAction func tappedStarButton(_ sender: UIButton?) {
-        if let subreddit = self.subreddit {
-            self.delegate?.subredditTableViewCell(self, didTapStarOnSubreddit: subreddit)
+    @objc private func toggleFavoriteSubreddit(_ sender: UIButton) {
+        guard let subreddit = self.subreddit else {
+            return
         }
+        self.delegate?.subredditTableViewCell(self, toggleFavoriteOnSubreddit: subreddit)
         
         self.configureStarButton()
     }

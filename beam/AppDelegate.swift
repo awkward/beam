@@ -18,6 +18,7 @@ import SDWebImage
 import CoreSpotlight
 import ImgurKit
 import Mixpanel
+import UserNotifications
 
 enum AppTabContent: String {
     case SubscriptionsNavigation = "subscriptions-navigation"
@@ -28,8 +29,7 @@ enum AppTabContent: String {
 }
 
 enum DelayedAppAction {
-    case handleLocalNotification(notification: UILocalNotification)
-    case handleRemoteNotification(notification: [AnyHashable: Any])
+    case handleNotification(notification: UNNotification)
     case openViewController(viewController: UIViewController)
     case performBlock(block: (() -> ()))
 }
@@ -56,9 +56,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var displayModeController = DisplayModeController()
     let fontSizeController = FontSizeController()
     let passcodeController = PasscodeController()
-    lazy var userNotificationsHandler: UserNotificationsHandler = {
-        return UserNotificationsHandler()
-    }()
+    let userNotificationsHandler = UserNotificationsHandler()
     lazy var imageLoader: BeamImageLoader = {
         return BeamImageLoader()
     }()
@@ -67,8 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         controller.clientID = Config.imgurClientID
         return controller
     }()
-    
-
     
     //This is a workaround for a long standing bug since iOS 9, userInfo is removed from searchable items if there isn't a strong reference to them for some time.
     private var searchableUserActivities = [NSUserActivity]()
@@ -173,14 +169,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         //Register for remote notifications
         self.registerForNotifications()
         if UserSettings[.hasBeenShownTheWelcomeScreen] {
-            self.requestUserNotificationPermission()
-        }
-        
-        //We have to give the app some time to start
-        if let notification = launchOptions?[UIApplicationLaunchOptionsKey.localNotification] as? UILocalNotification{
-            self.scheduleAppAction(DelayedAppAction.handleLocalNotification(notification: notification))
-        } else if let notification = launchOptions?[UIApplicationLaunchOptionsKey.remoteNotification] as? [AnyHashable: Any] {
-            self.scheduleAppAction(DelayedAppAction.handleRemoteNotification(notification: notification))
+            self.userNotificationsHandler.registerForUserNotifications()
         }
         
         UIApplication.shared.applicationIconBadgeNumber = 0
@@ -546,40 +535,43 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             exit(0)
         }
         MessageCollectionQuery.fetchUnreadMessages { (messages, error) -> Void in
-            var badgeCount = UserSettings[.notificationsBadgeCount]
-            if let messages = messages {
-                let notifications = self.notificationsForMessages(messages)
-                for notification in notifications {
-                    badgeCount += 1
-                    notification.applicationIconBadgeNumber = badgeCount
-                    UIApplication.shared.presentLocalNotificationNow(notification)
-                }
-                if notifications.count > 0 {
-                    completionHandler(UIBackgroundFetchResult.newData)
-                } else {
-                    completionHandler(UIBackgroundFetchResult.noData)
-                }
-            } else {
+            guard let messages = messages else {
                 completionHandler(UIBackgroundFetchResult.failed)
+                return
+            }
+            let filteredMessages = self.unnotifiedMessages(messages)
+            var badgeCount = UserSettings[.notificationsBadgeCount]
+            filteredMessages.forEach({ (message) in
+                badgeCount += 1
+                
+                let content = message.notificationContent()
+                content.badge = NSNumber(value: badgeCount)
+                let request = UNNotificationRequest(identifier: message.objectName ?? UUID().uuidString, content: content, trigger: nil)
+                UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
+            })
+            if filteredMessages.count > 0 {
+                completionHandler(UIBackgroundFetchResult.newData)
+            } else {
+                completionHandler(UIBackgroundFetchResult.noData)
             }
             UserSettings[.notificationsBadgeCount] = badgeCount
         }
     }
     
-    private func notificationsForMessages(_ messages: [Message]) -> [UILocalNotification] {
-        var notifications = [UILocalNotification]()
+    private func unnotifiedMessages(_ messages: [Message]) -> [Message] {
         var existingMessageNotificationIdentifiers = [String]()
         if let messageIdentifiers = UserSettings[.notifiedMessages] {
             existingMessageNotificationIdentifiers.append(contentsOf: messageIdentifiers)
         }
-        for message in messages {
-            if let objectName = message.objectName , existingMessageNotificationIdentifiers.contains(objectName) != true {
-                notifications.append(message.localNotification())
+        let filteredMessages = messages.filter { (message) -> Bool in
+            guard let objectName = message.objectName, existingMessageNotificationIdentifiers.contains(objectName) != true  else {
+                return false
             }
+            return true
         }
         existingMessageNotificationIdentifiers.append(contentsOf: messages.filter({ $0.objectName != nil }).map({ return $0.objectName! }))
         UserSettings[.notifiedMessages] = existingMessageNotificationIdentifiers
-        return notifications
+        return filteredMessages
     }
     
     // MARK: - Analytics
@@ -733,13 +725,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
      - Parameter action: The action to perform after the delay is over
      */
-    private func scheduleAppAction(_ action: DelayedAppAction) {
+    func scheduleAppAction(_ action: DelayedAppAction) {
         if self.scheduledAppAction != nil {
             //Notifications can always replace the delayed action
             switch action {
-            case .handleLocalNotification( _):
-                self.scheduledAppAction = action
-            case .handleRemoteNotification( _):
+            case .handleNotification(_):
                 self.scheduledAppAction = action
             default:
                 print("Delayed action already set \(String(describing: self.scheduledAppAction))")
@@ -759,10 +749,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if let scheduledAppAction = self.scheduledAppAction {
             switch scheduledAppAction {
-            case .handleLocalNotification(let notification):
-                self.application(UIApplication.shared, didReceive: notification)
-            case .handleRemoteNotification(let notification):
-                self.application(UIApplication.shared, didReceiveRemoteNotification: notification)
+            case .handleNotification(let notification):
+                self.userNotificationsHandler.handleNotification(notification)
             case .openViewController(let viewController):
                AppDelegate.topViewController()?.present(viewController, animated: true, completion: nil)
             case .performBlock(let block):
@@ -817,19 +805,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
         if let url = self.authenticationController.authorizationURL {
             //Also use Safari on the simulator because SFSafariViewController is sometimes broken on the simulator
-            if (TARGET_OS_SIMULATOR == 1) && UIApplication.shared.canOpenURL(url) {
-                UIApplication.shared.openURL(url)
+            let safariViewController = BeamSafariViewController(url: url)
+            safariViewController.delegate = self
+            self.authenticationViewController = safariViewController
+            if ProcessInfo.processInfo.operatingSystemVersion.majorVersion == 9 && ProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 2 {
+                let navigationController = UINavigationController(rootViewController: safariViewController)
+                navigationController.setNavigationBarHidden(true, animated: false)
+                AppDelegate.topViewController()?.present(navigationController, animated: true, completion: nil)
             } else {
-                let safariViewController = BeamSafariViewController(url: url)
-                safariViewController.delegate = self
-                self.authenticationViewController = safariViewController
-                if ProcessInfo.processInfo.operatingSystemVersion.majorVersion == 9 && ProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 2 {
-                    let navigationController = UINavigationController(rootViewController: safariViewController)
-                    navigationController.setNavigationBarHidden(true, animated: false)
-                    AppDelegate.topViewController()?.present(navigationController, animated: true, completion: nil)
-                } else {
-                    AppDelegate.topViewController()?.present(safariViewController, animated: true, completion: nil)
-                }
+                AppDelegate.topViewController()?.present(safariViewController, animated: true, completion: nil)
             }
             
         }
@@ -930,30 +914,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIApplication.shared.registerForRemoteNotifications()
     }
     
-    func requestUserNotificationPermission() {
-        //Register the categories of notifications we can send
-        var categories = Set<UIUserNotificationCategory>()
-        
-        //Message notifications
-        let category = UIMutableUserNotificationCategory()
-        category.identifier = "reddit_message"
-        
-        let replyAction = UIMutableUserNotificationAction()
-        replyAction.identifier = "reply_message"
-        replyAction.title = AWKLocalizedString("notif-act-reply")
-        replyAction.isAuthenticationRequired = true
-        replyAction.activationMode = UIUserNotificationActivationMode.background
-        replyAction.behavior = UIUserNotificationActionBehavior.textInput
-        replyAction.isDestructive = false
-        category.setActions([replyAction], for: UIUserNotificationActionContext.default)
-        
-        categories.insert(category)
-        
-        let settings = UIUserNotificationSettings(types: [UIUserNotificationType.alert, UIUserNotificationType.badge, UIUserNotificationType.sound], categories: categories)
-        
-        UIApplication.shared.registerUserNotificationSettings(settings)
-    }
-    
     func application(_ application: UIApplication, didFailToRegisterForRemoteNotificationsWithError error: Error) {
         let nsError = error as NSError
         guard nsError.code != 3010 else {
@@ -993,43 +953,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
         })
     }
-    
-    func application(_ application: UIApplication, didRegister notificationSettings: UIUserNotificationSettings) {
-        //Method not needed
-    }
-    
-    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, withResponseInfo responseInfo: [AnyHashable: Any], completionHandler: @escaping () -> Void) {
-        self.userNotificationsHandler.handleNotificationAction(identifier, forLocalNotification: notification, withResponseInfo: responseInfo, completionHandler: completionHandler)
-    }
-    
-    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, for notification: UILocalNotification, completionHandler: @escaping () -> Void) {
-        self.userNotificationsHandler.handleNotificationAction(identifier, forLocalNotification: notification, withResponseInfo: nil, completionHandler: completionHandler)
-    }
-    
-    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable: Any], withResponseInfo responseInfo: [AnyHashable: Any], completionHandler: @escaping () -> Void) {
-        self.userNotificationsHandler.handleNotificationAction(identifier, forRemoteNotification: userInfo, withResponseInfo: responseInfo, completionHandler: completionHandler)
-    }
-    
-    func application(_ application: UIApplication, handleActionWithIdentifier identifier: String?, forRemoteNotification userInfo: [AnyHashable: Any], completionHandler: @escaping () -> Void) {
-        self.userNotificationsHandler.handleNotificationAction(identifier, forRemoteNotification: userInfo, withResponseInfo: nil, completionHandler: completionHandler)
-    }
-    
-    func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
-        guard self.isWindowUsable else {
-            self.scheduleAppAction(DelayedAppAction.handleRemoteNotification(notification: userInfo))
-            return
-        }
-        self.userNotificationsHandler.handleRemoteNotification(userInfo)
-    }
-    
-    func application(_ application: UIApplication, didReceive notification: UILocalNotification) {
-        guard self.isWindowUsable else {
-            self.scheduleAppAction(DelayedAppAction.handleLocalNotification(notification: notification))
-            return
-        }
-        self.userNotificationsHandler.handleLocalNotification(notification)
-    }
-    
     
     // MARK: - Appearance
     

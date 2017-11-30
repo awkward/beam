@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import UserNotifications
 
 enum BannerNotificationRequirementKey: String {
     case PurchasedProducts = "purchased_products"
@@ -250,6 +251,14 @@ class BannerNotification: NSObject {
                 UserSettings[.shownBanners] = shownBanners
             }
         }
+    }
+    
+    var userNotificationContent: UNNotificationContent {
+        let notificationContent = UNMutableNotificationContent()
+        notificationContent.title = self.analyticsTitle
+        notificationContent.body = self.message
+        notificationContent.userInfo = ["beam": customInfo]
+        return notificationContent
     }
     
 }

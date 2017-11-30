@@ -297,7 +297,7 @@ class SubredditsViewController: BeamTableViewController, BeamViewControllerLoadi
         
         if let notification = AppDelegate.shared.cherryController.features?.bannerNotifications?.filter( { $0.shouldDisplay == true } ).first {
             self.bannerView = TableViewHeaderBannerView.bannerView(notification, tapHandler: { (notification) -> () in
-               AppDelegate.shared.userNotificationsHandler.handleBannerNotification(notification)
+               AppDelegate.shared.userNotificationsHandler.handleNotificationContent(notification.userNotificationContent)
                 self.removeBanner()
                 }, closeHandler: { (notification) -> () in
                     self.removeBanner()

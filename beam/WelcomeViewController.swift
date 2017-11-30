@@ -129,7 +129,7 @@ class WelcomeViewController: BeamViewController {
     @IBAction func exploreWithoutAccount(_ sender:AnyObject?) {
         self.dismiss(animated: true, completion: { () -> Void in
             Trekker.default.track(event: TrekkerEvent(event: "Use Beam without account"))
-            AppDelegate.shared.requestUserNotificationPermission()
+            AppDelegate.shared.userNotificationsHandler.registerForUserNotifications()
         })
     }
     
@@ -144,7 +144,7 @@ class WelcomeViewController: BeamViewController {
             let secondsToDelay: Double = 0.25
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(secondsToDelay * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC)) {
                 self.dismiss(animated: true, completion: { () -> Void in
-                    AppDelegate.shared.requestUserNotificationPermission()
+                    AppDelegate.shared.userNotificationsHandler.registerForUserNotifications()
                 })
             }
             

@@ -9,29 +9,39 @@
 import UIKit
 import Snoo
 
-final class SubredditPreviewView: UIView {
+final class SubredditPreviewView: BeamView {
     
     var subreddit: Subreddit? {
         didSet {
             guard let displayName = self.subreddit?.displayName, displayName.count > 0 else {
-                label.text = nil
+                self.label.text = nil
+                self.imageView.image = nil
+                self.label.isHidden = false
                 return
             }
-            label.text =  displayName.substring(to: displayName.index(displayName.startIndex, offsetBy: 1)).uppercased()
+            if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
+                self.imageView.image = #imageLiteral(resourceName: "subreddit_icon_frontpage")
+            } else if self.subreddit?.identifier == Subreddit.allIdentifier {
+                self.imageView.image = #imageLiteral(resourceName: "subreddit_icon_all")
+            } else {
+                self.imageView.image = nil
+            }
+            self.label.isHidden = self.imageView.image != nil
+            self.label.text = displayName.substring(to: displayName.index(displayName.startIndex, offsetBy: 1)).uppercased()
         }
     }
     
     lazy private var imageView: UIImageView = {
         let imageView = UIImageView()
+        imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
         return imageView
     }()
     
     lazy private var label: UILabel = {
         let label = UILabel()
-        label.translatesAutoresizingMaskIntoConstraints = false
         label.font = UIFont.systemFont(ofSize: 22, weight: UIFontWeightLight)
-        label.textColor = UIColor.beamGreyLight()
+        label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
     
@@ -46,10 +56,14 @@ final class SubredditPreviewView: UIView {
     }
     
     private func setupView() {
+        self.clipsToBounds = true
+        self.layer.masksToBounds = true
+        
         self.addSubview(self.imageView)
         self.addSubview(self.label)
         
         self.setupConstraints()
+        self.displayModeDidChange()
     }
     
     private func setupConstraints() {
@@ -65,6 +79,20 @@ final class SubredditPreviewView: UIView {
         
         NSLayoutConstraint.activate(constraints)
         
+    }
+    
+    override func displayModeDidChange() {
+        super.displayModeDidChange()
+    
+        self.imageView.backgroundColor = DisplayModeValue(UIColor.beamGreyExtraExtraLight(), darkValue: UIColor.beamGreyDark())
+        self.label.textColor = UIColor.beamGreyLight()
+    }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+    
+        let longestAxis = max(self.bounds.size.width, self.bounds.size.height)
+        self.layer.cornerRadius = longestAxis / 2
     }
     
 }

@@ -78,7 +78,7 @@ When opening the project in Xcode you will see several targets. The two most imp
 - `Snoo` is the framework built by us that handles the core data objects and communication with the reddit API. Beam calls snoo to get the data.
 
 ## License
-Beam is available under the MIT license. See the LICENSE file for more info.
+Beam is available under the GPL-2.0 license. See the LICENSE.md file for more info.
 
 ## Links
 - [Awkward](https://awkward.co/)

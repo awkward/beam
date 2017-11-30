@@ -35,11 +35,11 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
     // MARK: - UIWebViewDelegate
     
     func webViewDidStartLoad(_ webView: UIWebView) {
-        AppDelegate.shared.retainNetworkIndicator(self)
+        UIApplication.startNetworkActivityIndicator(for: self)
     }
     
     func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        AppDelegate.shared.releaseNetworkIndicator(self)
+        UIApplication.stopNetworkActivityIndicator(for: self)
         let nsError = error as NSError
         if nsError.code == NSURLErrorCancelled { return }
         if nsError.code == 102 && nsError.domain == "WebKitErrorDomain" { return };
@@ -56,7 +56,7 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
     }
     
     func webViewDidFinishLoad(_ webView: UIWebView) {
-        AppDelegate.shared.releaseNetworkIndicator(self)
+        UIApplication.stopNetworkActivityIndicator(for: self)
         
         self.title = webView.stringByEvaluatingJavaScript(from: "document.title")
     }

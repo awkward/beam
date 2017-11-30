@@ -58,7 +58,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
         self.contentView.isHidden = false
         self.mediaImageView.isHidden = false
         
-        AppDelegate.shared.releaseNetworkIndicator(self)
+        UIApplication.stopNetworkActivityIndicator(for: self)
         if self.imgurObject != nil {
             self.imgurObject = nil
         }
@@ -66,7 +66,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
     }
     
     deinit {
-        AppDelegate.shared.releaseNetworkIndicator(self)
+        UIApplication.stopNetworkActivityIndicator(for: self)
         self.imageTask?.cancel()
     }
     
@@ -139,7 +139,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
                 self.reloadAlbumIdicators()
             } else {
                 let request: URLRequest = URLRequest(url: URL, cachePolicy: NSURLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 60)
-                AppDelegate.shared.retainNetworkIndicator(self)
+                UIApplication.startNetworkActivityIndicator(for: self)
                 self.imageTask = URLSession.shared.downloadTask(with: request, completionHandler: { (location, response, error) -> Void in
                     if let location: Foundation.URL = location {
                         var options: DownscaledImageOptions = DownscaledImageOptions()
@@ -156,7 +156,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
                             self.reloadAlbumIdicators()
                         })
                     }
-                    AppDelegate.shared.releaseNetworkIndicator(self)
+                    UIApplication.stopNetworkActivityIndicator(for: self)
                 })
                 self.imageTask?.resume()
             }

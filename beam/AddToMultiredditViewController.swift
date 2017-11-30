@@ -181,7 +181,7 @@ extension AddToMultiredditViewController {
                 }
                 
                 if let weakSelf = self {
-                    AppDelegate.shared.releaseNetworkIndicator(weakSelf)
+                    UIApplication.stopNetworkActivityIndicator(for: weakSelf)
                 }
             })
             

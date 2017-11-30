@@ -71,8 +71,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     var managedObjectContext: NSManagedObjectContext!
     
-    private var networkIndicatorReferences = NSHashTable<AnyObject>(options: NSPointerFunctions.Options.weakMemory)
-    
     var isRunningTestFlight: Bool {
         var isRunningTestflight = false
         if let receiptLastPathComponent = Bundle.main.appStoreReceiptURL?.lastPathComponent {
@@ -1104,32 +1102,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     
     func userSettingDidChange(_ notification: Notification) {
         //This method is called when a setting changes, the object will be the key of the setting. 
-    }
-    
-    private let networkIndicatorQueue = DispatchQueue(label: "com.madeawkward.beam.networkindicator", attributes: [])
-    
-    func retainNetworkIndicator(_ reference: AnyObject) {
-        networkIndicatorQueue.sync { () -> Void in
-            self.networkIndicatorReferences.add(reference)
-            self.networkIndicatorReferencesChanged()
-        }
-    }
-    
-    func releaseNetworkIndicator(_ reference: AnyObject) {
-        networkIndicatorQueue.sync { () -> Void in
-            self.networkIndicatorReferences.remove(reference)
-            self.networkIndicatorReferencesChanged()
-        }
-    }
-    
-    private func networkIndicatorReferencesChanged() {
-        DispatchQueue.main.async {
-            let isVisible = self.networkIndicatorReferences.count > 0
-            if UIApplication.shared.isNetworkActivityIndicatorVisible != isVisible {
-                UIApplication.shared.isNetworkActivityIndicatorVisible = isVisible
-            }
-        }
-        
     }
     
 }

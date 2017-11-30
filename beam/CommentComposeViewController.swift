@@ -240,7 +240,7 @@ class CommentComposeViewController: BeamViewController {
     }
     
     fileprivate func executeOperations(_ operations: [Operation]) {
-        AppDelegate.shared.retainNetworkIndicator(self)
+        UIApplication.startNetworkActivityIndicator(for: self)
         self.textView?.isSelectable = false
         self.textView?.resignFirstResponder()
         DataController.shared.executeAndSaveOperations(operations, context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in
@@ -280,7 +280,7 @@ class CommentComposeViewController: BeamViewController {
                 }
             }
             
-            AppDelegate.shared.releaseNetworkIndicator(self)
+            UIApplication.stopNetworkActivityIndicator(for: self)
         })
     }
     

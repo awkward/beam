@@ -379,7 +379,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Embed
                 
                 self.navigationController?.pushViewController(viewController, animated: true)
             } else if comment is MoreComment {
-                AppDelegate.shared.retainNetworkIndicator(self)
+                UIApplication.startNetworkActivityIndicator(for: self)
                 self.dataSource.loadMoreCommentChildren(comment as! MoreComment, completionHandler: { (error) -> Void in
                     DispatchQueue.main.async {
                         if let error = error as NSError? {
@@ -393,7 +393,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Embed
                         
                         self.tableView.reloadData()
                     }
-                    AppDelegate.shared.releaseNetworkIndicator(self)
+                    UIApplication.stopNetworkActivityIndicator(for: self)
                 })
                 self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
             }

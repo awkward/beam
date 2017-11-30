@@ -123,7 +123,7 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
     
     fileprivate func performRemoteSearch(_ keywords: String) {
         self.collectionController.query?.searchKeywords = searchKeywords
-        AppDelegate.shared.retainNetworkIndicator(self)
+        UIApplication.startNetworkActivityIndicator(for: self)
         self.collectionController.startInitialFetching(false) { [weak self] (newCollectionID: NSManagedObjectID?, error: Error?) -> Void in
             self?.collectionController.managedObjectContext.perform {
                 if self?.localSearch == false {
@@ -134,7 +134,7 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
                 }
                 
                 if let weakSelf = self {
-                    AppDelegate.shared.releaseNetworkIndicator(weakSelf)
+                    UIApplication.stopNetworkActivityIndicator(for: weakSelf)
                 }
             }
         }

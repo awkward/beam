@@ -30,8 +30,8 @@ class SmallTabBarController: BeamTabBarController {
         
         self.adjustTabBarItems()
         var tabbarFrame = self.tabBar.frame;
-        tabbarFrame.origin.y = self.view.bounds.height-self.tabBarHeight
-        tabbarFrame.size.height = self.tabBarHeight
+        tabbarFrame.origin.y = self.view.bounds.height - (self.tabBarHeight + view.safeAreaInsets.bottom)
+        tabbarFrame.size.height = (self.tabBarHeight + view.safeAreaInsets.bottom)
         self.tabBar.frame = tabbarFrame;
     }
 }

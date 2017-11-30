@@ -9,14 +9,21 @@
 import UIKit
 import Snoo
 
+/// Defines methods that can be called by a SubredditTableViewCell.
 protocol SubredditTableViewCellDelegate: class {
     
+    /// When the star button is tapped on subreddit cell.
+    ///
+    /// - Parameters:
+    ///   - cell: The cell that the star was tapped on.
+    ///   - subreddit: The subreddit that the user wants to favorite/unfavorite.
     func subredditTableViewCell(_ cell: SubredditTableViewCell, toggleFavoriteOnSubreddit subreddit: Subreddit)
 }
 
+/// The cell used to display a subreddit of multireddit.
 final class SubredditTableViewCell: BeamTableViewCell {
-
-    weak var delegate: SubredditTableViewCellDelegate?
+    
+    // MARK: - Private properties
     
     lazy private var starButton: UIButton = {
         let button = UIButton()
@@ -61,7 +68,6 @@ final class SubredditTableViewCell: BeamTableViewCell {
         return stackView
     }()
     
-    
     lazy private var horizontalStackView: UIStackView = {
         let stackView = UIStackView(arrangedSubviews: [self.starButton, self.subredditPreview, self.titleStackView])
         stackView.axis = .horizontal
@@ -72,52 +78,40 @@ final class SubredditTableViewCell: BeamTableViewCell {
         return stackView
     }()
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
-        super.init(style: style, reuseIdentifier: reuseIdentifier)
-        
-        self.setupView()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        self.setupView()
-    }
-    
-    private func setupView() {
-        self.contentView.addSubview(self.horizontalStackView)
-        
-        self.setupConstraints()
-    }
-    
-    private func setupConstraints() {
-        let constraints = [
-            self.horizontalStackView.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
-            self.horizontalStackView.leftAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leftAnchor),
-            self.contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: self.horizontalStackView.bottomAnchor),
-            self.contentView.layoutMarginsGuide.rightAnchor.constraint(lessThanOrEqualTo: self.horizontalStackView.rightAnchor),
-            
-            self.subredditPreview.widthAnchor.constraint(equalTo: self.subredditPreview.heightAnchor)
-        ]
-        
-        NSLayoutConstraint.activate(constraints)
-    }
-    
-    fileprivate var showStar = false {
+    private var showStar = false {
         didSet {
             self.configureStarButton()
         }
     }
     
-    fileprivate var displayProminently: Bool {
+    private var displayProminently: Bool {
         guard self.allowPromimentDisplay else {
             return false
         }
         return self.subreddit?.isBookmarked.boolValue == true || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier || self.subreddit is Multireddit
     }
-
+    
+    private var starButtonEnabled: Bool {
+        return (self.subreddit?.isPrepopulated != true)
+    }
+    
+    private var titleLabelFont: UIFont {
+        if self.displayProminently {
+            return UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold)
+        } else {
+            return UIFont.systemFont(ofSize: 17, weight: UIFontWeightRegular)
+        }
+    }
+    
+    // MARK: - Public Properties
+    
+    /// The delegate that is called when an action happens on the Subreddit cell.
+    weak var delegate: SubredditTableViewCellDelegate?
+    
+    /// If the cell is allowed to be displayed prominently. Prominent cells have an icon before the title.
     var allowPromimentDisplay = true
     
+    /// The subreddit or multireddit the cell should display
     var subreddit: Subreddit? {
         didSet {
             self.titleLabel.font = self.titleLabelFont
@@ -144,27 +138,48 @@ final class SubredditTableViewCell: BeamTableViewCell {
             
             self.subtitleLabel.isHidden = !((self.displayProminently || self.subreddit is Multireddit) && self.subtitleLabel.text != nil)
             
-            self.updateImageMask()
-            
             self.displayModeDidChange()
             self.configureStarButton()
             
         }
     }
     
-    fileprivate var starButtonEnabled: Bool {
-        return (self.subreddit?.isPrepopulated != true)
+    // MARK: - Initialization
+    
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        self.setupView()
     }
     
-    fileprivate var titleLabelFont: UIFont {
-        if self.displayProminently {
-            return UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold)
-        } else {
-            return UIFont.systemFont(ofSize: 17, weight: UIFontWeightRegular)
-        }
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.setupView()
     }
     
-    func configureStarButton() {
+    // MARK: Setup
+    
+    private func setupView() {
+        self.contentView.addSubview(self.horizontalStackView)
+        
+        self.setupConstraints()
+    }
+    
+    private func setupConstraints() {
+        let constraints = [
+            self.horizontalStackView.topAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.topAnchor),
+            self.horizontalStackView.leftAnchor.constraint(equalTo: self.contentView.layoutMarginsGuide.leftAnchor),
+            self.contentView.layoutMarginsGuide.bottomAnchor.constraint(equalTo: self.horizontalStackView.bottomAnchor),
+            self.contentView.layoutMarginsGuide.rightAnchor.constraint(lessThanOrEqualTo: self.horizontalStackView.rightAnchor),
+            
+            self.subredditPreview.widthAnchor.constraint(equalTo: self.subredditPreview.heightAnchor)
+        ]
+        
+        NSLayoutConstraint.activate(constraints)
+    }
+    
+    private func configureStarButton() {
         if self.subreddit?.isBookmarked.boolValue == true {
             self.starButton.setImage(UIImage(named: "tableview_star_filled"), for: .normal)
         } else {
@@ -221,12 +236,7 @@ final class SubredditTableViewCell: BeamTableViewCell {
         self.configureStarButton()
     }
     
-    @IBAction func updateStarButton(_ sender: UIButton?) {
-        self.configureStarButton()
-    }
-    
     override func willTransition(to state: UITableViewCellStateMask) {
-
         self.showStar = state.contains(.showingEditControlMask)
 
         super.willTransition(to: state)
@@ -234,19 +244,7 @@ final class SubredditTableViewCell: BeamTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.updateImageMask()
-            self.titleLabel.numberOfLines = (self.bounds.height > 44) ? 2 : 1
-    }
-    
-    func updateImageMask() {
-//        if let bounds = self.previewImageView?.bounds {
-//            let layer = CAShapeLayer()
-//            layer.frame = bounds
-//            layer.path = UIBezierPath(ovalIn: bounds).cgPath
-//            layer.fillColor = UIColor.black.cgColor
-//            layer.contentsScale = UIScreen.main.scale
-//            self.previewImageView?.layer.mask = layer
-//        }
+        self.titleLabel.numberOfLines = (self.bounds.height > 44) ? 2 : 1
     }
     
     

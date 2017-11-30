@@ -632,7 +632,7 @@ extension SubredditsViewController {
         let title = subreddit.isBookmarked.boolValue ? "Unfavorite" : "Favorite"
         let style: UIContextualAction.Style = subreddit.isBookmarked.boolValue ? .destructive : .normal
         let favoriteAction = UIContextualAction(style: style, title: title, handler: { (action, sourceView, callback) in
-            guard let subreddits = self.content?[indexPath.section].subreddits, !subreddit.isPrepopulated else {
+            guard !subreddit.isPrepopulated else {
                 callback(false)
                 return
             }
@@ -697,6 +697,7 @@ extension SubredditsViewController {
             callback(true)
             
         })
+        favoriteAction.backgroundColor = .yellow
         actions.append(favoriteAction)
         
         let config = UISwipeActionsConfiguration(actions: actions)
@@ -724,7 +725,6 @@ extension SubredditsViewController {
                 callback(true)
                
             })
-            unsubscribeAction.backgroundColor = .blue
             actions.append(unsubscribeAction)
         }
 

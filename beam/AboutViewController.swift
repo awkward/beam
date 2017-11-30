@@ -50,16 +50,16 @@ class AboutViewController: BeamTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if (indexPath as IndexPath).row == 0 {
             //Open /r/beamreddit
-            UIApplication.shared.openURL(URL(string: "beamwtf://r/beamreddit")!)
+            UIApplication.shared.open(URL(string: "beamwtf://r/beamreddit")!, options: [:], completionHandler: nil)
         } else if (indexPath as IndexPath).row == 1 {
             //Like on facebook
-            UIApplication.shared.openURL(URL(string: "https://facebook.com/beamforreddit")!)
+            UIApplication.shared.open(URL(string: "https://facebook.com/beamforreddit")!, options: [:], completionHandler: nil)
         } else if (indexPath as IndexPath).row == 2 {
             //Beamreddit twitter
-            UIApplication.shared.openURL(URL(string: "https://twitter.com/beamreddit")!)
+            UIApplication.shared.open(URL(string: "https://twitter.com/beamreddit")!, options: [:], completionHandler: nil)
         } else if (indexPath as IndexPath).row == 3 {
             //Open /r/beamreddit
-            UIApplication.shared.openURL(URL(string: "http://madeawkward.com")!)
+            UIApplication.shared.open(URL(string: "http://madeawkward.com")!, options: [:], completionHandler: nil)
         }
     }
     

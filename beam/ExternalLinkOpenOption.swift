@@ -226,9 +226,9 @@ public enum ExternalLinkOpenOption: String {
                 }
             })
         } else {
-            if !UIApplication.shared.canOpenURL(url) || !UIApplication.shared.openURL(url) {
+            if !UIApplication.shared.canOpenURL(url) {
                 //If opening the custom URL fails, fallback to the original URL
-                UIApplication.shared.openURL(originalURL)
+                UIApplication.shared.open(originalURL, options: [:], completionHandler: nil)
             }
         }
     }

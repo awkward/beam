@@ -62,7 +62,7 @@ class ClearButton: UIControl {
         setupView()
     }
     
-    var clearHandler: ((Void) -> Void)?
+    var clearHandler: (() -> Void)?
     var foregroundColor: UIColor {
         get {
             return xView.foregroundColor

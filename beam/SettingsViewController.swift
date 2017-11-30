@@ -522,7 +522,7 @@ class SettingsViewController: BeamTableViewController {
                 guard let url = URL(string: "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(Config.appleAppID)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software") else {
                     return
                 }
-                UIApplication.shared.openURL(url)
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
             case .TellFriends:
                 let activityViewController = UIActivityViewController(activityItems: [AWKLocalizedString("app-store-share-message"), BeamAppStoreURL!], applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.tableView

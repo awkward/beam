@@ -33,7 +33,7 @@ class AssetsPickerControllerAuthorizationEmptyView: BeamView {
     }
     
     @IBAction func openSettingsTapped(_ sender: AnyObject) {
-        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
     }
 
 }

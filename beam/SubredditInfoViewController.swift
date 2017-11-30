@@ -404,7 +404,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
         case SubredditInfoRowType.openInSafari:
             if let subredditPermalink = self.subreddit?.permalink {
                 let urlString = "https://\((AppDelegate.shared.authenticationController.configuration.regularHost as NSString).appendingPathComponent(subredditPermalink))"
-                UIApplication.shared.openURL(URL(string: urlString as String)!)
+                UIApplication.shared.open(URL(string: urlString as String)!, options: [:], completionHandler: nil)
             }
         default:
             break

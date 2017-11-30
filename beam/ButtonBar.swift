@@ -20,7 +20,7 @@ class ButtonBarButton {
 
 class ButtonBar: UIControl {
     
-    @IBInspectable var items: [ButtonBarButton]? {
+    var items: [ButtonBarButton]? {
         didSet {
             self.buttons = items?.map({ (item: ButtonBarButton) -> UIButton in
                 let button = UIButton(type: UIButtonType.system)
@@ -42,7 +42,7 @@ class ButtonBar: UIControl {
         }
     }
     
-    @IBInspectable var selectedItemIndex: Int? {
+    var selectedItemIndex: Int? {
         didSet {
             self.updateColors()
             

@@ -1,13 +1,13 @@
-# Beam for reddit
+# Beam for Reddit
 
 ![](https://d2mxuefqeaa7sj.cloudfront.net/s_9B6F9DA07030FBEF5FF391144026206F2A4898366DB17C8DFE71CACAF10E4045_1495452804689_beam.png)
 
 
-An open source reddit client for iOS. 
+An open source Reddit client for iOS. 
 
 ## Introduction
 
-Hi, we're [Awkward](https://awkward.co/). In 2014, we started working on a reddit client called Beam. In the years that followed, we created a client that lets its users enjoy all of Reddit's content in a unique and beautiful package. After four years of development, we've decided to open source Beam and truly hand it over to its users. We’ll still continue to work on Beam and release high-quality updates.
+Hi, we're [Awkward](https://awkward.co/). In 2014, we started working on a Reddit client called Beam. In the years that followed, we created a client that lets its users enjoy all of Reddit's content in a unique and beautiful package. After four years of development, we've decided to open source Beam and truly hand it over to its users. We’ll still continue to work on Beam and release high-quality updates.
 
 ## Features
 
@@ -75,7 +75,7 @@ To compile Beam, please follow these steps:
 
 When opening the project in Xcode you will see several targets. The two most important targets are `beam` and `Snoo`. 
 - `beam` This is the app that you see on your phone and in the App Store. 
-- `Snoo` is the framework built by us that handles the core data objects and communication with the reddit API. Beam calls snoo to get the data.
+- `Snoo` is the framework built by us that handles the core data objects and communication with the Reddit API. Beam calls snoo to get the data.
 
 ## License
 Beam is available under the GPL-2.0 license. See the LICENSE.md file for more info.

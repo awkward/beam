@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9532"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="CommentsHeaderView" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="56"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRA-BG-hLQ">
+                    <rect key="frame" x="0.0" y="8" width="600" height="40"/>
+                    <subviews>
+                        <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ALZ-6B-pgN" customClass="ScrollableButtonBar" customModule="beam" customModuleProvider="target">
+                            <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+                            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        </view>
+                    </subviews>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="ALZ-6B-pgN" firstAttribute="top" secondItem="kRA-BG-hLQ" secondAttribute="top" constant="8" id="68H-nU-fiC"/>
+                        <constraint firstAttribute="bottom" secondItem="ALZ-6B-pgN" secondAttribute="bottom" id="XUH-kS-wwR"/>
+                        <constraint firstItem="ALZ-6B-pgN" firstAttribute="top" secondItem="kRA-BG-hLQ" secondAttribute="top" id="ZlG-4H-k4V"/>
+                        <constraint firstItem="ALZ-6B-pgN" firstAttribute="leading" secondItem="kRA-BG-hLQ" secondAttribute="leading" id="cKi-Bh-BK4"/>
+                        <constraint firstAttribute="trailing" secondItem="ALZ-6B-pgN" secondAttribute="trailing" id="ec8-7l-en4"/>
+                        <constraint firstAttribute="height" constant="40" id="yko-HG-JJj"/>
+                    </constraints>
+                    <variation key="default">
+                        <mask key="constraints">
+                            <exclude reference="68H-nU-fiC"/>
+                        </mask>
+                    </variation>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstAttribute="bottom" secondItem="kRA-BG-hLQ" secondAttribute="bottom" constant="8" id="5TD-76-65R"/>
+                <constraint firstItem="kRA-BG-hLQ" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="EOT-sw-yg1"/>
+                <constraint firstItem="kRA-BG-hLQ" firstAttribute="top" relation="lessThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="top" constant="8" id="IUl-ub-7me"/>
+                <constraint firstAttribute="trailing" secondItem="kRA-BG-hLQ" secondAttribute="trailing" id="doF-cc-coE"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="sortBar" destination="ALZ-6B-pgN" id="xPl-ZI-Xuy"/>
+                <outlet property="sortBarBackgroundView" destination="kRA-BG-hLQ" id="hbe-o8-5zf"/>
+            </connections>
+            <point key="canvasLocation" x="936" y="291.5"/>
+        </view>
+    </objects>
+</document>

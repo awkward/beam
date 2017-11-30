@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="titlethumbnail" rowHeight="90" id="tvK-RY-Aih" userLabel="Title With Thumbnail" customClass="PostTitlePartCell" customModule="beam">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="90"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="tvK-RY-Aih" id="KYV-tR-jI9">
+                <frame key="frameInset" width="600" height="89"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HLH-sU-A27" customClass="PostTitleThumbnailView" customModule="beam" customModuleProvider="target">
+                        <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="70" id="DeA-02-gZJ"/>
+                            <constraint firstAttribute="width" constant="70" id="gmh-e1-gHp"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="9iV-6k-4fh" customClass="PostMetadataView" customModule="beam" customModuleProvider="target">
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="21" id="oTP-cS-4Id"/>
+                        </constraints>
+                    </view>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="s0Y-Uc-w0U">
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="1" id="ckw-9E-m9g"/>
+                        </constraints>
+                    </view>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="750" text="Label" lineBreakMode="tailTruncation" numberOfLines="20" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cmX-t0-EYe" customClass="BeamCopyableLabel" customModule="beam" customModuleProvider="target">
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="cmX-t0-EYe" firstAttribute="top" secondItem="KYV-tR-jI9" secondAttribute="top" priority="750" constant="16" id="1Ly-Aa-uGT"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="HLH-sU-A27" secondAttribute="bottom" constant="1" id="6uM-vb-cbQ"/>
+                    <constraint firstItem="HLH-sU-A27" firstAttribute="leading" secondItem="s0Y-Uc-w0U" secondAttribute="trailing" id="7Le-c7-BZS"/>
+                    <constraint firstItem="cmX-t0-EYe" firstAttribute="top" secondItem="9iV-6k-4fh" secondAttribute="bottom" constant="3" id="F4o-E7-Zkd"/>
+                    <constraint firstItem="HLH-sU-A27" firstAttribute="top" secondItem="KYV-tR-jI9" secondAttribute="top" constant="16" id="G35-p9-X2C"/>
+                    <constraint firstItem="s0Y-Uc-w0U" firstAttribute="leading" secondItem="KYV-tR-jI9" secondAttribute="leading" id="IVx-zI-L7b"/>
+                    <constraint firstAttribute="trailing" secondItem="s0Y-Uc-w0U" secondAttribute="trailing" id="Lcj-AZ-v46"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="cmX-t0-EYe" secondAttribute="trailing" id="LgV-Yf-fH4"/>
+                    <constraint firstAttribute="trailing" secondItem="9iV-6k-4fh" secondAttribute="trailing" priority="750" id="PGF-i8-zbU"/>
+                    <constraint firstItem="cmX-t0-EYe" firstAttribute="leading" secondItem="KYV-tR-jI9" secondAttribute="leadingMargin" id="V6W-dz-H6z"/>
+                    <constraint firstItem="9iV-6k-4fh" firstAttribute="leading" secondItem="KYV-tR-jI9" secondAttribute="leading" id="a40-37-X8B"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="cmX-t0-EYe" secondAttribute="bottom" id="aOL-Iu-zgP"/>
+                    <constraint firstAttribute="bottom" secondItem="cmX-t0-EYe" secondAttribute="bottom" id="fbA-i4-iOg"/>
+                    <constraint firstItem="HLH-sU-A27" firstAttribute="leading" secondItem="9iV-6k-4fh" secondAttribute="trailing" constant="8" id="fgf-Gg-Arn"/>
+                    <constraint firstItem="cmX-t0-EYe" firstAttribute="top" secondItem="KYV-tR-jI9" secondAttribute="topMargin" constant="2" id="iit-3T-dyW"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="cmX-t0-EYe" secondAttribute="trailing" priority="750" id="u4u-7f-p8Y"/>
+                    <constraint firstItem="s0Y-Uc-w0U" firstAttribute="top" secondItem="KYV-tR-jI9" secondAttribute="top" id="xmF-wB-aux"/>
+                    <constraint firstAttribute="trailing" secondItem="HLH-sU-A27" secondAttribute="trailing" constant="12" id="y1d-qf-awh"/>
+                    <constraint firstItem="HLH-sU-A27" firstAttribute="leading" secondItem="cmX-t0-EYe" secondAttribute="trailing" constant="12" id="y2C-wW-gaV"/>
+                    <constraint firstItem="9iV-6k-4fh" firstAttribute="top" secondItem="KYV-tR-jI9" secondAttribute="top" constant="10" id="ykq-AF-Eyl"/>
+                </constraints>
+                <variation key="default">
+                    <mask key="constraints">
+                        <exclude reference="LgV-Yf-fH4"/>
+                        <exclude reference="fbA-i4-iOg"/>
+                        <exclude reference="iit-3T-dyW"/>
+                        <exclude reference="7Le-c7-BZS"/>
+                    </mask>
+                </variation>
+            </tableViewCellContentView>
+            <edgeInsets key="layoutMargins" top="8" left="12" bottom="8" right="12"/>
+            <inset key="separatorInset" minX="10000" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="bottomLayoutConstraint" destination="6uM-vb-cbQ" id="gCX-EC-HKg"/>
+                <outlet property="metadataThumbnailViewConstraint" destination="fgf-Gg-Arn" id="KRo-ec-hff"/>
+                <outlet property="metadataTitleConstraint" destination="F4o-E7-Zkd" id="Ic3-uo-aBw"/>
+                <outlet property="metadataView" destination="9iV-6k-4fh" id="XrL-3d-Wst"/>
+                <outlet property="thumbnailView" destination="HLH-sU-A27" id="EO1-8q-nUl"/>
+                <outlet property="titleLabel" destination="cmX-t0-EYe" id="d5T-cp-az0"/>
+                <outlet property="titleThumbnailViewConstraint" destination="y2C-wW-gaV" id="R2m-8h-wpM"/>
+                <outlet property="topSeperatorView" destination="s0Y-Uc-w0U" id="g8F-Ju-vSC"/>
+                <outlet property="topSeperatorViewHeightConstraint" destination="ckw-9E-m9g" id="zPx-6y-K0j"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

@@ -1,0 +1,21 @@
+[submodule "SDWebImage"]
+	path = SDWebImage
+	url = git@github.com:awkward/SDWebImage.git
+[submodule "JLRoutes"]
+	path = JLRoutes
+	url = git@github.com:joeldev/JLRoutes.git
+[submodule "TTTAttributedLabel"]
+	path = TTTAttributedLabel
+	url = git@github.com:TTTAttributedLabel/TTTAttributedLabel.git
+[submodule "Mixpanel"]
+	path = Mixpanel
+	url = git@github.com:mixpanel/mixpanel-iphone.git
+[submodule "UPCarouselFlowLayout"]
+	path = UPCarouselFlowLayout
+	url = git@github.com:ober01/UPCarouselFlowLayout.git
+[submodule "Ocarina"]
+	path = Ocarina
+	url = git@github.com:awkward/Ocarina.git
+[submodule "Trekker"]
+	path = Trekker
+	url = git@github.com:awkward/Trekker.git

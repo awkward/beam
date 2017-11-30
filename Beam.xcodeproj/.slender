@@ -1,0 +1,20 @@
+{
+  "AppIcons" : {
+
+  },
+  "FormatVersion" : 1,
+  "WhitelistedFiles" : {
+    "beam\/Assets.xcassets\/welcome_app_icon.imageset\/UFO@2x.png" : {
+      "WhitelistedUsed" : true
+    },
+    "beam\/Assets.xcassets\/upgrade-packs\/display-placeholders\/display-placeholder-414.imageset\/2c1772cc-98df-11e5-886c-c4439936f6fd.png" : {
+      "WhitelistedUsed" : true
+    },
+    "beam\/spark.png" : {
+      "WhitelistedUsed" : true
+    },
+    "beam\/Assets.xcassets\/upgrade-packs\/display-placeholders\/display-placeholder-320.imageset\/2bc7f652-98df-11e5-8e2c-2be1334cae85.png" : {
+      "WhitelistedUsed" : true
+    }
+  }
+}

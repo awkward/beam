@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" id="iN0-l3-epB" customClass="TableViewHeaderBannerView" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="62"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Dk1-tG-wxc">
+                    <rect key="frame" x="12" y="8" width="46" height="46"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="R8K-a2-FjZ"/>
+                        <constraint firstAttribute="width" constant="46" id="apQ-Sb-gXa"/>
+                    </constraints>
+                </imageView>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="kzz-xD-b4t">
+                    <rect key="frame" x="280" y="9" width="44" height="44"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="44" id="4MT-e0-K4u"/>
+                        <constraint firstAttribute="width" constant="44" id="oha-fA-gXn"/>
+                    </constraints>
+                    <state key="normal" image="close_small"/>
+                    <connections>
+                        <action selector="close:" destination="iN0-l3-epB" eventType="touchUpInside" id="MwA-yN-kwU"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="5zG-6R-kYA">
+                    <rect key="frame" x="0.0" y="0.0" width="280" height="62"/>
+                    <connections>
+                        <action selector="tapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="h2k-9S-dOk"/>
+                    </connections>
+                </button>
+                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Go to ‘Edit’ to star your favorite subreddits" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Sf8-LX-sG3">
+                    <rect key="frame" x="70" y="15.5" width="216" height="31.5"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                    <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                    <nil key="highlightedColor"/>
+                </label>
+            </subviews>
+            <color key="backgroundColor" red="0.94901960784313721" green="0.94901960784313721" blue="0.96470588235294119" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailingMargin" secondItem="kzz-xD-b4t" secondAttribute="trailing" constant="-16" id="2co-CQ-e2l"/>
+                <constraint firstAttribute="bottom" secondItem="5zG-6R-kYA" secondAttribute="bottom" id="2pW-LZ-Zux"/>
+                <constraint firstItem="kzz-xD-b4t" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="8JO-HN-mhn"/>
+                <constraint firstItem="kzz-xD-b4t" firstAttribute="leading" secondItem="Sf8-LX-sG3" secondAttribute="trailing" constant="-6" id="9RJ-dj-Bhe"/>
+                <constraint firstItem="kzz-xD-b4t" firstAttribute="leading" secondItem="5zG-6R-kYA" secondAttribute="trailing" id="9Xj-f1-AGh"/>
+                <constraint firstItem="5zG-6R-kYA" firstAttribute="leading" secondItem="Dk1-tG-wxc" secondAttribute="trailing" id="BGW-JO-78q"/>
+                <constraint firstItem="5zG-6R-kYA" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="GBS-HZ-ysZ"/>
+                <constraint firstItem="Sf8-LX-sG3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Rwb-s3-7oP"/>
+                <constraint firstItem="Sf8-LX-sG3" firstAttribute="leading" secondItem="Dk1-tG-wxc" secondAttribute="trailing" constant="12" id="XxG-xE-rhn"/>
+                <constraint firstItem="Dk1-tG-wxc" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="ZvT-TN-faW"/>
+                <constraint firstItem="Dk1-tG-wxc" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="topMargin" id="vIy-xQ-EU8"/>
+                <constraint firstItem="5zG-6R-kYA" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="w6s-0C-DlA"/>
+                <constraint firstItem="Dk1-tG-wxc" firstAttribute="bottom" secondItem="iN0-l3-epB" secondAttribute="bottomMargin" id="xVh-y4-FzK"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <edgeInsets key="layoutMargins" top="8" left="12" bottom="8" right="12"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="BGW-JO-78q"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="closeButton" destination="kzz-xD-b4t" id="auJ-uJ-c2w"/>
+                <outlet property="iconImageView" destination="Dk1-tG-wxc" id="rQD-EY-nDN"/>
+                <outlet property="textLabel" destination="Sf8-LX-sG3" id="IOP-Nt-PM0"/>
+            </connections>
+        </view>
+    </objects>
+    <resources>
+        <image name="close_small" width="8" height="8"/>
+    </resources>
+</document>

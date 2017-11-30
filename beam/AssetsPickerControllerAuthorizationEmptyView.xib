@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="AssetsPickerControllerAuthorizationEmptyView" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="igd-dD-Uc3">
+                    <rect key="frame" x="186" y="219" width="229" height="163"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="We don’t have access to your images." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pqL-re-kPK">
+                            <rect key="frame" x="0.0" y="8" width="229" height="41"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Allow access to your camera and images to create image posts." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nzE-j9-w7j">
+                            <rect key="frame" x="0.0" y="59" width="229" height="36"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="FLv-Ly-778" customClass="BeamButton" customModule="beam" customModuleProvider="target">
+                            <rect key="frame" x="10" y="125" width="209" height="30"/>
+                            <state key="normal" title="Go to Settings"/>
+                            <connections>
+                                <action selector="openSettingsTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="ebe-Vj-7rc"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="FLv-Ly-778" firstAttribute="leading" secondItem="igd-dD-Uc3" secondAttribute="leading" constant="10" id="5OM-cE-bBd"/>
+                        <constraint firstAttribute="trailing" secondItem="nzE-j9-w7j" secondAttribute="trailing" id="Ela-en-SFZ"/>
+                        <constraint firstItem="pqL-re-kPK" firstAttribute="top" secondItem="igd-dD-Uc3" secondAttribute="topMargin" id="Xgd-aA-2mu"/>
+                        <constraint firstAttribute="trailing" secondItem="FLv-Ly-778" secondAttribute="trailing" constant="10" id="YZ7-CG-exb"/>
+                        <constraint firstItem="pqL-re-kPK" firstAttribute="leading" secondItem="igd-dD-Uc3" secondAttribute="leading" id="ZVh-wo-5Ch"/>
+                        <constraint firstItem="FLv-Ly-778" firstAttribute="top" secondItem="nzE-j9-w7j" secondAttribute="bottom" constant="30" id="adx-GD-TQV"/>
+                        <constraint firstItem="FLv-Ly-778" firstAttribute="centerX" secondItem="igd-dD-Uc3" secondAttribute="centerX" id="asc-hb-edI"/>
+                        <constraint firstAttribute="trailing" secondItem="pqL-re-kPK" secondAttribute="trailing" id="azA-fo-BMW"/>
+                        <constraint firstItem="nzE-j9-w7j" firstAttribute="leading" secondItem="igd-dD-Uc3" secondAttribute="leading" id="b4x-QN-wnJ"/>
+                        <constraint firstItem="nzE-j9-w7j" firstAttribute="top" secondItem="pqL-re-kPK" secondAttribute="bottom" constant="10" id="dNh-Zy-GTY"/>
+                        <constraint firstItem="FLv-Ly-778" firstAttribute="bottom" secondItem="igd-dD-Uc3" secondAttribute="bottomMargin" id="fg4-ag-d6s"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="230" id="g48-HR-J66"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="igd-dD-Uc3" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="CaZ-c9-fiB"/>
+                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="igd-dD-Uc3" secondAttribute="trailing" id="ZBN-aD-Bhc"/>
+                <constraint firstItem="igd-dD-Uc3" firstAttribute="centerX" secondItem="iN0-l3-epB" secondAttribute="centerX" id="bmk-Xj-5QM"/>
+                <constraint firstItem="igd-dD-Uc3" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="rnC-Y4-ZFd"/>
+            </constraints>
+            <connections>
+                <outlet property="descriptionLabel" destination="nzE-j9-w7j" id="emR-ja-iAB"/>
+                <outlet property="settingsButton" destination="FLv-Ly-778" id="P0s-OY-UgX"/>
+                <outlet property="titleLabel" destination="pqL-re-kPK" id="7Vx-UE-Ikq"/>
+            </connections>
+        </view>
+    </objects>
+</document>

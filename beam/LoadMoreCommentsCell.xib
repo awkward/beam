@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="9532" systemVersion="15D21" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="9530"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" id="KGk-i7-Jjw" customClass="LoadMoreCommentsCell" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="b3q-8j-k0z" customClass="CommentCellContentView" customModule="beam" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="43"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Load more comments" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="0Km-Fb-caO">
+                                <rect key="frame" x="8" y="14" width="136" height="16"/>
+                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="13"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="EIf-Nc-jeP">
+                                <rect key="frame" x="292" y="11" width="20" height="20"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0Km-Fb-caO" firstAttribute="centerY" secondItem="b3q-8j-k0z" secondAttribute="centerY" id="4Xf-Lf-5oQ"/>
+                            <constraint firstItem="EIf-Nc-jeP" firstAttribute="centerY" secondItem="b3q-8j-k0z" secondAttribute="centerY" id="WGc-nL-01W"/>
+                            <constraint firstItem="EIf-Nc-jeP" firstAttribute="trailing" secondItem="b3q-8j-k0z" secondAttribute="trailingMargin" id="hLj-SW-vfV"/>
+                            <constraint firstItem="0Km-Fb-caO" firstAttribute="leading" secondItem="b3q-8j-k0z" secondAttribute="leadingMargin" id="xjQ-pW-tc5"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="b3q-8j-k0z" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="0sI-fL-KDX"/>
+                    <constraint firstAttribute="trailing" secondItem="b3q-8j-k0z" secondAttribute="trailing" id="fLX-8Q-4jW"/>
+                    <constraint firstAttribute="bottom" secondItem="b3q-8j-k0z" secondAttribute="bottom" id="kbD-YD-djf"/>
+                    <constraint firstItem="b3q-8j-k0z" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="vp2-Oc-7Rg"/>
+                </constraints>
+            </tableViewCellContentView>
+            <connections>
+                <outlet property="activityIndicatorView" destination="EIf-Nc-jeP" id="myc-qb-dMC"/>
+                <outlet property="commentContentView" destination="b3q-8j-k0z" id="xc4-NO-aZB"/>
+                <outlet property="titleLabel" destination="0Km-Fb-caO" id="0xu-Ev-G5h"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

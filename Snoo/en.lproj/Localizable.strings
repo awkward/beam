@@ -1,0 +1,10 @@
+/* 
+  Localizable.strings
+  Snoo
+
+  Created by Robin Speijer on 18-06-15.
+  Copyright © 2015 Awkward. All rights reserved.
+*/
+
+"subreddit-all" = "All";
+"subreddit-frontpage" = "Frontpage";

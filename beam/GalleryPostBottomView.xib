@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10116"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="GalleryPostBottomView" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="117"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="TzJ-i9-dE5" customClass="PostMetadataView" customModule="beam" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="0.0" width="600" height="30"/>
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" constant="30" id="Iyg-kn-hLP"/>
+                    </constraints>
+                </view>
+                <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="kRX-Hf-K2C" customClass="PostToolbarView" customModule="beam" customModuleProvider="target">
+                    <rect key="frame" x="0.0" y="37" width="600" height="80"/>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="46" id="mHg-RF-sJL"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="kRX-Hf-K2C" firstAttribute="top" secondItem="TzJ-i9-dE5" secondAttribute="bottom" constant="7" id="7Pt-OX-E1A"/>
+                <constraint firstAttribute="bottom" secondItem="kRX-Hf-K2C" secondAttribute="bottom" id="REW-Cu-ZYd"/>
+                <constraint firstAttribute="trailing" secondItem="TzJ-i9-dE5" secondAttribute="trailing" id="VlY-iC-avq"/>
+                <constraint firstItem="kRX-Hf-K2C" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="aEE-UU-eJo"/>
+                <constraint firstItem="TzJ-i9-dE5" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="sc6-DC-FAI"/>
+                <constraint firstAttribute="trailing" secondItem="kRX-Hf-K2C" secondAttribute="trailing" id="vzj-7A-lhQ"/>
+                <constraint firstItem="TzJ-i9-dE5" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leading" id="zTK-2F-axU"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <edgeInsets key="layoutMargins" top="8" left="12" bottom="8" right="12"/>
+            <connections>
+                <outlet property="metadataView" destination="TzJ-i9-dE5" id="LvE-6a-dMe"/>
+                <outlet property="toolbarView" destination="kRX-Hf-K2C" id="Kqo-AR-3aj"/>
+            </connections>
+            <point key="canvasLocation" x="74" y="151.5"/>
+        </view>
+    </objects>
+</document>

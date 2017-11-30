@@ -1,0 +1,9 @@
+/* 
+  Localizable.strings
+  AWKGallery
+
+  Created by Robin Speijer on 24-11-15.
+  Copyright © 2015 Robin Speijer. All rights reserved.
+*/
+"index-of-count" = "%zd of %zd";
+"read-more" = "Read more...";

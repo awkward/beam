@@ -1,0 +1,1846 @@
+/* Localizable.strings
+  beam
+
+  Created by Robin Speijer on 06-07-15.
+  Copyright © 2015 Awkward. All rights reserved. */
+
+/* Explanation
+
+ Beam for reddit is an app to browse the popular website reddit.com.
+ The strings in the document will often refer to things in the reddit glossary: https://www.reddit.com/r/TheoryOfReddit/wiki/glossary.
+ Translation to some of these words can be found on reddit.com if you change the language of your account in preferences.
+ In this document, reddits links are reffered to as "posts".
+ NSFW stands for Not Safe For Work. NSFW is often used for posts that contain adult content or content that can contain horrible images.
+
+ Rules:
+ `Beam` the name of the product should always start with a capital `B`
+ `reddit` the name of the website and service should always start with a lowercase `r`Text used in the "share sheet" to open the post in Safari */
+"open-in-safari" = "Open in Safari";
+
+/* Buttons
+ The following strings are used in the context of a buttonThe title of a button when an actions fails that can be tried again */
+"retry" = "Retry";
+
+/* The title of a button when an actions fails that can be tried again */
+"retry-button" = "Retry";
+
+/* The title of a button when submitting fails and has to be re done */
+"resubmit-button" = "Resubmit";
+
+/* The title to cancel a dialog or action */
+"cancel" = "Cancel";
+
+/* The title to cancel a dialog or action */
+"cancel-button" = "Cancel";
+
+/* Used on the multireddit info view as delete button to delete a multireddit */
+"delete" = "Delete";
+
+/* Used on the multireddit info view as delete button to delete a multireddit */
+"delete-button" = "Delete";
+
+/* Used on the subreddit/multireddit info view to share a subreddit or multireddit on social media */
+"share" = "Share";
+
+/* Used on the reply bar in comments and messages */
+"send-button" = "Send";
+
+/* General close button */
+"close-button" = "Close";
+
+/* View pack button */
+"view-pack-button" = "View pack";
+
+/* Copy button */
+"copy-button" = "Copy";
+
+/* Post button */
+"post-button" = "Post";
+
+/* Save button */
+"save-button" = "Save";
+
+/* Submit button */
+"submit-button" = "Submit";
+
+/* Remove button */
+"remove-button" = "Remove";
+
+/* Keep button */
+"keep-button" = "Keep";
+
+/* Discard button */
+"discard-button" = "Discard";
+
+/* More info button */
+"more-info-button" = "More info";
+
+/* Switch account button */
+"switch-account-button" = "Switch account";
+
+/* Add button */
+"add-button" = "Add";
+
+/* Update button */
+"update-button" = "Update";
+
+/* Continue button */
+"continue-button" = "Continue";
+
+/* Login button */
+"login-button" = "Login";
+
+/* Used when the web view can't load a webpage */
+"could-not-load-page" = "Could not load page";
+
+"unsubscribe-failed" = "Failed to unsubscribe";
+
+"create-multireddit-failure" = "Could not create multireddit";
+
+"unsubscribe-button" = "Unsubscribe";
+
+"subscribe-button" = "Subscribe";
+
+/* Shown when an action is not possible */
+"not-possible" = "Not possible";
+
+"add-to-favorites" = "Add to Favorites";
+
+"remove-from-favorites" = "Remove from favorites";
+
+"manage-subreddits" = "Manage subreddits";
+
+"manage-subreddits-limit-error" = "Can not add more than 50 subreddits to a multireddit.";
+
+"hot" = "Hot";
+
+"new" = "New";
+
+"relevance" = "Relevance";
+
+"rising" = "Rising";
+
+"controversial" = "Controversial";
+
+"top" = "Top";
+
+"all-time" = "All-time";
+
+"past-hour" = "Past hour";
+
+"past-24-hours" = "Past 24 hours";
+
+"past-week" = "Past week";
+
+"past-month" = "Past month";
+
+"past-year" = "Past year";
+
+"logout" = "Logout";
+
+"login" = "Login";
+
+"inbox" = "Inbox";
+
+"messages" = "Messages";
+
+"sent" = "Sent";
+
+"message" = "Message";
+
+"notifications" = "Notifications";
+
+/* The points on comments */
+"points-inline" = "points";
+
+/* The points on comments (single) */
+"point-inline" = "point";
+
+/* The seperator on comments metadata */
+"list-separator" = ", ";
+
+"search" = "Search";
+
+"recently-visited-subreddits" = "Recently visited subreddits";
+
+"recently-searched-subreddits" = "Recently searched subreddits";
+
+"recently-searched-posts" = "Recently searched posts";
+
+"search-subreddits-with" = "Search subreddits with [SEARCHTERM]";
+
+"search-posts-with" = "Search posts with [SEARCHTERM]";
+
+"subreddit-not-found" = "Subreddit not found";
+
+"user-not-found" = "User not found";
+
+"user-not-found-message" = "The selected user could not be found";
+
+"clear" = "Clear";
+
+"purchased" = "Purchased";
+
+"purchase-product" = "Unlock for [PRICE]";
+
+"purchase-product-sale" = "On sale for [PRICE]";
+
+"purchase-product-free-limited-time" = "Free for limited time";
+
+"purchase-product-free" = "Free";
+
+"purchase" = "Unlock";
+
+"media" = "Media";
+
+"admin-purchase-title" = "You don't want to purchase.";
+
+"admin-purchase-message" = "Please get a free ride by using the restore button.";
+
+"restore" = "Restore";
+
+"login-failed" = "Could not login to reddit";
+
+"login-retry" = "Please try again later";
+
+"replies-seperator" = "Replies";
+
+"reply-seperator" = "Reply";
+
+"reply-to-comments" = "Reply to";
+
+"automatic-language-selection" = "Automatic";
+
+"language-restart" = "Language changes only take effect when you restart the app.";
+
+"cache-cleared-title" = "Cache cleared";
+
+"cache-cleared-message" = "The app's cache has been cleared, it might take a bit longer to load images or posts.";
+
+"search-history-cleared-title" = "Search history cleared";
+
+"search-history-cleared-message" = "Your search history has been cleared.";
+
+"open-links-in" = "Open links in";
+
+"logout-sure-title" = "Are you sure?";
+
+"logout-sure-message" = "Are you sure you want to logout?";
+
+"logout-sure-button" = "Logout";
+
+"logout-all-sure-title" = "Are you sure?";
+
+"logout-all-sure-message" = "Are you sure you want to logout of all accounts?";
+
+"logout-all-sure-button" = "Logout";
+
+"done" = "Done";
+
+"support-mail-subject" = "Email from the Beam app";
+
+"subreddit-info-header-subreddits-in-multi" = "Subreddits in multi";
+
+"subreddit-info-header-description" = "Description";
+
+"nsfw" = "NSFW";
+
+"spoiler" = "Spoiler";
+
+"show-privacy-overlay" = "Show privacy overlay";
+
+"spoiler-overlay-setting-description" = "The spoiler overlay has been disabled in settings. ";
+
+"show-spoiler-overlay" = "Show spoiler overlay";
+
+"error-loading-posts-internet" = "Couldn't load posts. Internet connection lost.";
+
+"error-loading-posts" = "Couldn't load posts. Reddit could also be down.";
+
+"error-vote-internet" = "Internet connection lost, vote dismissed";
+
+"error-vote" = "There was an error performing this vote";
+
+"error-loading-subreddits-internet" = "Couldn't load subreddits. Internet connection lost.";
+
+"error-loading-subreddits" = "Couldn't load subreddits. Reddit could also be down.";
+
+"error-loading-multireddits-internet" = "Couldn't load multireddits. Internet connection lost.";
+
+"error-loading-multireddits" = "Couldn't load multireddits. Reddit could also be down.";
+
+"favorite-subreddit" = "Favorite subreddit";
+
+"subreddits" = "Subreddits";
+
+"subreddit" = "Subreddit";
+
+"multireddit" = "Multireddit";
+
+"private" = "Private";
+
+"public" = "Public";
+
+"multireddit-change-visibility-failed" = "Could not change the visibility of this multireddit.";
+
+"thread" = "Thread";
+
+"post" = "Post";
+
+"post-abuse-activity-title" = "Report";
+
+"post-abuse-subject" = "Post (%@) Abuse Report";
+
+"post-abuse-message" = "Hi Beam Team,\nI would like to report this post due to following reasons:\n";
+
+"post-hide-activity-title" = "Hide";
+
+"post-unhide-activity-title" = "Unhide";
+
+"post-save-activity-title" = "Save post";
+
+"post-unsave-activity-title" = "Unsave post";
+
+"comment-save-activity-title" = "Save comment";
+
+"comment-unsave-activity-title" = "Unsave comment";
+
+"post-save-error" = "Error saving post";
+
+"post-save-error-message" = "An error occured while saving the post to reddit, please try again.";
+
+"post-unsave-error" = "Error unsaving post";
+
+"post-unsave-error-message" = "An error occured while removing the saved post from reddit, please try again.";
+
+"comment-save-error" = "Error saving comment";
+
+"comment-save-error-message" = "An error occured while saving the comment to reddit, please try again.";
+
+"comment-unsave-error" = "Error unsaving comment";
+
+"comment-unsave-error-message" = "An error occured while removing the saved comment from reddit, please try again.";
+
+"post-reported" = "Post reported";
+
+"post-reported-message" = "Your report has been send, you should not see this post appear again.";
+
+"post-hide-error" = "Error hiding post";
+
+"post-hide-error-message" = "An error occured while hiding the post, please try again if the post is still visible.";
+
+"post-unhide-error" = "Error unhiding post";
+
+"post-unhide-error-message" = "An error occured while unhiding the post, please try again if the post is still visible.";
+
+"subscribers" = "subscribers";
+
+"submit" = "Send";
+
+"captcha-title" = "Verify you are human";
+
+"captcha-message" = "Enter the letters and numbers above. This is case insensitive.";
+
+"like-on-facebook" = "Like us on Facebook";
+
+"frontpage-description" = "All subscriptions combined";
+
+"all-description" = "Everything on reddit";
+
+"random-description" = "Gives a random subreddit";
+
+"stream-updated" = "Stream updated";
+
+"my-multireddits-title" = "My Multireddits";
+
+"my-subreddits-title" = "My Subreddits";
+
+"multireddits-title" = "Multireddits";
+
+"subreddits-title" = "Subreddits";
+
+"subscriptions-title" = "Subscriptions";
+
+"feedback-not-possible" = "Feedback not possible";
+
+"feedback-not-possible-message" = "It looks like you don't have access to any e-mail accounts in your default mail app. To send feedback, send an email to support@beamreddit.com";
+
+"donate-thankyou-title" = "Thank you";
+
+"donate-thankyou-message" = "for being so awesome!\nYour donation helps us make\nBeam even better.";
+
+"sent-to" = "Sent to ";
+
+"message-sent-failed" = "Your message failed to sent, try again.";
+
+"message-sent-sucessfully" = "Message sent successfully!";
+
+"post-successfully-submitted" = "Post submitted successfully!";
+
+"private-subreddit-share-message" = "This subreddit is private or restricted, sharing this subreddit might not make the subreddit visible on the other end.";
+
+"app-store-share-message" = "Check out Beam 2 – a reddit client built to browse.";
+
+"reply-to-item-post" = "post";
+
+"reply-to-item-thread" = "thread";
+
+"post-saved-succesfully" = "Post successfully saved!";
+
+"comment-saved-succesfully" = "Comment successfully saved!";
+
+"comment-not-found" = "Comment not found";
+
+"comment-not-found-message" = "The referenced comment was not found, it might have been deleted.";
+
+"edit-name-and-description" = "Edit name and description";
+
+"name" = "Name";
+
+"description" = "Description";
+
+"save" = "Save";
+
+"create" = "Create";
+
+"edit-multireddit" = "Edit multireddit";
+
+"create-multireddit" = "Create multireddit";
+
+"details" = "Details";
+
+"alert" = "Alert";
+
+"stickied" = "stickied";
+
+"stickied-post" = "stickied post";
+
+"archived-error-message" = "This post has been archived and can no longer be up or downvoted";
+
+"locked-error-message" = "This post has been locked and can no longer be up or downvoted";
+
+"archived" = "Archived";
+
+"locked" = "Locked";
+
+"transactions-restored-message" = "If you've done any previous purchases, they should now be restored.";
+
+"transactions-restored" = "Purchases restored";
+
+"tap-to-view-imgur" = "Tap to view this image on Imgur";
+
+/* Notifications
+ The following strings are related to (push-)notifications. Keys are abreviated because of the body size limit of notifications. Notif = notification, act = action, tit = titleThe action the user can take on some notifications. */
+"notif-act-reply" = "Reply";
+
+/* The title of a annoucement notification */
+"notif-tit-announcement" = "Announcement";
+
+/* The title of a notification for a new message in the user's inboc */
+"notif-tit-new-message" = "New message";
+
+/* The title of a notification if of the other titles work */
+"notif-tit-new-notification" = "New notification";
+
+/* The title of the notification if a user is mentioned in a post or comment */
+"notif-tit-username-mention" = "Username mention";
+
+/* The title of the notification if it's a reply on a comment. */
+"notif-tit-post-reply" = "Comment reply";
+
+/* The title of the notification send to the user if their quick reply message failed to send */
+"notif-message-failed" = "Message failed to send";
+
+/* The notification send to the user if their quick reply message failed to send */
+"notif-message-failed-message" = "Your message could not be delivered. Open the app and try again";
+
+/* Shown in the notification settings to notify users of the state of background app refresh */
+"background-refresh-available" = "Beam uses background app refresh to check for new messages and give you a notification.";
+
+/* Shown in the notification settings to notify users of the state of background app refresh */
+"background-refresh-unavailable" = "Messages notifications aren't working because background app refresh has been disabled for Beam.";
+
+/* Required login */
+"general-login-required" = "Login required";
+
+"general-login-required-message" = "Login to perform this action";
+
+"compose-message-login-required" = "Login required";
+
+"compose-message-login-required-message" = "Login to send a message";
+
+"post-vote-login-required" = "We want your vote";
+
+"post-vote-login-required-message" = "Login to submit your vote";
+
+"comment-vote-login-required" = "We want your vote";
+
+"comment-vote-login-required-message" = "Login to submit your vote";
+
+"subscribe-login-required" = "Start subscribing";
+
+"subscribe-login-required-message" = "Login to subscribe to this subreddit";
+
+"comment-login-required" = "Join the discussion";
+
+"comment-login-required-message" = "Login to post your comment";
+
+"create-multireddit-login-required" = "Your multireddit awaits";
+
+"create-multireddit-login-required-message" = "Login to create your multireddit";
+
+"create-post-login-required" = "Let's post";
+
+"create-post-login-required-message" = "Login to contribute to this subreddit";
+
+"login-to-reddit" = "Login to reddit";
+
+"account-already-exists" = "Account already exists";
+
+"account-already-exists-message" = "This reddit account has already been added to Beam. Please try to add a different account.";
+
+/* Rate app
+ The strings are used in the dialog that is displayed to ask the user to review beamThe title of the app rate dialog */
+"rate-app-title" = "Enjoy Beam for iPhone?";
+
+/* The message displayed to the user, asking them to review the app */
+"rate-app-message" = "Please rate it in the App Store";
+
+/* The button used to send the user to the app store to rate the app */
+"rate-app-rate-button" = "App Store";
+
+/* The button users can tap to dismiss the popup forever */
+"rate-app-no-thanks-button" = "No Thanks";
+
+/* The button userscan tap to show the popup at a later date */
+"rate-app-later-button" = "Later";
+
+/* Products
+ The following strigs all have a relation to the store or products that you can buy in the app. The are often refered to a packsView pack, button displayed on the pack in the store */
+"view-pack" = "View pack";
+
+/* Coming soon text, displayed in the store */
+"coming-soon" = "To be announced";
+
+/* Trials
+ The following strings all refer to the trial system to test out products in the appThe prefix displayed in front of the remaining time of the product page */
+"trial-ends-in" = "trial ends in";
+
+/* Second abbreviation (eg. for 1s ago) */
+"time-second-short" = "s";
+
+/* Minute abbreviation (eg. for 1m ago) */
+"time-minute-short" = "m";
+
+/* Hour abbreviation (eg. for 1h ago) */
+"time-hour-short" = "h";
+
+/* Day abbreviation (eg. for 1d ago) */
+"time-day-short" = "d";
+
+/* Single hour */
+"hour" = "hour";
+
+/* Multiple hours */
+"hours" = "hours";
+
+/* Single minute */
+"minute" = "minute";
+
+/* Multiple minutes */
+"minutes" = "minutes";
+
+/* Displayed when the trial has ended */
+"trial-expired" = "trial expired";
+
+/* The message shared to social media in order to access a trial of the product */
+"trial-share-message" = "Beam 2: a reddit client built to browse. Beam contains night mode, mediaview and much more! Download here:";
+
+/* The title of the error message when starting the trial failed */
+"trial-error-title" = "Trial error";
+
+/* The message of the error message when starting the trial failed */
+"trial-error-message" = "There was a problem starting your try, please try again.";
+
+/* The text used on the button that brings you to the share screen of the trial */
+"get-free-trial" = "get a free trial";
+
+/* The title of the share button on trial screen */
+"share-twitter-button" = "Share on Twitter";
+
+/* The title of the share button on trial screen */
+"share-facebook-button" = "Share on Facebook";
+
+/* The title of the trial message */
+"trial-message-title" = "Free 24-hour trial";
+
+/* The text of the trial message, [PACKNAME] is replaced by the name of the pack */
+"trial-message-description" = "Share Beam to get a free 24-hour trial and explore the awesome features of the [PACKNAME].";
+
+/* Banners
+ The following strings are all displayed on top of the subreddits list when a banner is visible.Displayed when the user has not purchased the display pack product yet */
+"banner_night_mode_text" = "Unlock the Display Pack to enjoy night mode and mediaview";
+
+/* Displayed when the user has not supported beam yet with a donation */
+"banner_support_beam_text" = "Please support Beam and make a donation";
+
+/* Displayed when the user has not purchased the display pack and it is on sale, [DISCOUNT] will be replaced with amount, it might not be the exact amount. */
+"banner_display_pack_sale_text" = "Display Pack now [DISCOUNT]% off for a limited time only!";
+
+/* Displayed when the user has not purchased the display pack and the trial is still available */
+"banner_display_pack_trial_text" = "Try the Display Pack for free!";
+
+/* Shown when the user tries to access a NSFW subreddit that is blocked */
+"subreddit-blocked" = "Subreddit blocked";
+
+/* Empty States
+ The following strings are all displayed on views where the app is empty, either due to an error or not having the content */
+"inbox_no_messages" = "No messages";
+
+"inbox_no_messages_message" = "Great job cleaning out your messages";
+
+"inbox_no_messages_button" = "Refresh";
+
+"inbox_no_notifications" = "No notifications";
+
+"inbox_no_notifications_message" = "Great job cleaning out your notifications";
+
+"inbox_no_notifications_button" = "Refresh";
+
+"multireddit_no_access" = "Access denied";
+
+"multireddit_no_access_message" = "Contact the moderator(s) to gain access";
+
+"multireddit_no_subreddits" = "Empty space";
+
+"multireddit_no_subreddits_message" = "Try adding some subreddits first";
+
+"multireddit_no_subreddits_button" = "Manage subreddits";
+
+"no_internet_connection" = "Dark side of the moon";
+
+"no_internet_connection_message" = "You’ve lost connection to the internet[ERROR-CODE-STRING]";
+
+"no_internet_connection_button" = "Try again";
+
+"post_no_comments" = "No transmission";
+
+"post_no_comments_message" = "This post doesn’t have any comments yet";
+
+"profile_no_posts_liked" = "Show some love";
+
+"profile_no_posts_liked_message" = "You haven’t upvoted any posts, get to it!";
+
+"profile_no_posts_saved" = "Great save";
+
+"profile_no_posts_saved_message" = "You can save content by using the share sheet";
+
+"profile_no_posts_hidden" = "No hidden content";
+
+"profile_no_posts_hidden_message" = "You can hide content by using the share sheet";
+
+"profile_no_posts_submitted" = "Get involved";
+
+"profile_no_posts_submitted_message" = "You haven’t submitted any posts";
+
+"profile_no_comments" = "Get involved";
+
+"profile_no_comments_message" = "You haven’t commented on any posts";
+
+"profile_no_gilded" = "Goldmember";
+
+"profile_no_gilded_message" = "You haven't received any gold";
+
+"other_profile_no_posts_submitted" = "Lurking about";
+
+"other_profile_no_posts_submitted_message" = "This user hasn't submitted any posts";
+
+"other_profile_no_comments" = "Lurking about";
+
+"other_profile_no_comments_message" = "This user hasn't commented on any posts";
+
+"other_profile_no_gilded" = "I love goooold";
+
+"other_profile_no_gilded_message" = "This user hasn’t received any gold";
+
+/* The no search results found empty view title */
+"search_no_results" = "No results found";
+
+/* The no search results found empty view message when the user is logged in */
+"search_no_results_message" = "Please refine your search keywords";
+
+/* The no search results found empty view message when the user is logged out */
+"search_no_results_message_logged_out" = "Please refine your search keyword\nor login for advanced search";
+
+"search_subreddit_private" = "You must be invited to visit this subreddit";
+
+"subreddit_media_view_empty" = "Black hole";
+
+"subreddit_media_view_empty_message" = "There is no media to view";
+
+"subreddit_media_view_empty_button" = "Refresh";
+
+"imgur_uploads_empty" = "Black hole";
+
+"imgur_uploads_empty_message" = "Imgur shares will appear here";
+
+"subreddit_no_posts" = "No transmission";
+
+"subreddit_no_posts_message" = "There seems to be nothing here";
+
+"subreddits_no_multireddits" = "Power, unlimited power\nMultireddits, unlimited power";
+
+"subreddits_no_multireddits_message" = "Combine several subreddits to create your own feed";
+
+"empty_state_internal_error" = "Dark side of the moon";
+
+"empty_state_internal_error_message" = "An internal error has occured.\nPlease try again later.[ERROR-CODE-STRING]";
+
+"empty_state_internal_error_button" = "Try again";
+
+"empty_state_unauthorized" = "Dark side of the moon";
+
+"empty_state_unauthorized_message" = "Authentication rejected by reddit.\nPlease login again.";
+
+"empty_state_unauthorized_button" = "Login to reddit";
+
+"empty_state_request_timed_out" = "Dark side of the moon";
+
+"empty_state_request_timed_out_message" = "The request timed out.\nPlease check your internet connection.";
+
+"empty_state_request_timed_out_button" = "Try again";
+
+"empty_state_reddit_down" = "Dark side of the moon";
+
+"empty_state_reddit_down_message" = "Looks like reddit is down.\nPlease try again later.";
+
+"empty_state_reddit_down_button" = "Try again";
+
+/* The title of the empty state when a user is not logged in */
+"profile_not_logged_in" = "Halfway there";
+
+/* The message of the empty state when a user is not logged in and trying to view its own profile */
+"profile_not_logged_in_message" = "Login to view your reddit profile";
+
+/* The button shown on the empty state when a user is trying to view its own profile but isn't logged in */
+"profile_not_logged_in_button" = "Login to reddit";
+
+/* The title of the emepty state when a user is not logged in */
+"messages_not_logged_in" = "Halfway there";
+
+/* The message shown on the empty state when a user is trying to view messages but isn't logged in */
+"messages_not_logged_in_message" = "Login to view your messages";
+
+/* The button shown on the empty state when a user is trying to view messages but isn't logged in */
+"messages_not_logged_in_button" = "Login to reddit";
+
+/* The title of the empty state when a user is not logged in */
+"multireddits_not_logged_in" = "Halfway there";
+
+/* The message shown on the empty state when a user is trying to view multireddits but isn't logged in */
+"multireddits_not_logged_in_message" = "Login to create and view multireddits";
+
+/* The button shown on the empty state when a user is trying to view multireddits but isn't logged in */
+"multireddits_not_logged_in_button" = "Login to reddit";
+
+/* The title of the empty state when a user is not logged in */
+"profile_switch_account" = "Anonymous account";
+
+/* The message of the empty state when a user is not logged in and trying to view its own profile */
+"profile_switch_account_message" = "You can't view the profile on an anonymous account";
+
+/* The button shown on the empty state when a user is trying to view its own profile but isn't logged in */
+"profile_switch_account_button" = "Switch account";
+
+/* The title of the emepty state when a user is not logged in */
+"messages_switch_account" = "Anonymous account";
+
+/* The message shown on the empty state when a user is trying to view messages but isn't logged in */
+"messages_switch_account_message" = "You can't view the messages on an anonymous account";
+
+/* The button shown on the empty state when a user is trying to view messages but isn't logged in */
+"messages_switch_account_button" = "Switch account";
+
+/* The title of the empty state when a user is not logged in */
+"multireddits_switch_account" = "Anonymous account";
+
+/* The message shown on the empty state when a user is trying to view multireddits but isn't logged in */
+"multireddits_switch_account_message" = "You can't view the multireddits on an anonymous account";
+
+/* The button shown on the empty state when a user is trying to view multireddits but isn't logged in */
+"multireddits_switch_account_button" = "Switch account";
+
+/* Profile
+ The following strings have a relation to the user's profile and user actionsThe title user in the sort bar displayed at the top of the profile */
+"submitted" = "Submitted";
+
+/* The title user in the sort bar displayed at the top of the profile */
+"upvoted" = "Upvoted";
+
+/* The title used in the sort bar displayed at the top of the profile and at the top of a subreddit/stream */
+"gilded" = "Gilded";
+
+/* The title used in the sort bar displayed at the top of the profile */
+"saved" = "Saved";
+
+/* The title used in the sort bar displayed at the top of the profile */
+"hidden" = "Hidden";
+
+/* The title used in the sort bar displayed at the top of the profile */
+"overview" = "Overview";
+
+/* The title used in the sort bar displayed at the top of the profile */
+"comments" = "Comments";
+
+/* The title of the profile view, shown in the top bar and the bottom tab bar */
+"profile-title" = "Profile";
+
+/* The description below the comment karma counter */
+"comment-karma-description" = "Comment karma";
+
+/* The description below the link karma counter */
+"link-karma-description" = "Link karma";
+
+/* When logging in with a anonymous account */
+"anonymous-account" = "Anonymous";
+
+/* The title of the account switcher */
+"switch-account-title" = "Switch accounts";
+
+/* The message of the account switcher */
+"switch-account-message" = "You can add additional accounts in settings";
+
+/* Shown when an error occures while switching to another account. */
+"switching-account-error-title" = "Error switching account";
+
+/* Shown when an error occures while switching to another account. [ERRORCODE] is replaced by the error code that occured */
+"switching-account-error-message" = "There was an error switching your account. (Code: [ERRORCODE])";
+
+/* The add account button show in settings */
+"add-account-button" = "Add account";
+
+/* The title of the message shown the first time someone adds and additional account */
+"add-additional-account-warning-title" = "Quick change";
+
+/* The message shown the first time someone adds and additional account */
+"add-additional-account-warning-message" = "Tap the settings icon to log out before you add another account.";
+
+/* Subreddits
+ The following strings have a relation to subredditsButton showed in the subreddit's info tab to add the subreddit to specific multireddit */
+"add-to-multireddit" = "Add to Multireddit";
+
+/* Error message displayed when the user couldn't subscribe to a subreddit, [SUBREDDIT] will contain the name of the subreddit */
+"subscribe_subreddit_failure" = "Could not subscribe to [SUBREDDIT]: [ERROR]";
+
+/* Error message displayed when the user couldn't unsubscribe from a subreddit, [SUBREDDIT] will contain the name of the subreddit */
+"unsubscribe_subreddit_failure" = "Could not unsubscribe to [SUBREDDIT]: [ERROR]";
+
+/* Message displayed when unsubscribing from a subreddit, [SUBREDDIT] will contain the name of the subreddit */
+"unsubscribe_subreddit_confirm" = "Are you sure to unsubscribe [SUBREDDIT]?";
+
+/* Title shown for subreddits already in multireddit on the manage subreddits screen of a multireddit */
+"subreddits-in-multireddit" = "In multireddit";
+
+/* There was a problem updating the multireddit, [MULTIREDDIT], will be the name of the subreddit */
+"multireddit-update-failure" = "Could not update [MULTIREDDIT]";
+
+/* There was a problem deleting the multireddit, [MULTIREDDIT], will be the name of the subreddit */
+"multireddit-delete-failure" = "Could not delete [MULTIREDDIT]";
+
+/* Confirm message title displayed when deleting a multireddit */
+"multireddit-delete-sure" = "Are you sure you want to delete [MULTIREDDIT]";
+
+/* Confirm message displayed when deleting a multireddit */
+"multireddit-delete-sure-message" = "Are you sure you want to delete [MULTIREDDIT]? This action can not be undone.";
+
+/* The name for the subreddit "all" on reddit. PLEASE USE THE REDDIT TERM FOR THIS! */
+"subreddit-all" = "All";
+
+/* The name for the subreddit "Frontpage" on reddit. PLEASE USE THE REDDIT TERM FOR THIS! */
+"subreddit-frontpage" = "Frontpage";
+
+/* Multireddits
+ The following strings have a relation to multiredditsA message displayed when the app couldn't download your list of multireddits */
+"could-not-fetch-multireddits" = "Could not fetch multireddits";
+
+/* Message title displayed when the multireddit name contains invalid characters */
+"create-multireddit-characters" = "Invalid Characters";
+
+/* Message displayed when the multireddit name contains invalid characters */
+"create-multireddit-characters-message" = "Your multireddit name contains some unsupported characters. Only underscores, letters and numbers are allowed";
+
+/* Message title when the user is logged out because of a problem */
+"logged-out-problem" = "Problem";
+
+/* Message displayed when the user is logged out because of a problem */
+"logged-out-problem-message" = "There was a problem saving your reddit credentials, you might need to login again to access your reddit profile.";
+
+/* Confirm button when creating a copy */
+"copy" = "Copy";
+
+/* message displayed under the name when copying a multireddit */
+"copy-multireddit-message" = "This multireddit is automatically set to private. Change this and other settings on the more tab of your multireddit.";
+
+/* The title of the create copy view */
+"create-copy" = "Create copy";
+
+/* Message shown when reddit reports the multireddit with the name already exists */
+"multireddit-already-exists" = "A multreddit with that name already exists";
+
+/* Placeholder shown when editing or creating a multireddit */
+"name-placeholder" = "Name";
+
+/* Placeholder shown when editing or creating a multireddit */
+"description-placeholder" = "Description";
+
+/* Label shown before the private switch */
+"private-label" = "Private";
+
+/* Comments
+ The following strings have a relation to comments on a postThe title used at the top of the comments view */
+"comments-title" = "Comments";
+
+/* The title used at the top oxf a thread view */
+"thread-title" = "Thread";
+
+/* The button used on comments to go to the full thread */
+"read-thread-button" = "Read thread";
+
+/* Text shown in the comments when more comments need to be loaded seperatly. [REPLY-COUNT] will be replaced with an actual count of the comments that can be loaded */
+"load-more-comments-with-count" = "Load [REPLY-COUNT] more comments";
+
+/* Text shown in the comments when more comments need to be loaded seperatly. This string is used when the number of replies is unknown */
+"load-more-comments-no-count" = "Load more comments";
+
+/* Error shown when loading more comments has failed */
+"error-loading-more-comments" = "Error loading more comments";
+
+/* Continue the comment thread on a seperate view, this is a string directly from Reddit.com */
+"continue-comment-thread" = "Continue this thread";
+
+/* Used as a title for the comment compose view, [AUTHOR] is replaced by the username of the author of the comment you are replying on */
+"reply-to-author" = "Reply to [AUTHOR]";
+
+/* Used as a title for the comment compose view */
+"reply-to-comment" = "Reply to comment";
+
+/* Used as a title for the comment compose view */
+"reply-to-post" = "Reply to post";
+
+/* User as a title for the comment compose/edit view */
+"edit-comment-title" = "Edit comment";
+
+/* Used for the action where a user can eddit their own comment */
+"edit-comment-activity-title" = "Edit comment";
+
+/* Used for the action where a user can edit their own post */
+"edit-post-activity-title" = "Edit post";
+
+/* Used as text in an error dialog when creating a comment fails */
+"could-not-post-comment" = "Your comment could not be posted.";
+
+/* User as text in an error dialog when updating a comment fails */
+"could-not-update-comment" = "Your comment could not be updated.";
+
+/* A message displayed when the comment is too short */
+"comment-too-short" = "Comment too short";
+
+/* A message displayed when the comment is too short */
+"comment-too-short-message" = "Your comment has to be longer";
+
+/* Message shown when close is tapped on the comment compose view and something has been typed */
+"are-you-sure-discard-comment" = "Are you sure you want to discard this comment?";
+
+/* Discard comment button */
+"discard-comment" = "Discard comment";
+
+/* One of the sort types for comments, this string can be copied from reddit.com */
+"comment-sort-type-best" = "Best";
+
+/* One of the sort types for comments, this string can be copied from reddit.com */
+"comment-sort-type-top" = "Top";
+
+/* One of the sort types for comments, this string can be copied from reddit.com */
+"comment-sort-type-new" = "New";
+
+/* One of the sort types for comments, this string can be copied from reddit.com */
+"comment-sort-type-controversial" = "Controversial";
+
+/* One of the sort types for comments, this string can be copied from reddit.com */
+"comment-sort-type-qa" = "Q&A";
+
+/* One of the sort types for comments, this string can be copied from reddit.com */
+"comment-sort-type-old" = "Old";
+
+/* Shown when loading the comments */
+"loading-comments" = "Loading comments";
+
+/* Shown when the post has no comments yet */
+"comments-empty-message" = "This post doesn’t have any comments yet";
+
+/* When an error occurs loading comments */
+"error-loading-comments" = "Error loading comments";
+
+/* Copy comment activity */
+"copy-comment-activity-title" = "Copy comment";
+
+/* Shown when the user can't load more comments because it is already loading more comments */
+"load-more-comments-not-possible" = "Loading more comments while you're already loading more comments is not possible.";
+
+/* Text shown when the score is hidden for comments and posts */
+"score-hidden-block" = "[score hidden]";
+
+/* Messages
+ The following strings have a relation to the messages and inboxThe title used for the messages view */
+"messages-title" = "Messages";
+
+/* Search
+ The following strings have a relation to the search view in app or the search view in a subredditThe title used for the view */
+"search-title" = "Search";
+
+/* The text placed in the searchbar where there is no search query */
+"search-placeholder" = "Search";
+
+/* The text placed in the searchbar where there is no search query */
+"search-reddit-placeholder" = "Search reddit";
+
+/* The text placed in the searchbar where there is no search query, [SUBREDDIT] is replaced with the subreddit name */
+"search-subreddit-placeholder" = "Search /r/[SUBREDDIT]";
+
+/* Go to a direct subreddit, [SUBREDDIT] is replaced with the subreddit name */
+"search-go-to-subreddit" = "Go to subreddit /r/[SUBREDDIT]";
+
+/* Go to a direct user, [USERNAME] is replaced with the username */
+"search-go-to-user" = "Go to user /u/[USERNAME]";
+
+/* Search scope */
+"search-scope-subscribed" = "Subscribed";
+
+/* Search scope */
+"search-scope-all" = "All";
+
+/* Settings
+ The following strings have a relation to the settings view in the appThe title used for the view */
+"settings-title" = "Settings";
+
+/* The title used for it's header in the settings view */
+"settings-settings-header" = "Settings";
+
+/* The title used for it's header in the settings view */
+"about-settings-header" = "About";
+
+/* The title used for it's header in the settings view */
+"history-settings-header" = "History";
+
+/* The title used for it's header in the settings view */
+"privacy-settings-header" = "Privacy";
+
+/* The title showed before the NSFW Overlay switch */
+"privacy-overlay-setting-title" = "Privacy overlay";
+
+/* The title showed before the Spoiler overlay switch */
+"spoiler-overlay-setting-title" = "Spoiler overlay";
+
+/* The title showed before the In-app sounds switch */
+"sounds-setting-title" = "In-app sounds";
+
+/* The title showed for the display options setting */
+"display-options-setting-title" = "Display options";
+
+/* The title showed for the notifications setting */
+"notifications-setting-title" = "Notifications";
+
+/* The title showed for the "open links in" setting */
+"open-links-in-setting-title" = "Open links in";
+
+/* The title showed for the clear cache setting */
+"clear-cache-setting-title" = "Clear cache";
+
+/* The title showed for the clear cache setting */
+"passcode-setting-title" = "Passcode";
+
+/* The title showed for the clear search history setting */
+"clear-search-setting-title" = "Clear search history";
+
+/* The title used at the top of the browser select screen */
+"browser-title" = "Browser";
+
+/* The title used at the top of the display options screen */
+"display-options-title" = "Display options";
+
+/* The title used at the top of the notifications screen */
+"notifications-title" = "Notifications";
+
+/* A row that takes tou to settings for the number of comments to display */
+"comments-display-setting-title" = "Comments to display";
+
+/* Settings title */
+"privacy-mode-setting-title" = "Privacy mode";
+
+/* A row that takes you yo the about beam view */
+"about-beam-setting-title" = "About Beam";
+
+/* A row that takes you to the donate view */
+"donate-setting-title" = "Donate";
+
+/* Text used to view the privacy policy */
+"privacy-policy-setting-title" = "Privacy Policy";
+
+/* Text used to view the terms of service */
+"terms-setting-title" = "Terms";
+
+/* Text used in settings to open an email view to write an email to us */
+"feedback-support-setting-title" = "Feedback & Support";
+
+/* Text used in the settings that brings the user to the app store */
+"rate-us-setting-title" = "Rate us on the App Store";
+
+/* Text used in the settings view to share beam with friends */
+"tell-friends-setting-title" = "Tell friends about Beam";
+
+/* Text used in the settings for the accounts part */
+"add-account-setting-title" = "Add account";
+
+/* Text used in the settings for the accounts part */
+"logout-account-setting-title" = "Log out of [USERNAME]";
+
+/* Text used in the settings for the accounts part */
+"logout-setting-title" = "Logout";
+
+/* Text used in the settings for the accounts part */
+"logout-all-accounts-setting-title" = "Log out of all accounts";
+
+/* The title used in the about view */
+"about-title" = "About";
+
+/* The title used in the about view */
+"donate-title" = "Donate";
+
+/* The title of the text in the donate view */
+"donate-text-title" = "Help upgrade our spaceship";
+
+/* The text on the donate view */
+"donate-text-description" = "The galaxy is a large place and we’d like to explore every star. If you love Beam, please support our travels.";
+
+/* The title of the messages notification setting */
+"notification-setting-messages" = "Messages";
+
+/* The title of the shop notification setting */
+"notification-setting-shop" = "Shop";
+
+/* The title of the announcements notification setting */
+"notification-setting-announcements" = "Announcements";
+
+/* If the display pack has not been bought and the user views the display options, they see this text. For other languages except english ignore the \n */
+"display-options-unlock-text" = "Unlock the Display Pack to adjust settings for Night Mode, Image Thumbnails, Text Size and Metadata.";
+
+/* If the identity pack has not been bought and the user views the passcode options, they see this text. For other languages except english ignore the \n */
+"passcode-unlock-text" = "Unlock these features by purchasing\nthe Identity Pack";
+
+/* If the identity pack has not been bought and the user views the account options, they see this text. For other languages except english ignore the \n */
+"add-account-unlock-text" = "Unlock multiple accounts by purchasing\nthe Identity Pack";
+
+/* Header used in the display options view in settings */
+"display-options-header-night-mode" = "Night mode";
+
+/* Header used in the display options view in settings */
+"display-options-header-image-thumbnails" = "Image thumbnails";
+
+/* Header used in the display options view in settings */
+"display-options-header-metadata" = "Metadata";
+
+/* Footer text used in the display options view in settings */
+"display-options-footer-night-mode" = "Night mode will automatically switch on or off based on your display brightness. You can set the threshold where the switch should happen.";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-night-mode-manual" = "Manual";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-night-mode-automatic" = "Switch automatically";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-thumbnail-default" = "Default";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-thumbnail-large" = "Large";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-thumbnail-medium" = "Medium";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-thumbnail-small" = "Small";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-thumbnail-none" = "None";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-show" = "Show metadata";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-date" = "Show date";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-subreddit" = "Show subreddit";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-username" = "Show username";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-gild-count" = "Show gild count";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-stickied" = "Show stickied";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-locked" = "Show locked";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-flair" = "Show flair";
+
+/* Cell used in the display options view in settings */
+"display-options-cell-metadata-domain" = "Show domain";
+
+/* Title shown on the "Open app on" setting */
+"default-launch-screen-setting-title" = "Default launch screen";
+
+/* Title shown on at the top of the "Open app on" setting */
+"default-launch-screen-title" = "Default launch screen";
+
+/* Title shown in the settings view */
+"manage-imgur-uploads-setting-title" = "Imgur uploads";
+
+/* Title shown at the top of the imgur uploads manage screen */
+"imgur-uploads-title" = "Imgur uploads";
+
+/* Privacy mode warning */
+"privacy-mode-warning" = "Privacy mode";
+
+/* Privacy mode warning message */
+"privacy-mode-warning-message" = "Privacy mode is turned on, however Beam can't control external links. [SERVICE] might still track your history if you don't have some sort of private browsing mode enabled in [SERVICE].";
+
+/* Privacy mode feature */
+"privacy-mode-purchased-message" = "Privacy mode requires the purchase of the Identity Pack";
+
+/* A header on top of the "Open app on" setting */
+"app-open-header-view" = "View";
+
+/* A header on top of the "Open app on" setting */
+"app-open-header-subreddit" = "Subreddit";
+
+/* The title shown at the top of the passcode settings view */
+"passcode-view-title" = "Passcode";
+
+/* Media viewWhen the user has not purchased the display pack they get this message */
+"mediaview-unpurchased-heading" = "Mediaview";
+
+/* When the user has not purchased the display pack they get this message */
+"mediaview-unpurchased-subheading" = "Mediaview is part of the Display Pack. Unlock the Display Pack to enjoy Mediaview, Night Mode, Thumbnail Mode and Metadata Control.";
+
+/* ShopThe title at the top of the shop screen */
+"shop-title" = "Shop";
+
+/* The restore button to restore purchases, show in the right of the screen */
+"restore-button" = "Restore";
+
+/* Display pack title */
+"shop-product-display-pack-heading" = "Display Pack";
+
+/* Display pack description */
+"shop-product-display-pack-subheading" = "Mediaview, Night Mode, Auto Playing GIFs, Thumbnail Mode, and Metadata Control";
+
+"shop-product-display-pack-feature-mediaview-heading" = "Mediaview";
+
+"shop-product-display-pack-feature-mediaview-subheading" = "All media in a single view. Easily swipe through images, albums and animated GIFs.";
+
+"shop-product-display-pack-feature-night-mode-heading" = "Night mode";
+
+"shop-product-display-pack-feature-night-mode-subheading" = "Allows comfortable reading in low-light conditions. Night Mode can be switched on manually or automatically.";
+
+"shop-product-display-pack-feature-thumbnail-mode-heading" = "Thumbnail Mode";
+
+"shop-product-display-pack-feature-thumbnail-mode-subheading" = "Adjust thumbnail sizes to fit your browsing experience. Choose between multiple sizes or none.";
+
+"shop-product-display-pack-feature-meta-data-heading" = "Metadata control";
+
+"shop-product-display-pack-feature-meta-data-subheading" = "Fine control over the meta you see. Show or hide date, subreddit and username.";
+
+"shop-product-display-pack-feature-autoplaying-gifs-heading" = "Auto playing GIFs";
+
+"shop-product-display-pack-feature-autoplaying-gifs-subheading" = "The ability to toggle on auto playing GIFs. Scroll past GIFs to make them automatically play in your feed.";
+
+/* Discover pack title */
+"shop-product-discover-pack-heading" = "Discover Pack";
+
+/* Identity pack title */
+"shop-product-identity-pack-heading" = "Identity Pack";
+
+/* Identity pack description */
+"shop-product-identity-pack-subheading" = "Multiple Accounts, Passcode Lock, Touch ID Unlock, and Privacy Mode";
+
+"shop-product-identity-pack-feature-multiple-accounts-heading" = "Multiple Accounts";
+
+"shop-product-identity-pack-feature-multiple-accounts-subheading" = "Add multiple accounts and quickly switch between them without having to log out and log back in.";
+
+"shop-product-identity-pack-feature-passcode-lock-heading" = "Passcode Lock";
+
+"shop-product-identity-pack-feature-passcode-lock-subheading" = "Secure Beam with a 4-digit passcode to keep your personal account safe from unwanted audiences.";
+
+"shop-product-identity-pack-feature-touch-id-heading" = "Touch ID Unlock";
+
+"shop-product-identity-pack-feature-touch-id-subheading" = "Secure Beam with Touch ID to keep your personal data safe. Supported on compatible devices.";
+
+"shop-product-identity-pack-feature-private-mode-heading" = "Privacy Mode";
+
+"shop-product-identity-pack-feature-private-mode-subheading" = "Disable search and activity history, handoff and search indexing.";
+
+/* Title of the message shown when an action requires the identity pack */
+"identity-pack-required-title" = "Identity Pack required";
+
+/* Message shown when the identity pack is required for adding another account */
+"identity-pack-required-multiple-accounts-message" = "Multiple Accounts is part of the Identity Pack. Unlock the Identity Pack to enjoy Multiple Accounts, Passcode Lock, Touch ID Unlock and Privacy Mode.";
+
+/* On sale */
+"on-sale" = "On sale";
+
+/* Product is free */
+"free-price" = "Free";
+
+"app-open-option-subreddits" = "Subreddits";
+
+"app-open-option-multireddits" = "Multireddits";
+
+"app-open-option-messages" = "Messages";
+
+"app-open-option-profile" = "Profile";
+
+"app-open-option-last-visited-subreddit" = "Last visited subreddit";
+
+"app-open-option-frontpage" = "Frontpage";
+
+"app-open-option-all" = "All";
+
+/* WelcomeThe connect with reddit button on the welcome view */
+"welcome-connect-with-reddit-button" = "Connect reddit account";
+
+/* The continue without reddit button on the welcome view */
+"welcome-connect-without-reddit-button" = "Explore without account";
+
+/* The title of the welcome messages */
+"welcome-title" = "Welcome to Beam 2";
+
+/* The message of the welcome message */
+"welcome-message" = "Explore reddit in the best possible way.\nConnect your reddit account, or start exploring without account.";
+
+/* Create postThe placeholder shown for the title textfield */
+"post-title-placeholder" = "Post title";
+
+/* The placeholder shown for the text textfield */
+"your-text-post-placeholder" = "Your text post";
+
+/* Select subreddit title of a view */
+"select-subreddit-title" = "Select subreddit";
+
+/* Button shown in an action sheet at the start of creating a post */
+"create-text-post-button" = "Text post";
+
+/* Button shown in an action sheet at the start of creating a post */
+"create-link-post-button" = "Link post";
+
+/* Button shown in an action sheet at the start of creating a post */
+"create-image-post-button" = "Image post";
+
+/* View title for the create post view */
+"text-post-title" = "Text post";
+
+/* View title for the create post view */
+"edit-text-post-title" = "Edit text post";
+
+/* View title for the create post view */
+"link-post-title" = "Link post";
+
+/* View title for the create post view */
+"image-post-title" = "Image post";
+
+/* View title for the create post view */
+"album-post-title" = "Album post";
+
+/* View title for the edit image view */
+"edit-image-title" = "Edit image";
+
+/* Placeholder for the title of the image, used in the edit image view */
+"image-title-placeholder" = "Title";
+
+/* Placeholder for the description of the image, used in the edit image view */
+"image-description-placeholder" = "Description";
+
+/* The placeholder for a link */
+"post-link-placeholder" = "Type or paste your URL";
+
+/* Title shown when submit failed */
+"submit-error-title" = "Submit failed";
+
+/* Title shown when a captcha is required */
+"incorrect-captcha-error-title" = "Captcha required";
+
+/* The message shown when a captcha is required, this is fall back in case the server ever throws a bad captcha error */
+"incorrect-captcha-error-message" = "A captcha is required for your account. Please use reddit.com to perform this action.";
+
+/* Title shown when the post was already submitted and can't be resubmitted */
+"already-submitted-not-possible-error-title" = "Duplicate";
+
+/* The message shown when submit failed */
+"already-submitted-not-possible-error-message" = "This post has already been submitted to this subreddit";
+
+/* Title shown when the post was already submitted */
+"already-submitted-error-title" = "Duplicate";
+
+/* The message shown when the post already exists */
+"already-submitted-error-message" = "This post has already been submitted to this subreddit. But you can submit it again";
+
+/* Title shown when the user is rate limited */
+"rate-limited-error-title" = "Too much";
+
+/* The message shown when the user is rate limited */
+"rate-limited-error-message" = "You are doing that too much, try again later.";
+
+/* Title shown when the subreddit does not exist */
+"subreddit-doesnt-exist-error-title" = "Subreddit doesn't exist";
+
+/* The message shown when the subreddit does not exist */
+"ubreddit-doesnt-exist-error-message" = "The selected subreddit doesn't exist, please choose a different one";
+
+/* The title for an invalid link error message */
+"invalid-link-error-title" = "Invalid URL";
+
+/* The message for an incalid link error */
+"invalid-link-error-message" = "The entered URL is invalid";
+
+/* Add recent link message */
+"add-recent-link-to-post" = "Add recent link to your post?";
+
+/* Shown when a certain post type is not allowed */
+"text-not-allowed-error-title" = "Not allowed";
+
+/* Shown when a certain post type is not allowed */
+"text-not-allowed-error-message" = "This subreddit does not allow text posts";
+
+/* Shown when a certain post type is not allowed */
+"links-not-allowed-error-title" = "Not allowed";
+
+/* Shown when a certain post type is not allowed */
+"links-not-allowed-error-message" = "This subreddit does not allow link posts";
+
+/* Use for both the title and the button when adding a link */
+"add-link" = "Add link";
+
+/* Used for the message shown when adding a link */
+"add-link-message" = "Enter the title and URL of the link you want to add";
+
+/* One of the create image post states */
+"image-post-state-uploading" = "Uploading...";
+
+/* One of the create image post states, [NUMBER] is replaced by the  current image number being uploaded, [TOTAL] will be replaced with the total number to upload */
+"image-post-state-uploading-count" = "Uploading [NUMBER] of [TOTAL]";
+
+/* One of the create image post states */
+"image-post-state-creating-album" = "Creating Album...";
+
+/* One of the create image post states */
+"image-post-state-submitting" = "Posting...";
+
+/* Album title placeholder */
+"album-title-placeholder" = "Album title";
+
+/* Album description placeholder */
+"album-description-placeholder" = "Description (Optional)";
+
+/* Error when posting, the title has an invalid length */
+"invalid-title-error-title" = "Title invalid";
+
+/* Error when posting, the title has an invalid length */
+"invalid-title-error-message" = "The entered title is invalid";
+
+/* Error when the user has not yet selected a subreddit */
+"subreddit-missing-error-title" = "No subreddit";
+
+/* Error when the user has not yet selected a subreddit */
+"subreddit-missing-error-message" = "Please select a subreddit";
+
+/* Alert shown when the user has entered content but taps cancel on create post */
+"discard-post-alert-title" = "Discard post?";
+
+/* Alert shown when the user has entered content but taps cancel on edit post */
+"discard-edit-alert-title" = "Discard edit?";
+
+/* Alert shown when the user has entered content but taps cancel on create post */
+"discard-post-alert-message" = "If you close now your post will be discarded.";
+
+/* Alert shown when the user has entered content but taps cancel on edit post */
+"discard-edit-alert-message" = "If you close now your edits will be discarded.";
+
+/* The title of the link to add to markdown text */
+"link-title-placeholder" = "Title";
+
+/* The url of the link to add to markdown text */
+"link-url-placeholder" = "Link";
+
+/* Are you sure message */
+"remove-this-image" = "Remove this image?";
+
+/* Settings button shown when access is restricted to the photos */
+"go-to-settings-button" = "Go to settings";
+
+/* Title shown when the access to photos is restricted */
+"assets-picker-no-access-title" = "We don’t have access to your photos";
+
+/* Message shown when the access to photos is restricted */
+"assets-picker-no-access-message" = "Allow access to your camera and photos to create image posts";
+
+/* Shown when the assets picker controller can't show images */
+"assets-picker-empty-title" = "No Images";
+
+/* Shown when the assets picker controller can't show images */
+"assets-picker-empty-message" = "Images in your camera roll will appear here.";
+
+/* Placholder in the link field */
+"link-field-placeholder" = "Link";
+
+/* The title of the activity item of the post */
+"delete-post-activity-title" = "Delete post";
+
+/* The title of the message shown before deleting a post */
+"delete-post-title" = "Delete post";
+
+/* The message shown before deleting a post */
+"delete-post-message" = "Are you sure you want to permantly delete this post?";
+
+/* Error deleting post */
+"delete-post-error" = "Error deleting post";
+
+/* Error deleting post */
+"delete-post-error-message" = "An error occured while deleting the post, please try again if the post is still visible.";
+
+/* The title of the message shown before deleting a comment */
+"delete-comment-title" = "Delete comment";
+
+/* The message shown before comment a post */
+"delete-comment-message" = "Are you sure you want to permantly delete this comment?";
+
+/* Error deleting comment */
+"delete-comment-error" = "Error deleting comment";
+
+/* Error deleting comment */
+"delete-comment-error-message" = "An error occured while deleting the comment, please try again if the comment is still visible.";
+
+/* Message before deleting an image or album of imgur */
+"are-you-sure-delete-imgur-album" = "Are you sure you want to permanently delete this album?";
+
+/* Message before deleting an image or album of imgur */
+"are-you-sure-delete-imgur-image" = "Are you sure you want to permanently delete this image?";
+
+/* Title of an alert asking if images should also be deleted */
+"delete-imgur-album-images-title" = "Delete images?";
+
+/* Message of an alert asking if images should also be deleted */
+"delete-imgur-album-images-message" = "Do you also want to delete the images that were in the album?";
+
+/* Delete images button */
+"delete-images-button" = "Delete images";
+
+/* Keep images button */
+"keep-images-button" = "Keep images";
+
+/* Notice about images being uploaded to imgur */
+"images-uploaded-notice" = "Image(s) will be uploaded anonymously to Imgur.";
+
+/* PasscodeTitle used for a setting on the passcode options screen */
+"turn-passcode-off-passcode-setting-title" = "Turn passcode off";
+
+/* Title used for a setting on the passcode options screen */
+"turn-passcode-on-passcode-setting-title" = "Turn passcode on";
+
+/* Title used for a setting on the passcode options screen */
+"change-passcode-passcode-setting-title" = "Change passcode";
+
+/* Title used for a setting on the passcode options screen */
+"touch-id-passcode-setting-title" = "Touch ID";
+
+/* The title used for the enter passcode view */
+"enter-passcode-title" = "Enter passcode";
+
+/* The title show above the passcode input, [APPNAME] is replaced by the name of the app */
+"enter-your-passcode" = "Enter your [APPNAME] passcode";
+
+/* The title to show above the passcode */
+"enter-a-passcode" = "Enter a passcode";
+
+/* Title shown about the passcode input when re-entering the passcode is required */
+"re-enter-your-passcode" = "Re-enter your passcode";
+
+/* The reason for the Touch-ID dialog, [APPNAME] is replaced by the app name */
+"touch-id-reason" = "Unlock [APPNAME] with your fingerprint";
+
+/* Enter your new passcode */
+"enter-your-new-passcode" = "Enter your new passcode";
+
+/* Enter your new passcode */
+"enter-a-new-passcode" = "Enter a new passcode";
+
+/* Try again error for passcode */
+"passcode-try-again" = "Try again";
+
+/* Require passcode timing */
+"require-passcode-time-title" = "Require passcode";
+
+/* Require passcode timing */
+"require-passcode-time-immediately" = "Immediately";
+
+/* Require passcode timing */
+"require-passcode-time-1-minute" = "After 1 minute";
+
+/* Require passcode timing */
+"require-passcode-time-5-minutes" = "After 5 minutes";
+
+/* Require passcode timing */
+"require-passcode-time-15-minutes" = "After 15 minutes";
+
+/* Require passcode timing */
+"require-passcode-time-1-hour" = "After 1 hour";
+
+/* Disabled, shown when passcode is disabled in the settings */
+"passcode-disabled" = "Disabled";
+
+/* Enabled, shown when passcode is enabled in the settings */
+"passcode-enabled" = "Enabled";
+
+/* The name of '1Password' */
+"1password-app-name" = "1Password";
+
+/* The name of 'Chrome' */
+"chrome-app-name" = "Chrome";
+
+/* Table View header title for \"Open links in\" view */
+"open-links-in-header-title" = "Open links in";
+
+/* Title of \"Open links in\" view */
+"open-links-options-view-title" = "Open links in";
+
+/* Table View header title for \"Open links in\" view */
+"open-youtube-links-in-header-title" = "Open YouTube links in";
+
+/* The name of 'ProTube' */
+"protube-app-name" = "ProTube";
+
+/* The name of 'Safari' */
+"safari-app-name" = "Safari";
+
+/* If the option is unknown */
+"unknown-link-option" = "Unknown";
+
+/* The name of 'YouTube app' */
+"youtube-app-name" = "YouTube App";
+
+/* When the youtube video should be loaded in app using a mobile URL */
+"youtube-mobile-web-view" = "Mobile YouTube web page";
+
+/* The message of the alert shown to the user when his/her trial has expired. [PRODUCTNAME] is replaced by the name of the product */
+"expired-trial-alert-message" = "Your trial period has expired, but don't worry! You can purchase the pack in the store to continue using its features.";
+
+/* The title of the alert shown to the user when his/her trial has expired. [PRODUCTNAME] is replaced by the name of the product */
+"expired-trial-alert-title" = "[PRODUCTNAME] trial expired";
+
+/* The placeholder for the product name */
+"product-name-placeholder" = "Product";
+
+/* The title of the font size setting in display options */
+"display-options-cell-fontsize" = "Text size";
+
+/* Header in the display options view for font size */
+"display-options-header-font-size" = "Text size";
+
+/* Font size that is extra large */
+"extra-large-font-size-option" = "Extra large";
+
+/* Font size that is extra extra extra large */
+"extra-extra-extra-large-font-size-option" = "Extra extra extra large";
+
+/* Font size that is extra extra large */
+"extra-extra-large-font-size-option" = "Extra extra large";
+
+/* Font size is extra small */
+"extra-small-font-size-option" = "Extra small";
+
+/* Font size that is large (default) */
+"large-font-size-option" = "Large (default)";
+
+/* Font size that is medium */
+"medium-font-size-option" = "Medium";
+
+/* Font size that is small */
+"small-font-size-option" = "Small";
+
+/* Font size that follows the system font size */
+"system-font-size-option" = "Follow system";
+
+/* The title of the font size view */
+"font-size-view-title" = "Text size";
+
+/* The title of the delete comment activity */
+"delete-comment-activity-title" = "Delete comment";
+
+/* The action cancel a alert or actionsheet */
+"cancel-action-title" = "Cancel";
+
+/* Title of the copy link share activity on comments */
+"copy-link-activity-title" = "Copy link";
+
+/* The action to delete a message on the message detail view */
+"delete-message-action-title" = "Delete message";
+
+/* Internet connection error while deleting message */
+"error-delete-message-internet" = "There was a problem with your internet connection while deleting this message, try again";
+
+/* General error deleting message */
+"error-delete-message" = "error-delete-message";
+
+/* The button in the top bar of the subreddit filtering screen */
+"keywords-filtering-type" = "Keywords";
+
+/* The title at the top of the store view
+   The title of the store view */
+"store-view-title" = "Store";
+
+/* The button in the top bar of the subreddit filtering screen */
+"subreddits-filtering-type" = "Subreddits";
+
+/* The title of the content filtering subreddit setting view */
+"content-filtering-view-title" = "Content filtering ";
+
+/* The content filtering subreddit setting */
+"content-filtering-setting-title" = "Content filtering";
+
+/* The message of the alert when the filter keyword already exists */
+"filter-keyword-already-exists-alert-message" = "The entered keyword is already in the list";
+
+/* The title of the alert when the filter keyword already exists */
+"filter-keyword-already-exists-alert-title" = "Keyword already exists";
+
+/* The message of the alert when the filter keyword is too short */
+"filter-keyword-too-short-alert-message" = "The entered keyword has to at least contain 2 characters";
+
+/* The title of the alert when the filter keyword is too short */
+"filter-keyword-too-short-alert-title" = "Keyword too short";
+
+/* The message of the alert when the filter subreddit already exists */
+"filter-subreddit-already-exists-alert-message" = "The entered subreddit is already in the list";
+
+/* The title of the alert when the filter subreddit already exists */
+"filter-subreddit-already-exists-alert-title" = "Subreddit already exists";
+
+/* The message of the alert when the filter subreddit is too short */
+"filter-subreddit-too-short-alert-message" = "The entered subreddit has to at least contain 2 characters";
+
+/* The title of the alert when the filter subreddit is too short */
+"filter-subreddit-too-short-alert-title" = "Subreddit name too short";
+
+/* The placeholder in the textfield for content filtering */
+"add-keyword-placeholder" = "Add keyword";
+
+/* The placeholder in the textfield for content filtering */
+"add-subreddit-placeholder" = "Add subreddit";
+
+/* Post marking setting option */
+"post-marking-setting-title" = "Post marking";
+
+/* Discover pack description */
+"shop-product-discover-pack-subheading" = "Content discovery";
+
+/* Discover pack description */
+"shop-product-discover-pack-description" = "Content discovery";
+
+/* The trial button in the top bar */
+"get-free-trial-button-item" = "Free trial";
+
+/* Display pack description */
+"shop-product-display-pack-description" = "Personalize Beam's interface with the following features:";
+
+/* The description of the identity pack */
+"shop-product-identity-pack-description" = "Keep Beam to yourself with the following features:";
+
+/* The \"In reply to\" label on the comment compose view, followed by the user's username */
+"in-reply-to-compose-comment-label" = "In reply to";
+
+/* A simple reply label */
+"reply-compose-comment-label" = "Reply";
+
+/* The view title of a edit comment view */
+ "edit-comment-view-title" = "Edit comment";
+
+/* The view title of a new comment view */
+"new-comment-view-title" = "New comment";
+
+/* Header in the display options view for gifs */
+"display-options-header-gifs" = "GIFs";
+
+/* The cell in the display options to disable/enable autoplaying gifs */
+"display-options-cell-auto-play-gifs" = "Auto play GIFs";
+
+/* The cell in the display options to disable/enable autoplaying gifs on cellular */
+"display-options-cell-auto-play-gifs-cellular" = "Auto play GIFs on Cellular";
+
+/* The message on the alert to ask if you are you you want to mark all messages as read */
+"mark-all-messages-as-read-alert-message" = "Are you sure you want to mark all messages and notifications as read?";
+
+/* The title of the mark as read action */
+"mark-as-read-action-title" = "Mark as read";
+
+/* Error when there was an error marking all messages as read */
+"mark-all-messages-read-error" = "There was an error marking all messages as read";
+
+/* The placeholder behind the text field for your message */
+"your-message-placeholder" = "Your message";
+
+/* The message shown when the user is trying to cancel the view when creating a message */
+"discard-message-alert-title" = "Discard message";
+
+/* The message shown when the user is trying to cancel the view when creating a message */
+"discard-message-alert-message" = "Are you sure you want to discard this message?";
+
+/* Placeholder for the subject of a message */
+"subject-placeholder" = "Subject";
+
+/* Banner message when a message was successfully sent */
+"message-successfully-sent" = "Message sent successfully";
+
+/* Generic title of the error message when sending a message fails */
+"message-send-error-title" = "Error sending message";
+
+/* Invalid message subject error title */
+"invalid-subject-error-title" = "Invalid subject";
+
+/* Invalid message subject error message */
+"invalid-subject-error-message" = "The subject you've entered is invalid";
+
+/* Invalid message text error title */
+"invalid-message-text-error-title" = "Invalid message";
+
+/* Invalid message text error message */
+"invalid-message-text-error-message" = "The message you've entered is invalid";
+
+/* The new message view title with [USERNAME] */
+"new-message-view-title" = "New message to [USERNAME]";
+
+/* The new message view title without username */
+"new-message-view-title-no-username" = "New message";
+
+/* The options displayed in 'open links in' to prefer reader mode */
+"open-in-reader-if-available" = "Open in Reader View if available";
+
+/* A generic back button, in case the previous view title isn't wanted */
+"navigation-item-back" = "Back";
+
+/* The message displayed on a text post when it may constain spoilers */
+"text-may-contain-spoilers-warning" = "This post may contain spoilers";
+
+/* The message displayed on a text post when it may constain NSFW content */
+"text-may-contain-nsfw-warning" = "This post might be NSFW";

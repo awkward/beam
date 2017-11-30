@@ -1,0 +1,172 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<model userDefinedModelVersionIdentifier="1" type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="10174" systemVersion="15F34" minimumToolsVersion="Automatic">
+    <entity name="Comment" representedClassName="Comment" parentEntity="InteractiveContent" syncable="YES">
+        <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="comments" inverseEntity="Post" syncable="YES"/>
+    </entity>
+    <entity name="Content" representedClassName="Content" parentEntity="SyncObject" syncable="YES">
+        <attribute name="archived" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="authorFlairText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="content" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="creationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="downvoteCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="gildCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="isSaved" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="locked" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="permalink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="score" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="scoreHidden" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="stickied" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="upvoteCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="voteStatus" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="mediaObjects" optional="YES" toMany="YES" deletionRule="Cascade" ordered="YES" destinationEntity="MediaObject" inverseName="content" inverseEntity="MediaObject" syncable="YES"/>
+        <relationship name="referencedByMessages" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Message" inverseName="reference" inverseEntity="Message" syncable="YES"/>
+    </entity>
+    <entity name="ContentCollection" representedClassName=".ContentCollection" parentEntity="ObjectCollection" syncable="YES">
+        <attribute name="subredditPermalink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="timeframe" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="InteractiveContent" representedClassName=".InteractiveContent" parentEntity="Content" syncable="YES">
+        <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InteractiveContent" inverseName="replies" inverseEntity="InteractiveContent" syncable="YES"/>
+        <relationship name="replies" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="InteractiveContent" inverseName="parent" inverseEntity="InteractiveContent" syncable="YES"/>
+    </entity>
+    <entity name="MediaObject" representedClassName=".MediaObject" syncable="YES">
+        <attribute name="captionDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="captionTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contentURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expirationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="metadata" optional="YES" attributeType="Transformable" valueTransformerName="MetadataValueTransformer" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Content" inverseName="mediaObjects" inverseEntity="Content" syncable="YES"/>
+        <relationship name="headerForSubreddit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="headerImage" inverseEntity="Subreddit" syncable="YES"/>
+        <relationship name="thumbnails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="mediaObject" inverseEntity="Thumbnail" syncable="YES"/>
+    </entity>
+    <entity name="Message" representedClassName=".Message" parentEntity="InteractiveContent" syncable="YES">
+        <attribute name="destination" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="messageBox" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="postTitle" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subject" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="unread" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <relationship name="reference" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Content" inverseName="referencedByMessages" inverseEntity="Content" syncable="YES"/>
+    </entity>
+    <entity name="MessageCollection" representedClassName=".MessageCollection" parentEntity="ObjectCollection" syncable="YES">
+        <attribute name="messageBox" optional="YES" attributeType="String" syncable="YES"/>
+    </entity>
+    <entity name="MoreComment" representedClassName=".MoreComment" parentEntity="Comment" syncable="YES">
+        <attribute name="children" optional="YES" attributeType="Transformable" syncable="YES"/>
+        <attribute name="count" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+    </entity>
+    <entity name="Multireddit" representedClassName="Multireddit" parentEntity="Subreddit" syncable="YES">
+        <attribute name="author" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="canEdit" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="copiedFrom" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="subreddits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="multireddits" inverseEntity="Subreddit" syncable="YES"/>
+    </entity>
+    <entity name="ObjectCollection" representedClassName="ObjectCollection" syncable="YES">
+        <attribute name="contentPredicate" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="expirationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="isBookmarked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="lastRefresh" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="searchKeywords" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sortType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="objects" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="SyncObject" inverseName="collections" inverseEntity="SyncObject" syncable="YES"/>
+    </entity>
+    <entity name="Post" representedClassName="Post" parentEntity="Content" syncable="YES">
+        <attribute name="commentCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="flairText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isContentNSFW" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isContentSpoiler" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isHidden" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isSelfText" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isVisited" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="thumbnailUrlString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="type" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="comments" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Comment" inverseName="post" inverseEntity="Comment" syncable="YES"/>
+        <relationship name="subreddit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="posts" inverseEntity="Subreddit" syncable="YES"/>
+    </entity>
+    <entity name="PostCollection" representedClassName="PostCollection" parentEntity="ContentCollection" syncable="YES">
+        <relationship name="subreddit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="postCollections" inverseEntity="Subreddit" syncable="YES"/>
+    </entity>
+    <entity name="Subreddit" representedClassName="Subreddit" parentEntity="SyncObject" syncable="YES">
+        <attribute name="descriptionText" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="displayName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="isContributor" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isModerator" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isNSFW" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isOwner" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="isSubscriber" optional="YES" attributeType="Boolean" syncable="YES"/>
+        <attribute name="lastVisitDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="permalink" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="publicDescription" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="sectionName" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="submissionTypeString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="subscribers" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="visibilityString" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="headerImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaObject" inverseName="headerForSubreddit" inverseEntity="MediaObject" syncable="YES"/>
+        <relationship name="multireddits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Multireddit" inverseName="subreddits" inverseEntity="Multireddit" syncable="YES"/>
+        <relationship name="postCollections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PostCollection" inverseName="subreddit" inverseEntity="PostCollection" syncable="YES"/>
+        <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="subreddit" inverseEntity="Post" syncable="YES"/>
+    </entity>
+    <entity name="SubredditCollection" representedClassName="SubredditCollection" parentEntity="ObjectCollection" syncable="YES">
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="relatedSubredditCollection" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <entity name="SyncObject" representedClassName="SyncObject" syncable="YES">
+        <attribute name="expirationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="hasBeenReported" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="isBookmarked" optional="YES" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="lastRefreshDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="metadata" optional="YES" attributeType="Transformable" valueTransformerName="MetadataValueTransformer" syncable="YES"/>
+        <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <relationship name="collections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ObjectCollection" inverseName="objects" inverseEntity="ObjectCollection" syncable="YES"/>
+    </entity>
+    <entity name="Thumbnail" representedClassName=".Thumbnail" syncable="YES">
+        <attribute name="expirationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="height" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="width" optional="YES" attributeType="Integer 16" defaultValueString="0" syncable="YES"/>
+        <relationship name="mediaObject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaObject" inverseName="thumbnails" inverseEntity="MediaObject" syncable="YES"/>
+    </entity>
+    <entity name="User" representedClassName="User" parentEntity="SyncObject" syncable="YES">
+        <attribute name="commentKarmaCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="hasMail" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="hasModMail" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isGold" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="isOver18" attributeType="Boolean" defaultValueString="NO" syncable="YES"/>
+        <attribute name="linkKarmaCount" optional="YES" attributeType="Integer 64" defaultValueString="0" syncable="YES"/>
+        <attribute name="modhash" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="registrationDate" optional="YES" attributeType="Date" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <relationship name="contentCollections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserContentCollection" inverseName="user" inverseEntity="UserContentCollection" syncable="YES"/>
+        <relationship name="relatedSubredditCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubredditCollection" inverseName="user" inverseEntity="SubredditCollection" syncable="YES"/>
+    </entity>
+    <entity name="UserContentCollection" representedClassName=".UserContentCollection" parentEntity="ContentCollection" syncable="YES">
+        <attribute name="userContentType" optional="YES" attributeType="String" syncable="YES"/>
+        <relationship name="user" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="User" inverseName="contentCollections" inverseEntity="User" syncable="YES"/>
+    </entity>
+    <elements>
+        <element name="Comment" positionX="106" positionY="297" width="128" height="60"/>
+        <element name="Content" positionX="-90" positionY="-531" width="128" height="300"/>
+        <element name="ContentCollection" positionX="-90" positionY="-531" width="128" height="75"/>
+        <element name="InteractiveContent" positionX="-90" positionY="-531" width="128" height="73"/>
+        <element name="MediaObject" positionX="-90" positionY="-558" width="128" height="210"/>
+        <element name="Message" positionX="-90" positionY="-531" width="128" height="135"/>
+        <element name="MessageCollection" positionX="-81" positionY="-522" width="128" height="60"/>
+        <element name="MoreComment" positionX="-90" positionY="-531" width="128" height="75"/>
+        <element name="Multireddit" positionX="27" positionY="99" width="128" height="105"/>
+        <element name="ObjectCollection" positionX="-81" positionY="-522" width="128" height="150"/>
+        <element name="Post" positionX="-299" positionY="-54" width="128" height="240"/>
+        <element name="PostCollection" positionX="18" positionY="-45" width="128" height="60"/>
+        <element name="Subreddit" positionX="358" positionY="54" width="128" height="330"/>
+        <element name="SubredditCollection" positionX="-90" positionY="-531" width="128" height="60"/>
+        <element name="SyncObject" positionX="-38" positionY="-684" width="128" height="165"/>
+        <element name="Thumbnail" positionX="-90" positionY="-531" width="128" height="120"/>
+        <element name="User" positionX="-65" positionY="-252" width="128" height="210"/>
+        <element name="UserContentCollection" positionX="-90" positionY="-531" width="128" height="75"/>
+    </elements>
+</model>

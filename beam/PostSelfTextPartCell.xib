@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="selftext" rowHeight="120" id="TLc-hY-OYi" userLabel="Selftext" customClass="PostSelfTextPartCell" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="120"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" tableViewCell="TLc-hY-OYi" id="n23-Rq-ECZ">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="119.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <label opaque="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" lineBreakMode="tailTruncation" numberOfLines="3" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eeQ-0q-KQq" customClass="BeamCopyableAttributedLabel" customModule="beam" customModuleProvider="target">
+                        <rect key="frame" x="12" y="11" width="576" height="74"/>
+                        <constraints>
+                            <constraint firstAttribute="height" constant="2" id="mmu-ai-sNO"/>
+                        </constraints>
+                        <string key="text">Vestibulum id ligula porta felis euismod semper. Nulla vitae elit libero, a pharetra augue. Donec ullamcorper nulla non metus auctor fringilla.</string>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
+                        <nil key="highlightedColor"/>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="mmu-ai-sNO"/>
+                            </mask>
+                        </variation>
+                    </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Read all" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" preferredMaxLayoutWidth="200" translatesAutoresizingMaskIntoConstraints="NO" id="fXP-gA-zjQ">
+                        <rect key="frame" x="12" y="93" width="48" height="16"/>
+                        <fontDescription key="fontDescription" style="UICTFontTextStyleFootnote"/>
+                        <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <nil key="highlightedColor"/>
+                    </label>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pNr-Ft-wKk">
+                        <rect key="frame" x="12" y="11" width="576" height="108.5"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="This post may contain spoilers" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="PrO-LZ-dmT">
+                                <rect key="frame" x="200" y="47.5" width="176" height="14.5"/>
+                                <fontDescription key="fontDescription" type="system" weight="medium" pointSize="12"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="PrO-LZ-dmT" secondAttribute="trailing" id="4ey-3H-FKO"/>
+                            <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="39" id="4gQ-RA-zeN"/>
+                            <constraint firstItem="PrO-LZ-dmT" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="pNr-Ft-wKk" secondAttribute="leadingMargin" id="5iT-XV-Ypb"/>
+                            <constraint firstItem="PrO-LZ-dmT" firstAttribute="centerX" secondItem="pNr-Ft-wKk" secondAttribute="centerX" id="Ecp-BT-lJs"/>
+                            <constraint firstItem="PrO-LZ-dmT" firstAttribute="centerY" secondItem="pNr-Ft-wKk" secondAttribute="centerY" id="U4o-pu-enk"/>
+                            <constraint firstItem="PrO-LZ-dmT" firstAttribute="top" relation="greaterThanOrEqual" secondItem="pNr-Ft-wKk" secondAttribute="topMargin" id="qt3-0P-NpS"/>
+                            <constraint firstAttribute="bottomMargin" relation="greaterThanOrEqual" secondItem="PrO-LZ-dmT" secondAttribute="bottom" id="sgo-eb-1Mu"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottomMargin" secondItem="eeQ-0q-KQq" secondAttribute="bottom" priority="500" id="1Sg-Oq-1mQ"/>
+                    <constraint firstAttribute="bottom" secondItem="pNr-Ft-wKk" secondAttribute="bottom" id="2lK-bJ-yrA"/>
+                    <constraint firstItem="eeQ-0q-KQq" firstAttribute="top" secondItem="n23-Rq-ECZ" secondAttribute="topMargin" priority="750" id="6bR-Aw-RBa"/>
+                    <constraint firstItem="fXP-gA-zjQ" firstAttribute="top" secondItem="eeQ-0q-KQq" secondAttribute="bottom" priority="750" constant="8" id="AZa-bn-hqs"/>
+                    <constraint firstItem="pNr-Ft-wKk" firstAttribute="trailing" secondItem="n23-Rq-ECZ" secondAttribute="trailingMargin" id="FbA-bK-39p"/>
+                    <constraint firstItem="pNr-Ft-wKk" firstAttribute="leading" secondItem="n23-Rq-ECZ" secondAttribute="leadingMargin" id="GTJ-Ha-Ye5"/>
+                    <constraint firstItem="eeQ-0q-KQq" firstAttribute="leading" secondItem="n23-Rq-ECZ" secondAttribute="leadingMargin" id="How-yL-DmF"/>
+                    <constraint firstAttribute="trailingMargin" secondItem="eeQ-0q-KQq" secondAttribute="trailing" id="KJN-Ta-HdI"/>
+                    <constraint firstItem="fXP-gA-zjQ" firstAttribute="leading" secondItem="n23-Rq-ECZ" secondAttribute="leadingMargin" id="MAF-NF-7NM"/>
+                    <constraint firstItem="fXP-gA-zjQ" firstAttribute="bottom" secondItem="n23-Rq-ECZ" secondAttribute="bottomMargin" priority="750" id="PZE-ve-19H"/>
+                    <constraint firstItem="pNr-Ft-wKk" firstAttribute="top" secondItem="n23-Rq-ECZ" secondAttribute="topMargin" id="iql-4T-YF6"/>
+                </constraints>
+            </tableViewCellContentView>
+            <edgeInsets key="layoutMargins" top="8" left="12" bottom="8" right="12"/>
+            <inset key="separatorInset" minX="10000" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="contentLabel" destination="eeQ-0q-KQq" id="qsd-GW-zaV"/>
+                <outlet property="contentLabelHeightConstraint" destination="mmu-ai-sNO" id="5BC-KL-tCn"/>
+                <outlet property="readAllBottomConstraint" destination="PZE-ve-19H" id="cjF-OV-6Je"/>
+                <outlet property="readAllLabel" destination="fXP-gA-zjQ" id="PWQ-4k-SE4"/>
+                <outlet property="readAllTopConstraint" destination="AZa-bn-hqs" id="7lV-Ff-swi"/>
+                <outlet property="spoilerOverlay" destination="pNr-Ft-wKk" id="AzU-wA-MvA"/>
+                <outlet property="spoilerOverlayTextLabel" destination="PrO-LZ-dmT" id="XWF-tW-m55"/>
+                <outletCollection property="spoilerOverlayConstraints" destination="4gQ-RA-zeN" collectionClass="NSMutableArray" id="YCo-du-Mm6"/>
+                <outletCollection property="spoilerOverlayConstraints" destination="FbA-bK-39p" collectionClass="NSMutableArray" id="mIU-Ik-cxW"/>
+                <outletCollection property="spoilerOverlayConstraints" destination="GTJ-Ha-Ye5" collectionClass="NSMutableArray" id="Sdb-f3-gYQ"/>
+                <outletCollection property="spoilerOverlayConstraints" destination="iql-4T-YF6" collectionClass="NSMutableArray" id="pM5-lo-uxD"/>
+                <outletCollection property="spoilerOverlayConstraints" destination="2lK-bJ-yrA" collectionClass="NSMutableArray" id="P1i-ag-8LA"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+</document>

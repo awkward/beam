@@ -1,0 +1,466 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="NYT-Pj-dn8">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+    </dependencies>
+    <scenes>
+        <!--Beam Navigation Controller-->
+        <scene sceneID="Vog-ol-KWy">
+            <objects>
+                <navigationController storyboardIdentifier="enter-passcode" useStoryboardIdentifierAsRestorationIdentifier="YES" id="ZNe-j2-Wga" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="dBE-dY-WFG" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="Pff-zM-28Z" kind="relationship" relationship="rootViewController" id="Swb-qG-QG6"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="bcY-TP-T02" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-3373" y="542"/>
+        </scene>
+        <!--Enter Passcode View Controller-->
+        <scene sceneID="ya2-75-9cX">
+            <objects>
+                <viewController id="Pff-zM-28Z" customClass="EnterPasscodeViewController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="PaV-bq-ZSe"/>
+                        <viewControllerLayoutGuide type="bottom" id="urF-qy-5qi"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="6MR-zM-wvs">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6ZL-wz-MtZ" customClass="PasscodeKeyboard" customModule="beam" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="383" width="600" height="217"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="217" id="sI7-qP-4un"/>
+                                </constraints>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zTV-h0-brh">
+                                <rect key="frame" x="0.0" y="64" width="600" height="319"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="16" translatesAutoresizingMaskIntoConstraints="NO" id="sQp-0d-SXp">
+                                        <rect key="frame" x="222" y="137" width="157" height="52"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="cwI-Sn-tWd">
+                                                <rect key="frame" x="0.0" y="0.0" width="157" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalSpacing" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="h2o-Ly-XSK">
+                                                <rect key="frame" x="15" y="37" width="126" height="15"/>
+                                                <subviews>
+                                                    <view opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="B0M-cu-Mdo" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="26" id="9jK-UF-DXW"/>
+                                                            <constraint firstAttribute="height" constant="26" id="vGL-aD-zKE"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="9jK-UF-DXW"/>
+                                                                <exclude reference="vGL-aD-zKE"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                    <view opaque="NO" tag="2" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="1Ge-N4-M2L" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="37" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="26" id="AhV-xp-OfA"/>
+                                                            <constraint firstAttribute="width" constant="26" id="bm0-1u-q2I"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="AhV-xp-OfA"/>
+                                                                <exclude reference="bm0-1u-q2I"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                    <view opaque="NO" tag="3" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="YkG-b0-ddF" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="74" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="26" id="9P3-dm-rM7"/>
+                                                            <constraint firstAttribute="height" constant="26" id="iE1-6Z-Ip3"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="9P3-dm-rM7"/>
+                                                                <exclude reference="iE1-6Z-Ip3"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                    <view opaque="NO" tag="4" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="9FI-yX-RS7" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="111" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="26" id="AC0-VF-9Jy"/>
+                                                            <constraint firstAttribute="width" constant="26" id="RtT-kT-Rkr"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="AC0-VF-9Jy"/>
+                                                                <exclude reference="RtT-kT-Rkr"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="26" id="lKc-HN-3NY"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="lKc-HN-3NY"/>
+                                                    </mask>
+                                                </variation>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                <constraints>
+                                    <constraint firstItem="sQp-0d-SXp" firstAttribute="centerY" secondItem="zTV-h0-brh" secondAttribute="centerY" id="XU7-vx-Eq1"/>
+                                    <constraint firstItem="sQp-0d-SXp" firstAttribute="centerX" secondItem="zTV-h0-brh" secondAttribute="centerX" id="cXV-Av-ngk"/>
+                                </constraints>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="trailing" secondItem="6ZL-wz-MtZ" secondAttribute="trailing" id="6pR-h6-BqP"/>
+                            <constraint firstAttribute="trailing" secondItem="zTV-h0-brh" secondAttribute="trailing" id="C2A-kZ-hRV"/>
+                            <constraint firstItem="6ZL-wz-MtZ" firstAttribute="top" secondItem="zTV-h0-brh" secondAttribute="bottom" id="Hzy-ZV-c88"/>
+                            <constraint firstAttribute="bottom" secondItem="6ZL-wz-MtZ" secondAttribute="bottom" id="NJo-FP-qW5"/>
+                            <constraint firstItem="6ZL-wz-MtZ" firstAttribute="leading" secondItem="6MR-zM-wvs" secondAttribute="leading" id="XGo-Sq-O7Y"/>
+                            <constraint firstItem="zTV-h0-brh" firstAttribute="top" secondItem="PaV-bq-ZSe" secondAttribute="bottom" id="i3r-am-Icn"/>
+                            <constraint firstItem="zTV-h0-brh" firstAttribute="leading" secondItem="6MR-zM-wvs" secondAttribute="leading" id="u7S-h9-zzX"/>
+                        </constraints>
+                    </view>
+                    <navigationItem key="navigationItem" id="s9a-Qk-Ycm"/>
+                    <connections>
+                        <outlet property="indicatorsView" destination="h2o-Ly-XSK" id="ity-fh-i0O"/>
+                        <outlet property="keyboard" destination="6ZL-wz-MtZ" id="WbE-C0-pqd"/>
+                        <outlet property="titleLabel" destination="cwI-Sn-tWd" id="nRp-OC-xw0"/>
+                        <outletCollection property="passcodeIndicators" destination="YkG-b0-ddF" collectionClass="NSMutableArray" id="rPe-dO-9Ln"/>
+                        <outletCollection property="passcodeIndicators" destination="B0M-cu-Mdo" collectionClass="NSMutableArray" id="wMp-Pj-vMZ"/>
+                        <outletCollection property="passcodeIndicators" destination="1Ge-N4-M2L" collectionClass="NSMutableArray" id="DkX-Ob-nET"/>
+                        <outletCollection property="passcodeIndicators" destination="9FI-yX-RS7" collectionClass="NSMutableArray" id="SIY-z4-Pk9"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="OwA-c4-JzY" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2594" y="542"/>
+        </scene>
+        <!--Start Enter Passcode View Controller-->
+        <scene sceneID="pS9-LH-4oU">
+            <objects>
+                <viewController storyboardIdentifier="start-enter-passcode" useStoryboardIdentifierAsRestorationIdentifier="YES" id="NYT-Pj-dn8" customClass="StartEnterPasscodeViewController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="1xR-ke-olI"/>
+                        <viewControllerLayoutGuide type="bottom" id="rBa-Cx-zyz"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="cGZ-mF-Ha6">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="42n-bT-r48">
+                                <rect key="frame" x="159" y="95" width="264" height="429"/>
+                                <subviews>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" distribution="equalSpacing" alignment="center" spacing="20" translatesAutoresizingMaskIntoConstraints="NO" id="fJ5-Iu-Kxp">
+                                        <rect key="frame" x="54" y="0.0" width="157" height="56"/>
+                                        <subviews>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="Enter your passcode" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="FLB-eW-FZN">
+                                                <rect key="frame" x="0.0" y="0.0" width="157" height="21"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalSpacing" spacing="22" translatesAutoresizingMaskIntoConstraints="NO" id="Hf5-W9-HUs">
+                                                <rect key="frame" x="15" y="41" width="126" height="15"/>
+                                                <subviews>
+                                                    <view opaque="NO" tag="1" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="dO1-RS-PKg" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="26" id="8HW-hS-lIc"/>
+                                                            <constraint firstAttribute="height" constant="26" id="w0t-S5-hTG"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="8HW-hS-lIc"/>
+                                                                <exclude reference="w0t-S5-hTG"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                    <view opaque="NO" tag="2" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="XLO-9W-JGc" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="37" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="height" constant="26" id="6IA-45-Fox"/>
+                                                            <constraint firstAttribute="width" constant="26" id="CCC-KM-g5y"/>
+                                                        </constraints>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="boolean" keyPath="filled" value="YES"/>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="6IA-45-Fox"/>
+                                                                <exclude reference="CCC-KM-g5y"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                    <view opaque="NO" tag="3" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="ifI-FN-EaS" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="74" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="26" id="evG-Bb-7OB"/>
+                                                            <constraint firstAttribute="height" constant="26" id="u7E-am-xbD"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="evG-Bb-7OB"/>
+                                                                <exclude reference="u7E-am-xbD"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                    <view opaque="NO" tag="4" contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="4rg-rs-lAa" customClass="PasscodeIndicatorView" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="111" y="0.0" width="15" height="15"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="26" id="JU6-O0-2Im"/>
+                                                            <constraint firstAttribute="height" constant="26" id="u1p-yt-Jz1"/>
+                                                        </constraints>
+                                                        <variation key="default">
+                                                            <mask key="constraints">
+                                                                <exclude reference="JU6-O0-2Im"/>
+                                                                <exclude reference="u1p-yt-Jz1"/>
+                                                            </mask>
+                                                        </variation>
+                                                    </view>
+                                                </subviews>
+                                                <constraints>
+                                                    <constraint firstAttribute="height" constant="26" id="6ke-ec-DLW"/>
+                                                </constraints>
+                                                <variation key="default">
+                                                    <mask key="constraints">
+                                                        <exclude reference="6ke-ec-DLW"/>
+                                                    </mask>
+                                                </variation>
+                                            </stackView>
+                                        </subviews>
+                                    </stackView>
+                                    <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" axis="vertical" alignment="center" spacing="15" translatesAutoresizingMaskIntoConstraints="NO" id="UEH-5n-J7q">
+                                        <rect key="frame" x="0.0" y="88" width="264" height="341"/>
+                                        <subviews>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="jP3-GP-bNH">
+                                                <rect key="frame" x="0.0" y="0.0" width="264" height="74"/>
+                                                <subviews>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="pab-z7-mg3" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="1"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="dZl-Vr-YTb"/>
+                                                        </connections>
+                                                    </view>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FaA-2p-yg5" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="95" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="2"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="TMA-9N-H1C"/>
+                                                        </connections>
+                                                    </view>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="muf-Sm-ckO" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="190" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="3"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="B5u-Oe-ceW"/>
+                                                        </connections>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="OSm-O6-OKV">
+                                                <rect key="frame" x="0.0" y="89" width="264" height="74"/>
+                                                <subviews>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6FA-gH-EPO" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="4"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="NLy-nb-lWA"/>
+                                                        </connections>
+                                                    </view>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Nzi-sh-xmu" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="95" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="5"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="aml-7R-d60"/>
+                                                        </connections>
+                                                    </view>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="uN7-kH-YrY" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="190" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="6"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="abq-1j-MH5"/>
+                                                        </connections>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" distribution="equalSpacing" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="k3i-TX-DFw">
+                                                <rect key="frame" x="0.0" y="178" width="264" height="74"/>
+                                                <subviews>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ay7-np-JjG" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="7"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="0iL-ao-hbb"/>
+                                                        </connections>
+                                                    </view>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Tam-Xq-Hv2" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="95" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="8"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="LBL-da-WxG"/>
+                                                        </connections>
+                                                    </view>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="R2S-oU-Bss" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="190" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="9"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="pE7-Lk-mFR"/>
+                                                        </connections>
+                                                    </view>
+                                                </subviews>
+                                            </stackView>
+                                            <stackView opaque="NO" contentMode="scaleToFill" alignment="center" spacing="21" translatesAutoresizingMaskIntoConstraints="NO" id="QM2-cZ-ggP">
+                                                <rect key="frame" x="0.0" y="267" width="264" height="74"/>
+                                                <subviews>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vqE-VE-tUO">
+                                                        <rect key="frame" x="0.0" y="0.0" width="74" height="74"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="74" id="fkV-RQ-40u"/>
+                                                            <constraint firstAttribute="height" constant="74" id="l73-nG-BYh"/>
+                                                        </constraints>
+                                                        <connections>
+                                                            <action selector="touchIDTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="Tcx-0b-4c1"/>
+                                                        </connections>
+                                                    </button>
+                                                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zEh-hO-haB" customClass="RoundPasscodeButton" customModule="beam" customModuleProvider="target">
+                                                        <rect key="frame" x="95" y="0.0" width="74" height="74"/>
+                                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                                        <userDefinedRuntimeAttributes>
+                                                            <userDefinedRuntimeAttribute type="number" keyPath="number">
+                                                                <integer key="value" value="0"/>
+                                                            </userDefinedRuntimeAttribute>
+                                                        </userDefinedRuntimeAttributes>
+                                                        <connections>
+                                                            <action selector="numberTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="31u-Nx-98n"/>
+                                                        </connections>
+                                                    </view>
+                                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="2Ft-Zc-zPL">
+                                                        <rect key="frame" x="190" y="0.0" width="74" height="74"/>
+                                                        <constraints>
+                                                            <constraint firstAttribute="width" constant="74" id="F3o-YO-Kdy"/>
+                                                            <constraint firstAttribute="height" constant="74" id="eyM-n4-uZh"/>
+                                                        </constraints>
+                                                        <state key="normal" title="Delete"/>
+                                                        <connections>
+                                                            <action selector="deleteTapped:" destination="NYT-Pj-dn8" eventType="touchUpInside" id="hqu-ri-J7d"/>
+                                                        </connections>
+                                                    </button>
+                                                </subviews>
+                                            </stackView>
+                                        </subviews>
+                                        <constraints>
+                                            <constraint firstAttribute="width" constant="282" id="iTc-vH-7XH"/>
+                                            <constraint firstAttribute="height" constant="349" id="ret-D5-2yD"/>
+                                        </constraints>
+                                        <variation key="default">
+                                            <mask key="constraints">
+                                                <exclude reference="iTc-vH-7XH"/>
+                                                <exclude reference="ret-D5-2yD"/>
+                                            </mask>
+                                        </variation>
+                                    </stackView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" red="0.41176470590000003" green="0.2784313725" blue="0.80000000000000004" alpha="1" colorSpace="calibratedRGB"/>
+                        <constraints>
+                            <constraint firstItem="42n-bT-r48" firstAttribute="centerX" secondItem="cGZ-mF-Ha6" secondAttribute="centerX" id="Uck-qc-jjA"/>
+                            <constraint firstItem="42n-bT-r48" firstAttribute="centerY" secondItem="cGZ-mF-Ha6" secondAttribute="centerY" id="z2b-w8-Lz2"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="indicatorsView" destination="Hf5-W9-HUs" id="Zsb-M4-jGX"/>
+                        <outlet property="titleLabel" destination="FLB-eW-FZN" id="oZk-iZ-59H"/>
+                        <outlet property="touchIDButton" destination="vqE-VE-tUO" id="iut-fR-SWA"/>
+                        <outletCollection property="passcodeIndicators" destination="dO1-RS-PKg" collectionClass="NSMutableArray" id="4IY-2s-edB"/>
+                        <outletCollection property="passcodeIndicators" destination="ifI-FN-EaS" collectionClass="NSMutableArray" id="Mmx-MC-RyR"/>
+                        <outletCollection property="passcodeIndicators" destination="4rg-rs-lAa" collectionClass="NSMutableArray" id="Flh-Wo-2QK"/>
+                        <outletCollection property="passcodeIndicators" destination="XLO-9W-JGc" collectionClass="NSMutableArray" id="VX7-CE-TvY"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="p0Q-jD-Lk5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-2594" y="-120"/>
+        </scene>
+    </scenes>
+</document>

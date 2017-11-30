@@ -1,0 +1,30 @@
+{
+  "DVTSourceControlWorkspaceBlueprintPrimaryRemoteRepositoryKey" : "4996E9A20C588A2A5241DF35CBE33D48A3CCAF09",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyRepositoryLocationsKey" : {
+
+  },
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyStatesKey" : {
+    "4C625079491C5928C89E5F62CF7BDE574963BA29" : 0,
+    "4996E9A20C588A2A5241DF35CBE33D48A3CCAF09" : 0
+  },
+  "DVTSourceControlWorkspaceBlueprintIdentifierKey" : "896FAB33-B70C-4778-9E43-500663F5F2DC",
+  "DVTSourceControlWorkspaceBlueprintWorkingCopyPathsKey" : {
+    "4C625079491C5928C89E5F62CF7BDE574963BA29" : "",
+    "4996E9A20C588A2A5241DF35CBE33D48A3CCAF09" : "AWKGallery\/"
+  },
+  "DVTSourceControlWorkspaceBlueprintNameKey" : "AWKGallery",
+  "DVTSourceControlWorkspaceBlueprintVersion" : 204,
+  "DVTSourceControlWorkspaceBlueprintRelativePathToProjectKey" : "AWKGallery.xcodeproj",
+  "DVTSourceControlWorkspaceBlueprintRemoteRepositoriesKey" : [
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:awkward\/AWKGallery.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4996E9A20C588A2A5241DF35CBE33D48A3CCAF09"
+    },
+    {
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryURLKey" : "github.com:awkward\/beam-ios.git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositorySystemKey" : "com.apple.dt.Xcode.sourcecontrol.Git",
+      "DVTSourceControlWorkspaceBlueprintRemoteRepositoryIdentifierKey" : "4C625079491C5928C89E5F62CF7BDE574963BA29"
+    }
+  ]
+}

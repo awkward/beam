@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="hdU-0l-NFt" customClass="AssetsPickerControllerAlbumEmptyView" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HgK-3R-WxA">
+                    <rect key="frame" x="195" y="259" width="210" height="83"/>
+                    <subviews>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="No Images" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="RJC-R3-xsh">
+                            <rect key="frame" x="0.0" y="8" width="210" height="21"/>
+                            <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Images in your camera roll will appear here." textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="1G8-LD-gy6">
+                            <rect key="frame" x="0.0" y="39" width="210" height="36"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="15"/>
+                            <color key="textColor" cocoaTouchSystemColor="darkTextColor"/>
+                            <nil key="highlightedColor"/>
+                        </label>
+                    </subviews>
+                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    <constraints>
+                        <constraint firstItem="RJC-R3-xsh" firstAttribute="leading" secondItem="HgK-3R-WxA" secondAttribute="leading" id="3XJ-M3-Bk6"/>
+                        <constraint firstAttribute="width" relation="lessThanOrEqual" constant="230" id="3em-wa-DAL"/>
+                        <constraint firstAttribute="trailing" secondItem="RJC-R3-xsh" secondAttribute="trailing" id="KOp-Pu-3mh"/>
+                        <constraint firstAttribute="trailing" secondItem="1G8-LD-gy6" secondAttribute="trailing" id="O7c-iK-Fqg"/>
+                        <constraint firstAttribute="bottom" secondItem="1G8-LD-gy6" secondAttribute="bottom" constant="8" id="Tpk-sv-hDl"/>
+                        <constraint firstItem="1G8-LD-gy6" firstAttribute="leading" secondItem="HgK-3R-WxA" secondAttribute="leading" id="Yjk-k4-Itw"/>
+                        <constraint firstItem="1G8-LD-gy6" firstAttribute="top" secondItem="RJC-R3-xsh" secondAttribute="bottom" constant="10" id="d0R-No-IEV"/>
+                        <constraint firstItem="RJC-R3-xsh" firstAttribute="top" secondItem="HgK-3R-WxA" secondAttribute="topMargin" id="lRR-0i-gBf"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="HgK-3R-WxA" firstAttribute="centerY" secondItem="hdU-0l-NFt" secondAttribute="centerY" id="0Ap-Za-rSX"/>
+                <constraint firstItem="HgK-3R-WxA" firstAttribute="centerX" secondItem="hdU-0l-NFt" secondAttribute="centerX" id="RuA-jo-pCP"/>
+                <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="HgK-3R-WxA" secondAttribute="trailing" id="bLJ-Kq-Jdk"/>
+                <constraint firstItem="HgK-3R-WxA" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="hdU-0l-NFt" secondAttribute="leadingMargin" id="cuM-Rh-ug0"/>
+            </constraints>
+            <connections>
+                <outlet property="descriptionLabel" destination="1G8-LD-gy6" id="RWM-Gy-fRl"/>
+                <outlet property="titleLabel" destination="RJC-R3-xsh" id="I6m-Op-Xa7"/>
+            </connections>
+        </view>
+    </objects>
+</document>

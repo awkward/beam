@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES">
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" id="iN0-l3-epB" customClass="MarkdownActionBar" customModule="beam" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="40"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <textField opaque="NO" clipsSubviews="YES" contentMode="scaleToFill" horizontalHuggingPriority="249" verticalHuggingPriority="249" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Link" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="vlO-NN-5Se">
+                    <rect key="frame" x="57" y="0.0" width="496" height="40"/>
+                    <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                    <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardType="URL" returnKeyType="done"/>
+                    <connections>
+                        <outlet property="delegate" destination="iN0-l3-epB" id="PJN-Mj-nQ9"/>
+                    </connections>
+                </textField>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="iSE-L1-aTL" userLabel="Add button">
+                    <rect key="frame" x="561" y="5" width="30" height="30"/>
+                    <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                    <state key="normal" title="Add"/>
+                    <connections>
+                        <action selector="addLinkTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="v7x-T2-A8b"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="gFB-MP-3Mz" userLabel="Link button">
+                    <rect key="frame" x="9" y="0.0" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="bQH-Jn-FPS"/>
+                    </constraints>
+                    <state key="normal" image="markdown-action-link"/>
+                    <connections>
+                        <action selector="linkTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="eJc-v5-sdT"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="roh-HM-zNm" userLabel="Italic button">
+                    <rect key="frame" x="89" y="0.0" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="WL8-Y1-KPA"/>
+                    </constraints>
+                    <state key="normal" image="markdown-action-italic"/>
+                    <connections>
+                        <action selector="italicTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="VCx-81-L73"/>
+                    </connections>
+                </button>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="lBz-2F-l67" userLabel="Bold button">
+                    <rect key="frame" x="49" y="0.0" width="40" height="40"/>
+                    <constraints>
+                        <constraint firstAttribute="width" constant="40" id="Zrn-TU-mdQ"/>
+                    </constraints>
+                    <state key="normal" image="markdown-action-bold"/>
+                    <connections>
+                        <action selector="boldTapped:" destination="iN0-l3-epB" eventType="touchUpInside" id="SBS-oV-3uh"/>
+                    </connections>
+                </button>
+            </subviews>
+            <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+            <constraints>
+                <constraint firstItem="vlO-NN-5Se" firstAttribute="leading" secondItem="gFB-MP-3Mz" secondAttribute="trailing" constant="8" id="1i4-EZ-k1r"/>
+                <constraint firstItem="gFB-MP-3Mz" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="4it-au-hIn"/>
+                <constraint firstItem="lBz-2F-l67" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="trailing" id="6Xz-Nf-SmB"/>
+                <constraint firstItem="iSE-L1-aTL" firstAttribute="leading" secondItem="vlO-NN-5Se" secondAttribute="trailing" constant="8" id="DZb-Yp-jnc"/>
+                <constraint firstItem="vlO-NN-5Se" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="FkJ-Lh-hl0"/>
+                <constraint firstAttribute="bottom" secondItem="vlO-NN-5Se" secondAttribute="bottom" id="HWU-On-HEc"/>
+                <constraint firstAttribute="bottom" secondItem="lBz-2F-l67" secondAttribute="bottom" id="IQX-qs-pAi"/>
+                <constraint firstItem="vlO-NN-5Se" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="Irh-v1-Tob"/>
+                <constraint firstItem="gFB-MP-3Mz" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="leadingMargin" id="U9g-CO-oYH"/>
+                <constraint firstItem="gFB-MP-3Mz" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="YbH-3u-ps8"/>
+                <constraint firstItem="roh-HM-zNm" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="Ylu-5Q-jFo"/>
+                <constraint firstAttribute="trailingMargin" secondItem="iSE-L1-aTL" secondAttribute="trailing" id="ZcL-Dg-rsd"/>
+                <constraint firstItem="roh-HM-zNm" firstAttribute="leading" secondItem="lBz-2F-l67" secondAttribute="trailing" id="eM3-Kc-xez"/>
+                <constraint firstItem="roh-HM-zNm" firstAttribute="leading" secondItem="iN0-l3-epB" secondAttribute="trailing" id="ifM-2j-EmE"/>
+                <constraint firstAttribute="bottom" secondItem="gFB-MP-3Mz" secondAttribute="bottom" id="jc8-kH-JYo"/>
+                <constraint firstAttribute="bottom" secondItem="roh-HM-zNm" secondAttribute="bottom" id="orz-mC-Bhe"/>
+                <constraint firstItem="lBz-2F-l67" firstAttribute="leading" secondItem="gFB-MP-3Mz" secondAttribute="trailing" priority="750" id="tcp-IR-B4K"/>
+                <constraint firstItem="lBz-2F-l67" firstAttribute="top" secondItem="iN0-l3-epB" secondAttribute="top" id="vSK-Lz-AL7"/>
+                <constraint firstItem="iSE-L1-aTL" firstAttribute="centerY" secondItem="iN0-l3-epB" secondAttribute="centerY" id="xS4-XJ-t65"/>
+            </constraints>
+            <nil key="simulatedStatusBarMetrics"/>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <edgeInsets key="layoutMargins" top="8" left="9" bottom="8" right="9"/>
+            <variation key="default">
+                <mask key="constraints">
+                    <exclude reference="6Xz-Nf-SmB"/>
+                    <exclude reference="ifM-2j-EmE"/>
+                </mask>
+            </variation>
+            <connections>
+                <outlet property="addLinkButton" destination="iSE-L1-aTL" id="dw6-00-2LB"/>
+                <outlet property="boldButton" destination="lBz-2F-l67" id="OQi-g5-C4a"/>
+                <outlet property="italicButton" destination="roh-HM-zNm" id="L6F-fE-sbP"/>
+                <outlet property="linkButton" destination="gFB-MP-3Mz" id="9oe-Xy-0rb"/>
+                <outlet property="linkTextField" destination="vlO-NN-5Se" id="UrF-jv-iWB"/>
+            </connections>
+            <point key="canvasLocation" x="790" y="440"/>
+        </view>
+    </objects>
+    <resources>
+        <image name="markdown-action-bold" width="13" height="15"/>
+        <image name="markdown-action-italic" width="6" height="16"/>
+        <image name="markdown-action-link" width="15" height="16"/>
+    </resources>
+</document>

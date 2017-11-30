@@ -1,0 +1,628 @@
+/*
+ Localizable.strings
+ beam
+ 
+ Created by Robin Speijer on 06-07-15.
+ Copyright © 2015 Awkward. All rights reserved.
+ */
+/*
+ Explanation
+ 
+ Beam for reddit is an app to browse the popular website reddit.com.
+ The strings in the document will often refer to things in the reddit glossary: https://www.reddit.com/r/TheoryOfReddit/wiki/glossary.
+ Translation to some of these words can be found on reddit.com if you change the language of your account in preferences.
+ In this document, reddits links are reffered to as "posts".
+ NSFW stands for Not Safe For Work. NSFW is often used for posts that contain adult content or content that can contain horrible images.
+ 
+ Rules:
+ `Beam` the name of the product should always start with a capital `B`
+ `reddit` the name of the website and service should always start with a lowercase `r`
+ */
+
+//Text used in the "share sheet" to open the post in Safari
+"open-in-safari" = "EMPTYTEXT";
+
+/*
+ Buttons
+ The following strings are used in the context of a button
+ */
+//The title of a button when an actions fails that can be tried again
+"retry" = "EMPTYTEXT";
+//The title to cancel a dialog or action
+"cancel" = "EMPTYTEXT";
+//Used on the multireddit info view as delete button to delete a multireddit
+"delete" = "EMPTYTEXT";
+//Used on the subreddit/multireddit info view to share a subreddit or multireddit on social media
+"share" = "EMPTYTEXT";
+//Used on the reply bar in comments and messages
+"send-button" = "EMPTYTEXT";
+//General close button
+"close-button" = "EMPTYTEXT";
+//View pack button
+"view-pack-button" = "EMPTYTEXT";
+//Copy button
+"copy-button" = "EMPTYTEXT";
+
+//Used when the web view can't load a webpage
+"could-not-load-page" = "EMPTYTEXT";
+"unsubscribe-failed" = "EMPTYTEXT";
+"create-multireddit-failure" = "EMPTYTEXT";
+"unsubscribe" = "EMPTYTEXT";
+
+
+"add-to-favorites" = "EMPTYTEXT";
+"remove-from-favorites" = "EMPTYTEXT";
+"manage-subreddits" = "EMPTYTEXT";
+"manage-subreddits-limit-error" = "EMPTYTEXT";
+"hot" = "EMPTYTEXT";
+"new" = "EMPTYTEXT";
+"rising" = "EMPTYTEXT";
+"controversial" = "EMPTYTEXT";
+"top" = "EMPTYTEXT";
+"all-time" = "EMPTYTEXT";
+"past-hour" = "EMPTYTEXT";
+"past-24-hours" = "EMPTYTEXT";
+"past-week" = "EMPTYTEXT";
+"past-month" = "EMPTYTEXT";
+"past-year" = "EMPTYTEXT";
+"logout" = "EMPTYTEXT";
+"login" = "EMPTYTEXT";
+"inbox" = "EMPTYTEXT";
+"messages" = "EMPTYTEXT";
+"sent" = "EMPTYTEXT";
+"message" = "EMPTYTEXT";
+"notifications" = "EMPTYTEXT";
+"upvote" = "EMPTYTEXT";
+"downvote" = "EMPTYTEXT";
+"unvote" = "EMPTYTEXT";
+"could-not-post-comment" = "EMPTYTEXT";
+"points-inline" = "EMPTYTEXT";
+"replies-inline" = "EMPTYTEXT";
+"reply-inline" = "EMPTYTEXT";
+"no-replies-inline" = "EMPTYTEXT";
+"list-separator" = "EMPTYTEXT";
+"search" = "EMPTYTEXT";
+"recently-visited-subreddits" = "EMPTYTEXT";
+"recently-searched-subreddits" = "EMPTYTEXT";
+"recently-searched-posts" = "EMPTYTEXT";
+"search-subreddits-with" = "EMPTYTEXT";
+"search-posts-with" = "EMPTYTEXT";
+"go-to" = "EMPTYTEXT";
+"subreddit-not-found" = "EMPTYTEXT";
+"clear" = "EMPTYTEXT";
+"purchased" = "EMPTYTEXT";
+"purchase-product" = "EMPTYTEXT";
+"purchase" = "EMPTYTEXT";
+"media" = "EMPTYTEXT";
+"admin-purchase-title" = "EMPTYTEXT";
+"admin-purchase-message" = "EMPTYTEXT";
+"restore" = "EMPTYTEXT";
+"login-failed" = "EMPTYTEXT";
+"login-retry" = "EMPTYTEXT";
+"replies-seperator" = "EMPTYTEXT";
+"reply-seperator" = "EMPTYTEXT";
+"reply-to-comments" = "EMPTYTEXT";
+"automatic-language-selection" = "EMPTYTEXT";
+"language-restart" = "EMPTYTEXT";
+"cache-cleared-title" = "EMPTYTEXT";
+"cache-cleared-message" = "EMPTYTEXT";
+"search-history-cleared-title" = "EMPTYTEXT";
+"search-history-cleared-message" = "EMPTYTEXT";
+"open-links-in" = "EMPTYTEXT";
+"logout-sure-title" = "EMPTYTEXT";
+"logout-sure-message" = "EMPTYTEXT";
+"logout-sure-button" = "EMPTYTEXT";
+"done" = "EMPTYTEXT";
+"support-mail-subject" = "EMPTYTEXT";
+"subreddit-info-header-subreddits-in-multi" = "EMPTYTEXT";
+"subreddit-info-header-description" = "EMPTYTEXT";
+"nsfw" = "EMPTYTEXT";
+"spoiler" = "EMPTYTEXT";
+"show-nsfw-overlay" = "EMPTYTEXT";
+"show-nsfw-overlay-description" = "EMPTYTEXT";
+"nsfw-overlay-setting-description" = "EMPTYTEXT";
+"spoiler-overlay-setting-description" = "EMPTYTEXT";
+"show-spoiler-overlay" = "EMPTYTEXT";
+"error-loading-posts-internet" = "EMPTYTEXT";
+"error-loading-posts" = "EMPTYTEXT";
+"error-vote-internet" = "EMPTYTEXT";
+"error-vote" = "EMPTYTEXT";
+"error-loading-subreddits-internet" = "EMPTYTEXT";
+"error-loading-subreddits" = "EMPTYTEXT";
+"favorite-subreddit" = "EMPTYTEXT";
+"error-loading-multireddits-internet" = "EMPTYTEXT";
+"error-loading-multireddits" = "EMPTYTEXT";
+"favorite-subreddit" = "EMPTYTEXT";
+"subreddits" = "EMPTYTEXT";
+"subreddit" = "EMPTYTEXT";
+"private" = "EMPTYTEXT";
+"public" = "EMPTYTEXT";
+"multireddit-change-visibility-failed" = "EMPTYTEXT";
+"thread" = "EMPTYTEXT";
+"add-to-multireddit" = "EMPTYTEXT";
+"post" = "EMPTYTEXT";
+"post-abuse-activity-title" = "EMPTYTEXT";
+"post-abuse-subject" = "EMPTYTEXT";
+"post-abuse-message" = "EMPTYTEXT";
+"post-hide-activity-title" = "EMPTYTEXT";
+"post-unhide-activity-title" = "EMPTYTEXT";
+"post-save-activity-title" = "EMPTYTEXT";
+"post-unsave-activity-title" = "EMPTYTEXT";
+"post-save-error" = "EMPTYTEXT";
+"post-save-error-message" = "EMPTYTEXT";
+"post-unsave-error" = "EMPTYTEXT";
+"post-unsave-error-message" = "EMPTYTEXT";
+"post-reported" = "EMPTYTEXT";
+"post-reported-message" = "EMPTYTEXT";
+"post-hide-error" = "EMPTYTEXT";
+"post-hide-error-message" = "EMPTYTEXT";
+"post-unhide-error" = "EMPTYTEXT";
+"post-unhide-error-message" = "EMPTYTEXT";
+"subscribers" = "EMPTYTEXT";
+"submit" = "EMPTYTEXT";
+"captcha-title" = "EMPTYTEXT";
+"like-on-facebook" = "EMPTYTEXT";
+"frontpage-description" = "EMPTYTEXT";
+"all-description" = "EMPTYTEXT";
+"random-description" = "EMPTYTEXT";
+"stream-updated" = "EMPTYTEXT";
+"my-multireddits-title" = "EMPTYTEXT";
+"my-subreddits-title" = "EMPTYTEXT";
+"multireddits-title" = "EMPTYTEXT";
+"subreddits-title" = "EMPTYTEXT";
+"subscriptions-title" = "EMPTYTEXT";
+"feedback-not-possible" = "EMPTYTEXT";
+"feedback-not-possible-message" = "EMPTYTEXT";
+"donate-thankyou-title" = "EMPTYTEXT";
+"donate-thankyou-message" = "EMPTYTEXT";
+"replied-to" = "EMPTYTEXT";
+"message-sent-failed" = "EMPTYTEXT";
+"message-sent-sucessfully" = "EMPTYTEXT";
+"private" = "EMPTYTEXT";
+"private-subreddit-share-message" = "EMPTYTEXT";
+"app-store-share-message" = "EMPTYTEXT";
+"mild-nsfw-message" = "EMPTYTEXT";
+"reply-to-item-post" = "EMPTYTEXT";
+"reply-to-item-thread" = "EMPTYTEXT";
+"post-saved-succesfully" = "EMPTYTEXT";
+"comment-not-found" = "EMPTYTEXT";
+"comment-not-found-message" = "EMPTYTEXT";
+"edit-name-and-description" = "EMPTYTEXT";
+"name" = "EMPTYTEXT";
+"description" = "EMPTYTEXT";
+"save" = "EMPTYTEXT";
+"create" = "EMPTYTEXT";
+"edit-multireddit" = "EMPTYTEXT";
+"create-multireddit" = "EMPTYTEXT";
+"details" = "EMPTYTEXT";
+"alert" = "EMPTYTEXT";
+"stickied" = "EMPTYTEXT";
+"stickied-post" = "EMPTYTEXT";
+"archived-error-message" = "EMPTYTEXT";
+"locked-error-message" = "EMPTYTEXT";
+"archived" = "EMPTYTEXT";
+"locked" = "EMPTYTEXT";
+"transactions-restored-message" = "EMPTYTEXT";
+"transactions-restored" = "EMPTYTEXT";
+"tap-to-view-imgur" = "EMPTYTEXT";
+/*
+ Notifications
+ The following strings are related to (push-)notifications. Keys are abreviated because of the body size limit of notifications. Notif = notification, act = action, tit = title
+ */
+//The action the user can take on some notifications.
+"notif-act-reply" = "EMPTYTEXT";
+//The title of a annoucement notification
+"notif-tit-announcement" = "EMPTYTEXT";
+//The title of a notification for a new message in the user's inboc
+"notif-tit-new-message" = "EMPTYTEXT";
+//The title of a notification if of the other titles work
+"notif-tit-new-notification" = "EMPTYTEXT";
+//The title of the notification if a user is mentioned in a post or comment
+"notif-tit-username-mention" = "EMPTYTEXT";
+//The title of the notification if it's a reply on a post.
+"notif-tit-post-reply" = "EMPTYTEXT";
+//The title of the notification if it's a reply on a comment.
+"notif-tit-post-reply" = "EMPTYTEXT";
+//The title of the notification send to the user if their quick reply message failed to send
+"notif-message-failed" = "EMPTYTEXT";
+//The notification send to the user if their quick reply message failed to send
+"notif-message-failed-message" = "EMPTYTEXT";
+//Shown in the notification settings to notify users of the state of background app refresh
+"background-refresh-available" = "EMPTYTEXT";
+//Shown in the notification settings to notify users of the state of background app refresh
+"background-refresh-unavailable" = "EMPTYTEXT";
+
+/*
+ Required login
+ */
+"general-login-required" = "EMPTYTEXT";
+"general-login-required-message" = "EMPTYTEXT";
+
+"post-vote-login-required" = "EMPTYTEXT";
+"post-vote-login-required-message" = "EMPTYTEXT";
+
+"comment-vote-login-required" = "EMPTYTEXT";
+"comment-vote-login-required-message" = "EMPTYTEXT";
+
+"subscribe-login-required" = "EMPTYTEXT";
+"subscribe-login-required-message" = "EMPTYTEXT";
+
+"comment-login-required" = "EMPTYTEXT";
+"comment-login-required-message" = "EMPTYTEXT";
+
+"create-multireddit-login-required" = "EMPTYTEXT";
+"create-multireddit-login-required-message" = "EMPTYTEXT";
+
+"login-to-reddit" = "EMPTYTEXT";
+/*
+ Rate app
+ The strings are used in the dialog that is displayed to ask the user to review beam
+ */
+//The title of the app rate dialog
+"rate-app-title" = "EMPTYTEXT";
+//The message displayed to the user, asking them to review the app
+"rate-app-message" = "EMPTYTEXT";
+//The button used to send the user to the app store to rate the app
+"rate-app-rate-button" = "EMPTYTEXT";
+//The button users can tap to dismiss the popup forever
+"rate-app-no-thanks-button" = "EMPTYTEXT";
+//The button userscan tap to show the popup at a later date
+"rate-app-later-button" = "EMPTYTEXT";
+
+/*
+ Products
+ The following strigs all have a relation to the store or products that you can buy in the app. The are often refered to a packs
+ */
+//View pack, button displayed on the pack in the store
+"view-pack" = "EMPTYTEXT";
+//Coming soon text, displayed in the store
+"coming-soon" = "EMPTYTEXT";
+
+
+/*
+ Trials
+ The following strings all refer to the trial system to test out products in the app
+ */
+//The prefix displayed in front of the remaining time of the product page
+"trial-ends-in" = "EMPTYTEXT";
+//Single hour
+"hour" = "EMPTYTEXT";
+//Multiple hours
+"hours" = "EMPTYTEXT";
+//Single minute
+"minute" = "EMPTYTEXT";
+//Multiple minutes
+"minutes" = "EMPTYTEXT";
+//Displayed when the trial has ended
+"trial-expired" = "EMPTYTEXT";
+//The message shared to social media in order to access a trial of the product
+"trial-share-message" = "EMPTYTEXT";
+//The title of the error message when starting the trial failed
+"trial-error-title" = "EMPTYTEXT";
+//The message of the error message when starting the trial failed
+"trial-error-message" = "EMPTYTEXT";
+//The text used on the button that brings you to the share screen of the trial
+"get-free-trial" = "EMPTYTEXT";
+
+
+/*
+ Banners
+ The following strings are all displayed on top of the subreddits list when a banner is visible.
+ */
+//Displayed when the user has not purchased the display pack product yet
+"banner_night_mode_text" = "EMPTYTEXT";
+//Displayed when the user has not supported beam yet with a donation
+"banner_support_beam_text" = "EMPTYTEXT";
+
+/*
+ Empty States
+ The following strings are all displayed on views where the app is empty, either due to an error or not having the content
+ */
+"inbox_no_messages" = "EMPTYTEXT";
+"inbox_no_messages_message" = "EMPTYTEXT";
+"inbox_no_messages_button" = "EMPTYTEXT";
+"inbox_no_notifications" = "EMPTYTEXT";
+"inbox_no_notifications_message" = "EMPTYTEXT";
+"inbox_no_notifications_button" = "EMPTYTEXT";
+"multireddit_no_access" = "EMPTYTEXT";
+"multireddit_no_access_message" = "EMPTYTEXT";
+"multireddit_no_subreddits" = "EMPTYTEXT";
+"multireddit_no_subreddits_message" = "EMPTYTEXT";
+"multireddit_no_subreddits_button" = "EMPTYTEXT";
+"no_internet_connection" = "EMPTYTEXT";
+"no_internet_connection_message" = "EMPTYTEXT";
+"no_internet_connection_button" = "EMPTYTEXT";
+"post_no_comments" = "EMPTYTEXT";
+"post_no_comments_message" = "EMPTYTEXT";
+"profile_no_posts_liked" = "EMPTYTEXT";
+"profile_no_posts_liked_message" = "EMPTYTEXT";
+"profile_no_posts_saved" = "EMPTYTEXT";
+"profile_no_posts_saved_message" = "EMPTYTEXT";
+"profile_no_posts_hidden" = "EMPTYTEXT";
+"profile_no_posts_hidden_message" = "EMPTYTEXT";
+"profile_no_posts_submitted" = "EMPTYTEXT";
+"profile_no_posts_submitted_message" = "EMPTYTEXT";
+"profile_no_comments" = "EMPTYTEXT";
+"profile_no_comments_message" = "EMPTYTEXT";
+"profile_no_gilded" = "EMPTYTEXT";
+"profile_no_gilded_message" = "EMPTYTEXT";
+"other_profile_no_posts_submitted" = "EMPTYTEXT";
+"other_profile_no_posts_submitted_message" = "EMPTYTEXT";
+"other_profile_no_comments" = "EMPTYTEXT";
+"other_profile_no_comments_message" = "EMPTYTEXT";
+"other_profile_no_gilded" = "EMPTYTEXT";
+"other_profile_no_gilded_message" = "EMPTYTEXT";
+"profile_not_logged_in" = "EMPTYTEXT";
+"profile_not_logged_in_message" = "EMPTYTEXT";
+"profile_not_logged_in_button" = "EMPTYTEXT";
+"messages_not_logged_in" = "EMPTYTEXT";
+"messages_not_logged_in_message" = "EMPTYTEXT";
+"messages_not_logged_in_button" = "EMPTYTEXT";
+"multireddits_not_logged_in" = "EMPTYTEXT";
+"multireddits_not_logged_in_message" = "EMPTYTEXT";
+"multireddits_not_logged_in_button" = "EMPTYTEXT";
+"search_no_results" = "EMPTYTEXT";
+"search_no_results_message" = "EMPTYTEXT";
+"search_subreddit_private" = "EMPTYTEXT";
+"subreddit_media_view_empty" = "EMPTYTEXT";
+"subreddit_media_view_empty_message" = "EMPTYTEXT";
+"subreddit_media_view_empty_button" = "EMPTYTEXT";
+"subreddit_no_posts" = "EMPTYTEXT";
+"subreddit_no_posts_message" = "EMPTYTEXT";
+"subreddit_no_posts_nsfw" = "EMPTYTEXT";
+"subreddit_no_posts_nsfw_message" = "EMPTYTEXT";
+"subreddit_no_posts_nsfw_button" = "EMPTYTEXT";
+"subreddits_no_multireddits" = "EMPTYTEXT";
+"subreddits_no_multireddits_message" = "EMPTYTEXT";
+
+/*
+ Profile
+ The following strings have a relation to the user's profile and user actions
+ */
+//The title user in the sort bar displayed at the top of the profile
+"submitted" = "EMPTYTEXT";
+//The title user in the sort bar displayed at the top of the profile
+"upvoted" = "EMPTYTEXT";
+//The title used in the sort bar displayed at the top of the profile and at the top of a subreddit/stream
+"gilded" = "EMPTYTEXT";
+//The title used in the sort bar displayed at the top of the profile
+"saved" = "EMPTYTEXT";
+//The title used in the sort bar displayed at the top of the profile
+"hidden" = "EMPTYTEXT";
+//The title used in the sort bar displayed at the top of the profile
+"overview" = "EMPTYTEXT";
+//The title used in the sort bar displayed at the top of the profile
+"comments" = "EMPTYTEXT";
+//The title of the profile view, shown in the top bar and the bottom tab bar
+"profile-title" = "EMPTYTEXT";
+//The description below the comment karma counter
+"comment-karma-description" = "EMPTYTEXT";
+//The description below the link karma counter
+"link-karma-description" = "EMPTYTEXT";
+
+/*
+ Subreddits
+ The following strings have a relation to subreddits
+ */
+//Button showed in the subreddit's info tab to add the subreddit to specific multireddit
+"add-to-multireddit" = "EMPTYTEXT";
+//Error message displayed when the user couldn't subscribe to a subreddit, %@ will contain the name of the subreddit
+"subscribe_subreddit_failure" = "EMPTYTEXT";
+//Error message displayed when the user couldn't unsubscribe from a subreddit, %@ will contain the name of the subreddit
+"unsubscribe_subreddit_failure" = "EMPTYTEXT";
+//Message displayed when unsubscribing from a subreddit, %@ will contain the name of the subreddit
+"unsubscribe_subreddit_confirm" = "EMPTYTEXT";
+//Title shown for subreddits already in multireddit on the manage subreddits screen of a multireddit
+"subreddits-in-multireddit" = "EMPTYTEXT";
+//There was a problem updating the multireddit, "%@", will be the name of the subreddit
+"multireddit-update-failure" = "EMPTYTEXT";
+//There was a problem deleting the multireddit, "%@", will be the name of the subreddit
+"multireddit-delete-failure" = "EMPTYTEXT";
+//Confirm message title displayed when deleting a multireddit
+"multireddit-delete-sure" = "EMPTYTEXT";
+//Confirm message displayed when deleting a multireddit
+"multireddit-delete-sure-message" = "EMPTYTEXT";
+//The name for the subreddit "all" on reddit. PLEASE USE THE REDDIT TERM FOR THIS!
+"subreddit-all" =  "All";
+//The name for the subreddit "Frontpage" on reddit. PLEASE USE THE REDDIT TERM FOR THIS!
+"subreddit-frontpage" =  "Frontpage";
+
+
+/*
+ Multireddits
+ The following strings have a relation to multireddits
+ */
+//A message displayed when the app couldn't download your list of multireddits
+"could-not-fetch-multireddits" = "EMPTYTEXT";
+//Message title displayed when the multireddit name contains invalid characters
+"create-multireddit-characters" = "EMPTYTEXT";
+//Message displayed when the multireddit name contains invalid characters
+"create-multireddit-characters-message" = "EMPTYTEXT";
+//Message title when the user is logged out because of a problem
+"logged-out-problem" = "EMPTYTEXT";
+//Message displayed when the user is logged out because of a problem
+"logged-out-problem-message" = "EMPTYTEXT";
+//Multireddit info view, create copy button
+"create-copy" = "EMPTYTEXT";
+//Confirm button when creating a copy
+"copy" = "EMPTYTEXT";
+//message displayed under the name when copying a multireddit
+"copy-multireddit-message" = "EMPTYTEXT";
+//The title of the create copy view
+"create-copy" = "EMPTYTEXT";
+
+/*
+ Comments
+ The following strings have a relation to comments on a post
+ */
+//The title used at the top of the comments view
+"comments-title" = "EMPTYTEXT";
+//The title used at the top oxf a thread view
+"thread-title" = "EMPTYTEXT";
+//The button used on comments to go to the full thread
+"read-thread-button" = "EMPTYTEXT";
+
+/*
+ Messages
+ The following strings have a relation to the messages and inbox
+ */
+//The title used for the messages view
+"messages-title" = "EMPTYTEXT";
+
+/*
+ Search
+ The following strings have a relation to the search view in app or the search view in a subreddit
+ */
+//The title used for the view
+"search-title" = "EMPTYTEXT";
+//The text placed in the searchbar where there is no search query
+"search-placeholder" = "EMPTYTEXT";
+
+/*
+ Settings
+ The following strings have a relation to the settings view in the app
+ */
+//The title used for the view
+"settings-title" = "EMPTYTEXT";
+//The title used for it's header in the settings view
+"settings-header" = "EMPTYTEXT";
+//The title used for it's header in the settings view
+"about-header" = "EMPTYTEXT";
+//The title used for it's header in the settings view
+"history-header" = "EMPTYTEXT";
+//The title showed before the NSFW Content switch
+"nsfw-content-setting-title" = "EMPTYTEXT";
+//The title showed before the NSFW Overlay switch
+"nsfw-overlay-setting-title" = "EMPTYTEXT";
+//The title showed before the Spoiler overlay switch
+"spoiler-overlay-setting-title" = "EMPTYTEXT";
+//The title showed before the In-app sounds switch
+"sounds-setting-title" = "EMPTYTEXT";
+//The title showed for the display options setting
+"display-options-setting-title" = "EMPTYTEXT";
+//The title showed for the notifications setting
+"notifications-setting-title" = "EMPTYTEXT";
+//The title showed for the "open links in" setting
+"open-links-in-setting-title" = "EMPTYTEXT";
+//The title showed for the clear cache setting
+"clear-cache-setting-title" = "EMPTYTEXT";
+//The title showed for the clear search history setting
+"clear-search-setting-title" = "EMPTYTEXT";
+//The title used at the top of the browser select screen
+"browser-title" = "EMPTYTEXT";
+//The title used at the top of the display options screen
+"display-options-title" = "EMPTYTEXT";
+//The title used at the top of the notifications screen
+"notifications-title" = "EMPTYTEXT";
+//A row that takes you yo the about beam view
+"about-beam-setting-title" = "EMPTYTEXT";
+//A row that takes you to the donate view
+"donate-setting-title" = "EMPTYTEXT";
+//Text used to view the privacy policy
+"privacy-policy-setting-title" = "EMPTYTEXT";
+//Text used to view the terms of service
+"terms-setting-title" = "EMPTYTEXT";
+//Text used in settings to open an email view to write an email to us
+"feedback-support-setting-title" = "EMPTYTEXT";
+//Text used in the settings that brings the user to the app store
+"rate-us-setting-title" = "EMPTYTEXT";
+//Text used in the settings view to share beam with friends
+"tell-friends-setting-title" = "EMPTYTEXT";
+//The title used in the about view
+"about-title" = "EMPTYTEXT";
+//The title used in the about view
+"donate-title" = "EMPTYTEXT";
+//The title of the text in the donate view
+"donate-text-title" = "EMPTYTEXT";
+//The text on the donate view
+"donate-text-description" = "EMPTYTEXT";
+//The title of the messages notification setting
+"notification-setting-messages" = "EMPTYTEXT";
+//The title of the shop notification setting
+"notification-setting-shop" = "EMPTYTEXT";
+//The title of the announcements notification setting
+"notification-setting-announcements" = "EMPTYTEXT";
+//If the display pack has not been bought and the user views the display options, they see this text.
+"display-options-unlock-text" = "EMPTYTEXT";
+//Header used in the display options view in settings
+"display-options-header-night-mode" = "EMPTYTEXT";
+//Header used in the display options view in settings
+"display-options-header-image-thumbnails" = "EMPTYTEXT";
+//Header used in the display options view in settings
+"display-options-header-metadata" = "EMPTYTEXT";
+//Footer text used in the display options view in settings
+"display-options-footer-night-mode" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-night-mode-manual" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-night-mode-automatic" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-thumbnail-large" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-thumbnail-medium" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-thumbnail-small" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-thumbnail-none" = "EMPTYTEXT";
+
+//Cell used in the display options view in settings
+"display-options-cell-metadata-show" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-metadata-date" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-metadata-subreddit" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-metadata-username" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-metadata-gild-count" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-metadata-stickied" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-metadata-locked" = "EMPTYTEXT";
+//Cell used in the display options view in settings
+"display-options-cell-metadata-flair" = "EMPTYTEXT";
+
+/*
+ Shop
+ */
+//The title at the top of the shop screen
+"shop-title" = "EMPTYTEXT";
+//The restore button to restore purchases, show in the right of the screen
+"restore-button" = "EMPTYTEXT";
+//Display pack title
+"shop-product-display-pack-heading" = "EMPTYTEXT";
+//Display pack description
+"shop-product-display-pack-subheading" = "EMPTYTEXT";
+
+"shop-product-display-pack-feature-mediaview-heading" = "EMPTYTEXT";
+"shop-product-display-pack-feature-mediaview-subheading" = "EMPTYTEXT";
+
+"shop-product-display-pack-feature-night-mode-heading" = "EMPTYTEXT";
+"shop-product-display-pack-feature-night-mode-subheading" = "EMPTYTEXT";
+
+"shop-product-display-pack-feature-meta-data-heading" = "EMPTYTEXT";
+"shop-product-display-pack-feature-meta-data-subheading" = "EMPTYTEXT";
+//Discover pack title
+"shop-product-discover-pack-heading" = "EMPTYTEXT";
+//Identity pack title
+"shop-product-identity-pack-heading" = "EMPTYTEXT";
+
+/*
+ Welcome
+ */
+//The connect with reddit button on the welcome view
+"welcome-connect-with-reddit-button" = "EMPTYTEXT";
+//The continue without reddit button on the welcome view
+"welcome-connect-without-reddit-button" = "EMPTYTEXT";
+//The title of the welcome messages
+"welcome-title" = "EMPTYTEXT";
+//The message of the welcome message
+"welcome-message" = "EMPTYTEXT";
+
+
+
+
+
+
+
+

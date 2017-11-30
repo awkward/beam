@@ -300,6 +300,10 @@
 		0C6914201BCD2327005AD2C6 /* CircularProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C69141F1BCD2327005AD2C6 /* CircularProgressView.swift */; };
 		0C69C5681CA53CA4001A2D44 /* CreateLinkPostViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C69C5671CA53CA4001A2D44 /* CreateLinkPostViewController.swift */; };
 		0C6A10201F59655F00695758 /* Trekker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6A10101F59653500695758 /* Trekker.framework */; };
+		0C6B65C51F9A40B9005538C2 /* SubredditPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B65C41F9A40B9005538C2 /* SubredditPreviewView.swift */; };
+		0C6B65E91F9A49DF005538C2 /* Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B65E71F9A49CB005538C2 /* Reusable.swift */; };
+		0C6B65EA1F9A49DF005538C2 /* UICollectionView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B65E81F9A49CE005538C2 /* UICollectionView+Reusable.swift */; };
+		0C6B65EB1F9A49DF005538C2 /* UITableView+Reusable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6B65E61F9A49CB005538C2 /* UITableView+Reusable.swift */; };
 		0C6F7A331E3658A700D0F2FC /* BeamTabBarController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6F7A321E3658A700D0F2FC /* BeamTabBarController.swift */; };
 		0C6F7A641E3663ED00D0F2FC /* PostMetadata+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6F7A621E3663ED00D0F2FC /* PostMetadata+CoreDataClass.swift */; };
 		0C6F7A651E3663ED00D0F2FC /* PostMetadata+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C6F7A631E3663ED00D0F2FC /* PostMetadata+CoreDataProperties.swift */; };
@@ -1187,6 +1191,10 @@
 		0C68A2C21E1522ED0022A2B4 /* GalleryAlbumContentItemCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GalleryAlbumContentItemCell.swift; sourceTree = "<group>"; };
 		0C69141F1BCD2327005AD2C6 /* CircularProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CircularProgressView.swift; path = Beam/CircularProgressView.swift; sourceTree = SOURCE_ROOT; };
 		0C69C5671CA53CA4001A2D44 /* CreateLinkPostViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreateLinkPostViewController.swift; sourceTree = "<group>"; };
+		0C6B65C41F9A40B9005538C2 /* SubredditPreviewView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SubredditPreviewView.swift; sourceTree = "<group>"; };
+		0C6B65E61F9A49CB005538C2 /* UITableView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UITableView+Reusable.swift"; sourceTree = "<group>"; };
+		0C6B65E71F9A49CB005538C2 /* Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Reusable.swift; sourceTree = "<group>"; };
+		0C6B65E81F9A49CE005538C2 /* UICollectionView+Reusable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UICollectionView+Reusable.swift"; sourceTree = "<group>"; };
 		0C6F7A321E3658A700D0F2FC /* BeamTabBarController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeamTabBarController.swift; sourceTree = "<group>"; };
 		0C6F7A401E36636D00D0F2FC /* Snoo 14.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Snoo 14.xcdatamodel"; sourceTree = "<group>"; };
 		0C6F7A621E3663ED00D0F2FC /* PostMetadata+CoreDataClass.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "PostMetadata+CoreDataClass.swift"; sourceTree = "<group>"; };
@@ -2100,6 +2108,16 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0C6B65E51F9A49B8005538C2 /* Protocols */ = {
+			isa = PBXGroup;
+			children = (
+				0C6B65E71F9A49CB005538C2 /* Reusable.swift */,
+				0C6B65E81F9A49CE005538C2 /* UICollectionView+Reusable.swift */,
+				0C6B65E61F9A49CB005538C2 /* UITableView+Reusable.swift */,
+			);
+			path = Protocols;
+			sourceTree = "<group>";
+		};
 		0C71A3B31BC2AE0200114057 /* Products */ = {
 			isa = PBXGroup;
 			children = (
@@ -2478,6 +2496,7 @@
 		766074151B38073100F4C777 /* beam */ = {
 			isa = PBXGroup;
 			children = (
+				0C6B65E51F9A49B8005538C2 /* Protocols */,
 				0C980D751F62EB29006E3920 /* Settings.bundle */,
 				0C9820E91EDDC57800DC2914 /* Config.swift */,
 				0C87FA4E1E4B63840091378B /* Settings */,
@@ -2653,6 +2672,7 @@
 				9A0B15FE1B84D08F004FF4C3 /* Media Overview */,
 				768977811B7B322F00450AC5 /* Stream */,
 				76155F6C1B3C4C4000B3FDDE /* Subreddit */,
+				0C6B65C41F9A40B9005538C2 /* SubredditPreviewView.swift */,
 			);
 			name = Subreddits;
 			sourceTree = "<group>";
@@ -3699,6 +3719,7 @@
 				0CA1D1761C60F71000037B43 /* PostTitlePartCell.swift in Sources */,
 				0CE2787B1CB7EE4D005F55D1 /* PasscodeKeyboard.swift in Sources */,
 				0C2F1DB31D703A0D00BB6ED1 /* ProductDetailPreviewsTableViewCell.swift in Sources */,
+				0C6B65EA1F9A49DF005538C2 /* UICollectionView+Reusable.swift in Sources */,
 				0CA361791BCBD83800EC832E /* SubredditMediaOverviewViewController.swift in Sources */,
 				76E47CCA1B8DC21D00079FFB /* CherryController.swift in Sources */,
 				0C6841481DF96AC400B5145D /* String+Localizable.swift in Sources */,
@@ -3806,6 +3827,7 @@
 				764E74691B3819BF003FD2F9 /* UIColor+Beam.swift in Sources */,
 				0C09F7DF1CD247AC00E89B1A /* ImgurGalleryAlbumContentViewController.swift in Sources */,
 				76466C0D1B69096E0086B183 /* NSDate+RelativeFormatter.swift in Sources */,
+				0C6B65EB1F9A49DF005538C2 /* UITableView+Reusable.swift in Sources */,
 				0CA73B831DAD04D4000CB712 /* ShareActivityViewController.swift in Sources */,
 				0CFEF3891C86F6E1005D7DAE /* NotificationCell.swift in Sources */,
 				0C87FA651E4B6B5D0091378B /* AuthenticationController+NSFW.swift in Sources */,
@@ -3847,6 +3869,7 @@
 				0C165F281C747B8A0062EEC4 /* BeamPlainButton.swift in Sources */,
 				0C8B204B1CBFE7C800CF8E2A /* AssetsPickerControllerAuthorizationEmptyView.swift in Sources */,
 				76B57F5A1B5FC00A00FB04BD /* MediaImageLoader.swift in Sources */,
+				0C6B65E91F9A49DF005538C2 /* Reusable.swift in Sources */,
 				0C30B3E11C281201008D59FE /* BeamCopyableLabel.swift in Sources */,
 				0CF1F7C51CA2F433008EAC04 /* CreateTextPostViewController.swift in Sources */,
 				003CAFDA1BDF792A008719A4 /* BadgeView.swift in Sources */,
@@ -3855,6 +3878,7 @@
 				0C60ABAF1DF81A150017B313 /* RedditMessageComposeViewController.swift in Sources */,
 				0CA807381C186BA800756496 /* StreamAlbumView.swift in Sources */,
 				7627D5681B4FF9BC001EDA21 /* MultiredditSubsSearchViewController.swift in Sources */,
+				0C6B65C51F9A40B9005538C2 /* SubredditPreviewView.swift in Sources */,
 				0CDFD7FA1C3EB042003504DD /* SubredditNavigationController.swift in Sources */,
 				0C30B3E51C281201008D59FE /* BeamView.swift in Sources */,
 				76E8B2E81B552F9100810A21 /* WebViewController.swift in Sources */,
@@ -4129,7 +4153,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Snoo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D DEBUG -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.Snoo;
@@ -4157,7 +4181,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Snoo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.Snoo;
@@ -4216,7 +4240,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ImgurKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.ImgurKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4244,7 +4268,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ImgurKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.ImgurKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4270,7 +4294,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CherryKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4297,7 +4321,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CherryKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4379,12 +4403,12 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -4422,11 +4446,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
-				STRIP_INSTALLED_PRODUCT = NO;
+				STRIP_INSTALLED_PRODUCT = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -4576,7 +4600,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = RedditMarkdownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.RedditMarkdownKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4603,7 +4627,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = RedditMarkdownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.RedditMarkdownKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";

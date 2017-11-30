@@ -241,6 +241,8 @@ class SubredditsViewController: BeamTableViewController, BeamViewControllerLoadi
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.tableView.register(SubredditTableViewCell.self)
+        
         self.tableView.register(BeamPlainTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
         self.navigationItem.leftBarButtonItem = self.editButtonItem
     
@@ -450,18 +452,11 @@ extension SubredditsViewController {
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
         let section: SubredditsViewControllerSection? = self.content?[(indexPath as IndexPath).section]
         let subreddit: Subreddit? = section?.subreddits[indexPath.row]
         
-        var cell: SubredditTableViewCell!
-        if subreddit?.isBookmarked.boolValue == true || subreddit?.isPrepopulated == true {
-            cell = tableView.dequeueReusableCell(withIdentifier: "favorite", for: indexPath) as! SubredditTableViewCell
-        } else {
-            cell = tableView.dequeueReusableCell(withIdentifier: "subreddit", for: indexPath) as! SubredditTableViewCell
-        }
+        let cell: SubredditTableViewCell = tableView.dequeueReusable(for: indexPath)
         cell.subreddit = subreddit
-        cell.delegate = self
         return cell
     }
     

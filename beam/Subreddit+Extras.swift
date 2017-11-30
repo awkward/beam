@@ -21,11 +21,12 @@ extension Subreddit {
     }
     
     fileprivate func webpageURL() -> URL? {
+        let host = "www.reddit.com"
         if self.identifier == Subreddit.frontpageIdentifier {
-            return URL(string: "https://\(AppDelegate.shared.authenticationController.configuration.regularHost)")
+            return URL(string: "https://\(host)")
         }
         if let permalink = self.permalink {
-            return URL(string: "https://\((AppDelegate.shared.authenticationController.configuration.regularHost as NSString).appendingPathComponent(permalink))")
+            return URL(string: "https://\((host as NSString).appendingPathComponent(permalink))")
         }
         return nil
     }
@@ -52,18 +53,23 @@ extension Subreddit {
     }
     
     fileprivate func coreSpotlightAttributeSet() -> CSSearchableItemAttributeSet? {
-        if let displayName = self.displayName , self.webpageURL() != nil {
-            let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeData as String)
-            // Add metadata that supplies details about the item.
-            attributeSet.title = displayName
-            attributeSet.contentDescription = (self is Multireddit) ? AWKLocalizedString("multireddit") : AWKLocalizedString("subreddit")
-            attributeSet.url = self.webpageURL()
-            attributeSet.relatedUniqueIdentifier = self.searchIdentifier()
-            attributeSet.keywords = self.searchKeywords()
-            attributeSet.identifier = self.identifier
-            return attributeSet
+        var returnAttributeSet: CSSearchableItemAttributeSet?
+        self.managedObjectContext?.performAndWait {
+            if let displayName = self.displayName , self.webpageURL() != nil {
+                let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeData as String)
+                // Add metadata that supplies details about the item.
+                attributeSet.title = displayName
+                attributeSet.contentDescription = (self is Multireddit) ? AWKLocalizedString("multireddit") : AWKLocalizedString("subreddit")
+                attributeSet.url = self.webpageURL()
+                attributeSet.relatedUniqueIdentifier = self.searchIdentifier()
+                attributeSet.keywords = self.searchKeywords()
+                attributeSet.identifier = self.identifier
+                returnAttributeSet = attributeSet
+            }
+            
         }
-        return nil
+        
+        return returnAttributeSet
     }
     
     func createUserActivity() -> NSUserActivity? {

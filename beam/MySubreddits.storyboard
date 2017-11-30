@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11542" systemVersion="16B2657" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11524"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="Aspect ratio constraints" minToolsVersion="5.1"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -19,122 +20,6 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                         <inset key="separatorInset" minX="15" minY="0.0" maxX="0.0" maxY="0.0"/>
-                        <prototypes>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="subreddit" id="7aa-GG-0IC" customClass="SubredditTableViewCell" customModule="beam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="28" width="375" height="44"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="7aa-GG-0IC" id="Kv4-Wt-yTt">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="43"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="IGv-9W-2ju" userLabel="Star Button">
-                                            <rect key="frame" x="-30" y="0.0" width="44" height="44"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="IKU-3v-0Jo"/>
-                                                <constraint firstAttribute="width" constant="44" id="MXh-aL-BTl"/>
-                                            </constraints>
-                                            <state key="normal" image="tableview_star"/>
-                                            <connections>
-                                                <action selector="tappedStarButton:" destination="7aa-GG-0IC" eventType="touchUpInside" id="1Yj-DO-Vfu"/>
-                                                <action selector="updateStarButton:" destination="7aa-GG-0IC" eventType="touchDragEnter" id="6NG-sM-6sf"/>
-                                                <action selector="updateStarButton:" destination="7aa-GG-0IC" eventType="touchCancel" id="CVG-Yi-nG2"/>
-                                                <action selector="updateStarButton:" destination="7aa-GG-0IC" eventType="touchDown" id="Mwe-N3-2x6"/>
-                                                <action selector="updateStarButton:" destination="7aa-GG-0IC" eventType="touchDragExit" id="NcE-y3-FXf"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subreddit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CoR-q1-ygv">
-                                            <rect key="frame" x="15" y="11" width="75" height="21"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="IGv-9W-2ju" firstAttribute="leading" secondItem="Kv4-Wt-yTt" secondAttribute="leadingMargin" constant="-38" id="8ie-gc-FnP"/>
-                                        <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="CoR-q1-ygv" secondAttribute="trailing" id="Gal-Ch-2AY"/>
-                                        <constraint firstItem="IGv-9W-2ju" firstAttribute="centerY" secondItem="Kv4-Wt-yTt" secondAttribute="centerY" id="TaH-Sw-bLv"/>
-                                        <constraint firstItem="CoR-q1-ygv" firstAttribute="leading" secondItem="Kv4-Wt-yTt" secondAttribute="leadingMargin" constant="7" id="lmD-40-3XY"/>
-                                        <constraint firstItem="CoR-q1-ygv" firstAttribute="centerY" secondItem="Kv4-Wt-yTt" secondAttribute="centerY" id="nza-Bt-ZRM"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="starButton" destination="IGv-9W-2ju" id="zoZ-4D-6gF"/>
-                                    <outlet property="starButtonLeftConstraint" destination="8ie-gc-FnP" id="z1g-Ql-ckp"/>
-                                    <outlet property="titleLabel" destination="CoR-q1-ygv" id="vDd-nu-dRu"/>
-                                    <outlet property="titleLabelLeftConstraint" destination="lmD-40-3XY" id="wCw-F8-wds"/>
-                                </connections>
-                            </tableViewCell>
-                            <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" showsReorderControl="YES" indentationWidth="10" shouldIndentWhileEditing="NO" reuseIdentifier="favorite" rowHeight="63" id="L0a-9Y-eL6" customClass="SubredditTableViewCell" customModule="beam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="72" width="375" height="63"/>
-                                <autoresizingMask key="autoresizingMask"/>
-                                <tableViewCellContentView key="contentView" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="L0a-9Y-eL6" id="AEe-8v-RWq">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="62"/>
-                                    <autoresizingMask key="autoresizingMask"/>
-                                    <subviews>
-                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" adjustsImageWhenHighlighted="NO" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ZJf-BJ-Rx2" userLabel="Star Button">
-                                            <rect key="frame" x="-30" y="9" width="44" height="44"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="44" id="nXY-eb-Wsg"/>
-                                                <constraint firstAttribute="width" constant="44" id="uJ3-ia-Vbf"/>
-                                            </constraints>
-                                            <state key="normal" image="tableview_star"/>
-                                            <connections>
-                                                <action selector="tappedStarButton:" destination="L0a-9Y-eL6" eventType="touchUpInside" id="gPO-UF-ScH"/>
-                                                <action selector="updateStarButton:" destination="L0a-9Y-eL6" eventType="touchCancel" id="QV6-Px-K32"/>
-                                                <action selector="updateStarButton:" destination="L0a-9Y-eL6" eventType="touchDown" id="X9g-Bq-Ck9"/>
-                                                <action selector="updateStarButton:" destination="L0a-9Y-eL6" eventType="touchDragExit" id="eZZ-EX-np9"/>
-                                                <action selector="updateStarButton:" destination="L0a-9Y-eL6" eventType="touchDragEnter" id="lPM-we-r6Y"/>
-                                            </connections>
-                                        </button>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Subreddit" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vCF-fo-Ae2">
-                                            <rect key="frame" x="62" y="8" width="305" height="46"/>
-                                            <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                        <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uvk-tg-OKm">
-                                            <rect key="frame" x="8" y="8" width="46" height="46"/>
-                                            <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <constraints>
-                                                <constraint firstAttribute="height" constant="46" id="IdR-pU-UFe"/>
-                                                <constraint firstAttribute="width" constant="46" id="WsP-0s-gB1"/>
-                                            </constraints>
-                                        </imageView>
-                                        <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="mAU-jk-pYG">
-                                            <rect key="frame" x="24" y="17" width="14" height="27"/>
-                                            <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
-                                            <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                            <nil key="highlightedColor"/>
-                                        </label>
-                                    </subviews>
-                                    <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                    <constraints>
-                                        <constraint firstItem="Uvk-tg-OKm" firstAttribute="leading" secondItem="AEe-8v-RWq" secondAttribute="leadingMargin" id="9uf-MU-9ap"/>
-                                        <constraint firstItem="mAU-jk-pYG" firstAttribute="centerY" secondItem="Uvk-tg-OKm" secondAttribute="centerY" id="EFe-Iy-TPH"/>
-                                        <constraint firstItem="ZJf-BJ-Rx2" firstAttribute="leading" secondItem="AEe-8v-RWq" secondAttribute="leadingMargin" constant="-38" id="Lgd-I0-cAd"/>
-                                        <constraint firstItem="vCF-fo-Ae2" firstAttribute="bottom" secondItem="Uvk-tg-OKm" secondAttribute="bottom" id="MtR-eM-fVb"/>
-                                        <constraint firstItem="vCF-fo-Ae2" firstAttribute="leading" secondItem="Uvk-tg-OKm" secondAttribute="trailing" constant="8" id="S8M-Ka-Rtr"/>
-                                        <constraint firstItem="ZJf-BJ-Rx2" firstAttribute="centerY" secondItem="AEe-8v-RWq" secondAttribute="centerY" id="StW-P3-Gbk"/>
-                                        <constraint firstItem="Uvk-tg-OKm" firstAttribute="top" secondItem="AEe-8v-RWq" secondAttribute="topMargin" id="UHG-1v-ikn"/>
-                                        <constraint firstItem="mAU-jk-pYG" firstAttribute="centerX" secondItem="Uvk-tg-OKm" secondAttribute="centerX" id="Y1H-RF-9dl"/>
-                                        <constraint firstAttribute="trailingMargin" secondItem="vCF-fo-Ae2" secondAttribute="trailing" id="ex4-xS-sTu"/>
-                                        <constraint firstItem="Uvk-tg-OKm" firstAttribute="bottom" secondItem="AEe-8v-RWq" secondAttribute="bottomMargin" id="psj-RE-FdO"/>
-                                        <constraint firstItem="vCF-fo-Ae2" firstAttribute="top" secondItem="Uvk-tg-OKm" secondAttribute="top" id="xFX-HG-JmU"/>
-                                    </constraints>
-                                </tableViewCellContentView>
-                                <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <connections>
-                                    <outlet property="previewImageView" destination="Uvk-tg-OKm" id="XQu-7Q-FRH"/>
-                                    <outlet property="previewLabel" destination="mAU-jk-pYG" id="nxI-ig-4qB"/>
-                                    <outlet property="starButton" destination="ZJf-BJ-Rx2" id="lcM-4P-qb2"/>
-                                    <outlet property="starButtonLeftConstraint" destination="Lgd-I0-cAd" id="JrK-dY-G6t"/>
-                                    <outlet property="titleLabel" destination="vCF-fo-Ae2" id="4Mj-bm-Sxq"/>
-                                    <outlet property="titleLabelLeftConstraint" destination="9uf-MU-9ap" id="lnp-RN-acW"/>
-                                </connections>
-                            </tableViewCell>
-                        </prototypes>
                         <connections>
                             <outlet property="dataSource" destination="7ex-Rw-vf2" id="P3m-1m-tON"/>
                             <outlet property="delegate" destination="7ex-Rw-vf2" id="McM-qb-sYY"/>
@@ -155,33 +40,33 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="multireddit" rowHeight="64" id="XC5-EJ-8TI" customClass="MultiredditTableViewCell" customModule="beam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="56" width="375" height="64"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="64"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="XC5-EJ-8TI" id="6CB-ov-JTg">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="63"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="63.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="D1S-GY-qUO">
-                                            <rect key="frame" x="12" y="8" width="47" height="47"/>
+                                            <rect key="frame" x="20" y="11" width="42" height="42"/>
                                             <color key="backgroundColor" red="0.66666666666666663" green="0.66666666666666663" blue="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <constraints>
                                                 <constraint firstAttribute="width" secondItem="D1S-GY-qUO" secondAttribute="height" multiplier="1:1" id="Uj0-ph-SdE"/>
                                             </constraints>
                                         </imageView>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="InteriorPorn" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="9nD-L2-xQp">
-                                            <rect key="frame" x="67" y="15" width="96" height="20"/>
+                                            <rect key="frame" x="70" y="15" width="96" height="20"/>
                                             <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" alpha="0.80000000000000004" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 Subreddits" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Xpb-F7-cjk">
-                                            <rect key="frame" x="67" y="34" width="78" height="16"/>
+                                            <rect key="frame" x="70" y="34" width="78" height="16"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="13"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
                                         </label>
                                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="R" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ygl-xF-jfJ">
-                                            <rect key="frame" x="28" y="18" width="14" height="27"/>
+                                            <rect key="frame" x="33.5" y="18.5" width="14" height="27"/>
                                             <fontDescription key="fontDescription" type="system" weight="light" pointSize="22"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             <nil key="highlightedColor"/>
@@ -219,8 +104,5 @@
             <point key="canvasLocation" x="2347" y="-1436"/>
         </scene>
     </scenes>
-    <resources>
-        <image name="tableview_star" width="17" height="17"/>
-    </resources>
     <color key="tintColor" red="0.41176470590000003" green="0.2784313725" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
 </document>

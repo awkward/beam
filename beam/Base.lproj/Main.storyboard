@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="13196" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13173"/>
         <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
         <capability name="Constraints with non-1.0 multipliers" minToolsVersion="5.1"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -56,7 +57,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="xEQ-QL-RMg"/>
                                     <barButtonItem width="320" style="plain" id="3eP-HA-UCZ">
                                         <view key="customView" contentMode="scaleToFill" id="CZF-Bj-49h" customClass="ButtonBar" customModule="beam">
-                                            <rect key="frame" x="27" y="0.0" width="320" height="44"/>
+                                            <rect key="frame" x="27.5" y="0.0" width="320" height="44"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
                                         </view>
@@ -103,7 +104,7 @@
                                 <rect key="frame" x="0.0" y="22" width="375" height="76"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="unD-xV-fnJ" id="lFT-KS-Dcn">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="76"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="75.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" placeholderIntrinsicWidth="10" placeholderIntrinsicHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="cge-BM-UsQ" customClass="UnreadIndicator" customModule="beam">
@@ -165,7 +166,7 @@
                                 <rect key="frame" x="0.0" y="98" width="375" height="111"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="xfX-Yq-I0e" id="5XP-Sx-iXO">
-                                    <rect key="frame" x="0.0" y="0.0" width="342" height="111"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="342" height="110.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <view contentMode="scaleToFill" horizontalHuggingPriority="1000" verticalHuggingPriority="1000" placeholderIntrinsicWidth="10" placeholderIntrinsicHeight="10" translatesAutoresizingMaskIntoConstraints="NO" id="Ufk-dD-tvS" customClass="UnreadIndicator" customModule="beam">
@@ -395,7 +396,7 @@
                         <viewControllerLayoutGuide type="bottom" id="WBN-kZ-uv2"/>
                     </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="PPj-zA-aXm">
-                        <rect key="frame" x="0.0" y="64" width="375" height="603"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="603"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <view contentMode="scaleToFill" misplaced="YES" placeholderIntrinsicWidth="320" placeholderIntrinsicHeight="100" translatesAutoresizingMaskIntoConstraints="NO" id="Lit-6M-n9p">
@@ -500,7 +501,7 @@
             <objects>
                 <navigationController id="J1s-Zf-nSv" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="Wb6-MU-5mL">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -565,7 +566,6 @@
                 <navigationController storyboardIdentifier="search-navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CIb-ID-R66" userLabel="Search Navigation" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="tabbar_search" id="fBs-wp-ykB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="gMd-Nu-0A8">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -586,14 +586,14 @@
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="YK0-0r-1zd" style="IBUITableViewCellStyleDefault" id="kgH-Yn-FmT" customClass="SubredditListTableViewCell" customModule="beam" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="56" width="375" height="60"/>
+                                <rect key="frame" x="0.0" y="55.5" width="375" height="60"/>
                                 <autoresizingMask key="autoresizingMask"/>
                                 <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="kgH-Yn-FmT" id="cJu-St-zZR">
-                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59"/>
+                                    <rect key="frame" x="0.0" y="0.0" width="375" height="59.5"/>
                                     <autoresizingMask key="autoresizingMask"/>
                                     <subviews>
                                         <label opaque="NO" multipleTouchEnabled="YES" contentMode="left" text="Title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" id="YK0-0r-1zd">
-                                            <rect key="frame" x="15" y="0.0" width="345" height="59.5"/>
+                                            <rect key="frame" x="16" y="0.0" width="344" height="59.5"/>
                                             <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                             <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                             <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -639,7 +639,7 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Welcome to Beam 2" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="L4O-rk-b2J">
-                                <rect key="frame" x="61.5" y="217" width="252.5" height="36"/>
+                                <rect key="frame" x="64.5" y="217" width="247" height="36"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="30"/>
                                 <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <nil key="highlightedColor"/>
@@ -697,12 +697,12 @@
                             <constraint firstItem="Gke-56-6hU" firstAttribute="top" secondItem="nLk-xW-3f3" secondAttribute="bottom" constant="90" id="Vo6-11-8Ra"/>
                             <constraint firstItem="Ya8-Z0-Pfq" firstAttribute="top" secondItem="L4O-rk-b2J" secondAttribute="bottom" constant="8" id="WPK-0y-8HH"/>
                             <constraint firstItem="OhA-Wp-qxC" firstAttribute="top" secondItem="JyU-yI-hEg" secondAttribute="bottom" constant="30" id="Xcw-7R-juo"/>
-                            <constraint firstItem="OhA-Wp-qxC" firstAttribute="top" secondItem="91Y-0s-cC7" secondAttribute="bottom" id="afe-7N-wU1"/>
                             <constraint firstItem="Gke-56-6hU" firstAttribute="centerX" secondItem="Zdx-Sg-ikL" secondAttribute="centerX" id="cZX-sb-vRM"/>
                             <constraint firstItem="L4O-rk-b2J" firstAttribute="top" secondItem="Gke-56-6hU" secondAttribute="bottom" constant="40" id="kVh-Wj-crE"/>
                             <constraint firstItem="L4O-rk-b2J" firstAttribute="centerX" secondItem="Zdx-Sg-ikL" secondAttribute="centerX" id="lpb-qK-a23"/>
                             <constraint firstItem="L4O-rk-b2J" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="Zdx-Sg-ikL" secondAttribute="leadingMargin" constant="40" id="nrB-Jd-YFM"/>
                             <constraint firstItem="Ya8-Z0-Pfq" firstAttribute="centerX" secondItem="Zdx-Sg-ikL" secondAttribute="centerX" id="t4W-DF-OJg"/>
+                            <constraint firstAttribute="bottom" secondItem="91Y-0s-cC7" secondAttribute="bottom" id="xej-gL-YCy"/>
                         </constraints>
                         <variation key="default">
                             <mask key="constraints">
@@ -729,7 +729,6 @@
                 <navigationController storyboardIdentifier="profile-navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="icP-IY-1Jj" userLabel="Profile Navigation" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="tabbar_profile" id="7VY-dT-qH1"/>
                     <navigationBar key="navigationBar" clipsSubviews="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Zql-nE-BrH">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <color key="barTintColor" red="0.47026920150000001" green="0.11250069629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -750,7 +749,6 @@
             <objects>
                 <navigationController id="odx-8I-hW9" userLabel="Inbox Navigation" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="6Vo-CF-AdW">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -767,7 +765,6 @@
                 <navigationController storyboardIdentifier="subscriptions-navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="5Ma-F1-Byx" userLabel="Subreddits navigation" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Subreddits" image="tabbar_subreddits" id="ffw-vZ-diO"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="VBT-JB-spv">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -911,7 +908,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" translatesAutoresizingMaskIntoConstraints="NO" id="hJ8-SC-Dy8">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="64" width="375" height="603"/>
                                 <subviews>
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="7ZA-SW-Ord">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="276"/>
@@ -1045,7 +1042,7 @@
             <objects>
                 <navigationController storyboardIdentifier="compose-message" useStoryboardIdentifierAsRestorationIdentifier="YES" id="onZ-6h-L30" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="R36-ep-zt9" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>

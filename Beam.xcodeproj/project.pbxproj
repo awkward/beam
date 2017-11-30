@@ -115,7 +115,6 @@
 		0C09F7DF1CD247AC00E89B1A /* ImgurGalleryAlbumContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09F7DE1CD247AC00E89B1A /* ImgurGalleryAlbumContentViewController.swift */; };
 		0C09F7E11CD252D300E89B1A /* ImgurImage+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09F7E01CD252D300E89B1A /* ImgurImage+Size.swift */; };
 		0C09F7E31CD2594D00E89B1A /* ImgurImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09F7E21CD2594D00E89B1A /* ImgurImageRequest.swift */; };
-		0C0B1B631F6198B300E74436 /* Trekker.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6A10101F59653500695758 /* Trekker.framework */; };
 		0C0B1B641F6198B300E74436 /* Trekker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6A10101F59653500695758 /* Trekker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C0F4D391BE76AF000D1BB89 /* WelcomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F4D381BE76AF000D1BB89 /* WelcomeViewController.swift */; };
 		0C0F4D3D1BE7894F00D1BB89 /* BasicViewControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F4D3B1BE7894F00D1BB89 /* BasicViewControllerTransition.swift */; };
@@ -1482,7 +1481,6 @@
 				0C71A3C61BC2AE1F00114057 /* JLRoutes.framework in Frameworks */,
 				0CACB1231E676E8000F5B233 /* Ocarina.framework in Frameworks */,
 				7686D0331B78EE9E0058DCFE /* StoreKit.framework in Frameworks */,
-				0C0B1B631F6198B300E74436 /* Trekker.framework in Frameworks */,
 				0C30926A1D82CD3100E0BECC /* CherryKit.framework in Frameworks */,
 				0C2605611CAD74280078ABF6 /* ImgurKit.framework in Frameworks */,
 				76E7CBA51B5E72ED00D87D29 /* SDWebImage.framework in Frameworks */,
@@ -3032,7 +3030,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0730;
-				LastUpgradeCheck = 0800;
+				LastUpgradeCheck = 0910;
 				ORGANIZATIONNAME = Awkward;
 				TargetAttributes = {
 					0C24FE851D82B7BD00CCBF93 = {
@@ -4373,14 +4371,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
@@ -4422,14 +4426,20 @@
 				CLANG_CXX_LIBRARY = "libc++";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
 				CLANG_WARN_CONSTANT_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;

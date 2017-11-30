@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -50,10 +49,10 @@
                 <constraints>
                     <constraint firstItem="igs-0J-czb" firstAttribute="top" secondItem="rlN-k9-PB6" secondAttribute="top" id="3NP-Na-ZCu"/>
                     <constraint firstItem="s6I-R2-LWj" firstAttribute="centerY" secondItem="Job-NP-VwZ" secondAttribute="centerY" id="3cC-2w-NjS"/>
-                    <constraint firstItem="LsD-Cv-e9U" firstAttribute="leading" secondItem="Job-NP-VwZ" secondAttribute="leadingMargin" id="46P-8s-NZ5"/>
+                    <constraint firstItem="LsD-Cv-e9U" firstAttribute="leading" secondItem="Job-NP-VwZ" secondAttribute="leading" id="46P-8s-NZ5"/>
                     <constraint firstItem="bAs-Rs-WWv" firstAttribute="top" secondItem="Job-NP-VwZ" secondAttribute="top" id="5lR-un-nwc"/>
                     <constraint firstItem="rlN-k9-PB6" firstAttribute="leading" secondItem="ofa-VO-2HY" secondAttribute="trailing" constant="4" id="974-gK-3Z3"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="LsD-Cv-e9U" secondAttribute="trailing" id="BBz-qU-VXa"/>
+                    <constraint firstAttribute="trailing" secondItem="LsD-Cv-e9U" secondAttribute="trailing" id="BBz-qU-VXa"/>
                     <constraint firstAttribute="trailing" secondItem="bAs-Rs-WWv" secondAttribute="trailing" id="ClT-97-p3G"/>
                     <constraint firstItem="s6I-R2-LWj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Job-NP-VwZ" secondAttribute="top" constant="5" id="EVg-WI-YCA"/>
                     <constraint firstAttribute="bottom" secondItem="LsD-Cv-e9U" secondAttribute="bottom" id="Hoh-kX-Dh8"/>
@@ -64,7 +63,7 @@
                     <constraint firstItem="igs-0J-czb" firstAttribute="top" secondItem="Job-NP-VwZ" secondAttribute="top" constant="8" id="cIb-iM-6wF"/>
                     <constraint firstItem="bAs-Rs-WWv" firstAttribute="leading" secondItem="Job-NP-VwZ" secondAttribute="leading" id="dbX-M7-Sdj"/>
                     <constraint firstItem="rlN-k9-PB6" firstAttribute="top" secondItem="ofa-VO-2HY" secondAttribute="top" id="dw7-3O-Ppu"/>
-                    <constraint firstAttribute="trailingMargin" secondItem="igs-0J-czb" secondAttribute="trailing" constant="8" id="dzL-Ug-lL6"/>
+                    <constraint firstAttribute="trailing" secondItem="igs-0J-czb" secondAttribute="trailing" constant="8" id="dzL-Ug-lL6"/>
                     <constraint firstItem="igs-0J-czb" firstAttribute="leading" secondItem="rlN-k9-PB6" secondAttribute="trailing" constant="4" id="h7d-MV-8ef"/>
                     <constraint firstItem="l2f-iT-ZcF" firstAttribute="trailing" secondItem="LsD-Cv-e9U" secondAttribute="trailing" id="oDY-P5-e9Q"/>
                     <constraint firstItem="LsD-Cv-e9U" firstAttribute="top" secondItem="Job-NP-VwZ" secondAttribute="top" id="ovE-9L-G7k"/>

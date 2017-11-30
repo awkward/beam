@@ -227,7 +227,7 @@ extension SubredditFilteringViewController: UITextFieldDelegate {
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if let keyword: String = textField.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines).lowercased() {
             var keywords = self.filterKeywords
-            if keyword.characters.count < 2 {
+            if keyword.count < 2 {
                 if self.filteringType == SubredditFilteringType.subreddits {
                     let alertController: UIAlertController = UIAlertController(alertWithCloseButtonAndTitle: NSLocalizedString("filter-subreddit-too-short-alert-title", comment: "The title of the alert when the filter subreddit is too short"), message: NSLocalizedString("filter-subreddit-too-short-alert-message", comment: "The message of the alert when the filter subreddit is too short"))
                     self.present(alertController, animated: true, completion: nil)

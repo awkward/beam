@@ -114,7 +114,7 @@ class CreateLinkPostViewController: CreatePostViewController {
     }
     
     fileprivate func linkIsValidURL(_ link: String) -> Bool {
-        guard link.characters.count > 0 else {
+        guard link.count > 0 else {
             return false
         }
         if (link.hasPrefix("https://") || link.hasPrefix("http://") || link.hasPrefix("www.")) && URL(string: link) != nil {
@@ -189,11 +189,11 @@ class CreateLinkPostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        return self.subreddit != nil && self.titleTextField?.text?.characters.count > 0 && self.linkTextField?.text?.characters.count > 0
+        return self.subreddit != nil && self.titleTextField?.text?.count > 0 && self.linkTextField?.text?.count > 0
     }
     
     override var hasContent: Bool {
-        return self.titleTextField?.text?.characters.count > 0 || self.linkTextField?.text?.characters.count > 0
+        return self.titleTextField?.text?.count > 0 || self.linkTextField?.text?.count > 0
     }
     
     override internal var postKind: RedditSubmitKind {
@@ -230,7 +230,7 @@ class CreateLinkPostViewController: CreatePostViewController {
 extension CreateLinkPostViewController: UITextFieldDelegate {
     
     func textFieldDidBeginEditing(_ textField: UITextField) {
-        if textField == self.linkTextField && textField.text?.characters.count == 0 {
+        if textField == self.linkTextField && textField.text?.count == 0 {
             textField.text = "http://"
         }
     }
@@ -244,11 +244,11 @@ extension CreateLinkPostViewController: UITextFieldDelegate {
             return false
         }
         if textField == self.titleTextField {
-            let currentCharacterCount = textField.text?.characters.count ?? 0
+            let currentCharacterCount = textField.text?.count ?? 0
             if (range.length + range.location > currentCharacterCount){
                 return false
             }
-            let newLength = currentCharacterCount + string.characters.count - range.length
+            let newLength = currentCharacterCount + string.count - range.length
             return newLength <= 300
         }
         return true

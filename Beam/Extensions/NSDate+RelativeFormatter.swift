@@ -37,7 +37,7 @@ extension Date {
             timeText = "\(second)" + NSLocalizedString("time-second-short", comment: "Second abbreviation (eg. for 1s ago)")
         }
         
-        if timeText.characters.count <= 0 {
+        if timeText.count <= 0 {
             timeText = Date.sharedRelativeDateFormatter.string(from: self)
         }
         

@@ -142,7 +142,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     
     func startFetching(_ searchText: String? = nil) {
         self.streamViewController?.cancelCollectionControllerFetching()
-        if let searchText = searchText , searchText.characters.count > 0 {
+        if let searchText = searchText , searchText.count > 0 {
             self.query?.searchKeywords = searchText
         }
         self.streamViewController?.startCollectionControllerFetching()

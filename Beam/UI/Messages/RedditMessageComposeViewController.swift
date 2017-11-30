@@ -44,12 +44,12 @@ class RedditMessageComposeViewController: BeamViewController {
         guard let subject = self.subjectTextField.text?.trimmingCharacters(in: NSCharacterSet.whitespacesAndNewlines) else {
             return false
         }
-        return self.user != nil && subject.characters.count > 0 && message.characters.count > 0
+        return self.user != nil && subject.count > 0 && message.count > 0
     }
     
     /// If the view has content, used in case the user wants to close the view
     internal var hasContent: Bool {
-        return (self.subjectTextField.text?.characters.count ?? 0) > 0 || self.textView.text.characters.count > 0
+        return (self.subjectTextField.text?.count ?? 0) > 0 || self.textView.text.count > 0
     }
     
     //MARK: - View Lifecyle
@@ -288,11 +288,11 @@ class RedditMessageComposeViewController: BeamViewController {
     }
     
     fileprivate func sendMessage(to: User, subject: String, message: String, completionHandler: @escaping ((_ error: Error?) -> ())) {
-        guard subject.trimmingCharacters(in: CharacterSet.whitespaces).characters.count != 0 else {
+        guard subject.trimmingCharacters(in: CharacterSet.whitespaces).count != 0 else {
             completionHandler(NSError.beamError(-401, localizedDescription: "Subject missing"))
             return
         }
-        guard message.trimmingCharacters(in: CharacterSet.whitespaces).characters.count != 0 else {
+        guard message.trimmingCharacters(in: CharacterSet.whitespaces).count != 0 else {
             completionHandler(NSError.beamError(-402, localizedDescription: "Text missing"))
             return
         }
@@ -330,14 +330,14 @@ extension RedditMessageComposeViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         self.reloadSendButton()
-        self.textViewPlaceholderLabel.isHidden = self.textView.text.characters.count > 0
+        self.textViewPlaceholderLabel.isHidden = self.textView.text.count > 0
         
         self.sizeTextView()
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
         //15000 is the character limit for self text posts and messages
-        return textView.text.characters.count + (text.characters.count - range.length) <= 15000
+        return textView.text.count + (text.count - range.length) <= 15000
     }
     
 }
@@ -348,11 +348,11 @@ extension RedditMessageComposeViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.subjectTextField {
-            let currentCharacterCount = textField.text?.characters.count ?? 0
+            let currentCharacterCount = textField.text?.count ?? 0
             if (range.length + range.location > currentCharacterCount){
                 return false
             }
-            let newLength = currentCharacterCount + string.characters.count - range.length
+            let newLength = currentCharacterCount + string.count - range.length
             //300 is the maximum length of a message subject of post title
             return newLength <= 300
         }

@@ -153,7 +153,7 @@ extension Content {
                 
                 let pathWithoutExtension = (pathExtension as NSString).length > 0 ? url.path.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path
                 //Imgur will always respond with a valid image if the extension is PNG
-                if pathExtension.characters.count <= 0 {
+                if pathExtension.count <= 0 {
                     pathExtension = "png"
                 }
                 if ["gif", "gifv", "mp4"].contains(pathExtension) {
@@ -189,7 +189,7 @@ extension Content {
             let path = urlComponents.path
             let pathExtension = url.pathExtension
             var identifier = path
-            let extensionRange = path.index(path.endIndex, offsetBy: -1 * pathExtension.characters.count - 1)..<path.endIndex
+            let extensionRange = path.index(path.endIndex, offsetBy: -1 * pathExtension.count - 1)..<path.endIndex
             identifier.removeSubrange(extensionRange)
             
             urlComponents.path = "\(identifier)-poster.jpg"

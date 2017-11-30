@@ -48,7 +48,7 @@ class MarkdownActionBar: BeamView {
     func expandLinkField() {
         self.selectedLinkTextRange = self.textView?.selectedTextRange
         self.selectedLinkRange = self.textView?.selectedRange
-        if self.linkTextField.text?.characters.count == 0 {
+        if self.linkTextField.text?.count == 0 {
             self.linkTextField.text = "http://"
         }
         UIView.animate(withDuration: 0.1, animations: {

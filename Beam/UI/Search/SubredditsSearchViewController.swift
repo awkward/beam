@@ -94,7 +94,7 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
         if let keywords = self.searchKeywords {
             if self.localSearch {
                 self.performLocalSearch(keywords)
-            } else if keywords.characters.count > 1 {
+            } else if keywords.count > 1 {
                 self.performRemoteSearch(keywords)
             }
         }
@@ -113,7 +113,7 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
     
     @objc fileprivate func typeTimerFired() {
         self.typeTimer = nil
-        if let keywords = self.searchKeywords , keywords.characters.count > 1 {
+        if let keywords = self.searchKeywords , keywords.count > 1 {
             self.performRemoteSearch(keywords)
         } else {
             self.collectionController.query?.searchKeywords = nil

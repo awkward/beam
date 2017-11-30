@@ -29,7 +29,7 @@ protocol DynamicDisplayModeView: class {
     func displayModeDidChange()
 }
 
-extension DynamicDisplayModeView where Self : AnyObject {
+extension DynamicDisplayModeView {
     
     func registerForDisplayModeChangeNotifications() {
         NotificationCenter.default.addObserver(self, selector: Selector("displayModeDidChangeNotification:"), name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)

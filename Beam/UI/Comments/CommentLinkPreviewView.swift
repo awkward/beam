@@ -153,7 +153,7 @@ class CommentLinkPreviewView: BeamControl {
                 self.thumbnailImageView.image = nil
             }
             
-            self.titleLabel.isHidden = information.title == nil || information.title!.characters.count <= 0
+            self.titleLabel.isHidden = information.title == nil || information.title!.count <= 0
             self.titleLabel.text = information.title
         } else if let mediaObjects = self.comment?.mediaObjects?.array as? [MediaObject], let mediaObject = mediaObjects.first {
             //Album or single image
@@ -164,7 +164,7 @@ class CommentLinkPreviewView: BeamControl {
                 self.titleLabel.text = "Tap to view album"
             } else {
                 self.titleLabel.text = "Tap to view image"
-                if let title = mediaObject.captionTitle, title.characters.count > 0 {
+                if let title = mediaObject.captionTitle, title.count > 0 {
                     self.titleLabel.text = title
                 }
             }

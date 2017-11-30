@@ -188,7 +188,7 @@ class ImageEditViewController: BeamViewController {
     func updateTextFields() {
         self.titleTextField?.text = self.currentImage?.imageTitle
         self.descriptionTextView?.text = self.currentImage?.imageDescription
-        self.descriptionTextViewPlaceholder?.isHidden = self.descriptionTextView?.text.characters.count > 0
+        self.descriptionTextViewPlaceholder?.isHidden = self.descriptionTextView?.text.count > 0
         if self.descriptionTextView != nil {
             self.sizeTextView()
         }
@@ -279,7 +279,7 @@ extension ImageEditViewController: UITextFieldDelegate {
 extension ImageEditViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
-        self.descriptionTextViewPlaceholder.isHidden = textView.text.characters.count > 0
+        self.descriptionTextViewPlaceholder.isHidden = textView.text.count > 0
         self.sizeTextView()
     }
 }

@@ -82,7 +82,7 @@ open class SyncObject: NSManagedObject {
     - returns: The existing or new SyncObject. It only contains the identifier property, other properties still need to be parsed using the parseObject() method.
     */
     open class func objectWithIdentifier(_ identifier: String, cache: NSCache<NSString, NSManagedObjectID>?, context: NSManagedObjectContext, checkForExisting: Bool = true) throws -> SyncObject {
-        guard identifier.characters.count > 0 else {
+        guard identifier.count > 0 else {
             throw NSError(domain: "nl.madeawkward.snoo", code: 500, userInfo: [NSLocalizedDescriptionKey: "SyncObject must have an identifier"])
         }
         
@@ -199,7 +199,7 @@ open class SyncObject: NSManagedObject {
     */
     open class func identifierAndTypeWithObjectName(_ name: String) throws -> (identifier: String, type: SyncObjectType)? {
         let regex: NSRegularExpression = try NSRegularExpression(pattern: "(.*)_(.*)", options: [])
-        if let match: NSTextCheckingResult = regex.firstMatch(in: name, options: [], range: NSMakeRange(0, name.characters.count)) , match.numberOfRanges == 3 {
+        if let match: NSTextCheckingResult = regex.firstMatch(in: name, options: [], range: NSMakeRange(0, name.count)) , match.numberOfRanges == 3 {
             let identifier: NSString = (name as NSString).substring(with: match.rangeAt(2)) as NSString
             let kind: NSString = (name as NSString).substring(with: match.rangeAt(1)) as NSString
             if let type: SyncObjectType = SyncObjectType(rawValue: kind as String) {

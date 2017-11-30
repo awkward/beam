@@ -249,7 +249,7 @@ public final class CollectionController: NSObject {
         }
         
         // Only start if it's no search or if there are search characters
-        if let query = self.query , query.searchKeywords == nil || query.searchKeywords?.characters.count > 0 {
+        if let query = self.query , query.searchKeywords == nil || query.searchKeywords?.count > 0 {
             if overwrite {
                 do {
                     self.collectionID = try self.fetchLocalCollection(query)

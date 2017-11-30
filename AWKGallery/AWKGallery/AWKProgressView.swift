@@ -46,7 +46,7 @@ open class AWKProgressView: UIView {
     override open func draw(_ rect: CGRect) {
         let path = UIBezierPath()
         path.lineWidth = self.borderWidth
-        path.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: self.radius, startAngle: 0, endAngle: CGFloat(2 * M_PI), clockwise: false)
+        path.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: self.radius, startAngle: 0, endAngle: CGFloat.pi * 2, clockwise: false)
         self.tintColor.setStroke()
         path.stroke()
         
@@ -108,7 +108,7 @@ open class AWKProgressView: UIView {
     }
     
     fileprivate func degreeToRadian(_ degree: CGFloat) -> CGFloat {
-        return (CGFloat(degree) * CGFloat(M_PI)) / CGFloat(180.0);
+        return (CGFloat(degree) * CGFloat.pi) / CGFloat(180.0);
     }
     
     fileprivate func destinationAngleForRatio(_ ratio: CGFloat) -> CGFloat {

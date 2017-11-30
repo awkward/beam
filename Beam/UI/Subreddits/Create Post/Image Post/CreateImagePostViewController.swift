@@ -512,11 +512,11 @@ class CreateImagePostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        return self.subreddit != nil && self.titleTextField?.text?.characters.count > 0 && self.images.count > 0 && self.state == nil
+        return self.subreddit != nil && self.titleTextField?.text?.count > 0 && self.images.count > 0 && self.state == nil
     }
     
     override var hasContent: Bool {
-        return self.titleTextField?.text?.characters.count > 0 || self.descriptionTextField?.text?.characters.count > 0 || self.images.count > 0
+        return self.titleTextField?.text?.count > 0 || self.descriptionTextField?.text?.count > 0 || self.images.count > 0
     }
     
     override internal var postKind: RedditSubmitKind {
@@ -713,11 +713,11 @@ extension CreateImagePostViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
-        let currentCharacterCount = textField.text?.characters.count ?? 0
+        let currentCharacterCount = textField.text?.count ?? 0
         if (range.length + range.location > currentCharacterCount){
             return false
         }
-        let newLength = currentCharacterCount + string.characters.count - range.length
+        let newLength = currentCharacterCount + string.count - range.length
         return newLength <= 300
     }
     

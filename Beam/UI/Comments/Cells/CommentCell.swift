@@ -149,8 +149,8 @@ class CommentCell: BaseCommentCell {
         if self.commentDidChange || self.comment?.hasBeenDeleted == true {
             self.flairLabel.text = self.comment?.authorFlairText
         }
-        self.flairLabelSeperatorView.isHidden = (self.comment?.authorFlairText?.characters.count ?? 0) <= 0
-        self.flairLabel.isHidden = (self.comment?.authorFlairText?.characters.count ?? 0) <= 0
+        self.flairLabelSeperatorView.isHidden = (self.comment?.authorFlairText?.count ?? 0) <= 0
+        self.flairLabel.isHidden = (self.comment?.authorFlairText?.count ?? 0) <= 0
         self.gildCountSeperatorView.isHidden = (self.comment?.gildCount?.intValue ?? 0) <= 0
         self.gildCountView.isHidden = (self.comment?.gildCount?.intValue ?? 0) <= 0
         

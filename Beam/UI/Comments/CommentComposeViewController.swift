@@ -156,7 +156,7 @@ class CommentComposeViewController: BeamViewController {
     
     @objc fileprivate func close(_ sender: UIBarButtonItem) {
         self.textView.resignFirstResponder()
-        if let text = self.textView?.text, text.characters.count > 0 {
+        if let text = self.textView?.text, text.count > 0 {
             let alertController = BeamAlertController(title: nil, message: AWKLocalizedString("are-you-sure-discard-comment"), preferredStyle: UIAlertControllerStyle.actionSheet)
             alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-comment"), style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
                 self.dismissView()
@@ -184,7 +184,7 @@ class CommentComposeViewController: BeamViewController {
             return
         }
         
-        guard let text = self.textView?.text, text.characters.count > 0 else {
+        guard let text = self.textView?.text, text.count > 0 else {
             let message = AWKLocalizedString("comment-too-short-message")
             let title = AWKLocalizedString("comment-too-short")
             let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)

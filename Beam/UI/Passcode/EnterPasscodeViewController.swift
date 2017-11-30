@@ -106,7 +106,7 @@ class EnterPasscodeViewController: BeamViewController {
         guard self.passcodeIndicators != nil else {
             return
         }
-        let length = self.enteredString?.characters.count ?? 0
+        let length = self.enteredString?.count ?? 0
         var index = 0
         for indicator in self.passcodeIndicators!.sorted( by: { $0.tag < $1.tag }) {
             indicator.filled = index < length ? true : false
@@ -151,10 +151,10 @@ class EnterPasscodeViewController: BeamViewController {
     
     fileprivate func removeLastCharacterFromEnteredString() {
         if self.enteredString != nil {
-            if self.enteredString!.characters.count <= 1 {
+            if self.enteredString!.count <= 1 {
                 self.enteredString = nil
             } else {
-                self.enteredString!.remove(at: self.enteredString!.characters.index(self.enteredString!.startIndex, offsetBy: self.enteredString!.characters.count-1))
+                self.enteredString?.removeLast()
             }
         }
         self.updateIndicators()
@@ -164,20 +164,20 @@ class EnterPasscodeViewController: BeamViewController {
     
     fileprivate func checkString() {
         if self.action == PasscodeAction.check {
-            if self.enteredString != nil && self.enteredString?.characters.count == self.passcodeLength {
+            if self.enteredString != nil && self.enteredString?.count == self.passcodeLength {
                 if !self.delegate.passcodeViewController(self, didEnterPasscode: self.enteredString!){
                     //Show try again error
                     self.showPasscodeIncorrectError()
                 }
             }
         } else if self.action == PasscodeAction.create {
-            if self.enteredString != nil && self.enteredString?.characters.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.enter {
+            if self.enteredString != nil && self.enteredString?.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.enter {
                 //Prepare the view for re-enter
                 self.stringToCompare = self.enteredString
                 self.enteredString = nil
                 self.step = EnterPasscodeViewControllerStep.reEnter
                 self.updateIndicators()
-            } else if self.enteredString != nil && self.enteredString?.characters.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.reEnter {
+            } else if self.enteredString != nil && self.enteredString?.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.reEnter {
                 if self.enteredString == self.stringToCompare {
                     self.delegate.passcodeViewController(self, didCreateNewPasscode: self.enteredString!)
                 } else {
@@ -186,7 +186,7 @@ class EnterPasscodeViewController: BeamViewController {
                 }
             }
         } else if self.action == PasscodeAction.change {
-            if self.enteredString != nil && self.enteredString?.characters.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.enter {
+            if self.enteredString != nil && self.enteredString?.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.enter {
                 if !self.delegate.passcodeViewController(self, didEnterPasscode: self.enteredString!){
                     //Show try again error
                     self.showPasscodeIncorrectError()
@@ -197,12 +197,12 @@ class EnterPasscodeViewController: BeamViewController {
                 
                 self.enteredString = nil
                 self.updateIndicators()
-            } else if self.enteredString != nil && self.enteredString?.characters.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.new {
+            } else if self.enteredString != nil && self.enteredString?.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.new {
                 self.stringToCompare = self.enteredString
                 self.step = EnterPasscodeViewControllerStep.reEnter
                 self.enteredString = nil
                 self.updateIndicators()
-            } else if self.enteredString != nil && self.enteredString?.characters.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.reEnter {
+            } else if self.enteredString != nil && self.enteredString?.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.reEnter {
                 if self.enteredString == self.stringToCompare {
                     self.delegate.passcodeViewController(self, didCreateNewPasscode: self.enteredString!)
                 } else {

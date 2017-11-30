@@ -386,7 +386,6 @@ extension UserNotificationsHandler: UNUserNotificationCenterDelegate {
         switch response.actionIdentifier {
         case UNNotificationDefaultActionIdentifier:
             // The notification was tapped
-            //TODO: Handle the notification
             guard AppDelegate.shared.isWindowUsable else {
                 AppDelegate.shared.scheduleAppAction(.handleNotification(notification: response.notification))
                 completionHandler()

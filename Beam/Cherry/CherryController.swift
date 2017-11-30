@@ -216,7 +216,7 @@ class CherryController: NSObject {
         guard !AppDelegate.shared.authenticationController.userCanViewNSFWContent else {
             return true
         }
-        guard let term = term?.lowercased().trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), term.characters.count > 0 else {
+        guard let term = term?.lowercased().trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), term.count > 0 else {
             return true
         }
         guard let features = AppDelegate.shared.cherryController.features else {

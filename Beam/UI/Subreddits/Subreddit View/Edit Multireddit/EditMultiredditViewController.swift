@@ -62,7 +62,7 @@ class EditMultiredditViewController: BeamTableViewController {
     }()
     
     fileprivate var savePossible: Bool {
-        return self.nameTextField.text!.characters.count > 0
+        return self.nameTextField.text!.count > 0
     }
     fileprivate var loading: Bool = false {
         didSet {
@@ -156,7 +156,7 @@ class EditMultiredditViewController: BeamTableViewController {
     }
     
     @objc fileprivate func save(_ sender: AnyObject?) {
-        if self.nameTextField.text?.rangeOfCharacter(from: self.allowedCharacters.inverted) != nil || self.nameTextField.text?.characters.count < 3  {
+        if self.nameTextField.text?.rangeOfCharacter(from: self.allowedCharacters.inverted) != nil || self.nameTextField.text?.count < 3  {
             let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-characters"), message: AWKLocalizedString("create-multireddit-characters-message"), preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: UIAlertActionStyle.cancel, handler:nil))
             self.present(alertController, animated: true, completion: nil)
@@ -370,7 +370,7 @@ extension EditMultiredditViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         //The string is not allowed to be longer than 21 characters, so if it's longer don't allow to replace the string. BUT if the string is not longer than zero it means it's removing. So that replacement is allowed
-        if textField == self.nameTextField && textField.text?.characters.count >= 21 && string.characters.count > 0 {
+        if textField == self.nameTextField && textField.text?.count >= 21 && string.count > 0 {
             return false
         }
         //If the string contains invalid characters it's not allowed to be replaced. In swift the range is nil if the characters are not found.

@@ -144,7 +144,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     
     func startFetching(_ searchText: String? = nil) {
         self.streamViewController?.cancelCollectionControllerFetching()
-        if let searchText = searchText , searchText.characters.count > 0 {
+        if let searchText = searchText , searchText.count > 0 {
             self.query?.searchKeywords = searchText
         }
         self.streamViewController?.startCollectionControllerFetching()
@@ -278,7 +278,7 @@ extension SubredditSearchResultsViewController: UISearchResultsUpdating {
     func updateSearchResults(for searchController: UISearchController) {
         var searchText = searchController.searchBar.text
         //Make sure search text is never nil!
-        if searchText == nil || searchText?.characters.count == 0 {
+        if searchText == nil || searchText?.count == 0 {
             searchText = ""
         }
         

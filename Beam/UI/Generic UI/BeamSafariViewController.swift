@@ -11,17 +11,11 @@ import SafariServices
 
 final class BeamSafariViewController: SFSafariViewController {
     
-    init(url URL: URL) {
-        super.init(url: URL, entersReaderIfAvailable: UserSettings[.prefersSafariViewControllerReaderMode])
-        if #available(iOS 10.0, *), AppDelegate.shared.displayModeController.currentMode == .dark {
-            self.preferredBarTintColor = UIColor.black
-            self.preferredControlTintColor = UIColor.white
-        }
-    }
-    
-    override init(url URL: URL, entersReaderIfAvailable: Bool) {
-        super.init(url: URL, entersReaderIfAvailable: entersReaderIfAvailable)
-        if #available(iOS 10.0, *), AppDelegate.shared.displayModeController.currentMode == .dark {
+    init(url: URL) {
+        let configuration = SFSafariViewController.Configuration()
+        configuration.entersReaderIfAvailable = UserSettings[.prefersSafariViewControllerReaderMode]
+        super.init(url: url, configuration: configuration)
+        if AppDelegate.shared.displayModeController.currentMode == .dark {
             self.preferredBarTintColor = UIColor.black
             self.preferredControlTintColor = UIColor.white
         }

@@ -175,7 +175,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         didSet {
             
             //If the searchKeywords is nil, the query is not used for a search. 
-            if let searchKeywords = self.query?.searchKeywords, searchKeywords.characters.count == 0 {
+            if let searchKeywords = self.query?.searchKeywords, searchKeywords.count == 0 {
                 self.tableView.backgroundView = nil
             } else {
                 self.refreshControl?.alpha = (self.emptyView?.emptyType == BeamEmptyViewType.Loading) ? 0 : 1
@@ -369,7 +369,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
                 subredditName = comment.post?.subreddit?.displayName
             }
             //containsString and length are faster on NSString than on swift string
-            if let keywords = subreddit.filterKeywords, let title = postTitle?.lowercased(), title.characters.count > 0 {
+            if let keywords = subreddit.filterKeywords, let title = postTitle?.lowercased(), title.count > 0 {
                 for filterKeyword in keywords {
                     if title.contains(filterKeyword) {
                         //If it contains the keyword, we don't want to continue!
@@ -380,7 +380,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             
             //containsString and length are faster on NSString than on swift string
             if shouldFilterSubreddits {
-                if let filterSubreddits = subreddit.filterSubreddits, let subreddit = subredditName?.lowercased(), subreddit.characters.count > 0 {
+                if let filterSubreddits = subreddit.filterSubreddits, let subreddit = subredditName?.lowercased(), subreddit.count > 0 {
                     for keyword in filterSubreddits {
                         if subreddit == keyword {
                             //If it contains the keyword, we don't want to continue!

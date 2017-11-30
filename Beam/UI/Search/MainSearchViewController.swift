@@ -439,12 +439,12 @@ extension MainSearchViewController {
 extension MainSearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchDisplayMode = searchBar.text?.characters.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions : MainSearchDisplayMode.recentSearched
+        searchDisplayMode = searchBar.text?.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions : MainSearchDisplayMode.recentSearched
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.setShowsCancelButton(true, animated: true)
-        searchDisplayMode = searchBar.text?.characters.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions : MainSearchDisplayMode.recentSearched
+        searchDisplayMode = searchBar.text?.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions : MainSearchDisplayMode.recentSearched
         return true
     }
     
@@ -461,7 +461,7 @@ extension MainSearchViewController: UISearchBarDelegate {
     
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
-        searchDisplayMode = searchBar.text?.characters.count == 0 ? MainSearchDisplayMode.recentVisited : MainSearchDisplayMode.resultSuggestions
+        searchDisplayMode = searchBar.text?.count == 0 ? MainSearchDisplayMode.recentVisited : MainSearchDisplayMode.resultSuggestions
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

@@ -212,7 +212,7 @@ extension MessageConversationViewController: ReplyBarViewDelegate {
     func replyBar(_ replyBarView: ReplyBarView, didTapSendMessage content: String) {
         replyBarView.clear()
         _ = replyBarView.resignFirstResponder()
-        if let message = self.message , content.characters.count > 0 {
+        if let message = self.message , content.count > 0 {
             self.replyBar.sending = true
             let operations = message.replyOperations(content, authenticationcontroller: AppDelegate.shared.authenticationController)
             DataController.shared.executeAndSaveOperations(operations, context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in

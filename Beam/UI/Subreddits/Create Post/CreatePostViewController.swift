@@ -280,7 +280,7 @@ class CreatePostViewController: BeamViewController {
     }
     
     fileprivate func submitPost(_ title: String, kind: RedditSubmitKind, completionHandler: @escaping ((_ error: Error?) -> ())) {
-        guard title.trimmingCharacters(in: CharacterSet.whitespaces).characters.count != 0 else {
+        guard title.trimmingCharacters(in: CharacterSet.whitespaces).count != 0 else {
             completionHandler(NSError.beamError(-401, localizedDescription: "Title missing"))
             return
         }

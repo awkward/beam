@@ -16,11 +16,11 @@ extension Snoo.MediaObject {
         let pattern = "^https?://.*imgur.com/"
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
-            if let string = self.contentURLString, let url = NSURL(string: string)  , regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.characters.count)) != nil {
+            if let string = self.contentURLString, let url = NSURL(string: string)  , regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) != nil {
                 
                 var pathExtension = url.pathExtension ?? ""
                 
-                let pathWithoutExtension = pathExtension.characters.count > 0 ? url.path?.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path
+                let pathWithoutExtension = pathExtension.count > 0 ? url.path?.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path
                 //Imgur always responds with an image if the extension is .png
                 pathExtension = "png"
                 

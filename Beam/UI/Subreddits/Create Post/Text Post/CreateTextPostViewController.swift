@@ -169,11 +169,11 @@ class CreateTextPostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        return self.subreddit != nil && self.titleTextField?.text?.characters.count > 0
+        return self.subreddit != nil && self.titleTextField?.text?.count > 0
     }
     
     override var hasContent: Bool {
-        return self.titleTextField?.text?.characters.count > 0 || self.textView?.text?.characters.count > 0
+        return self.titleTextField?.text?.count > 0 || self.textView?.text?.count > 0
     }
     
     override internal var postKind: RedditSubmitKind {
@@ -195,7 +195,7 @@ class CreateTextPostViewController: CreatePostViewController {
         self.titleTextField?.isEnabled = !hasPost
         self.titleTextField?.alpha = !hasPost ? 1 : 0.5
         
-        self.textViewPlaceholder?.isHidden = self.textView?.text.characters.count > 0
+        self.textViewPlaceholder?.isHidden = self.textView?.text.count > 0
         
         self.updateSubmitStatus()
     }
@@ -222,7 +222,7 @@ extension CreateTextPostViewController: UITextViewDelegate {
     
     func textViewDidChange(_ textView: UITextView) {
         self.updateSubmitStatus()
-        self.textViewPlaceholder.isHidden = self.textView.text.characters.count > 0
+        self.textViewPlaceholder.isHidden = self.textView.text.count > 0
         
         self.sizeTextView()
     }
@@ -232,7 +232,7 @@ extension CreateTextPostViewController: UITextViewDelegate {
     }
     
     func textView(_ textView: UITextView, shouldChangeTextIn range: NSRange, replacementText text: String) -> Bool {
-        return textView.text.characters.count + (text.characters.count - range.length) <= 15000
+        return textView.text.count + (text.count - range.length) <= 15000
     }
 }
 
@@ -240,11 +240,11 @@ extension CreateTextPostViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.titleTextField {
-            let currentCharacterCount = textField.text?.characters.count ?? 0
+            let currentCharacterCount = textField.text?.count ?? 0
             if (range.length + range.location > currentCharacterCount){
                 return false
             }
-            let newLength = currentCharacterCount + string.characters.count - range.length
+            let newLength = currentCharacterCount + string.count - range.length
             return newLength <= 300
         }
         return true

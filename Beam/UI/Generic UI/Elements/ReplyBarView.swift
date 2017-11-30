@@ -208,8 +208,8 @@ class ReplyBarView: BeamView {
     }
     
     func reloadEditingState() {
-        self.placeholderLabel.isHidden = self.textView.text.characters.count > 0
-        self.sendButton.isEnabled = self.textView.text.characters.count > 0
+        self.placeholderLabel.isHidden = self.textView.text.count > 0
+        self.sendButton.isEnabled = self.textView.text.count > 0
     }
 }
 

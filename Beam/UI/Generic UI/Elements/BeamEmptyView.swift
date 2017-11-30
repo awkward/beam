@@ -124,7 +124,7 @@ class BeamEmptyView: BeamView {
             var messageKey: String = "\(key)_message"
             let buttonKey: String = "\(key)_button"
             
-            if imageKey.characters.count > 0 {
+            if imageKey.count > 0 {
                 self.imageView.image = UIImage(named: imageKey)
             } else {
                 self.imageView.image = nil

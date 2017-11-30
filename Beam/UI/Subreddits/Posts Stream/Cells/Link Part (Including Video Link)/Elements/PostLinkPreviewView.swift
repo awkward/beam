@@ -121,8 +121,8 @@ class PostLinkPreviewView: BeamControl {
         
         let string = NSMutableAttributedString()
         if let metadata = self.information {
-            let hasTitle = metadata.title?.characters.count ?? 0 > 0
-            let hasDescription = metadata.descriptionText?.characters.count ?? 0 > 0
+            let hasTitle = metadata.title?.count ?? 0 > 0
+            let hasDescription = metadata.descriptionText?.count ?? 0 > 0
             
             if hasTitle, let title = metadata.title {
                 string.append(NSAttributedString(string: title, attributes: titleAttributes))

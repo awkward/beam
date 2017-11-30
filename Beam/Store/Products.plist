@@ -146,15 +146,5 @@
 			</dict>
 		</array>
 	</dict>
-	<dict>
-		<key>identifier</key>
-		<string>com.madeawkward.beam.discoverpack</string>
-		<key>icon</key>
-		<string>discover-pack</string>
-		<key>heading</key>
-		<string>shop-product-discover-pack-heading</string>
-		<key>subheading</key>
-		<string>shop-product-discover-pack-subheading</string>
-	</dict>
 </array>
 </plist>

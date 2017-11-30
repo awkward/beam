@@ -8,26 +8,6 @@
 
 import UIKit
 import CoreData
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 extension MoreComment {
     
@@ -55,32 +35,33 @@ extension MoreComment {
             parsingOperation.addDependency(redditRequest)
             
             let blockOperation = BlockOperation(block: { () -> Void in
-                if parsingOperation.things?.count > 0 {
-                    self.managedObjectContext?.performAndWait({ 
-                        let commentsCollection = self.managedObjectContext?.object(with: commentsCollectionID) as? ObjectCollection
-                        let commentsCollectionSet = commentsCollection?.objects?.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet()
-                        if let replies = self.parent?.replies as? NSMutableOrderedSet {
-                            replies.remove(self)
-                            self.parent?.replies = replies
-                        } else {
-                            commentsCollectionSet.remove(self)
-                        }
+                guard let things = parsingOperation.things, things.count > 0 else {
+                    return
+                }
+                self.managedObjectContext?.performAndWait({
+                    let commentsCollection = self.managedObjectContext?.object(with: commentsCollectionID) as? ObjectCollection
+                    let commentsCollectionSet = commentsCollection?.objects?.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet()
+                    if let replies = self.parent?.replies as? NSMutableOrderedSet {
+                        replies.remove(self)
+                        self.parent?.replies = replies
+                    } else {
+                        commentsCollectionSet.remove(self)
+                    }
+                    
+                    if let comments = parsingOperation.things as? [Comment] {
                         
-                        if let comments = parsingOperation.things as? [Comment] {
-                            
-                            for comment in comments {
-                                if let parent = comment.parent {
-                                    let replies = parent.replies?.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet(capacity: 1)
-                                    replies.add(comment)
-                                    parent.replies = replies
-                                } else {
-                                    commentsCollectionSet.add(comment)
-                                }
+                        for comment in comments {
+                            if let parent = comment.parent {
+                                let replies = parent.replies?.mutableCopy() as? NSMutableOrderedSet ?? NSMutableOrderedSet(capacity: 1)
+                                replies.add(comment)
+                                parent.replies = replies
+                            } else {
+                                commentsCollectionSet.add(comment)
                             }
                         }
-                        commentsCollection?.objects = commentsCollectionSet
-                    })
-                }
+                    }
+                    commentsCollection?.objects = commentsCollectionSet
+                })
             })
             blockOperation.addDependency(parsingOperation)
             

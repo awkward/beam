@@ -12,7 +12,7 @@ import SDWebImage
 import AVKit
 import AVFoundation
 
-class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMediaLabels {
+final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMediaLabels {
     
     private var ImageViewHiddenObserverContext = 0
     

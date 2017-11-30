@@ -11,7 +11,7 @@ import TTTAttributedLabel
 import Snoo
 import RedditMarkdownKit
 
-class PostCommentPartCell: BeamTableViewCell, PostCell {
+final class PostCommentPartCell: BeamTableViewCell, PostCell {
 
     @IBOutlet var commentView: UIView!
     @IBOutlet var authorLabel: UILabel!

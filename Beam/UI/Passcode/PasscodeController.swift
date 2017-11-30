@@ -8,26 +8,6 @@
 
 import UIKit
 import LocalAuthentication
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 struct PasscodeDelayOption {
     let title: String
@@ -177,7 +157,7 @@ class PasscodeController: NSObject {
     func applicationWillEnterForeground(_ application: UIApplication) {
         if let enteredBackgroundTime = self.enteredBackgroundTime {
             let timeInterval = Date().timeIntervalSince(enteredBackgroundTime)
-            if timeInterval < self.currentDelayOption?.time && self.currentDelayOption?.time > 0 && self.hasBeenUnlockedOnce {
+            if let currentDelayOption = self.currentDelayOption, timeInterval < currentDelayOption.time  && currentDelayOption.time > 0 && self.hasBeenUnlockedOnce {
                 self.dismissPasscodeWindow(false)
             }
         }

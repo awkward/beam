@@ -9,28 +9,8 @@
 import UIKit
 import Snoo
 import CoreData
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
 
-fileprivate func >= <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l >= r
-  default:
-    return !(lhs < rhs)
-  }
-}
-
-
-class EditMultiredditViewController: BeamTableViewController {
+final class EditMultiredditViewController: BeamTableViewController {
     
     var multireddit: Multireddit? {
         didSet {
@@ -156,7 +136,7 @@ class EditMultiredditViewController: BeamTableViewController {
     }
     
     @objc fileprivate func save(_ sender: AnyObject?) {
-        if self.nameTextField.text?.rangeOfCharacter(from: self.allowedCharacters.inverted) != nil || self.nameTextField.text?.count < 3  {
+        guard let name = self.nameTextField.text, name.rangeOfCharacter(from: self.allowedCharacters.inverted) == nil && name.count > 3 else {
             let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-characters"), message: AWKLocalizedString("create-multireddit-characters-message"), preferredStyle: UIAlertControllerStyle.alert)
             alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: UIAlertActionStyle.cancel, handler:nil))
             self.present(alertController, animated: true, completion: nil)
@@ -370,7 +350,7 @@ extension EditMultiredditViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         //The string is not allowed to be longer than 21 characters, so if it's longer don't allow to replace the string. BUT if the string is not longer than zero it means it's removing. So that replacement is allowed
-        if textField == self.nameTextField && textField.text?.count >= 21 && string.count > 0 {
+        if let text = textField.text, textField == self.nameTextField && text.count >= 21 && string.count > 0 {
             return false
         }
         //If the string contains invalid characters it's not allowed to be replaced. In swift the range is nil if the characters are not found.

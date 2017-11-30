@@ -14,7 +14,7 @@ protocol PostTitlePartCellDelegate: class {
     func titlePartCell(_ cell: PostTitlePartCell, didTapThumbnail thumbnailImageView: UIImageView, onPost post: Post)
 }
 
-class PostTitlePartCell: BeamTableViewCell, PostCell {
+final class PostTitlePartCell: BeamTableViewCell, PostCell {
     
     weak var post: Post? {
         didSet {

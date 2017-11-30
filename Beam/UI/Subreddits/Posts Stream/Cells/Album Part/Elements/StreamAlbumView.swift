@@ -15,7 +15,7 @@ protocol StreamAlbumViewDelegate: class {
     func albumView(_ collectionView: StreamAlbumView, didTapItemView itemView: StreamAlbumItemView, atIndex index: Int)
 }
 
-class StreamAlbumView: UIView {
+final class StreamAlbumView: UIView {
     
     ///MARK: - Public Properties
     var mediaObjects: [MediaObject]? {

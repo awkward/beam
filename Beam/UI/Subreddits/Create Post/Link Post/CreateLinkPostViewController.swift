@@ -8,25 +8,6 @@
 
 import UIKit
 import Snoo
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
 
 
 class CreateLinkPostViewController: CreatePostViewController {
@@ -189,19 +170,24 @@ class CreateLinkPostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        return self.subreddit != nil && self.titleTextField?.text?.count > 0 && self.linkTextField?.text?.count > 0
+        guard let title = self.titleTextField.text, let link = self.linkTextField.text else {
+            return false
+        }
+        return self.subreddit != nil && title.count > 0 && link.count > 0
     }
     
     override var hasContent: Bool {
-        return self.titleTextField?.text?.count > 0 || self.linkTextField?.text?.count > 0
+        let title = self.titleTextField.text ?? ""
+        let link = self.linkTextField.text ?? ""
+        return title.count > 0 || link.count > 0
     }
     
     override internal var postKind: RedditSubmitKind {
-        var URLString = self.linkTextField.text!
-        if URLString.hasPrefix("www.") {
-            URLString = "http://\(URLString)"
+        var urlString = self.linkTextField.text!
+        if urlString.hasPrefix("www.") {
+            urlString = "http://\(urlString)"
         }
-        return RedditSubmitKind.link(URL(string: URLString)!)
+        return RedditSubmitKind.link(URL(string: urlString)!)
     }
     
     override internal var postTitle: String {

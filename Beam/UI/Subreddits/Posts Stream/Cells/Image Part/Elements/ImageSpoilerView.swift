@@ -8,7 +8,7 @@
 
 import UIKit
 
-class ImageSpoilerView: BeamView {
+final class ImageSpoilerView: BeamView {
 
     weak var sourceView: UIView?
     fileprivate (set) var opened = false

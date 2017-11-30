@@ -9,34 +9,18 @@
 
 import Foundation
 import CherryKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
 
 
 extension StoreProduct {
     
     var isTrialAvailable: Bool {
+        guard let price = self.storeObject?.price.floatValue, price > 0 else {
+            return false
+        }
         if self.hasTrialStarted == true {
             return true
         }
-        return AppDelegate.shared.cherryController.features?.trialsAvailable == true && AppDelegate.shared.cherryController.accessToken != nil && UIDevice.current.identifierForVendor?.uuidString != nil && self.isPurchased == false && self.storeObject?.price.floatValue > 0
+        return AppDelegate.shared.cherryController.features?.trialsAvailable == true && AppDelegate.shared.cherryController.accessToken != nil && UIDevice.current.identifierForVendor?.uuidString != nil && self.isPurchased == false
     }
     
     var hasTrialStarted: Bool {

@@ -8,25 +8,6 @@
 
 import UIKit
 import Snoo
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
 
 
 class CreateTextPostViewController: CreatePostViewController {
@@ -169,11 +150,16 @@ class CreateTextPostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        return self.subreddit != nil && self.titleTextField?.text?.count > 0
+        guard let title = self.titleTextField.text else {
+            return false
+        }
+        return self.subreddit != nil && title.count > 0
     }
     
     override var hasContent: Bool {
-        return self.titleTextField?.text?.count > 0 || self.textView?.text?.count > 0
+        let title = self.titleTextField.text ?? ""
+        let text = self.textView.text ?? ""
+        return title.count > 0 || text.count > 0
     }
     
     override internal var postKind: RedditSubmitKind {
@@ -195,7 +181,11 @@ class CreateTextPostViewController: CreatePostViewController {
         self.titleTextField?.isEnabled = !hasPost
         self.titleTextField?.alpha = !hasPost ? 1 : 0.5
         
-        self.textViewPlaceholder?.isHidden = self.textView?.text.count > 0
+        if let text = self.textView?.text {
+            self.textViewPlaceholder?.isHidden = !text.isEmpty
+        } else {
+            self.textViewPlaceholder?.isHidden = false
+        }
         
         self.updateSubmitStatus()
     }

@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import SDWebImage
 
-class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabels {
+final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabels {
     
     //MARK: - Image Loading
     

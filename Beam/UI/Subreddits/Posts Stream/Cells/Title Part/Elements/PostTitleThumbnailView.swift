@@ -11,7 +11,7 @@ import Snoo
 import CherryKit
 import SDWebImage
 
-class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMediaLabels {
+final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMediaLabels {
     
     var post: Post? {
         didSet {

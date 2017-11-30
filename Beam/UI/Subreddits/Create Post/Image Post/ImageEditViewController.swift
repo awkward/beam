@@ -8,28 +8,8 @@
 
 import UIKit
 import Photos
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
 
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
-
-class ImageEditBottomview: BeamView {
+final class ImageEditBottomview: BeamView {
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -188,7 +168,7 @@ class ImageEditViewController: BeamViewController {
     func updateTextFields() {
         self.titleTextField?.text = self.currentImage?.imageTitle
         self.descriptionTextView?.text = self.currentImage?.imageDescription
-        self.descriptionTextViewPlaceholder?.isHidden = self.descriptionTextView?.text.count > 0
+        self.descriptionTextViewPlaceholder?.isHidden = self.descriptionTextView?.text.count ?? 0 > 0
         if self.descriptionTextView != nil {
             self.sizeTextView()
         }
@@ -247,10 +227,10 @@ extension ImageEditViewController: UIScrollViewDelegate {
         }
         let pageWidth: CGFloat = self.collectionView.frame.width
         let index = Int(floor((self.collectionView.contentOffset.x-(pageWidth/2))/pageWidth))+1
-        guard index >= 0 && index < self.allImages?.count && self.allImages?.count > 0 else {
+        guard let images = self.allImages, index >= 0 && index < images.count && images.count > 0 else {
             return
         }
-        let newImage = self.allImages![index]
+        let newImage = images[index]
         if self.privateCurrentImage != newImage {
             self.updateTitleOfCurrentImage()
             self.privateCurrentImage = newImage

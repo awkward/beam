@@ -23,7 +23,7 @@ protocol PostImageCollectionPartCellDelegate: class {
 /**
 A part of the post cell that represents an image album. Internally, it has a UICollectionView in it.
 */
-class PostImageCollectionPartCell: BeamTableViewCell, PostCell {
+final class PostImageCollectionPartCell: BeamTableViewCell, PostCell {
     
     var post: Post?
     

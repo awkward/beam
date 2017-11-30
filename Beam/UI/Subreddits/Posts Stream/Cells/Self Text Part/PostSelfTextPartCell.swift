@@ -11,7 +11,7 @@ import Snoo
 import RedditMarkdownKit
 import TTTAttributedLabel
 
-class PostSelfTextPartCell: BeamTableViewCell, PostCell {
+final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
     
     fileprivate var contentStylesheet: MarkdownStylesheet {
         if !self.showsSummary {

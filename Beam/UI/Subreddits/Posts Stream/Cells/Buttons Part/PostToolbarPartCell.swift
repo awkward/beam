@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import CoreData
 
-class PostToolbarPartCell: BeamTableViewCell, PostCell {
+final class PostToolbarPartCell: BeamTableViewCell, PostCell {
    
     @IBOutlet weak var toolbarView: PostToolbarView!
     

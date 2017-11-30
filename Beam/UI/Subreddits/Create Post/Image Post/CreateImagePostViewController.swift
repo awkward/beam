@@ -11,26 +11,6 @@ import Snoo
 import Photos
 import AssetsPickerController
 import ImgurKit
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 class ImageAsset: NSObject {
     let asset: PHAsset
@@ -111,7 +91,7 @@ class CreateImagePostViewController: CreatePostViewController {
     
     fileprivate var link: URL!
     
-    fileprivate var uploadedImages: [String: ImgurImage]?
+    fileprivate var uploadedImages = [String: ImgurImage]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -305,27 +285,25 @@ class CreateImagePostViewController: CreatePostViewController {
             return
         }
         //Don't call super, we first need to uplaod the album!
-        if self.uploadedImages?.count < self.images.count {
+        if self.uploadedImages.count < self.images.count {
             self.state = CreateImagePostViewControllerState.uploadingImages
             self.uploadImages { (imgurImages, errors) in
                 if let imgurImages = imgurImages {
-                    if self.uploadedImages == nil {
+                    if self.uploadedImages.count == 0 {
                         self.uploadedImages = imgurImages
                     } else {
                         for (key, value) in imgurImages {
-                            if self.uploadedImages![key] == nil {
-                                self.uploadedImages![key] = value
+                            if self.uploadedImages[key] == nil {
+                                self.uploadedImages[key] = value
                             }
                         }
                     }
                 }
-                if let uploadedImages = self.uploadedImages {
-                    let allUploadedImages = Array(uploadedImages.values)
-                    self.saveUploadedImgurObjects(allUploadedImages)
-                }
-                if errors?.count > 0 {
+                let allUploadedImages = Array(self.uploadedImages.values)
+                self.saveUploadedImgurObjects(allUploadedImages)
+                if let firstError = errors?.first {
                     DispatchQueue.main.async(execute: { 
-                        self.handleError(errors!.first!)
+                        self.handleError(firstError)
                     })
                     self.state = nil
                 } else {
@@ -344,7 +322,7 @@ class CreateImagePostViewController: CreatePostViewController {
             if self.images.count == 1 {
                 DispatchQueue.main.async(execute: {
                     //Get the first image
-                    self.submitImage(self.uploadedImages!.first!.1)
+                    self.submitImage(self.uploadedImages.first!.1)
                 })
             } else {
                 self.createAlbum()
@@ -443,7 +421,7 @@ class CreateImagePostViewController: CreatePostViewController {
     //MARK: - Album creation
     
     fileprivate func createAlbum() {
-        guard self.uploadedImages?.count > 0 else {
+        guard self.uploadedImages.count > 0 else {
             self.state = nil
             return
         }
@@ -452,7 +430,7 @@ class CreateImagePostViewController: CreatePostViewController {
         var imageDeleteHashes = [String]()
         var albumImages = [ImgurImage]()
         for image in self.images {
-            if let imgurImage = self.uploadedImages![image.asset.localIdentifier], let imageDeleteHash = imgurImage.deleteHash {
+            if let imgurImage = self.uploadedImages[image.asset.localIdentifier], let imageDeleteHash = imgurImage.deleteHash {
                 imageDeleteHashes.append(imageDeleteHash)
                 albumImages.append(imgurImage)
             }
@@ -512,11 +490,16 @@ class CreateImagePostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        return self.subreddit != nil && self.titleTextField?.text?.count > 0 && self.images.count > 0 && self.state == nil
+        guard let title = self.titleTextField.text else {
+            return false
+        }
+        return self.subreddit != nil && title.count > 0 && self.images.count > 0 && self.state == nil
     }
     
     override var hasContent: Bool {
-        return self.titleTextField?.text?.count > 0 || self.descriptionTextField?.text?.count > 0 || self.images.count > 0
+        let title = self.titleTextField.text ?? ""
+        let description = self.descriptionTextField.text ?? ""
+        return title.count > 0 || description.count > 0 || self.images.count > 0
     }
     
     override internal var postKind: RedditSubmitKind {

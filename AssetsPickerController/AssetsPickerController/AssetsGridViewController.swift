@@ -8,17 +8,6 @@
 
 import UIKit
 import Photos
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
 
 class AssetsGridViewController: UICollectionViewController, AssetsPickerViewController, ColorPaletteSupport {
     
@@ -109,10 +98,10 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
             return nil
         }
         let index = (indexPath as NSIndexPath).row-(self.showCameraButton ? 1 : 0)
-        guard index < self.assets?.count && index >= 0 else {
+        guard let assets = self.assets, index < assets.count && index >= 0 else {
             return nil
         }
-        return self.assets?[index]
+        return assets[index]
     }
     
     //MARK: - View Lifecycle

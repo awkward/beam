@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import CherryKit
 
-class PostURLPartCell: BeamTableViewCell, PostCell {
+final class PostURLPartCell: BeamTableViewCell, PostCell {
 
     @IBOutlet fileprivate var linkPreviewView: PostLinkPreviewView!
     

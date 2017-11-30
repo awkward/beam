@@ -9,7 +9,7 @@
 import UIKit
 import Snoo
 
-class PostMetaDataPartCell: BeamTableViewCell, PostCell {
+final class PostMetaDataPartCell: BeamTableViewCell, PostCell {
     
     @IBOutlet var metadataView: PostMetadataView!
     

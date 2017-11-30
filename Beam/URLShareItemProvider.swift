@@ -11,7 +11,7 @@ import CoreData
 import Snoo
 import MobileCoreServices
 
-class URLShareItemProvider: UIActivityItemProvider {
+final class URLShareItemProvider: UIActivityItemProvider {
 
     var object: SyncObject
     var redditUrl: URL

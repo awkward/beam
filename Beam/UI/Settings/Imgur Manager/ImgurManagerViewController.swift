@@ -9,25 +9,6 @@
 import UIKit
 import ImgurKit
 import AWKGallery
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
 
 
 class ImgurManagerViewController: BeamCollectionViewController {
@@ -67,7 +48,7 @@ class ImgurManagerViewController: BeamCollectionViewController {
         } else if let data: Data = try? Data(contentsOf: URL(fileURLWithPath: filePath)), let objects: [ImgurObject] = NSKeyedUnarchiver.unarchiveObject(with: data) as? [ImgurObject] {
             self.items = objects.reversed()
         }
-        if self.items?.count > 0 {
+        if let items = self.items, items.count > 0 {
             self.collectionView?.backgroundView = nil
         } else {
             if self.emptyView == nil {
@@ -115,13 +96,13 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
         alertController.addCancelAction()
         alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertActionStyle.destructive, handler: { (action) in
             if let album = object as? ImgurAlbum {
-                if album.images?.count > 0 {
-                    self.showDeleteAlbumImages(album)
-                } else {
+                guard let images = album.images, !images.isEmpty else {
                     self.deleteAlbum(album)
+                    return
                 }
-            } else {
-                self.deleteImage(object as! ImgurImage)
+                self.showDeleteAlbumImages(album)
+            } else if let image = object as? ImgurImage {
+                self.deleteImage(image)
             }
         }))
         self.showViewControllerOnGallery(alertController)
@@ -156,11 +137,10 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
         self.dismissGallery()
         
         var requests = [ImgurRequest]()
-        if withImages == true && album.images?.count > 0 {
-            for image in album.images! {
-                if let deleteHash = image.deleteHash {
-                    requests.append(ImgurImageRequest(deleteRequestWithDeleteHash: deleteHash))
-                }
+        if let images = album.images, images.count > 0 && withImages == true {
+            for image in images {
+                guard let deleteHash = image.deleteHash else { continue }
+                requests.append(ImgurImageRequest(deleteRequestWithDeleteHash: deleteHash))
             }
         }
 

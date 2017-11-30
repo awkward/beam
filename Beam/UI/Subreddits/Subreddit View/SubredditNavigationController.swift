@@ -6,7 +6,9 @@
 //  Copyright © 2015 Awkward. All rights reserved.
 //
 
-class SubredditNavigationController: BeamNavigationController {
+import UIKit
+
+final class SubredditNavigationController: BeamNavigationController {
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -6,8 +6,7 @@
 //  Copyright © 2015 Awkward. All rights reserved.
 //
 
-import Foundation
-
+import UIKit
 
 extension UISearchBar {
     

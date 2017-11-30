@@ -131,7 +131,6 @@
 		0C144D3D1CEDB91900186C16 /* SaveCommentActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C144D3C1CEDB91900186C16 /* SaveCommentActivity.swift */; };
 		0C145E391BDE2FD700C74100 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C145E381BDE2FD700C74100 /* Report.storyboard */; };
 		0C145E491BDE642100C74100 /* String+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C145E481BDE642100C74100 /* String+Trimming.swift */; };
-		0C1499C91C5B69B2005E5C17 /* SubredditsTableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C1499C81C5B69B2005E5C17 /* SubredditsTableView.m */; };
 		0C14D9251CADB1030031AD43 /* ImgurError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14D9241CADB1030031AD43 /* ImgurError.swift */; };
 		0C14D9271CADB4DF0031AD43 /* ImgurAlbumRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14D9261CADB4DF0031AD43 /* ImgurAlbumRequest.swift */; };
 		0C14D92C1CAE9D550031AD43 /* ImgurAlbum.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14D92B1CAE9D550031AD43 /* ImgurAlbum.swift */; };
@@ -212,7 +211,6 @@
 		0C2F1DF91D708C1700BB6ED1 /* Mixpanel.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C2F1DEA1D708C0C00BB6ED1 /* Mixpanel.framework */; };
 		0C2F1DFA1D708C1700BB6ED1 /* Mixpanel.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C2F1DEA1D708C0C00BB6ED1 /* Mixpanel.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C2F1DFE1D708C8000BB6ED1 /* MixpanelAnalyticsService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F1DFD1D708C8000BB6ED1 /* MixpanelAnalyticsService.swift */; };
-		0C2F1E011D708E2E00BB6ED1 /* ABTestingValues.m in Sources */ = {isa = PBXBuildFile; fileRef = 0C2F1E001D708E2E00BB6ED1 /* ABTestingValues.m */; };
 		0C3091FC1D82CBCD00E0BECC /* CherryKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C3091F21D82CBCD00E0BECC /* CherryKit.framework */; };
 		0C30923F1D82CBEB00E0BECC /* Cherry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C30920F1D82CBEB00E0BECC /* Cherry.swift */; };
 		0C3092401D82CBEB00E0BECC /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3092101D82CBEB00E0BECC /* Task.swift */; };
@@ -1020,8 +1018,6 @@
 		0C144D3C1CEDB91900186C16 /* SaveCommentActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveCommentActivity.swift; sourceTree = "<group>"; };
 		0C145E381BDE2FD700C74100 /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
 		0C145E481BDE642100C74100 /* String+Trimming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Trimming.swift"; sourceTree = "<group>"; };
-		0C1499C71C5B69B2005E5C17 /* SubredditsTableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SubredditsTableView.h; sourceTree = "<group>"; };
-		0C1499C81C5B69B2005E5C17 /* SubredditsTableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SubredditsTableView.m; sourceTree = "<group>"; };
 		0C14D9241CADB1030031AD43 /* ImgurError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurError.swift; sourceTree = "<group>"; };
 		0C14D9261CADB4DF0031AD43 /* ImgurAlbumRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurAlbumRequest.swift; sourceTree = "<group>"; };
 		0C14D92B1CAE9D550031AD43 /* ImgurAlbum.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurAlbum.swift; sourceTree = "<group>"; };
@@ -1102,8 +1098,6 @@
 		0C2F1DB21D703A0D00BB6ED1 /* ProductDetailPreviewsTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ProductDetailPreviewsTableViewCell.swift; sourceTree = "<group>"; };
 		0C2F1DD81D708C0C00BB6ED1 /* Mixpanel.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Mixpanel.xcodeproj; path = Mixpanel/Mixpanel.xcodeproj; sourceTree = "<group>"; };
 		0C2F1DFD1D708C8000BB6ED1 /* MixpanelAnalyticsService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MixpanelAnalyticsService.swift; sourceTree = "<group>"; };
-		0C2F1DFF1D708E2E00BB6ED1 /* ABTestingValues.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ABTestingValues.h; sourceTree = "<group>"; };
-		0C2F1E001D708E2E00BB6ED1 /* ABTestingValues.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ABTestingValues.m; sourceTree = "<group>"; };
 		0C3091F21D82CBCD00E0BECC /* CherryKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = CherryKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C3091FB1D82CBCD00E0BECC /* CherryKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CherryKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		0C30920F1D82CBEB00E0BECC /* Cherry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Cherry.swift; sourceTree = "<group>"; };
@@ -2864,11 +2858,7 @@
 			children = (
 				0C980D751F62EB29006E3920 /* Settings.bundle */,
 				0C1894461D86B10E000BCB0C /* beam.entitlements */,
-				0C2F1DFF1D708E2E00BB6ED1 /* ABTestingValues.h */,
 				76DA034B1B5644D800137BF2 /* beam-Bridging-Header.h */,
-				0C1499C71C5B69B2005E5C17 /* SubredditsTableView.h */,
-				0C2F1E001D708E2E00BB6ED1 /* ABTestingValues.m */,
-				0C1499C81C5B69B2005E5C17 /* SubredditsTableView.m */,
 				766074241B38073100F4C777 /* Info.plist */,
 				766074161B38073100F4C777 /* AppDelegate.swift */,
 				0C9820E91EDDC57800DC2914 /* Config.swift */,
@@ -3877,7 +3867,6 @@
 				0CE06C3C1C085C360001EDB6 /* MultiredditQuery+Fetching.swift in Sources */,
 				0C37A2DA1E409FB600301F66 /* PostSelfTextPartCell.swift in Sources */,
 				0C0779E61BE37F05006D1D8B /* NavigationBarNotificationHandler.swift in Sources */,
-				0C2F1E011D708E2E00BB6ED1 /* ABTestingValues.m in Sources */,
 				0C0F4D441BE7A46600D1BB89 /* SubredditsViewController.swift in Sources */,
 				769E1F971BA9782B00AD279A /* DisplayModeController.swift in Sources */,
 				0C87F9EE1E4A005E0091378B /* UserSettings.swift in Sources */,
@@ -3956,7 +3945,6 @@
 				0C2D7D0F1DF1A4320049763B /* NoMessageSelectedViewController.swift in Sources */,
 				0C668E081C206D5F00671018 /* TableViewHeaderBannerView.swift in Sources */,
 				76C550E31BBF05B600DD5FA3 /* UIInterpolatingMotionEffects+Effects.swift in Sources */,
-				0C1499C91C5B69B2005E5C17 /* SubredditsTableView.m in Sources */,
 				0C480EB11C7B1BEF005BD750 /* GildCountView.swift in Sources */,
 				0045F9491BD7AA0000252307 /* SubredditTitleView.swift in Sources */,
 				0CFEF3A51C8711D8005D7DAE /* PostDetailViewController.swift in Sources */,

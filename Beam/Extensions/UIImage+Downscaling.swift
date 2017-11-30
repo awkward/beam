@@ -6,7 +6,7 @@
 //  Copyright © 2015 Awkward. All rights reserved.
 //
 
-import Foundation
+import UIKit
 
 private let bytesPerMB: CGFloat = 1048576.0
 private let bytesPerPixel: CGFloat = 4.0

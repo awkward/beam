@@ -13,7 +13,6 @@
 		0032E05C1BCBBA8100B2F847 /* GalleryPostBottomView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0032E05B1BCBBA8100B2F847 /* GalleryPostBottomView.xib */; };
 		0032F4B11C2178A1003B16D4 /* BeamSafariViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0032F4B01C2178A1003B16D4 /* BeamSafariViewController.swift */; };
 		003CAFDA1BDF792A008719A4 /* BadgeView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 003CAFD91BDF792A008719A4 /* BadgeView.swift */; };
-		0045F7D31BD4EC9200252307 /* BeamViewControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045F7D21BD4EC9200252307 /* BeamViewControllerTransition.swift */; };
 		0045F89A1BD6815700252307 /* BeamPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045F8991BD6815700252307 /* BeamPresentationController.swift */; };
 		0045F9111BD6C98400252307 /* Logger.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045F9101BD6C98400252307 /* Logger.swift */; };
 		0045F9491BD7AA0000252307 /* SubredditTitleView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0045F9481BD7AA0000252307 /* SubredditTitleView.swift */; };
@@ -272,6 +271,8 @@
 		0C4878BE1D0AB6FA00E7CBA9 /* SubredditSearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4878BD1D0AB6FA00E7CBA9 /* SubredditSearchViewController.swift */; };
 		0C4878C01D0AC02500E7CBA9 /* SubredditSorting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4878BF1D0AC02500E7CBA9 /* SubredditSorting.swift */; };
 		0C4A37CF1DCB547F00519D58 /* PostImagePartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4A37CE1DCB547F00519D58 /* PostImagePartCell.swift */; };
+		0C4C041A1FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4C04191FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift */; };
+		0C4C042E1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4C042D1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift */; };
 		0C4C15411E2679B8007FEBD4 /* URLQueryItem+Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4C152D1E267896007FEBD4 /* URLQueryItem+Initializer.swift */; };
 		0C4C15A21E27A06C007FEBD4 /* UPCarouselFlowLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4C15A11E27A06C007FEBD4 /* UPCarouselFlowLayout.framework */; };
 		0C4C15A31E27A06C007FEBD4 /* UPCarouselFlowLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4C15A11E27A06C007FEBD4 /* UPCarouselFlowLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -279,6 +280,7 @@
 		0C561FB31E3F518E00097D49 /* Content+ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C561FB21E3F518E00097D49 /* Content+ImageResponse.swift */; };
 		0C561FC81E3F5CBD00097D49 /* CommentCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C561FC71E3F5CBD00097D49 /* CommentCellDelegate.swift */; };
 		0C561FCA1E3F7CAB00097D49 /* MediaObjectsGalleryPresentation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C561FC91E3F7CAB00097D49 /* MediaObjectsGalleryPresentation.swift */; };
+		0C5850FC1FF53519005CF710 /* UIViewControllerContextTransitioningExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5850FB1FF53519005CF710 /* UIViewControllerContextTransitioningExtensions.swift */; };
 		0C5D3E1C1E2FBFEA00021C32 /* Snoo-mapping-12-13.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0C5D3E1B1E2FBFEA00021C32 /* Snoo-mapping-12-13.xcmappingmodel */; };
 		0C5E59F11C85D11700CA9121 /* EditCommentActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5E59F01C85D11700CA9121 /* EditCommentActivity.swift */; };
 		0C5E59F31C85D4D000CA9121 /* CommentsNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5E59F21C85D4D000CA9121 /* CommentsNavigationController.swift */; };
@@ -885,7 +887,6 @@
 		0032E05B1BCBBA8100B2F847 /* GalleryPostBottomView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = GalleryPostBottomView.xib; sourceTree = "<group>"; };
 		0032F4B01C2178A1003B16D4 /* BeamSafariViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeamSafariViewController.swift; path = "Beam/UI/Generic UI/BeamSafariViewController.swift"; sourceTree = SOURCE_ROOT; };
 		003CAFD91BDF792A008719A4 /* BadgeView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BadgeView.swift; path = "Beam/UI/Generic UI/Elements/BadgeView.swift"; sourceTree = SOURCE_ROOT; };
-		0045F7D21BD4EC9200252307 /* BeamViewControllerTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeamViewControllerTransition.swift; path = "Beam/Transitions and Presentation/BeamViewControllerTransition.swift"; sourceTree = SOURCE_ROOT; };
 		0045F8991BD6815700252307 /* BeamPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BeamPresentationController.swift; path = "Beam/Transitions and Presentation/BeamPresentationController.swift"; sourceTree = SOURCE_ROOT; };
 		0045F9101BD6C98400252307 /* Logger.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Logger.swift; sourceTree = "<group>"; };
 		0045F9481BD7AA0000252307 /* SubredditTitleView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SubredditTitleView.swift; path = "Beam/UI/Subreddits/Subreddit View/Elements/SubredditTitleView.swift"; sourceTree = SOURCE_ROOT; };
@@ -1159,12 +1160,15 @@
 		0C4878BD1D0AB6FA00E7CBA9 /* SubredditSearchViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubredditSearchViewController.swift; sourceTree = "<group>"; };
 		0C4878BF1D0AC02500E7CBA9 /* SubredditSorting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubredditSorting.swift; sourceTree = "<group>"; };
 		0C4A37CE1DCB547F00519D58 /* PostImagePartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostImagePartCell.swift; sourceTree = "<group>"; };
+		0C4C04191FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveSwipeTransitionAnimationController.swift; sourceTree = "<group>"; };
+		0C4C042D1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBeamViewControllerTransitionHandler.swift; sourceTree = "<group>"; };
 		0C4C152D1E267896007FEBD4 /* URLQueryItem+Initializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URLQueryItem+Initializer.swift"; path = "../../beam/URLQueryItem+Initializer.swift"; sourceTree = "<group>"; };
 		0C4C15991E27A007007FEBD4 /* UPCarouselFlowLayoutDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UPCarouselFlowLayoutDemo.xcodeproj; path = UPCarouselFlowLayout/UPCarouselFlowLayoutDemo.xcodeproj; sourceTree = "<group>"; };
 		0C5566EA1C170AB30020D459 /* ReplyBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBarView.swift; sourceTree = "<group>"; };
 		0C561FB21E3F518E00097D49 /* Content+ImageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Content+ImageResponse.swift"; sourceTree = "<group>"; };
 		0C561FC71E3F5CBD00097D49 /* CommentCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellDelegate.swift; sourceTree = "<group>"; };
 		0C561FC91E3F7CAB00097D49 /* MediaObjectsGalleryPresentation.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MediaObjectsGalleryPresentation.swift; sourceTree = "<group>"; };
+		0C5850FB1FF53519005CF710 /* UIViewControllerContextTransitioningExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIViewControllerContextTransitioningExtensions.swift; sourceTree = "<group>"; };
 		0C5D3E071E2FBFA000021C32 /* Snoo 13.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Snoo 13.xcdatamodel"; sourceTree = "<group>"; };
 		0C5D3E1B1E2FBFEA00021C32 /* Snoo-mapping-12-13.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "Snoo-mapping-12-13.xcmappingmodel"; sourceTree = "<group>"; };
 		0C5E59F01C85D11700CA9121 /* EditCommentActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = EditCommentActivity.swift; sourceTree = "<group>"; };
@@ -2117,6 +2121,7 @@
 				765A38691B3D83EA00A16D14 /* UIViewController+EmbeddedLayout.swift */,
 				0C454B7E1C035F7400C8AB43 /* UIViewController+Gallery.swift */,
 				0C053BDC1BCED10000311315 /* UIViewController+Modal.swift */,
+				0C5850FB1FF53519005CF710 /* UIViewControllerContextTransitioningExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2748,8 +2753,9 @@
 				0C2A49F01DDC93FE00EE72DE /* BeamModalPresentation.swift */,
 				0C0F4D3B1BE7894F00D1BB89 /* BasicViewControllerTransition.swift */,
 				0045F8991BD6815700252307 /* BeamPresentationController.swift */,
-				0045F7D21BD4EC9200252307 /* BeamViewControllerTransition.swift */,
 				0C0F4D3C1BE7894F00D1BB89 /* BlurredDimmingPresentationController.swift */,
+				0C4C04191FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift */,
+				0C4C042D1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift */,
 			);
 			path = "Transitions and Presentation";
 			sourceTree = "<group>";
@@ -3864,6 +3870,7 @@
 				0C2D94A21C15B36200CA201E /* PostImageCollectionPartItemCell.swift in Sources */,
 				0C7C0AC01C19945200020F60 /* BeamImageLoader.swift in Sources */,
 				0CDF94ED1CBB9D0200B23996 /* PasscodeIndicatorView.swift in Sources */,
+				0C5850FC1FF53519005CF710 /* UIViewControllerContextTransitioningExtensions.swift in Sources */,
 				0CE06C3C1C085C360001EDB6 /* MultiredditQuery+Fetching.swift in Sources */,
 				0C37A2DA1E409FB600301F66 /* PostSelfTextPartCell.swift in Sources */,
 				0C0779E61BE37F05006D1D8B /* NavigationBarNotificationHandler.swift in Sources */,
@@ -3990,6 +3997,7 @@
 				0C5566EB1C170AB30020D459 /* ReplyBarView.swift in Sources */,
 				761078EA1BA6E9C9004B7887 /* Array+Limit.swift in Sources */,
 				0C31876B1BD7D105006CE2F1 /* NoticeHandling.swift in Sources */,
+				0C4C042E1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift in Sources */,
 				0C0779D81BE3792F006D1D8B /* RefreshNotificationView.swift in Sources */,
 				0C7630191BD68838007672DE /* SmallTabBarController.swift in Sources */,
 				0C09F7C91CD2380E00E89B1A /* ImgurGalleryToolbar.swift in Sources */,
@@ -3998,7 +4006,6 @@
 				764C562D1BBAC98C006B3771 /* ImageObject+MediaImage.swift in Sources */,
 				0C5E59F31C85D4D000CA9121 /* CommentsNavigationController.swift in Sources */,
 				0C0618FE1D6C67DB005A4A3C /* StoreViewController.swift in Sources */,
-				0045F7D31BD4EC9200252307 /* BeamViewControllerTransition.swift in Sources */,
 				0CDC51581BE24C2000DBB605 /* BeamEmptyView.swift in Sources */,
 				0C165F281C747B8A0062EEC4 /* BeamPlainButton.swift in Sources */,
 				0C8B204B1CBFE7C800CF8E2A /* AssetsPickerControllerAuthorizationEmptyView.swift in Sources */,
@@ -4075,6 +4082,7 @@
 				0CE278A11CB8284F005F55D1 /* Keychain.swift in Sources */,
 				0CC2BA491DF965F4004FFFA4 /* UIView+Viewport.swift in Sources */,
 				761078DF1BA6B309004B7887 /* RedditActivityController.swift in Sources */,
+				0C4C041A1FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift in Sources */,
 				0CD2AF7C1CC90E52001DFA87 /* BeamAlertController.swift in Sources */,
 				0CF0E2F21FD09770001D12A9 /* ReportViewController.swift in Sources */,
 				0C25F0EB1CA5B05300D3A498 /* MarkdownTextView.swift in Sources */,

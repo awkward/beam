@@ -8,30 +8,7 @@
 
 import UIKit
 
-class BeamNavigationController: UINavigationController, DynamicDisplayModeView, UIViewControllerTransitioningDelegate, BeamViewControllerTransitionDelegate {
-    
-    lazy fileprivate var animationController: BeamViewControllerTransition = {
-        return BeamViewControllerTransition()
-    }()
-    
-    var customAnimationController: BeamViewControllerTransition? {
-        set {
-            //Only set a new animation controller if it's different
-            guard newValue != self.animationController else {
-                return
-            }
-            self.removeDismissalGestureRecognizers()
-            if newValue == nil {
-                self.animationController = BeamViewControllerTransition()
-            } else {
-                self.animationController = newValue!
-            }
-            self.refreshInteractiveDismissalState()
-        }
-        get {
-            return self.animationController
-        }
-    }
+class BeamNavigationController: UINavigationController, DynamicDisplayModeView, UIViewControllerTransitioningDelegate {
     
     var useInteractiveDismissal = true {
         didSet {
@@ -41,7 +18,11 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         }
     }
     
-    var useScalingTransition: Bool = true
+    var useScalingTransition: Bool = true {
+        didSet {
+            self.transitionHandler.scaleBackground = self.useScalingTransition
+        }
+    }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -65,9 +46,15 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         super.init(rootViewController: rootViewController)
     }
     
+    // MARK: - Transition
+    
+    lazy fileprivate var transitionHandler: NewBeamViewControllerTransitionHandler = {
+        return NewBeamViewControllerTransitionHandler(delegate: self)
+    }()
+    
     fileprivate func configureDefaultTransitionStyle() {
         if self.transitioningDelegate == nil {
-            self.transitioningDelegate = self
+            self.transitioningDelegate = self.transitionHandler
             self.modalPresentationStyle = UIModalPresentationStyle.custom
             self.modalPresentationCapturesStatusBarAppearance = true
         }
@@ -84,8 +71,6 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         //Assign ourselves to be the delegate
         self.delegate = self
         
-        self.animationController.delegate = self
-        
         self.navigationBar.backIndicatorImage = UIImage(named: "navigationbar_arrow_back")
         self.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "navigationbar_arrow_back_mask")
     }
@@ -95,20 +80,13 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         //The ViewController's traitCollection size class is "unspecified" during transition. Also in this case we want to know the traitCollection of the whole screen, because that predicts if it's using a formsheet or fullscreen display
         let traitCollection = AppDelegate.shared.window?.traitCollection ?? self.traitCollection
         
-        if self.useInteractiveDismissal && (modalPresentationStyle == .custom || traitCollection.horizontalSizeClass == .compact) {
-            //Adding a gesture recognizer more than once, can cause undocumented behavior
-            if !(self.navigationBar.gestureRecognizers?.contains(self.animationController.topPanDismissalGestureRecognizer) ?? false) {
-                self.navigationBar.addGestureRecognizer(self.animationController.topPanDismissalGestureRecognizer)
-            }
+        if self.useInteractiveDismissal && (modalPresentationStyle == .custom || traitCollection.horizontalSizeClass == .compact) && !(self.parent is UITabBarController) {
+            self.navigationBar.addGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
             
             if self.viewControllers.count <= 1 {
-                if !(self.view.gestureRecognizers?.contains(self.animationController.sidePanDismissalGestureRecognizer) ?? false) {
-                    self.view.addGestureRecognizer(self.animationController.sidePanDismissalGestureRecognizer)
-                }
+                self.view.addGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
             } else if self.viewControllers.count > 1 {
-                if (self.view.gestureRecognizers?.contains(self.animationController.sidePanDismissalGestureRecognizer) ?? false) {
-                    self.view.removeGestureRecognizer(self.animationController.sidePanDismissalGestureRecognizer)
-                }
+                self.view.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
             }
         } else {
             self.removeDismissalGestureRecognizers()
@@ -116,13 +94,8 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
     }
     
     func removeDismissalGestureRecognizers() {
-        //Removing a gesture recognizer more than once, can cause undocumented behavior
-        if (self.navigationBar.gestureRecognizers?.contains(self.animationController.topPanDismissalGestureRecognizer) ?? false) {
-            self.navigationBar.removeGestureRecognizer(self.animationController.topPanDismissalGestureRecognizer)
-        }
-        if (self.view.gestureRecognizers?.contains(self.animationController.sidePanDismissalGestureRecognizer) ?? false) {
-            self.view.removeGestureRecognizer(self.animationController.sidePanDismissalGestureRecognizer)
-        }
+        self.navigationBar.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
+        self.view.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -200,69 +173,19 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         return self.topViewController?.shouldAutorotate ?? true
     }
     
-    // MARK: - UIViewControllerTransitioningDelegate
+}
+
+extension BeamNavigationController: NewBeamViewControllerTransitionHandlerDelegate {
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard self.shouldUseAnimationController(for: presented) else {
-            return nil
+    func transitionHandlerShouldStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) -> Bool {
+        return self.presentingViewController != nil && self.viewControllers.count <= 1
+    }
+    
+    func transitionHandlerDidStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) {
+        guard self.presentingViewController != nil else {
+            return
         }
-        self.animationController.isDimissal = false
-        self.animationController.adjustAlphaDuringTransition = self.useScalingTransition
-        self.animationController.includesScaling = self.useScalingTransition
-        return self.animationController
-        
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        guard self.shouldUseAnimationController(for: dismissed) else {
-            return nil
-        }
-        self.animationController.isDimissal = true
-        self.animationController.adjustAlphaDuringTransition = self.useScalingTransition
-        self.animationController.includesScaling = self.useScalingTransition
-        return self.animationController
-        
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if self.animationController.shouldStartInteractiveTransition {
-            self.animationController.isDimissal = true
-            self.animationController.adjustAlphaDuringTransition = self.useScalingTransition
-            self.animationController.includesScaling = self.useScalingTransition
-            return self.animationController
-        } else {
-            return nil
-        }
-    }
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        return BeamPresentationController(presentedViewController: presented, presenting: presenting)
-    }
-    
-    // MARK: - BeamViewControllerTransitionDelegate
-    
-    func modalViewControllerTransition(_ transition: BeamViewControllerTransition, didCompleteTransition: Bool) {
-        
-    }
-    
-    func modalViewControllerTransition(_ transition: BeamViewControllerTransition, shouldInteractivelyDismissInDirection: BeamViewControllerTransitionDirection) {
-        if self.presentingViewController != nil {
-            self.dismiss(animated: true, completion: nil)
-        }
-    }
-    
-    func modalViewControllerTransitionShouldStartInteractiveSidePanTransition(_ transition: BeamViewControllerTransition) -> Bool {
-        return self.viewControllers.count <= 1
-    }
-    
-    private func shouldUseAnimationController(for viewController: UIViewController) -> Bool {
-        let traitCollection = AppDelegate.shared.window?.traitCollection ?? self.traitCollection
-        if let navigationController = viewController as? UINavigationController, let presentation = navigationController.viewControllers.first as? BeamModalPresentation {
-            return presentation.preferredModalPresentationStyle == .custom || traitCollection.horizontalSizeClass == .compact
-        } else if let presentation = viewController as? BeamModalPresentation {
-            return presentation.preferredModalPresentationStyle == .custom || traitCollection.horizontalSizeClass == .compact
-        }
-        return true
+        self.dismiss(animated: true, completion: nil)
     }
     
 }
@@ -274,7 +197,7 @@ extension BeamNavigationController: UINavigationControllerDelegate {
     }
     
     func navigationController(_ navigationController: UINavigationController, willShow viewController: UIViewController, animated: Bool) {
-        navigationController.topViewController?.transitionCoordinator?.notifyWhenInteractionEnds({ (context) in
+        navigationController.topViewController?.transitionCoordinator?.notifyWhenInteractionChanges({ (_) in
             self.refreshInteractiveDismissalState()
         })
     }

@@ -68,26 +68,14 @@ class SubredditTabBarController: SmallTabBarController {
     }
     
     //MARK: - Transition
-    lazy fileprivate var animationController: BeamViewControllerTransition = {
-        return BeamViewControllerTransition()
+    
+    lazy fileprivate var transitionHandler: NewBeamViewControllerTransitionHandler = {
+        return NewBeamViewControllerTransitionHandler(delegate: self)
     }()
-    
-    var useInteractiveDismissal = true {
-        didSet {
-            self.refreshInteractiveDismissalState()
-        }
-    }
-    
-    var useScalingTransition: Bool = true
-    
-    
-    func refreshInteractiveDismissalState() {
-        
-    }
     
     fileprivate func configureDefaultTransitionStyle() {
         if self.transitioningDelegate == nil {
-            self.transitioningDelegate = self
+            self.transitioningDelegate = self.transitionHandler
             self.modalPresentationStyle = UIModalPresentationStyle.custom
         }
     }
@@ -108,10 +96,6 @@ class SubredditTabBarController: SmallTabBarController {
         
         //Assign ourselves to be the delegate
         self.delegate = self
-        
-        self.animationController.delegate = self
-        
-        self.refreshInteractiveDismissalState()
         
         self.usesRoundedCorners = UIDevice.current.userInterfaceIdiom == .phone
         
@@ -230,20 +214,22 @@ class SubredditTabBarController: SmallTabBarController {
             }
         }
         
-        //Configure the transition for viewControllers in the tabBar
-        if let viewControllers = self.viewControllers, !viewControllers.isEmpty {
-            for viewController in viewControllers {
-                if let navigationController = viewController as? BeamNavigationController {
-                    //Enable interactive transitioning
-                    navigationController.useInteractiveDismissal = true
-                    //Make sure the gesture recoginer calls are send to the animation controller of the UITabBarController
-                    if navigationController.customAnimationController != self.animationController {
-                        navigationController.customAnimationController = self.animationController
-                    }
-                }
-            }
-        }
+        self.applyGestureRecognizersToSelectedViewController()
         
+    }
+    
+    fileprivate func applyGestureRecognizersToSelectedViewController() {
+        guard let selectedViewController = self.selectedViewController else {
+            self.transitionHandler.screenEdgePanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
+            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
+            return
+        }
+        selectedViewController.view.addGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
+        guard let navigationController = selectedViewController as? UINavigationController else {
+            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
+            return
+        }
+        navigationController.navigationBar.addGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
     }
     
     //MARK: - Subreddit updates
@@ -417,58 +403,28 @@ class SubredditTabBarController: SmallTabBarController {
 
 }
 
-extension SubredditTabBarController: UIViewControllerTransitioningDelegate {
+extension SubredditTabBarController {
     
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.animationController.isDimissal = false
-        self.animationController.adjustAlphaDuringTransition = self.useScalingTransition
-         self.animationController.includesScaling = self.useScalingTransition
-        return self.animationController
-        
+    func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
+        self.applyGestureRecognizersToSelectedViewController()
     }
     
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        self.animationController.isDimissal = true
-        self.animationController.adjustAlphaDuringTransition = self.useScalingTransition
-         self.animationController.includesScaling = self.useScalingTransition
-        return self.animationController
-        
-    }
-    
-    func interactionControllerForDismissal(using animator: UIViewControllerAnimatedTransitioning) -> UIViewControllerInteractiveTransitioning? {
-        if self.animationController.shouldStartInteractiveTransition {
-            self.animationController.isDimissal = true
-            self.animationController.adjustAlphaDuringTransition = self.useScalingTransition
-             self.animationController.includesScaling = self.useScalingTransition
-            return self.animationController
-        } else {
-            return nil
-        }
-    }
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        let presentationController = BeamPresentationController(presentedViewController: presented, presenting: presenting)
-        return presentationController
-    }
 }
-extension SubredditTabBarController: BeamViewControllerTransitionDelegate {
 
-    func modalViewControllerTransition(_ transition: BeamViewControllerTransition, didCompleteTransition: Bool) {
-        
-    }
-
-    func modalViewControllerTransition(_ transition: BeamViewControllerTransition, shouldInteractivelyDismissInDirection: BeamViewControllerTransitionDirection) {
-        
-        if self.presentingViewController != nil {
-            self.dismiss(animated: true, completion: nil)
+extension SubredditTabBarController: NewBeamViewControllerTransitionHandlerDelegate {
+    
+    func transitionHandlerShouldStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) -> Bool {
+        if let delegate = self.selectedViewController as? NewBeamViewControllerTransitionHandlerDelegate {
+            return delegate.transitionHandlerShouldStartInteractiveTransition(handler) && self.presentingViewController != nil
         }
-        
+        return self.presentingViewController != nil
     }
     
-    func modalViewControllerTransitionShouldStartInteractiveSidePanTransition(_ transition: BeamViewControllerTransition) -> Bool {
-        if let selectNavigationController: BeamNavigationController = self.selectedViewController as? BeamNavigationController {
-            return selectNavigationController.modalViewControllerTransitionShouldStartInteractiveSidePanTransition(transition)
+    func transitionHandlerDidStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) {
+        guard self.presentingViewController != nil else {
+            return
         }
-        return true
+        self.dismiss(animated: true, completion: nil)
     }
+    
 }

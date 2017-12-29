@@ -150,6 +150,9 @@ class CreateTextPostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
+        guard isViewLoaded else {
+            return false
+        }
         guard let title = self.titleTextField.text else {
             return false
         }

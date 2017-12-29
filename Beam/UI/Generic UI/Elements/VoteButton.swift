@@ -63,6 +63,7 @@ class VoteButton: UIControl {
     }
     
     func setupView() {
+        
         self.face.faceColor = UIColor.clear
         self.face.strokeColor = self.color
         self.face.arrowColor = self.color
@@ -293,6 +294,8 @@ class VoteButtonFace: UIView {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.accessibilityIgnoresInvertColors = true
 
         self.backgroundColor = UIColor.clear
         self.isUserInteractionEnabled = false

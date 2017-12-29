@@ -14,8 +14,8 @@ class CreateLinkPostViewController: CreatePostViewController {
 
     var animateKeyboardAppearance = false
     
-    @IBOutlet var titleTextField: UITextField!
-    @IBOutlet var linkTextField: UITextField!
+    @IBOutlet var titleTextField: UITextField?
+    @IBOutlet var linkTextField: UITextField?
     @IBOutlet var seperatorView: UIView!
     @IBOutlet var seperatorViewHeightConstaint: NSLayoutConstraint!
     @IBOutlet var scrollView: UIScrollView!
@@ -30,16 +30,16 @@ class CreateLinkPostViewController: CreatePostViewController {
         
         self.navigationItem.title = AWKLocalizedString("link-post-title")
 
-        self.titleTextField.delegate = self
-        self.linkTextField.delegate = self
-        self.linkTextField.keyboardType = UIKeyboardType.URL
+        self.titleTextField?.delegate = self
+        self.linkTextField?.delegate = self
+        self.linkTextField?.keyboardType = UIKeyboardType.URL
         
         self.configureRecentLink()
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.titleTextField.becomeFirstResponder()
+        self.titleTextField?.becomeFirstResponder()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -49,15 +49,15 @@ class CreateLinkPostViewController: CreatePostViewController {
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.titleTextField.resignFirstResponder()
-        self.linkTextField.resignFirstResponder()
+        self.titleTextField?.resignFirstResponder()
+        self.linkTextField?.resignFirstResponder()
     }
 
     
     fileprivate func configureRecentLink() {
         if let URL = UIPasteboard.general.url {
-            self.linkTextField.rightView = self.inlineRecentLinkView
-            self.linkTextField.rightViewMode = UITextFieldViewMode.always
+            self.linkTextField?.rightView = self.inlineRecentLinkView
+            self.linkTextField?.rightViewMode = UITextFieldViewMode.always
             
             self.recentLinkControl.isHidden = false
             self.linkToRecentLinkConstraint.isActive = true
@@ -70,9 +70,9 @@ class CreateLinkPostViewController: CreatePostViewController {
     }
     
     @IBAction fileprivate func recentLinkTapped(_ sender: AnyObject) {
-        self.linkTextField.text = UIPasteboard.general.url?.absoluteString
+        self.linkTextField?.text = UIPasteboard.general.url?.absoluteString
         self.updateSubmitStatus()
-        self.linkTextField.rightView = nil
+        self.linkTextField?.rightView = nil
         self.hideRecentLink(sender)
     }
     
@@ -86,7 +86,7 @@ class CreateLinkPostViewController: CreatePostViewController {
     //MARK: Actions
     
     override func submitTapped(_ sender: AnyObject) {
-        guard self.linkIsValidURL(self.linkTextField.text ?? "") == true else {
+        guard self.linkIsValidURL(self.linkTextField?.text ?? "") == true else {
             let alertController = BeamAlertController(alertWithCloseButtonAndTitle: AWKLocalizedString("invalid-link-error-title"), message: AWKLocalizedString("invalid-link-error-message"))
             self.present(alertController, animated: true, completion: nil)
             return
@@ -153,16 +153,16 @@ class CreateLinkPostViewController: CreatePostViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
-        self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-link-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.linkTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-link-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        self.titleTextField.textColor = textColor
-        self.linkTextField.textColor = textColor
+        self.titleTextField?.textColor = textColor
+        self.linkTextField?.textColor = textColor
         
         let keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
-        self.titleTextField.keyboardAppearance = keyboardAppearance
-        self.linkTextField.keyboardAppearance = keyboardAppearance
+        self.titleTextField?.keyboardAppearance = keyboardAppearance
+        self.linkTextField?.keyboardAppearance = keyboardAppearance
         
         self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
     }
@@ -170,20 +170,20 @@ class CreateLinkPostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        guard let title = self.titleTextField.text, let link = self.linkTextField.text else {
+        guard let title = self.titleTextField?.text, let link = self.linkTextField?.text else {
             return false
         }
         return self.subreddit != nil && title.count > 0 && link.count > 0
     }
     
     override var hasContent: Bool {
-        let title = self.titleTextField.text ?? ""
-        let link = self.linkTextField.text ?? ""
+        let title = self.titleTextField?.text ?? ""
+        let link = self.linkTextField?.text ?? ""
         return title.count > 0 || link.count > 0
     }
     
     override internal var postKind: RedditSubmitKind {
-        var urlString = self.linkTextField.text!
+        var urlString = self.linkTextField?.text ?? ""
         if urlString.hasPrefix("www.") {
             urlString = "http://\(urlString)"
         }
@@ -191,7 +191,7 @@ class CreateLinkPostViewController: CreatePostViewController {
     }
     
     override internal var postTitle: String {
-        return self.titleTextField.text!
+        return self.titleTextField?.text ?? ""
     }
     
     override func didStartSubmit() {
@@ -201,13 +201,13 @@ class CreateLinkPostViewController: CreatePostViewController {
     override func lockView(_ locked: Bool) {
         super.lockView(locked)
         let alpha: CGFloat = locked ? 0.5 : 1.0
-        self.titleTextField.isEnabled = !locked
-        self.titleTextField.alpha = alpha
-        self.linkTextField.isEnabled = !locked
-        self.linkTextField.alpha = alpha
+        self.titleTextField?.isEnabled = !locked
+        self.titleTextField?.alpha = alpha
+        self.linkTextField?.isEnabled = !locked
+        self.linkTextField?.alpha = alpha
         if locked {
-            self.titleTextField.resignFirstResponder()
-            self.linkTextField.resignFirstResponder()
+            self.titleTextField?.resignFirstResponder()
+            self.linkTextField?.resignFirstResponder()
         }
     }
 
@@ -248,9 +248,9 @@ extension CreateLinkPostViewController: UITextFieldDelegate {
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         if textField == self.titleTextField {
-            self.linkTextField.becomeFirstResponder()
+            self.linkTextField?.becomeFirstResponder()
         } else if textField == self.linkTextField {
-            self.linkTextField.resignFirstResponder()
+            self.linkTextField?.resignFirstResponder()
         }
         return false
     }

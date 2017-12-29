@@ -54,8 +54,8 @@ class CreateImagePostViewController: CreatePostViewController {
     @IBOutlet var collectionView: UICollectionView!
     @IBOutlet var collectionViewHeader: UICollectionReusableView!
     
-    var titleTextField: UITextField!
-    var descriptionTextField: UITextField!
+    var titleTextField: UITextField?
+    var descriptionTextField: UITextField?
     
     @IBOutlet var imagesNoticeView: UIView!
     @IBOutlet var imagesNoticeLabel: UILabel!
@@ -118,13 +118,13 @@ class CreateImagePostViewController: CreatePostViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.titleTextField.becomeFirstResponder()
+        self.titleTextField?.becomeFirstResponder()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        self.titleTextField.resignFirstResponder()
-        self.descriptionTextField.resignFirstResponder()
+        self.titleTextField?.resignFirstResponder()
+        self.descriptionTextField?.resignFirstResponder()
     }
     
     fileprivate func updateTitle(_ requestNumber: Int = 0, totalRequests: Int = 0) {
@@ -146,18 +146,18 @@ class CreateImagePostViewController: CreatePostViewController {
     
     fileprivate func createTextFields() {
         self.titleTextField = UITextField()
-        self.titleTextField.font = UIFont.systemFont(ofSize: 17)
-        self.titleTextField.autocapitalizationType = UITextAutocapitalizationType.sentences
-        self.titleTextField.delegate = self
+        self.titleTextField?.font = UIFont.systemFont(ofSize: 17)
+        self.titleTextField?.autocapitalizationType = UITextAutocapitalizationType.sentences
+        self.titleTextField?.delegate = self
         
         self.descriptionTextField = UITextField()
-        self.descriptionTextField.font = UIFont.systemFont(ofSize: 17)
-        self.descriptionTextField.autocapitalizationType = UITextAutocapitalizationType.sentences
+        self.descriptionTextField?.font = UIFont.systemFont(ofSize: 17)
+        self.descriptionTextField?.autocapitalizationType = UITextAutocapitalizationType.sentences
     }
     
     fileprivate func showAssetsPickerController() {
-        self.titleTextField.resignFirstResponder()
-        self.descriptionTextField.resignFirstResponder()
+        self.titleTextField?.resignFirstResponder()
+        self.descriptionTextField?.resignFirstResponder()
         
         let colorPalette = AssetsPickerColorPalette()
         colorPalette.statusBarStyle = DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
@@ -203,20 +203,20 @@ class CreateImagePostViewController: CreatePostViewController {
         self.imagesNoticeLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        self.titleTextField.textColor = textColor
-        self.descriptionTextField.textColor = textColor
+        self.titleTextField?.textColor = textColor
+        self.descriptionTextField?.textColor = textColor
         
         let keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
-        self.titleTextField.keyboardAppearance = keyboardAppearance
-        self.descriptionTextField.keyboardAppearance = keyboardAppearance
+        self.titleTextField?.keyboardAppearance = keyboardAppearance
+        self.descriptionTextField?.keyboardAppearance = keyboardAppearance
         
         self.updatePlaceholders()
     }
     
     func updatePlaceholders() {
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField.attributedPlaceholder = NSAttributedString(string: self.images.count > 1 ? AWKLocalizedString("album-title-placeholder") : AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
-        self.descriptionTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: self.images.count > 1 ? AWKLocalizedString("album-title-placeholder") : AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.descriptionTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
     }
     
     //MARK: - Layout
@@ -371,8 +371,8 @@ class CreateImagePostViewController: CreatePostViewController {
         for image in images {
             let imageRequest = ImgurImageUploadRequest(asset: image.asset)
             if images.count == 1 {
-                imageRequest.imageTitle = self.titleTextField.text
-                imageRequest.imageDescription = self.descriptionTextField.text
+                imageRequest.imageTitle = self.titleTextField?.text
+                imageRequest.imageDescription = self.descriptionTextField?.text
             }
             if let title = image.imageTitle {
                 imageRequest.imageTitle = title
@@ -438,7 +438,7 @@ class CreateImagePostViewController: CreatePostViewController {
         
         NSLog("Creating album with image identifiers \(imageDeleteHashes)")
         
-        let request = ImgurAlbumRequest(createRequestWithTitle: self.titleTextField.text, description: self.descriptionTextField.text)
+        let request = ImgurAlbumRequest(createRequestWithTitle: self.titleTextField?.text, description: self.descriptionTextField?.text)
         request.imageDeleteHashes = imageDeleteHashes
         AppDelegate.shared.imgurController.executeRequests([request], uploadProgressHandler: nil, completionHandler: { (error) in
             DispatchQueue.main.async(execute: {
@@ -490,15 +490,18 @@ class CreateImagePostViewController: CreatePostViewController {
     //MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
-        guard let title = self.titleTextField.text else {
+        guard isViewLoaded else {
+            return false
+        }
+        guard let title = self.titleTextField?.text else {
             return false
         }
         return self.subreddit != nil && title.count > 0 && self.images.count > 0 && self.state == nil
     }
     
     override var hasContent: Bool {
-        let title = self.titleTextField.text ?? ""
-        let description = self.descriptionTextField.text ?? ""
+        let title = self.titleTextField?.text ?? ""
+        let description = self.descriptionTextField?.text ?? ""
         return title.count > 0 || description.count > 0 || self.images.count > 0
     }
     
@@ -507,7 +510,7 @@ class CreateImagePostViewController: CreatePostViewController {
     }
     
     override internal var postTitle: String {
-        return self.titleTextField.text!
+        return self.titleTextField?.text ?? ""
     }
     
     override func didStartSubmit() {
@@ -526,13 +529,13 @@ class CreateImagePostViewController: CreatePostViewController {
         let alpha: CGFloat = locked ? 0.5 : 1.0
         self.collectionView.isUserInteractionEnabled = !locked
         self.collectionView.alpha = alpha
-        self.titleTextField.isEnabled = !locked
-        self.titleTextField.alpha = alpha
-        self.descriptionTextField.isEnabled = !locked
-        self.descriptionTextField.alpha = alpha
+        self.titleTextField?.isEnabled = !locked
+        self.titleTextField?.alpha = alpha
+        self.descriptionTextField?.isEnabled = !locked
+        self.descriptionTextField?.alpha = alpha
         if locked {
-            self.titleTextField.resignFirstResponder()
-            self.descriptionTextField.resignFirstResponder()
+            self.titleTextField?.resignFirstResponder()
+            self.descriptionTextField?.resignFirstResponder()
         }
     }
     

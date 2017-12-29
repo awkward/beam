@@ -115,7 +115,7 @@ extension HidingButtonBarDelegate where Self : UIViewController {
     }
     
     var topButtonBarOffset: CGFloat {
-        return 64.0
+        return 0.0
     }
     
 }

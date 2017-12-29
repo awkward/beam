@@ -16,7 +16,7 @@ import AWKGallery
 /// This is the class to only display comments or display a single comment thread. 
 /// This view embeds a view controller so a button can be added on top of the UITableViewController. 
 /// UITableViewController is used because a refresh control is needed on iOS 9.
-class CommentsViewController: BeamViewController, EmbeddingLayoutSupport, CommentThreadSkipping {
+class CommentsViewController: BeamViewController, CommentThreadSkipping {
 
     var tableView: UITableView? {
         return embeddedViewController.tableView
@@ -59,10 +59,6 @@ class CommentsViewController: BeamViewController, EmbeddingLayoutSupport, Commen
             self.embeddedViewController.parentComment = newValue
         }
     }
-    
-    func embeddedLayout() -> UIEdgeInsets {
-        return UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: 0, right: 0)
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -95,8 +91,6 @@ class CommentsViewController: BeamViewController, EmbeddingLayoutSupport, Commen
             self.view.trailingAnchor.constraint(equalTo: self.skipThreadButton.trailingAnchor, constant: 12).isActive = true
             self.view.bottomAnchor.constraint(equalTo: self.skipThreadButton.bottomAnchor, constant: 12).isActive = true
         }
-        
-        self.configureContentLayout()
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -136,21 +130,6 @@ class CommentsViewController: BeamViewController, EmbeddingLayoutSupport, Commen
         composeViewController.post = self.query.post
         self.present(navigationController, animated: true, completion: nil)
     }
-    
-    fileprivate var previousViewSize = CGSize()
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        //Only update the layout when the size changes, otherwise it will keep setting contentInset/contentOffset
-        if self.previousViewSize != self.view.bounds.size {
-            self.configureContentLayout()
-            
-            self.previousViewSize = self.view.bounds.size
-        }
-       
-    }
-    
     override func displayModeDidChange() {
         super.displayModeDidChange()
         self.skipThreadButton.setImage(DisplayModeValue(UIImage(named: "next_button_icon"), darkValue: UIImage(named: "next_button_icon_dark")), for: UIControlState())
@@ -163,7 +142,7 @@ class CommentsViewController: BeamViewController, EmbeddingLayoutSupport, Commen
 }
 
 /// The view controller that displays the actual comments and is embbeded in CommentsViewController
-fileprivate class CommentsEmbeddedViewController: BeamTableViewController, EmbeddedLayoutSupport, MediaObjectsGalleryPresentation {
+fileprivate class CommentsEmbeddedViewController: BeamTableViewController, MediaObjectsGalleryPresentation {
     
     //MARK: - Data Source
     fileprivate var dataSource = CommentsDataSource()
@@ -208,8 +187,6 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Embed
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.automaticallyAdjustsScrollViewInsets = false
         
         self.dataSource.registerCells(self.tableView)
         

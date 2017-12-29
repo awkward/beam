@@ -18,7 +18,7 @@ import Trekker
 /// This class is the detail view controller of a post. The actual view is embedded in this view. See PostDetailEmbeddedViewController below.
 /// PostDetailViewController makes use of a embedded view controller because a UITableViewController is required to get a UIRefreshControl and StreamViewController (which PostDetailEmbeddedViewController is) is already a UITableViewController.
 /// However, the skip thread button needs to float on top of the UITableView. Therefore this button is added to a UIViewController together with the embedded view controller.
-class PostDetailViewController: BeamViewController, EmbeddingLayoutSupport, CommentThreadSkipping {
+class PostDetailViewController: BeamViewController, CommentThreadSkipping {
     
     var tableView: UITableView? {
         return self.embeddedViewController.tableView
@@ -127,20 +127,6 @@ class PostDetailViewController: BeamViewController, EmbeddingLayoutSupport, Comm
             //Do nothing
         }
     }
-
-    func embeddedLayout() -> UIEdgeInsets {
-        return UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: 0, right: 0)
-    }
-    
-    override func viewWillLayoutSubviews() {
-        super.viewWillLayoutSubviews()
-        
-        if self.view.frame != self.previousFrame {
-            self.configureContentLayout()
-            self.previousFrame = self.view.frame
-        }
-        
-    }
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -173,15 +159,6 @@ class PostDetailEmbeddedViewController: StreamViewController {
     
     override var visibleSubreddit: Subreddit? {
         return self.contextSubreddit
-    }
-    
-    override var automaticallyAdjustsScrollViewInsets: Bool {
-        set {
-        
-        }
-        get {
-            return false
-        }
     }
     
     override var hidesBottomBarWhenPushed: Bool {

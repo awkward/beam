@@ -60,7 +60,7 @@ private enum StreamCellTypeIdentifier: String {
     case Comment = "comment"
 }
 
-class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, BeamViewControllerLoading, EmbeddedLayoutSupport, MediaObjectsGalleryPresentation {
+class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, BeamViewControllerLoading, MediaObjectsGalleryPresentation {
     
     //The insets to calculate the content rect that is the most visible to the user, this is used to only play gifs that are in this visible rect.
     static fileprivate let visibleContentInset: UIEdgeInsets = UIEdgeInsets(top: 200, left: 0, bottom: 200, right: 0)
@@ -98,7 +98,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
         set {
             self.collectionController.query = newValue
-            self.resetContentOffset() // Do this before UIRefreshControl will use it
+            //self.resetContentOffset() // Do this before UIRefreshControl will use it
             //Only update if the view is actually displayed
             if self.view.window != nil {
                 self.startCollectionControllerFetching()
@@ -279,8 +279,8 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         
         self.tableView.reloadData()
         
-        self.tableView.contentInset = self.contentInset
-        self.tableView.scrollIndicatorInsets = self.contentInset
+        //self.tableView.contentInset = self.contentInset
+        //self.tableView.scrollIndicatorInsets = self.contentInset
         
         if self.refreshNotificationTimer == nil {
             self.startRefreshNotificationTimer(self.collection?.expirationDate)
@@ -626,13 +626,6 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             return viewController
         }
         return nil
-    }
-    
-    //MARK: - Layout
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        self.emptyView?.layoutMargins = self.contentInset
     }
     
     //MARK: - Content

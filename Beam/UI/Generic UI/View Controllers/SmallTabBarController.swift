@@ -20,10 +20,6 @@ class SmallTabBarController: BeamTabBarController {
             item.imageInsets = UIEdgeInsets(top: self.verticalImageOffset, left: 0, bottom: -self.verticalImageOffset, right: 0)
         }
     }
-
-    override func embeddedLayout() -> UIEdgeInsets {
-        return UIEdgeInsets(top: self.contentInset.top, left: 0, bottom: self.contentInset.bottom + tabBarHeight, right: 0)
-    }
     
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()

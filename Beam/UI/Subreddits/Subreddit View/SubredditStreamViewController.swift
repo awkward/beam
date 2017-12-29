@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import Trekker
 
-class SubredditStreamViewController: BeamViewController, SubredditTabItemViewController, HidingButtonBarDelegate, EmbeddingLayoutSupport {
+class SubredditStreamViewController: BeamViewController, SubredditTabItemViewController, HidingButtonBarDelegate {
     
     weak var multiredditsEmptyState: BeamEmptyView?
     
@@ -168,12 +168,6 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
         super.viewDidLayoutSubviews()
         
         self.sortingBarItem.width = self.view.bounds.width
-    }
-    
-    func embeddedLayout() -> UIEdgeInsets {
-        var insets = self.contentInset
-        insets.top += self.toolbar.bounds.height
-        return insets
     }
     
     // MARK: - Actions

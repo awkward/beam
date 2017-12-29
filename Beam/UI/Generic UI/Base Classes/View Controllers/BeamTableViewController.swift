@@ -23,15 +23,6 @@ class BeamTableViewController: UITableViewController, DynamicDisplayModeView, No
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
     }
     
-    fileprivate var isFirstLayout = true
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if self.isFirstLayout {
-            self.isFirstLayout = false
-            self.configureContentLayout()
-        }
-    }
-    
     func displayModeDidChangeNotification(_ notification: Notification) {
         displayModeDidChangeAnimated(true)
     }

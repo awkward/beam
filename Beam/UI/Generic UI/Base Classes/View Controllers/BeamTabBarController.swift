@@ -14,7 +14,7 @@ protocol TabBarItemLongPressActionable {
     
 }
 
-class BeamTabBarController: UITabBarController, DynamicDisplayModeView, EmbeddingLayoutSupport {
+class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
     
     lazy private var longPressGestureRecognizer: UILongPressGestureRecognizer = {
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(gestureRecognizer:)))
@@ -45,20 +45,6 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView, Embeddin
         super.viewDidLoad()
         
         self.tabBar.addGestureRecognizer(self.longPressGestureRecognizer)
-    }
-    
-    
-    fileprivate var isFirstLayout = true
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if self.isFirstLayout {
-            self.isFirstLayout = false
-            self.configureContentLayout()
-        }
-    }
-    
-    func embeddedLayout() -> UIEdgeInsets {
-        return UIEdgeInsets(top: self.contentInset.top, left: 0, bottom: self.tabBar.bounds.height, right: 0)
     }
     
     func displayModeDidChange() {

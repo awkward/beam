@@ -161,7 +161,7 @@ struct SubredditInfoSection {
     
 }
 
-class SubredditInfoViewController: BeamTableViewController, SubredditTabItemViewController, EmbeddedLayoutSupport {
+class SubredditInfoViewController: BeamTableViewController, SubredditTabItemViewController {
     
     lazy var privacyOverlaySwitch: UISwitch = { UISwitch() }()
     lazy var spoilerOverlaySwitch: UISwitch = { UISwitch() }()

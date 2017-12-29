@@ -16,8 +16,6 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.automaticallyAdjustsScrollViewInsets = true
         
         if self.navigationController?.viewControllers[0] == self {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(WebViewController.doneButtonTapped(_:)))

@@ -12,12 +12,11 @@ import AWKGallery
 import Trekker
 import CoreData
 
-class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItemViewController, PostMetadataViewDelegate, EmbeddedLayoutSupport, HidingButtonBarDelegate {
+class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItemViewController, PostMetadataViewDelegate, HidingButtonBarDelegate {
     
     var imagesInRow = 3 {
         didSet {
             if self.imagesInRow != oldValue {
-                self.updateContentInset()
                 self.collectionView.collectionViewLayout.invalidateLayout()
             }
         }
@@ -216,7 +215,6 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         super.viewDidLayoutSubviews()
         if self.isFirstLayout && self.topLayoutGuide.length > 0 {
             self.isFirstLayout = false
-            self.updateContentInset()
             self.view.setNeedsUpdateConstraints()
         }
         
@@ -224,28 +222,17 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
     }
     
     func updateButtonBarVerticalOffset(_ offset: CGFloat) {
-        self.topButtonBarConstraint.constant = offset + self.contentInset.top
+        self.topButtonBarConstraint.constant = offset + 0
     }
     
     var buttonBarVerticalOffset: CGFloat {
-        if let offset = self.topButtonBarConstraint?.constant {
-            return offset - self.contentInset.top
-        }
         return 0
-    }
-    
-    func updateContentInset() {
-        let inset = UIEdgeInsets(top: self.contentInset.top + 44, left: 0, bottom: self.contentInset.bottom, right: 0)
-        self.collectionView?.contentInset = inset
-        self.collectionView?.scrollIndicatorInsets = inset
-        self.collectionView?.backgroundView?.layoutMargins = inset
-        self.view.setNeedsUpdateConstraints()
     }
     
     override func updateViewConstraints() {
         super.updateViewConstraints()
         
-        self.topButtonBarConstraint.constant = self.contentInset.top
+        self.topButtonBarConstraint.constant = 0
     }
     
     var itemSize: CGSize {

@@ -116,7 +116,7 @@ class MessageConversationViewController: BeamViewController {
         self.tableView.tableHeaderView = nil
         self.tableView.tableHeaderView = self.headerView
         
-        self.tableView.contentInset = UIEdgeInsets(top: self.contentInset.top, left: 0, bottom: self.contentInset.bottom + self.replyBar.bounds.height, right: 0)
+        self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0 + self.replyBar.bounds.height, right: 0)
         self.tableView.scrollIndicatorInsets = self.tableView.contentInset
     }
     

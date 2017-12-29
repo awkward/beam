@@ -34,9 +34,5 @@ class BeamColorizedNavigationController: BeamNavigationController {
     override var preferredStatusBarStyle : UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
-    
-    override func embeddedLayout() -> UIEdgeInsets {
-        return UIEdgeInsets(top: 0, left: 0, bottom: self.contentInset.bottom, right: 0)
-    }
 
 }

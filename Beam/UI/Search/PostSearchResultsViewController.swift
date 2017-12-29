@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import CoreData
 
-class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelegate, EmbeddingLayoutSupport {
+class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelegate {
     
     var searchKeywords: String! {
         didSet {
@@ -99,8 +99,6 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
             self.startFetching(self.searchKeywords)
         }
         
-        self.streamViewController?.updateContentInset()
-        
         self.streamViewController?.hidingButtonBarDelegate = self
         
         //This will also cause the stream to do the initial fetching
@@ -119,13 +117,6 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
         super.viewDidLayoutSubviews()
         
         self.sortingBarItem.width = self.view.bounds.width
-    }
-    
-    func embeddedLayout() -> UIEdgeInsets {
-        var insets = self.contentInset
-        insets.top += self.toolbar.bounds.height
-        insets.bottom = 0
-        return insets
     }
     
     // MARK: - Query

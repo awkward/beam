@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import CoreData
 
-class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarDelegate, EmbeddingLayoutSupport {
+class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarDelegate {
     
     var lastButtonBarScrollViewOffset: CGPoint?
     var lastScrollViewOffset: CGPoint?
@@ -98,8 +98,6 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.streamViewController?.updateContentInset()
-        
         self.streamViewController?.hidingButtonBarDelegate = self
         
         //This will also cause the stream to do the initial fetching
@@ -118,15 +116,6 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
         super.viewDidLayoutSubviews()
         
         self.sortingBarItem.width = self.view.bounds.width
-    }
-    
-    func embeddedLayout() -> UIEdgeInsets {
-        var insets = self.contentInset
-        insets.top += self.toolbar.bounds.height
-        insets.top += 44 //Navigation bar
-        insets.bottom = 44 //Tab bar
-        
-        return insets
     }
     
     // MARK: - Query

@@ -108,15 +108,10 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         self.unregisterForDisplayModeChangeNotifications()
     }
     
-    fileprivate var isFirstLayout = true
     fileprivate var previousViewFrame: CGRect = CGRect()
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if self.isFirstLayout {
-            self.isFirstLayout = false
-            self.configureContentLayout()
-        }
         
         //We want to remove the gestures when the x or y coordinates of the frame are higher than zeo. Add them if they are zero
         if self.previousViewFrame != self.view.frame {
@@ -200,15 +195,6 @@ extension BeamNavigationController: UINavigationControllerDelegate {
         navigationController.topViewController?.transitionCoordinator?.notifyWhenInteractionChanges({ (_) in
             self.refreshInteractiveDismissalState()
         })
-    }
-    
-}
-
-extension BeamNavigationController: EmbeddingLayoutSupport {
-    
-    func embeddedLayout() -> UIEdgeInsets {
-        let contentInset = self.contentInset
-        return UIEdgeInsets(top: contentInset.top + self.navigationBar.bounds.height, left: 0, bottom: contentInset.bottom, right: 0)
     }
     
 }

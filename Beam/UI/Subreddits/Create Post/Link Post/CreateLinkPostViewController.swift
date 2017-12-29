@@ -130,7 +130,6 @@ class CreateLinkPostViewController: CreatePostViewController {
     }
     
     fileprivate func applyScrollViewBottomInset(_ bottomInset: CGFloat) {
-        
         var contentInset = self.scrollView.contentInset
         contentInset.bottom = bottomInset
         self.scrollView.contentInset = contentInset

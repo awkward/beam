@@ -20,15 +20,6 @@ class BeamViewController: UIViewController, DynamicDisplayModeView, NoticeHandli
         unregisterForDisplayModeChangeNotifications()
     }
     
-    fileprivate var isFirstLayout = true
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        if self.isFirstLayout {
-            self.isFirstLayout = false
-            self.configureContentLayout()
-        }
-    }
-    
     func displayModeDidChangeNotification(_ notification: Notification) {
         displayModeDidChangeAnimated(true)
     }

@@ -100,8 +100,6 @@ class CreateImagePostViewController: CreatePostViewController {
         
         self.createTextFields()
         
-        self.automaticallyAdjustsScrollViewInsets = false
-        
         self.longPressGestureRecognier = UILongPressGestureRecognizer(target: self, action: #selector(CreateImagePostViewController.handleLongPressGestureRecognizer(_:)))
         self.collectionView.addGestureRecognizer(longPressGestureRecognier)
         
@@ -248,9 +246,8 @@ class CreateImagePostViewController: CreatePostViewController {
     }
     
     fileprivate func updateCollectionViewInsets() {
-        let bottomInset: CGFloat = self.keyboardHeight+35
-        let topInset: CGFloat = self.topLayoutGuide.length
-        let insets: UIEdgeInsets = UIEdgeInsets(top: topInset, left: 0, bottom: bottomInset, right: 0)
+        let bottomInset: CGFloat = self.keyboardHeight + 35
+        let insets: UIEdgeInsets = UIEdgeInsets(top: 0, left: 0, bottom: bottomInset, right: 0)
         self.collectionView.contentInset = insets
         self.collectionView.scrollIndicatorInsets = insets
     }

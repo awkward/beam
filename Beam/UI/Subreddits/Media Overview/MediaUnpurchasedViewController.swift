@@ -81,7 +81,7 @@ class MediaUnpurchasedViewController: BeamViewController, SubredditTabItemViewCo
         }
         
         self.previewImageView.image = placeholderImage
-        self.topPreviewImageConstraint.constant = self.contentInset.top
+        self.topPreviewImageConstraint.constant = 0
         
         Trekker.default.track(event: "Visit blocked media view")
     }

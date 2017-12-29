@@ -57,10 +57,6 @@ class CommentComposeViewController: BeamViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        //Radar issue 25449958 https://github.com/lionheart/openradar-mirror/issues/15129
-        self.edgesForExtendedLayout = UIRectEdge()
-        self.automaticallyAdjustsScrollViewInsets = false
 
         NotificationCenter.default.addObserver(self, selector: #selector(CommentComposeViewController.keyboardFrameWillChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
         

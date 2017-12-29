@@ -40,6 +40,7 @@ class PostLinkPreviewView: BeamControl {
         imageView.contentMode = UIViewContentMode.scaleAspectFill
         imageView.isOpaque = true
         imageView.clipsToBounds = true
+        imageView.accessibilityIgnoresInvertColors = true
         return imageView
     }()
     fileprivate var playIconImageView: UIImageView = {
@@ -48,6 +49,7 @@ class PostLinkPreviewView: BeamControl {
         imageView.isOpaque = false
         imageView.clipsToBounds = true
         imageView.image = #imageLiteral(resourceName: "video_play_external")
+        imageView.accessibilityIgnoresInvertColors = true
         return imageView
     }()
     fileprivate var loadingPlaceholderImageView: UIImageView = {
@@ -64,6 +66,7 @@ class PostLinkPreviewView: BeamControl {
         imageView.isOpaque = true
         imageView.clipsToBounds = true
         imageView.image = #imageLiteral(resourceName: "media-nsfw-label")
+        imageView.accessibilityIgnoresInvertColors = false
         return imageView
     }()
     

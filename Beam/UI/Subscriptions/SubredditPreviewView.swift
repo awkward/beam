@@ -35,6 +35,7 @@ final class SubredditPreviewView: BeamView {
         let imageView = UIImageView()
         imageView.clipsToBounds = true
         imageView.translatesAutoresizingMaskIntoConstraints = false
+        imageView.accessibilityIgnoresInvertColors = true
         return imageView
     }()
     

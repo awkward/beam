@@ -40,10 +40,12 @@
     UIView *toFakeView = [[UIView alloc] initWithFrame:container.bounds];
     toFakeView.backgroundColor = [UIColor galleryBackgroundColor];
     toFakeView.alpha = 0;
+    toFakeView.accessibilityIgnoresInvertColors = true;
     [container addSubview:toFakeView];
 
     UIImageView *fromFakeView = [[UIImageView alloc] initWithFrame:CGRectZero];
     fromFakeView.contentMode = UIViewContentModeScaleAspectFill;
+    fromFakeView.accessibilityIgnoresInvertColors = true;
     fromFakeView.frame = [container convertRect:self.sourceView.frame fromView:self.sourceView.superview];
     [container addSubview:fromFakeView];
     
@@ -83,18 +85,21 @@
     
     UIView *blackBackground = [[UIView alloc] initWithFrame:containerView.bounds];
     blackBackground.backgroundColor = [UIColor galleryBackgroundColor];
+    blackBackground.accessibilityIgnoresInvertColors = true;
     [containerView insertSubview:blackBackground belowSubview:fromViewController.view];
     
     AWKGalleryItemContentView *fromContentView = fromViewController.currentContentView;
     UIView *fromFakeView = [fromContentView snapshotViewAfterScreenUpdates:NO];
     fromFakeView.frame = [fromContentView convertRect:fromFakeView.frame toView:containerView];
     fromFakeView.contentMode = UIViewContentModeScaleAspectFit;
+    fromFakeView.accessibilityIgnoresInvertColors = true;
     [containerView insertSubview:fromFakeView belowSubview:fromViewController.view];
     
     BOOL originalHidden = self.sourceView.hidden;
     self.sourceView.hidden = NO;
     [self.sourceView layoutIfNeeded];
     UIView *sourceFakeView = [self.sourceView snapshotViewAfterScreenUpdates:YES];
+    sourceFakeView.accessibilityIgnoresInvertColors = true;
     if (self.sourceView) {
         self.sourceView.hidden = originalHidden;
         sourceFakeView.frame = fromFakeView.frame;

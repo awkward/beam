@@ -133,6 +133,7 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
         self.clipsToBounds = true
         
         self.mediaImageView = UIImageView()
+        self.mediaImageView.accessibilityIgnoresInvertColors = true
         self.mediaImageView.contentMode = UIViewContentMode.scaleAspectFill
         self.addSubview(self.mediaImageView)
         
@@ -143,6 +144,9 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
         self.mediaLabelImageViews?.append(UIImageView())
         self.mediaLabelImageViews?.append(UIImageView())
         self.mediaLabelImageViews?.append(UIImageView())
+        self.mediaLabelImageViews?.forEach({ (imageView) in
+            imageView.accessibilityIgnoresInvertColors = true
+        })
         
     }
     

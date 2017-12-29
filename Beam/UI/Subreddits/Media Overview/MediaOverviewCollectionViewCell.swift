@@ -77,6 +77,11 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.mediaLabelImageViews?.forEach({ (imageView) in
+            imageView.accessibilityIgnoresInvertColors = true
+        })
+        self.mediaImageView.accessibilityIgnoresInvertColors = true
+        
     }
     
     override func prepareForReuse() {

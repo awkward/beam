@@ -80,6 +80,12 @@ class ProductTableViewCell: BeamTableViewCell {
     @IBOutlet fileprivate var blurView: UIVisualEffectView!
     @IBOutlet var borderView: UIView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.iconImageView.accessibilityIgnoresInvertColors = true
+    }
+    
     override func displayModeDidChange() {
         super.displayModeDidChange()
         

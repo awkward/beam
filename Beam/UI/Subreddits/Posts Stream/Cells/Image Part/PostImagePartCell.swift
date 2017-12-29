@@ -61,6 +61,14 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
     
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        // The following makes the app support smart invert colors
+        self.mediaLabelImageViews?.forEach({ (imageView) in
+            imageView.accessibilityIgnoresInvertColors = true
+        })
+        self.gifPlayerView.accessibilityIgnoresInvertColors = true
+        self.mediaImageView.accessibilityIgnoresInvertColors = true
+        
         self.mediaImageView.addObserver(self, forKeyPath: #keyPath(UIImageView.isHidden), options: [.new], context: &self.ImageViewHiddenObserverContext)
     }
     

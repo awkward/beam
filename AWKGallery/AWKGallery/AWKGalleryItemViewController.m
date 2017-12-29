@@ -73,6 +73,8 @@
 - (void)loadView {
     [super loadView];
     
+    self.view.accessibilityIgnoresInvertColors = true;
+    
     self.progressView = ({
         AWKProgressView *progressView = [AWKProgressView new];
         progressView.translatesAutoresizingMaskIntoConstraints = NO;

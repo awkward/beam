@@ -52,6 +52,7 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
             return animator
         }
         let containerView = transitionContext.containerView
+        containerView.backgroundColor = UIAccessibilityIsInvertColorsEnabled() ? .white : .black
         
         // Prepare the view
         // Create animator
@@ -201,8 +202,6 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
         }
         return rect
     }
-    
-
     
     private func animate(_ toPosition: UIViewAnimatingPosition) {
         // Reverse the transition animator if we are returning to the start position

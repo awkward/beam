@@ -17,6 +17,12 @@ class TableViewHeaderBannerView: BeamView {
     @IBOutlet var tapButton: UIButton!
     @IBOutlet var textLabel: UILabel!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.iconImageView.accessibilityIgnoresInvertColors = true
+    }
+    
     var notification: BannerNotification? {
         didSet {
             self.textLabel.text = self.notification?.message

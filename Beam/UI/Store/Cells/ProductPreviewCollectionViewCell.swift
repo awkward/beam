@@ -12,6 +12,12 @@ class ProductPreviewCollectionViewCell: BeamCollectionViewCell {
     
     @IBOutlet fileprivate(set) var imageView: UIImageView!
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        self.imageView.accessibilityIgnoresInvertColors = true
+    }
+    
     var productPreview: StoreProductPreview? {
         didSet {
             if let imageName = productPreview?.imageName {

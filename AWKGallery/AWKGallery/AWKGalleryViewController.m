@@ -158,6 +158,7 @@ static const NSTimeInterval AWKGalleryViewControllerDefaultAnimationDuration = 0
     [super loadView];
     
     self.view.backgroundColor = [UIColor galleryBackgroundColor];
+    self.view.accessibilityIgnoresInvertColors = true;
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey: @(self.itemSpacing)}];
     self.pageViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;

@@ -98,7 +98,12 @@ class PostMetadataGildedView: BeamView {
     fileprivate let spacing: CGFloat = 4.0
     
     fileprivate let textlabel = UILabel()
-    fileprivate let iconImageView = UIImageView(image: UIImage(named: "gilded_star"))
+    fileprivate let iconImageView: UIImageView = {
+        let imageView = UIImageView(image: UIImage(named: "gilded_star"))
+        imageView.accessibilityIgnoresInvertColors = true
+        return imageView
+    }()
+    
     
     func text() -> String {
         return "×\(self.count)"

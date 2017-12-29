@@ -98,7 +98,6 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
         set {
             self.collectionController.query = newValue
-            //self.resetContentOffset() // Do this before UIRefreshControl will use it
             //Only update if the view is actually displayed
             if self.view.window != nil {
                 self.startCollectionControllerFetching()
@@ -278,9 +277,6 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
         
         self.tableView.reloadData()
-        
-        //self.tableView.contentInset = self.contentInset
-        //self.tableView.scrollIndicatorInsets = self.contentInset
         
         if self.refreshNotificationTimer == nil {
             self.startRefreshNotificationTimer(self.collection?.expirationDate)

@@ -124,6 +124,8 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
         self.sortingBar.items = [AWKLocalizedString("hot"), AWKLocalizedString("new"), AWKLocalizedString("rising"), AWKLocalizedString("controversial"), AWKLocalizedString("top"), AWKLocalizedString("gilded")]
         self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.subreddit?.streamSortType ?? .hot)
         self.sortingBar.addTarget(self, action: #selector(SubredditStreamViewController.sortingBarItemTapped(_:)), for: UIControlEvents.valueChanged)
+        
+        self.streamViewController?.additionalSafeAreaInsets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
     }
     
     deinit {

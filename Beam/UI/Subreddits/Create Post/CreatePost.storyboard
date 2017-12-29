@@ -419,7 +419,7 @@
                                             <rect key="frame" x="0.0" y="0.0" width="156" height="162"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <view contentMode="scaleToFill" ambiguous="YES" translatesAutoresizingMaskIntoConstraints="NO" id="JMK-Xf-Toz" customClass="AddImagesIconView" customModule="beam" customModuleProvider="target">
+                                                <view contentMode="scaleToFill" placeholderIntrinsicWidth="24" placeholderIntrinsicHeight="24" translatesAutoresizingMaskIntoConstraints="NO" id="JMK-Xf-Toz" customClass="AddImagesIconView" customModule="beam" customModuleProvider="target">
                                                     <rect key="frame" x="66" y="69" width="24" height="24"/>
                                                     <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 </view>

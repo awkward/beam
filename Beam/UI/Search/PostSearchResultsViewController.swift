@@ -95,6 +95,8 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.streamViewController?.additionalSafeAreaInsets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
+        
         if self.streamViewController?.collectionController.status == .idle {
             self.startFetching(self.searchKeywords)
         }

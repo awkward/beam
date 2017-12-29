@@ -38,8 +38,4 @@
     return self.galleryViewController.footerDescriptionView.topAnchor;
 }
 
-- (NSLayoutDimension *)heightAnchor {
-    return self.galleryViewController.bottomLayoutGuide.heightAnchor;
-}
-
 @end

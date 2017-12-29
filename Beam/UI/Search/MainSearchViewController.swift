@@ -39,7 +39,7 @@ class MainSearchViewController: BeamTableViewController {
     var searchDisplayMode = MainSearchDisplayMode.recentVisited {
         didSet {
             let topOffset: CGFloat = self.searchDisplayMode == .resultSuggestions ? -1 * (MainSearchViewControllerHeaderHeight-10) : 0
-            self.tableView.contentInset = UIEdgeInsets(top: self.topLayoutGuide.length + topOffset, left: 0, bottom: self.bottomLayoutGuide.length, right: 0)
+            self.tableView.contentInset = UIEdgeInsets(top: topOffset, left: 0, bottom: 0, right: 0)
             self.tableView.rowHeight = self.searchDisplayMode == .recentVisited ? 60 : 44
             self.tableView.reloadData()
         }

@@ -121,7 +121,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         self.updateNavigationItem()
 
         self.refreshControl.addTarget(self, action: #selector(SubredditMediaOverviewViewController.refresh(_:)), for: .valueChanged)
-        self.collectionView?.addSubview(self.refreshControl)
+        self.collectionView.refreshControl = self.refreshControl
         
         self.flowLayout.minimumInteritemSpacing = 1
         self.flowLayout.minimumLineSpacing = 1
@@ -136,6 +136,9 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.settingDidChange(_:)), name: .SubredditSpoilerOverlaySettingDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.contextDidSaveNotification(_:)) , name: .NSManagedObjectContextDidSave, object: AppDelegate.shared.managedObjectContext)
         
+        let insets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
+        self.collectionView?.contentInset = insets
+        self.collectionView?.scrollIndicatorInsets = insets
         
         self.registerForPreviewing(with: self, sourceView: self.collectionView)
     }

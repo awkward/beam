@@ -187,7 +187,6 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
         let frame = transitionContext.containerView.bounds
         let scaledHeight = frame.height - (inset * 2)
         let scale = scaledHeight / frame.height
-        print("Scale \(scale)")
         return CGAffineTransform(scaleX: scale, y: scale)
     }
     

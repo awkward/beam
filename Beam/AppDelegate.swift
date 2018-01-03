@@ -984,29 +984,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         let subscriptionsNavigation: UIViewController = self.viewControllerForAppTabContent(AppTabContent.SubscriptionsNavigation)!
         let messagesNavigation: UIViewController = self.viewControllerForAppTabContent(AppTabContent.MessagesNavigation)!
-        let storeNavigation: UIViewController? = self.viewControllerForAppTabContent(AppTabContent.StoreNavigation)
         let searchNavigation: UIViewController? = self.viewControllerForAppTabContent(AppTabContent.SearchNavigation)
         let profileNavigation: UIViewController = self.viewControllerForAppTabContent(AppTabContent.ProfileNavigation)!
         
         var viewControllers: [UIViewController] = self.tabBarController!.viewControllers!
-        
-        if storeNavigation == nil {
-            let storyboard: UIStoryboard = UIStoryboard(name: "Store", bundle: nil)
-            let storeViewController: StoreViewController = storyboard.instantiateViewController(withIdentifier: "store-view") as! StoreViewController
-            let navigationController: BeamColorizedNavigationController = BeamColorizedNavigationController(rootViewController: storeViewController)
-            navigationController.restorationIdentifier = "store-navigation"
-            
-            let storeTabBarItem: UITabBarItem = UITabBarItem(title: NSLocalizedString("store-view-title", comment: "The title of the store view"), image: UIImage(named: "store"), tag: 0)
-            
-            navigationController.tabBarItem = storeTabBarItem
-            
-            if let index: Int = viewControllers.index(of: messagesNavigation) {
-                viewControllers.insert(navigationController, at: index + 1)
-            }
-            
-            self.tabBarController?.viewControllers = viewControllers
-        }
-
         
         searchNavigation?.tabBarItem.title = AWKLocalizedString("search-title")
         profileNavigation.tabBarItem.title = AWKLocalizedString("profile-title")

@@ -248,8 +248,6 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditsViewController.expiredContentDeleted(_:)), name: .DataControllerExpiredContentDeletedFromContext, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditsViewController.subscriptionsDidChange(_:)), name: .SubredditSubscriptionDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditsViewController.cherryFeaturesDidChange(_:)), name: .CherryFeaturesDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SubredditsViewController.trialsDidChange(_:)), name: .ProductStoreControllerTrialsChanged, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SubredditsViewController.productsDidChange(_:)), name: .ProductStoreControllerAvailableProductsChanged, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditsViewController.bookmarksDidChange(notification:)), name: .SubredditBookmarkDidChange, object: nil)
     }
     
@@ -373,18 +371,6 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
             self?.startCollectionControllerFetching(respectingExpirationDate: false)
             
             self?.showBannerIfAvailable()
-        }
-    }
-    
-    @objc fileprivate func trialsDidChange(_ notification: Notification) {
-        DispatchQueue.main.async { () -> Void in
-            self.showBannerIfAvailable()
-        }
-    }
-    
-    @objc fileprivate func productsDidChange(_ notification: Notification) {
-        DispatchQueue.main.async { () -> Void in
-            self.showBannerIfAvailable()
         }
     }
     

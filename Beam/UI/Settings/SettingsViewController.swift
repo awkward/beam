@@ -182,7 +182,7 @@ class SettingsViewController: BeamTableViewController {
         NotificationCenter.default.addObserver(self, selector: #selector(SettingsViewController.userDidChange(_:)), name: AuthenticationController.UserDidUpdateNotificationName, object: nil)
 
         self.setupCells()
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayOptionsViewController.updatePurchasedStatus(_:)), name: .ProductStoreControllerTransactionUpdated, object: nil)
+        
     }
     
     deinit {
@@ -193,7 +193,6 @@ class SettingsViewController: BeamTableViewController {
         super.viewWillAppear(animated)
         self.updateSwitchStatuses()
         self.updateCellDetails()
-        self.reloadPackFooterView()
         self.reloadSections()
         self.tableView.reloadData()
         if self.presentedViewController == nil  {
@@ -206,12 +205,6 @@ class SettingsViewController: BeamTableViewController {
         super.viewDidDisappear(animated)
     }
     
-    @objc fileprivate func updatePurchasedStatus(_ notification: Notification) {
-        self.reloadPackFooterView()
-        self.reloadSections()
-        self.tableView.reloadData()
-    }
-    
     @objc fileprivate func userDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             self.reloadSections()
@@ -221,62 +214,34 @@ class SettingsViewController: BeamTableViewController {
         }
     }
     
-    fileprivate func reloadPackFooterView() {
-        if !AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct {
-            self.addAccountUnlockFooterView.feature = .addAccount
-            self.addAccountUnlockFooterView.tapHandler = {(product: StoreProduct, button: UIButton) -> Void in
-                let storyboard = UIStoryboard(name: "Store", bundle: nil)
-                if let navigation = storyboard.instantiateInitialViewController() as? UINavigationController, let storeViewController = navigation.topViewController as? StoreViewController {
-                    
-                    storeViewController.productToShow = product
-                    navigation.topViewController?.performSegue(withIdentifier: storeViewController.showPackSegueIdentifier, sender: self)
-                    self.present(navigation, animated: true, completion: nil)
-                }
-            }
-            let height = addAccountUnlockFooterView.systemLayoutSizeFitting(self.tableView.bounds.size).height
-            self.addAccountUnlockFooterView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: height)
-            self.tableView.tableFooterView = self.addAccountUnlockFooterView
-        } else {
-            self.tableView.tableFooterView = nil
-        }
-    }
-    
     fileprivate func reloadSections() {
         var sections = [SettingsSection]()
         
         //General
         if let rows = self.rowsForGeneralSection() {
-            let section = SettingsSection(title: AWKLocalizedString("settings-settings-header"), rows: rows)
-            sections.append(section)
+            sections.append(SettingsSection(title: AWKLocalizedString("settings-settings-header"), rows: rows))
         }
        
         //Privacy
         if let rows = self.rowsForPrivacySection() {
-            var section = SettingsSection(title: AWKLocalizedString("privacy-settings-header"), rows: rows)
-            if !AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct {
-                section.footerTitle = AWKLocalizedString("privacy-mode-purchased-message")
-            }
-            sections.append(section)
+            sections.append(SettingsSection(title: AWKLocalizedString("privacy-settings-header"), rows: rows))
         }
         
         //History
         if let rows = self.rowsForHistorySection() {
-            let section = SettingsSection(title: AWKLocalizedString("history-settings-header"), rows: rows)
-            sections.append(section)
+            sections.append(SettingsSection(title: AWKLocalizedString("history-settings-header"), rows: rows))
         }
         
         //About
         if let rows = self.rowsForAboutSection() {
             let appRelease = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
             let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
-            let section = SettingsSection(headerTitle: AWKLocalizedString("about-settings-header"), footerTitle: "v\(appVersion) (\(appRelease))", rows: rows)
-            sections.append(section)
+            sections.append(SettingsSection(headerTitle: AWKLocalizedString("about-settings-header"), footerTitle: "v\(appVersion) (\(appRelease))", rows: rows))
         }
         
         //Accounts
         if let rows = self.rowsForAccountsSection() {
-            let section = SettingsSection(headerTitle: nil, footerTitle: nil, rows: rows)
-            sections.append(section)
+            sections.append(SettingsSection(headerTitle: nil, footerTitle: nil, rows: rows))
         }
         
         self.sections = sections
@@ -323,11 +288,7 @@ class SettingsViewController: BeamTableViewController {
             return AppDelegate.shared.passcodeController.passcodeEnabled ? AWKLocalizedString("passcode-enabled") : AWKLocalizedString("passcode-disabled")
         }
         rows.append(passcodeRow)
-        let privateBrowsingRow = SettingsRow(key: .PrivateBrowsing, accessoryView: self.privateBrowsingSwitch)
-        if !AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct {
-            privateBrowsingRow.textColorType = BeamTableViewCellTextColorType.disabled
-        }
-        rows.append(privateBrowsingRow)
+        rows.append(SettingsRow(key: .PrivateBrowsing, accessoryView: self.privateBrowsingSwitch))
         
         guard rows.count > 0 else {
             return nil
@@ -371,10 +332,7 @@ class SettingsViewController: BeamTableViewController {
         guard accounts.count > 0 else {
             return nil
         }
-        let purchasedIdentityPack = AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct
-        let addAccountAvailable: Bool = purchasedIdentityPack || accounts.count <= 0
-        
-        rows.append(SettingsRow(key: .AddAccount, colorType: (addAccountAvailable ? BeamTableViewCellTextColorType.default : BeamTableViewCellTextColorType.disabled) ))
+        rows.append(SettingsRow(key: .AddAccount, colorType: .default))
         if AppDelegate.shared.authenticationController.activeUserSession != nil {
             rows.append(SettingsRow(key: .Logout, colorType: .destructive))
         }
@@ -427,7 +385,7 @@ class SettingsViewController: BeamTableViewController {
     func updateCellDetails() {
         self.privacyOverlaySwitch.isEnabled = AppDelegate.shared.authenticationController.userCanViewNSFWContent == true
         
-        self.privateBrowsingSwitch.isEnabled = AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct
+        self.privateBrowsingSwitch.isEnabled = true
     }
     
     //MARK: - UITableViewDataSource

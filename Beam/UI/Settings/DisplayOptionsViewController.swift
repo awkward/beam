@@ -63,9 +63,6 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.navigationItem.title = AWKLocalizedString("display-options-title")
         
         self.setupCells()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayOptionsViewController.updatePurchasedStatus(_:)), name: .ProductStoreControllerTransactionUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayOptionsViewController.updatePurchasedStatus(_:)), name: .ProductStoreControllerTrialsChanged, object: nil)
     }
     
     deinit {
@@ -74,7 +71,6 @@ class DisplayOptionsViewController: BeamTableViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        self.updatePurchasedStatus()
         self.updateSwitchStatuses()
         
         self.darkModeAutomaticThresholdSlider.value = UserSettings[.nightModeAutomaticThreshold]
@@ -168,9 +164,9 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.darkModeAutomaticallySwitch.isOn = UserSettings[.nightModeAutomaticEnabled]
         
         //Last switch dark mode automaticly
-        self.darkModeAutomaticallySwitch.isEnabled = !UserSettings[.nightModeEnabled] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.darkModeAutomaticallySwitch.isEnabled = !UserSettings[.nightModeEnabled]
         //Last switch dark mode automaticly
-        self.darkModeAutomaticThresholdSlider.isEnabled = !UserSettings[.nightModeEnabled] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.darkModeAutomaticThresholdSlider.isEnabled = !UserSettings[.nightModeEnabled]
         
         //Show metadata
         self.showMetadataSwitch.isOn = UserSettings[.showPostMetadata]
@@ -190,25 +186,25 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.showMetadataLockedSwitch.isOn = UserSettings[.showPostMetadataLocked]
         
         //Show metadata date
-        self.showMetadataDateSwitch.isEnabled =  UserSettings[.showPostMetadata] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.showMetadataDateSwitch.isEnabled =  UserSettings[.showPostMetadata]
         //Show metadata subreddit
-        self.showMetadataSubredditSwitch.isEnabled = UserSettings[.showPostMetadata] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.showMetadataSubredditSwitch.isEnabled = UserSettings[.showPostMetadata]
         //Show metadata username
-        self.showMetadataUsernameSwitch.isEnabled = UserSettings[.showPostMetadata] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.showMetadataUsernameSwitch.isEnabled = UserSettings[.showPostMetadata]
         //Show metadata gilded
-        self.showMetadataGildedSwitch.isEnabled = UserSettings[.showPostMetadata] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.showMetadataGildedSwitch.isEnabled = UserSettings[.showPostMetadata]
         //Show metadata domain
-        self.showMetadataDomainSwitch.isEnabled = UserSettings[.showPostMetadata] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.showMetadataDomainSwitch.isEnabled = UserSettings[.showPostMetadata]
         //Show metadata stickied
-        self.showMetadataStickiedSwitch.isEnabled = UserSettings[.showPostMetadata] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.showMetadataStickiedSwitch.isEnabled = UserSettings[.showPostMetadata]
         //Show metadata locked
-        self.showMetadataLockedSwitch.isEnabled = UserSettings[.showPostMetadata] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
+        self.showMetadataLockedSwitch.isEnabled = UserSettings[.showPostMetadata]
         
         self.autoPlayGifsSwitch.isOn = UserSettings[.autoPlayGifsEnabled]
-        self.autoPlayGifsSwitch.isEnabled = AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct && (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
+        self.autoPlayGifsSwitch.isEnabled =  (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
         
         self.autoPlayGifsOnCellularSwitch.isOn = UserSettings[.autoPlayGifsEnabledOnCellular]
-        self.autoPlayGifsOnCellularSwitch.isEnabled = UserSettings[.autoPlayGifsEnabled] && AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct && (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
+        self.autoPlayGifsOnCellularSwitch.isEnabled = UserSettings[.autoPlayGifsEnabled] && (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
     }
     
     func switchChanged(_ sender:UISwitch?) {
@@ -258,14 +254,6 @@ class DisplayOptionsViewController: BeamTableViewController {
     func updateThumbnailCells() {
         self.fontSizeCell.detailTextLabel?.text = FontSizeController.displayTitle(forFontSizeCategory: FontSizeController.category)
         
-        if !AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct {
-            self.largeThumbnailsCell.accessoryType = .none
-            self.mediumThumbnailsCell.accessoryType = .none
-            self.smallThumbnailsCell.accessoryType = .none
-            self.noThumbnailsCell.accessoryType = .none
-            return
-        }
-        
         self.largeThumbnailsCell.accessoryType = .none
         self.mediumThumbnailsCell.accessoryType = .none
         self.smallThumbnailsCell.accessoryType = .none
@@ -283,40 +271,9 @@ class DisplayOptionsViewController: BeamTableViewController {
         }
     }
     
-    func updatePurchasedStatus(_ notification: Notification? = nil) {
-        DispatchQueue.main.async { 
-            if !AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct {
-                self.unlockHeaderView.tapHandler = {(product: StoreProduct, button: UIButton) -> Void in
-                    let storyboard = UIStoryboard(name: "Store", bundle: nil)
-                    if let navigation = storyboard.instantiateInitialViewController() as? UINavigationController, let storeViewController = navigation.topViewController as? StoreViewController {
-                        storeViewController.productToShow = product
-                        navigation.topViewController?.performSegue(withIdentifier: storeViewController.showPackSegueIdentifier, sender: self)
-                        self.present(navigation, animated: true, completion: nil)
-                    }
-                }
-                let height = self.unlockHeaderView.systemLayoutSizeFitting(self.tableView.bounds.size).height
-                self.unlockHeaderView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: height)
-                self.tableView.tableHeaderView = self.unlockHeaderView
-            } else {
-                self.tableView.tableHeaderView = nil
-            }
-            
-            for cell in self.cells {
-                cell.textLabel?.alpha = AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct ? 1.0 : 0.5
-            }
-            
-            for control in self.controls {
-                control.isEnabled = AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
-            }
-        }
-    }
-    
     //MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        if !AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct {
-            return
-        }
         if (indexPath as IndexPath).section == 1 {
             var thumbnailsType = ThumbnailsViewType.large
             if (indexPath as IndexPath).row == 1 {

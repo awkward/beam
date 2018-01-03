@@ -24,9 +24,6 @@ class FontSizeController: NSObject {
     //If this category is nil, you should use the default system content size using UIApplication.shared.preferredContentSizeCategory
     static var category: String? {
         set {
-            guard AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct else {
-                return
-            }
             let currentCategory: String? = UserDefaults.standard.string(forKey: FontSizeController.FontSizeCategoryDefaultsKey)
             if currentCategory != newValue {
                 if newValue == nil {

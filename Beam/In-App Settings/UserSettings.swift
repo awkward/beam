@@ -195,35 +195,6 @@ extension SettingsKeys {
     
 }
 
-//MARK: - Store purchase related settings
-
-extension Settings {
-
-    /// Updates the user settings based on the packs the user has bought. If a second is enabled while the pack is no longer purchased, the user will lose the setting!
-    func updatePurchasedSettings() {
-        if !AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct {
-            //Disable the settings for display options, doesn't have any access
-            UserSettings[.nightModeEnabled] = false
-            UserSettings[.nightModeAutomaticEnabled] = false
-            UserSettings[.thumbnailsViewType] = ThumbnailsViewType.large
-            UserSettings[.showPostMetadata] = true
-            UserSettings[.showPostMetadataDate] = true
-            UserSettings[.showPostMetadataSubreddit] = true
-            UserSettings[.showPostMetadataUsername] = true
-            UserSettings[.showPostMetadataGilded] = true
-            UserSettings[.showPostMetadataDomain] = true
-            UserSettings[.showPostMetadataLocked] = true
-            UserSettings[.showPostMetadataStickied] = true
-            UserDefaults.standard.removeObject(forKey: FontSizeController.FontSizeCategoryDefaultsKey)
-        }
-        if !AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct {
-            UserSettings[.privacyModeEnabled] = false
-            UserSettings[.privateBrowserWarningShown] = false
-        }
-    }
-    
-}
-
 //MARK: - External apps (Browser and YouTube)
 
 

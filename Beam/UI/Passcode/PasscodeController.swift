@@ -23,9 +23,6 @@ class PasscodeController: NSObject {
     fileprivate let PasscodeDelaySettingKey = "BeamPasscodeDelay"
     
     var passcodeEnabled: Bool {
-        guard AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct else {
-            return false
-        }
         return UserDefaults.standard.bool(forKey: PasscodeEnabledSettingKey)
     }
     

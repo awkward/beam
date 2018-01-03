@@ -19,38 +19,10 @@ class SubredditDisplayOptionsViewController: BeamTableViewController {
         super.viewDidLoad()
         
         self.title = AWKLocalizedString("display-options-title")
-        
-        self.updatePurchasedStatus()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayOptionsViewController.updatePurchasedStatus(_:)), name: .ProductStoreControllerTransactionUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayOptionsViewController.updatePurchasedStatus(_:)), name: .ProductStoreControllerTrialsChanged, object: nil)
     }
     
     deinit {
         NotificationCenter.default.removeObserver(self)
-    }
-    
-    
-    @objc fileprivate func updatePurchasedStatus(_ notification: Notification? = nil) {
-        DispatchQueue.main.async { 
-            if !AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct {
-                self.unlockHeaderView.tapHandler = {(product: StoreProduct, button: UIButton) -> Void in
-                    let storyboard = UIStoryboard(name: "Store", bundle: nil)
-                    if let navigation = storyboard.instantiateInitialViewController() as? UINavigationController, let storeViewController = navigation.topViewController as? StoreViewController {
-                        storeViewController.productToShow = product
-                        navigation.topViewController?.performSegue(withIdentifier: storeViewController.showPackSegueIdentifier, sender: self)
-                        self.present(navigation, animated: true, completion: nil)
-                    }
-                }
-                let height = self.unlockHeaderView.systemLayoutSizeFitting(self.tableView.bounds.size).height
-                self.unlockHeaderView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: height)
-                self.tableView.tableHeaderView = self.unlockHeaderView
-            } else {
-                self.tableView.tableHeaderView = nil
-            }
-            
-            self.tableView.reloadData()
-        }
     }
 
     // MARK: - Table view data source
@@ -87,18 +59,15 @@ class SubredditDisplayOptionsViewController: BeamTableViewController {
             cell.textLabel?.text = nil
         }
         
-        cell.textColorType = AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct ? BeamTableViewCellTextColorType.default : BeamTableViewCellTextColorType.disabled
+        cell.textColorType = BeamTableViewCellTextColorType.default
         cell.accessoryType = showsCheckmark ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
-        cell.selectionStyle = AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct ? UITableViewCellSelectionStyle.default : UITableViewCellSelectionStyle.none
+        cell.selectionStyle = UITableViewCellSelectionStyle.default
 
         return cell
     }
     
 
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        guard AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct else {
-            return
-        }
         switch (indexPath as IndexPath).row {
         case 0:
             self.subreddit?.thumbnailViewType = nil

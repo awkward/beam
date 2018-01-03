@@ -20,10 +20,6 @@ class PasscodeOptionsViewController: BeamTableViewController {
     fileprivate var touchIDSwitch = UISwitch()
     
     fileprivate var authenticationContext = LAContext()
-
-    fileprivate var passcodeFeaturesUnlocked: Bool {
-        return AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct
-    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -34,7 +30,6 @@ class PasscodeOptionsViewController: BeamTableViewController {
         //Prepare the switches
         self.touchIDSwitch.addTarget(self, action: #selector(PasscodeOptionsViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
         self.updateSwitchState()
-        NotificationCenter.default.addObserver(self, selector: #selector(DisplayOptionsViewController.updatePurchasedStatus(_:)), name: .ProductStoreControllerTransactionUpdated, object: nil)
     }
     
     deinit {
@@ -46,35 +41,15 @@ class PasscodeOptionsViewController: BeamTableViewController {
         self.reloadView()
     }
     
-    func updatePurchasedStatus(_ notification: Notification) {
-        self.reloadView()
-    }
-    
     //MARK: - Switches
     
     fileprivate func updateSwitchState() {
         //Touch ID
-        self.touchIDSwitch.isEnabled = self.passcodeController.touchIDAvailable(self.authenticationContext) && self.passcodeFeaturesUnlocked
+        self.touchIDSwitch.isEnabled = self.passcodeController.touchIDAvailable(self.authenticationContext)
         self.touchIDSwitch.isOn = self.passcodeController.touchIDEnabled(self.authenticationContext)
     }
     
     fileprivate func reloadView() {
-        if !AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct {
-            self.unlockHeaderView.tapHandler = {(product: StoreProduct, button: UIButton) -> Void in
-                let storyboard = UIStoryboard(name: "Store", bundle: nil)
-                if let navigation = storyboard.instantiateInitialViewController() as? UINavigationController, let storeViewController = navigation.topViewController as? StoreViewController {
-                    
-                    storeViewController.productToShow = product
-                    navigation.topViewController?.performSegue(withIdentifier: storeViewController.showPackSegueIdentifier, sender: self)
-                    self.present(navigation, animated: true, completion: nil)
-                }
-            }
-            let height = unlockHeaderView.systemLayoutSizeFitting(self.tableView.bounds.size).height
-            self.unlockHeaderView.frame = CGRect(x: 0, y: 0, width: self.tableView.bounds.width, height: height)
-            self.tableView.tableHeaderView = self.unlockHeaderView
-        } else {
-            self.tableView.tableHeaderView = nil
-        }
         self.tableView.reloadData()
         self.updateSwitchState()
     }
@@ -117,11 +92,11 @@ class PasscodeOptionsViewController: BeamTableViewController {
         cell.textLabel?.text = nil
         cell.detailTextLabel?.text = nil
         cell.selectionStyle = UITableViewCellSelectionStyle.default
-        cell.textColorType = self.passcodeFeaturesUnlocked ? BeamTableViewCellTextColorType.default : BeamTableViewCellTextColorType.disabled
+        cell.textColorType = .default
         cell.accessoryType = UITableViewCellAccessoryType.none
         //Edit the cell
         if (indexPath as IndexPath).section == 0 {
-            cell.textColorType = self.passcodeFeaturesUnlocked ? BeamTableViewCellTextColorType.followAppTintColor : BeamTableViewCellTextColorType.disabled
+            cell.textColorType = .followAppTintColor
             switch (indexPath as IndexPath).row {
             case 0:
                 if self.passcodeController.passcodeEnabled {
@@ -161,9 +136,6 @@ class PasscodeOptionsViewController: BeamTableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
-        guard self.passcodeFeaturesUnlocked else {
-            return
-        }
         if (indexPath as IndexPath).section == 0 {
             switch (indexPath as IndexPath).row {
             case 0:

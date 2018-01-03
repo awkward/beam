@@ -132,24 +132,6 @@ class ProductStoreController: NSObject {
     /// Gives a date for when the lastest trail validation occured
     var lastestTrialsValidation: Date?
     
-    /** 
-     Is true when the user has purchased the display pack.
-     For use of showing the media view and allowing certain settings
-    */
-    var hasPurchasedDisplayOptionsProduct: Bool {
-        // Pack in-app purchases will be removed soon. This makes all features available from the start!
-        return true
-    }
-    
-    /**
-     Is true when the user has purchased the identity pack.
-     For use of showing the media view and allowing certain settings
-     */
-    var hasPurchasedIdentityPackProduct: Bool {
-        // Pack in-app purchases will be removed soon. This makes all features available from the start!
-        return true
-    }
-    
     //MARK: - Donation Products 
     
     let donationProductIdentifiers = ["beamdonationtier1", "beamdonationtier2", "beamdonationtier3", "beamdonationtier4"]

@@ -17,10 +17,9 @@ class GIFPlayerView: UIView {
     class var canAutoplayGifs: Bool {
         let is64bit = MemoryLayout<Int>.size == MemoryLayout<Int64>.size
         let enabled = UserSettings[.autoPlayGifsEnabled]
-        let hasDisplayPack = AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct
         
         let playAllowed = UserSettings[.autoPlayGifsEnabledOnCellular] || (!UserSettings[.autoPlayGifsEnabledOnCellular] && DataController.shared.redditReachability?.isReachableViaWiFi == true)
-        return is64bit && enabled && hasDisplayPack && playAllowed
+        return is64bit && enabled && playAllowed
     }
     
     override class var layerClass: AnyClass {

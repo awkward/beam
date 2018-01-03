@@ -56,10 +56,7 @@ class SubredditTabBarController: SmallTabBarController {
     
     /// If the media view is available. It's not available if the product is missing
     var mediaViewAvailable: Bool {
-        if AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct {
-            return true
-        }
-        return AppDelegate.shared.productStoreController.productInfoWithIdentifier(ProductDisplayPackIdentifier) != nil
+        return true
     }
     
     var streamViewController: SubredditStreamViewController? {
@@ -101,8 +98,6 @@ class SubredditTabBarController: SmallTabBarController {
         
         self.configureSubViewControllers()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SubredditTabBarController.purchasedProductsDidChange(_:)), name: .ProductStoreControllerTransactionUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SubredditTabBarController.purchasedProductsDidChange(_:)), name: .ProductStoreControllerTrialsChanged, object: nil)
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -190,26 +185,20 @@ class SubredditTabBarController: SmallTabBarController {
                 
                 let tabBarItem = UITabBarItem(title: NSLocalizedString("media", comment: "Media tabbar item"), image: UIImage(named: "tabbar_mediaview"), selectedImage: nil)
                 
-                let viewController:UIViewController!
-                
-                if AppDelegate.shared.productStoreController.hasPurchasedDisplayOptionsProduct {
-                    viewController = storyboard.instantiateInitialViewController()
-                } else {
-                    viewController = storyboard.instantiateViewController(withIdentifier: "unpurchased")
-                }
-                
-                //Make sure the new viewController has a subreddit
-                if var tabBarItemViewController = viewController as? SubredditTabItemViewController {
-                    tabBarItemViewController.subreddit = self.subreddit
-                }
-                
-                let navigationController = SubredditNavigationController(navigationBarClass: BeamNavigationBar.self, toolbarClass: nil)
-                navigationController.setViewControllers([viewController], animated: false)
-                
-                navigationController.tabBarItem = tabBarItem
-                self.viewControllers?.insert(navigationController, at: mediaViewIndex)
-                if shouldSelectMediaView {
-                    self.selectedIndex = mediaViewIndex
+                if let viewController = storyboard.instantiateInitialViewController() {
+                    //Make sure the new viewController has a subreddit
+                    if var tabBarItemViewController = viewController as? SubredditTabItemViewController {
+                        tabBarItemViewController.subreddit = self.subreddit
+                    }
+                    
+                    let navigationController = SubredditNavigationController(navigationBarClass: BeamNavigationBar.self, toolbarClass: nil)
+                    navigationController.setViewControllers([viewController], animated: false)
+                    
+                    navigationController.tabBarItem = tabBarItem
+                    self.viewControllers?.insert(navigationController, at: mediaViewIndex)
+                    if shouldSelectMediaView {
+                        self.selectedIndex = mediaViewIndex
+                    }
                 }
             }
         }
@@ -255,12 +244,6 @@ class SubredditTabBarController: SmallTabBarController {
     }
     
     //MARK: - Notifications
-    
-    @objc fileprivate func purchasedProductsDidChange(_ notification: Notification) {
-        DispatchQueue.main.async { () -> Void in
-            self.configureSubViewControllers()
-        }
-    }
     
     @objc fileprivate func contextObjectsDidChange(_ notification: Notification?) {
         DispatchQueue.main.async { () -> Void in

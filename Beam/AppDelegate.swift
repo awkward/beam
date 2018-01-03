@@ -120,7 +120,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.clearExpiredContent()
         
         UserSettings.registerDefaults()
-        UserSettings.updatePurchasedSettings()
         
         if UserSettings[.firstLaunchDate] == nil {
             UserSettings[.firstLaunchDate] = Date()
@@ -147,8 +146,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.displayModeDidChangeNotification(_:)), name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contentSizeCategoryDidChange(_:)), name: .UIContentSizeCategoryDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userSettingDidChange(_:)), name: .SettingsDidChangeSetting, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.transactionUpdated(notification:)), name: .ProductStoreControllerTransactionUpdated, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.trialsDidChange(_:)), name: .ProductStoreControllerTrialsChanged, object: nil)
         
         if let launchOptions = launchOptions, let launchUrl = launchOptions[UIApplicationLaunchOptionsKey.url] as? URL {
             do {
@@ -607,8 +604,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             }
             
             var properties: [String: Any] = ["Is logged in": self.authenticationController.isAuthenticated, "Using TestFlight": self.isRunningTestFlight, "Notification settings": notificationSettings]
-            properties["Has purchased display pack"] = NSNumber(value: self.productStoreController.hasPurchasedDisplayOptionsProduct)
-            properties["Has purchased identity pack"] = self.productStoreController.hasPurchasedIdentityPackProduct
             properties["Thumbnail view type"] = UserSettings[.thumbnailsViewType].rawValue
             properties["Auto darkmode on"] = UserSettings[.nightModeAutomaticEnabled]
             properties["Darkmode on"] = UserSettings[.nightModeEnabled]
@@ -698,22 +693,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    @objc private func transactionUpdated(notification: Notification) {
-        DispatchQueue.main.async {
-            UserSettings.updatePurchasedSettings()
-        }
-    }
-    
-    @objc private func trialsDidChange(_ notification: Notification) {
-        DispatchQueue.main.async {
-            guard let viewController: UIViewController = AppDelegate.topViewController() else {
-                return
-            }
-            self.productStoreController.checkForTrialsExpiration(viewController)
-            
-        }
-    }
-    
     /// The action to take if the window wasn't usable on app open, due to passcode or something else. See `scheduleAppAction(:)`
     private var scheduledAppAction: DelayedAppAction?
     
@@ -782,46 +761,23 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     // MARK: - Authentication
     
     func presentAuthenticationViewController() {
-        if self.authenticationController.fetchAllAuthenticationSessions().count > 0 && !self.productStoreController.hasPurchasedIdentityPackProduct {
-            let alertController = BeamAlertController(title: AWKLocalizedString("identity-pack-required-title"), message: AWKLocalizedString("identity-pack-required-multiple-accounts-message"), preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addCancelAction()
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("view-pack"), style: UIAlertActionStyle.default, handler: { (action) in
-                //Show the product!
-                let storyBoard = UIStoryboard(name: "Store", bundle: nil)
-                if let navigation = storyBoard.instantiateInitialViewController() as? UINavigationController, let storeViewController = navigation.topViewController as? StoreViewController {
-                    
-                    BeamSoundType.tap.play()
-                    
-                    let product = StoreProduct(identifier: ProductIdentityPackIdentifier)
-                    storeViewController.productToShow = product
-                    navigation.topViewController?.performSegue(withIdentifier: storeViewController.showPackSegueIdentifier, sender: self)
-                    AppDelegate.topViewController()?.present(navigation, animated: true, completion: nil)
-                }
-            }))
-            AppDelegate.topViewController()?.present(alertController, animated: true, completion: nil)
+        guard let url = self.authenticationController.authorizationURL else {
             return
         }
-        if let url = self.authenticationController.authorizationURL {
-            //Also use Safari on the simulator because SFSafariViewController is sometimes broken on the simulator
-            let safariViewController = BeamSafariViewController(url: url)
-            safariViewController.delegate = self
-            self.authenticationViewController = safariViewController
-            if ProcessInfo.processInfo.operatingSystemVersion.majorVersion == 9 && ProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 2 {
-                let navigationController = UINavigationController(rootViewController: safariViewController)
-                navigationController.setNavigationBarHidden(true, animated: false)
-                AppDelegate.topViewController()?.present(navigationController, animated: true, completion: nil)
-            } else {
-                AppDelegate.topViewController()?.present(safariViewController, animated: true, completion: nil)
-            }
-            
+        //Also use Safari on the simulator because SFSafariViewController is sometimes broken on the simulator
+        let safariViewController = BeamSafariViewController(url: url)
+        safariViewController.delegate = self
+        self.authenticationViewController = safariViewController
+        if ProcessInfo.processInfo.operatingSystemVersion.majorVersion == 9 && ProcessInfo.processInfo.operatingSystemVersion.minorVersion >= 2 {
+            let navigationController = UINavigationController(rootViewController: safariViewController)
+            navigationController.setNavigationBarHidden(true, animated: false)
+            AppDelegate.topViewController()?.present(navigationController, animated: true, completion: nil)
+        } else {
+            AppDelegate.topViewController()?.present(safariViewController, animated: true, completion: nil)
         }
     }
     
     func presentAccountSwitcher(sender: UIView) {
-        guard AppDelegate.shared.productStoreController.hasPurchasedIdentityPackProduct else {
-            return
-        }
-        
         let sessions = AppDelegate.shared.authenticationController.fetchAllAuthenticationSessions()
         if sessions.count < 2 {
             return

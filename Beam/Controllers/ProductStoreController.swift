@@ -137,10 +137,8 @@ class ProductStoreController: NSObject {
      For use of showing the media view and allowing certain settings
     */
     var hasPurchasedDisplayOptionsProduct: Bool {
-        if self.purchasedProductIdentifiers.contains(ProductDisplayPackIdentifier) {
-            return true
-        }
-        return self.trials.filter( { $0.productIdentifier == ProductDisplayPackIdentifier }).first?.currentlyActive() == true
+        // Pack in-app purchases will be removed soon. This makes all features available from the start!
+        return true
     }
     
     /**
@@ -148,10 +146,8 @@ class ProductStoreController: NSObject {
      For use of showing the media view and allowing certain settings
      */
     var hasPurchasedIdentityPackProduct: Bool {
-        if self.purchasedProductIdentifiers.contains(ProductIdentityPackIdentifier) {
-            return true
-        }
-        return self.trials.filter( { $0.productIdentifier == ProductIdentityPackIdentifier }).first?.currentlyActive() == true
+        // Pack in-app purchases will be removed soon. This makes all features available from the start!
+        return true
     }
     
     //MARK: - Donation Products 

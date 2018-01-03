@@ -13,8 +13,6 @@ class SubredditDisplayOptionsViewController: BeamTableViewController {
 
     var subreddit: Subreddit?
     
-    @IBOutlet var unlockHeaderView: UnlockPackHeaderView!
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         

@@ -36,7 +36,6 @@ enum UserNotificationActionKey: String {
     case ShowMessage = "show_message"
     case ShowThread = "show_thread"
     case ShowUserProfile = "show_profile"
-    case ShowStore = "show_store"
     case ShowView = "show_view"
 }
 
@@ -114,8 +113,6 @@ final class UserNotificationsHandler: NSObject {
             self.handleShowUserProfile(customInfo)
         case UserNotificationActionKey.ShowPost:
             self.handleShowPost(customInfo)
-        case UserNotificationActionKey.ShowStore:
-            self.handleShowStore(customInfo)
         case UserNotificationActionKey.ShowView:
             self.handleShowView(customInfo)
         }
@@ -265,18 +262,6 @@ final class UserNotificationsHandler: NSObject {
                 }
             }
         }
-    }
-    
-    fileprivate func handleShowStore(_ customInfo: [AnyHashable: Any]?) {
-        let upgradeStoryboard = UIStoryboard(name: "Store", bundle: nil)
-        if let navigationController = upgradeStoryboard.instantiateInitialViewController() as? UINavigationController {
-            AppDelegate.topViewController()?.present(navigationController, animated: true, completion: nil)
-            if let productInformation = customInfo?[UserNotificationCustomBodyKeys.Product.rawValue] as? [AnyHashable: Any], let identifier = productInformation["id"] as? String, let productViewController = upgradeStoryboard.instantiateViewController(withIdentifier: "productView") as? ProductViewController {
-                productViewController.product = StoreProduct(identifier: identifier)
-                navigationController.show(productViewController, sender: nil)
-            }
-        }
-        
     }
     
     //MARK: - View Controllers

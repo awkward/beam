@@ -55,7 +55,6 @@ class DisplayOptionsViewController: BeamTableViewController {
     
     @IBOutlet private var cells: [UITableViewCell]!
     @IBOutlet private var controls: [UIControl]!
-    @IBOutlet private var unlockHeaderView: UnlockPackHeaderView!
     
     override func viewDidLoad() {
         super.viewDidLoad()

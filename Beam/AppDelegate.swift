@@ -25,7 +25,6 @@ enum AppTabContent: String {
     case SearchNavigation = "search-navigation"
     case MessagesNavigation = "messages-navigation"
     case ProfileNavigation = "profile-navigation"
-    case StoreNavigation = "store-navigation"
 }
 
 enum DelayedAppAction {
@@ -138,7 +137,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         cacheConfig.maxCacheAge = 60*60*60*24*3
         
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contextDidSave(_:)), name: .NSManagedObjectContextDidSave, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.cherryFeaturesDidLoad(_:)), name: .CherryFeaturesDidChange, object: self.cherryController)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.cherryAccessTokenDidChange(_:)), name: .CherryAccessTokenDidChange, object: self.cherryController)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: self.authenticationController)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.messageDidChangeUnreadState(_:)), name: .RedditMessageDidChangeUnreadState, object: nil)
@@ -210,7 +208,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 self.tabBarController?.performSegue(withIdentifier: "showWelcome", sender: nil)
         }
         self.userDidChange(nil)
-        self.productStoreController.validateTrials()
         
         self.updateFavoriteSubredditShortcuts()
         
@@ -642,20 +639,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    @objc private func cherryFeaturesDidLoad(_ notification: Notification) {
-        DispatchQueue.main.async { () -> Void in
-            self.productStoreController.restoreAdminProducts()
-        }
-    }
-    
     @objc private func cherryAccessTokenDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            guard let token = self.cherryController.accessToken else {
-                return
-            }
-            self.productStoreController.validateTrials()
-            
-            guard let deviceToken = self.deviceToken else {
+            guard let token = self.cherryController.accessToken, let deviceToken = self.deviceToken else {
                 return
             }
             if !self.hasRegisteredForRemoteNotifications {
@@ -672,7 +658,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 alertController.addCloseAction()
                 AppDelegate.topViewController()?.present(alertController, animated: true, completion: nil)
             }
-            self.productStoreController.restoreAdminProducts()
             self.updateAnalyticsUser()
             self.updateMessagesState()
             self.configureTabBarItems()

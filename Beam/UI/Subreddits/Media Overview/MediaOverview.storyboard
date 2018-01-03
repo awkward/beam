@@ -134,7 +134,7 @@
                                     <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                     <subviews>
                                         <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" hidesWhenStopped="YES" animating="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="gqE-pN-XR5">
-                                            <rect key="frame" x="290" y="15" width="20" height="20"/>
+                                            <rect key="frame" x="177.5" y="15" width="20" height="20"/>
                                         </activityIndicatorView>
                                     </subviews>
                                     <constraints>
@@ -193,90 +193,6 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Oop-SK-lpH" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="1035" y="18"/>
-        </scene>
-        <!--Media Unpurchased View Controller-->
-        <scene sceneID="iMm-Ty-Cmg">
-            <objects>
-                <viewController storyboardIdentifier="unpurchased" id="x5n-9c-xEk" customClass="MediaUnpurchasedViewController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="2hs-XV-V86"/>
-                        <viewControllerLayoutGuide type="bottom" id="hLQ-hu-qlL"/>
-                    </layoutGuides>
-                    <view key="view" contentMode="scaleToFill" id="LF1-Ta-mpB">
-                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
-                        <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="top" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="M7p-iV-lHt">
-                                <rect key="frame" x="-4" y="20" width="383" height="647"/>
-                            </imageView>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Uvs-e1-pw2" customClass="MediaUnpurchasedGradientView" customModule="beam" customModuleProvider="target">
-                                <rect key="frame" x="-4" y="20" width="383" height="647"/>
-                                <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.0" colorSpace="custom" customColorSpace="sRGB"/>
-                            </view>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Mediaview" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="q0H-nL-BgX">
-                                <rect key="frame" x="16" y="497" width="343" height="21"/>
-                                <fontDescription key="fontDescription" type="system" weight="semibold" pointSize="17"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Unlock this feature by purchasing the Display Pack" textAlignment="center" lineBreakMode="wordWrap" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ty4-TI-kbi">
-                                <rect key="frame" x="36" y="526" width="303" height="36"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="15"/>
-                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="0.5" colorSpace="custom" customColorSpace="sRGB"/>
-                                <nil key="highlightedColor"/>
-                            </label>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="tv0-jq-9wd" customClass="BeamButton" customModule="beam" customModuleProvider="target">
-                                <rect key="frame" x="117.5" y="584" width="140" height="44"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" constant="140" id="Ech-zE-WUC"/>
-                                    <constraint firstAttribute="height" constant="44" id="bfx-BQ-DGM"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
-                                <state key="normal" title="View pack"/>
-                                <connections>
-                                    <action selector="upgradeButtonTapped:" destination="x5n-9c-xEk" eventType="touchUpInside" id="9k5-ma-9qL"/>
-                                </connections>
-                            </button>
-                        </subviews>
-                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <constraints>
-                            <constraint firstItem="Uvs-e1-pw2" firstAttribute="leading" secondItem="M7p-iV-lHt" secondAttribute="leading" id="0Az-7R-F6e"/>
-                            <constraint firstItem="M7p-iV-lHt" firstAttribute="top" secondItem="LF1-Ta-mpB" secondAttribute="topMargin" id="0RK-8a-r2P"/>
-                            <constraint firstItem="ty4-TI-kbi" firstAttribute="top" secondItem="q0H-nL-BgX" secondAttribute="bottom" constant="8" id="0cu-Pg-LxR"/>
-                            <constraint firstItem="Uvs-e1-pw2" firstAttribute="trailing" secondItem="M7p-iV-lHt" secondAttribute="trailing" id="4bC-Cn-1Iy"/>
-                            <constraint firstItem="Uvs-e1-pw2" firstAttribute="bottom" secondItem="M7p-iV-lHt" secondAttribute="bottom" id="FCN-Wh-dKV"/>
-                            <constraint firstItem="hLQ-hu-qlL" firstAttribute="top" secondItem="M7p-iV-lHt" secondAttribute="bottom" id="HgZ-KF-dUL"/>
-                            <constraint firstItem="tv0-jq-9wd" firstAttribute="top" secondItem="ty4-TI-kbi" secondAttribute="bottom" constant="22" id="INN-Dm-fgY"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="ty4-TI-kbi" secondAttribute="trailing" constant="20" id="Nim-4X-tHb"/>
-                            <constraint firstItem="M7p-iV-lHt" firstAttribute="height" secondItem="LF1-Ta-mpB" secondAttribute="height" id="QWF-NT-X9M"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="q0H-nL-BgX" secondAttribute="trailing" id="Ut1-AB-VWq"/>
-                            <constraint firstItem="Uvs-e1-pw2" firstAttribute="top" secondItem="M7p-iV-lHt" secondAttribute="top" id="Vo9-hF-MFR"/>
-                            <constraint firstItem="M7p-iV-lHt" firstAttribute="width" secondItem="LF1-Ta-mpB" secondAttribute="width" id="Whl-Zy-jMH"/>
-                            <constraint firstItem="M7p-iV-lHt" firstAttribute="leading" secondItem="LF1-Ta-mpB" secondAttribute="leadingMargin" constant="-20" id="gqE-8G-AHJ"/>
-                            <constraint firstItem="hLQ-hu-qlL" firstAttribute="top" secondItem="tv0-jq-9wd" secondAttribute="bottom" constant="39" id="suv-eh-vHz"/>
-                            <constraint firstItem="ty4-TI-kbi" firstAttribute="leading" secondItem="LF1-Ta-mpB" secondAttribute="leadingMargin" constant="20" id="sxa-sc-iBD"/>
-                            <constraint firstAttribute="trailingMargin" secondItem="M7p-iV-lHt" secondAttribute="trailing" constant="-20" id="wyI-BA-wAR"/>
-                            <constraint firstItem="q0H-nL-BgX" firstAttribute="leading" secondItem="LF1-Ta-mpB" secondAttribute="leadingMargin" id="xf5-xJ-WmL"/>
-                            <constraint firstItem="tv0-jq-9wd" firstAttribute="centerX" secondItem="LF1-Ta-mpB" secondAttribute="centerX" id="yJi-N9-o4Z"/>
-                        </constraints>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="QWF-NT-X9M"/>
-                                <exclude reference="Whl-Zy-jMH"/>
-                            </mask>
-                        </variation>
-                    </view>
-                    <connections>
-                        <outlet property="headingLabel" destination="q0H-nL-BgX" id="Jx2-ZN-KQy"/>
-                        <outlet property="previewImageView" destination="M7p-iV-lHt" id="XSx-1Y-I6Z"/>
-                        <outlet property="subheadingLabel" destination="ty4-TI-kbi" id="C5P-RS-MEB"/>
-                        <outlet property="topPreviewImageConstraint" destination="0RK-8a-r2P" id="pi4-q4-nYv"/>
-                        <outlet property="viewPackButton" destination="tv0-jq-9wd" id="ZfG-KQ-Xgg"/>
-                    </connections>
-                </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="tDM-AV-vg1" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="1035" y="713"/>
         </scene>
         <!--Media-->
         <scene sceneID="FQE-bO-3oQ">

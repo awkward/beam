@@ -11,8 +11,6 @@ import LocalAuthentication
 
 class PasscodeOptionsViewController: BeamTableViewController {
     
-    @IBOutlet var unlockHeaderView: UnlockPackHeaderView!
-    
     fileprivate var passcodeController: PasscodeController {
         return AppDelegate.shared.passcodeController
     }
@@ -24,7 +22,6 @@ class PasscodeOptionsViewController: BeamTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.unlockHeaderView.feature = UnlockPackHeaderViewFeature.passcode
         self.title = AWKLocalizedString("passcode-view-title")
         
         //Prepare the switches

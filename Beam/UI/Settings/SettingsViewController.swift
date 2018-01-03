@@ -158,8 +158,6 @@ struct SettingsSection {
 
 class SettingsViewController: BeamTableViewController {
     
-    @IBOutlet var addAccountUnlockFooterView: UnlockPackHeaderView!
-    
     let privacyOverlaySwitch = UISwitch()
     let spoilerOverlaySwitch = UISwitch()
     let postMarkingSwitch = UISwitch()

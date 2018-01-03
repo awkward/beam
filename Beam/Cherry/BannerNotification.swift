@@ -10,11 +10,6 @@ import UIKit
 import UserNotifications
 
 enum BannerNotificationRequirementKey: String {
-    case PurchasedProducts = "purchased_products"
-    case NotPurchasedProducts = "not_purchased_products"
-    case ActiveTrials = "active_trials"
-    case InactiveTrials = "inactive_trials"
-    
     case MinimumBuild = "min_build"
     case MaximumBuild = "max_build"
     
@@ -25,10 +20,6 @@ enum BannerNotificationRequirementKey: String {
         switch self {
         case .HasDonated:
             return SettingsKeys.userHasDonated._key
-        case .PurchasedProducts, .NotPurchasedProducts:
-            return PurchasedProductIdentifiersUserDefaultsKey
-        case .ActiveTrials, .InactiveTrials:
-            return ActiveTrialsIdentifiersUserDefaultsKey
         default:
             return nil
         }
@@ -52,49 +43,6 @@ class BannerNotificationRequirement: NSObject {
     var satisfied: Bool {
         assert(false, "Variable should be overwritten in subclasses")
         return false
-    }
-}
-
-class BannerNotificationProductsRequirement: BannerNotificationRequirement {
-   
-    let productIdentifiers: [String]
-    
-    init(key: BannerNotificationRequirementKey, productIdentifiers: [String]) {
-        self.productIdentifiers = productIdentifiers
-        super.init(key: key)
-    }
-    
-    override var satisfied: Bool {
-        var identifiers: [String]?
-        
-        if self.key == BannerNotificationRequirementKey.PurchasedProducts || self.key == BannerNotificationRequirementKey.NotPurchasedProducts {
-            let userDefaultsKey: String = self.key.userDefaultsKey!
-            identifiers = UserDefaults.standard.array(forKey: userDefaultsKey) as? [String]
-        } else if self.key == BannerNotificationRequirementKey.ActiveTrials || self.key == BannerNotificationRequirementKey.InactiveTrials {
-            let userDefaultsKey: String = self.key.userDefaultsKey!
-            identifiers = UserDefaults.standard.array(forKey: userDefaultsKey) as? [String]
-        }
-        guard let currentIdentifiers: [String] = identifiers else {
-            if self.key == BannerNotificationRequirementKey.PurchasedProducts && self.key == BannerNotificationRequirementKey.ActiveTrials {
-                return false
-            } else {
-                return true
-            }
-        }
-        if self.key == BannerNotificationRequirementKey.PurchasedProducts && self.key == BannerNotificationRequirementKey.ActiveTrials {
-            for identifier: String in self.productIdentifiers {
-                if currentIdentifiers.contains(identifier) == false {
-                    return false
-                }
-            }
-        } else {
-            for identifier: String in self.productIdentifiers {
-                if currentIdentifiers.contains(identifier) {
-                    return false
-                }
-            }
-        }
-        return true
     }
 }
 
@@ -193,11 +141,6 @@ class BannerNotification: NSObject {
         for (keyString, value) in requirements {
             if let key = BannerNotificationRequirementKey(rawValue: keyString) {
                 switch key {
-                case .PurchasedProducts, .NotPurchasedProducts:
-                    if let identifiers = value as? [String] {
-                        let requirement = BannerNotificationProductsRequirement(key: key, productIdentifiers: identifiers)
-                        requirementObjects.append(requirement)
-                    }
                 case .MaximumBuild, .MinimumBuild:
                     if let count = value as? Int {
                         let requirement = BannerNotificationNumberRequirement(key: key, number: Float(count), relation: key == .MinimumBuild ? ">=" : "<=")

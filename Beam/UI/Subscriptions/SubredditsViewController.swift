@@ -10,7 +10,6 @@ import UIKit
 import Snoo
 import CoreData
 import Trekker
-import StoreKit
 
 final class SubredditsViewControllerSection: NSObject {
     var sectionName: String

@@ -161,7 +161,7 @@ class SubredditTabBarController: SmallTabBarController {
         // Filter the view controllers to find the view controllers related to the media view controller
         let mediaNavigationControllers: [UINavigationController] = viewControllers.filter({ (viewController: UIViewController) -> Bool in
             if let navigationController = viewController as? UINavigationController, let topViewController = navigationController.topViewController {
-                return topViewController is SubredditMediaOverviewViewController || topViewController is MediaUnpurchasedViewController
+                return topViewController is SubredditMediaOverviewViewController
             }
             return false
         }) as! [UINavigationController]

@@ -63,6 +63,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
             streamViewController.useCompactViewMode = true
             streamViewController.customNavigationController = self.customNavigationController
             streamViewController.refreshControl = nil
+            streamViewController.additionalSafeAreaInsets = UIEdgeInsets(top: toolbar.frame.height, left: 0, bottom: 0, right: 0)
             streamViewController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
             
             self.view.insertSubview(streamViewController.view, belowSubview: self.toolbar)

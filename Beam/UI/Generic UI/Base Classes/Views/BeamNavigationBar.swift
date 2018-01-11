@@ -16,6 +16,12 @@ class BeamNavigationBar: UINavigationBar, DynamicDisplayModeView {
         }
     }
     
+    var showBottomBorder = true {
+        didSet {
+            self.bottomBorderOverlay.isHidden = !self.showBottomBorder
+        }
+    }
+    
     //Overriding drawRect in UIToolbar, UITabBar or UINavigationBar disables the background blur. That's why I use views that overlay the border
     var bottomBorderOverlay: UIView = {
         let view = UIView()

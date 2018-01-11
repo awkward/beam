@@ -46,10 +46,9 @@ class SubredditSearchViewController: BeamTableViewController, SubredditTabItemVi
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.tableHeaderView = self.searchController.searchBar
+        (self.navigationController?.navigationBar as? BeamNavigationBar)?.showBottomBorder = false
         
         self.tableView.scrollsToTop = false
-        self.tableView.isScrollEnabled = false
         
         //Fix for the black screen bug
         self.definesPresentationContext = true
@@ -61,6 +60,9 @@ class SubredditSearchViewController: BeamTableViewController, SubredditTabItemVi
         self.resultsController.customNavigationController = self.navigationController
         
         self.updateNavigationItem()
+        
+        self.navigationItem.hidesSearchBarWhenScrolling = false
+        self.navigationItem.searchController = self.searchController
         
     }
     

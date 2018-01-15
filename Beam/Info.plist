@@ -127,6 +127,8 @@
 	<string>To add photos to your post</string>
 	<key>NSFaceIDUsageDescription</key>
 	<string>To unlock Beam with your face</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>To save photos to your library</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>To add photos to your post</string>
 	<key>NSUserActivityTypes</key>

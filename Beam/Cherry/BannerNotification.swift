@@ -121,6 +121,9 @@ class BannerNotification: NSObject {
         guard let identifier = dictionary["id"] as? String, let message = dictionary["message"] as? String, let iconString = dictionary["icon"] as? String, let customInfo = dictionary["beam"] as? [AnyHashable: Any], let requirements = dictionary["requirements"] as? [String: AnyObject] else {
             return nil
         }
+        guard identifier != "free_packs_accouncement" else {
+            return nil
+        }
         self.identifier = identifier
         if let analyticsTitle = dictionary["analytics_title"] as? String {
             self.analyticsTitle = analyticsTitle

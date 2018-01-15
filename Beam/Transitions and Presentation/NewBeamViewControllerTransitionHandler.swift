@@ -110,6 +110,9 @@ extension NewBeamViewControllerTransitionHandler: UIGestureRecognizerDelegate {
 extension NewBeamViewControllerTransitionHandler: UIViewControllerTransitioningDelegate {
     
     func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard self.shouldUseAnimationController(for: presented) else {
+            return nil
+        }
         let animationController = InteractiveSwipeTransitionAnimationController()
         animationController.isDismissal = false
         animationController.scaleBackground = self.scaleBackground
@@ -117,6 +120,9 @@ extension NewBeamViewControllerTransitionHandler: UIViewControllerTransitioningD
     }
     
     func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        guard self.shouldUseAnimationController(for: dismissed) else {
+            return nil
+        }
         guard let interactiveAnimationController = self.interactiveAnimationController else {
             let animationController = InteractiveSwipeTransitionAnimationController()
             animationController.isDismissal = true
@@ -132,6 +138,16 @@ extension NewBeamViewControllerTransitionHandler: UIViewControllerTransitioningD
     
     func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
         return BeamPresentationController(presentedViewController: presented, presenting: presenting)
+    }
+    
+    private func shouldUseAnimationController(for viewController: UIViewController) -> Bool {
+        let traitCollection = AppDelegate.shared.window?.traitCollection ?? viewController.traitCollection
+        if let navigationController = viewController as? UINavigationController, let presentation = navigationController.viewControllers.first as? BeamModalPresentation {
+            return presentation.preferredModalPresentationStyle == .custom || traitCollection.horizontalSizeClass == .compact
+        } else if let presentation = viewController as? BeamModalPresentation {
+            return presentation.preferredModalPresentationStyle == .custom || traitCollection.horizontalSizeClass == .compact
+        }
+        return true
     }
     
 }

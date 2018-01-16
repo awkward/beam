@@ -25,7 +25,7 @@ struct CherryFeatures {
     /// The full search terms (so multiple keywords) that are allowed when one of the keywords is blocked in `blockedSearchKeywords`.
     /// Example: `fuck` is blocked, but if `interestingasfuck` is in this list, `interestingasfuck` is no longer blocked, but `fucking`, `fucked` or `fuck you` still are
     /// This list is loaded from features.json upon reload, but also has some terms below in case the features.json fails
-    var whitelistedSearchTerms: [String] = ["earthporn", "spaceporn", "mindfuck", "interestingasfuck", "foodporn", "geekporn"]
+    var whitelistedSearchTerms: [String] = ["earthporn", "spaceporn", "mindfuck", "interestingasfuck", "foodporn", "geekporn", "unixporn"]
     
     var adminUsers: [String]?
     var trialsAvailable: Bool = true

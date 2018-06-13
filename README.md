@@ -1,18 +1,34 @@
-# Beam for reddit
+<h1 align="center">
+  <img src="Docs/icon.png" width="136" alt="icon"><br>
+  Beam for Reddit<br>
+  <p align="center">
+    <a href="https://twitter.com/madeawkward">
+      <img src="https://img.shields.io/badge/contact-madeawkward-blue.svg?style=flat" alt="Contact">
+    </a>
+    <a href="LICENSE.md">
+      <img src="https://img.shields.io/badge/license-GPL--2.0-red.svg?style=flat" alt="License: GPL v2.0">
+    </a>
+  </p>
+</h1>
 
-![](https://d2mxuefqeaa7sj.cloudfront.net/s_9B6F9DA07030FBEF5FF391144026206F2A4898366DB17C8DFE71CACAF10E4045_1495452804689_beam.png)
+<p align="center">An open source Reddit client for iOS.</p>
 
+<br>
+<br>
 
-An open source reddit client for iOS. 
+<p align="center">
+  <img src="Docs/screens.png" width="705" alt="Beam">
+</p>
+
+<br>
 
 ## Introduction
 
-Hi, we're [Awkward](https://awkward.co/). In 2014, we started working on a reddit client called Beam. In the years that followed, we created a client that lets its users enjoy all of Reddit's content in a unique and beautiful package. After four years of development, we've decided to open source Beam and truly hand it over to its users. We’ll still continue to work on Beam and release high-quality updates.
+Hi, we're [Awkward](https://awkward.co/). In 2014, we started working on a Reddit client called Beam. In the years that followed, we created a client that lets its users enjoy all of Reddit's content in a unique and beautiful package. After four years of development, we've decided to open source Beam and truly hand it over to its users. We’ll still continue to work on Beam and release high-quality updates.
 
 ## Features
 
-Beam brings the best features of Reddit to your iPhone and iPad. It features support for multireddits, content filters, in-app messaging, message notifications, post marking, spoiler protection, and 3D Touch:
-
+Beam brings the best features of Reddit to your iPhone and iPad.
 
 - Multireddits
 - Content filters
@@ -22,8 +38,7 @@ Beam brings the best features of Reddit to your iPhone and iPad. It features sup
 - Spoiler protection
 - 3D Touch
 
-Beam also offers unlockable packs to improve your browsing experience:
-
+It also offered unlockable packs in the past, now available by default:
 
 - Mediaview
 - Night Mode
@@ -34,6 +49,7 @@ Beam also offers unlockable packs to improve your browsing experience:
 - Passcode Lock
 - Touch ID Unlock
 - Privacy Mode
+
 ## Contributing
 
 ### Bug Reports & Feature Requests
@@ -75,7 +91,7 @@ To compile Beam, please follow these steps:
 
 When opening the project in Xcode you will see several targets. The two most important targets are `beam` and `Snoo`. 
 - `beam` This is the app that you see on your phone and in the App Store. 
-- `Snoo` is the framework built by us that handles the core data objects and communication with the reddit API. Beam calls snoo to get the data.
+- `Snoo` is the framework built by us that handles the core data objects and communication with the Reddit API. Beam calls snoo to get the data.
 
 ## License
 Beam is available under the GPL-2.0 license. See the LICENSE.md file for more info.

@@ -67,66 +67,6 @@ extension MixpanelAnalyticsService: TrekkerTimedEventAnalytics {
     
 }
 
-//MARK: - TrekkerPushNotificationAnalytics
-extension MixpanelAnalyticsService: TrekkerPushNotificationAnalytics {
-    
-    func trackPushNotificationOpen(_ payload: [AnyHashable: Any]) {
-        
-    }
-    
-    func registerForPushNotifications(_ deviceToken: Data) {
-        self.mixpanelTracker.people.addPushDeviceToken(deviceToken)
-    }
-    
-}
-
-////MARK: - TrekkerUserProfileAnalytics
-//extension MixpanelAnalyticsService: TrekkerUserProfileAnalytics {
-//    
-//    func identifyUserProfile(profile: TrekkerUserProfile) {
-//        var identifier = profile.identifier
-//        if identifier == nil {
-//            identifier = profile.email
-//        }
-//        if let identifier = identifier {
-//            self.mixpanelTracker.identify(identifier)
-//            var properties = [NSObject: AnyObject]()
-//            
-//            if let value = profile.firstname {
-//                properties["$first_name"] = value
-//            }
-//            
-//            if let value = profile.lastname {
-//                properties["$last_name"] = value
-//            }
-//            
-//            if let value = profile.fullName {
-//                properties["$name"] = value
-//            }
-//            
-//            if let value = profile.email {
-//                properties["$email"] = value
-//            }
-//            
-//            if let value = profile.registationDate {
-//                properties["$created"] = value
-//            }
-//            
-//            if let value = profile.gender {
-//                properties["Gender"] = value.rawValue
-//            }
-//            
-//            //Append the last custom properties
-//            for (key, property) in profile.customProperties {
-//                properties[key] = property
-//            }
-//            
-//            self.mixpanelTracker.people.set(properties)
-//        }
-//    }
-//    
-//}
-
 //MARK: - TrekkerEventSuperPropertiesAnalytics
 extension MixpanelAnalyticsService: TrekkerEventSuperPropertiesAnalytics {
     

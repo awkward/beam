@@ -36,7 +36,7 @@ extension UIImage {
         }
     }
     
-    public class func downscaledImageWithFileURL(_ fileURL: URL, constrainingSize: CGSize, contentMode: UIViewContentMode) -> UIImage? {
+    @objc public class func downscaledImageWithFileURL(_ fileURL: URL, constrainingSize: CGSize, contentMode: UIViewContentMode) -> UIImage? {
         
         let path = fileURL.path
         

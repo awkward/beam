@@ -192,7 +192,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     var content: [Content]? {
         didSet {
-            let urls: [URL]? = self.content?.flatMap { (content) -> URL? in
+            let urls: [URL]? = self.content?.compactMap { (content) -> URL? in
                 guard let post = content as? Post, let urlString = post.urlString else {
                     return nil
                 }

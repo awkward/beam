@@ -42,7 +42,7 @@ extension TTTAttributedLabel {
     /// - Parameter schemes: The given schemes (in lowercase)
     /// - Returns: All the URLs found that match the schemes
     func linksWithSchemes(schemes: [String]) -> [URL] {
-        let links = self.links.flatMap { (object) -> URL? in
+        let links = self.links.compactMap { (object) -> URL? in
             return (object as? NSTextCheckingResult)?.url
         }.filter { (url) -> Bool in
             guard let scheme = url.scheme?.lowercased() else {

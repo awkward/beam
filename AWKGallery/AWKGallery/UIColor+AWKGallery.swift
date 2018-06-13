@@ -10,7 +10,7 @@ import Foundation
 
 extension UIColor {
     
-    public static func galleryBackgroundColor() -> UIColor {
+    @objc public static func galleryBackgroundColor() -> UIColor {
         return UIColor.black
     }
     

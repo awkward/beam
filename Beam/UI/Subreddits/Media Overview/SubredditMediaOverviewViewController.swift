@@ -511,7 +511,7 @@ extension SubredditMediaOverviewViewController: AWKGalleryDataSource {
         return 0
     }
     
-    func gallery(_ galleryViewController: AWKGalleryViewController, contentViewControllerFor item: AWKGalleryItem) -> UIViewController? {
+    func gallery(_ galleryViewController: AWKGalleryViewController, contentViewControllerFor item: AWKGalleryItem) -> (UIViewController & AWKGalleryItemContent)? {
         if let image = item as? GalleryItem, let mediaObject = image.mediaObject, let post = mediaObject.content as? Post , (post.mediaObjects?.count ?? 0) > 1 {
             let storyboard = UIStoryboard(name: "MediaOverview", bundle: nil)
             if let albumViewController = storyboard.instantiateViewController(withIdentifier: "gallery-album") as? GalleryAlbumContentViewController {
@@ -562,7 +562,7 @@ extension SubredditMediaOverviewViewController: AWKGalleryDelegate {
         
     }
     
-    func gallery(_ galleryViewController: AWKGalleryViewController, shouldBeDismissedWithCustomContentViewController viewController: UIViewController) {
+    func gallery(_ galleryViewController: AWKGalleryViewController, shouldBeDismissedWithCustomContentViewController viewController: UIViewController & AWKGalleryItemContent) {
         
         let oldTransitioningDelegate = galleryViewController.transitioningDelegate
         

@@ -264,11 +264,11 @@ class SubredditTabBarController: SmallTabBarController {
     
     //MARK: - General actions
     
-    func closeTapped(_ sender: UIBarButtonItem) {
+    @objc func closeTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func composeTapped(_ sender: UIBarButtonItem) {
+    @objc func composeTapped(_ sender: UIBarButtonItem) {
         guard AppDelegate.shared.authenticationController.isAuthenticated else {
             self.present(UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.CreatePost), animated: true, completion: nil)
             return
@@ -293,7 +293,7 @@ class SubredditTabBarController: SmallTabBarController {
         
     }
     
-    func copyMultireddit(_ sender: AnyObject) {
+    @objc func copyMultireddit(_ sender: Any) {
         guard AppDelegate.shared.authenticationController.isAuthenticated else {
             self.present(UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.Subscribe), animated: true, completion: nil)
             return

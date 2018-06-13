@@ -253,7 +253,7 @@ class CommentComposeViewController: BeamViewController {
                     }
                     self.textView?.isSelectable = true
                 } else {
-                    let thingsOperation = operations.flatMap({ (operation) -> ThingsParsingOperation? in
+                    let thingsOperation = operations.compactMap({ (operation) -> ThingsParsingOperation? in
                         return operation as? ThingsParsingOperation
                     }).first
                     

@@ -11,7 +11,7 @@ import Photos
 
 internal protocol AssetsPickerViewController {
     
-    weak var assetsPickerController: AssetsPickerController? { get set }
+    var assetsPickerController: AssetsPickerController? { get set }
     
     func finishImagePickingWithAssets(_ assets: [PHAsset])
     func cancelImagePicking()

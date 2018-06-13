@@ -11,7 +11,7 @@ import Snoo
 
 protocol PostCell: class {
     
-    weak var post: Post? { get set }
+    var post: Post? { get set }
     
     var onDetailView: Bool { get set }
     

@@ -10,7 +10,7 @@ import UIKit
 
 internal protocol ColorPaletteSupport: class {
 
-    weak var assetsPickerController: AssetsPickerController? { get set }
+    var assetsPickerController: AssetsPickerController? { get set }
     var colorPalette: AssetsPickerColorPalette { get }
     
     func startColorPaletteSupport()

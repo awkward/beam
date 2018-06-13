@@ -15,7 +15,7 @@ public class AWKGalleryFooterGradientView: UIView {
     }
     
     // The relative middle location of the gradient
-    open var relativeMidLocation: Float = 0.5 {
+    @objc open var relativeMidLocation: Float = 0.5 {
         didSet {
             self.configureView()
         }

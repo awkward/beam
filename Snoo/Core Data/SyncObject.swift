@@ -162,7 +162,7 @@ open class SyncObject: NSManagedObject {
     }
     
     /// The full name of the object. This is defined by Reddit as <type identifier>_<object identifier>. It can be used in ObjectNamesQuery.
-    open var objectName: String? {
+    @objc open var objectName: String? {
         if let objectType = self.objectType, let identifier = self.identifier {
             return "\(objectType.rawValue)_\(identifier)"
         } else {

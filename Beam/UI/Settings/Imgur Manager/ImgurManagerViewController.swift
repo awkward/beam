@@ -81,7 +81,7 @@ class ImgurManagerViewController: BeamCollectionViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.emptyView?.frame = self.view.frame
-        self.emptyView?.layoutMargins = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, 0, 0)
+        self.emptyView?.layoutMargins = UIEdgeInsetsMake(self.view.safeAreaInsets.top, 0, 0, 0)
     }
 
 }
@@ -319,8 +319,7 @@ extension ImgurManagerViewController: AWKGalleryDelegate {
         
     }
     
-    func gallery(_ galleryViewController: AWKGalleryViewController, shouldBeDismissedWithCustomContentViewController viewController: UIViewController) {
-        
+    func gallery(_ galleryViewController: AWKGalleryViewController, shouldBeDismissedWithCustomContentViewController viewController: UIViewController & AWKGalleryItemContent) {
         let oldTransitioningDelegate = galleryViewController.transitioningDelegate
         
         if viewController is GalleryAlbumContentViewController {
@@ -384,7 +383,7 @@ extension ImgurManagerViewController: AWKGalleryDataSource {
         return 0
     }
     
-    func gallery(_ galleryViewController: AWKGalleryViewController, contentViewControllerFor item: AWKGalleryItem) -> UIViewController? {
+    func gallery(_ galleryViewController: AWKGalleryViewController, contentViewControllerFor item: AWKGalleryItem) -> (UIViewController & AWKGalleryItemContent)? {
         if let galleryItem = item as? ImgurGalleryItem, let album = galleryItem.imgurObject as? ImgurAlbum {
             let storyboard = UIStoryboard(name: "MediaOverview", bundle: nil)
             if let albumViewController = storyboard.instantiateViewController(withIdentifier: "imgur-gallery-album") as? ImgurGalleryAlbumContentViewController {

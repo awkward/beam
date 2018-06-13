@@ -10,9 +10,6 @@
 [submodule "Mixpanel"]
 	path = Mixpanel
 	url = git@github.com:mixpanel/mixpanel-iphone.git
-[submodule "UPCarouselFlowLayout"]
-	path = UPCarouselFlowLayout
-	url = git@github.com:ober01/UPCarouselFlowLayout.git
 [submodule "Ocarina"]
 	path = Ocarina
 	url = git@github.com:awkward/Ocarina.git

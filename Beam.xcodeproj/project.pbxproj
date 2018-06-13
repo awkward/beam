@@ -265,8 +265,6 @@
 		0C4C041A1FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4C04191FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift */; };
 		0C4C042E1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4C042D1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift */; };
 		0C4C15411E2679B8007FEBD4 /* URLQueryItem+Initializer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C4C152D1E267896007FEBD4 /* URLQueryItem+Initializer.swift */; };
-		0C4C15A21E27A06C007FEBD4 /* UPCarouselFlowLayout.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4C15A11E27A06C007FEBD4 /* UPCarouselFlowLayout.framework */; };
-		0C4C15A31E27A06C007FEBD4 /* UPCarouselFlowLayout.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C4C15A11E27A06C007FEBD4 /* UPCarouselFlowLayout.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C5566EB1C170AB30020D459 /* ReplyBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C5566EA1C170AB30020D459 /* ReplyBarView.swift */; };
 		0C561FB31E3F518E00097D49 /* Content+ImageResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C561FB21E3F518E00097D49 /* Content+ImageResponse.swift */; };
 		0C561FC81E3F5CBD00097D49 /* CommentCellDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C561FC71E3F5CBD00097D49 /* CommentCellDelegate.swift */; };
@@ -648,27 +646,6 @@
 			remoteGlobalIDString = 0C3091F11D82CBCD00E0BECC;
 			remoteInfo = CherryKit;
 		};
-		0C4C159D1E27A008007FEBD4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C4C15991E27A007007FEBD4 /* UPCarouselFlowLayoutDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 01D3876B1D1C4B9D00CE4E1F;
-			remoteInfo = UPCarouselFlowLayoutDemo;
-		};
-		0C4C15A01E27A06C007FEBD4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C4C15991E27A007007FEBD4 /* UPCarouselFlowLayoutDemo.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 841C94FD1DDEE57F00B997F5;
-			remoteInfo = UPCarouselFlowLayout;
-		};
-		0C4C15A41E27A06C007FEBD4 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C4C15991E27A007007FEBD4 /* UPCarouselFlowLayoutDemo.xcodeproj */;
-			proxyType = 1;
-			remoteGlobalIDString = 841C94FC1DDEE57F00B997F5;
-			remoteInfo = UPCarouselFlowLayout;
-		};
 		0C4EF61B1DD9F7FF002F089F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 76E7CB921B5E72D500D87D29 /* SDWebImage.xcodeproj */;
@@ -848,7 +825,6 @@
 			files = (
 				0CD71DD61BD515C10003658D /* TTTAttributedLabel.framework in Embed Frameworks */,
 				0C2605411CAD1D5D0078ABF6 /* AssetsPickerController.framework in Embed Frameworks */,
-				0C4C15A31E27A06C007FEBD4 /* UPCarouselFlowLayout.framework in Embed Frameworks */,
 				0C3B93EA1BC6608E00852897 /* JLRoutes.framework in Embed Frameworks */,
 				0C2605621CAD74280078ABF6 /* ImgurKit.framework in Embed Frameworks */,
 				000605CF1F506340001697AE /* AWKGallery.framework in Embed Frameworks */,
@@ -1138,7 +1114,6 @@
 		0C4C04191FD329FC001191CE /* InteractiveSwipeTransitionAnimationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InteractiveSwipeTransitionAnimationController.swift; sourceTree = "<group>"; };
 		0C4C042D1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewBeamViewControllerTransitionHandler.swift; sourceTree = "<group>"; };
 		0C4C152D1E267896007FEBD4 /* URLQueryItem+Initializer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "URLQueryItem+Initializer.swift"; path = "../../beam/URLQueryItem+Initializer.swift"; sourceTree = "<group>"; };
-		0C4C15991E27A007007FEBD4 /* UPCarouselFlowLayoutDemo.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = UPCarouselFlowLayoutDemo.xcodeproj; path = UPCarouselFlowLayout/UPCarouselFlowLayoutDemo.xcodeproj; sourceTree = "<group>"; };
 		0C5566EA1C170AB30020D459 /* ReplyBarView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ReplyBarView.swift; sourceTree = "<group>"; };
 		0C561FB21E3F518E00097D49 /* Content+ImageResponse.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Content+ImageResponse.swift"; sourceTree = "<group>"; };
 		0C561FC71E3F5CBD00097D49 /* CommentCellDelegate.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CommentCellDelegate.swift; sourceTree = "<group>"; };
@@ -1450,7 +1425,6 @@
 				76E7CBA51B5E72ED00D87D29 /* SDWebImage.framework in Frameworks */,
 				76DA036A1B566D9200137BF2 /* Security.framework in Frameworks */,
 				0C2605401CAD1D5D0078ABF6 /* AssetsPickerController.framework in Frameworks */,
-				0C4C15A21E27A06C007FEBD4 /* UPCarouselFlowLayout.framework in Frameworks */,
 				764CD6241B399D4C002F9B79 /* SafariServices.framework in Frameworks */,
 				0C056FBA1D82BDA300E32FB3 /* Snoo.framework in Frameworks */,
 				766826721B84808000647A30 /* RedditMarkdownKit.framework in Frameworks */,
@@ -1496,7 +1470,6 @@
 				000605C51F50632C001697AE /* AWKGallery.xcodeproj */,
 				00F9173E1F2B7D16002296E4 /* Trekker.xcodeproj */,
 				0CACB1031E676E6B00F5B233 /* Ocarina.xcodeproj */,
-				0C4C15991E27A007007FEBD4 /* UPCarouselFlowLayoutDemo.xcodeproj */,
 				0C2F1DD81D708C0C00BB6ED1 /* Mixpanel.xcodeproj */,
 				0C2605261CAD1D510078ABF6 /* AssetsPickerControllerExample.xcodeproj */,
 				0C71A3B21BC2AE0200114057 /* JLRoutes.xcodeproj */,
@@ -2082,15 +2055,6 @@
 				0C5850FB1FF53519005CF710 /* UIViewControllerContextTransitioningExtensions.swift */,
 			);
 			path = Extensions;
-			sourceTree = "<group>";
-		};
-		0C4C159A1E27A007007FEBD4 /* Products */ = {
-			isa = PBXGroup;
-			children = (
-				0C4C159E1E27A008007FEBD4 /* UPCarouselFlowLayoutDemo.app */,
-				0C4C15A11E27A06C007FEBD4 /* UPCarouselFlowLayout.framework */,
-			);
-			name = Products;
 			sourceTree = "<group>";
 		};
 		0C6A10081F59653500695758 /* Products */ = {
@@ -3033,7 +2997,6 @@
 				0C2F1DFC1D708C1700BB6ED1 /* PBXTargetDependency */,
 				0C056FBD1D82BDA300E32FB3 /* PBXTargetDependency */,
 				0C30926D1D82CD3100E0BECC /* PBXTargetDependency */,
-				0C4C15A51E27A06C007FEBD4 /* PBXTargetDependency */,
 				0CACB1261E676E8000F5B233 /* PBXTargetDependency */,
 				000605D11F506340001697AE /* PBXTargetDependency */,
 				0C0B1B661F6198B300E74436 /* PBXTargetDependency */,
@@ -3216,10 +3179,6 @@
 					ProductGroup = 0CD71DCB1BD515740003658D /* Products */;
 					ProjectRef = 0CD71DCA1BD515740003658D /* TTTAttributedLabel.xcodeproj */;
 				},
-				{
-					ProductGroup = 0C4C159A1E27A007007FEBD4 /* Products */;
-					ProjectRef = 0C4C15991E27A007007FEBD4 /* UPCarouselFlowLayoutDemo.xcodeproj */;
-				},
 			);
 			projectRoot = "";
 			targets = (
@@ -3291,20 +3250,6 @@
 			fileType = wrapper.framework;
 			path = Mixpanel.framework;
 			remoteRef = 0C2F1DEF1D708C0C00BB6ED1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0C4C159E1E27A008007FEBD4 /* UPCarouselFlowLayoutDemo.app */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.application;
-			path = UPCarouselFlowLayoutDemo.app;
-			remoteRef = 0C4C159D1E27A008007FEBD4 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0C4C15A11E27A06C007FEBD4 /* UPCarouselFlowLayout.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = UPCarouselFlowLayout.framework;
-			remoteRef = 0C4C15A01E27A06C007FEBD4 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0C4EF61C1DD9F7FF002F089F /* libSDWebImage watchOS static.a */ = {
@@ -4110,11 +4055,6 @@
 			isa = PBXTargetDependency;
 			target = 0C3091F11D82CBCD00E0BECC /* CherryKit */;
 			targetProxy = 0C30926C1D82CD3100E0BECC /* PBXContainerItemProxy */;
-		};
-		0C4C15A51E27A06C007FEBD4 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			name = UPCarouselFlowLayout;
-			targetProxy = 0C4C15A41E27A06C007FEBD4 /* PBXContainerItemProxy */;
 		};
 		0C71A3C81BC2AE2D00114057 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;

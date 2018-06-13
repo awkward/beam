@@ -466,8 +466,6 @@
 		766074171B38073100F4C777 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766074161B38073100F4C777 /* AppDelegate.swift */; };
 		766074201B38073100F4C777 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 7660741F1B38073100F4C777 /* Assets.xcassets */; };
 		766074231B38073100F4C777 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766074211B38073100F4C777 /* LaunchScreen.storyboard */; };
-		7660742E1B38073100F4C777 /* beamTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7660742D1B38073100F4C777 /* beamTests.swift */; };
-		766074391B38073100F4C777 /* beamUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 766074381B38073100F4C777 /* beamUITests.swift */; };
 		766074471B3807B800F4C777 /* Subreddit.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 766074461B3807B800F4C777 /* Subreddit.storyboard */; };
 		7668266E1B84808000647A30 /* RedditMarkdownKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 7668266D1B84808000647A30 /* RedditMarkdownKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		766826721B84808000647A30 /* RedditMarkdownKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7668266B1B84808000647A30 /* RedditMarkdownKit.framework */; };
@@ -771,20 +769,6 @@
 			proxyType = 1;
 			remoteGlobalIDString = A52E64261B14C0BF002709D4;
 			remoteInfo = TTTAttributedLabel;
-		};
-		7660742A1B38073100F4C777 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7660740B1B38073100F4C777 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 766074121B38073100F4C777;
-			remoteInfo = beam;
-		};
-		766074351B38073100F4C777 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 7660740B1B38073100F4C777 /* Project object */;
-			proxyType = 1;
-			remoteGlobalIDString = 766074121B38073100F4C777;
-			remoteInfo = beam;
 		};
 		766826701B84808000647A30 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1315,12 +1299,6 @@
 		7660741F1B38073100F4C777 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		766074221B38073100F4C777 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		766074241B38073100F4C777 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		766074291B38073100F4C777 /* beamTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = beamTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		7660742D1B38073100F4C777 /* beamTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = beamTests.swift; sourceTree = "<group>"; };
-		7660742F1B38073100F4C777 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		766074341B38073100F4C777 /* beamUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = beamUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		766074381B38073100F4C777 /* beamUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = beamUITests.swift; sourceTree = "<group>"; };
-		7660743A1B38073100F4C777 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		766074461B3807B800F4C777 /* Subreddit.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Subreddit.storyboard; sourceTree = "<group>"; };
 		7668266B1B84808000647A30 /* RedditMarkdownKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = RedditMarkdownKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		7668266D1B84808000647A30 /* RedditMarkdownKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = RedditMarkdownKit.h; sourceTree = "<group>"; };
@@ -1428,20 +1406,6 @@
 				764CD6241B399D4C002F9B79 /* SafariServices.framework in Frameworks */,
 				0C056FBA1D82BDA300E32FB3 /* Snoo.framework in Frameworks */,
 				766826721B84808000647A30 /* RedditMarkdownKit.framework in Frameworks */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		766074261B38073100F4C777 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		766074311B38073100F4C777 /* Frameworks */ = {
-			isa = PBXFrameworksBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2723,8 +2687,6 @@
 			children = (
 				76B57F4E1B5FA15E00FB04BD /* README.md */,
 				766074151B38073100F4C777 /* Beam */,
-				7660742C1B38073100F4C777 /* beamTests */,
-				766074371B38073100F4C777 /* beamUITests */,
 				7668266C1B84808000647A30 /* RedditMarkdownKit */,
 				0C26055B1CAD74280078ABF6 /* ImgurKit */,
 				0C24FE871D82B7BE00CCBF93 /* Snoo */,
@@ -2740,8 +2702,6 @@
 			isa = PBXGroup;
 			children = (
 				766074131B38073100F4C777 /* beam.app */,
-				766074291B38073100F4C777 /* beamTests.xctest */,
-				766074341B38073100F4C777 /* beamUITests.xctest */,
 				7668266B1B84808000647A30 /* RedditMarkdownKit.framework */,
 				0C26055A1CAD74280078ABF6 /* ImgurKit.framework */,
 				0C24FE861D82B7BD00CCBF93 /* Snoo.framework */,
@@ -2778,24 +2738,6 @@
 				0CF0E2E91FD096E7001D12A9 /* UIActivities */,
 			);
 			path = Beam;
-			sourceTree = "<group>";
-		};
-		7660742C1B38073100F4C777 /* beamTests */ = {
-			isa = PBXGroup;
-			children = (
-				7660742D1B38073100F4C777 /* beamTests.swift */,
-				7660742F1B38073100F4C777 /* Info.plist */,
-			);
-			path = beamTests;
-			sourceTree = "<group>";
-		};
-		766074371B38073100F4C777 /* beamUITests */ = {
-			isa = PBXGroup;
-			children = (
-				766074381B38073100F4C777 /* beamUITests.swift */,
-				7660743A1B38073100F4C777 /* Info.plist */,
-			);
-			path = beamUITests;
 			sourceTree = "<group>";
 		};
 		7668266C1B84808000647A30 /* RedditMarkdownKit */ = {
@@ -3006,42 +2948,6 @@
 			productReference = 766074131B38073100F4C777 /* beam.app */;
 			productType = "com.apple.product-type.application";
 		};
-		766074281B38073100F4C777 /* beamTests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 766074401B38073100F4C777 /* Build configuration list for PBXNativeTarget "beamTests" */;
-			buildPhases = (
-				766074251B38073100F4C777 /* Sources */,
-				766074261B38073100F4C777 /* Frameworks */,
-				766074271B38073100F4C777 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				7660742B1B38073100F4C777 /* PBXTargetDependency */,
-			);
-			name = beamTests;
-			productName = beamTests;
-			productReference = 766074291B38073100F4C777 /* beamTests.xctest */;
-			productType = "com.apple.product-type.bundle.unit-test";
-		};
-		766074331B38073100F4C777 /* beamUITests */ = {
-			isa = PBXNativeTarget;
-			buildConfigurationList = 766074431B38073100F4C777 /* Build configuration list for PBXNativeTarget "beamUITests" */;
-			buildPhases = (
-				766074301B38073100F4C777 /* Sources */,
-				766074311B38073100F4C777 /* Frameworks */,
-				766074321B38073100F4C777 /* Resources */,
-			);
-			buildRules = (
-			);
-			dependencies = (
-				766074361B38073100F4C777 /* PBXTargetDependency */,
-			);
-			name = beamUITests;
-			productName = beamUITests;
-			productReference = 766074341B38073100F4C777 /* beamUITests.xctest */;
-			productType = "com.apple.product-type.bundle.ui-testing";
-		};
 		7668266A1B84808000647A30 /* RedditMarkdownKit */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 7668267E1B84808000647A30 /* Build configuration list for PBXNativeTarget "RedditMarkdownKit" */;
@@ -3114,16 +3020,6 @@
 							};
 						};
 					};
-					766074281B38073100F4C777 = {
-						CreatedOnToolsVersion = 7.0;
-						LastSwiftMigration = 0800;
-						TestTargetID = 766074121B38073100F4C777;
-					};
-					766074331B38073100F4C777 = {
-						CreatedOnToolsVersion = 7.0;
-						LastSwiftMigration = 0800;
-						TestTargetID = 766074121B38073100F4C777;
-					};
 					7668266A1B84808000647A30 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = N4KR5KV52L;
@@ -3183,8 +3079,6 @@
 			projectRoot = "";
 			targets = (
 				766074121B38073100F4C777 /* beam */,
-				766074281B38073100F4C777 /* beamTests */,
-				766074331B38073100F4C777 /* beamUITests */,
 				7668266A1B84808000647A30 /* RedditMarkdownKit */,
 				0C2605591CAD74280078ABF6 /* ImgurKit */,
 				0C24FE851D82B7BD00CCBF93 /* Snoo */,
@@ -3464,20 +3358,6 @@
 				0C8B204D1CBFE7D400CF8E2A /* AssetsPickerControllerAlbumEmptyView.xib in Resources */,
 				0CFEF39B1C8704FA005D7DAE /* PostURLPartCell.xib in Resources */,
 				0C2CD26C1C104B7500C58D3B /* Settings.storyboard in Resources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		766074271B38073100F4C777 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		766074321B38073100F4C777 /* Resources */ = {
-			isa = PBXResourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3970,22 +3850,6 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
-		766074251B38073100F4C777 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				7660742E1B38073100F4C777 /* beamTests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-		766074301B38073100F4C777 /* Sources */ = {
-			isa = PBXSourcesBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-				766074391B38073100F4C777 /* beamUITests.swift in Sources */,
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-		};
 		766826661B84808000647A30 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -4070,16 +3934,6 @@
 			isa = PBXTargetDependency;
 			name = TTTAttributedLabel;
 			targetProxy = 0CD71DD41BD515B90003658D /* PBXContainerItemProxy */;
-		};
-		7660742B1B38073100F4C777 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 766074121B38073100F4C777 /* beam */;
-			targetProxy = 7660742A1B38073100F4C777 /* PBXContainerItemProxy */;
-		};
-		766074361B38073100F4C777 /* PBXTargetDependency */ = {
-			isa = PBXTargetDependency;
-			target = 766074121B38073100F4C777 /* beam */;
-			targetProxy = 766074351B38073100F4C777 /* PBXContainerItemProxy */;
 		};
 		766826711B84808000647A30 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
@@ -4543,58 +4397,6 @@
 			};
 			name = Release;
 		};
-		766074411B38073100F4C777 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = beamTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.beamTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
-			};
-			name = Debug;
-		};
-		766074421B38073100F4C777 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
-				INFOPLIST_FILE = beamTests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.beamTests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
-			};
-			name = Release;
-		};
-		766074441B38073100F4C777 /* Debug */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = beamUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.beamUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = beam;
-				USES_XCTRUNNER = YES;
-			};
-			name = Debug;
-		};
-		766074451B38073100F4C777 /* Release */ = {
-			isa = XCBuildConfiguration;
-			buildSettings = {
-				INFOPLIST_FILE = beamUITests/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
-				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.beamUITests;
-				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
-				TEST_TARGET_NAME = beam;
-				USES_XCTRUNNER = YES;
-			};
-			name = Release;
-		};
 		766826741B84808000647A30 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -4710,24 +4512,6 @@
 			buildConfigurations = (
 				7660743E1B38073100F4C777 /* Debug */,
 				7660743F1B38073100F4C777 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		766074401B38073100F4C777 /* Build configuration list for PBXNativeTarget "beamTests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				766074411B38073100F4C777 /* Debug */,
-				766074421B38073100F4C777 /* Release */,
-			);
-			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
-		};
-		766074431B38073100F4C777 /* Build configuration list for PBXNativeTarget "beamUITests" */ = {
-			isa = XCConfigurationList;
-			buildConfigurations = (
-				766074441B38073100F4C777 /* Debug */,
-				766074451B38073100F4C777 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

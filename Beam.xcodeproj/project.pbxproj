@@ -534,6 +534,13 @@
 			remoteGlobalIDString = 76E7CBAD1B5E803E00D87D29;
 			remoteInfo = AWKGallery;
 		};
+		0C054A9020D1BE3800BA15D0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0C2F1DD81D708C0C00BB6ED1 /* Mixpanel.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = E1F160B01E677D2200391AE3;
+			remoteInfo = Mixpanel_macOS;
+		};
 		0C056FBC1D82BDA300E32FB3 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 7660740B1B38073100F4C777 /* Project object */;
@@ -603,13 +610,6 @@
 			proxyType = 2;
 			remoteGlobalIDString = 511FC39D1C2B74BD00DC4796;
 			remoteInfo = Mixpanel_watchOS;
-		};
-		0C2F1DED1D708C0C00BB6ED1 /* PBXContainerItemProxy */ = {
-			isa = PBXContainerItemProxy;
-			containerPortal = 0C2F1DD81D708C0C00BB6ED1 /* Mixpanel.xcodeproj */;
-			proxyType = 2;
-			remoteGlobalIDString = 513B0BB61C73CA35008EEE6E;
-			remoteInfo = MixpanelAppExtension;
 		};
 		0C2F1DEF1D708C0C00BB6ED1 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
@@ -1791,8 +1791,8 @@
 			children = (
 				0C2F1DEA1D708C0C00BB6ED1 /* Mixpanel.framework */,
 				0C2F1DEC1D708C0C00BB6ED1 /* Mixpanel.framework */,
-				0C2F1DEE1D708C0C00BB6ED1 /* MixpanelAppExtension.framework */,
 				0C2F1DF01D708C0C00BB6ED1 /* Mixpanel.framework */,
+				0C054A9120D1BE3800BA15D0 /* Mixpanel.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -3210,6 +3210,13 @@
 			remoteRef = 000605CC1F50632C001697AE /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
+		0C054A9120D1BE3800BA15D0 /* Mixpanel.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Mixpanel.framework;
+			remoteRef = 0C054A9020D1BE3800BA15D0 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		0C26052C1CAD1D510078ABF6 /* AssetsPickerControllerExample.app */ = {
 			isa = PBXReferenceProxy;
 			fileType = wrapper.application;
@@ -3236,13 +3243,6 @@
 			fileType = wrapper.framework;
 			path = Mixpanel.framework;
 			remoteRef = 0C2F1DEB1D708C0C00BB6ED1 /* PBXContainerItemProxy */;
-			sourceTree = BUILT_PRODUCTS_DIR;
-		};
-		0C2F1DEE1D708C0C00BB6ED1 /* MixpanelAppExtension.framework */ = {
-			isa = PBXReferenceProxy;
-			fileType = wrapper.framework;
-			path = MixpanelAppExtension.framework;
-			remoteRef = 0C2F1DED1D708C0C00BB6ED1 /* PBXContainerItemProxy */;
 			sourceTree = BUILT_PRODUCTS_DIR;
 		};
 		0C2F1DF01D708C0C00BB6ED1 /* Mixpanel.framework */ = {
@@ -4194,7 +4194,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4210,7 +4210,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4333,7 +4333,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CherryKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4349,7 +4349,7 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CherryKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.3;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

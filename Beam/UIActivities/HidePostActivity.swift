@@ -43,11 +43,9 @@ class HidePostActivity: UIActivity {
     }
     
     override func prepare(withActivityItems activityItems: [Any]) {
-        for item in activityItems {
-            if item is Post {
-                self.post = item as? Post
-            }
-        }
+        self.post = activityItems.compactMap({ (object) -> Post? in
+            return object as? Post
+        }).first
     }
     
     override func perform() {

@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="13529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="13527"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="none" indentationWidth="10" reuseIdentifier="image" rowHeight="294" id="1xC-tb-Aav" userLabel="Image" customClass="PostImagePartCell" customModule="beam">
+            <rect key="frame" x="0.0" y="0.0" width="600" height="294"/>
+            <autoresizingMask key="autoresizingMask"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="1xC-tb-Aav" id="Job-NP-VwZ">
+                <rect key="frame" x="0.0" y="0.0" width="600" height="293.5"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="LsD-Cv-e9U">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="293"/>
+                        <constraints>
+                            <constraint firstAttribute="height" priority="999" constant="180" id="koJ-TU-3lQ"/>
+                        </constraints>
+                    </imageView>
+                    <view opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bAs-Rs-WWv" customClass="GIFPlayerView" customModule="beam" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="294"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                    </view>
+                    <view contentMode="scaleToFill" placeholderIntrinsicWidth="20" placeholderIntrinsicHeight="20" translatesAutoresizingMaskIntoConstraints="NO" id="s6I-R2-LWj" customClass="CircularProgressView" customModule="beam" customModuleProvider="target">
+                        <rect key="frame" x="290" y="137" width="20" height="20"/>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="media-gif-label" translatesAutoresizingMaskIntoConstraints="NO" id="igs-0J-czb">
+                        <rect key="frame" x="568" y="8" width="24" height="16"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="media-gif-label" translatesAutoresizingMaskIntoConstraints="NO" id="rlN-k9-PB6">
+                        <rect key="frame" x="540" y="8" width="24" height="16"/>
+                    </imageView>
+                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="media-gif-label" translatesAutoresizingMaskIntoConstraints="NO" id="ofa-VO-2HY">
+                        <rect key="frame" x="512" y="8" width="24" height="16"/>
+                    </imageView>
+                    <view opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="1" verticalHuggingPriority="1" horizontalCompressionResistancePriority="1" verticalCompressionResistancePriority="1" translatesAutoresizingMaskIntoConstraints="NO" id="l2f-iT-ZcF" customClass="ImageSpoilerView" customModule="beam" customModuleProvider="target">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="293"/>
+                        <color key="backgroundColor" red="0.1843137255" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                    </view>
+                </subviews>
+                <color key="backgroundColor" red="0.96862745100000003" green="0.96862745100000003" blue="0.96862745100000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                <constraints>
+                    <constraint firstItem="igs-0J-czb" firstAttribute="top" secondItem="rlN-k9-PB6" secondAttribute="top" id="3NP-Na-ZCu"/>
+                    <constraint firstItem="s6I-R2-LWj" firstAttribute="centerY" secondItem="Job-NP-VwZ" secondAttribute="centerY" id="3cC-2w-NjS"/>
+                    <constraint firstItem="LsD-Cv-e9U" firstAttribute="leading" secondItem="Job-NP-VwZ" secondAttribute="leading" id="46P-8s-NZ5"/>
+                    <constraint firstItem="bAs-Rs-WWv" firstAttribute="top" secondItem="Job-NP-VwZ" secondAttribute="top" id="5lR-un-nwc"/>
+                    <constraint firstItem="rlN-k9-PB6" firstAttribute="leading" secondItem="ofa-VO-2HY" secondAttribute="trailing" constant="4" id="974-gK-3Z3"/>
+                    <constraint firstAttribute="trailing" secondItem="LsD-Cv-e9U" secondAttribute="trailing" id="BBz-qU-VXa"/>
+                    <constraint firstAttribute="trailing" secondItem="bAs-Rs-WWv" secondAttribute="trailing" id="ClT-97-p3G"/>
+                    <constraint firstItem="s6I-R2-LWj" firstAttribute="top" relation="greaterThanOrEqual" secondItem="Job-NP-VwZ" secondAttribute="top" constant="5" id="EVg-WI-YCA"/>
+                    <constraint firstAttribute="bottom" secondItem="LsD-Cv-e9U" secondAttribute="bottom" id="Hoh-kX-Dh8"/>
+                    <constraint firstItem="l2f-iT-ZcF" firstAttribute="leading" secondItem="LsD-Cv-e9U" secondAttribute="leading" id="IIa-cu-V9D"/>
+                    <constraint firstItem="s6I-R2-LWj" firstAttribute="centerX" secondItem="Job-NP-VwZ" secondAttribute="centerX" id="VQ7-Sf-o4Y"/>
+                    <constraint firstItem="l2f-iT-ZcF" firstAttribute="top" secondItem="LsD-Cv-e9U" secondAttribute="top" id="YXX-Xv-dax"/>
+                    <constraint firstAttribute="bottom" relation="greaterThanOrEqual" secondItem="s6I-R2-LWj" secondAttribute="bottom" constant="5" id="ZSt-YE-YXt"/>
+                    <constraint firstItem="igs-0J-czb" firstAttribute="top" secondItem="Job-NP-VwZ" secondAttribute="top" constant="8" id="cIb-iM-6wF"/>
+                    <constraint firstItem="bAs-Rs-WWv" firstAttribute="leading" secondItem="Job-NP-VwZ" secondAttribute="leading" id="dbX-M7-Sdj"/>
+                    <constraint firstItem="rlN-k9-PB6" firstAttribute="top" secondItem="ofa-VO-2HY" secondAttribute="top" id="dw7-3O-Ppu"/>
+                    <constraint firstAttribute="trailing" secondItem="igs-0J-czb" secondAttribute="trailing" constant="8" id="dzL-Ug-lL6"/>
+                    <constraint firstItem="igs-0J-czb" firstAttribute="leading" secondItem="rlN-k9-PB6" secondAttribute="trailing" constant="4" id="h7d-MV-8ef"/>
+                    <constraint firstItem="l2f-iT-ZcF" firstAttribute="trailing" secondItem="LsD-Cv-e9U" secondAttribute="trailing" id="oDY-P5-e9Q"/>
+                    <constraint firstItem="LsD-Cv-e9U" firstAttribute="top" secondItem="Job-NP-VwZ" secondAttribute="top" id="ovE-9L-G7k"/>
+                    <constraint firstItem="l2f-iT-ZcF" firstAttribute="bottom" secondItem="LsD-Cv-e9U" secondAttribute="bottom" id="rXr-sR-c6g"/>
+                    <constraint firstAttribute="bottom" secondItem="bAs-Rs-WWv" secondAttribute="bottom" id="yXG-np-jxk"/>
+                </constraints>
+                <edgeInsets key="layoutMargins" top="3" left="0.0" bottom="3" right="0.0"/>
+            </tableViewCellContentView>
+            <inset key="separatorInset" minX="10000" minY="0.0" maxX="0.0" maxY="0.0"/>
+            <connections>
+                <outlet property="gifPlayerView" destination="bAs-Rs-WWv" id="EbG-M8-2et"/>
+                <outlet property="imageHeightConstraint" destination="koJ-TU-3lQ" id="fim-wj-h61"/>
+                <outlet property="mediaImageView" destination="LsD-Cv-e9U" id="fIn-Uy-c9X"/>
+                <outlet property="progressView" destination="s6I-R2-LWj" id="edx-uD-Zww"/>
+                <outlet property="spoilerView" destination="l2f-iT-ZcF" id="g7P-zY-Qys"/>
+                <outletCollection property="mediaLabelImageViews" destination="igs-0J-czb" collectionClass="NSMutableArray" id="5vQ-ip-LdA"/>
+                <outletCollection property="mediaLabelImageViews" destination="rlN-k9-PB6" collectionClass="NSMutableArray" id="Ic8-xD-Via"/>
+                <outletCollection property="mediaLabelImageViews" destination="ofa-VO-2HY" collectionClass="NSMutableArray" id="bVA-nm-a1k"/>
+            </connections>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="media-gif-label" width="24" height="16"/>
+    </resources>
+</document>

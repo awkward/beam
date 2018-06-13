@@ -70,6 +70,7 @@ static void * AWKGalleryMovieContentViewKVOContext = &AWKGalleryMovieContentView
     if (!self.placeholderView) {
         self.placeholderView = [[UIImageView alloc] initWithFrame:self.bounds];
         self.placeholderView.contentMode = UIViewContentModeScaleAspectFit;
+        self.placeholderView.accessibilityIgnoresInvertColors = true;
         [self addSubview:self.placeholderView];
     }
     
@@ -90,6 +91,7 @@ static void * AWKGalleryMovieContentViewKVOContext = &AWKGalleryMovieContentView
     if (self) {
         self.playerController = [AVPlayerViewController new];
         self.playerController.showsPlaybackControls = !self.repeatingMovie;
+        self.playerController.view.accessibilityIgnoresInvertColors = true;
         
         if (!self.repeatingMovie || [NSProcessInfo processInfo].operatingSystemVersion.majorVersion < 10) {
             self.playerController.player.actionAtItemEnd = AVPlayerActionAtItemEndNone;

@@ -26,7 +26,7 @@ public final class SubredditsCollectionQuery: CollectionQuery {
     }
     
     override open var apiPath: String {
-        if let query = self.searchKeywords , query.characters.count > 0 {
+        if let query = self.searchKeywords , query.count > 0 {
             return "search.json"
         } else if self.collectionController?.authenticationController.isAuthenticated == true && self.shouldFetchDefaults == false {
             return "subreddits/mine/subscriber.json"
@@ -36,7 +36,7 @@ public final class SubredditsCollectionQuery: CollectionQuery {
     }
     
     override var apiQueryItems: [URLQueryItem]? {
-        if let query = self.searchKeywords, query.characters.count > 0 {
+        if let query = self.searchKeywords, query.count > 0 {
             return [URLQueryItem(name: "type", value: "sr"), URLQueryItem(name: "q", redditQuery: query, allowColon: false)]
         } else {
             return [URLQueryItem(name: "limit", value: "\(self.limit)")]

@@ -52,7 +52,7 @@ class CherryKitTests: XCTestCase {
         
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-            if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.characters.count)) {
+            if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) {
                 XCTAssert(match.numberOfRanges > 0, "Match must have at least 1 range.")
             } else {
                 XCTFail("Pattern not found for '\(string)")
@@ -68,7 +68,7 @@ class CherryKitTests: XCTestCase {
         
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-            if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.characters.count)) {
+            if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) {
                 XCTAssert(match.numberOfRanges > 0, "Match must not have 0 ranges.")
                 XCTAssert(match.numberOfRanges == 1, "Match must have 1 range.")
             } else {
@@ -86,7 +86,7 @@ class CherryKitTests: XCTestCase {
             let pattern = "(.jpe?g|.png|.gif)$"
             do {
                 let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-                if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.characters.count)) {
+                if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) {
                     XCTAssert(match.numberOfRanges > 0, "Match must more than 0 ranges.")
                 } else {
                     XCTFail("Pattern not found for '\(string)")

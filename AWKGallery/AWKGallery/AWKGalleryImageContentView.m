@@ -20,6 +20,7 @@
 -(UIImageView *)imageView {
     if (!_imageView) {
         UIImageView* imageView = [[UIImageView alloc] initWithFrame:self.bounds];
+        imageView.accessibilityIgnoresInvertColors = true;
         imageView.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
         [self addSubview:imageView];
         self.imageView = imageView;

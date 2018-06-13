@@ -158,6 +158,7 @@ static const NSTimeInterval AWKGalleryViewControllerDefaultAnimationDuration = 0
     [super loadView];
     
     self.view.backgroundColor = [UIColor galleryBackgroundColor];
+    self.view.accessibilityIgnoresInvertColors = true;
     
     self.pageViewController = [[UIPageViewController alloc] initWithTransitionStyle:UIPageViewControllerTransitionStyleScroll navigationOrientation:UIPageViewControllerNavigationOrientationHorizontal options:@{UIPageViewControllerOptionInterPageSpacingKey: @(self.itemSpacing)}];
     self.pageViewController.view.autoresizingMask = UIViewAutoresizingFlexibleHeight|UIViewAutoresizingFlexibleWidth;
@@ -252,10 +253,10 @@ static const NSTimeInterval AWKGalleryViewControllerDefaultAnimationDuration = 0
         [self.footerDescriptionView addConstraint:[NSLayoutConstraint constraintWithItem:self.footerDescriptionView attribute:NSLayoutAttributeHeight relatedBy:NSLayoutRelationLessThanOrEqual toItem:nil attribute:NSLayoutAttributeNotAnAttribute multiplier:1 constant:115]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_expandedDescriptionView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_expandedDescriptionView)]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandedDescriptionView attribute:NSLayoutAttributeTop relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeTop multiplier:1 constant:0]];
-        [self.view addConstraint:[NSLayoutConstraint constraintWithItem:self.expandedDescriptionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+        [self.expandedDescriptionView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor].active = true;
         
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_footerDescriptionView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_footerDescriptionView)]];
-        self.footerBottomConstraint = [NSLayoutConstraint constraintWithItem:self.footerDescriptionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0];
+        self.footerBottomConstraint = [self.footerDescriptionView.bottomAnchor constraintEqualToAnchor:self.view.safeAreaLayoutGuide.bottomAnchor];
         self.footerBottomConstraint.priority = UILayoutPriorityDefaultLow;
         [self.view addConstraint:self.footerBottomConstraint];
         
@@ -292,7 +293,7 @@ static const NSTimeInterval AWKGalleryViewControllerDefaultAnimationDuration = 0
             bottomView.alpha = self.footerDescriptionView.alpha;
             [self.view addSubview:bottomView];
             [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[bottomView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(bottomView)]];
-            [self.view addConstraint:[NSLayoutConstraint constraintWithItem:bottomView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:self.view attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];
+            [self.view addConstraint:[self.view.safeAreaLayoutGuide.bottomAnchor constraintEqualToAnchor:bottomView.bottomAnchor]];
             
             self.footerBottomToolbarConstraint = [NSLayoutConstraint constraintWithItem:self.footerDescriptionView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:bottomView attribute:NSLayoutAttributeTop multiplier:1 constant:0];
             self.footerBottomToolbarConstraint.priority = UILayoutPriorityRequired;

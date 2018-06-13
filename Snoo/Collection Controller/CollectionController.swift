@@ -8,26 +8,6 @@
 
 import UIKit
 import CoreData
-fileprivate func < <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l < r
-  case (nil, _?):
-    return true
-  default:
-    return false
-  }
-}
-
-fileprivate func > <T : Comparable>(lhs: T?, rhs: T?) -> Bool {
-  switch (lhs, rhs) {
-  case let (l?, r?):
-    return l > r
-  default:
-    return rhs < lhs
-  }
-}
-
 
 /**
 The status of what the collection controller is doing.
@@ -249,7 +229,7 @@ public final class CollectionController: NSObject {
         }
         
         // Only start if it's no search or if there are search characters
-        if let query = self.query , query.searchKeywords == nil || query.searchKeywords?.characters.count > 0 {
+        if let query = self.query, query.searchKeywords == nil || query.searchKeywords?.count ?? 0 > 0 {
             if overwrite {
                 do {
                     self.collectionID = try self.fetchLocalCollection(query)

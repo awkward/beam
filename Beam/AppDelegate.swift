@@ -342,12 +342,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                 subreddits.append(try Subreddit.frontpageSubreddit())
                 subreddits.append(try Subreddit.allSubreddit())
                 
-                var searchableItems = [CSSearchableItem]()
-                for subreddit in subreddits {
-                    if let item = subreddit.createSearchableItem() {
-                        searchableItems.append(item)
-                    }
-                }
+                let searchableItems = subreddits.compactMap({ (subreddit) -> CSSearchableItem? in
+                    return subreddit.createSearchableItem()
+                })
                 CSSearchableIndex.default().indexSearchableItems(searchableItems) { error in
                     if let error = error {
                         print(error.localizedDescription)
@@ -432,16 +429,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func updateFavoriteSubredditShortcuts() {
         //Update the 3D Touch shortcuts
         do {
-            if let subreddits = try self.favoriteSubreddits() {
-                var shortcutItems = [UIApplicationShortcutItem]()
-                for subreddit in subreddits {
-                    if let shortcutItem = subreddit.createApplicationShortcutItem() {
-                        shortcutItems.append(shortcutItem)
-                    }
-                    if shortcutItems.count == 4 {
-                        break;
-                    }
-                    
+            if let subreddits = try self.favoriteSubreddits(), subreddits.count > 0 {
+                let shortcutItems = subreddits[0..<min(subreddits.count, 4)].compactMap { (subreddit) -> UIApplicationShortcutItem? in
+                    return subreddit.createApplicationShortcutItem()
                 }
                 UIApplication.shared.shortcutItems = shortcutItems.reversed()
             }

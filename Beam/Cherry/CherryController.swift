@@ -55,12 +55,9 @@ struct CherryFeatures {
             self.sales.removeAll()
         }
         if let banners = JSON["banners"] as? [[AnyHashable: Any]] {
-            var bannerNotifications = [BannerNotification]()
-            for bannerInformation in banners {
-                if let banner = BannerNotification(dictionary: bannerInformation as [NSObject : AnyObject]) {
-                    bannerNotifications.append(banner)
-                }
-            }
+            let bannerNotifications = banners.compactMap({ (bannerInformation) -> BannerNotification? in
+                return BannerNotification(dictionary: bannerInformation as [NSObject : AnyObject])
+            })
             self.bannerNotifications = bannerNotifications
             
         }

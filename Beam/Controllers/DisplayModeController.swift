@@ -84,7 +84,7 @@ class DisplayModeController: NSObject {
         self.updateCurrentMode()
     }
     
-    func userSettingChanged(_ notification:Notification) {
+    @objc func userSettingChanged(_ notification:Notification) {
         if notification.object as? SettingsKey == SettingsKeys.nightModeEnabled || notification.object as? SettingsKey == SettingsKeys.nightModeAutomaticEnabled ||  notification.object as? SettingsKey == SettingsKeys.nightModeAutomaticThreshold {
            self.updateSettings()
         }

@@ -154,7 +154,7 @@ class ImageEditViewController: BeamViewController {
         self.descriptionTextView.keyboardAppearance = keyboardAppearance
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("image-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("image-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         self.descriptionTextViewPlaceholder.textColor = placeholderColor
     }
     

@@ -200,8 +200,8 @@ open class SyncObject: NSManagedObject {
     open class func identifierAndTypeWithObjectName(_ name: String) throws -> (identifier: String, type: SyncObjectType)? {
         let regex: NSRegularExpression = try NSRegularExpression(pattern: "(.*)_(.*)", options: [])
         if let match: NSTextCheckingResult = regex.firstMatch(in: name, options: [], range: NSMakeRange(0, name.count)) , match.numberOfRanges == 3 {
-            let identifier: NSString = (name as NSString).substring(with: match.rangeAt(2)) as NSString
-            let kind: NSString = (name as NSString).substring(with: match.rangeAt(1)) as NSString
+            let identifier: NSString = (name as NSString).substring(with: match.range(at: 2)) as NSString
+            let kind: NSString = (name as NSString).substring(with: match.range(at: 1)) as NSString
             if let type: SyncObjectType = SyncObjectType(rawValue: kind as String) {
                 return (identifier: identifier as String, type: type)
             }

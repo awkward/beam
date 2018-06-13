@@ -87,7 +87,7 @@ class DonateThankYouViewController: BeamViewController {
             }, completion: nil)
     }
     
-    func applicationStateChanged(_ notification: Notification) {
+    @objc func applicationStateChanged(_ notification: Notification) {
         self.backgroundView.paused = (UIApplication.shared.applicationState != .active)
     }
     

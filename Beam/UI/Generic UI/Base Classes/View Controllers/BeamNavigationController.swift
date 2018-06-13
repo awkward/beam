@@ -126,18 +126,18 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
     
     func displayModeDidChange() {
         
-        var titleAttributes = navigationBar.titleTextAttributes ?? [String: AnyObject]()
+        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedStringKey: Any]()
         
         switch displayMode {
         case .default:
             view.backgroundColor = UIColor.groupTableViewBackground
             
-            titleAttributes[NSForegroundColorAttributeName] = UIColor.black
+            titleAttributes[NSAttributedStringKey.foregroundColor] = UIColor.black
             
         case .dark:
             view.backgroundColor = UIColor.beamDarkBackgroundColor()
             
-            titleAttributes[NSForegroundColorAttributeName] = UIColor(red: 245/255.0, green: 245/255.0, blue: 247/255.0, alpha: 1)
+            titleAttributes[NSAttributedStringKey.foregroundColor] = UIColor(red: 245/255.0, green: 245/255.0, blue: 247/255.0, alpha: 1)
         }
         
         self.navigationBar.barTintColor = DisplayModeValue(UIColor.beamBarColor(), darkValue: UIColor.beamDarkContentBackgroundColor())

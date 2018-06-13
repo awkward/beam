@@ -71,7 +71,7 @@ class ScrollableButtonBar: BeamControl {
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
         let widthConstraint = self.scrollView.widthAnchor.constraint(equalToConstant: UIView.MaximumViewportWidth)
-        widthConstraint.priority = UILayoutPriorityDefaultHigh
+        widthConstraint.priority = UILayoutPriority.defaultHigh
         widthConstraint.isActive = true
         
         //Add the vertical constraints to fill the view
@@ -91,7 +91,7 @@ class ScrollableButtonBar: BeamControl {
             for item in items {
                 let button = UIButton(type: UIButtonType.system)
                 button.setTitle(item, for: UIControlState())
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
                 button.addTarget(self, action: #selector(ScrollableButtonBar.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
                 self.scrollView.addSubview(button)
     

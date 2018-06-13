@@ -34,8 +34,8 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
     fileprivate func setupView() {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.titleLabel)
-        self.titleLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, for: UILayoutConstraintAxis.horizontal)
-        self.titleLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, for: UILayoutConstraintAxis.horizontal)
+        self.titleLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.horizontal)
+        self.titleLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.horizontal)
         self.titleLabel.font = UIFont.systemFont(ofSize: 11)
         self.titleLabel.textColor = UIColor.beamGreyDark()
         

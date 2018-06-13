@@ -116,7 +116,7 @@ class WelcomeViewController: BeamViewController {
         
     }
     
-    func applicationStateChanged(_ notification: Notification) {
+    @objc func applicationStateChanged(_ notification: Notification) {
         self.backgroundView.paused = (UIApplication.shared.applicationState != .active)
     }
     
@@ -137,7 +137,7 @@ class WelcomeViewController: BeamViewController {
         AppDelegate.shared.presentAuthenticationViewController()
     }
     
-    func userDidChange(_ notification:Notification?) {
+    @objc func userDidChange(_ notification:Notification?) {
         if AppDelegate.shared.authenticationController.isAuthenticated {
             Trekker.default.track(event: TrekkerEvent(event: "Login with reddit account"))
             //The delay is a workaround to fix an issue with SFSafariViewController dismissing

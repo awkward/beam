@@ -10,7 +10,7 @@ import UIKit
 
 class BeamPlainTableViewHeaderFooterView: UITableViewHeaderFooterView, DynamicDisplayModeView {
     
-    var titleFont: UIFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold) {
+    var titleFont: UIFont = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold) {
         didSet {
             self.displayModeDidChange()
         }

@@ -264,7 +264,7 @@ final class EditMultiredditViewController: BeamTableViewController {
             }
             if placeholderString != nil {
                 let textColor = textField.textColor?.withAlphaComponent(0.4)
-                return NSAttributedString(string: placeholderString!, attributes: [NSForegroundColorAttributeName: textColor!])
+                return NSAttributedString(string: placeholderString!, attributes: [NSAttributedStringKey.foregroundColor: textColor!])
             }
         }
         return nil
@@ -344,7 +344,7 @@ extension EditMultiredditViewController: UITextFieldDelegate {
         return false
     }
     
-    func nameFieldValueChanged(_ notification: Notification) {
+    @objc func nameFieldValueChanged(_ notification: Notification) {
         self.reloadSaveBarButtonItem()
     }
     

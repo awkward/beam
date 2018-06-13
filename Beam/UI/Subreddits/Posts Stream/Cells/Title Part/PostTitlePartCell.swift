@@ -64,7 +64,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
         let paragrapthStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragrapthStyle.minimumLineHeight = 21
         paragrapthStyle.maximumLineHeight = 21
-        let attributes: [String: Any] = [NSParagraphStyleAttributeName: paragrapthStyle]
+        let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.paragraphStyle: paragrapthStyle]
         return NSAttributedString(string: title, attributes: attributes)
     }
 
@@ -144,7 +144,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
     func reloadFont() {
         let fontSize: CGFloat = FontSizeController.adjustedFontSize(17)
         if self.onDetailView && self.post?.isSelfText == true {
-            self.titleLabel.font = UIFont.systemFont(ofSize: fontSize, weight: UIFontWeightSemibold)
+            self.titleLabel.font = UIFont.systemFont(ofSize: fontSize, weight: UIFont.Weight.semibold)
         } else {
             self.titleLabel.font = UIFont.systemFont(ofSize: fontSize)
         }

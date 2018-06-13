@@ -29,7 +29,7 @@ final class SubredditTableViewCell: BeamTableViewCell {
         let button = UIButton()
         button.setImage(#imageLiteral(resourceName: "tableview_star_filled"), for: .normal)
         button.isHidden = true
-        button.setContentHuggingPriority(UILayoutPriorityRequired, for: .horizontal)
+        button.setContentHuggingPriority(UILayoutPriority.required, for: .horizontal)
         button.addTarget(self, action: #selector(toggleFavoriteSubreddit(_:)), for: .touchUpInside)
         button.translatesAutoresizingMaskIntoConstraints = false
         return button
@@ -97,9 +97,9 @@ final class SubredditTableViewCell: BeamTableViewCell {
     
     private var titleLabelFont: UIFont {
         if self.displayProminently {
-            return UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold)
+            return UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
         } else {
-            return UIFont.systemFont(ofSize: 17, weight: UIFontWeightRegular)
+            return UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.regular)
         }
     }
     

@@ -39,18 +39,18 @@ class MessageCell: BeamTableViewCell, MessageObjectCell {
     
     var authorText: NSAttributedString? {
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        let textFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
+        let textFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
         
-        let typeTextFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+        let typeTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
         
         var author = self.message?.author ?? "reddit"
         if self.sentMessage {
             author = self.message?.destination ?? "reddit"
         }
-        let authorAttributedString = NSAttributedString(string: author, attributes: [NSForegroundColorAttributeName: textColor, NSFontAttributeName: textFont])
+        let authorAttributedString = NSAttributedString(string: author, attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: textFont])
         
         if self.sentMessage {
-            let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSForegroundColorAttributeName: textColor, NSFontAttributeName: typeTextFont])
+            let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: typeTextFont])
             typeAttributedString.append(authorAttributedString)
             return typeAttributedString
         }

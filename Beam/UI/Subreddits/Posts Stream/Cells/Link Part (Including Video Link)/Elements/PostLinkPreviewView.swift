@@ -110,7 +110,7 @@ class PostLinkPreviewView: BeamControl {
     fileprivate var request: OcarinaInformationRequest?
     
     //Generating the UIFont everytime displayModeDidChange is called seems to cause some CPU time so that's why I'm saving it.
-    fileprivate static let titleFont = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
+    fileprivate static let titleFont = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
     fileprivate static let subtitleFont = UIFont.systemFont(ofSize: 12)
     
     fileprivate var attributedTitle: NSAttributedString? {
@@ -118,8 +118,8 @@ class PostLinkPreviewView: BeamControl {
             //If the post is marked as a spoiler, we don't show the title and description
             return nil
         }
-        let titleAttributes = [NSFontAttributeName: PostLinkPreviewView.titleFont, NSForegroundColorAttributeName: self.displayMode == .dark ? UIColor.white : UIColor.beamGreyExtraDark()]
-        let descriptionAttributes = [NSFontAttributeName: PostLinkPreviewView.subtitleFont, NSForegroundColorAttributeName: self.displayMode == .dark ? UIColor.beamGrey() : UIColor(red:0.58, green:0.58, blue:0.58, alpha:1)]
+        let titleAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.titleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.white : UIColor.beamGreyExtraDark()]
+        let descriptionAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.subtitleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.beamGrey() : UIColor(red:0.58, green:0.58, blue:0.58, alpha:1)]
         let isImgurLink = post.urlString?.contains("imgur.com") == true
         
         let string = NSMutableAttributedString()

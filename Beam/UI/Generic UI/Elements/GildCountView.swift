@@ -44,7 +44,7 @@ class GildCountView: BeamView {
         }
     }
     
-    var font: UIFont = UIFont.systemFont(ofSize: 13, weight: UIFontWeightRegular) {
+    var font: UIFont = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.regular) {
         didSet {
             self.textlabel.font = self.font
             

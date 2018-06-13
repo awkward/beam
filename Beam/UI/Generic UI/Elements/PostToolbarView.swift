@@ -314,7 +314,7 @@ class PostToolbarView: BeamView {
     //MARK: - Convenience 
     
     fileprivate func configureLabeledButton(_ button: UIButton) {
-        let font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightMedium)
+        let font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
         let insetAmount: CGFloat = 2.0;
         button.imageEdgeInsets = UIEdgeInsetsMake(0, -insetAmount, 0, insetAmount);
         button.titleEdgeInsets = UIEdgeInsetsMake(0, insetAmount, 0, -insetAmount);
@@ -324,25 +324,25 @@ class PostToolbarView: BeamView {
     
     //MARK: - Actions
     
-    func viewComments(_ sender: UIButton?) {
+    @objc func viewComments(_ sender: UIButton?) {
         if let post = self.post {
             self.delegate?.postToolbarView(self, didTapCommentsOnPost: post)
         }
     }
     
-    func viewPoints(_ sender: UIButton?) {
+    @objc func viewPoints(_ sender: UIButton?) {
         if let post = self.post {
             self.delegate?.postToolbarView(self, didTapPointsOnPost: post)
         }
     }
     
-    func more(_ sender: UIButton?) {
+    @objc func more(_ sender: UIButton?) {
         if let post = self.post {
             self.delegate?.postToolbarView(self, didTapMoreOnPost: post)
         }
     }
     
-    func upvote(_ sender: UIButton?) {
+    @objc func upvote(_ sender: UIButton?) {
         if let post = self.post , !self.upvoteButton.animating && !self.downvoteButton.animating {
             self.delegate?.postToolbarView(self, didTapUpvoteOnPost: post)
             self.upvoteButton.setVoted(self.post?.voteStatus?.intValue == VoteStatus.up.rawValue, animated: true)
@@ -350,7 +350,7 @@ class PostToolbarView: BeamView {
         }
     }
     
-    func downvote(_ sender: UIButton?) {
+    @objc func downvote(_ sender: UIButton?) {
         if let post = self.post , !self.upvoteButton.animating && !self.downvoteButton.animating{
             self.delegate?.postToolbarView(self, didTapDownvoteOnPost: post)
             self.downvoteButton.setVoted(self.post?.voteStatus?.intValue == VoteStatus.down.rawValue, animated: true)

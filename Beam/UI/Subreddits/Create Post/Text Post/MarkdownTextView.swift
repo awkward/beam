@@ -53,7 +53,7 @@ class MarkdownTextView: UITextView {
         return self.text(in: self.selectedTextRange!)
     }
     
-    internal func keyCommandUsed(_ sender: UIKeyCommand) {
+    @objc internal func keyCommandUsed(_ sender: UIKeyCommand) {
         if sender.modifierFlags == [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate] {
             if sender.input == "b"  {
                 self.applyBoldStylingToText()

@@ -23,7 +23,7 @@ class BeamTableViewController: UITableViewController, DynamicDisplayModeView, No
         NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
     }
     
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         displayModeDidChangeAnimated(true)
     }
     

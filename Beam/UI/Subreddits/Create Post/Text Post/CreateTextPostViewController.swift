@@ -88,7 +88,7 @@ class CreateTextPostViewController: CreatePostViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         self.textViewPlaceholder.textColor = placeholderColor
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)

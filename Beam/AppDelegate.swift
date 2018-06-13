@@ -1016,11 +1016,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UIView.appearance(whenContainedInInstancesOf: [UIActivityViewController.self]).tintColor = UIColor.beamColor()
     }
     
-    func contentSizeCategoryDidChange(_ notification: Notification) {
+    @objc func contentSizeCategoryDidChange(_ notification: Notification) {
         //This method is called when the font size changes in the phone settings. Use this to clear any caches related to this
     }
     
-    func userSettingDidChange(_ notification: Notification) {
+    @objc func userSettingDidChange(_ notification: Notification) {
         //This method is called when a setting changes, the object will be the key of the setting. 
     }
     

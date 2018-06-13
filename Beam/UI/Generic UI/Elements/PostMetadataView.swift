@@ -86,7 +86,7 @@ class PostMetadataGildedView: BeamView {
         }
     }
     
-    var font: UIFont = UIFont.systemFont(ofSize: 13, weight: UIFontWeightRegular) {
+    var font: UIFont = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.regular) {
         didSet {
             self.textlabel.font = self.font
             
@@ -241,7 +241,7 @@ class PostMetadataView: BeamView {
         
         self.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         
-        let font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightRegular)
+        let font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.regular)
         
         self.dateLabel.font = font
         self.subredditButton.titleLabel?.font = font

@@ -196,7 +196,9 @@ public final class CollectionController: NSObject {
         
         if let collectionID = self.collectionID, let query = self.query, let contentPredicate = query.compoundContentPredicate {
             if let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
-                let updatedSyncObjects = updatedObjects.filter({ $0 is SyncObject }) as! [SyncObject]
+                let updatedSyncObjects = updatedObjects.flatMap { (object) -> SyncObject? in
+                    return object as? SyncObject
+                }
                 let collection = self.managedObjectContext.object(with: collectionID) as? ObjectCollection
                 if collection?.objects?.contains( where: { updatedSyncObjects.contains($0 as! SyncObject) } ) == true {
                     collection?.objects = collection?.objects?.filtered(using: contentPredicate)

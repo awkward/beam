@@ -58,7 +58,7 @@ class GIFPlayerView: UIView {
         NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationDidBecomeActive(notification:)), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationWillResignActive(notification:)), name: Notification.Name.UIApplicationWillResignActive, object: nil)
         
-        self.videoPlayerLayer.videoGravity = AVLayerVideoGravityResizeAspectFill
+        self.videoPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
     
     func play(url: URL) {

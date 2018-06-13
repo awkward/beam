@@ -110,7 +110,7 @@ class MessageConversationViewController: BeamViewController {
         let maxTextSize = UIEdgeInsetsInsetRect(self.view.bounds, self.headerView.layoutMargins).size
         self.headerView.titleLabel.preferredMaxLayoutWidth = maxTextSize.width
         self.headerView.dateLabel.preferredMaxLayoutWidth = maxTextSize.width
-        let size = self.headerView.systemLayoutSizeFitting(CGSize(width: self.tableView.bounds.width, height: self.view.bounds.height), withHorizontalFittingPriority: UILayoutPriorityFittingSizeLevel, verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
+        let size = self.headerView.systemLayoutSizeFitting(CGSize(width: self.tableView.bounds.width, height: self.view.bounds.height), withHorizontalFittingPriority: UILayoutPriority.fittingSizeLevel, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.headerView.frame = CGRect(origin: CGPoint(), size: size)
         
         self.tableView.tableHeaderView = nil

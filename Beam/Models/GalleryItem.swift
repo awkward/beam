@@ -183,11 +183,11 @@ extension GalleryItem: AWKGalleryItem {
     
     @objc var attributedTitle: NSAttributedString? {
         if let post = self.mediaObject?.content as? Post, let postTitle = post.title , !self.isAlbumItem {
-            return NSAttributedString(string: postTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 17)])
+            return NSAttributedString(string: postTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)])
         } else if let imageTitle = self.mediaObject?.captionTitle , self.isAlbumItem {
             let paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
             paragraphStyle.paragraphSpacing = 4
-            return NSAttributedString(string: imageTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSParagraphStyleAttributeName: paragraphStyle])
+            return NSAttributedString(string: imageTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.paragraphStyle: paragraphStyle])
         }
         return nil
     }
@@ -203,7 +203,7 @@ extension GalleryItem: AWKGalleryItem {
                 if let captionTitle = self.mediaObject?.captionTitle {
                     
                     
-                    let titleString = NSAttributedString(string: captionTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote).pointSize, weight: UIFontWeightMedium)])
+                    let titleString = NSAttributedString(string: captionTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote).pointSize, weight: UIFont.Weight.medium)])
                     content.append(titleString)
                 }
                 
@@ -215,7 +215,7 @@ extension GalleryItem: AWKGalleryItem {
             
             if let captionDescription = self.mediaObject?.captionDescription {
                 
-                let subtitleString = NSAttributedString(string: captionDescription, attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.8), NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)])
+                let subtitleString = NSAttributedString(string: captionDescription, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.8), NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)])
                 content.append(subtitleString)
             }
             

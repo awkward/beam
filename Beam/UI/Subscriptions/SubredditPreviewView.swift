@@ -41,7 +41,7 @@ final class SubredditPreviewView: BeamView {
     
     lazy private var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 22, weight: UIFontWeightLight)
+        label.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.light)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()

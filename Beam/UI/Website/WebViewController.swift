@@ -26,7 +26,7 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
         }
     }
     
-    func doneButtonTapped(_ sender: AnyObject) {
+    @objc func doneButtonTapped(_ sender: AnyObject) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
 

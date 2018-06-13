@@ -97,7 +97,7 @@ open class MarkdownString: NSObject, NSSecureCoding {
         for element in self.elements {
             var attributes = stylesheet.attributes[element.type]
             if let url = element.url {
-                attributes?[NSLinkAttributeName] = url
+                attributes?[NSAttributedStringKey.link] = url
             }
             
             if stylesheet.elementTypeExclusions?.contains(element.type) != true {
@@ -358,7 +358,7 @@ open class MarkdownString: NSObject, NSSecureCoding {
             for match in regex.matches(in: baseString as String, options: [], range: NSMakeRange(0, self.baseString.length)) {
 
                 if match.numberOfRanges == 4 {
-                    let urlRange = match.rangeAt(3).rangeWithLocationoffset(lengthOffset)
+                    let urlRange = match.range(at: 3).rangeWithLocationoffset(lengthOffset)
                     var urlString = baseString.substring(with: urlRange)
                     urlString = urlString.replacingOccurrences(of: " ", with: "%20")
                     var url = URL(string: urlString)
@@ -370,8 +370,8 @@ open class MarkdownString: NSObject, NSSecureCoding {
                     }
                     
                     
-                    let elementRange = match.rangeAt(1).rangeWithLocationoffset(lengthOffset)
-                    let nameRange = match.rangeAt(2).rangeWithLocationoffset(lengthOffset)
+                    let elementRange = match.range(at: 1).rangeWithLocationoffset(lengthOffset)
+                    let nameRange = match.range(at: 2).rangeWithLocationoffset(lengthOffset)
                     
                     lengthOffset -= (elementRange.length - nameRange.length)
                     
@@ -381,12 +381,12 @@ open class MarkdownString: NSObject, NSSecureCoding {
                     element.url = url
                     elements.append(element)
                 } else if match.numberOfRanges == 3 {
-                    let urlRange = match.rangeAt(2).rangeWithLocationoffset(lengthOffset)
+                    let urlRange = match.range(at: 2).rangeWithLocationoffset(lengthOffset)
                     let urlString = baseString.substring(with: urlRange)
                     if urlString.hasPrefix("#") {
                         //It's a flag link that only works on web, just remove it
 
-                        let elementRange = match.rangeAt(1).rangeWithLocationoffset(lengthOffset)
+                        let elementRange = match.range(at: 1).rangeWithLocationoffset(lengthOffset)
                         
                         lengthOffset -= elementRange.length
                         
@@ -410,8 +410,8 @@ open class MarkdownString: NSObject, NSSecureCoding {
             for match in regex.matches(in: baseString as String, options: [], range: NSMakeRange(0, baseString.length)) {
                 
                 if match.numberOfRanges == 2 {
-                    let elementRange = match.rangeAt(0)
-                    let displayNameRange = match.rangeAt(1)
+                    let elementRange = match.range(at: 0)
+                    let displayNameRange = match.range(at: 1)
                     let displayName = self.baseString.substring(with: displayNameRange)
                     
                     let resultRange = replaceRange(elementRange, with: baseString.substring(with: elementRange) as NSString?)
@@ -444,8 +444,8 @@ open class MarkdownString: NSObject, NSSecureCoding {
             for match in regex.matches(in: baseString as String, options: [], range: NSMakeRange(0, baseString.length)) {
                 
                 if match.numberOfRanges == 3 {
-                    let elementRange = match.rangeAt(1).rangeWithLocationoffset(lengthOffset)
-                    let visibleRange = match.rangeAt(2).rangeWithLocationoffset(lengthOffset)
+                    let elementRange = match.range(at: 1).rangeWithLocationoffset(lengthOffset)
+                    let visibleRange = match.range(at: 2).rangeWithLocationoffset(lengthOffset)
                     
                     //Skip elements that have already been parsed to links
                     if !self.containsLinkAtRange(elementRange) {

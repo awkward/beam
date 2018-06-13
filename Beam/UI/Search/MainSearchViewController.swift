@@ -201,7 +201,7 @@ class MainSearchViewController: BeamTableViewController {
         searchBar.applyBeamNavigationBarStyle()
     }
     
-    func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+    @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             self.searchBar.endEditing(false)
         }

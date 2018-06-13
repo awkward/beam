@@ -213,8 +213,8 @@ class CreateImagePostViewController: CreatePostViewController {
     
     func updatePlaceholders() {
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: self.images.count > 1 ? AWKLocalizedString("album-title-placeholder") : AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
-        self.descriptionTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: self.images.count > 1 ? AWKLocalizedString("album-title-placeholder") : AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.descriptionTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
     }
     
     //MARK: - Layout

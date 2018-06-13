@@ -115,7 +115,7 @@ class SubredditMediaCollectionController: NSObject {
         self.reloadMedia()
     }
 
-    func statusDidChange(_ notification: Notification) {
+    @objc func statusDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             self.delegate?.mediaCollectionController(self, statusDidChange: self.collectionController.status)
         }

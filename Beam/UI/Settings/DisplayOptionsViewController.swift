@@ -206,7 +206,7 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.autoPlayGifsOnCellularSwitch.isEnabled = UserSettings[.autoPlayGifsEnabled] && (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
     }
     
-    func switchChanged(_ sender:UISwitch?) {
+    @objc func switchChanged(_ sender:UISwitch?) {
         if let sender = sender {
             var callUpdateSwitches = false
             var key: SettingsKey<Bool>?

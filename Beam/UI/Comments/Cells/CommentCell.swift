@@ -291,18 +291,18 @@ class CommentCell: BaseCommentCell {
         var metadata = [NSAttributedString]()
         if let comment = comment {
             if comment.scoreHidden == true {
-                metadata.append(NSAttributedString(string: AWKLocalizedString("score-hidden-block"), attributes: [NSForegroundColorAttributeName:pointsTextColor]))
+                metadata.append(NSAttributedString(string: AWKLocalizedString("score-hidden-block"), attributes: [NSAttributedStringKey.foregroundColor:pointsTextColor]))
             } else if let score = self.comment?.score {
                 var localizedPoints = NSLocalizedString("points-inline", comment: "")
                 if score.intValue == 1 || score.intValue == -1 {
                     localizedPoints = NSLocalizedString("point-inline", comment: "")
                 }
                     
-                metadata.append(NSAttributedString(string: "\(score.intValue) \(localizedPoints)", attributes: [NSForegroundColorAttributeName:pointsTextColor]))
+                metadata.append(NSAttributedString(string: "\(score.intValue) \(localizedPoints)", attributes: [NSAttributedStringKey.foregroundColor:pointsTextColor]))
             }
             
             if let timeString = comment.creationDate?.localizedRelativeTimeString {
-                metadata.append(NSAttributedString(string: timeString, attributes: [NSForegroundColorAttributeName:textColor]))
+                metadata.append(NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.foregroundColor:textColor]))
             }
             
             //Add the gilded status to the comment
@@ -318,7 +318,7 @@ class CommentCell: BaseCommentCell {
         for meta in metadata {
             attributedString.append(meta)
             if let index = metadata.index(of: meta), index < metadata.count-1 {
-                attributedString.append(NSAttributedString(string: NSLocalizedString("list-separator", comment: "separated items by a comma: ', '"), attributes: [NSForegroundColorAttributeName:textColor]))
+                attributedString.append(NSAttributedString(string: NSLocalizedString("list-separator", comment: "separated items by a comma: ', '"), attributes: [NSAttributedStringKey.foregroundColor:textColor]))
             }
         }
         self.metadataLabel.attributedText = attributedString
@@ -412,7 +412,7 @@ class CommentCell: BaseCommentCell {
         return link?.result.url
     }
     
-    func handleTapGesture(_ tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleTapGesture(_ tapGestureRecognizer: UITapGestureRecognizer) {
         if tapGestureRecognizer.state == UIGestureRecognizerState.ended {
             if let comment = self.comment {
                 self.delegate?.commentCell(self, didTapComment: comment)
@@ -421,7 +421,7 @@ class CommentCell: BaseCommentCell {
         }
     }
     
-    func handleLongPressGesture(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPressGesture(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
             if let comment = self.comment {
                 self.delegate?.commentCell(self, didHoldOnComment: comment)

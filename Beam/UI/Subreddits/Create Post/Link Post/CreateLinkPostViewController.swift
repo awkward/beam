@@ -152,8 +152,8 @@ class CreateLinkPostViewController: CreatePostViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
-        self.linkTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-link-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.linkTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-link-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         self.titleTextField?.textColor = textColor

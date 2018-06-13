@@ -15,8 +15,8 @@ class BeamColorizedNavigationController: BeamNavigationController {
         
         self.navigationBar.isTranslucent = false
         
-        var titleAttributes = navigationBar.titleTextAttributes ?? [String: AnyObject]()
-        titleAttributes[NSForegroundColorAttributeName] = UIColor.white
+        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedStringKey: Any]()
+        titleAttributes[NSAttributedStringKey.foregroundColor] = UIColor.white
         self.navigationBar.titleTextAttributes = titleAttributes
         
         switch displayMode {
@@ -31,8 +31,8 @@ class BeamColorizedNavigationController: BeamNavigationController {
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return UIStatusBarStyle.lightContent
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return .lightContent
     }
 
 }

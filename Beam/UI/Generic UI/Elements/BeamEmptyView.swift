@@ -209,7 +209,7 @@ class BeamEmptyView: BeamView {
         self.backgroundColor = DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.beamDarkContentBackgroundColor())
     }
     
-    func buttonTapped(_ sender:UIButton?) {
+    @objc func buttonTapped(_ sender:UIButton?) {
         self.buttonHandler?(sender) 
     }
     

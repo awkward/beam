@@ -36,7 +36,7 @@ class MultiredditSubTableViewCell: BeamTableViewCell {
         return super.hitTest(point, with: event)
     }
     
-    func editButtonTapped(_ sender: UIButton) {
+    @objc func editButtonTapped(_ sender: UIButton) {
         self.editButtonTappedHandler?()
     }
     

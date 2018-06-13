@@ -78,7 +78,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
             
             //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
             let widthConstraint = NSLayoutConstraint(item: streamViewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
-            widthConstraint.priority = UILayoutPriorityDefaultHigh
+            widthConstraint.priority = UILayoutPriority.defaultHigh
             streamViewController.view.addConstraint(widthConstraint)
             
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": streamViewController.view]))

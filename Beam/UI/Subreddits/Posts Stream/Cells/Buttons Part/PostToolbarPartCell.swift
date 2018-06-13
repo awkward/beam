@@ -42,7 +42,7 @@ final class PostToolbarPartCell: BeamTableViewCell, PostCell {
         NotificationCenter.default.removeObserver(self)
     }
     
-    func objectDidChange(_ notification: Notification) {
+    @objc func objectDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             if let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? NSSet, let post = self.post , updatedObjects.contains(post) {
                 self.toolbarView.post = self.post

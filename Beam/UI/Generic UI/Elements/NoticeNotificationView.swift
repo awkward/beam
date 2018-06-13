@@ -30,7 +30,7 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
         let label = UILabel()
         label.numberOfLines = 3
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightSemibold)
+        label.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -92,7 +92,7 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
         }
     }
     
-    internal func dismissWithSender(_ sender: AnyObject?) {
+    @objc internal func dismissWithSender(_ sender: AnyObject?) {
         self.dismiss()
     }
 }

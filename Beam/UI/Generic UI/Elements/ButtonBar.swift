@@ -26,7 +26,7 @@ class ButtonBar: UIControl {
                 let button = UIButton(type: UIButtonType.system)
                 button.setTitle(item.title, for: UIControlState())
                 button.setTitleColor(UIColor.beamGrey(), for: UIControlState())
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
                 button.addTarget(self, action: #selector(ButtonBar.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
                 return button
             })

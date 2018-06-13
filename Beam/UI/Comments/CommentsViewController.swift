@@ -229,7 +229,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
         }
     }
     
-    func refresh(_ sender:AnyObject?) {
+    @objc func refresh(_ sender:AnyObject?) {
         self.fetchComments()
     }
     

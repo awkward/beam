@@ -82,14 +82,14 @@ class PasscodeButton: UIControl {
     override func draw(_ rect: CGRect) {
         let textColor = self.textColor
         
-        let numbersFont = UIFont.systemFont(ofSize: 29, weight: UIFontWeightRegular)
-        let lettersFont = UIFont.systemFont(ofSize: 11, weight: UIFontWeightRegular)
+        let numbersFont = UIFont.systemFont(ofSize: 29, weight: UIFont.Weight.regular)
+        let lettersFont = UIFont.systemFont(ofSize: 11, weight: UIFont.Weight.regular)
         let numbersToLettersSpacing: CGFloat = -2
         let numbersAndLettersHeight = numbersFont.lineHeight+lettersFont.lineHeight+numbersToLettersSpacing
         
         var yPosition = ((rect.height-numbersAndLettersHeight)/2)
         
-        let numberTextAttributes = [NSForegroundColorAttributeName: textColor, NSFontAttributeName: numbersFont]
+        let numberTextAttributes = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: numbersFont]
         let numberTextSize = self.numberString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: numberTextAttributes, context: nil).size
         var numberTextRect = CGRect(origin: CGPoint(x: (rect.width-numberTextSize.width)/2, y: yPosition), size: numberTextSize)
         if self.number == 0 {
@@ -102,7 +102,7 @@ class PasscodeButton: UIControl {
         self.numberString.draw(in: numberTextRect, withAttributes: numberTextAttributes)
         
         if let lettersString = self.lettersString?.replacingOccurrences(of: " ", with: "").uppercased() {
-            let lettersTextAttributes = [NSForegroundColorAttributeName: textColor, NSFontAttributeName: lettersFont, NSKernAttributeName: 1.1] as [String : Any]
+            let lettersTextAttributes: [NSAttributedStringKey : Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: lettersFont, NSAttributedStringKey.kern: 1.1]
             let lettersTextSize = lettersString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: lettersTextAttributes, context: nil).size
             let lettersTextRect = CGRect(origin: CGPoint(x: (rect.width-lettersTextSize.width)/2, y: yPosition), size: lettersTextSize)
             

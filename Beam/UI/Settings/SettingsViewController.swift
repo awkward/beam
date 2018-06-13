@@ -639,7 +639,7 @@ class SettingsViewController: BeamTableViewController {
         self.dismissViewController(sender)
     }
     
-    func switchChanged(_ sender:UISwitch?) {
+    @objc func switchChanged(_ sender:UISwitch?) {
         if let sender = sender {
             var key: SettingsKey<Bool>?
             if sender == self.privacyOverlaySwitch {

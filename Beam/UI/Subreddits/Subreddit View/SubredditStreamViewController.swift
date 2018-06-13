@@ -96,7 +96,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
             
             //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
             let widthConstraint = NSLayoutConstraint(item: streamviewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
-            widthConstraint.priority = UILayoutPriorityDefaultHigh
+            widthConstraint.priority = UILayoutPriority.defaultHigh
             streamviewController.view.addConstraint(widthConstraint)
             
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": streamviewController.view]))

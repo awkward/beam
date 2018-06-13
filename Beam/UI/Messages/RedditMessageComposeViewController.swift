@@ -166,7 +166,7 @@ class RedditMessageComposeViewController: BeamViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.subjectTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("subject-placeholder", comment: "Placeholder for the subject of a message"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.subjectTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("subject-placeholder", comment: "Placeholder for the subject of a message"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         self.textViewPlaceholderLabel.textColor = placeholderColor
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)

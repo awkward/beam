@@ -129,7 +129,7 @@ extension NSError {
             userInfo[RedditErrorKeyKey] = redditErrorKeyString
         }
         userInfo[RedditErrorsArrayKey] = errors
-        return NSError(domain: RedditErrorDomain, code: errorKey?.errorCode ?? RedditUnknownErrorCode, userInfo: userInfo)
+        return NSError(domain: RedditErrorDomain, code: errorKey?.errorCode ?? RedditUnknownErrorCode, userInfo: userInfo as! [String : Any])
     }
     
     public var redditErrorKey: RedditErrorKey? {

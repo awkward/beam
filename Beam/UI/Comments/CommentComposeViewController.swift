@@ -114,13 +114,13 @@ class CommentComposeViewController: BeamViewController {
         
         let labelText = NSLocalizedString("in-reply-to-compose-comment-label", comment: "The \"In reply to\" label on the comment compose view, followed by the user's username")
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        let font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
-        var attributedText: NSMutableAttributedString = NSMutableAttributedString(string: labelText, attributes: [NSForegroundColorAttributeName: textColor.withAlphaComponent(0.5), NSFontAttributeName: font])
+        let font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
+        var attributedText: NSMutableAttributedString = NSMutableAttributedString(string: labelText, attributes: [NSAttributedStringKey.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedStringKey.font: font])
         if let username = username {
-            let usernameAttributedString = NSAttributedString(string: " \(username)", attributes: [NSForegroundColorAttributeName: textColor, NSFontAttributeName: font])
+            let usernameAttributedString = NSAttributedString(string: " \(username)", attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: font])
             attributedText.append(usernameAttributedString)
         } else {
-            attributedText = NSMutableAttributedString(string: NSLocalizedString("reply-compose-comment-label", comment: "A simple reply label"), attributes: [NSForegroundColorAttributeName: textColor.withAlphaComponent(0.5), NSFontAttributeName: font])
+            attributedText = NSMutableAttributedString(string: NSLocalizedString("reply-compose-comment-label", comment: "A simple reply label"), attributes: [NSAttributedStringKey.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedStringKey.font: font])
         }
         self.replyLabel.attributedText = attributedText
     }

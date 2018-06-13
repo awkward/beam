@@ -163,7 +163,7 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
         if self.moreLabel == nil {
             let moreLabel = UILabel()
             moreLabel.textAlignment = NSTextAlignment.center
-            moreLabel.font = UIFont.systemFont(ofSize: 32, weight: UIFontWeightThin)
+            moreLabel.font = UIFont.systemFont(ofSize: 32, weight: UIFont.Weight.thin)
             moreLabel.textColor = UIColor.black
             self.vibrancyEffectView!.contentView.addSubview(moreLabel)
             self.moreLabel = moreLabel

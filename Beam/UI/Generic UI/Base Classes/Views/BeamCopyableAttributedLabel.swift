@@ -32,7 +32,7 @@ class BeamCopyableAttributedLabel: TTTAttributedLabel {
         UIPasteboard.general.string = self.attributedText.string
     }
     
-    func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
+    @objc func handleLongPress(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
         self.becomeFirstResponder()
         let menuController = UIMenuController.shared
         if let superView = self.superview , !menuController.isMenuVisible {

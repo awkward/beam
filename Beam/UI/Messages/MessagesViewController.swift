@@ -173,7 +173,7 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
     
     // MARK: - Data
     
-    func refresh(_ sender:AnyObject?) {
+    @objc func refresh(_ sender:AnyObject?) {
         self.startCollectionControllerFetching()
     }
  

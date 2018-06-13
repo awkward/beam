@@ -125,7 +125,7 @@ class MarkdownActionBar: BeamView {
         super.displayModeDidChange()
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("link-field-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("link-field-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         
         self.linkTextField.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())

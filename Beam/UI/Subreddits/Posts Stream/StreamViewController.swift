@@ -308,7 +308,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
 
     // MARK: Data
     
-    func contextDidSaveNotification(_ notification: Notification) {
+    @objc func contextDidSaveNotification(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             //Update the posts shown when a multireddit changes
             guard let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>,
@@ -320,13 +320,13 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
     }
     
-    func userSettingChanged(_ notification: Notification) {
+    @objc func userSettingChanged(_ notification: Notification) {
         if notification.object as? SettingsKeys == SettingsKeys.thumbnailsViewType || notification.object as? SettingsKeys == SettingsKeys.subredditsThumbnailSetting {
             self.useCompactViewMode = self.subreddit?.thumbnailViewType ?? UserSettings[.thumbnailsViewType] == ThumbnailsViewType.medium
         }
     }
     
-    func postDidChangeHiddenFlag(_ notification: Notification) {
+    @objc func postDidChangeHiddenFlag(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             if let post = notification.object as? Post , post.isHidden.boolValue == true {
                 if let index = self.content?.index(of: post) {
@@ -391,7 +391,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         return filteredContent
     }
     
-    func contentDidDelete(_ notification: Notification) {
+    @objc func contentDidDelete(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             if let post = notification.object as? Post {
                 if let index = self.content?.index(of: post) {
@@ -413,7 +413,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         
     }
     
-    func postSucessfullySubmitted(_ notification: Notification) {
+    @objc func postSucessfullySubmitted(_ notification: Notification) {
         DispatchQueue.main.async {
             guard let subreddit = notification.object as? Subreddit else {
                 return
@@ -428,7 +428,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
     }
     
-    func postDidChangeSavedState(_ notification: Notification) {
+    @objc func postDidChangeSavedState(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             if let post = notification.object as? Post , post.isSaved.boolValue == true && self.content?.contains(post) == true {
                 self.presentSuccessMessage(AWKLocalizedString("post-saved-succesfully"))
@@ -502,7 +502,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     //MARK: - In-App Notifications
     
-    func refreshNotificationTimerFired(_ timer: Timer?) {
+    @objc func refreshNotificationTimerFired(_ timer: Timer?) {
         if self.collectionController.isCollectionExpired == true && self.refreshNotification == nil && self.subreddit != nil {
             let refreshNotification = RefreshNotificationView()
             refreshNotification.addTarget(self, action: #selector(StreamViewController.refreshContent(_:)), for: .touchUpInside)

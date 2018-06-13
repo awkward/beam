@@ -127,11 +127,11 @@ extension UINavigationController {
     
     fileprivate func addConstraintsForFullWidth<NotificationView: UIView>(_ view: NotificationView,superView: UIView, topView: UIView, insets: UIEdgeInsets) where NotificationView: NavigationBarNotification {
         let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: topView, attribute: .bottom, multiplier: 1.0, constant: insets.top)
-        topConstraint.priority = UILayoutPriorityDefaultLow
+        topConstraint.priority = UILayoutPriority.defaultLow
         superView.addConstraint(topConstraint)
         
         let bottomConstraint = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: topView, attribute: .bottom, multiplier: 1.0, constant: 0)
-        bottomConstraint.priority = UILayoutPriorityRequired
+        bottomConstraint.priority = UILayoutPriority.required
         superView.addConstraint(bottomConstraint)
         view.bottomNotificationConstraint = bottomConstraint
         
@@ -141,11 +141,11 @@ extension UINavigationController {
     
     fileprivate func addConstraintsForFreePlacement<NotificationView: UIView>(_ view: NotificationView,superView: UIView, topView: UIView, insets: UIEdgeInsets) where NotificationView: NavigationBarNotification {
         let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: topView, attribute: .bottom, multiplier: 1.0, constant: insets.top)
-        topConstraint.priority = UILayoutPriorityDefaultLow
+        topConstraint.priority = UILayoutPriority.defaultLow
         superView.addConstraint(topConstraint)
         
         let bottomConstraint = NSLayoutConstraint(item: view, attribute: .bottom, relatedBy: .equal, toItem: topView, attribute: .bottom, multiplier: 1.0, constant: 0)
-        bottomConstraint.priority = UILayoutPriorityRequired
+        bottomConstraint.priority = UILayoutPriority.required
         superView.addConstraint(bottomConstraint)
         view.bottomNotificationConstraint = bottomConstraint
         

@@ -61,14 +61,14 @@ class RoundPasscodeButton: PasscodeButton {
             path.fill()
         }
         
-        let numbersFont = UIFont.systemFont(ofSize: 36, weight: UIFontWeightThin)
-        let lettersFont = UIFont.systemFont(ofSize: 9, weight: UIFontWeightLight)
+        let numbersFont = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
+        let lettersFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.light)
         let numbersToLettersSpacing: CGFloat = -5
         let numbersAndLettersHeight = numbersFont.lineHeight+lettersFont.lineHeight+numbersToLettersSpacing
         
         var yPosition = ((rect.height-numbersAndLettersHeight)/2)-3
         
-        let numberTextAttributes: [String : Any] = [NSForegroundColorAttributeName: textColor, NSFontAttributeName: numbersFont]
+        let numberTextAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: numbersFont]
         let numberTextSize = self.numberString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: numberTextAttributes, context: nil).size
         var numberTextRect = CGRect(origin: CGPoint(x: (rect.width-numberTextSize.width)/2, y: yPosition), size: numberTextSize)
         
@@ -86,7 +86,7 @@ class RoundPasscodeButton: PasscodeButton {
         self.numberString.draw(in: numberTextRect, withAttributes: numberTextAttributes)
     
         if let lettersString = self.lettersString?.uppercased {
-            let lettersTextAttributes: [String : Any] = [NSForegroundColorAttributeName: textColor, NSFontAttributeName: lettersFont]
+            let lettersTextAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: lettersFont]
             let lettersTextSize = lettersString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: lettersTextAttributes, context: nil).size
             let lettersTextRect = CGRect(origin: CGPoint(x: (rect.width-lettersTextSize.width)/2, y: yPosition), size: lettersTextSize)
             

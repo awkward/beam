@@ -92,8 +92,8 @@ class ClearButton: UIControl {
         clearLabel.lineBreakMode = NSLineBreakMode.byCharWrapping
         clearLabel.textColor = UIColor.white
         clearLabel.alpha = 0
-        clearLabel.setContentHuggingPriority(0, for: UILayoutConstraintAxis.horizontal)
-        clearLabel.setContentHuggingPriority(0, for: UILayoutConstraintAxis.vertical)
+        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: UILayoutConstraintAxis.horizontal)
+        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: UILayoutConstraintAxis.vertical)
         
         addSubview(clearLabel)
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label]|", options: [], metrics: nil, views: ["label": clearLabel]))

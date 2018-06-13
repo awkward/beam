@@ -104,7 +104,7 @@ extension Content {
             let nsString = urlString as NSString
             for match in matches {
                 if match.numberOfRanges >= 4 {
-                    let stringRange = match.rangeAt(3)
+                    let stringRange = match.range(at: 3)
                     giphyID = nsString.substring(with: stringRange)
                 }
                 

@@ -27,7 +27,7 @@ class RefreshNotificationView: BeamControl, NavigationBarNotification {
         label.text = AWKLocalizedString("stream-updated")
         label.textColor = UIColor.white
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightMedium)
+        label.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.medium)
         return label
     }()
     
@@ -77,7 +77,7 @@ class RefreshNotificationView: BeamControl, NavigationBarNotification {
         self.dismiss()
     }
     
-    func hasBeenTapped(_ sender:AnyObject?) {
+    @objc func hasBeenTapped(_ sender:AnyObject?) {
         if self.dismissOnTap {
             self.dismiss()
         }

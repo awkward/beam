@@ -36,16 +36,16 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
     
     var authorText: NSAttributedString? {
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        let textFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightSemibold)
+        let textFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
         
         let typeTextColor = DisplayModeValue(UIColor.black.withAlphaComponent(0.5), darkValue: UIColor.white.withAlphaComponent(0.5))
-        let typeTextFont = UIFont.systemFont(ofSize: 14, weight: UIFontWeightRegular)
+        let typeTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
         
         if let author = self.message?.author {
-            let authorAttributedString = NSMutableAttributedString(string: author, attributes: [NSForegroundColorAttributeName: textColor, NSFontAttributeName: textFont])
+            let authorAttributedString = NSMutableAttributedString(string: author, attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: textFont])
             if let typeString = self.message?.subject {
                 let string = " · \(typeString)"
-                authorAttributedString.append(NSAttributedString(string: string, attributes: [NSForegroundColorAttributeName: typeTextColor, NSFontAttributeName: typeTextFont]))
+                authorAttributedString.append(NSAttributedString(string: string, attributes: [NSAttributedStringKey.foregroundColor: typeTextColor, NSAttributedStringKey.font: typeTextFont]))
             }
             return authorAttributedString
         }

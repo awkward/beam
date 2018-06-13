@@ -111,7 +111,7 @@ class AddToMultiredditViewController: BeamTableViewController, BeamViewControlle
         }
     }
     
-    func createMultireddit(_ sender: AnyObject) {
+    @objc func createMultireddit(_ sender: AnyObject) {
         guard AppDelegate.shared.authenticationController.isAuthenticated else {
             self.present(UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.CreateMultireddit), animated: true, completion: nil)
             return

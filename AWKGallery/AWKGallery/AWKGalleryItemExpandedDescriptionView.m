@@ -117,7 +117,7 @@ void AWKGalleryItemExpandedDescriptionViewInitialize(AWKGalleryItemExpandedDescr
     return contentString;
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     if ([self.delegate respondsToSelector:@selector(itemView:shouldInteractWithURL:)]) {
         return [self.delegate itemView:self shouldInteractWithURL:URL];
     }

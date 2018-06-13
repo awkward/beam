@@ -208,7 +208,7 @@
     }
 }
 
-- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange {
+- (BOOL)textView:(UITextView *)textView shouldInteractWithURL:(NSURL *)URL inRange:(NSRange)characterRange interaction:(UITextItemInteraction)interaction {
     if ([URL.scheme isEqualToString:@"AWKGallery"] && [URL.host isEqualToString:@"expand"]) {
         if ([self.delegate respondsToSelector:@selector(tappedExpansionButtonForFooterView:)]) {
             [self.delegate tappedExpansionButtonForFooterView:self];

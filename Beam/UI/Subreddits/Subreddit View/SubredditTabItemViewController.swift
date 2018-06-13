@@ -19,13 +19,13 @@ protocol SubredditTabItemViewController {
     /// The subreddit, this property is set by the SubredditTabBarController. When this property changes, 
     /// the navigation item should be updated by calling `updateNavigationItem()`. 
     /// This is also the place to update queries
-    weak var subreddit: Subreddit? { get set }
+    var subreddit: Subreddit? { get set }
     
     /// The `titleView` used when updating the `navigationItem`. This property should return a `SubredditTitleView` or subclass of `SubredditTitleView`.
     var titleView: SubredditTitleView { get }
     
     /// This represents the SubredditTabBarController if the viewController is in a SubredditTabBarController
-    weak var subredditTabBarController: SubredditTabBarController? { get }
+    var subredditTabBarController: SubredditTabBarController? { get }
     
     /// This method will update the navigation item of the view controller with the approriate buttons. 
     /// This method should be called manually in `viewDidLoad()` and the setter of `subreddit`. Or other times when the titleView or 

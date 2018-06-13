@@ -116,7 +116,7 @@ static void * AWKGalleryMovieContentViewKVOContext = &AWKGalleryMovieContentView
 - (void)playerControllerDidFinishPlaying:(NSNotification*)notification {
     if (self.repeatingMovie && [NSProcessInfo processInfo].operatingSystemVersion.majorVersion < 10 && [notification.object isEqual:self.playerController.player.currentItem]) {
         //Somehow AVPlayer thinks both the begining and the end are CMTimeZero. That's why it's best to use 0,001 second to make sure it starts at the first frame
-        [self.playerController.player.currentItem seekToTime:CMTimeMake(1, 1000)];
+        [self.playerController.player.currentItem seekToTime:CMTimeMake(1, 1000) completionHandler:nil];
         [self.playerController.player play];
     }
 }

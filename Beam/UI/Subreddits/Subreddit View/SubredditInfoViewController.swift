@@ -225,7 +225,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
     func createSections() {
         var sections = [SubredditInfoSection]()
         
-        if let characters = self.subreddit?.descriptionText?.characters, characters.count > 0 {
+        if let characters = self.subreddit?.descriptionText, characters.count > 0 {
             sections.append(SubredditInfoSection(type: SubredditInfoSectionType.description, subTypes: [SubredditInfoRowType.description]))
         }
         

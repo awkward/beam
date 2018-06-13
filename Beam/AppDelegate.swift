@@ -928,8 +928,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let searchNavigation: UIViewController? = self.viewControllerForAppTabContent(AppTabContent.SearchNavigation)
         let profileNavigation: UIViewController = self.viewControllerForAppTabContent(AppTabContent.ProfileNavigation)!
         
-        var viewControllers: [UIViewController] = self.tabBarController!.viewControllers!
-        
         searchNavigation?.tabBarItem.title = AWKLocalizedString("search-title")
         profileNavigation.tabBarItem.title = AWKLocalizedString("profile-title")
         

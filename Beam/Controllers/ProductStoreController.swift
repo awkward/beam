@@ -42,7 +42,7 @@ final class ProductStoreController: NSObject {
     }
     
     fileprivate func requestProducts() {
-        var productIdentifiers = self.donationProductIdentifiers
+        let productIdentifiers = self.donationProductIdentifiers
         
         self.productsRequest = SKProductsRequest(productIdentifiers: Set(productIdentifiers))
         self.productsRequest!.delegate = self

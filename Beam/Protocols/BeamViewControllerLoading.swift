@@ -322,7 +322,7 @@ extension BeamViewControllerLoading where Self : UIViewController {
             case .noInternetConnection: return BeamEmptyViewType.Error 
             case .noAccess: return BeamEmptyViewType.MultiredditNoAccess
             default:
-                if let characters = self.collectionController.query?.searchKeywords?.characters, characters.count > 0 {
+                if let characters = self.collectionController.query?.searchKeywords, characters.count > 0 {
                     return BeamEmptyViewType.SearchNoResults
                 }
                 return self.defaultEmptyViewType

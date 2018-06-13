@@ -71,7 +71,7 @@ extension MixpanelAnalyticsService: TrekkerTimedEventAnalytics {
 extension MixpanelAnalyticsService: TrekkerPushNotificationAnalytics {
     
     func trackPushNotificationOpen(_ payload: [AnyHashable: Any]) {
-        self.mixpanelTracker.trackPushNotification(payload)
+        
     }
     
     func registerForPushNotifications(_ deviceToken: Data) {

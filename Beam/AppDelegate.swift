@@ -174,7 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.showPasscodeOnActive = true
         
-        Mixpanel.sharedInstance().joinExperiments { 
+        Mixpanel.sharedInstance()?.joinExperiments { 
             self.configureTabBarItems()
         }
         

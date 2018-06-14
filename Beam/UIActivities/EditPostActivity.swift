@@ -9,9 +9,7 @@
 import UIKit
 import Snoo
 
-class EditPostActivity: UIActivity {
-    
-    fileprivate var post: Post?
+final class EditPostActivity: CustomObjectActivity<Post> {
     
     override var activityType: UIActivityType? {
         return UIActivityType(rawValue: "com.madeawkward.beam.edit-post")
@@ -25,34 +23,22 @@ class EditPostActivity: UIActivity {
         return UIImage(named: "edit_post_activity_icon")
     }
     
-    override var activityViewController : UIViewController? {
+    override var activityViewController: UIViewController? {
         let identifier = "create-text-post"
         let storyBoard = UIStoryboard(name: "CreatePost", bundle: nil)
-        if let navigationController = storyBoard.instantiateViewController(withIdentifier: identifier) as? UINavigationController, let createPostViewController = navigationController.topViewController as? CreatePostViewController {
-            createPostViewController.post = self.post
-            return navigationController
+        guard let navigationController = storyBoard.instantiateViewController(withIdentifier: identifier) as? UINavigationController, let createPostViewController = navigationController.topViewController as? CreatePostViewController else {
+            return nil
+
         }
-        return nil
+        createPostViewController.post = self.object
+        return navigationController
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
-        guard AppDelegate.shared.authenticationController.isAuthenticated == true else {
+        guard AppDelegate.shared.authenticationController.isAuthenticated, let post = self.firstObject(in: activityItems), let username = AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.username else {
             return false
         }
-        if let username = AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.username {
-            for item in activityItems {
-                if let post = item as? Post , post.author == username && post.isSelfText == true && post.locked == false && post.archived == false && post.objectName != nil {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-    
-    override func prepare(withActivityItems activityItems: [Any]) {
-        self.post = activityItems.compactMap({ (object) -> Post? in
-            return object as? Post
-        }).first
+        return post.author == username && post.isSelfText == true && post.locked == false && post.archived == false && post.objectName != nil
     }
 
 }

@@ -9,9 +9,7 @@
 import UIKit
 import Snoo
 
-class HidePostActivity: UIActivity {
-    
-    internal var post: Post?
+class HidePostActivity: CustomObjectActivity<Post> {
     
     internal var shouldHidePost: Bool {
         return true
@@ -30,47 +28,34 @@ class HidePostActivity: UIActivity {
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
-        if AppDelegate.shared.authenticationController.isAuthenticated {
-            for item in activityItems {
-                if let post = item as? Post {
-                    if post.isHidden.boolValue == !self.shouldHidePost {
-                        return true
-                    }
-                }
-            }
+        guard AppDelegate.shared.authenticationController.isAuthenticated, let post = self.firstObject(in: activityItems) else {
+            return false
         }
-        return false
-    }
-    
-    override func prepare(withActivityItems activityItems: [Any]) {
-        self.post = activityItems.compactMap({ (object) -> Post? in
-            return object as? Post
-        }).first
+        return post.isHidden.boolValue == !self.shouldHidePost
     }
     
     override func perform() {
-        if AppDelegate.shared.authenticationController.isAuthenticated {
-            if let post = self.post {
-                post.isHidden = NSNumber(value: self.shouldHidePost)
-                NotificationCenter.default.post(name: .PostDidChangeHiddenState, object: self.post)
-                let operation = post.markHiddenOperation(self.shouldHidePost, authenticationController: AppDelegate.shared.authenticationController)
-                DataController.shared.executeAndSaveOperations([operation], context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in
-                    DispatchQueue.main.async(execute: { () -> Void in
-                        self.activityDidFinish(true)
-                        if error != nil {
-                            let alertController = BeamAlertController(title: AWKLocalizedString("post-hide-error"), message: AWKLocalizedString("post-hide-error-message"), preferredStyle: .alert)
-                            alertController.addCloseAction()
-                            AppDelegate.topViewController()?.present(alertController, animated: true, completion: nil)
-                        }
-                    })
-                })
-            }
+        guard AppDelegate.shared.authenticationController.isAuthenticated, let post = self.object else {
+            return
         }
+        post.isHidden = NSNumber(value: self.shouldHidePost)
+        NotificationCenter.default.post(name: .PostDidChangeHiddenState, object: post)
+        let operation = post.markHiddenOperation(self.shouldHidePost, authenticationController: AppDelegate.shared.authenticationController)
+        DataController.shared.executeAndSaveOperations([operation], context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in
+            DispatchQueue.main.async(execute: { () -> Void in
+                self.activityDidFinish(true)
+                if error != nil {
+                    let alertController = BeamAlertController(title: AWKLocalizedString("post-hide-error"), message: AWKLocalizedString("post-hide-error-message"), preferredStyle: .alert)
+                    alertController.addCloseAction()
+                    AppDelegate.topViewController()?.present(alertController, animated: true, completion: nil)
+                }
+            })
+        })
     }
 
 }
 
-class UnhidePostActivity: HidePostActivity {
+final class UnhidePostActivity: HidePostActivity {
     
     override internal var shouldHidePost: Bool {
         return false

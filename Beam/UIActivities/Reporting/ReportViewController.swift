@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import CherryKit
 
-class ReportViewController: BeamTableViewController {
+final class ReportViewController: BeamTableViewController {
     
     var post: Post?
     var activity: ReportPostActivity?

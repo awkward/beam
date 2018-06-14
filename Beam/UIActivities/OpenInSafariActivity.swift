@@ -9,7 +9,7 @@
 import UIKit
 import Snoo
 
-class OpenInSafariActivity: UIActivity {
+final class OpenInSafariActivity: UIActivity {
     
     fileprivate var post: Post?
     fileprivate var comment: Comment?

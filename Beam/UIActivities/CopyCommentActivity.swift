@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import RedditMarkdownKit
 
-class CopyCommentActivity: UIActivity {
+final class CopyCommentActivity: CustomObjectActivity<Comment> {
 
     fileprivate var comment: Comment?
     
@@ -28,24 +28,7 @@ class CopyCommentActivity: UIActivity {
     
     override func perform() {
         super.perform()
-        UIPasteboard.general.string = self.comment?.markdownString?.attributedStringWithStylesheet(MarkdownStylesheet.beamCommentsStyleSheet()).string
-    }
-    
-    override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
-        for item in activityItems {
-            if item is Comment {
-                return true
-            }
-        }
-        return false
-    }
-    
-    override func prepare(withActivityItems activityItems: [Any]) {
-        for item in activityItems {
-            if item is Comment {
-                self.comment = item as? Comment
-            }
-        }
+        UIPasteboard.general.string = self.object?.markdownString?.attributedStringWithStylesheet(MarkdownStylesheet.beamCommentsStyleSheet()).string
     }
     
 }

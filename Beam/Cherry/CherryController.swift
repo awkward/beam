@@ -11,10 +11,6 @@ import Snoo
 import CherryKit
 import CoreData
 
-struct CherryFeatureSale {
-    var discount: Float //Discount from 0 to 100%
-}
-
 struct CherryFeatures {
     var imageURLPatterns: [String] = ["^https?://i.imgur.com/","^https?://i.reddituploads.com/", "^https?://(?: www.)?gfycat.com/", "(.jpe?g|.png|.gif)$"]
     
@@ -27,9 +23,10 @@ struct CherryFeatures {
     /// This list is loaded from features.json upon reload, but also has some terms below in case the features.json fails
     var whitelistedSearchTerms: [String] = ["earthporn", "spaceporn", "mindfuck", "interestingasfuck", "foodporn", "geekporn"]
     
+    /// The usernames of admin users
     var adminUsers: [String]?
-    var trialsAvailable: Bool = true
-    var sales = [String: CherryFeatureSale]()
+    
+    // The data behind the notifications that appear in the subscription list.
     var bannerNotifications: [BannerNotification]?
     
     init(JSON: NSDictionary) {
@@ -43,24 +40,6 @@ struct CherryFeatures {
             self.whitelistedSearchTerms = whitelistedSearchTerms
         }
         self.adminUsers = JSON["admin_users"] as? [String]
-        self.trialsAvailable = JSON["trials_enabled"] as? Bool ?? true
-        if let sales = JSON["sales"] as? [[String: AnyObject]] {
-            self.sales.removeAll()
-            for sale in sales {
-                if let productIdentifier = sale["product_identifier"] as? String, let discount = sale["discount"] as? Float {
-                    self.sales[productIdentifier] = CherryFeatureSale(discount: discount)
-                }
-            }
-        } else {
-            self.sales.removeAll()
-        }
-        if let banners = JSON["banners"] as? [[AnyHashable: Any]] {
-            let bannerNotifications = banners.compactMap({ (bannerInformation) -> BannerNotification? in
-                return BannerNotification(dictionary: bannerInformation as [NSObject : AnyObject])
-            })
-            self.bannerNotifications = bannerNotifications
-            
-        }
     }
     
     init() {
@@ -76,15 +55,16 @@ extension Notification.Name {
 }
 
 
-class CherryController: NSObject {
+final class CherryController: NSObject {
     
     var accessToken: String? {
         didSet {
             NotificationCenter.default.post(name: .CherryAccessTokenDidChange, object: self)
             do {
-                if let data = self.accessToken?.data(using: String.Encoding.utf8) {
-                    try Keychain.save("cherry-access-token", data: data)
+                guard let data = self.accessToken?.data(using: String.Encoding.utf8) else {
+                    return
                 }
+                try Keychain.save("cherry-access-token", data: data)
             } catch {
                 //We don't care about the error
             }
@@ -99,9 +79,10 @@ class CherryController: NSObject {
         self.loadFeatures()
         
         do {
-            if let data: Data = try Keychain.load("cherry-access-token"), let accessToken: String = String(data: data, encoding: String.Encoding.utf8) {
-                self.accessToken = accessToken
+            guard let let data: Data = try Keychain.load("cherry-access-token"), let accessToken: String = String(data: data, encoding: String.Encoding.utf8) else {
+                return
             }
+            self.accessToken = accessToken
         } catch {
             //We don't care about the error
         }
@@ -158,33 +139,30 @@ class CherryController: NSObject {
             }
         }
     }
-
     
     func requestFeaturesOperation() -> DataRequest {
-        
         var urlString = "http://files.beamreddit.com/features.json"
         if let language = Bundle.main.preferredLocalizations.first, let build = Bundle.main.infoDictionary?["CFBundleVersion"] as? String {
             urlString = "http://files.beamreddit.com/features.json?lang=\(language)&build=\(build)"
         }
-        if let url = URL(string: urlString) {
-            let request = DataRequest()
-            request.queuePriority = .high
-            request.urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20)
-            request.urlSession = AppDelegate.shared.authenticationController.userURLSession
-            request.completionBlock = { () -> Void in
-                if let result = request.result {
-                    let newFeatures = CherryFeatures(JSON: result)
-                    self.features = newFeatures
-                    self.saveFeatures()
-                    NotificationCenter.default.post(name: .CherryFeaturesDidChange, object: self)
-                    
-                }
-            }
-            
-            return request
-        } else {
+        guard let url = URL(string: urlString) else {
             fatalError("Unparseable cherry features URL string")
         }
+        let request = DataRequest()
+        request.queuePriority = .high
+        request.urlRequest = URLRequest(url: url, cachePolicy: .reloadIgnoringLocalCacheData, timeoutInterval: 20)
+        request.urlSession = AppDelegate.shared.authenticationController.userURLSession
+        request.completionBlock = { () -> Void in
+            if let result = request.result {
+                let newFeatures = CherryFeatures(JSON: result)
+                self.features = newFeatures
+                self.saveFeatures()
+                NotificationCenter.default.post(name: .CherryFeaturesDidChange, object: self)
+                
+            }
+        }
+        
+        return request
     }
 
     var isAdminUser: Bool {
@@ -196,46 +174,32 @@ class CherryController: NSObject {
         if let username = username , self.features?.adminUsers?.contains(username) == true {
             return true
         }
-        
-        let usernames = AppDelegate.shared.authenticationController.fetchAllAuthenticationSessions().filter( { $0.username != nil }).map( { return $0.username! })
-        
-        var hasAdminAccount = false
-        for username in usernames {
-            if self.features?.adminUsers?.contains(username) == true {
-                hasAdminAccount = true
-                break;
-            }
+    
+        let hasAdminAccount = AppDelegate.shared.authenticationController.fetchAllAuthenticationSessions().compactMap({ (session) -> String? in
+            return session.username
+        }).contains { (username) -> Bool in
+            return self.features?.adminUsers?.contains(username) == true
         }
         return hasAdminAccount
     }
     
     func searchTermAllowed(term: String?) -> Bool {
-        guard !AppDelegate.shared.authenticationController.userCanViewNSFWContent else {
+        guard !AppDelegate.shared.authenticationController.userCanViewNSFWContent,
+            let features = AppDelegate.shared.cherryController.features,
+            let term = term?.lowercased().trimmingCharacters(in: CharacterSet.whitespacesAndNewlines),
+            term.count > 0 else {
             return true
         }
-        guard let term = term?.lowercased().trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), term.count > 0 else {
-            return true
-        }
-        guard let features = AppDelegate.shared.cherryController.features else {
-            return true
-        }
-
-        let blockedKeywords = features.blockedSearchKeywords
         
-        var allowed = true
-        
-        for keyword in blockedKeywords {
-            if term.contains(keyword) {
-                allowed = false
-                break
-            }
+        var keywordBlocked = features.blockedSearchKeywords.contains { (keyword) -> Bool in
+            return term.contains(keyword)
         }
         
-        if !allowed && features.whitelistedSearchTerms.contains(term) {
-            allowed = true
+        if keywordBlocked && features.whitelistedSearchTerms.contains(term) {
+            keywordBlocked = false
         }
         
-        return allowed
+        return !keywordBlocked
     }
     
     fileprivate func saveFeatures() {

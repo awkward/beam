@@ -50,11 +50,9 @@ final class ProductStoreController: NSObject {
     }
     
     func availableProductWithIdentifier(_ identifier: String) -> SKProduct? {
-        let donations = self.availableDonationProducts?.filter({ $0.productIdentifier == identifier })
-        if donations?.first != nil {
-            return donations?.first
-        }
-        return nil
+        return self.availableDonationProducts?.first(where: { (product) -> Bool in
+            product.productIdentifier == identifier
+        })
     }
     
     func purchaseProduct(_ product: SKProduct) {
@@ -68,11 +66,8 @@ final class ProductStoreController: NSObject {
 extension ProductStoreController: SKProductsRequestDelegate {
     
     func productsRequest(_ request: SKProductsRequest, didReceive response: SKProductsResponse) {
-        var donationProducts = [SKProduct]()
-        for product: SKProduct in response.products {
-            if product.productIdentifier.hasPrefix("beamdonation") {
-                donationProducts.append(product)
-            }
+        let donationProducts = response.products.filter { (product) -> Bool in
+            return product.productIdentifier.hasPrefix("beamdonation")
         }
         self.availableDonationProducts = donationProducts
     }
@@ -87,8 +82,7 @@ extension ProductStoreController: SKProductsRequestDelegate {
 extension ProductStoreController: SKPaymentTransactionObserver {
     
     func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
-        
-        for transaction in transactions {
+        transactions.forEach { (transaction) in
             if transaction.transactionState == SKPaymentTransactionState.purchased || transaction.transactionState == SKPaymentTransactionState.restored {
                 if transaction.transactionState == SKPaymentTransactionState.purchased {
                     var properties: [String: AnyObject] = ["Product type": transaction.payment.productIdentifier as AnyObject, "Purchase type": "In-app purchase" as AnyObject]
@@ -105,11 +99,10 @@ extension ProductStoreController: SKPaymentTransactionObserver {
             }
             NotificationCenter.default.post(name: .ProductStoreControllerTransactionUpdated, object: transaction)
         }
-        
     }
     
     func paymentQueue(_ queue: SKPaymentQueue, removedTransactions transactions: [SKPaymentTransaction]) {
-        for transaction in transactions {
+        transactions.forEach { (transaction) in
             NotificationCenter.default.post(name: .ProductStoreControllerTransactionUpdated, object: transaction)
         }
     }

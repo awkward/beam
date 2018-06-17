@@ -10,7 +10,6 @@ import UIKit
 
 extension UIScrollView {
     
-    
     /// Places a view to behind a scrollView to improve the scrolling area. This can be used to expand the scrolling area of a TableView that is only displayed on a half of the display
     ///
     /// - Returns: The touched forwarding view that handles the touches. Can be used to change the receiving view later.

@@ -30,11 +30,11 @@ class GalleryWindowRootViewController: BeamViewController {
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         return UIInterfaceOrientationMask.allButUpsideDown
     }
     
@@ -51,9 +51,9 @@ extension UIViewController {
         }
     }
     
-    func presentGalleryViewController(_ galleryViewController: AWKGalleryViewController, sourceView: UIView?, completionHandler: (() -> ())? = nil) {
+    func presentGalleryViewController(_ galleryViewController: AWKGalleryViewController, sourceView: UIView?, completionHandler: (() -> Void)? = nil) {
         if self.supportedInterfaceOrientations == .all || self.supportedInterfaceOrientations == .allButUpsideDown {
-            self.present(galleryViewController, animated: true, completion: { 
+            self.present(galleryViewController, animated: true, completion: {
                 sourceView?.isHidden = true
                 completionHandler?()
             })
@@ -70,7 +70,7 @@ extension UIViewController {
             self.galleryWindow = UIWindow(frame: UIScreen.main.bounds)
             self.galleryWindow!.windowLevel = UIWindowLevelNormal
             self.galleryWindow!.backgroundColor = UIColor.clear
-            self.galleryWindow!.tintColor =  self.view.window?.tintColor
+            self.galleryWindow!.tintColor = self.view.window?.tintColor
             
             let viewController = GalleryWindowRootViewController()
             self.galleryWindow?.rootViewController = viewController
@@ -82,7 +82,7 @@ extension UIViewController {
         })
     }
     
-    func dismissGalleryViewController(_ galleryViewController: AWKGalleryViewController, sourceView: UIView?, completionHandler: (() -> ())? = nil) {
+    func dismissGalleryViewController(_ galleryViewController: AWKGalleryViewController, sourceView: UIView?, completionHandler: (() -> Void)? = nil) {
         sourceView?.isHidden = true
         if self.view.window == self.galleryWindow {
             galleryViewController.dismiss(animated: true) { () -> Void in

@@ -10,7 +10,6 @@ import UIKit
 import ImgurKit
 import AWKGallery
 
-
 class ImgurManagerViewController: BeamCollectionViewController {
     
     fileprivate var items: [ImgurObject]?
@@ -64,7 +63,6 @@ class ImgurManagerViewController: BeamCollectionViewController {
         gallery.dataSource = self
         gallery.delegate = self
         
-        
         let postToolbarXib = UINib(nibName: "ImgurGalleryToolbar", bundle: nil)
         let toolbar = postToolbarXib.instantiate(withOwner: nil, options: nil).first as! ImgurGalleryToolbar
         toolbar.imgurObject = item
@@ -81,7 +79,7 @@ class ImgurManagerViewController: BeamCollectionViewController {
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         self.emptyView?.frame = self.view.frame
-        self.emptyView?.layoutMargins = UIEdgeInsetsMake(self.view.safeAreaInsets.top, 0, 0, 0)
+        self.emptyView?.layoutMargins = UIEdgeInsets(top: self.view.safeAreaInsets.top, left: 0, bottom: 0, right: 0)
     }
 
 }
@@ -94,7 +92,7 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
         
         let alertController = BeamAlertController(title: nil, message: AWKLocalizedString("are-you-sure-delete-imgur-\(object is ImgurAlbum ? "album" : "image")"), preferredStyle: UIAlertControllerStyle.actionSheet)
         alertController.addCancelAction()
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertActionStyle.destructive, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
             if let album = object as? ImgurAlbum {
                 guard let images = album.images, !images.isEmpty else {
                     self.deleteAlbum(album)
@@ -111,10 +109,10 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
     
     fileprivate func showDeleteAlbumImages(_ album: ImgurAlbum) {
         let alertController = BeamAlertController(title: AWKLocalizedString("delete-imgur-album-images-title"), message: AWKLocalizedString("delete-imgur-album-images-message"), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("keep-images-button"), style: UIAlertActionStyle.cancel, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("keep-images-button"), style: UIAlertActionStyle.cancel, handler: { (_) in
             self.deleteAlbum(album, withImages: false)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-images-button"), style: UIAlertActionStyle.destructive, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-images-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
             self.deleteAlbum(album, withImages: true)
         }))
         self.showViewControllerOnGallery(alertController)
@@ -147,8 +145,8 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
         requests.append(ImgurAlbumRequest(deleteRequestWithDeleteHash: album.deleteHash!))
         AppDelegate.shared.imgurController.executeRequests(requests, uploadProgressHandler: nil, completionHandler: { (error) in
             DispatchQueue.main.async(execute: {
-                let sucessfulRequests = requests.filter( { $0.error == nil })
-                let hashes = sucessfulRequests.map( { return $0.deleteHash! } )
+                let sucessfulRequests = requests.filter({ $0.error == nil })
+                let hashes = sucessfulRequests.map({ return $0.deleteHash! })
                 self.removeObjectsWithHashes(hashes)
             })
         })
@@ -165,8 +163,8 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
         
         AppDelegate.shared.imgurController.executeRequests(requests, uploadProgressHandler: nil, completionHandler: { (error) in
             DispatchQueue.main.async(execute: {
-                let sucessfulRequests = requests.filter( { $0.error == nil })
-                let hashes = sucessfulRequests.map( { return $0.deleteHash! } )
+                let sucessfulRequests = requests.filter({ $0.error == nil })
+                let hashes = sucessfulRequests.map({ return $0.deleteHash! })
                 self.removeObjectsWithHashes(hashes)
             })
         })
@@ -175,12 +173,12 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
     
     func removeObjectsWithHashes(_ hashes: [String]) {
         for hash in hashes {
-            guard let item = self.items?.filter( { $0.deleteHash == hash } ).first else {
+            guard let item = self.items?.filter({ $0.deleteHash == hash }).first else {
                 continue
             }
             if let image = item as? ImgurImage {
                 //Remove the images from albums
-                if let albums = self.items?.filter( { $0 is ImgurAlbum } ) as? [ImgurAlbum] {
+                if let albums = self.items?.filter({ $0 is ImgurAlbum }) as? [ImgurAlbum] {
                     for album in albums {
                         if let index = album.images?.index(of: image) {
                             album.images?.remove(at: index)
@@ -193,7 +191,7 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
             }
         }
         
-        DispatchQueue.main.async { 
+        DispatchQueue.main.async {
             self.saveUploadedObjects()
             self.loadItems()
             self.collectionView?.reloadData()
@@ -277,7 +275,7 @@ extension ImgurManagerViewController: UICollectionViewDelegateFlowLayout {
         if let mediaCell = self.collectionView?.cellForItem(at: indexPath) as? ImgurMediaCollectionViewCell {
             sourceView = mediaCell.mediaImageView
         }
-        self.presentGalleryViewController(galleryViewController, sourceView: sourceView)  { () -> Void in
+        self.presentGalleryViewController(galleryViewController, sourceView: sourceView) { () -> Void in
             galleryViewController.transitioningDelegate = oldTransitioningDelegate
         }
     }
@@ -433,5 +431,3 @@ extension ImgurManagerViewController: UIViewControllerTransitioningDelegate {
     }
     
 }
-
-

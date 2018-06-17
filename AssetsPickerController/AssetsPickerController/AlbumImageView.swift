@@ -17,7 +17,7 @@ class AlbumImageView: UIView {
         }
     }
     
-    var placeholderColor = UIColor(red: 226/255, green: 225/255, blue: 230/255, alpha: 1) {
+    var placeholderColor = UIColor(red: 226 / 255, green: 225 / 255, blue: 230 / 255, alpha: 1) {
         didSet {
             self.imageView.backgroundColor = self.placeholderColor
         }
@@ -59,28 +59,26 @@ class AlbumImageView: UIView {
         self.addSubview(self.imageView)
     }
     
-    
     // Only override drawRect: if you perform custom drawing.
     // An empty implementation adversely affects performance during animation.
     override func draw(_ rect: CGRect) {
         // Drawing code
-        let firstLinePath = UIBezierPath(rect: CGRect(x: 7, y: 0, width: rect.width-(7*2), height: 1/UIScreen.main.scale))
+        let firstLinePath = UIBezierPath(rect: CGRect(x: 7, y: 0, width: rect.width - (7 * 2), height: 1 / UIScreen.main.scale))
         self.linesColor.withAlphaComponent(0.4).setFill()
         firstLinePath.fill()
         
-        let secondLinePath = UIBezierPath(rect: CGRect(x: 4, y: 2, width: rect.width-(4*2), height: 1/UIScreen.main.scale))
+        let secondLinePath = UIBezierPath(rect: CGRect(x: 4, y: 2, width: rect.width - (4 * 2), height: 1 / UIScreen.main.scale))
         self.linesColor.withAlphaComponent(0.6).setFill()
         secondLinePath.fill()
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 70, height: 74)
     }
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.imageView.frame = CGRect(x: 0, y: 4, width: self.bounds.width, height: self.bounds.height-4)
+        self.imageView.frame = CGRect(x: 0, y: 4, width: self.bounds.width, height: self.bounds.height - 4)
     }
- 
-
+    
 }

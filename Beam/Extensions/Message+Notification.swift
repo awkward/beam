@@ -16,8 +16,8 @@ extension Message {
         let content = UNMutableNotificationContent()
         content.sound = UNNotificationSound.default()
         
-        var userInfo = [String : Any]()
-        var messageInfo = [String : Any]()
+        var userInfo = [String: Any]()
+        var messageInfo = [String: Any]()
         if self.reference != nil {
             //Notification
             content.title = self.author ?? (self.subject?.capitalized(with: NSLocale.current) ?? AWKLocalizedString("notif-tit-new-notification"))

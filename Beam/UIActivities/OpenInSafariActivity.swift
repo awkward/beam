@@ -15,37 +15,37 @@ final class OpenInSafariActivity: UIActivity {
     fileprivate var comment: Comment?
     fileprivate var subreddit: Subreddit?
     
-    fileprivate var URL: Foundation.URL? {
+    fileprivate var url: URL? {
         if let postPermalink = self.post?.permalink {
             let urlString = "https://\((AppDelegate.shared.authenticationController.configuration.regularHost as NSString).appendingPathComponent(postPermalink))"
-            return Foundation.URL(string: urlString as String)
+            return URL(string: urlString as String)
         }
         if let subredditPermalink = self.subreddit?.permalink {
             let urlString = "https://\((AppDelegate.shared.authenticationController.configuration.regularHost as NSString).appendingPathComponent(subredditPermalink))"
-            return Foundation.URL(string: urlString as String)
+            return URL(string: urlString as String)
         }
         if let commentPermalink = self.comment?.permalink {
             let urlString = "https://\((AppDelegate.shared.authenticationController.configuration.regularHost as NSString).appendingPathComponent(commentPermalink))"
-            return Foundation.URL(string: urlString as String)
+            return URL(string: urlString as String)
         }
         if let subredditPermalink = self.post?.subreddit?.permalink {
             let urlString = "https://\((AppDelegate.shared.authenticationController.configuration.regularHost as NSString).appendingPathComponent(subredditPermalink))"
-            return Foundation.URL(string: urlString as String)
+            return URL(string: urlString as String)
         }
         return self.foundURL
     }
     
-    fileprivate var foundURL: Foundation.URL?
+    fileprivate var foundURL: URL?
     
     override var activityType: UIActivityType? {
         return UIActivityType(rawValue: "com.madeawkward.beam.open-in-safari")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("open-in-safari")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "open_in_safari_activity_icon")
     }
     
@@ -76,8 +76,8 @@ final class OpenInSafariActivity: UIActivity {
     }
     
     override func perform() {
-        if let URL = self.URL {
-            UIApplication.shared.open(URL, options: [:], completionHandler: nil)
+        if let url = self.url {
+            UIApplication.shared.open(url, options: [:], completionHandler: nil)
         }
     }
     

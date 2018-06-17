@@ -18,7 +18,7 @@ final class ReportViewController: BeamTableViewController {
     
     var selectedReason: PostReportReason = .Other
 
-    @IBAction func report(_ sender:AnyObject?) {
+    @IBAction func report(_ sender: AnyObject?) {
         if let post = self.post {
             if let accessToken = AppDelegate.shared.cherryController.accessToken, let objectName = self.post?.objectName {
                 let reason = self.selectedReason.rawValue
@@ -33,7 +33,7 @@ final class ReportViewController: BeamTableViewController {
             NotificationCenter.default.post(name: .PostDidChangeHiddenState, object: post)
             let reportOperation = post.reportOperation(self.selectedReason, otherReason: nil, authenticationController: AppDelegate.shared.authenticationController)
             let hideOperation = post.markHiddenOperation(true, authenticationController: AppDelegate.shared.authenticationController)
-            DataController.shared.executeAndSaveOperations([reportOperation,hideOperation], context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in
+            DataController.shared.executeAndSaveOperations([reportOperation, hideOperation], context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in
                 if let error = error {
                     AWKDebugLog("Error reporting post: \(error)")
                 }
@@ -42,11 +42,11 @@ final class ReportViewController: BeamTableViewController {
         self.closeActivity(true)
     }
     
-    @IBAction func cancel(_ sender:AnyObject?) {
+    @IBAction func cancel(_ sender: AnyObject?) {
         self.closeActivity(false)
     }
     
-    fileprivate func closeActivity(_ completed:Bool) {
+    fileprivate func closeActivity(_ completed: Bool) {
         if let activity = self.activity {
             activity.activityDidFinish(completed)
         }

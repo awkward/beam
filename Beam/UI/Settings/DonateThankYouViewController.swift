@@ -42,13 +42,12 @@ class DonateThankYouViewController: BeamViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
     
     override func loadView() {
         super.loadView()
-        
         let tintColor = UIColor.beamColor()
         let cornerRadius: CGFloat = 3
         
@@ -57,7 +56,6 @@ class DonateThankYouViewController: BeamViewController {
         
         //Text
         self.textLabel.text = AWKLocalizedString("donate-thankyou-message")
-        
         
         //Connect button
         self.closeButton.setTitle(AWKLocalizedString("close-button"), for: UIControlState())

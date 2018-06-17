@@ -31,7 +31,7 @@ public class PostMetadata: NSManagedObject {
         super.didChangeValue(forKey: key)
         
         //If one of the values of the keys in the array changes, we update the expiration date so the post is kept in the database longer
-        if self.entity.attributesByName.keys.contains(key) && key != "expirationDate"  {
+        if self.entity.attributesByName.keys.contains(key) && key != "expirationDate" {
             self.expirationDate = NSDate(timeInterval: DataController.PostMetadataExpirationTimeOut, since: Date())
         }
     }

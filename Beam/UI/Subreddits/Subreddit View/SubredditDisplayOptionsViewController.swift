@@ -58,13 +58,12 @@ class SubredditDisplayOptionsViewController: BeamTableViewController {
         }
         
         cell.textColorType = BeamTableViewCellTextColorType.default
-        cell.accessoryType = showsCheckmark ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
+        cell.accessoryType = showsCheckmark ? UITableViewCellAccessoryType.checkmark: UITableViewCellAccessoryType.none
         cell.selectionStyle = UITableViewCellSelectionStyle.default
 
         return cell
     }
     
-
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         switch (indexPath as IndexPath).row {
         case 0:

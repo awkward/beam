@@ -102,8 +102,8 @@ public final class MediaObject: NSManagedObject, MetadataHandling {
             guard let height1: NSNumber = resolution1["height"] as? NSNumber, let height2: NSNumber = resolution2["height"] as? NSNumber else {
                 return false
             }
-            let size1: Float = width1.floatValue*height1.floatValue
-            let size2: Float = width2.floatValue*height2.floatValue
+            let size1: Float = width1.floatValue * height1.floatValue
+            let size2: Float = width2.floatValue * height2.floatValue
             return size1 > size2
         } as NSArray
         return array

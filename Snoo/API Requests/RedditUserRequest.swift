@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum RedditMeRequestType : String {
+enum RedditMeRequestType: String {
     case overview = ""
     case karma = "karma"
     case prefs = "prefs"
@@ -65,6 +65,5 @@ open class RedditUserRequest: RedditRequest {
         
         return URLSession(configuration: configuration)
     }
-    
     
 }

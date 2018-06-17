@@ -34,6 +34,7 @@ final class PostToolbarPartCell: BeamTableViewCell, PostCell {
     // MARK: - Layout
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.selectionStyle = .none
         NotificationCenter.default.addObserver(self, selector: #selector(PostToolbarPartCell.objectDidChange(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: nil)
     }
@@ -44,7 +45,7 @@ final class PostToolbarPartCell: BeamTableViewCell, PostCell {
     
     @objc func objectDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            if let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? NSSet, let post = self.post , updatedObjects.contains(post) {
+            if let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? NSSet, let post = self.post, updatedObjects.contains(post) {
                 self.toolbarView.post = self.post
             }
         }
@@ -55,7 +56,7 @@ final class PostToolbarPartCell: BeamTableViewCell, PostCell {
         super.displayModeDidChange()
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 44)
     }
     

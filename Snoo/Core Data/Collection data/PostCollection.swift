@@ -16,7 +16,7 @@ public final class PostCollection: ContentCollection {
         super.configureQuery(query)
         
         if let query = query as? PostCollectionQuery {
-            if (self.managedObjectContext == query.subreddit?.managedObjectContext) {
+            if self.managedObjectContext == query.subreddit?.managedObjectContext {
                 self.subreddit = query.subreddit
             } else if let subredditID = query.subreddit?.objectID {
                 self.subreddit = self.managedObjectContext?.object(with: subredditID) as? Subreddit

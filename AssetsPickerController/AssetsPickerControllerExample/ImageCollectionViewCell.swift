@@ -21,7 +21,7 @@ class ImageCollectionViewCell: UICollectionViewCell {
                     PHImageManager.defaultManager().cancelImageRequest(currentRequest)
                 }
                 if let asset = self.asset {
-                    self.currentRequest = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSize(width: 140, height: 140), contentMode: PHImageContentMode.AspectFill, options: nil) { (image, userInfo) in
+                    self.currentRequest = PHImageManager.defaultManager().requestImageForAsset(asset, targetSize: CGSize(width: 140, height: 140), contentMode: PHImageContentMode.AspectFill, options: nil) { (image, _) in
                         self.imageView?.image = image
                     }
                 }

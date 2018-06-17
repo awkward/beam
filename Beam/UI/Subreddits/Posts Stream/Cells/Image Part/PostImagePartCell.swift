@@ -77,7 +77,6 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
         NotificationCenter.default.removeObserver(self)
     }
     
-    
     /// Prepares the cell for give playback. It adds the asset to play and plays it if possible
     func prepareGIFPlayback() {
         if let animatedUrl = self.mediaObject?.galleryItem.animatedURLString, self.mediaObject?.galleryItem.animated == true && self.mediaObject?.galleryItem.isMP4GIF == true && GIFPlayerView.canAutoplayGifs {
@@ -106,8 +105,8 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
         super.displayModeDidChange()
         
         self.mediaImageView.isOpaque = true
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red:0.96, green:0.96, blue:0.96, alpha:1), darkValue: UIColor(red:0.17, green:0.17, blue:0.17, alpha:1))
-        self.progressView.color = displayMode == .dark ?  UIColor.white : UIColor.beamGreyExtraLight()
+        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1), darkValue: UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1))
+        self.progressView.color = displayMode == .dark ?  UIColor.white: UIColor.beamGreyExtraLight()
     }
     
     override func prepareForReuse() {
@@ -122,7 +121,7 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
     
     class func heightForMediaObject(_ mediaObject: MediaObject?, useCompactViewMode: Bool, forWidth width: CGFloat) -> CGFloat {
         if useCompactViewMode {
-            let ratio:CGFloat = 16 / 9
+            let ratio: CGFloat = 16 / 9
             return floor(width / ratio)
         } else if let imageSize = mediaObject?.aspectRatioSizeWithMaxWidth(width, maxHeight: UIScreen.main.bounds.size.height) {
             return floor(imageSize.height)
@@ -130,7 +129,7 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
         return 100
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
+    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
         if context == &self.ImageViewHiddenObserverContext {
             self.gifPlayerView.isHidden = self.mediaImageView.isHidden
         } else {

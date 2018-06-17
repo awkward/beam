@@ -105,7 +105,7 @@ class DonateViewController: BeamViewController {
                     button.setTitle(string, for: UIControlState())
                 }
                 button.isEnabled = self.purchasingEnabled
-                button.alpha = (self.purchasingEnabled ? 1 : 0.5)
+                button.alpha = (self.purchasingEnabled ? 1: 0.5)
             }
         }
     }

@@ -29,7 +29,7 @@ final class PostCommentPartCell: BeamTableViewCell, PostCell {
     
     var needsTopSpacing: Bool = true {
         didSet {
-            self.topConstraint.constant = self.needsTopSpacing ? 8 : 0
+            self.topConstraint.constant = self.needsTopSpacing ? 8: 0
         }
     }
     
@@ -75,31 +75,31 @@ final class PostCommentPartCell: BeamTableViewCell, PostCell {
         super.displayModeDidChange()
         
         let authorIsOriginalPoster = (comment?.author == comment?.post?.author)
-        var titleColor =  UIColor(red: 12/255, green: 11/255, blue: 13/255, alpha: 1)
+        var titleColor = UIColor(red: 12 / 255, green: 11 / 255, blue: 13 / 255, alpha: 1)
         if authorIsOriginalPoster {
-            titleColor = UIColor(red: 227/255, green: 88/255, blue: 45/255, alpha: 1)
+            titleColor = UIColor(red: 227 / 255, green: 88 / 255, blue: 45 / 255, alpha: 1)
         } else if self.displayMode == .dark {
-            titleColor =  UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0)
+            titleColor = UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1.0)
         }
         self.authorLabel.textColor = titleColor
         
         self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
         self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)
         self.contentLabel.setText(self.comment?.markdownString?.attributedStringWithStylesheet(self.contentStyleSheet))
-        self.dateLabel.textColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
+        self.dateLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         
         switch displayMode {
         case .dark:
             if self.isHighlighted || self.isSelected {
-                self.commentView.backgroundColor = UIColor(red:0.23, green:0.23, blue:0.23, alpha:1)
+                self.commentView.backgroundColor = UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1)
             } else {
-                self.commentView.backgroundColor = UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1.0)
+                self.commentView.backgroundColor = UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0)
             }
         case .default:
             if self.isHighlighted || self.isSelected {
-                self.commentView.backgroundColor = UIColor(red:0.9, green:0.9, blue:0.9, alpha:1)
+                self.commentView.backgroundColor = UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1)
             } else {
-                self.commentView.backgroundColor = UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0)
+                self.commentView.backgroundColor = UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0)
             }
         }
         

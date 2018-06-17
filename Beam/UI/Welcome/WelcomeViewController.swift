@@ -51,13 +51,12 @@ class WelcomeViewController: BeamViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
     
     override func loadView() {
         super.loadView()
-        
         let tintColor = UIColor.beamColor()
         let cornerRadius: CGFloat = 3
         
@@ -67,7 +66,6 @@ class WelcomeViewController: BeamViewController {
         //Text
         self.textLabel.text = AWKLocalizedString("welcome-message")
     
-        
         //Connect button
         self.connectWithRedditButton.backgroundColor = UIColor.white
         self.connectWithRedditButton.setTitleColor(tintColor, for: UIControlState())
@@ -87,7 +85,6 @@ class WelcomeViewController: BeamViewController {
         self.connectWithRedditButton.alpha = 0
     }
     
-
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         var delay: TimeInterval = 0
@@ -110,7 +107,7 @@ class WelcomeViewController: BeamViewController {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        if self.presentedViewController == nil  {
+        if self.presentedViewController == nil {
             Trekker.default.track(event: TrekkerEvent(event: "Use welcome view"))
         }
         
@@ -126,7 +123,7 @@ class WelcomeViewController: BeamViewController {
         self.view.backgroundColor = UIColor.clear
     }
     
-    @IBAction func exploreWithoutAccount(_ sender:AnyObject?) {
+    @IBAction func exploreWithoutAccount(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: { () -> Void in
             Trekker.default.track(event: TrekkerEvent(event: "Use Beam without account"))
             AppDelegate.shared.userNotificationsHandler.registerForUserNotifications()
@@ -137,7 +134,7 @@ class WelcomeViewController: BeamViewController {
         AppDelegate.shared.presentAuthenticationViewController()
     }
     
-    @objc func userDidChange(_ notification:Notification?) {
+    @objc func userDidChange(_ notification: Notification?) {
         if AppDelegate.shared.authenticationController.isAuthenticated {
             Trekker.default.track(event: TrekkerEvent(event: "Login with reddit account"))
             //The delay is a workaround to fix an issue with SFSafariViewController dismissing

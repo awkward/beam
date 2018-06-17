@@ -102,9 +102,7 @@ extension ImgurGalleryItem: AWKGalleryItem {
     }
     
     @objc var contentSize: CGSize {
-        get {
-            return self.imgurImage?.imageSize ?? CGSize.zero
-        }
+        return self.imgurImage?.imageSize ?? CGSize.zero
     }
     
     fileprivate var isAlbumItem: Bool {
@@ -121,7 +119,7 @@ extension ImgurGalleryItem: AWKGalleryItem {
     
 }
 
-func ==(lhs: ImgurGalleryItem, rhs: ImgurGalleryItem) -> Bool {
+func == (lhs: ImgurGalleryItem, rhs: ImgurGalleryItem) -> Bool {
     return lhs.contentURL == rhs.contentURL
 }
 

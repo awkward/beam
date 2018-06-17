@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 open class MoreComment: Comment {
 
     open class override func entityName() -> String {
@@ -32,7 +31,7 @@ open class MoreComment: Comment {
         }
     }
     
-    open override func redditDictionaryRepresentation() -> [String : Any] {
+    open override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["count"] = self.count

@@ -8,7 +8,7 @@
 
 import Foundation
 
-public func ==(lhs: ImageRequest, rhs: ImageRequest) -> Bool {
+public func == (lhs: ImageRequest, rhs: ImageRequest) -> Bool {
     return lhs.postID == rhs.postID && lhs.imageURL == rhs.imageURL
 }
 
@@ -32,7 +32,7 @@ public struct ImageResponse {
                     do {
                         
                         var spec = try ImageSpec(JSON: imageDict)
-                        if let url = URL(string: request.imageURL) , (request.imageURL as NSString).pathExtension == "gifv" || (request.imageURL as NSString).pathExtension == "mp4" {
+                        if let url = URL(string: request.imageURL), (request.imageURL as NSString).pathExtension == "gifv" || (request.imageURL as NSString).pathExtension == "mp4" {
                             spec.URL = url
                             spec.animated = true
                         }
@@ -50,6 +50,6 @@ public struct ImageResponse {
 
 extension ImageResponse: Equatable {}
 
-public func ==(lhs: ImageResponse, rhs: ImageResponse) -> Bool {
+public func == (lhs: ImageResponse, rhs: ImageResponse) -> Bool {
     return lhs.request == rhs.request && lhs.imageSpecs == rhs.imageSpecs
 }

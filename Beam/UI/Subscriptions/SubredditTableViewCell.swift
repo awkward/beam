@@ -207,23 +207,23 @@ final class SubredditTableViewCell: BeamTableViewCell {
         switch self.displayMode {
         case .default:
             if starHighlighted {
-                self.starButton.tintColor = UIColor(red: 250/255, green: 212/255, blue: 25/255, alpha: 1.0)
+                self.starButton.tintColor = UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0)
             } else {
-                self.starButton.tintColor = UIColor(red: 201/255, green: 200/255, blue: 204/255, alpha: 1.0)
+                self.starButton.tintColor = UIColor(red: 201 / 255, green: 200 / 255, blue: 204 / 255, alpha: 1.0)
             }
             self.selectedBackgroundView = nil
         case .dark:
             if starHighlighted {
-                self.starButton.tintColor = UIColor(red: 250/255, green: 212/255, blue: 25/255, alpha: 0.6)
+                self.starButton.tintColor = UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 0.6)
             } else {
-                self.starButton.tintColor = UIColor(red: 201/255, green: 200/255, blue: 204/255, alpha: 1.0)
+                self.starButton.tintColor = UIColor(red: 201 / 255, green: 200 / 255, blue: 204 / 255, alpha: 1.0)
             }
             let view = UIView()
-            view.backgroundColor = UIColor(red:0.16, green:0.16, blue:0.16, alpha:1)
+            view.backgroundColor = UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 1)
             self.selectedBackgroundView = view
         }
         if self.subreddit?.isPrepopulated == true {
-            self.starButton.tintColor = UIColor(red:0.4, green:0.7, blue:1, alpha:1)
+            self.starButton.tintColor = UIColor(red: 0.4, green: 0.7, blue: 1, alpha: 1)
         }
     }
     
@@ -244,8 +244,7 @@ final class SubredditTableViewCell: BeamTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.titleLabel.numberOfLines = (self.bounds.height > 44) ? 2 : 1
+        self.titleLabel.numberOfLines = (self.bounds.height > 44) ? 2: 1
     }
-    
     
 }

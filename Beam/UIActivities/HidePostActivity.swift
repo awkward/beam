@@ -19,11 +19,11 @@ class HidePostActivity: CustomObjectActivity<Post> {
         return UIActivityType(rawValue: "com.madeawkward.beam.hide-post")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("post-hide-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "hide_activity_icon")
     }
     
@@ -65,11 +65,11 @@ final class UnhidePostActivity: HidePostActivity {
         return UIActivityType(rawValue: "com.madeawkward.beam.unhide-post")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("post-unhide-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "hide_activity_icon")
     }
 }

@@ -20,7 +20,7 @@ extension UIView {
             return [view]
         } else {
             let subviews: [T] = view.subviews.reduce([T](), { (oldArray, new) -> [T] in
-                if let subview: T = new as? T , predicate.evaluate(with: subview) {
+                if let subview: T = new as? T, predicate.evaluate(with: subview) {
                     return oldArray + [subview]
                 } else {
                     return oldArray + self.privateViewsOfType(subviewType, inView: new, predicate: predicate)

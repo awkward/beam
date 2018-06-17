@@ -98,7 +98,7 @@ final class EditMultiredditViewController: BeamTableViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: - View
+    // MARK: - View
     
     fileprivate func configureContents() {
         self.nameTextField.text = self.multireddit?.displayName
@@ -129,7 +129,7 @@ final class EditMultiredditViewController: BeamTableViewController {
         self.navigationItem.rightBarButtonItem?.isEnabled = self.savePossible
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @objc fileprivate func cancel(_ sender: AnyObject?) {
         self.dismiss(animated: true, completion: nil)
@@ -138,7 +138,7 @@ final class EditMultiredditViewController: BeamTableViewController {
     @objc fileprivate func save(_ sender: AnyObject?) {
         guard let name = self.nameTextField.text, name.rangeOfCharacter(from: self.allowedCharacters.inverted) == nil && name.count > 3 else {
             let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-characters"), message: AWKLocalizedString("create-multireddit-characters-message"), preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: UIAlertActionStyle.cancel, handler:nil))
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: UIAlertActionStyle.cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
             return
         }
@@ -191,7 +191,7 @@ final class EditMultiredditViewController: BeamTableViewController {
         multireddit.descriptionText = self.descriptionTextView.text
         multireddit.descriptionTextMarkdownString = nil
         
-        var operations =  [Operation]()
+        var operations = [Operation]()
         let updateOperation = multireddit.updateOperation(AppDelegate.shared.authenticationController)
         if hasBeenRenamed {
             let renameOperation = multireddit.renameOperation(AppDelegate.shared.authenticationController)
@@ -203,11 +203,9 @@ final class EditMultiredditViewController: BeamTableViewController {
         self.executeMultiredditOperations(operations)
     }
     
-    
-    
     fileprivate func createMultireddit(_ multireddit: Multireddit) {
         multireddit.author = AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.username
-        multireddit.visibility = self.privateSwitch.isOn ? SubredditVisibility.Private : SubredditVisibility.Public
+        multireddit.visibility = self.privateSwitch.isOn ? SubredditVisibility.Private: SubredditVisibility.Public
         multireddit.displayName = self.nameTextField.text
         multireddit.descriptionText = self.descriptionTextView.text
         
@@ -230,7 +228,7 @@ final class EditMultiredditViewController: BeamTableViewController {
                         message = AWKLocalizedString("multireddit-already-exists")
                     }
                     let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-failure"), message: message, preferredStyle: UIAlertControllerStyle.alert)
-                    alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: .cancel, handler:nil))
+                    alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: .cancel, handler: nil))
                     self?.present(alertController, animated: true, completion: nil)
                 } else {
                     if self?.copyingMultireddit == true {
@@ -246,13 +244,13 @@ final class EditMultiredditViewController: BeamTableViewController {
         })
     }
     
-    //MARK: - Display Mode
+    // MARK: - Display Mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
-        self.descriptionTextView?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217/255.0, green: 217/255.0, blue: 217/255.0, alpha: 1))
-        self.nameTextField?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217/255.0, green: 217/255.0, blue: 217/255.0, alpha: 1))
-        self.descriptionTextViewPlaceholder?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217/255.0, green: 217/255.0, blue: 217/255.0, alpha: 1)).withAlphaComponent(0.4)
+        self.descriptionTextView?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1))
+        self.nameTextField?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1))
+        self.descriptionTextViewPlaceholder?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)).withAlphaComponent(0.4)
         self.nameTextField.attributedPlaceholder = self.attributedPlaceholderText(self.nameTextField)
     }
     
@@ -270,7 +268,7 @@ final class EditMultiredditViewController: BeamTableViewController {
         return nil
     }
     
-    //MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
 
     override func numberOfSections(in tableView: UITableView) -> Int {
         return 1
@@ -282,7 +280,7 @@ final class EditMultiredditViewController: BeamTableViewController {
         } else if self.creatingMultireddit {
             return 3
         } else {
-            return 2;
+            return 2
         }
     }
     
@@ -308,7 +306,7 @@ final class EditMultiredditViewController: BeamTableViewController {
         return nil
     }
     
-    //MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
 
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if (indexPath as IndexPath).row == 2 {

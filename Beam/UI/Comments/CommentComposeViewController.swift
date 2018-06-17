@@ -10,7 +10,6 @@ import UIKit
 import Snoo
 import Trekker
 
-
 class CommentComposeViewController: BeamViewController {
     
     fileprivate var previousViewBounds = CGRect()
@@ -53,7 +52,7 @@ class CommentComposeViewController: BeamViewController {
         }
     }
     
-    //MARK: - View lifecycle
+    // MARK: - View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -80,10 +79,9 @@ class CommentComposeViewController: BeamViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
+        super.viewDidAppear(animated)
         self.textView.becomeFirstResponder()
     }
-    
     
     /// Updates content of the view such as the navigation title, navigation items and it's "content views" such as the text view
     fileprivate func updateViewContent() {
@@ -101,7 +99,6 @@ class CommentComposeViewController: BeamViewController {
         self.updateReplyLabel()
         
     }
-    
     
     /// Updates the reply to label on the view with a attributed string
     fileprivate func updateReplyLabel() {
@@ -125,7 +122,7 @@ class CommentComposeViewController: BeamViewController {
         self.replyLabel.attributedText = attributedText
     }
     
-    //MARK: - Display Mode
+    // MARK: - Display Mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -140,7 +137,7 @@ class CommentComposeViewController: BeamViewController {
         self.updateReplyLabel()
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func keyboardFrameWillChange(_ notification: Notification) {
         let endFrame = ((notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? CGRect.zero
@@ -148,13 +145,13 @@ class CommentComposeViewController: BeamViewController {
         self.updateInset()
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @objc fileprivate func close(_ sender: UIBarButtonItem) {
         self.textView.resignFirstResponder()
         if let text = self.textView?.text, text.count > 0 {
             let alertController = BeamAlertController(title: nil, message: AWKLocalizedString("are-you-sure-discard-comment"), preferredStyle: UIAlertControllerStyle.actionSheet)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-comment"), style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-comment"), style: UIAlertActionStyle.destructive, handler: { (_) -> Void in
                 self.dismissView()
             }))
             alertController.addCancelAction()
@@ -168,7 +165,7 @@ class CommentComposeViewController: BeamViewController {
     }
     
     fileprivate func dismissView() {
-        if let activity = self.editCommentActivity{
+        if let activity = self.editCommentActivity {
             activity.activityDidFinish(true)
         }
         self.dismiss(animated: true, completion: nil)
@@ -200,7 +197,7 @@ class CommentComposeViewController: BeamViewController {
         }
     }
     
-    //MARK: - Data actions
+    // MARK: - Data actions
     
     fileprivate func updateComment() {
         guard let text = self.textView.text, let comment = self.comment else {
@@ -284,7 +281,7 @@ class CommentComposeViewController: BeamViewController {
         self.dismissView()
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
 
     override func viewWillLayoutSubviews() {
         super.viewWillLayoutSubviews()
@@ -325,15 +322,15 @@ class CommentComposeViewController: BeamViewController {
         //The bottom inset shouldn't be less than the keyboard frame. Otherwise the text will go behind the keyboard.
         bottomInset = max(bottomInset, self.keyboardFrame.height)
         
-        let inset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, bottomInset, 0)
+        let inset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
         self.scrollView.contentInset = inset
         
-        let scrollBarInset = UIEdgeInsetsMake(self.topLayoutGuide.length, 0, self.keyboardFrame.height, 0)
+        let scrollBarInset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: self.keyboardFrame.height, right: 0)
         self.scrollView.scrollIndicatorInsets = scrollBarInset
     }
 }
 
-//MARK: - UITableViewDataSource
+// MARK: - UITableViewDataSource
 
 extension CommentComposeViewController: UITableViewDataSource {
     
@@ -353,7 +350,6 @@ extension CommentComposeViewController: UITableViewDataSource {
             cell.showTopSeperator = false
             cell.showBottomSeperator = true
             
-            
             cell.reloadContents()
             return cell
         } else {
@@ -369,9 +365,9 @@ extension CommentComposeViewController: UITableViewDataSource {
     
 }
 
-//MARK: - UITableViewDelegate
+// MARK: - UITableViewDelegate
 
-extension CommentComposeViewController: UITableViewDelegate  {
+extension CommentComposeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         return UITableViewAutomaticDimension
@@ -387,18 +383,17 @@ extension CommentComposeViewController: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if scrollView == self.scrollView {
-            let topOffset = self.tableView.rectForRow(at: IndexPath(row: 0, section: 0)).height+self.topLayoutGuide.length
+            let topOffset = self.tableView.rectForRow(at: IndexPath(row: 0, section: 0)).height + self.topLayoutGuide.length
             
             let snappingThreshold: CGFloat = 50
             
-            if targetContentOffset.pointee.y < topOffset+snappingThreshold && targetContentOffset.pointee.y > topOffset-snappingThreshold {
+            if targetContentOffset.pointee.y < topOffset+snappingThreshold && targetContentOffset.pointee.y > topOffset - snappingThreshold {
                 targetContentOffset.pointee.y = topOffset
             }
         }
     }
     
 }
-
 
 extension CommentComposeViewController: UITextViewDelegate {
  

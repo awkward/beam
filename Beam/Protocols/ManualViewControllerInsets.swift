@@ -15,7 +15,7 @@ protocol ManualViewControllerInsets {
     
 }
 
-extension ManualViewControllerInsets where Self : UIViewController {
+extension ManualViewControllerInsets where Self: UIViewController {
     
     func configureInsetsForChildViewControllers() {
         
@@ -30,11 +30,11 @@ extension ManualViewControllerInsets where Self : UIViewController {
     }
     
     fileprivate func configureContentInsetForScrollView(_ scrollView: UIScrollView) {
-        let topOffset: CGFloat = self is UIBarPositioningDelegate ? 44.0 : 0
+        let topOffset: CGFloat = self is UIBarPositioningDelegate ? 44.0: 0
         
-        scrollView.contentInset = UIEdgeInsetsMake(self.topLayoutGuide.length + topOffset, 0, self.bottomLayoutGuide.length, 0)
+        scrollView.contentInset = UIEdgeInsets(top: self.topLayoutGuide.length + topOffset, left: 0, bottom: self.bottomLayoutGuide.length, right: 0)
         if scrollView.contentOffset.y <= 0 && !scrollView.isDecelerating && !scrollView.isDragging {
-            scrollView.contentOffset = CGPoint(x: 0, y: -1*scrollView.contentInset.top)
+            scrollView.contentOffset = CGPoint(x: 0, y: -1 * scrollView.contentInset.top)
         }
     }
     

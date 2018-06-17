@@ -12,10 +12,10 @@ import CoreData
 
 extension MultiredditQuery {
     
-    class func fetchMultireddit(_ username: String, multiredditName: String, handler: @escaping ((_ multireddit: Multireddit?, _ error: Error?) -> ())) {
+    class func fetchMultireddit(_ username: String, multiredditName: String, handler: @escaping ((_ multireddit: Multireddit?, _ error: Error?) -> Void)) {
         //Clean up any slashes from the name
-        let cleanedMultiredditName = multiredditName.stringByRemovingStrings(["/m/","m/","/"])
-        let cleanedUsername = username.stringByRemovingStrings(["/u/","u/","/user/","user/","/"])
+        let cleanedMultiredditName = multiredditName.stringByRemovingStrings(["/m/", "m/", "/"])
+        let cleanedUsername = username.stringByRemovingStrings(["/u/", "u/", "/user/", "user/", "/"])
         let subredditQuery = MultiredditQuery(displayName: cleanedMultiredditName, username: cleanedUsername)
         
         let collectionController = CollectionController(authentication: AppDelegate.shared.authenticationController, context: AppDelegate.shared.managedObjectContext)

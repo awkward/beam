@@ -88,7 +88,7 @@ final class ImageSpoilerView: BeamView {
         
         switch self.displayMode {
         case .dark:
-            self.backgroundLayer.backgroundColor = UIColor(red: 31/255.0, green: 31/255.0, blue: 31/255.0, alpha: 1).cgColor
+            self.backgroundLayer.backgroundColor = UIColor(red: 31 / 255.0, green: 31 / 255.0, blue: 31 / 255.0, alpha: 1).cgColor
         default:
             self.backgroundLayer.backgroundColor = UIColor.beamGreyExtraExtraLight().cgColor
         }
@@ -98,8 +98,6 @@ final class ImageSpoilerView: BeamView {
         super.touchesBegan(touches, with: event)
         
         self.firstTouchTimeInterval = Date.timeIntervalSinceReferenceDate
-        
-        
         
         if !self.opened {
             self.animationCompleted = false
@@ -114,7 +112,7 @@ final class ImageSpoilerView: BeamView {
     }
     
     override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
-        if !self.cancelling && !self.opened && self.firstTouchTimeInterval != nil && self.firstTouchTimeInterval! - Date.timeIntervalSinceReferenceDate > -0.01 && !self.animationCompleted  {
+        if !self.cancelling && !self.opened && self.firstTouchTimeInterval != nil && self.firstTouchTimeInterval! - Date.timeIntervalSinceReferenceDate > -0.01 && !self.animationCompleted {
             self.reset()
             self.beginPreviewAnimation(0.32)
             DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + Double(Int64(0.1 * Double(NSEC_PER_SEC))) / Double(NSEC_PER_SEC), execute: { () -> Void in

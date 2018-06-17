@@ -28,10 +28,10 @@ class MixpanelAnalyticsService: NSObject, TrekkerService {
     var hasSendVisitSubreddit = false
 }
 
-//MARK: - TrekkerEventAnalytics
+// MARK: - TrekkerEventAnalytics
 extension MixpanelAnalyticsService: TrekkerEventAnalytics {
     
-    func trackEvent(_ event: String, withProperties properties: [String : Any]?) {
+    func trackEvent(_ event: String, withProperties properties: [String: Any]?) {
         if event == "Visit subreddit" {
             guard self.hasSendVisitSubreddit == false else {
                 return
@@ -54,26 +54,26 @@ extension MixpanelAnalyticsService: TrekkerEventAnalytics {
     
 }
 
-//MARK: - TrekkerTimedEventAnalytics
+// MARK: - TrekkerTimedEventAnalytics
 extension MixpanelAnalyticsService: TrekkerTimedEventAnalytics {
     
     func startTimingEvent(_ event: String) {
         self.mixpanelTracker.timeEvent(event)
     }
     
-    func stopTimingEvent(_ event: String, withProperties properties: [String : Any]?) {
+    func stopTimingEvent(_ event: String, withProperties properties: [String: Any]?) {
         self.trackEvent(event, withProperties: properties)
     }
     
 }
 
-//MARK: - TrekkerEventSuperPropertiesAnalytics
+// MARK: - TrekkerEventSuperPropertiesAnalytics
 extension MixpanelAnalyticsService: TrekkerEventSuperPropertiesAnalytics {
     
     /// Called to register a set of super propeties with the service. Note that the service itself is responsible for managing the super properties, including saving to disk.
     ///
     /// - Parameter properties: The super properties for the given service.
-    func registerEventSuperProperties(_ properties: [String : Any]) {
+    func registerEventSuperProperties(_ properties: [String: Any]) {
         self.mixpanelTracker.registerSuperProperties(properties)
     }
     

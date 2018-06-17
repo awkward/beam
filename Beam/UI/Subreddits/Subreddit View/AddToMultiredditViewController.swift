@@ -41,10 +41,14 @@ class AddToMultiredditViewController: BeamTableViewController, BeamViewControlle
     
     func emptyViewTypeForState(_ state: BeamViewControllerLoadingState) -> BeamEmptyViewType {
         switch state {
-        case .loading: return BeamEmptyViewType.Loading
-        case .noInternetConnection: return BeamEmptyViewType.Error
-        case .noAccess: return BeamEmptyViewType.MultiredditsNotLoggedIn
-        default: return self.defaultEmptyViewType
+        case .loading:
+            return BeamEmptyViewType.Loading
+        case .noInternetConnection:
+            return BeamEmptyViewType.Error
+        case .noAccess:
+            return BeamEmptyViewType.MultiredditsNotLoggedIn
+        default:
+            return self.defaultEmptyViewType
         }
     }
     
@@ -98,7 +102,7 @@ class AddToMultiredditViewController: BeamTableViewController, BeamViewControlle
     }
     
     @objc fileprivate func expiredContentDeleted(_ notification: Notification) {
-        if let managedObjectContext = notification.object as? NSManagedObjectContext , managedObjectContext.deletedObjects.contains( where: { $0 is Multireddit } ) {
+        if let managedObjectContext = notification.object as? NSManagedObjectContext, managedObjectContext.deletedObjects.contains( where: { $0 is Multireddit }) {
             DispatchQueue.main.async { () -> Void in
                 self.startCollectionControllerFetching(respectingExpirationDate: false)
             }
@@ -123,7 +127,7 @@ class AddToMultiredditViewController: BeamTableViewController, BeamViewControlle
         }
     }
     
-    //MARK: Layout
+    // MARK: Layout
 }
 
 // MARK: - UITableViewDataSource

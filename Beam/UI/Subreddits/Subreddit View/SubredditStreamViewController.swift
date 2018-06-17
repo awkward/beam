@@ -26,7 +26,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
     fileprivate var trackedVisitEvent = false
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.filter( { $0 is StreamViewController } ).first as? StreamViewController
+        return self.childViewControllers.filter({ $0 is StreamViewController }).first as? StreamViewController
     }
     
     var titleView: SubredditTitleView = SubredditTitleView.titleViewWithSubreddit(nil)
@@ -66,7 +66,6 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
     
     override func loadView() {
         super.loadView()
-        
         let storyboard = UIStoryboard(name: "Stream", bundle: nil)
         if let streamviewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamviewController.streamDelegate = self
@@ -184,7 +183,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
             if sortType.supportsTimeFrame(.posts) {
                 self.showTimeFrameActionSheet(sortType, sortingBar: sortingBar)
             } else {
-                let timeFrame = (sortType == CollectionSortType.hot) ? CollectionTimeFrame.thisMonth : CollectionTimeFrame.allTime
+                let timeFrame = (sortType == CollectionSortType.hot) ? CollectionTimeFrame.thisMonth: CollectionTimeFrame.allTime
                 self.changeSorting(sortType, timeFrame: timeFrame)
             }
         }
@@ -193,25 +192,25 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
     fileprivate func showTimeFrameActionSheet(_ sortType: CollectionSortType, sortingBar: ScrollableButtonBar) {
         let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisHour)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .today)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisWeek)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisMonth)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisYear)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .allTime)
         }))
-        alertController.addCancelAction { (action) in
+        alertController.addCancelAction { (_) in
             self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.streamViewController?.query?.sortType ?? .hot)
         }
         
@@ -282,7 +281,6 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
         self.streamViewController?.view.isHidden = isEmpty
         self.streamViewController?.tableView.isScrollEnabled = !isEmpty
     }
-    
 
 }
 
@@ -297,8 +295,8 @@ extension SubredditStreamViewController: UIToolbarDelegate {
 
 extension SubredditStreamViewController: NavigationBarNotificationDisplayingDelegate {
 
-    func topViewForDisplayOfnotificationView<NotificationView : UIView>(_ view: NotificationView) -> UIView? where NotificationView : NavigationBarNotification {
-        return self.sortingBar.superview;
+    func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
+        return self.sortingBar.superview
     }
 }
 

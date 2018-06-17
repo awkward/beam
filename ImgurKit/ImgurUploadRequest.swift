@@ -27,13 +27,13 @@ public class ImgurUploadRequest: ImgurRequest {
         self.asset = asset
     }
     
-    internal override func performRequest(_ completionHandler: @escaping ((_ resultObject: AnyObject?, _ error: NSError?) -> ())) {
+    internal override func performRequest(_ completionHandler: @escaping ((_ resultObject: AnyObject?, _ error: NSError?) -> Void)) {
         self.updateDownloadProgress(0)
         self.updateUploadProgress(0)
         if let asset = self.asset {
             let requestOptions = PHImageRequestOptions()
             requestOptions.isNetworkAccessAllowed = true
-            PHImageManager.default().requestImageData(for: asset, options: requestOptions, resultHandler: { (imageData, dataUTI, orientation, userInfo) in
+            PHImageManager.default().requestImageData(for: asset, options: requestOptions, resultHandler: { (imageData, dataUTI, _, userInfo) in
                 if let imageData = imageData, let dataUTI = dataUTI {
                     var mimeType: String = "image/jpeg"
                     if let dataMimeType = self.convertCFTypeToString(UTTypeCopyPreferredTagWithClass(dataUTI as CFString, kUTTagClassMIMEType)) {
@@ -58,14 +58,14 @@ public class ImgurUploadRequest: ImgurRequest {
         
         let value = Unmanaged.fromOpaque(
             CFValue!.toOpaque()).takeUnretainedValue() as CFString
-        if CFGetTypeID(value) == CFStringGetTypeID(){
+        if CFGetTypeID(value) == CFStringGetTypeID() {
             return value as String
         } else {
             return nil
         }
     }
     
-    fileprivate func startUpload(_ imageData: Data, mimeType: String, completionHandler: @escaping ((_ resultObject: AnyObject?, _ error: NSError?) -> ())) {
+    fileprivate func startUpload(_ imageData: Data, mimeType: String, completionHandler: @escaping ((_ resultObject: AnyObject?, _ error: NSError?) -> Void)) {
         let mutableRequest = (self.URLRequest as NSURLRequest).mutableCopy() as! NSMutableURLRequest
         let multiPartFormInformation = self.multiPartFormInformation(imageData)
         mutableRequest.setValue("multipart/form-data; boundary=\(multiPartFormInformation.boundaryString)", forHTTPHeaderField: "Content-Type")
@@ -76,7 +76,7 @@ public class ImgurUploadRequest: ImgurRequest {
                 return
             }
             var resultObject: AnyObject?
-            if let data = data, let response = response as? HTTPURLResponse , self.HTTPMethod != ImgurHTTPMethod.Delete {
+            if let data = data, let response = response as? HTTPURLResponse, self.HTTPMethod != ImgurHTTPMethod.Delete {
                 do {
                     let JSONDictionary = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
                     resultObject = try self.parseResponse(JSONDictionary, response: response)
@@ -116,7 +116,6 @@ public class ImgurUploadRequest: ImgurRequest {
             body.append(fileData)
             body.appendString("\r\n")
         }
-        
         
         //Add the end boundary
         body.appendString("--\(boundaryString)--\r\n")

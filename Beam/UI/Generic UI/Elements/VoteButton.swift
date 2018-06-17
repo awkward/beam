@@ -20,7 +20,7 @@ public let VoteButtonDidEndAnimatingNotification = "VoteButtonDidEndAnimatingNot
 @IBDesignable
 class VoteButton: UIControl {
     
-    var color = UIColor(red: 170/255, green: 168/255, blue: 179/255, alpha: 1) {
+    var color = UIColor(red: 170 / 255, green: 168 / 255, blue: 179 / 255, alpha: 1) {
         didSet {
             if !self.voted {
                 self.face.strokeColor = self.color
@@ -48,7 +48,7 @@ class VoteButton: UIControl {
     }
     
         /// Block called after animating has been set to false. This block is called on the main thread
-    var animatingDidEndBlock: (() -> ())?
+    var animatingDidEndBlock: (() -> Void)?
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -87,7 +87,7 @@ class VoteButton: UIControl {
         self.face.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return self.faceSize
     }
     
@@ -212,10 +212,9 @@ class VoteButton: UIControl {
         UIView.animate(withDuration: 0.15, delay: 0, options: [UIViewAnimationOptions.curveEaseOut], animations: { () -> Void in
             self.face.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
             self.face.alpha = 0
-            }, completion: { (succes: Bool) in
+            }, completion: { (_) in
                 animateVotedFace()
         })
-        
         
     }
     
@@ -233,7 +232,7 @@ class VoteButton: UIControl {
             UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
                 newFace.transform = CGAffineTransform.identity
                 newFace.alpha = 1
-                }) { (completed: Bool) -> Void in
+                }) { (completed) -> Void in
                     if completed == false {
                         newFace.removeFromSuperview()
                     } else {
@@ -265,11 +264,11 @@ class VoteButton: UIControl {
     
     override var isHighlighted: Bool {
         didSet {
-            self.alpha = isHighlighted ? 0.6 : 1
+            self.alpha = isHighlighted ? 0.6: 1
         }
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func voteButtonDidBeginAnimating(_ notification: Notification?) {
         self.isEnabled = false
@@ -284,7 +283,7 @@ class VoteButton: UIControl {
 // MARK: -
 class VoteButtonFace: UIView {
     
-    override class var layerClass : AnyClass {
+    override class var layerClass: AnyClass {
         return CAShapeLayer.self
     }
     
@@ -299,14 +298,14 @@ class VoteButtonFace: UIView {
 
         self.backgroundColor = UIColor.clear
         self.isUserInteractionEnabled = false
-        self.isOpaque = false;
+        self.isOpaque = false
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         self.backgroundColor = UIColor.clear
-        self.isOpaque = false;
+        self.isOpaque = false
         self.isUserInteractionEnabled = false
     }
     
@@ -334,8 +333,6 @@ class VoteButtonFace: UIView {
         }
     }
     
-    
-    
     override func layoutSubviews() {
         super.layoutSubviews()
         
@@ -347,7 +344,7 @@ class VoteButtonFace: UIView {
         let arrowSize = CGSize(width: 10, height: 6)
         self.arrowView.bounds = CGRect(origin: CGPoint(), size: arrowSize)
         
-        let yOffset: CGFloat = self.arrowView.direction == .up ? -0.5 : 0.5
+        let yOffset: CGFloat = self.arrowView.direction == .up ? -0.5: 0.5
         self.arrowView.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY + yOffset)
         if self.arrowView.superview != self {
             self.addSubview(self.arrowView)
@@ -360,7 +357,7 @@ class VoteButtonFace: UIView {
 // MARK: -
 class VoteButtonArrow: UIView {
     
-    override class var layerClass : AnyClass {
+    override class var layerClass: AnyClass {
         return VoteButtonArrowLayer.self
     }
     
@@ -423,7 +420,7 @@ private class VoteButtonArrowLayer: CAShapeLayer {
         path.addLine(to: CGPoint(x: 4.34, y: 0.32))
         path.addCurve(to: CGPoint(x: 5.66, y: 0.32), controlPoint1: CGPoint(x: 4.7, y: -0.11), controlPoint2: CGPoint(x: 5.29, y: -0.11))
         path.close()
-        path.usesEvenOddFillRule = true;
+        path.usesEvenOddFillRule = true
         return path
     }
     
@@ -437,7 +434,7 @@ private class VoteButtonArrowLayer: CAShapeLayer {
         path.addCurve(to: CGPoint(x: 9.44, y: 0.77), controlPoint1: CGPoint(x: 9.64, y: 0), controlPoint2: CGPoint(x: 9.8, y: 0.34))
         path.addLine(to: CGPoint(x: 5.46, y: 5.5))
         path.close()
-        path.usesEvenOddFillRule = true;
+        path.usesEvenOddFillRule = true
         return path
     }
     

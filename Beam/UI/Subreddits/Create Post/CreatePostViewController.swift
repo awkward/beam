@@ -13,7 +13,7 @@ import CoreData
 
 class CreatePostViewController: BeamViewController {
 
-    //MARK: Properties to override
+    // MARK: Properties to override
     
     /// Use this property to set the subreddit to post the link or text post to
     var subreddit: Subreddit? {
@@ -64,14 +64,13 @@ class CreatePostViewController: BeamViewController {
         }
     }
     
-    
     internal var isPosting: Bool {
         return self.posting
     }
     
     fileprivate var posting: Bool = false
     
-    //MARK: Mehods to override
+    // MARK: Mehods to override
     
     /// Called when the submit starts
     internal func didStartSubmit() {
@@ -122,7 +121,7 @@ class CreatePostViewController: BeamViewController {
                 case .BadCaptcha:
                     alertController.title = AWKLocalizedString("incorrect-captcha-error-title")
                     alertController.message = AWKLocalizedString("incorrect-captcha-error-message")
-                    alertController.addAction(UIAlertAction(title: AWKLocalizedString("retry-button"), style: UIAlertActionStyle.default, handler: { (action) in
+                    alertController.addAction(UIAlertAction(title: AWKLocalizedString("retry-button"), style: UIAlertActionStyle.default, handler: { (_) in
                         self.startSubmit()
                     }))
                 case .AlreadySubmitted:
@@ -132,7 +131,7 @@ class CreatePostViewController: BeamViewController {
                     } else {
                         alertController.title = AWKLocalizedString("already-submitted-error-title")
                         alertController.message = AWKLocalizedString("already-submitted-error-message")
-                        alertController.addAction(UIAlertAction(title: AWKLocalizedString("resubmit-button"), style: UIAlertActionStyle.default, handler: { (action) in
+                        alertController.addAction(UIAlertAction(title: AWKLocalizedString("resubmit-button"), style: UIAlertActionStyle.default, handler: { (_) in
                             self.resubmit = true
                             self.startSubmit()
                         }))
@@ -158,7 +157,7 @@ class CreatePostViewController: BeamViewController {
         
     }
     
-    //MARK: View lifecycle
+    // MARK: View lifecycle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -180,18 +179,18 @@ class CreatePostViewController: BeamViewController {
         }
     }
     
-    //MARK: Actions
+    // MARK: Actions
     
     @IBAction internal func cancelTapped(_ sender: AnyObject) {
         if self.hasContent {
-            var title =  AWKLocalizedString("discard-post-alert-title")
+            var title = AWKLocalizedString("discard-post-alert-title")
             var message = AWKLocalizedString("discard-post-alert-message")
             if self.post != nil {
-                title =  AWKLocalizedString("discard-edit-alert-title")
+                title = AWKLocalizedString("discard-edit-alert-title")
                 message = AWKLocalizedString("discard-edit-alert-message")
             }
             let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-button"), style: UIAlertActionStyle.destructive, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
                 self.dismiss(animated: true, completion: nil)
             }))
             alertController.addAction(UIAlertAction(title: AWKLocalizedString("keep-button"), style: UIAlertActionStyle.cancel, handler: nil))
@@ -206,12 +205,12 @@ class CreatePostViewController: BeamViewController {
         
     }
     
-    //MARK: Notifications
+    // MARK: Notifications
     
     @objc fileprivate func internalKeyboardDidChangeFrame(_ notification: Notification) {
         let frame = ((notification as NSNotification).userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let animationDuration = ((notification as NSNotification).userInfo![UIKeyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
-        var animationCurve : UIViewAnimationOptions = UIViewAnimationOptions()
+        var animationCurve: UIViewAnimationOptions = UIViewAnimationOptions()
         if (notification as NSNotification).userInfo?[UIKeyboardAnimationCurveUserInfoKey] != nil {
             ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurve)
         }
@@ -227,15 +226,14 @@ class CreatePostViewController: BeamViewController {
         }
     }
     
-    //MARK: - Blocking user action while posting 
+    // MARK: - Blocking user action while posting
     
     func lockView(_ locked: Bool) {
         self.navigationItem.leftBarButtonItem?.isEnabled = !locked
         self.navigationItem.rightBarButtonItem?.isEnabled = !locked
     }
     
-    //MARK: Keyboard and textfield functions
-    
+    // MARK: Keyboard and textfield functions
     
     /// Called when the keyboard appears, disappears or changes frame
     ///
@@ -247,7 +245,6 @@ class CreatePostViewController: BeamViewController {
         
     }
     
-    
     /// Called when the text in a textfield changes
     ///
     /// - Parameter textField: The textfield of which the text changes
@@ -255,14 +252,14 @@ class CreatePostViewController: BeamViewController {
         
     }
     
-    //MARK: Display Mode
+    // MARK: Display Mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
         self.view.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
     }
     
-    //MARK: Post submitting
+    // MARK: Post submitting
     
     fileprivate func startSubmit() {
         self.didStartSubmit()
@@ -279,7 +276,7 @@ class CreatePostViewController: BeamViewController {
         }
     }
     
-    fileprivate func submitPost(_ title: String, kind: RedditSubmitKind, completionHandler: @escaping ((_ error: Error?) -> ())) {
+    fileprivate func submitPost(_ title: String, kind: RedditSubmitKind, completionHandler: @escaping ((_ error: Error?) -> Void)) {
         guard title.trimmingCharacters(in: CharacterSet.whitespaces).count != 0 else {
             completionHandler(NSError.beamError(-401, localizedDescription: "Title missing"))
             return

@@ -20,7 +20,7 @@ open class ProductTrial: NSObject {
             self.productIdentifier = identifier
             self.expirationDate = Date(timeIntervalSince1970: endDateTimeStamp)
             self.valid = valid
-            if let warningShownNumber: NSNumber = dictionary["expired_warning_shown"] as? NSNumber  {
+            if let warningShownNumber: NSNumber = dictionary["expired_warning_shown"] as? NSNumber {
                 let warningShown = warningShownNumber.boolValue
                 self.expiredWarningShown = warningShown
             }

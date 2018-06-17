@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public final class AuthenticationSession : NSObject, NSCoding {
+public final class AuthenticationSession: NSObject, NSCoding {
     
     fileprivate let ExpirationDateKey = "expires_in"
     fileprivate let TokenTypeKey = "token_type"

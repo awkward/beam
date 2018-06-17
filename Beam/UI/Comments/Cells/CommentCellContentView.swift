@@ -36,7 +36,7 @@ class CommentCellContentView: BeamView {
     fileprivate func createReplyBorderColors() {
         let baseColor = DisplayModeValue(UIColor.beamTableViewSeperatorColor(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
         let minimumAlphaValue: CGFloat = 0.1
-        let alphaStepValue: CGFloat = (1.0-minimumAlphaValue)/CGFloat(self.maxNumberOfReplyBorders)
+        let alphaStepValue: CGFloat = (1.0 - minimumAlphaValue) / CGFloat(self.maxNumberOfReplyBorders)
         
         var alpha: CGFloat = 1.0
         self.replyBorderColors.removeAll()
@@ -79,8 +79,8 @@ class CommentCellContentView: BeamView {
     }
     
     override func draw(_ rect: CGRect) {
-        let borderWidth: CGFloat = self.indentationLevelWidth/2
-        let borderSpacing: CGFloat = self.indentationLevelWidth/2
+        let borderWidth: CGFloat = self.indentationLevelWidth / 2
+        let borderSpacing: CGFloat = self.indentationLevelWidth / 2
         if self.commentIndentationLevel > 0 {
             var xPosition: CGFloat = 0
             for index in 0..<self.self.commentIndentationLevel {
@@ -97,15 +97,13 @@ class CommentCellContentView: BeamView {
         }
         
         let seperatorColor = DisplayModeValue(UIColor.beamTableViewSeperatorColor(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
-        let seperatorHeight = 1/UIScreen.main.scale
+        let seperatorHeight = 1 / UIScreen.main.scale
         if self.showTopSeperator {
             
-            
             var xPosition: CGFloat = 0
-            if self.commentIndentationLevel-1 > 0 {
-                xPosition = (self.indentationLevelWidth * CGFloat(self.commentIndentationLevel-1))
+            if self.commentIndentationLevel - 1 > 0 {
+                xPosition = (self.indentationLevelWidth * CGFloat(self.commentIndentationLevel - 1))
             }
-            
             
             let rect = CGRect(x: xPosition, y: 0, width: self.bounds.width, height: seperatorHeight)
             let path = UIBezierPath(rect: rect)
@@ -114,7 +112,7 @@ class CommentCellContentView: BeamView {
         }
         
         if self.showBottomSeperator {
-            let rect = CGRect(x: 0, y:  self.bounds.maxY-seperatorHeight, width: self.bounds.width, height: seperatorHeight)
+            let rect = CGRect(x: 0, y: self.bounds.maxY - seperatorHeight, width: self.bounds.width, height: seperatorHeight)
             let path = UIBezierPath(rect: rect)
             seperatorColor.setFill()
             path.fill()

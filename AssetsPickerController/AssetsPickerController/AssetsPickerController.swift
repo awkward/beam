@@ -46,7 +46,7 @@ public class AssetsPickerController: NSObject {
             return self.cachedFetchOptions!
         }
         set {
-            self.cachedFetchOptions = newValue;
+            self.cachedFetchOptions = newValue
         }
     }
     
@@ -54,7 +54,7 @@ public class AssetsPickerController: NSObject {
     
     func createFetchOptions() {
         let fetchOptions = PHFetchOptions()
-        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false),NSSortDescriptor(key: "creationDate", ascending: false)]
+        fetchOptions.sortDescriptors = [NSSortDescriptor(key: "modificationDate", ascending: false), NSSortDescriptor(key: "creationDate", ascending: false)]
         
         var predicates = [NSPredicate]()
         
@@ -96,14 +96,11 @@ public class AssetsPickerController: NSObject {
         return navigationController
     }
     
-    
     open func createAlbumsViewController() -> UIViewController {
         let storyboard = UIStoryboard(name: "Interface", bundle: Bundle(for: AssetsPickerController.self))
         let albumsViewController = storyboard.instantiateViewController(withIdentifier: "albums-view") as! AlbumsViewController
         albumsViewController.assetsPickerController = self
         return albumsViewController
     }
-    
-
 
 }

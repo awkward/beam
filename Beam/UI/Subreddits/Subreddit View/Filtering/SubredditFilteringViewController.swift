@@ -38,9 +38,9 @@ class SubredditFilteringViewController: BeamViewController {
     
     fileprivate var filterKeywords: [String] {
         get {
-            if let filterKeywords: [String] = self.subreddit?.filterKeywords , self.filteringType == SubredditFilteringType.keywords {
+            if let filterKeywords: [String] = self.subreddit?.filterKeywords, self.filteringType == SubredditFilteringType.keywords {
                 return filterKeywords
-            } else if let filterSubreddits: [String] = self.subreddit?.filterSubreddits , self.filteringType == SubredditFilteringType.subreddits {
+            } else if let filterSubreddits: [String] = self.subreddit?.filterSubreddits, self.filteringType == SubredditFilteringType.subreddits {
                 return filterSubreddits
             } else {
                 return [String]()
@@ -66,7 +66,7 @@ class SubredditFilteringViewController: BeamViewController {
             self.buttonBar.items = [ButtonBarButton(title: NSLocalizedString("keywords-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false),
                                                            ButtonBarButton(title: NSLocalizedString("subreddits-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false)]
             self.toolbar.isHidden = false
-            self.tableView.contentInset = UIEdgeInsetsMake(44, 0, 0, 0)
+            self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         } else {
             self.toolbar.isHidden = true
             self.buttonBar.items = [ButtonBarButton(title: NSLocalizedString("keywords-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false)]
@@ -124,7 +124,7 @@ class SubredditFilteringViewController: BeamViewController {
     
     @objc fileprivate func keyboardWillChangeFrame(_ notification: Notification) {
         //We can only change the frame if we own the keyboard and the user info is available
-        guard let userInfo = (notification as NSNotification).userInfo, let isLocalKeyboard = userInfo[UIKeyboardIsLocalUserInfoKey] as? NSNumber , isLocalKeyboard == true else {
+        guard let userInfo = (notification as NSNotification).userInfo, let isLocalKeyboard = userInfo[UIKeyboardIsLocalUserInfoKey] as? NSNumber, isLocalKeyboard == true else {
             return
         }
         //We can only animate if the frame value is available
@@ -142,14 +142,13 @@ class SubredditFilteringViewController: BeamViewController {
         }
         
         //Calculate the height the keyboard is covering
-        let keyboardHeight = self.view.bounds.maxY-keyboardFrame.minY
+        let keyboardHeight = self.view.bounds.maxY - keyboardFrame.minY
         
         var insets: UIEdgeInsets = self.tableView.contentInset
         insets.bottom = keyboardHeight
         
         var scrollBarInsets: UIEdgeInsets = self.tableView.scrollIndicatorInsets
         scrollBarInsets.bottom = keyboardHeight
-        
         
         //Animate the doing the frame calculation of the view
         UIView.animate(withDuration: keyboardAnimationDuration, delay: 0, options: keyboardAnimationOptions, animations: {
@@ -212,14 +211,6 @@ extension SubredditFilteringViewController: UITableViewDataSource {
         }
         return true
     }
-    
-    
-}
-
-extension SubredditFilteringViewController: UITableViewDelegate {
-    
-    
-    
 }
 
 extension SubredditFilteringViewController: UITextFieldDelegate {
@@ -247,7 +238,7 @@ extension SubredditFilteringViewController: UITextFieldDelegate {
                 textField.text = ""
                 keywords.append(keyword)
                 self.filterKeywords = keywords
-                self.tableView.insertRows(at: [IndexPath(row: self.filterKeywords.count-1, section: 0)], with: UITableViewRowAnimation.automatic)
+                self.tableView.insertRows(at: [IndexPath(row: self.filterKeywords.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
             }
         }
         return false

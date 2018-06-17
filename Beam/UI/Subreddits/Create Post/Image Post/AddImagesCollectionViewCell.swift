@@ -37,13 +37,13 @@ class AddImagesIconView: BeamView {
         plusPath.addLine(to: CGPoint(x: 24, y: 11))
         plusPath.addLine(to: CGPoint(x: 13, y: 11))
         plusPath.close()
-        plusPath.usesEvenOddFillRule = true;
+        plusPath.usesEvenOddFillRule = true
         
         fillColor.setFill()
         plusPath.fill()
     }
 
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 24, height: 24)
     }
 }
@@ -55,7 +55,7 @@ class AddImagesCollectionViewCell: BeamCollectionViewCell {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        let backgroundColor = DisplayModeValue(UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0), darkValue: UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1.0))
+        let backgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         self.iconView.isOpaque = true
         self.iconView.backgroundColor = backgroundColor
         

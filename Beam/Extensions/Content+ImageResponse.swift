@@ -74,7 +74,6 @@ extension Content {
             mediaObject.contentURLString = contentURL.absoluteString
             mediaObject.identifier = spec.identifier
             
-            
             Content.insertImgurThumbnailsToMediaObject(mediaObject)
             Content.insertGfycatThumbnailsToMediaObject(mediaObject)
             
@@ -147,8 +146,7 @@ extension Content {
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
             if let string = object.contentURLString,
-                let url = URL(string: string)
-                , regex.firstMatch(in: string, options: [], range: NSMakeRange(0, (string as NSString).length)) != nil {
+                let url = URL(string: string), regex.firstMatch(in: string, options: [], range: NSMakeRange(0, (string as NSString).length)) != nil {
                 var pathExtension = url.pathExtension
                 
                 let pathWithoutExtension = (pathExtension as NSString).length > 0 ? url.path.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path
@@ -182,7 +180,7 @@ extension Content {
     }
     
     fileprivate class func insertGfycatThumbnailsToMediaObject(_ object: MediaObject) {
-        if let urlString = object.contentURLString, let url = URL(string: urlString), var urlComponents = URLComponents(string: urlString) , urlString.contains("gfycat.com") {
+        if let urlString = object.contentURLString, let url = URL(string: urlString), var urlComponents = URLComponents(string: urlString), urlString.contains("gfycat.com") {
             urlComponents.host = "thumbs.gfycat.com"
             urlComponents.scheme = "https"
             

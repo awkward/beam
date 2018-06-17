@@ -11,11 +11,11 @@ import UIKit
 //Subclass UIAlertController is not recommended if you change the view hierachy, but we don't
 class BeamAlertController: UIAlertController {
     
-    func addCloseAction(_ handler: ((_ action: UIAlertAction) -> ())? = nil) {
+    func addCloseAction(_ handler: ((_ action: UIAlertAction) -> Void)? = nil) {
         self.addAction(UIAlertAction(title: AWKLocalizedString("close-button"), style: UIAlertActionStyle.cancel, handler: handler))
     }
     
-    func addCancelAction(_ handler: ((_ action: UIAlertAction) -> ())? = nil) {
+    func addCancelAction(_ handler: ((_ action: UIAlertAction) -> Void)? = nil) {
         self.addAction(UIAlertAction(title: AWKLocalizedString("cancel-button"), style: UIAlertActionStyle.cancel, handler: handler))
     }
     

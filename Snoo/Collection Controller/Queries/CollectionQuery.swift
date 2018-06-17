@@ -59,12 +59,10 @@ open class CollectionQuery {
     }
     
     internal var compoundContentPredicate: NSCompoundPredicate? {
-        get {
-            if self.contentPredicates().count > 0 {
-                return NSCompoundPredicate(andPredicateWithSubpredicates: self.contentPredicates())
-            } else {
-                return nil
-            }
+        if self.contentPredicates().count > 0 {
+            return NSCompoundPredicate(andPredicateWithSubpredicates: self.contentPredicates())
+        } else {
+            return nil
         }
     }
     

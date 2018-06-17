@@ -27,7 +27,7 @@ class OutlinedButton: BeamButton {
             return self.layer.borderWidth > 0
         }
         set {
-            self.layer.borderWidth = newValue ? 1 : 0
+            self.layer.borderWidth = newValue ? 1: 0
         }
     }
 

@@ -28,7 +28,7 @@ class BlurredDimmingPresentationController: UIPresentationController {
         }
         
         let transitionCoordinator = self.presentingViewController.transitionCoordinator
-        transitionCoordinator?.animate(alongsideTransition: { (context: UIViewControllerTransitionCoordinatorContext) -> Void in
+        transitionCoordinator?.animate(alongsideTransition: { (_) -> Void in
             self.blurView.effect = UIBlurEffect(style: UIBlurEffectStyle.light)
             }, completion: nil)
     }
@@ -41,7 +41,7 @@ class BlurredDimmingPresentationController: UIPresentationController {
     
     override func dismissalTransitionWillBegin() {
         let transitionCoordinator = self.presentingViewController.transitionCoordinator
-        transitionCoordinator?.animate(alongsideTransition: { (context: UIViewControllerTransitionCoordinatorContext) -> Void in
+        transitionCoordinator?.animate(alongsideTransition: { (_) -> Void in
             self.blurView.effect = nil
             }, completion: nil)
     }
@@ -52,16 +52,16 @@ class BlurredDimmingPresentationController: UIPresentationController {
         }
     }
     
-    override var frameOfPresentedViewInContainerView : CGRect {
+    override var frameOfPresentedViewInContainerView: CGRect {
         // As the StoreViewController is a collection view controller, the background should be clear. Therefore the frame of the presented view controller can just be fullscreen. Whenever this changes in the future, a custom frame should be set here.
         return super.frameOfPresentedViewInContainerView
     }
     
-    override var shouldPresentInFullscreen : Bool {
+    override var shouldPresentInFullscreen: Bool {
         return true
     }
     
-    override var shouldRemovePresentersView : Bool {
+    override var shouldRemovePresentersView: Bool {
         return false
     }
 

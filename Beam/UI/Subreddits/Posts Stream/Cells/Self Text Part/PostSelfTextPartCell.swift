@@ -65,11 +65,10 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
     }
     
     func reloadContents() {
-        self.contentLabel.numberOfLines = self.showsSummary ? 3 : 0
+        self.contentLabel.numberOfLines = self.showsSummary ? 3: 0
         
         var showReadAll = true
 
-        
         if self.post?.isContentSpoiler.boolValue == true && self.shouldShowSpoilerOverlay && !self.onDetailView {
             self.contentLabel.isHidden = true
             self.contentLabelHeightConstraint.isActive = true
@@ -140,15 +139,15 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
         self.contentLabel.setText(post?.markdownString?.attributedStringWithStylesheet(self.contentStylesheet))
         self.readAllLabel.textColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
         
-        var containerBackgroundColor = DisplayModeValue(UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0), darkValue: UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1.0))
+        var containerBackgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         if self.isHighlighted || self.isSelected {
-            containerBackgroundColor = DisplayModeValue(UIColor(red:0.9, green:0.9, blue:0.9, alpha:1), darkValue: UIColor(red:0.23, green:0.23, blue:0.23, alpha:1))
+            containerBackgroundColor = DisplayModeValue(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), darkValue: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
         }
         self.spoilerOverlay.backgroundColor = containerBackgroundColor
         self.spoilerOverlayTextLabel.backgroundColor = containerBackgroundColor
         self.spoilerOverlayTextLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         
-        self.spoilerOverlay.layer.borderColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1)).cgColor
+        self.spoilerOverlay.layer.borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1)).cgColor
         
         if !self.spoilerOverlay.isHidden {
             self.selectedBackgroundView?.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())

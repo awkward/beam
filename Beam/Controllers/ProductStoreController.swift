@@ -27,7 +27,7 @@ final class ProductStoreController: NSObject {
     
     fileprivate var productsRequest: SKProductsRequest?
 
-    //MARK: - Donation Products 
+    // MARK: - Donation Products
     
     let donationProductIdentifiers = ["beamdonationtier1", "beamdonationtier2", "beamdonationtier3", "beamdonationtier4"]
     
@@ -90,7 +90,7 @@ extension ProductStoreController: SKPaymentTransactionObserver {
                         properties["Price locale"] = product.priceLocale.identifier as AnyObject?
                         properties["Local price"] = product.price
                     }
-                    Trekker.default.track(event: TrekkerEvent(event: "Product purchase",properties: properties))
+                    Trekker.default.track(event: TrekkerEvent(event: "Product purchase", properties: properties))
                 }
                 SKPaymentQueue.default().finishTransaction(transaction)
             } else if transaction.transactionState == SKPaymentTransactionState.failed {

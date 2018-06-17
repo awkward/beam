@@ -30,7 +30,7 @@ class BeamTableViewController: UITableViewController, DynamicDisplayModeView, No
     func displayModeDidChange() {
         switch displayMode {
         case .default:
-            view.backgroundColor = self.tableView.style == UITableViewStyle.grouped ? UIColor.groupTableViewBackground : UIColor.white
+            view.backgroundColor = self.tableView.style == UITableViewStyle.grouped ? UIColor.groupTableViewBackground: UIColor.white
             tableView.separatorColor = UIColor.beamTableViewSeperatorColor()
             tableView.sectionIndexBackgroundColor = UIColor.beamBarColor()
             tableView.sectionIndexColor = UIColor.beamColor()
@@ -44,11 +44,11 @@ class BeamTableViewController: UITableViewController, DynamicDisplayModeView, No
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return displayMode == .dark ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
             return .all
         }

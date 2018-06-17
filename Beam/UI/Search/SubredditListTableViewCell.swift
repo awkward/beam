@@ -20,8 +20,6 @@ class SubredditListTableViewCell: BeamTableViewCell {
             }
             self.textLabel?.attributedText = self.attributedTitle
             self.textLabel?.numberOfLines = self.subreddit == nil ? 1 : 2
-            
-            
         }
     }
     
@@ -37,8 +35,8 @@ class SubredditListTableViewCell: BeamTableViewCell {
         let title = NSMutableAttributedString()
         
         if let titleString = self.subreddit?.displayName {
-            let titleColor = self.displayMode == .dark ? UIColor.white : UIColor.black
-            title.append(NSAttributedString(string: titleString,attributes: [NSAttributedStringKey.foregroundColor: titleColor]))
+            let titleColor = self.displayMode == .dark ? UIColor.white: UIColor.black
+            title.append(NSAttributedString(string: titleString, attributes: [NSAttributedStringKey.foregroundColor: titleColor]))
         }
         
         let subtitleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8)

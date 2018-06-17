@@ -35,13 +35,13 @@ class AboutTableViewCell: BeamTableViewCell {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        self.iconImageView.tintColor = UIColor(red:0.71, green:0.71, blue:0.71, alpha:1)
+        self.iconImageView.tintColor = UIColor(red: 0.71, green: 0.71, blue: 0.71, alpha: 1)
         
         switch self.displayMode {
         case .default:
             self.titleLabel?.textColor = UIColor.beamGreyExtraDark()
         case .dark:
-            self.titleLabel?.textColor = UIColor(red: 217/255.0, green: 217/255.0, blue: 217/255.0, alpha: 1)
+            self.titleLabel?.textColor = UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)
 
         }
     }

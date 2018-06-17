@@ -22,7 +22,7 @@ extension SyncObject {
             let url = URL(string: "/api/report", relativeTo: request.baseURL as URL)!
             var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true)!
             
-            var queryItems = [URLQueryItem(name: "api_type", value: "json"),URLQueryItem(name: "thing_id", value: self.objectName),URLQueryItem(name: "reason", value: reason.rawValue)]
+            var queryItems = [URLQueryItem(name: "api_type", value: "json"), URLQueryItem(name: "thing_id", value: self.objectName), URLQueryItem(name: "reason", value: reason.rawValue)]
             if let otherReason = otherReason {
                 queryItems.append(URLQueryItem(name: "other_reason", value: otherReason))
             }

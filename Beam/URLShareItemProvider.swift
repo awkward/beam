@@ -29,7 +29,6 @@ final class URLShareItemProvider: UIActivityItemProvider {
         super.init(placeholderItem: redditUrl)
     }
 
-    
     override var item: Any {
         return self.redditUrl
     }

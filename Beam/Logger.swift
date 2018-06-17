@@ -16,10 +16,14 @@ enum AWKLogLevel: Int {
     
     func description() -> String {
         switch self {
-        case .trace: return "Trace"
-        case .debug: return "Debug"
-        case .warning: return "Warning"
-        case .error: return "Error"
+        case .trace:
+            return "Trace"
+        case .debug:
+            return "Debug"
+        case .warning:
+            return "Warning"
+        case .error:
+            return "Error"
         }
     }
     

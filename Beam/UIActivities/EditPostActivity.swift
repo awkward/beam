@@ -15,11 +15,11 @@ final class EditPostActivity: CustomObjectActivity<Post> {
         return UIActivityType(rawValue: "com.madeawkward.beam.edit-post")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("edit-post-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "edit_post_activity_icon")
     }
     

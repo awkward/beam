@@ -14,7 +14,7 @@ class PostMediaOverviewCollectionViewCell: MediaOverviewCollectionViewCell {
         super.displayModeDidChange()
         
         self.mediaImageView.isOpaque = true
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red:0.96, green:0.96, blue:0.96, alpha:1), darkValue: UIColor(red:0.17, green:0.17, blue:0.17, alpha:1))
-        //self.progressView.color = displayMode == .Dark ?  UIColor.white : UIColor.beamGreyExtraLight()
+        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1), darkValue: UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1))
+        //self.progressView.color = displayMode == .Dark ?  UIColor.white: UIColor.beamGreyExtraLight()
     }
 }

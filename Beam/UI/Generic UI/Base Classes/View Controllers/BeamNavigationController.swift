@@ -137,7 +137,7 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         case .dark:
             view.backgroundColor = UIColor.beamDarkBackgroundColor()
             
-            titleAttributes[NSAttributedStringKey.foregroundColor] = UIColor(red: 245/255.0, green: 245/255.0, blue: 247/255.0, alpha: 1)
+            titleAttributes[NSAttributedStringKey.foregroundColor] = UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 247 / 255.0, alpha: 1)
         }
         
         self.navigationBar.barTintColor = DisplayModeValue(UIColor.beamBarColor(), darkValue: UIColor.beamDarkContentBackgroundColor())
@@ -149,22 +149,22 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return displayMode == .dark ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if let supported = self.topViewController?.supportedInterfaceOrientations {
             return supported
         } else {
-            guard UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad else{
+            guard UIDevice.current.userInterfaceIdiom != UIUserInterfaceIdiom.pad else {
                 return.all
             }
             return .portrait
         }
     }
     
-    override var shouldAutorotate : Bool {
+    override var shouldAutorotate: Bool {
         return self.topViewController?.shouldAutorotate ?? true
     }
     

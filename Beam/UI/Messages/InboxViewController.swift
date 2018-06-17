@@ -33,7 +33,6 @@ class InboxViewController: BeamViewController {
         }
     }
     
-    
     /// To make sure the "View inbox" event is only tracked once upon viewDidAppear.
     var viewInboxEventTracked: Bool = false
     
@@ -115,8 +114,6 @@ class InboxViewController: BeamViewController {
             }
             
             self.buttonBar.items = [ButtonBarButton(title: AWKLocalizedString("notifications"), showsBadge: unreadNotifications), ButtonBarButton(title: AWKLocalizedString("inbox"), showsBadge: unreadMessages), ButtonBarButton(title: AWKLocalizedString("sent"), showsBadge: false)]
-            
-            
         } catch {
             
         }
@@ -141,12 +138,11 @@ class InboxViewController: BeamViewController {
             }
         }
 
-        
     }
     
     @objc fileprivate func markAllMessagesAsReadTapped(_ sender: UIBarButtonItem) {
         let alertController = UIAlertController(title: nil, message: NSLocalizedString("mark-all-messages-as-read-alert-message", comment: "The message on the alert to ask if you are you you want to mark all messages as read"), preferredStyle: .actionSheet)
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("mark-as-read-action-title", comment: "The title of the mark as read action")  , style: .default, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("mark-as-read-action-title", comment: "The title of the mark as read action"), style: .default, handler: { (_) in
             self.navigationItem.rightBarButtonItem?.isEnabled = false
             self.isMarkingMessagesAsRead = true
             let operation = Message.markAllAsReadOperation(authenticationController: AppDelegate.shared.authenticationController, managedObjectContext: AppDelegate.shared.managedObjectContext)
@@ -189,8 +185,8 @@ extension InboxViewController: MessagesViewControllerDelegate {
 
 extension InboxViewController: NavigationBarNotificationDisplayingDelegate {
     
-    func topViewForDisplayOfnotificationView<NotificationView : UIView>(_ view: NotificationView) -> UIView? where NotificationView : NavigationBarNotification {
-        return self.buttonBar.superview;
+    func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
+        return self.buttonBar.superview
     }
 }
 
@@ -202,5 +198,3 @@ extension InboxViewController: UIToolbarDelegate {
     }
     
 }
-
-

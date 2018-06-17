@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class ImgurImage: ImgurObject{
+open class ImgurImage: ImgurObject {
 
     fileprivate var privateImageURL: Foundation.URL?
     open var imageURL: Foundation.URL {

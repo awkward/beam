@@ -75,7 +75,7 @@ final class SubredditPreviewView: BeamView {
             self.rightAnchor.constraint(equalTo: self.imageView.rightAnchor),
             
             self.label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)

@@ -15,7 +15,7 @@ enum PasscodeAction {
     case change
 }
 
-protocol EnterPasscodeViewControllerDelegate {
+protocol EnterPasscodeViewControllerDelegate: class {
     
     func passcodeViewController(_ viewController: EnterPasscodeViewController, didCreateNewPasscode passcode: String)
     func passcodeViewController(_ viewController: EnterPasscodeViewController, didEnterPasscode passcode: String) -> Bool
@@ -36,7 +36,7 @@ class EnterPasscodeViewController: BeamViewController {
     var passcodeLength: Int = 4
     
     //Delegate
-    var delegate: EnterPasscodeViewControllerDelegate!
+    weak var delegate: EnterPasscodeViewControllerDelegate!
     
     //Function and steps
     var action = PasscodeAction.check
@@ -75,7 +75,7 @@ class EnterPasscodeViewController: BeamViewController {
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EnterPasscodeViewController.cancelTapped(_:)))
     }
     
-    //MARK: - UI Updates
+    // MARK: - UI Updates
     
     fileprivate func updateIndicatorsTintColor(_ color: UIColor?) {
         guard self.passcodeIndicators != nil else {
@@ -109,12 +109,12 @@ class EnterPasscodeViewController: BeamViewController {
         let length = self.enteredString?.count ?? 0
         var index = 0
         for indicator in self.passcodeIndicators!.sorted( by: { $0.tag < $1.tag }) {
-            indicator.filled = index < length ? true : false
+            indicator.filled = index < length ? true: false
             index += 1
         }
     }
     
-    //MARK: - Reset 
+    // MARK: - Reset
     
     func reset() {
         //Reset most of the variable to there defaults here
@@ -127,7 +127,7 @@ class EnterPasscodeViewController: BeamViewController {
         self.updateTitle()
     }
     
-    //MARK: - Interface builder actions
+    // MARK: - Interface builder actions
     
     @IBAction func numberTapped(_ button: PasscodeButton) {
         self.addNumberToEnteredString(button.number)
@@ -141,7 +141,7 @@ class EnterPasscodeViewController: BeamViewController {
         self.delegate.passcodeViewControllerDidCancel(self)
     }
     
-    //MARK: - Entered string manipulation
+    // MARK: - Entered string manipulation
     
     fileprivate func addNumberToEnteredString(_ number: Int) {
         self.enteredString = "\(self.enteredString ?? "")\(number)"
@@ -160,12 +160,12 @@ class EnterPasscodeViewController: BeamViewController {
         self.updateIndicators()
     }
     
-    //MARK: - Passcode checks
+    // MARK: - Passcode checks
     
     fileprivate func checkString() {
         if self.action == PasscodeAction.check {
             if self.enteredString != nil && self.enteredString?.count == self.passcodeLength {
-                if !self.delegate.passcodeViewController(self, didEnterPasscode: self.enteredString!){
+                if !self.delegate.passcodeViewController(self, didEnterPasscode: self.enteredString!) {
                     //Show try again error
                     self.showPasscodeIncorrectError()
                 }
@@ -187,7 +187,7 @@ class EnterPasscodeViewController: BeamViewController {
             }
         } else if self.action == PasscodeAction.change {
             if self.enteredString != nil && self.enteredString?.count == self.passcodeLength && self.step == EnterPasscodeViewControllerStep.enter {
-                if !self.delegate.passcodeViewController(self, didEnterPasscode: self.enteredString!){
+                if !self.delegate.passcodeViewController(self, didEnterPasscode: self.enteredString!) {
                     //Show try again error
                     self.showPasscodeIncorrectError()
                 } else {
@@ -229,7 +229,7 @@ class EnterPasscodeViewController: BeamViewController {
         self.updateIndicators()
     }
     
-    //MARK: - Display Mode
+    // MARK: - Display Mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -245,12 +245,11 @@ class EnterPasscodeViewController: BeamViewController {
 extension EnterPasscodeViewController: BeamModalPresentation {
 
     var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return (self is StartEnterPasscodeViewController) ? BeamModalPresentationStyle.custom : BeamModalPresentationStyle.formsheet
+        return (self is StartEnterPasscodeViewController) ? BeamModalPresentationStyle.custom: BeamModalPresentationStyle.formsheet
     }
 }
 
-
-//MARK: - PasscodeKeyboardDelegat
+// MARK: - PasscodeKeyboardDelegat
 extension EnterPasscodeViewController: PasscodeKeyboardDelegate {
     
     func keyboard(_ keyboard: PasscodeKeyboard, didPressNumber number: Int) {

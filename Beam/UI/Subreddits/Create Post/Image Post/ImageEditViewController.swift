@@ -17,12 +17,12 @@ final class ImageEditBottomview: BeamView {
     }
     
     override func draw(_ rect: CGRect) {
-        let seperatorColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
-        let topSeperatorPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: 1/UIScreen.main.scale))
+        let seperatorColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        let topSeperatorPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: 1 / UIScreen.main.scale))
         seperatorColor.setFill()
         topSeperatorPath.fill()
         
-        let middleSeperatorPath = UIBezierPath(rect: CGRect(x: self.layoutMargins.left, y: 48, width: rect.width-self.layoutMargins.left, height: 1/UIScreen.main.scale))
+        let middleSeperatorPath = UIBezierPath(rect: CGRect(x: self.layoutMargins.left, y: 48, width: rect.width - self.layoutMargins.left, height: 1 / UIScreen.main.scale))
         seperatorColor.setFill()
         middleSeperatorPath.fill()
     }
@@ -41,7 +41,7 @@ protocol ImageEditViewControllerDelegate: class {
 
 class ImageEditViewController: BeamViewController {
     
-    var delegate: ImageEditViewControllerDelegate?
+    weak var delegate: ImageEditViewControllerDelegate?
     var allImages: [ImageAsset]?
     var currentImage: ImageAsset? {
         set {
@@ -108,7 +108,7 @@ class ImageEditViewController: BeamViewController {
         if let currentImage = self.currentImage, let delegate = self.delegate {
             let alertController = BeamAlertController(title: AWKLocalizedString("remove-this-image"), message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
             alertController.addCancelAction()
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("remove-button"), style: UIAlertActionStyle.destructive, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("remove-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
                 delegate.editViewController(self, didTapRemoveOnImage: currentImage)
                 self.dismiss(animated: true, completion: nil)
             }))
@@ -128,7 +128,7 @@ class ImageEditViewController: BeamViewController {
         if (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize != self.collectionView.frame.size {
             self.updateCollectionViewLayout()
             //Scroll to current item
-            if let currentImage = self.currentImage, let index = self.allImages?.index(of: currentImage) , self.scrolledToCurrentItem == false {
+            if let currentImage = self.currentImage, let index = self.allImages?.index(of: currentImage), self.scrolledToCurrentItem == false {
                 self.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionViewScrollPosition.centeredHorizontally, animated: false)
                 self.scrolledToCurrentItem = true
             }
@@ -189,10 +189,10 @@ class ImageEditViewController: BeamViewController {
         }
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
             //ANIMATE
-            let bottomInset: CGFloat = self.view.bounds.height-frame.minY
+            let bottomInset: CGFloat = self.view.bounds.height - frame.minY
             self.bottomViewBottomConstraint?.constant = bottomInset
             self.view.layoutIfNeeded()
-        }) { (finished) in
+        }) { (_) in
             //Complete
         }
     }
@@ -226,7 +226,7 @@ extension ImageEditViewController: UIScrollViewDelegate {
             return
         }
         let pageWidth: CGFloat = self.collectionView.frame.width
-        let index = Int(floor((self.collectionView.contentOffset.x-(pageWidth/2))/pageWidth))+1
+        let index = Int(floor((self.collectionView.contentOffset.x - (pageWidth / 2)) / pageWidth)) + 1
         guard let images = self.allImages, index >= 0 && index < images.count && images.count > 0 else {
             return
         }
@@ -263,5 +263,3 @@ extension ImageEditViewController: UITextViewDelegate {
         self.sizeTextView()
     }
 }
-
-

@@ -237,7 +237,7 @@ extension ImgurGalleryAlbumContentViewController: UIViewControllerPreviewingDele
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true;
+            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
             self.presentGalleryViewController(galleryViewController, sourceView: nil)
         }
     }

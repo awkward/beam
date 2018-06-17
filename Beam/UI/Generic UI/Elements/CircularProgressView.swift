@@ -12,15 +12,14 @@ import CoreGraphics
 @IBDesignable
 class CircularProgressView: UIView {
     
-    
     fileprivate var animatingLayer = CAShapeLayer()
     fileprivate var lastSourceAngle: CGFloat = 0.0
     fileprivate var currentPaths: [CGPath] = []
-    fileprivate var animationDuration:TimeInterval = 0.32
-    fileprivate var radius:CGFloat {
+    fileprivate var animationDuration: TimeInterval = 0.32
+    fileprivate var radius: CGFloat {
         get {
             let width = (fmin(self.bounds.width, self.bounds.height) / 2)
-            return width-self.borderWidth
+            return width - self.borderWidth
         }
         set {
             //Can't be set!
@@ -35,7 +34,7 @@ class CircularProgressView: UIView {
     
     var color: UIColor = UIColor.gray {
         didSet {
-            self.animatingLayer.fillColor = self.color.cgColor;
+            self.animatingLayer.fillColor = self.color.cgColor
         }
         
     }
@@ -58,22 +57,20 @@ class CircularProgressView: UIView {
         path.addArc(withCenter: CGPoint(x: self.bounds.midX, y: self.bounds.midY), radius: self.radius, startAngle: 0, endAngle: 2 * CGFloat.pi, clockwise: false)
         self.color.setStroke()
         path.stroke()
-        
-        
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         self.backgroundColor = UIColor.clear
         self.isOpaque = false
-        self.animatingLayer.fillColor = self.color.cgColor;
+        self.animatingLayer.fillColor = self.color.cgColor
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         self.backgroundColor = UIColor.clear
         self.isOpaque = false
-        self.animatingLayer.fillColor = self.color.cgColor;
+        self.animatingLayer.fillColor = self.color.cgColor
     }
     
     fileprivate func configureIndicator() {
@@ -82,7 +79,7 @@ class CircularProgressView: UIView {
         let initialPath = UIBezierPath()
         initialPath.addArc(withCenter: center, radius: self.radius, startAngle: degreeToRadian(-90), endAngle: self.degreeToRadian(-90), clockwise: true)
         self.animatingLayer.path = initialPath.cgPath
-        self.animatingLayer.fillColor = self.color.cgColor;
+        self.animatingLayer.fillColor = self.color.cgColor
         self.lastSourceAngle = self.degreeToRadian(-90)
         
         self.updateWithProgress(self.progress)
@@ -96,7 +93,7 @@ class CircularProgressView: UIView {
     fileprivate func keyframePathsWithDuration(_ duration: TimeInterval, lastUpdatedAngle: CGFloat, newAngle: CGFloat, radius: CGFloat) -> [CGPath] {
         let frameCount = Int(ceil(duration * 60))
         var array: [CGPath] = []
-        for frame in 0...frameCount+1 {
+        for frame in 0...frameCount + 1 {
             let startAngle = self.degreeToRadian(-90)
             
             let angleChange = ((newAngle - lastUpdatedAngle) * CGFloat(frame))
@@ -107,7 +104,7 @@ class CircularProgressView: UIView {
         return array
     }
     
-    fileprivate func pathWithStartAngle(_ startAngle: CGFloat,  endAngle: CGFloat, radius: CGFloat) -> UIBezierPath {
+    fileprivate func pathWithStartAngle(_ startAngle: CGFloat, endAngle: CGFloat, radius: CGFloat) -> UIBezierPath {
         let clockwise = startAngle < endAngle
         let path = UIBezierPath()
         let center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
@@ -119,14 +116,14 @@ class CircularProgressView: UIView {
     }
     
     fileprivate func degreeToRadian(_ degree: CGFloat) -> CGFloat {
-        return (degree * CGFloat.pi) / 180.0;
+        return (degree * CGFloat.pi) / 180.0
     }
     
     fileprivate func destinationAngleForRatio(_ ratio: CGFloat) -> CGFloat {
         return (self.degreeToRadian((360 * ratio) - 90))
     }
     
-    fileprivate func updateWithProgress(_ progress:CGFloat) {
+    fileprivate func updateWithProgress(_ progress: CGFloat) {
         self.currentPaths.removeAll(keepingCapacity: false)
         let destinationAngle: CGFloat = self.destinationAngleForRatio(progress)
         self.currentPaths = self.keyframePathsWithDuration(self.animationDuration, lastUpdatedAngle: self.lastSourceAngle, newAngle: destinationAngle, radius: self.radius)
@@ -140,7 +137,7 @@ class CircularProgressView: UIView {
         animatingLayer.add(pathAnimation, forKey: "path")
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 20, height: 20)
     }
     

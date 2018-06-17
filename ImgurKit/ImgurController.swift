@@ -35,7 +35,7 @@ public class ImgurController: NSObject {
         return true
     }
     
-    open func executeRequests(_ requests: [ImgurRequest], uploadProgressHandler: ((_ requestNumber: Int, _ totalProgress: CGFloat) -> ())?, completionHandler: @escaping ((_ error: NSError?) -> ())) {
+    open func executeRequests(_ requests: [ImgurRequest], uploadProgressHandler: ((_ requestNumber: Int, _ totalProgress: CGFloat) -> Void)?, completionHandler: @escaping ((_ error: NSError?) -> Void)) {
        
         self.requestExecutionHandlerQueue.async {
             for request in requests {
@@ -49,7 +49,7 @@ public class ImgurController: NSObject {
                         for request in requests {
                             totalProgress += request.uploadProgress
                         }
-                        totalProgress = totalProgress/CGFloat(requests.count)
+                        totalProgress /= CGFloat(requests.count)
                         uploadProgressHandler!(requestNumber, totalProgress)
                     }
                 }

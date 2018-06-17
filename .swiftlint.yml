@@ -1,0 +1,59 @@
+disabled_rules: # Rule identifiers to exclude from running
+  - line_length # Documentation can exceed line lengths
+  - identifier_name
+  #temporary exclusions
+  - cyclomatic_complexity
+  - function_body_length 
+  - type_body_length
+  - file_length
+  - force_cast
+  - force_unwrapping
+  - object_literal
+  - empty_count
+  - force_try
+  - private_outlet
+  - valid_ibinspectable
+  #end temporary exclusions
+opt_in_rules:
+  #- empty_count
+  #- force_unwrapping
+  - explicit_init
+  - first_where
+  #- object_literal
+  - operator_usage_whitespace
+  - overridden_super_call
+  - private_outlet
+  - prohibited_super_call
+  - redundant_nil_coalescing
+  - switch_case_on_newline
+force_cast: error
+force_try: error
+force_unwrapping: 
+  severity: error
+operator_usage_whitespace: error
+syntactic_sugar: error
+trailing_comma: 
+  severity: error
+trailing_newline: error
+trailing_semicolon: error
+trailing_whitespace: error
+unused_closure_parameter: error
+unused_optional_binding: 
+  severity: error
+vertical_whitespace: 
+  severity: error
+
+object_literal:
+  color_literal: false
+trailing_whitespace:
+  ignores_empty_lines: true # This is such a hassle to do right and adds nothing
+
+excluded:
+  - ${SRCROOT}/SDWebImage
+  - ${SRCROOT}/TTTAttributedLabel
+  - ${SRCROOT}/Mixpanel
+  - ${SRCROOT}/Trekker
+  - ${SRCROOT}/Ocarina
+  - ${SRCROOT}/AssetPickerController
+  - ${SRCROOT}/AWKGallery
+  - ${SRCROOT}/JLRoutes

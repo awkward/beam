@@ -31,7 +31,7 @@ protocol MediaCellMediaLabels {
 
 extension MediaCellMediaLabels {
     
-    //MARK: - Media label
+    // MARK: - Media label
     
     func reloadMediaLabels() {
         if let mediaLabelImageViews = self.mediaLabelImageViews {
@@ -75,9 +75,9 @@ extension MediaCellMediaLabels {
                 }
                 
             }
-            let spacing: CGFloat = 4;
-            var xPosition = superView.bounds.width-superView.layoutMargins.right
-            let yPosition = superView.bounds.minX+superView.layoutMargins.top
+            let spacing: CGFloat = 4
+            var xPosition = superView.bounds.width - superView.layoutMargins.right
+            let yPosition = superView.bounds.minX + superView.layoutMargins.top
             for imageView in imageViews {
                 if imageView.image != nil {
                     imageView.isHidden = false
@@ -98,7 +98,7 @@ extension MediaCellMediaLabels {
         return false
     }
     
-    //MARK: - Content flags
+    // MARK: - Content flags
     
     var contentIsNSFW: Bool {
         if let galleryItem = self.mediaObject?.galleryItem {

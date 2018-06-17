@@ -23,7 +23,7 @@ open class RedditMessageComposeRequest: RedditRequest {
     
     override open var urlRequest: URLRequest? {
         get {
-            guard let url =  URL(string: "/api/compose", relativeTo: self.oauthBaseURL as URL),
+            guard let url = URL(string: "/api/compose", relativeTo: self.oauthBaseURL as URL),
                 var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {
                     return nil
             }

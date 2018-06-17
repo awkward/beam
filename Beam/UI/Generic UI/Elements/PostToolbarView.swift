@@ -24,7 +24,7 @@ protocol PostToolbarViewDelegate: class {
     
 }
 
-extension PostToolbarViewDelegate where Self : UIViewController {
+extension PostToolbarViewDelegate where Self: UIViewController {
     
     func postToolbarView(_ toolbarView: PostToolbarView, didTapUpvoteOnPost post: Post) {
         if post.voteStatus?.intValue != VoteStatus.up.rawValue {
@@ -44,7 +44,7 @@ extension PostToolbarViewDelegate where Self : UIViewController {
     
     func postToolbarView(_ toolbarView: PostToolbarView, didTapCommentsOnPost post: Post) {
         guard !(self is PostDetailEmbeddedViewController) || self.shownInGallery() else {
-            return 
+            return
         }
         Trekker.default.track(event: TrekkerEvent(event: "Open comments"))
         
@@ -80,7 +80,7 @@ extension PostToolbarViewDelegate where Self : UIViewController {
         let activityViewController = ShareActivityViewController(object: post)
         activityViewController.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) -> Void in
             if completed {
-                Trekker.default.track(event: TrekkerEvent(event: "Share post",properties: [
+                Trekker.default.track(event: TrekkerEvent(event: "Share post", properties: [
                     "Activity type": activityType?.rawValue ?? "Unknown",
                     "Used reddit link": NSNumber(value: true)
                     ]))
@@ -92,7 +92,7 @@ extension PostToolbarViewDelegate where Self : UIViewController {
     
     fileprivate func vote(_ status: VoteStatus, forPost post: Post, toolbarView: PostToolbarView) {
         guard AppDelegate.shared.authenticationController.isAuthenticated else {
-            let alertController = UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.VotePost);
+            let alertController = UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.VotePost)
             self.modallyPresentToolBarActionViewController(alertController, toolbarView: toolbarView)
             return
         }
@@ -217,30 +217,30 @@ class PostToolbarView: BeamView {
     fileprivate let commentsButton: BeamPlainButton = {
         let button = BeamPlainButton(frame: CGRect())
         button.setImage(UIImage(named: "actionbar_comments"), for: UIControlState())
-        button.setTitle("comments",for: UIControlState())
+        button.setTitle("comments", for: UIControlState())
         return button
     }()
     
     fileprivate let pointsButton: BeamPlainButton = {
         let button = BeamPlainButton(frame: CGRect())
         button.setImage(UIImage(named: "actionbar_points"), for: UIControlState())
-        button.setTitle("points",for: UIControlState())
+        button.setTitle("points", for: UIControlState())
         return button
     }()
     
     fileprivate let moreButton: UIButton = {
-        let button =  UIButton(type: .system)
+        let button = UIButton(type: .system)
         button.setImage(UIImage(named: "actionbar_more"), for: UIControlState())
         return button
     }()
     
-    fileprivate let upvoteButton:VoteButton = {
+    fileprivate let upvoteButton: VoteButton = {
         let voteButton = VoteButton()
         voteButton.arrowDirection = .up
         return voteButton
     }()
     
-    fileprivate let downvoteButton:VoteButton = {
+    fileprivate let downvoteButton: VoteButton = {
         let voteButton = VoteButton()
         voteButton.arrowDirection = .down
         return voteButton
@@ -300,7 +300,7 @@ class PostToolbarView: BeamView {
         guard let score = self.post?.score else {
             return "0"
         }
-        let floatValue = score.floatValue/1000
+        let floatValue = score.floatValue / 1000
         if floatValue >= 100 {
             return String(format: "%.0fk", floatValue)
         } else if floatValue >= 10 {
@@ -310,19 +310,19 @@ class PostToolbarView: BeamView {
         }
     }
     
-    
-    //MARK: - Convenience 
+    // MARK: - Convenience
     
     fileprivate func configureLabeledButton(_ button: UIButton) {
         let font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.medium)
-        let insetAmount: CGFloat = 2.0;
-        button.imageEdgeInsets = UIEdgeInsetsMake(0, -insetAmount, 0, insetAmount);
-        button.titleEdgeInsets = UIEdgeInsetsMake(0, insetAmount, 0, -insetAmount);
-        button.contentEdgeInsets = UIEdgeInsetsMake(0, insetAmount, 0, insetAmount);
+        let insetAmount: CGFloat = 2.0
+        
+        button.imageEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
+        button.titleEdgeInsets = UIEdgeInsets(top: 0, left: insetAmount, bottom: 0, right: -insetAmount)
+        button.contentEdgeInsets = UIEdgeInsets(top: 0, left: -insetAmount, bottom: 0, right: insetAmount)
         button.titleLabel?.font = font
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @objc func viewComments(_ sender: UIButton?) {
         if let post = self.post {
@@ -343,7 +343,7 @@ class PostToolbarView: BeamView {
     }
     
     @objc func upvote(_ sender: UIButton?) {
-        if let post = self.post , !self.upvoteButton.animating && !self.downvoteButton.animating {
+        if let post = self.post, !self.upvoteButton.animating && !self.downvoteButton.animating {
             self.delegate?.postToolbarView(self, didTapUpvoteOnPost: post)
             self.upvoteButton.setVoted(self.post?.voteStatus?.intValue == VoteStatus.up.rawValue, animated: true)
             self.downvoteButton.setVoted(self.post?.voteStatus?.intValue == VoteStatus.down.rawValue, animated: true)
@@ -351,14 +351,14 @@ class PostToolbarView: BeamView {
     }
     
     @objc func downvote(_ sender: UIButton?) {
-        if let post = self.post , !self.upvoteButton.animating && !self.downvoteButton.animating{
+        if let post = self.post, !self.upvoteButton.animating && !self.downvoteButton.animating {
             self.delegate?.postToolbarView(self, didTapDownvoteOnPost: post)
             self.downvoteButton.setVoted(self.post?.voteStatus?.intValue == VoteStatus.down.rawValue, animated: true)
             self.upvoteButton.setVoted(self.post?.voteStatus?.intValue == VoteStatus.up.rawValue, animated: true)
         }
     }
     
-    //MARK: - Drawing
+    // MARK: - Drawing
     
     override func draw(_ rect: CGRect) {
         if self.shouldShowSeperator {
@@ -372,12 +372,12 @@ class PostToolbarView: BeamView {
         }
     }
     
-    //MARK: - Display mode
+    // MARK: - Display mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        let tintColor = DisplayModeValue(UIColor(red: 170/255.0, green: 168/255.0, blue: 179/255.0, alpha: 1), darkValue: UIColor(red: 153/255.0, green: 153/255.0, blue: 153/255.0, alpha: 1))
+        let tintColor = DisplayModeValue(UIColor(red: 170 / 255.0, green: 168 / 255.0, blue: 179 / 255.0, alpha: 1), darkValue: UIColor(red: 153 / 255.0, green: 153 / 255.0, blue: 153 / 255.0, alpha: 1))
         if self.tintColor != tintColor {
             self.tintColor = tintColor
         }
@@ -444,7 +444,7 @@ class PostToolbarView: BeamView {
         }
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -456,7 +456,7 @@ class PostToolbarView: BeamView {
     func layoutLeftSideButtons() {
         let buttonSpacing: CGFloat = 10.0
         //Remove 2 because of the top border
-        let barHeight = self.bounds.height-2
+        let barHeight = self.bounds.height - 2
         
         var xPosition = self.layoutMargins.left
         //Because of the increased size of the comments button, substract 10 extra points
@@ -465,53 +465,53 @@ class PostToolbarView: BeamView {
         var commentsButtonSize = self.commentsButton.intrinsicContentSize
         commentsButtonSize.height = barHeight
         commentsButtonSize.width += 20
-        let commentsButtonFrame = CGRect(origin: CGPoint(x: xPosition, y: (self.bounds.size.height-commentsButtonSize.height)/2), size: commentsButtonSize)
+        let commentsButtonFrame = CGRect(origin: CGPoint(x: xPosition, y: (self.bounds.size.height - commentsButtonSize.height) / 2), size: commentsButtonSize)
         self.commentsButton.frame = commentsButtonFrame
         
-        xPosition += commentsButtonSize.width+buttonSpacing
+        xPosition += commentsButtonSize.width + buttonSpacing
         //Because of the increased size of the points button, substract 20 extra points
         xPosition -= 20
         
         var pointsButtonSize = self.pointsButton.intrinsicContentSize
         pointsButtonSize.height = barHeight
         pointsButtonSize.width += 20
-        let pointsButtonFrame = CGRect(origin: CGPoint(x: xPosition, y: (self.bounds.size.height-pointsButtonSize.height)/2), size: pointsButtonSize)
+        let pointsButtonFrame = CGRect(origin: CGPoint(x: xPosition, y: (self.bounds.size.height - pointsButtonSize.height) / 2), size: pointsButtonSize)
         self.pointsButton.frame = pointsButtonFrame
     }
     
     func layoutRightSideButtons() {
         let buttonSpacing: CGFloat = 18.0
         //Remove 2 because of the top border
-        let barHeight = self.bounds.height-2
+        let barHeight = self.bounds.height - 2
         
-        var xPosition = self.bounds.width-self.layoutMargins.right
+        var xPosition = self.bounds.width - self.layoutMargins.right
         //Because of the increased size of the vote buttons, add 10 extra points
         xPosition += 10
         
         var upvoteButtonSize = self.upvoteButton.intrinsicContentSize
         upvoteButtonSize.height = barHeight
         upvoteButtonSize.width += 20
-        let upvoteButtonFrame = CGRect(origin: CGPoint(x: xPosition-upvoteButtonSize.width, y: (self.bounds.size.height-upvoteButtonSize.height)/2), size: upvoteButtonSize)
+        let upvoteButtonFrame = CGRect(origin: CGPoint(x: xPosition - upvoteButtonSize.width, y: (self.bounds.size.height - upvoteButtonSize.height) / 2), size: upvoteButtonSize)
         self.upvoteButton.frame = upvoteButtonFrame
         
-        xPosition -= upvoteButtonSize.width+buttonSpacing
+        xPosition -= upvoteButtonSize.width + buttonSpacing
         //Because of the bigger and ivisible size of the vote button, add 20 extra points so the placement is still the same (10 points each side, times 2 buttons)
         xPosition += 20
         
         var downvoteButtonSize = self.downvoteButton.intrinsicContentSize
         downvoteButtonSize.height = barHeight
         downvoteButtonSize.width += 20
-        let downvoteButtonFrame = CGRect(origin: CGPoint(x: xPosition-downvoteButtonSize.width, y: (self.bounds.size.height-downvoteButtonSize.height)/2), size: downvoteButtonSize)
+        let downvoteButtonFrame = CGRect(origin: CGPoint(x: xPosition - downvoteButtonSize.width, y: (self.bounds.size.height - downvoteButtonSize.height) / 2), size: downvoteButtonSize)
         self.downvoteButton.frame = downvoteButtonFrame
         
-        xPosition -= downvoteButtonSize.width+buttonSpacing
+        xPosition -= downvoteButtonSize.width + buttonSpacing
         //Because of the bigger and ivisible size of the vote button, add 10 extra points so the placement is correct of the more button
         xPosition += 20
         
         var moreButtonSize = self.moreButton.intrinsicContentSize
         moreButtonSize.height = barHeight
-        moreButtonSize.width += 20;
-        let moreButtonFrame = CGRect(origin: CGPoint(x: xPosition-moreButtonSize.width, y: (self.bounds.size.height-moreButtonSize.height)/2), size: moreButtonSize)
+        moreButtonSize.width += 20
+        let moreButtonFrame = CGRect(origin: CGPoint(x: xPosition - moreButtonSize.width, y: (self.bounds.size.height - moreButtonSize.height) / 2), size: moreButtonSize)
         self.moreButton.frame = moreButtonFrame
     }
 }

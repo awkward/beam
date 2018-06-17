@@ -14,7 +14,7 @@ extension MediaObject {
     func aspectRatioSizeWithMaxWidth(_ maxWidth: CGFloat, maxHeight: CGFloat? = nil) -> CGSize? {
         if let imageHeight = self.height?.floatValue, let imageWidth = self.width?.floatValue, imageHeight > 0 && imageWidth > 0 {
             let aspectRatioImageHeight = CGFloat(imageHeight) * maxWidth / CGFloat(imageWidth)
-            var newHeight = aspectRatioImageHeight;
+            var newHeight = aspectRatioImageHeight
             if let maxHeight = maxHeight {
                 newHeight = min(aspectRatioImageHeight, maxHeight)
             }

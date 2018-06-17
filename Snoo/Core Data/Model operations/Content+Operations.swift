@@ -33,7 +33,7 @@ extension Content {
         
         if let url = commentURLComponents?.url {
             var urlRequest = URLRequest(url: url)
-            let parameters = ["api_type": "json", "thing_id": self.objectName!, "text" : content]
+            let parameters = ["api_type": "json", "thing_id": self.objectName!, "text": content]
             urlRequest.httpBody = DataRequest.formPOSTDataWithParameters(parameters)
             urlRequest.httpMethod = "POST"
             redditRequest.urlRequest = urlRequest
@@ -80,7 +80,7 @@ extension Content {
         
         if let url = commentURLComponents?.url {
             var request = URLRequest(url: url)
-            let parameters = ["api_type": "json", "thing_id": self.objectName!, "text" : content]
+            let parameters = ["api_type": "json", "thing_id": self.objectName!, "text": content]
             request.httpBody = DataRequest.formPOSTDataWithParameters(parameters)
             request.httpMethod = "POST"
             redditRequest.urlRequest = request

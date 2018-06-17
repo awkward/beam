@@ -14,11 +14,11 @@ final class CopyLinkActivity: CustomObjectActivity<URL> {
         return UIActivityType(rawValue: "com.madeawkward.beam.copy-link")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return NSLocalizedString("copy-link-activity-title", comment: "Title of the copy link share activity on comments")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "copy_link_activity_icon")
     }
     

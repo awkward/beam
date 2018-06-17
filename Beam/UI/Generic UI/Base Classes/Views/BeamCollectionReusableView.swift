@@ -18,8 +18,6 @@ class BeamCollectionReusableView: UICollectionReusableView, DynamicDisplayModeVi
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        
     }
     
     deinit {

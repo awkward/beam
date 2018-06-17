@@ -15,7 +15,6 @@ extension NSNotification.Name {
     public static let SubredditBookmarkDidChange = NSNotification.Name(rawValue: "SubredditBookmarkDidChange")
 }
 
-
 extension Subreddit {
 
     public func subscribeOperations(_ authenticationController: AuthenticationController, unsubscribe: Bool = false) -> [Operation] {
@@ -94,7 +93,7 @@ extension Subreddit {
         let request = RedditSubmitRequest(title: title, kind: kind, subredditName: self.displayName!, authenticationController: authenticationController)
         request.requestCompletionHandler = { (error) in
             if error == nil {
-                DispatchQueue.main.async(execute: { 
+                DispatchQueue.main.async(execute: {
                     NotificationCenter.default.post(name: .PostSubmitted, object: self)
                 })
                 

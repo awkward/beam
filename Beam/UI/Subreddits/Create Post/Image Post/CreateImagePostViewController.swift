@@ -28,7 +28,7 @@ class ImageAsset: NSObject {
         return otherAsset.asset.localIdentifier == self.asset.localIdentifier
     }
 }
-func ==(lhs: ImageAsset, rhs: ImageAsset) -> Bool {
+func == (lhs: ImageAsset, rhs: ImageAsset) -> Bool {
     return lhs.asset.localIdentifier == rhs.asset.localIdentifier
 }
 
@@ -165,10 +165,9 @@ class CreateImagePostViewController: CreatePostViewController {
         colorPalette.albumTitleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         colorPalette.albumCountColor = colorPalette.albumTitleColor
         colorPalette.albumLinesColor = colorPalette.albumTitleColor
-        colorPalette.cameraIconColor = DisplayModeValue(UIColor(red:0.56, green:0.56, blue:0.56, alpha:1.00), darkValue: UIColor(red:0.6, green:0.6, blue:0.6, alpha:1))
+        colorPalette.cameraIconColor = DisplayModeValue(UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00), darkValue: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1))
         colorPalette.albumCellBackgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-        colorPalette.albumCellSelectedBackgroundColor = DisplayModeValue(UIColor(red:0.85, green:0.85, blue:0.85, alpha:1.00), darkValue: UIColor.white)
-        
+        colorPalette.albumCellSelectedBackgroundColor = DisplayModeValue(UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00), darkValue: UIColor.white)
         
         let pickerController = AssetsPickerController()
         pickerController.mediaTypes = [PHAssetMediaType.image]
@@ -217,7 +216,7 @@ class CreateImagePostViewController: CreatePostViewController {
         self.descriptionTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -231,7 +230,7 @@ class CreateImagePostViewController: CreatePostViewController {
         }
         let spacing: CGFloat = 1
         var totalSpacing: CGFloat = numberOfColumns * spacing
-        totalSpacing = totalSpacing - spacing
+        totalSpacing -= spacing
         let viewWidthWithoutSpacing: CGFloat = self.view.frame.width - totalSpacing
         var cellWidth = viewWidthWithoutSpacing / numberOfColumns
         cellWidth = floor(cellWidth)
@@ -252,11 +251,10 @@ class CreateImagePostViewController: CreatePostViewController {
         self.collectionView.scrollIndicatorInsets = insets
     }
     
-    //MARK: - Long press gesture recognizer
+    // MARK: - Long press gesture recognizer
     
     @objc fileprivate func handleLongPressGestureRecognizer(_ gestureRecognizer: UILongPressGestureRecognizer) {
-        switch(gestureRecognizer.state) {
-            
+        switch gestureRecognizer.state {
         case UIGestureRecognizerState.began:
             guard let selectedIndexPath = self.collectionView.indexPathForItem(at: gestureRecognizer.location(in: self.collectionView)) else {
                 break
@@ -264,7 +262,7 @@ class CreateImagePostViewController: CreatePostViewController {
             if self.collectionView.beginInteractiveMovementForItem(at: selectedIndexPath) {
                 UIView.animate(withDuration: 0.20, delay: 0, usingSpringWithDamping: 0.70, initialSpringVelocity: 0.05, options: [], animations: {
                     self.collectionView.updateInteractiveMovementTargetPosition(gestureRecognizer.location(in: gestureRecognizer.view!))
-                    }, completion:nil)
+                    }, completion: nil)
             }
         case UIGestureRecognizerState.changed:
             self.collectionView.updateInteractiveMovementTargetPosition(gestureRecognizer.location(in: gestureRecognizer.view!))
@@ -275,7 +273,7 @@ class CreateImagePostViewController: CreatePostViewController {
         }
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     override func submitTapped(_ sender: AnyObject) {
         guard self.images.count > 0 else {
@@ -299,7 +297,7 @@ class CreateImagePostViewController: CreatePostViewController {
                 let allUploadedImages = Array(self.uploadedImages.values)
                 self.saveUploadedImgurObjects(allUploadedImages)
                 if let firstError = errors?.first {
-                    DispatchQueue.main.async(execute: { 
+                    DispatchQueue.main.async(execute: {
                         self.handleError(firstError)
                     })
                     self.state = nil
@@ -328,9 +326,9 @@ class CreateImagePostViewController: CreatePostViewController {
         
     }
     
-    //MARK: - Image uploading
+    // MARK: - Image uploading
     
-    fileprivate func uploadImages(_ completionHandler: @escaping ((_ imgurImages: [String: ImgurImage]?, _ errors: [NSError]?) -> ())) {
+    fileprivate func uploadImages(_ completionHandler: @escaping ((_ imgurImages: [String: ImgurImage]?, _ errors: [NSError]?) -> Void)) {
         guard self.images.count > 0 else {
             completionHandler(nil, [NSError.beamError(400, localizedDescription: "No images specified")])
             return
@@ -338,12 +336,12 @@ class CreateImagePostViewController: CreatePostViewController {
         self.updateProgressBar(0)
         let requests = self.requestsForImageUploads(widthImages: self.images)
         AppDelegate.shared.imgurController.executeRequests(requests, uploadProgressHandler: { (requestNumber, totalProgress) in
-                DispatchQueue.main.async(execute: { 
+                DispatchQueue.main.async(execute: {
                     self.updateTitle(requestNumber, totalRequests: requests.count)
                     self.updateProgressBar(totalProgress)
                 })
             }) { (error) in
-                let imageRequests = requests.filter( { $0 is ImgurImageUploadRequest } ) as! [ImgurImageUploadRequest]
+                let imageRequests = requests.filter({ $0 is ImgurImageUploadRequest }) as! [ImgurImageUploadRequest]
                 //Asset Identifier: ImgurIdentifier
                 var imageUploadErrors = [NSError]()
                 var imgurImages = [String: ImgurImage]()
@@ -390,7 +388,7 @@ class CreateImagePostViewController: CreatePostViewController {
         }
     }
     
-    //MARK: - Uploaded images
+    // MARK: - Uploaded images
     
     fileprivate func saveUploadedImgurObjects(_ objects: [ImgurObject]) {
         var savedImgurObjects = [ImgurObject]()
@@ -415,7 +413,7 @@ class CreateImagePostViewController: CreatePostViewController {
         }
     }
     
-    //MARK: - Album creation
+    // MARK: - Album creation
     
     fileprivate func createAlbum() {
         guard self.uploadedImages.count > 0 else {
@@ -452,7 +450,7 @@ class CreateImagePostViewController: CreatePostViewController {
         })
     }
     
-    //MARK: - Submitting
+    // MARK: - Submitting
     
     fileprivate func submitImage(_ image: ImgurImage) {
         self.state = CreateImagePostViewControllerState.submitting
@@ -468,23 +466,23 @@ class CreateImagePostViewController: CreatePostViewController {
         super.submitTapped(album)
     }
     
-    //MARK: Notifications
+    // MARK: Notifications
     
     override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIViewAnimationOptions) {
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
             //ANIMATE
             
-            let bottomInset: CGFloat = max(self.view.bounds.height-frame.minY, 0)
+            let bottomInset: CGFloat = max(self.view.bounds.height - frame.minY, 0)
             self.keyboardHeight = bottomInset
             self.updateCollectionViewInsets()
             self.imagesNoticeViewBottomConstraint.constant = self.keyboardHeight
             self.view.layoutIfNeeded()
-        }) { (finished) in
+        }) { (_) in
             //Complete
         }
     }
     
-    //MARK: CreatePostViewController properties and functions
+    // MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
         guard isViewLoaded else {
@@ -523,7 +521,7 @@ class CreateImagePostViewController: CreatePostViewController {
     
     override func lockView(_ locked: Bool) {
         super.lockView(locked)
-        let alpha: CGFloat = locked ? 0.5 : 1.0
+        let alpha: CGFloat = locked ? 0.5: 1.0
         self.collectionView.isUserInteractionEnabled = !locked
         self.collectionView.alpha = alpha
         self.titleTextField?.isEnabled = !locked
@@ -540,8 +538,7 @@ class CreateImagePostViewController: CreatePostViewController {
         if let navigationController = segue.destination as? BeamNavigationController,
             let editViewController = navigationController.topViewController as? ImageEditViewController,
         let cell = sender as? UICollectionViewCell,
-        let indexPath = self.collectionView.indexPath(for: cell)
-        {
+        let indexPath = self.collectionView.indexPath(for: cell) {
             editViewController.delegate = self
             editViewController.allImages = self.images
             editViewController.currentImage = self.imageForIndexPath(indexPath)
@@ -558,11 +555,11 @@ extension CreateImagePostViewController: UICollectionViewDelegateFlowLayout {
         }
     }
     
-    @objc(collectionView:canFocusItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
+    @objc(collectionView: canFocusItemAtIndexPath:) func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
         return self.imageForIndexPath(indexPath) != nil
     }
     
-    @objc(collectionView:moveItemAtIndexPath:toIndexPath:) func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
+    @objc(collectionView: moveItemAtIndexPath:toIndexPath:) func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         if let image = self.imageForIndexPath(sourceIndexPath), let sourceIndex = self.images.index(of: image) {
             let destinationIndex = (destinationIndexPath as IndexPath).item
             self.images.remove(at: sourceIndex)
@@ -578,7 +575,7 @@ extension CreateImagePostViewController: UICollectionViewDelegateFlowLayout {
         if self.imageForIndexPath(proposedIndexPath) != nil {
             return proposedIndexPath
         } else {
-            return self.targetIndexPath(IndexPath(item: (proposedIndexPath as IndexPath).item-1, section: 0))
+            return self.targetIndexPath(IndexPath(item: (proposedIndexPath as IndexPath).item - 1, section: 0))
         }
     }
     
@@ -597,7 +594,7 @@ extension CreateImagePostViewController: UICollectionViewDelegateFlowLayout {
 
 extension CreateImagePostViewController: UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return self.images.count+1
+        return self.images.count + 1
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -697,7 +694,7 @@ extension CreateImagePostViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         
         let currentCharacterCount = textField.text?.count ?? 0
-        if (range.length + range.location > currentCharacterCount){
+        if (range.length + range.location > currentCharacterCount) {
             return false
         }
         let newLength = currentCharacterCount + string.count - range.length

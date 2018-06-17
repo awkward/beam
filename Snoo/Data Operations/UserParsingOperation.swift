@@ -15,7 +15,7 @@ final public class UserParsingOperation: DataOperation {
     // Input
     public var objectContext: NSManagedObjectContext! = DataController.shared.privateContext
     
-    open var userParsingCompletionHandler: (() -> ())?
+    open var userParsingCompletionHandler: (() -> Void)?
     
     // Output
     open var userID: NSManagedObjectID?

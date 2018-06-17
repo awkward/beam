@@ -79,7 +79,7 @@ class MessageCell: BeamTableViewCell, MessageObjectCell {
         
         self.unreadIndicator.backgroundColor = self.contentView.backgroundColor
         self.unreadIndicator.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        self.replyIndicator.tintColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor.white.withAlphaComponent(0.65))
+        self.replyIndicator.tintColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor.white.withAlphaComponent(0.65))
         
         self.authorButton.setAttributedTitle(self.authorText, for: UIControlState())
         

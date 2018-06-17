@@ -42,7 +42,7 @@ extension UIImage {
         
         var resultingImage: UIImage?
         
-        autoreleasepool { () -> () in
+        autoreleasepool {
             // create an image from the image path. Note this
             // doesn't actually read any pixel information from disk, as that
             // is actually done at draw time.
@@ -149,7 +149,7 @@ extension UIImage {
                 destContext.draw(sourceTileImageRef, in: destTile)
             } else {
                 for y in 0 ..< iterations {
-                    autoreleasepool(invoking: { () -> () in
+                    autoreleasepool(invoking: {
                         sourceTile.origin.y = CGFloat(y) * sourceTileHeightMinusOverlap + CGFloat(sourceSeemOverlap)
                         destTile.origin.y = ( destResolution.height ) - ( CGFloat( y + 1 ) * sourceTileHeightMinusOverlap * imageScale.height + destSeemOverlap )
                         // create a reference to the source image with its context clipped to the argument rect.

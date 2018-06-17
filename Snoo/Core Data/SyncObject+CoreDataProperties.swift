@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-extension SyncObject : MetadataHandling {
+extension SyncObject: MetadataHandling {
     @NSManaged var expirationDate: Date?
     @NSManaged public var identifier: String?
     @NSManaged public var lastRefreshDate: Date?

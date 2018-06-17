@@ -26,8 +26,6 @@ protocol MediaImageLoader: class {
     func startImageLoading()
     func stopImageLoading()
     func mediaURLString() -> String?
-   
-    
 }
 
 extension MediaImageLoader {
@@ -59,10 +57,10 @@ extension MediaImageLoader {
                         self.imageLoadingCompleted()
                     })
                 } else {
-                    self.imageOperation = AppDelegate.shared.imageLoader.startDownloadingImageWithURL(url, progressHandler: { (totalBytesWritten, totalBytesExpectedToWrite) -> () in
+                    self.imageOperation = AppDelegate.shared.imageLoader.startDownloadingImageWithURL(url, progressHandler: { (totalBytesWritten, totalBytesExpectedToWrite) in
                         let progress = CGFloat(totalBytesWritten) / CGFloat(totalBytesExpectedToWrite)
                         self.progressDidChange(progress)
-                        }, completionHandler: { (image) -> () in
+                        }, completionHandler: { (image) in
                             DispatchQueue.main.async(execute: { () -> Void in
                                 self.mediaImageView.image = image
                                 self.imageLoadingCompleted()
@@ -76,7 +74,6 @@ extension MediaImageLoader {
         }
         
     }
-    
     
     func stopImageLoading() {
         self.imageOperation?.cancel()

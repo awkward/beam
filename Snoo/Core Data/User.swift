@@ -27,13 +27,13 @@ public final class User: SyncObject {
         self.linkKarmaCount = json["link_karma"] as? NSNumber ?? self.linkKarmaCount
         self.commentKarmaCount = json["comment_karma"] as? NSNumber ?? self.commentKarmaCount
         
-        if let registrationUtc = json["created_utc"] as? NSNumber , self.registrationDate == nil {
+        if let registrationUtc = json["created_utc"] as? NSNumber, self.registrationDate == nil {
             self.registrationDate = Date(timeIntervalSince1970: registrationUtc.doubleValue)
         }
         
     }
     
-    open override func redditDictionaryRepresentation() -> [String : Any] {
+    open override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["name"] = self.username as AnyObject?

@@ -38,17 +38,12 @@ class BaseCommentCell: BeamTableViewCell {
         }
     }
     
-
     var commentIndentation: Int {
-        get {
-            return self.state.indentation
-        }
+        return self.state.indentation
     }
     
     var isCollapsed: Bool {
-        get {
-            return self.state.isCollapsed
-        }
+        return self.state.isCollapsed
     }
     
     /// This property is true when the comment on the cell has changed during the setting, use this property to optimize performance by not changing content that has changed
@@ -57,9 +52,7 @@ class BaseCommentCell: BeamTableViewCell {
     private var state: CommentCellState = CommentCellState(isCollapsed: false, indentation: 0)
     
     var comment: Comment? {
-        get {
-            return self.privateComment
-        }
+        return self.privateComment
     }
     
     fileprivate var privateComment: Comment? {
@@ -67,7 +60,6 @@ class BaseCommentCell: BeamTableViewCell {
             self.commentDidChange = self.comment != oldValue
         }
     }
-    
     
     /// Changes the comment displayed in this cell
     ///
@@ -82,7 +74,7 @@ class BaseCommentCell: BeamTableViewCell {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.commentContentView.maxNumberOfReplyBorders = CommentsDataSource.maxCommentsDepth-1
+        self.commentContentView.maxNumberOfReplyBorders = CommentsDataSource.maxCommentsDepth - 1
     }
     
     /**
@@ -95,6 +87,4 @@ class BaseCommentCell: BeamTableViewCell {
         self.commentContentView.setNeedsDisplay()
     }
     
-    
-
 }

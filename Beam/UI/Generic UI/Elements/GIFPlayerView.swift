@@ -129,7 +129,7 @@ class GIFPlayerView: UIView {
         self.currentUrl = nil
         self.videoPlayer?.pause()
         self.videoPlayer?.rewind()
-        if #available(iOS 10.0, *),  let queuePlayer = self.videoPlayer as? AVQueuePlayer {
+        if #available(iOS 10.0, *), let queuePlayer = self.videoPlayer as? AVQueuePlayer {
             queuePlayer.removeAllItems()
             (self.playerLooper as? AVPlayerLooper)?.disableLooping()
             self.playerLooper = nil
@@ -148,7 +148,7 @@ class GIFPlayerView: UIView {
     //If the gif was playing before the app became inactive
     private var wasPlayingBeforeInactive: Bool = false
     
-    //MARK: - Auto Play gifs
+    // MARK: - Auto Play gifs
     
     //This notification is only called on iOS 9 for AVPlayer to begin the loop again. On iOS 10+ AVQueuePlayer and AVPlayerLooper take care of the looping
     @objc fileprivate func avPlayerItemDidFinishPlaying(notification: Notification) {

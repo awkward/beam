@@ -26,7 +26,7 @@ public struct RemoteNotificationsPreferences {
         }
     }
     
-    func dictionaryRepresentation() -> [String : AnyObject] {
+    func dictionaryRepresentation() -> [String: AnyObject] {
         return ["announce": self.announcements as AnyObject, "shop": self.shop as AnyObject, "messages": self.messages as AnyObject]
     }
     

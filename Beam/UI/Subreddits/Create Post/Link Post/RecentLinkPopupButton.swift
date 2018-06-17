@@ -42,7 +42,7 @@ class RecentLinkPopupButton: BeamControl {
     }
     
     fileprivate func setupView() {
-        UIView.performWithoutAnimation { 
+        UIView.performWithoutAnimation {
             self.textLabel.translatesAutoresizingMaskIntoConstraints = false
             self.addSubview(self.textLabel)
             
@@ -50,7 +50,7 @@ class RecentLinkPopupButton: BeamControl {
             self.addSubview(self.closeButton)
             
             //8 for the arrow spacing at the top, 15 for the margin
-            self.layoutMargins = UIEdgeInsetsMake(8+15, 15, 15, 15)
+            self.layoutMargins = UIEdgeInsets(top: 8 + 15, left: 15, bottom: 15, right: 15)
             
             self.addSubviewConstraints()
             
@@ -110,5 +110,4 @@ class RecentLinkPopupButton: BeamControl {
         
     }
     
-
 }

@@ -63,7 +63,7 @@ class StartEnterPasscodeViewController: EnterPasscodeViewController {
             self.canShowTouchID = false
             
             let reason = AWKLocalizedString("touch-id-reason").replacingOccurrences(of: "[APPNAME]", with: self.appName)
-            self.authenticationContext!.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: { (successful, error) in
+            self.authenticationContext!.evaluatePolicy(LAPolicy.deviceOwnerAuthenticationWithBiometrics, localizedReason: reason, reply: { (successful, _) in
                 self.invalidAuthenticationContext()
                 if successful {
                     DispatchQueue.main.async(execute: {
@@ -86,7 +86,7 @@ class StartEnterPasscodeViewController: EnterPasscodeViewController {
         self.authenticationContext = nil
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return UIStatusBarStyle.lightContent
     }
 
@@ -97,5 +97,4 @@ class StartEnterPasscodeViewController: EnterPasscodeViewController {
         self.view.tintColor = UIColor.white
     }
     
-
 }

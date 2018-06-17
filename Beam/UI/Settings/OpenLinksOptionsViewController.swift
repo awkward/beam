@@ -16,7 +16,6 @@ class OpenLinksOptionsViewController: BeamTableViewController {
         return control
     }()
 
-    
     var supportedLinkOptions: [ExternalLinkOpenOption] = [ExternalLinkOpenOption]()
     var supportedYouTubeOptions: [ExternalLinkOpenOption] = [ExternalLinkOpenOption]()
     
@@ -77,7 +76,7 @@ class OpenLinksOptionsViewController: BeamTableViewController {
             title = option.displayName
             selected = option == UserSettings[.browser]
         case 1:
-            let option =  self.supportedYouTubeOptions[(indexPath as IndexPath).row]
+            let option = self.supportedYouTubeOptions[(indexPath as IndexPath).row]
             title = option.displayName
             selected = option == UserSettings[.youTubeApp]
         case 2:

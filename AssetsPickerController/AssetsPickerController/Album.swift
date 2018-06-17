@@ -39,7 +39,7 @@ internal class Album: NSObject {
     
     fileprivate var previewAsset: PHAsset?
     
-    internal func loadPreviewImage(_ targetSize: CGSize, fetchOptions: PHFetchOptions?, completionHandler: @escaping ((_ image: UIImage?) -> ())) {
+    internal func loadPreviewImage(_ targetSize: CGSize, fetchOptions: PHFetchOptions?, completionHandler: @escaping ((_ image: UIImage?) -> Void)) {
         DispatchQueue.global(qos: .default).async {
             var asset: PHAsset?
             if let previewAsset = self.previewAsset {
@@ -73,7 +73,7 @@ internal class Album: NSObject {
                 let requestOptions = PHImageRequestOptions()
                 requestOptions.isSynchronous = false
                 requestOptions.resizeMode = PHImageRequestOptionsResizeMode.exact
-                PHImageManager.default().requestImage(for: asset, targetSize: targetSize.sizeWithScale(UIScreen.main.scale), contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, userInfo) in
+                PHImageManager.default().requestImage(for: asset, targetSize: targetSize.sizeWithScale(UIScreen.main.scale), contentMode: PHImageContentMode.aspectFill, options: requestOptions, resultHandler: { (image, _) in
                     DispatchQueue.main.async {
                         completionHandler(image)
                     }
@@ -85,7 +85,6 @@ internal class Album: NSObject {
             }
         }
 
-        
     }
     
     fileprivate var actualNumberOfItems: Int?
@@ -96,7 +95,7 @@ internal class Album: NSObject {
         } else {
             let fetchOptions = PHFetchOptions()
             fetchOptions.sortDescriptors = [NSSortDescriptor(key: "creationDate", ascending: false)]
-            fetchOptions.predicate = NSPredicate(format: "mediaType == %ld", PHAssetMediaType.image.rawValue);
+            fetchOptions.predicate = NSPredicate(format: "mediaType == %ld", PHAssetMediaType.image.rawValue)
             var result: PHFetchResult<PHAsset>!
             if let collection = self.collection {
                 result = PHAsset.fetchAssets(in: collection, options: fetchOptions)

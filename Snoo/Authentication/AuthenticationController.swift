@@ -24,7 +24,7 @@ public struct AuthenticationConfiguration {
     
     public init(clientName: String, clientID: String, redirectUri: String, scope: String? = nil) {
         self.clientName = clientName
-        self.clientID = clientID;
+        self.clientID = clientID
         self.redirectUri = redirectUri
         if let scope = scope {
             self.scope = scope
@@ -78,7 +78,6 @@ public final class AuthenticationController: NSObject {
             NotificationCenter.default.post(name: AuthenticationController.ApplicationTokenDidChangeNotificationName, object: self)
         }
     }
-    
     
     internal static let CurrentUserSessionKey = "authentication-current-user-session"
     open var userSessionAvailable: Bool {
@@ -179,13 +178,13 @@ public final class AuthenticationController: NSObject {
                     NSLog("Error getting old refresh token \(error)")
                 }
                 
-                if let user = self.activeUser(DataController.shared.privateContext) , session.username == nil {
+                if let user = self.activeUser(DataController.shared.privateContext), session.username == nil {
                     session.username = user.username
                 }
                 self.userSession = session
                 do {
                     try self.addUserSession(session)
-                } catch{
+                } catch {
                     NSLog("Error upgrading user session \(error)")
                 }
                 self.saveCurrentUserSession()
@@ -200,8 +199,6 @@ public final class AuthenticationController: NSObject {
             }
             
         }
-
-
     }
     
     // MARK: Helpers
@@ -220,7 +217,7 @@ public final class AuthenticationController: NSObject {
         }
     }
     
-    /** 
+    /**
      Use this NSURLSession to make requests to reddit. This session will contain the "Autherization" token related to the user
      */
     open var userURLSession: URLSession {
@@ -266,7 +263,7 @@ public final class AuthenticationController: NSObject {
      */
     func authenticationOperations() -> [Operation] {
 
-        if let userSession = self.userSession, let refreshToken = userSession.refreshToken , userSession.isValid == false {
+        if let userSession = self.userSession, let refreshToken = userSession.refreshToken, userSession.isValid == false {
             // Expired user session. First refresh this.
             
             let tokenRequest = AccessTokenRequest(grant: AccessTokenGrant.refreshToken(refreshToken), clientId: self.configuration.clientID, authenticationController: self)
@@ -277,7 +274,7 @@ public final class AuthenticationController: NSObject {
             
             let userParser = UserParsingOperation()
             userParser.addDependency(userRequest)
-            userParser.userParsingCompletionHandler = { () -> () in
+            userParser.userParsingCompletionHandler = { () in
                 if let response = tokenRequest.HTTPResponse {
                     //Only update the user session when there is an actual reponse
                     if response.statusCode == 200 {
@@ -304,11 +301,11 @@ public final class AuthenticationController: NSObject {
             
             return [tokenRequest, userRequest, userParser]
             
-        } else if let deviceId = UIDevice.current.identifierForVendor?.uuidString , applicationSession?.isValid != true && self.userSession?.isValid != true {
+        } else if let deviceId = UIDevice.current.identifierForVendor?.uuidString, applicationSession?.isValid != true && self.userSession?.isValid != true {
             // Expired app token, no app token and user is not logged in.
                 
             let tokenRequest = AccessTokenRequest(grant: AccessTokenGrant.installedClient(deviceId), clientId: self.configuration.clientID, authenticationController: self)
-            tokenRequest.requestCompletionHandler = { (error) -> () in
+            tokenRequest.requestCompletionHandler = { (error) in
                 if let session = tokenRequest.authenticationSession {
                     self.applicationSession = session
                 }
@@ -329,7 +326,7 @@ public final class AuthenticationController: NSObject {
     open var authorizationURL: URL? {
         self.authorizationState = UUID().uuidString
 
-        if let redirectString = URL.stringByAddingUrlPercentagesToString(self.configuration.redirectUri),let scopeString = URL.stringByAddingUrlPercentagesToString(self.configuration.scope), let state = authorizationState  {
+        if let redirectString = URL.stringByAddingUrlPercentagesToString(self.configuration.redirectUri), let scopeString = URL.stringByAddingUrlPercentagesToString(self.configuration.scope), let state = authorizationState {
             let urlString = "https://www.reddit.com/api/v1/authorize.compact?client_id=\(self.configuration.clientID)&response_type=code&state=\(state)&redirect_uri=\(redirectString)&duration=permanent&scope=\(scopeString)"
             let url = Foundation.URL(string: urlString)
             return url
@@ -344,7 +341,7 @@ public final class AuthenticationController: NSObject {
     open func authenticateURL(_ url: URL, handler: ((Bool, Error?) -> Void)?) {
         if let parameters = url.queryParameters,
             let state = parameters["state"],
-            let code = parameters["code"]{
+            let code = parameters["code"] {
                 let clientId = self.configuration.clientID
                 
                 if state == self.authorizationState {
@@ -412,13 +409,12 @@ public final class AuthenticationController: NSObject {
             
         })
         
-
     }
     
     // MARK: Fetching user info
     
     open func requestActiveUser(_ handler: ((_ userID: NSManagedObjectID?, _ identifier: String?, _ error: Error?) -> Void)?) {
-        if let userSession = self.userSession , userSession.refreshToken != nil {
+        if let userSession = self.userSession, userSession.refreshToken != nil {
             self.requestUser(userSession, handler: handler)
         } else {
             handler?(nil, nil, NSError.snooError(404, localizedDescription: "No current user session"))
@@ -511,7 +507,7 @@ public final class AuthenticationController: NSObject {
         let sessions = self.authenticationSessions
         
         if let newSession = sessions.filter({ $0.userIdentifier != session.userIdentifier }).first {
-            self.switchToAuthenticationSession(newSession) { (error) in
+            self.switchToAuthenticationSession(newSession) { (_) in
                 session.destroy()
                 NotificationCenter.default.post(name: AuthenticationController.UserDidLogoutNotificationName, object: self, userInfo: self.authenticationNotificationUserInfo(forSession: session))
                 self.authenticationSessions = sessions.filter({
@@ -570,7 +566,7 @@ public final class AuthenticationController: NSObject {
     }
     
     open func fetchAllAuthenticationSessions() -> [AuthenticationSession] {
-        var sessions = self.authenticationSessions.filter( { $0.refreshToken != nil } )
+        var sessions = self.authenticationSessions.filter({ $0.refreshToken != nil })
         
         sessions.sort { (session1: AuthenticationSession, session2: AuthenticationSession) -> Bool in
             return session1.username?.localizedCaseInsensitiveCompare(session2.username ?? "") == ComparisonResult.orderedAscending

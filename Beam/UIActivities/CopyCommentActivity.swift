@@ -18,11 +18,11 @@ final class CopyCommentActivity: CustomObjectActivity<Comment> {
         return UIActivityType(rawValue: "com.madeawkward.beam.copy-comment")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("copy-comment-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "copy_activity_icon")
     }
     

@@ -47,7 +47,6 @@ extension CommentThreadSkipping {
         }
     }
     
-    
     func scrollToNextCommentThread() {
         guard let currentThread = self.currentThread, let tableView = self.tableView else {
             return

@@ -44,7 +44,7 @@ class CommentsHeaderView: BeamView {
     }
     
     func setupView() {
-        self.sortBar.items = self.sortTypes.map( { self.titleForSortType($0) } )
+        self.sortBar.items = self.sortTypes.map({ self.titleForSortType($0) })
         self.sortBar.selectedItemIndex = self.sortTypes.index(of: self.sortType)
         self.sortBar.addTarget(self, action: #selector(CommentsHeaderView.sortBarChanged(_:)), for: UIControlEvents.valueChanged)
     }
@@ -81,6 +81,4 @@ class CommentsHeaderView: BeamView {
         self.sortBar.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
     }
     
-    
-
 }

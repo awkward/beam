@@ -59,7 +59,7 @@ class AppLaunchOptionsViewController: BeamTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "app-open-cell", for: indexPath) as! SettingsTableViewCell
         let option = self.optionForIndexPath(indexPath)
         cell.textLabel?.text = option?.title
-        cell.accessoryType = option == UserSettings[.appOpen] ? UITableViewCellAccessoryType.checkmark : UITableViewCellAccessoryType.none
+        cell.accessoryType = option == UserSettings[.appOpen] ? UITableViewCellAccessoryType.checkmark: UITableViewCellAccessoryType.none
         return cell
     }
     

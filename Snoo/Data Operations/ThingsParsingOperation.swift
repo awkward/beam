@@ -63,8 +63,6 @@ open class ThingsParsingOperation: DataOperation {
                         }
                         
                     }
-                    
-                    
                 })
             
         }

@@ -64,7 +64,7 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
                 containerView.insertSubview(toView, belowSubview: fromView)
                 toView.frame = transitionContext.finalFrame(for: toViewController)
                 toView.transform = self.beginTransform(for: toView, using: transitionContext)
-                toView.alpha = self.adjustAlpha ? 0.5 : 1
+                toView.alpha = self.adjustAlpha ? 0.5: 1
                 
                 applyCornerMaskIfNeeded(to: toView)
                 applyCornerMaskIfNeeded(to: fromView)
@@ -95,7 +95,7 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
                 
                 animator.addAnimations {
                     fromView.transform = self.endTransform(for: fromView, using: transitionContext)
-                    fromView.alpha = self.adjustAlpha ? 0.5 : 1
+                    fromView.alpha = self.adjustAlpha ? 0.5: 1
                     toView.frame = transitionContext.finalFrame(for: toViewController)
                 }
                 animator.addCompletion({ (_) in
@@ -109,7 +109,7 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
             }
         }
         
-        animator.addCompletion { (position) in
+        animator.addCompletion { (_) in
             transitionContext.completeTransition(!transitionContext.transitionWasCancelled)
         }
         
@@ -152,7 +152,7 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
     // MARK: - Private methods
     
     private func applyCornerMaskIfNeeded(to view: UIView) {
-        let cornerRadius: CGFloat = UIScreen.main.nativeBounds.height == 2436 ? 40 : 0
+        let cornerRadius: CGFloat = UIScreen.main.nativeBounds.height == 2436 ? 40: 0
         guard cornerRadius > 0 else {
             return
         }
@@ -176,7 +176,7 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
         guard self.scaleBackground else {
             return CGAffineTransform.identity
         }
-        if !self.isDismissal && view == transitionContext.fromView  {
+        if !self.isDismissal && view == transitionContext.fromView {
             return self.scaleTransform(using: transitionContext)
         }
         return CGAffineTransform.identity

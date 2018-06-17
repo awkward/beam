@@ -58,7 +58,7 @@ enum SubredditInfoRowType {
     var textColor: UIColor {
         if self.isAction {
             if self == SubredditInfoRowType.delete {
-                return DisplayModeValue(UIColor(red: 214/255.0, green: 64/255.0, blue: 64/255.0, alpha: 1), darkValue: UIColor(red: 214/255.0, green: 86/255.0, blue: 86/255.0, alpha: 1))
+                return DisplayModeValue(UIColor(red: 214 / 255.0, green: 64 / 255.0, blue: 64 / 255.0, alpha: 1), darkValue: UIColor(red: 214 / 255.0, green: 86 / 255.0, blue: 86 / 255.0, alpha: 1))
             }
             return DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
         }
@@ -137,9 +137,9 @@ enum SubredditInfoRowType {
         case SubredditInfoRowType.delete:
             return AWKLocalizedString("delete")
         case SubredditInfoRowType.displayOptions:
-            return AWKLocalizedString("display-options-setting-title");
+            return AWKLocalizedString("display-options-setting-title")
         case SubredditInfoRowType.contentFiltering:
-            return NSLocalizedString("content-filtering-setting-title", comment: "The content filtering subreddit setting");
+            return NSLocalizedString("content-filtering-setting-title", comment: "The content filtering subreddit setting")
         case SubredditInfoRowType.unsubscribe:
             return AWKLocalizedString("unsubscribe-button")
         case SubredditInfoRowType.spoilerOverlay:
@@ -231,12 +231,12 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
         
         if let multireddit = self.subreddit as? Multireddit {
             //Add the manage subreddits and "edit" actions only if the user can edit the multireddit
-            if multireddit.canEdit == true && AppDelegate.shared.authenticationController.isAuthenticated{
+            if multireddit.canEdit == true && AppDelegate.shared.authenticationController.isAuthenticated {
                 sections.append(SubredditInfoSection(type: SubredditInfoSectionType.multireddit, subTypes: [SubredditInfoRowType.manageSubreddits, SubredditInfoRowType.edit]))
             }
             
             //Add share only if the multireddit is public, in case it's private show the "OpenInSafari" button instead
-            if multireddit.visibility.publiclyVisible  {
+            if multireddit.visibility.publiclyVisible {
                 sections.append(SubredditInfoSection(type: SubredditInfoSectionType.actions, subTypes: [SubredditInfoRowType.share]))
             } else {
                 sections.append(SubredditInfoSection(type: SubredditInfoSectionType.actions, subTypes: [SubredditInfoRowType.openInSafari]))
@@ -313,8 +313,8 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
     
     override func tableView(_ tableView: UITableView, willDisplayHeaderView view: UIView, forSection section: Int) {
         //This is to work around a bug where the background does not update
-        let backgroundColor = tableView.backgroundColor;
-        view.backgroundColor = backgroundColor;
+        let backgroundColor = tableView.backgroundColor
+        view.backgroundColor = backgroundColor
         if let headerView = view as? UITableViewHeaderFooterView {
             headerView.contentView.backgroundColor = backgroundColor
         }
@@ -339,7 +339,6 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
             cell.accessoryType = rowType.accessoryType
             cell.accessoryView = nil
             cell.textLabel?.alpha = 1
-            
             
             if let subreddit = self.subreddit {
                 cell.textLabel?.text = rowType.titleForSubreddit(subreddit)
@@ -446,7 +445,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
                 return
             }
             let multireddit = self.subreddit as! Multireddit
-            multireddit.visibility = privateSwitch.isOn ? SubredditVisibility.Private : SubredditVisibility.Public
+            multireddit.visibility = privateSwitch.isOn ? SubredditVisibility.Private: SubredditVisibility.Public
             let updateOperation = multireddit.updateOperation(AppDelegate.shared.authenticationController)
             DataController.shared.executeAndSaveOperations([updateOperation], context: AppDelegate.shared.managedObjectContext) { (error: Error?) -> Void in
                 
@@ -483,7 +482,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
             DataController.shared.executeAndSaveOperations(subscribeOperations, context: AppDelegate.shared.managedObjectContext) { (error) -> Void in
                 
                 DispatchQueue.main.async(execute: { () -> Void in
-                    Trekker.default.track(event: TrekkerEvent(event: "Subscribe Subreddit", properties: ["View":"Subreddit Info"]))
+                    Trekker.default.track(event: TrekkerEvent(event: "Subscribe Subreddit", properties: ["View": "Subreddit Info"]))
                     if let error = error as NSError? {
                         let name = self.subreddit?.displayName ?? AWKLocalizedString("subreddit")
                         let message = AWKLocalizedString("subscribe_subreddit_failure").replacingOccurrences(of: "[SUBREDDIT]", with: name).replacingOccurrences(of: "[ERROR]", with: error.localizedDescription)
@@ -502,7 +501,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
         let name = self.subreddit?.displayName ?? AWKLocalizedString("subreddit")
         let title = AWKLocalizedString("unsubscribe_subreddit_confirm").replacingOccurrences(of: "[SUBREDDIT]", with: name)
         let confirmSheet = BeamAlertController(title: title as String, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        confirmSheet.addAction(UIAlertAction(title: AWKLocalizedString("unsubscribe-button"), style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
+        confirmSheet.addAction(UIAlertAction(title: AWKLocalizedString("unsubscribe-button"), style: UIAlertActionStyle.destructive, handler: { (_) -> Void in
             self.unsubscribe()
         }))
         confirmSheet.addCancelAction()
@@ -525,7 +524,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
             DataController.shared.executeAndSaveOperations(subscribeOperations, context: AppDelegate.shared.managedObjectContext) { (error) -> Void in
                 
                 DispatchQueue.main.async(execute: { () -> Void in
-                    Trekker.default.track(event: TrekkerEvent(event: "Unsubscribe Subreddit", properties: ["View":"Subreddit Info"]))
+                    Trekker.default.track(event: TrekkerEvent(event: "Unsubscribe Subreddit", properties: ["View": "Subreddit Info"]))
                     if let error = error as NSError? {
                         let name = self.subreddit?.displayName ?? AWKLocalizedString("subreddit")
                         let message = AWKLocalizedString("unsubscribe_subreddit_failure").replacingOccurrences(of: "[SUBREDDIT]", with: name).replacingOccurrences(of: "[ERROR]", with: error.localizedDescription)
@@ -553,7 +552,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
                     let alertTitle = AWKLocalizedString("multireddit-delete-failure").replacingOccurrences(of: "[MULTIREDDIT]", with: name)
                     let alert = BeamAlertController(title: alertTitle as String, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                     alert.addCancelAction()
-                    alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: .default, handler: { (action) -> Void in
+                    alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: .default, handler: { (_) -> Void in
                         self.deleteMultireddit(multireddit)
                     }))
                     
@@ -571,7 +570,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
             let alertMessage = AWKLocalizedString("multireddit-delete-sure-message").replacingOccurrences(of: "[MULTIREDDIT]", with: name)
             let alert = BeamAlertController(title: nil, message: alertMessage as String, preferredStyle: UIAlertControllerStyle.actionSheet)
             alert.addCancelAction()
-            alert.addAction(UIAlertAction(title: AWKLocalizedString("delete"), style: UIAlertActionStyle.destructive, handler: { (action) -> Void in
+            alert.addAction(UIAlertAction(title: AWKLocalizedString("delete"), style: UIAlertActionStyle.destructive, handler: { (_) -> Void in
                 SubredditInfoViewController.deleteMultireddit(multireddit)
                 self.navigationController?.dismiss(animated: true, completion: nil)
             }))
@@ -671,4 +670,3 @@ extension SubredditInfoViewController: SubredditInfoDescriptionCellDelegate {
     }
     
 }
-

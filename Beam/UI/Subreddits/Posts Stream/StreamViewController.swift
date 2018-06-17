@@ -23,9 +23,12 @@ enum BeamStreamSortingType {
     
     func sortType() -> CollectionSortType {
         switch self {
-        case .hot: return .hot
-        case .new: return .new
-        case .allTime: return .top
+        case .hot:
+            return .hot
+        case .new:
+            return .new
+        case .allTime:
+            return .top
         }
     }
     
@@ -69,7 +72,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
 
     var refreshNotification: RefreshNotificationView? {
         didSet {
-            if let notificationView = oldValue , self.refreshNotification == nil {
+            if let notificationView = oldValue, self.refreshNotification == nil {
                 notificationView.dismiss()
             }
         }
@@ -114,19 +117,17 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     var customNavigationController: UINavigationController?
 
     override var navigationController: UINavigationController? {
-        get {
-            if self.customNavigationController != nil {
-                return self.customNavigationController
-            }
-            return super.navigationController;
+        if self.customNavigationController != nil {
+            return self.customNavigationController
         }
+        return super.navigationController
     }
     
     var subreddit: Subreddit? {
         return (self.collectionController.query as? PostCollectionQuery)?.subreddit
     }
     
-    //The currently visible subreddit, used for determening the NSFW overlay and more. In case of the frontpage this subreddit is the frontpage. 
+    //The currently visible subreddit, used for determening the NSFW overlay and more. In case of the frontpage this subreddit is the frontpage.
     //This property is overwritten in the PostDetailViewController to return the context subreddit
     var visibleSubreddit: Subreddit? {
         return self.subreddit
@@ -172,12 +173,11 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     var emptyView: BeamEmptyView? {
         didSet {
-            
-            //If the searchKeywords is nil, the query is not used for a search. 
+            //If the searchKeywords is nil, the query is not used for a search.
             if let searchKeywords = self.query?.searchKeywords, searchKeywords.count == 0 {
                 self.tableView.backgroundView = nil
             } else {
-                self.refreshControl?.alpha = (self.emptyView?.emptyType == BeamEmptyViewType.Loading) ? 0 : 1
+                self.refreshControl?.alpha = (self.emptyView?.emptyType == BeamEmptyViewType.Loading) ? 0: 1
                 self.tableView.backgroundView = self.emptyView
             }
         }
@@ -208,9 +208,9 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
                 if !(self is PostDetailEmbeddedViewController) {
                     UIView.animate(withDuration: 0.32, animations: { () -> Void in
                         self.tableView.tableFooterView?.frame = CGRect(origin: self.tableView.tableFooterView!.frame.origin, size: CGSize(width: self.tableView.bounds.width, height: 0))
-                    }, completion: { (finished) -> Void in
+                    }, completion: { (_) -> Void in
                         self.tableView.tableFooterView = nil
-                    }) 
+                    })
                     self.startRefreshNotificationTimer(self.collection?.expirationDate)
                 }
                 
@@ -236,9 +236,9 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         self.tableView.register(UINib(nibName: "PostImageCollectionPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Album.rawValue)
         self.tableView.register(UINib(nibName: "PostImagePartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Image.rawValue)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.contextDidSaveNotification(_:)) , name: NSNotification.Name.NSManagedObjectContextDidSave, object: AppDelegate.shared.managedObjectContext)
-        NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.userSettingChanged(_:)) , name: .SettingsDidChangeSetting, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.postDidChangeHiddenFlag(_:)) , name: .PostDidChangeHiddenState, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.contextDidSaveNotification(_:)), name: NSNotification.Name.NSManagedObjectContextDidSave, object: AppDelegate.shared.managedObjectContext)
+        NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.userSettingChanged(_:)), name: .SettingsDidChangeSetting, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.postDidChangeHiddenFlag(_:)), name: .PostDidChangeHiddenState, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.contentDidDelete(_:)), name: .ContentDidDelete, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.postDidChangeSavedState(_:)), name: .ContentDidChangeSavedState, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(StreamViewController.postSucessfullySubmitted(_:)), name: .PostSubmitted, object: nil)
@@ -247,7 +247,6 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         self.tableView.estimatedRowHeight = 60
         self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
         self.tableView.rowHeight = UITableViewAutomaticDimension
-        
         
         //Add refresh control
         self.refreshControl = UIRefreshControl()
@@ -305,14 +304,13 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
     }
     
-
     // MARK: Data
     
     @objc func contextDidSaveNotification(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             //Update the posts shown when a multireddit changes
             guard let updatedObjects = notification.userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>,
-                let currentMultireddit  = self.subreddit as? Multireddit,
+                let currentMultireddit = self.subreddit as? Multireddit,
                 self.collectionController.status == CollectionControllerStatus.inMemory && updatedObjects.contains(currentMultireddit) else {
                 return
             }
@@ -328,7 +326,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     @objc func postDidChangeHiddenFlag(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            if let post = notification.object as? Post , post.isHidden.boolValue == true {
+            if let post = notification.object as? Post, post.isHidden.boolValue == true {
                 if let index = self.content?.index(of: post) {
                     self.tableView.beginUpdates()
                     self.content?.remove(at: index)
@@ -341,7 +339,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     }
     
     func contentFromList(_ list: NSOrderedSet?) -> [Content] {
-        guard let subreddit = self.subreddit , !(self is PostDetailEmbeddedViewController) else {
+        guard let subreddit = self.subreddit, !(self is PostDetailEmbeddedViewController) else {
             if let content: [Content] = list?.array as? [Content] {
                 return content
             } else {
@@ -393,21 +391,20 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     @objc func contentDidDelete(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            if let post = notification.object as? Post {
-                if let index = self.content?.index(of: post) {
-                    if self is PostDetailEmbeddedViewController {
-                        if let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 1 {
-                           _ = self.navigationController?.popViewController(animated: true)
-                        } else {
-                            self.dismiss(animated: true, completion: nil)
-                        }
-                    } else {
-                        self.tableView.beginUpdates()
-                        self.content?.remove(at: index)
-                        self.tableView.deleteSections(IndexSet(integer: index), with: UITableViewRowAnimation.fade)
-                        self.tableView.endUpdates()
-                    }
+            guard let post = notification.object as? Post, let index = self.content?.index(of: post) else {
+                return
+            }
+            if self is PostDetailEmbeddedViewController {
+                if let viewControllers = self.navigationController?.viewControllers, viewControllers.count > 1 {
+                   _ = self.navigationController?.popViewController(animated: true)
+                } else {
+                    self.dismiss(animated: true, completion: nil)
                 }
+            } else {
+                self.tableView.beginUpdates()
+                self.content?.remove(at: index)
+                self.tableView.deleteSections(IndexSet(integer: index), with: UITableViewRowAnimation.fade)
+                self.tableView.endUpdates()
             }
         }
         
@@ -418,10 +415,10 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             guard let subreddit = notification.object as? Subreddit else {
                 return
             }
-            //Refresh the view if it's a content collection 
+            //Refresh the view if it's a content collection
             if let collection = self.query as? PostCollectionQuery, let content = self.content, collection.subreddit == subreddit && content.count != 0 {
                 self.startCollectionControllerFetching(respectingExpirationDate: false, overwrite: true)
-            } else if let userCollection = self.query as? UserContentCollectionQuery, let content = self.content, (userCollection.userContentType == .overview || userCollection.userContentType == .submitted || userCollection.userContentType == .upvoted) && content.count != 0  {
+            } else if let userCollection = self.query as? UserContentCollectionQuery, let content = self.content, (userCollection.userContentType == .overview || userCollection.userContentType == .submitted || userCollection.userContentType == .upvoted) && content.count != 0 {
                 self.startCollectionControllerFetching(respectingExpirationDate: false, overwrite: true)
             }
             
@@ -430,9 +427,9 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     @objc func postDidChangeSavedState(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            if let post = notification.object as? Post , post.isSaved.boolValue == true && self.content?.contains(post) == true {
+            if let post = notification.object as? Post, post.isSaved.boolValue == true && self.content?.contains(post) == true {
                 self.presentSuccessMessage(AWKLocalizedString("post-saved-succesfully"))
-            } else if let comment = notification.object as? Comment , comment.isSaved.boolValue == true && self.content?.contains(comment) == true {
+            } else if let comment = notification.object as? Comment, comment.isSaved.boolValue == true && self.content?.contains(comment) == true {
                 self.presentSuccessMessage(AWKLocalizedString("comment-saved-succesfully"))
             }
         }
@@ -480,7 +477,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     }
     
     fileprivate func fetchMoreContent() {
-        self.collectionController.startFetchingMore({ [weak self] (collectionID: NSManagedObjectID?,error: Error?) -> Void in
+        self.collectionController.startFetchingMore({ [weak self] (collectionID, error) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 self?.content = self?.contentWithCollectionID(self?.collectionController.collectionID)
                 
@@ -500,7 +497,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         self.loadingFooterView.startAnimating()
     }
     
-    //MARK: - In-App Notifications
+    // MARK: - In-App Notifications
     
     @objc func refreshNotificationTimerFired(_ timer: Timer?) {
         if self.collectionController.isCollectionExpired == true && self.refreshNotification == nil && self.subreddit != nil {
@@ -518,12 +515,12 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         if self.refreshNotificationTimer?.isValid == true {
             self.refreshNotificationTimer?.invalidate()
         }
-        self.refreshNotificationTimer = nil;
+        self.refreshNotificationTimer = nil
         
-        if let fireDate = fireDate , fireDate.timeIntervalSinceNow > 0 {
+        if let fireDate = fireDate, fireDate.timeIntervalSinceNow > 0 {
             let newFireDate = fireDate.addingTimeInterval(20)
-            let timer =  Timer(fireAt: newFireDate, interval: 0, target: self, selector: #selector(StreamViewController.refreshNotificationTimerFired(_:)), userInfo: nil, repeats: false)
-            timer.tolerance = 120;
+            let timer = Timer(fireAt: newFireDate, interval: 0, target: self, selector: #selector(StreamViewController.refreshNotificationTimerFired(_:)), userInfo: nil, repeats: false)
+            timer.tolerance = 120
             self.refreshNotificationTimer = timer
             RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
         }
@@ -544,7 +541,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     }
     
     fileprivate var shouldShowUsernameInPosts: Bool {
-        if let userQuery = self.query as? UserContentCollectionQuery , userQuery.userContentType == UserContentType.submitted {
+        if let userQuery = self.query as? UserContentCollectionQuery, userQuery.userContentType == UserContentType.submitted {
             return false
         }
         return UserSettings[.showPostMetadataUsername]
@@ -599,7 +596,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
                     viewController.visibleSubreddit = self.subreddit
                     return viewController
                 }
-            } else if let urlString = post.urlString, let URL = URL(string: urlString), let mediaObjects = post.mediaObjects , mediaObjects.count <= 0 && post.isSelfText.boolValue == false {
+            } else if let urlString = post.urlString, let URL = URL(string: urlString), let mediaObjects = post.mediaObjects, mediaObjects.count <= 0 && post.isSelfText.boolValue == false {
                 let safariViewController = BeamSafariViewController(url: URL)
                 return safariViewController
             } else {
@@ -624,7 +621,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         return nil
     }
     
-    //MARK: - Content
+    // MARK: - Content
     
     fileprivate func content(forSection section: Int) -> Content? {
         guard let allContent = self.content, section < allContent.count else {
@@ -636,7 +633,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         return nil
     }
     
-    //MARK: - MediaObjectsGalleryPresentation
+    // MARK: - MediaObjectsGalleryPresentation
     
     func bottomView(for gallery: AWKGalleryViewController, post: Post?) -> UIView? {
         let postToolbarXib = UINib(nibName: "GalleryPostBottomView", bundle: nil)
@@ -701,7 +698,7 @@ extension StreamViewController {
             cell.useCompactViewMode = self.useCompactViewMode
             cell.mediaObject = post?.mediaObjects?.firstObject as? MediaObject
 
-            if self.showNSFWOverlayAtIndexPath(indexPath)  {
+            if self.showNSFWOverlayAtIndexPath(indexPath) {
                 cell.spoilerView.buttonLabel.text = AWKLocalizedString("nsfw")
                 cell.spoilerView.isHidden = false
             } else if self.showSpoilerOverlayAtIndexPath(indexPath) {
@@ -798,7 +795,7 @@ extension StreamViewController {
                         identifiers = [.Title, .Metadata, .Toolbar]
                     } else {
                         if isDetailView {
-                            identifiers = [.Title, .SelfText, .Metadata,  .Toolbar]
+                            identifiers = [.Title, .SelfText, .Metadata, .Toolbar]
                         } else {
                             identifiers = [.Title, .SelfText, .Metadata, .Toolbar]
                         }
@@ -808,7 +805,7 @@ extension StreamViewController {
                     identifiers = [.Title, .Metadata, .Album, .Toolbar]
                 } else if post.mediaObjects?.count == 1 {
                     identifiers = [.Title, .Metadata, .Image, .Toolbar]
-                } else if let urlString = post.urlString, let url = URL(string: urlString) , url.estimatedURLType == URLType.video {
+                } else if let urlString = post.urlString, let url = URL(string: urlString), url.estimatedURLType == URLType.video {
                     identifiers = [.Title, .Metadata, .Video, .Toolbar]
                 }
             } else if content is Comment {
@@ -852,7 +849,7 @@ extension StreamViewController {
         }
     }
     
-    //MARK: - Autoplaying Gifs
+    // MARK: - Autoplaying Gifs
     
     fileprivate func pauseAllPlayingGifs() {
         let imageCells: [PostImagePartCell] = self.tableView.visibleCells.filter { (cell) -> Bool in
@@ -864,7 +861,6 @@ extension StreamViewController {
             cell.gifPlayerView.pause()
         }
     }
-    
     
     fileprivate func updateGifPlayingState() {
         guard GIFPlayerView.canAutoplayGifs else {
@@ -895,7 +891,6 @@ extension StreamViewController {
     
 }
 
-
 // MARK: - UITableViewDelegate
 
 extension StreamViewController {
@@ -906,7 +901,7 @@ extension StreamViewController {
         self.updateGifPlayingState()
         
         //Determine if the user is in the "load more" scroll region
-        if scrollView.contentOffset.y > scrollView.contentSize.height - (UIScreen.main.bounds.height*1.5) && scrollView.contentSize.height > scrollView.frame.height {
+        if scrollView.contentOffset.y > scrollView.contentSize.height - (UIScreen.main.bounds.height * 1.5) && scrollView.contentSize.height > scrollView.frame.height {
                 
             guard !(self.hasEnteredLoadMoreState && self.collectionController.error != nil) else {
                 AWKDebugLog("The user has already tried loading more content but has hit an error. the user has to scroll up again to fix this")
@@ -934,18 +929,18 @@ extension StreamViewController {
         let isDetailView = self is PostDetailEmbeddedViewController
         if let cell = cell as? PostImagePartCell {
             let isNSFWOrSpoiler = self.showNSFWOverlayAtIndexPath(indexPath) || self.showSpoilerOverlayAtIndexPath(indexPath)
-            if (isNSFWOrSpoiler && (cell.spoilerView.opened || cell.spoilerView.isHidden)) || !isNSFWOrSpoiler  {
+            if (isNSFWOrSpoiler && (cell.spoilerView.opened || cell.spoilerView.isHidden)) || !isNSFWOrSpoiler {
                 presentGalleryFromIndexPath(indexPath, mediaAtIndex: 0)
             }
         } else if cell is PostSelfTextPartCell && !isDetailView {
             self.showPostDetailViewForContent( self.content?[indexPath.section])
         } else if cell is PostCommentPartCell && !isDetailView {
             self.showPostDetailViewForContent( self.content?[indexPath.section])
-        } else if let titlePartCell = cell as? PostTitlePartCell, let post = titlePartCell.post , !isDetailView {
+        } else if let titlePartCell = cell as? PostTitlePartCell, let post = titlePartCell.post, !isDetailView {
             self.navigationController?.show(PostDetailViewController(post: post, contextSubreddit: self.subreddit), sender: true)
-        }  else if let metaDataPartCell = cell as? PostMetaDataPartCell, let post = metaDataPartCell.post , !isDetailView {
+        } else if let metaDataPartCell = cell as? PostMetaDataPartCell, let post = metaDataPartCell.post, !isDetailView {
             self.navigationController?.show(PostDetailViewController(post: post, contextSubreddit: self.subreddit), sender: true)
-        } else if let toolbarPartCell = cell as? PostToolbarPartCell, let post = toolbarPartCell.post , !isDetailView {
+        } else if let toolbarPartCell = cell as? PostToolbarPartCell, let post = toolbarPartCell.post, !isDetailView {
             self.navigationController?.show(PostDetailViewController(post: post, contextSubreddit: self.subreddit), sender: true)
         } else if let cell = cell as? PostURLPartCell, let urlString = cell.post?.urlString, let url = URL(string: urlString) {
             if ExternalLinkOpenOption.shouldShowPrivateBrowsingWarning() {
@@ -996,7 +991,7 @@ extension StreamViewController {
                 return UITableViewAutomaticDimension
             }
         }
-        return 1.0;
+        return 1.0
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -1019,7 +1014,7 @@ extension StreamViewController {
                 return tableView.estimatedRowHeight
             }
         }
-        return 1.0;
+        return 1.0
     }
     
 }
@@ -1080,7 +1075,7 @@ extension StreamViewController: TTTAttributedLabelDelegate {
 
 extension StreamViewController: AWKGalleryDataSource {
     
-    //MARK: - AWKGalleryDataSource
+    // MARK: - AWKGalleryDataSource
     
     func numberOfItems(inGallery galleryViewController: AWKGalleryViewController) -> Int {
         guard let mediaObjects = self.galleryMediaObjects else {
@@ -1088,7 +1083,6 @@ extension StreamViewController: AWKGalleryDataSource {
         }
         return mediaObjects.count
     }
-    
     
     func gallery(_ galleryViewController: AWKGalleryViewController, itemAt index: UInt) -> AWKGalleryItem {
         if let mediaObject = self.galleryMediaObjects?[Int(index)] {
@@ -1106,7 +1100,7 @@ extension StreamViewController: AWKGalleryDataSource {
     
 }
 
-//MARK: - AWKGalleryDelegate
+// MARK: - AWKGalleryDelegate
 
 extension StreamViewController: AWKGalleryDelegate {
     
@@ -1120,7 +1114,7 @@ extension StreamViewController: AWKGalleryDelegate {
             return cell.mediaImageView
         } else if let indexPath = self.gallerySourceIndexPath, let cell = self.tableView.cellForRow(at: indexPath) as? PostImageCollectionPartCell {
             return cell.imageViewAtIndex(index)
-        } else if let indexPath = self.gallerySourceIndexPath, let cell = self.tableView.cellForRow(at: indexPath) as? PostTitlePartCell , index == 0 {
+        } else if let indexPath = self.gallerySourceIndexPath, let cell = self.tableView.cellForRow(at: indexPath) as? PostTitlePartCell, index == 0 {
             return cell.thumbnailView?.mediaImageView
         }
         return nil
@@ -1157,13 +1151,13 @@ extension StreamViewController: AWKGalleryDelegate {
     
 }
 
+// MARK: - PostTitlePartCellDelegate
 
-//MARK: - PostTitlePartCellDelegate
 extension StreamViewController: PostTitlePartCellDelegate {
 
     func titlePartCell(_ cell: PostTitlePartCell, didTapThumbnail thumbnailImageView: UIImageView, onPost post: Post) {
         if let indexPath = self.tableView.indexPath(for: cell) {
-            if let URLString = post.urlString, let url = URL(string: URLString) , url.estimatedURLType == URLType.video {
+            if let URLString = post.urlString, let url = URL(string: URLString), url.estimatedURLType == URLType.video {
                 if ExternalLinkOpenOption.shouldShowPrivateBrowsingWarning() {
                     ExternalLinkOpenOption.showPrivateBrowsingWarning(url, on: self)
                 } else if let viewController = AppDelegate.shared.openExternalURLWithCurrentBrowser(url) {
@@ -1181,7 +1175,7 @@ extension StreamViewController: PostTitlePartCellDelegate {
 extension StreamViewController: CollectionControllerDelegate {
 
     func collectionController(_ controller: CollectionController, collectionDidUpdateWithID objectID: NSManagedObjectID?) {
-        if let refreshTimer = self.refreshNotificationTimer, let collection = self.collection, let expirationDate = collection.expirationDate , refreshTimer.fireDate != expirationDate  {
+        if let refreshTimer = self.refreshNotificationTimer, let collection = self.collection, let expirationDate = collection.expirationDate, refreshTimer.fireDate != expirationDate {
             self.startRefreshNotificationTimer(expirationDate)
         } else if self.collection?.expirationDate == nil {
             self.startRefreshNotificationTimer(nil)
@@ -1241,8 +1235,8 @@ extension StreamViewController: UIViewControllerPreviewingDelegate {
                 viewController = self.detailViewControllerForContent(comment)
             } else if let titlePartCell = cell as? PostTitlePartCell, let post = titlePartCell.post {
                 let convertedPoint = self.tableView.convert(location, to: titlePartCell.contentView)
-                if let mediaItem = post.mediaObjects?.firstObject as? MediaObject , titlePartCell.pointInsideThumbnail(convertedPoint) == true {
-                    let galleryViewController =  self.galleryViewController(for: mediaItem, post: post)
+                if let mediaItem = post.mediaObjects?.firstObject as? MediaObject, titlePartCell.pointInsideThumbnail(convertedPoint) == true {
+                    let galleryViewController = self.galleryViewController(for: mediaItem, post: post)
                     galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
                     viewController = galleryViewController
                     viewController?.preferredContentSize = mediaItem.viewControllerPreviewingSize()
@@ -1258,7 +1252,7 @@ extension StreamViewController: UIViewControllerPreviewingDelegate {
                 let post = self.content?[indexPath.section]
                 self.galleryMediaObjects = post?.mediaObjects?.array as? [MediaObject]
                 
-                var mediaItem  = self.galleryMediaObjects?[0];
+                var mediaItem = self.galleryMediaObjects?[0]
                 if let imageCollectionPartCell = cell as? PostImageCollectionPartCell,
                     let cellMediaItem = imageCollectionPartCell.mediaItemAtLocation(cell.contentView.convert(location, from: self.tableView)),
                     let albumItemView = imageCollectionPartCell.albumItemViewAtLocation(cell.contentView.convert(location, from: self.tableView)) {
@@ -1275,7 +1269,6 @@ extension StreamViewController: UIViewControllerPreviewingDelegate {
                 }
             }
 
-            
             //Set the frame to animate the peek from
             previewingContext.sourceRect = sourceRect ?? cell.frame
             
@@ -1288,7 +1281,7 @@ extension StreamViewController: UIViewControllerPreviewingDelegate {
         if viewControllerToCommit is SFSafariViewController || viewControllerToCommit is UINavigationController {
             self.present(viewControllerToCommit, animated: true, completion: nil)
         } else if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true;
+            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
             self.presentGalleryViewController(galleryViewController, sourceView: nil)
         } else {
             self.navigationController?.show(viewControllerToCommit, sender: previewingContext)

@@ -38,7 +38,7 @@ class DeleteButton: UIControl {
     
     override var isHighlighted: Bool {
         didSet {
-            self.backgroundColor = self.isHighlighted ? self.highlightedBackgroundColor : self.normalBackgroundColor
+            self.backgroundColor = self.isHighlighted ? self.highlightedBackgroundColor: self.normalBackgroundColor
             self.setNeedsDisplay()
         }
     }
@@ -50,7 +50,7 @@ class DeleteButton: UIControl {
     
     override func draw(_ rect: CGRect) {
         let iconSize = CGSize(width: 23, height: 17)
-        let iconOrigin = CGPoint(x: (rect.width-iconSize.width)/2, y: (rect.height-iconSize.height)/2)
+        let iconOrigin = CGPoint(x: (rect.width - iconSize.width) / 2, y: (rect.height - iconSize.height) / 2)
         let iconRect = CGRect(origin: iconOrigin, size: iconSize)
         if self.isHighlighted {
             self.drawDeleteIconFilled(frame: iconRect, color: self.tintColor)
@@ -63,7 +63,7 @@ class DeleteButton: UIControl {
         
         //// Bezier Drawing
         let bezierPath: UIBezierPath = UIBezierPath()
-        bezierPath.move(to: CGPoint(x: frame.minX + 13.5,y: frame.minY + 7.44))
+        bezierPath.move(to: CGPoint(x: frame.minX + 13.5, y: frame.minY + 7.44))
         bezierPath.addLine(to: CGPoint(x: frame.minX + 11.03, y: frame.minY + 4.97))
         bezierPath.addCurve(to: CGPoint(x: frame.minX + 9.96, y: frame.minY + 4.96), controlPoint1: CGPoint(x: frame.minX + 10.73, y: frame.minY + 4.67), controlPoint2: CGPoint(x: frame.minX + 10.26, y: frame.minY + 4.67))
         bezierPath.addCurve(to: CGPoint(x: frame.minX + 9.97, y: frame.minY + 6.03), controlPoint1: CGPoint(x: frame.minX + 9.67, y: frame.minY + 5.26), controlPoint2: CGPoint(x: frame.minX + 9.67, y: frame.minY + 5.73))
@@ -104,7 +104,6 @@ class DeleteButton: UIControl {
         bezierPath.fill()
     }
 
-    
     fileprivate func drawDeleteIcon(frame: CGRect = CGRect(x: 0, y: 103, width: 23, height: 17), color: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)) {
         
         //// Bezier Drawing
@@ -167,7 +166,7 @@ class DeleteButton: UIControl {
 @IBDesignable
 class PasscodeKeyboard: UIView {
     
-    var delegate: PasscodeKeyboardDelegate?
+    weak var delegate: PasscodeKeyboardDelegate?
     
     var appearance = UIKeyboardAppearance.default {
         didSet {
@@ -189,7 +188,7 @@ class PasscodeKeyboard: UIView {
     
     fileprivate func setupView() {
         
-        let spacing: CGFloat = 1.0/UIScreen.main.scale
+        let spacing: CGFloat = 1.0 / UIScreen.main.scale
         
         var number: Int = 1
         var stackViews: [UIStackView] = [UIStackView]()
@@ -223,7 +222,6 @@ class PasscodeKeyboard: UIView {
                     number += 1
                 }
             }
-            
             
             let stackView: UIStackView = UIStackView(arrangedSubviews: views)
             stackView.spacing = spacing
@@ -260,16 +258,16 @@ class PasscodeKeyboard: UIView {
     }
     
     fileprivate func configureColors() {
-        var backgroundColor = UIColor(red:0.55, green:0.55, blue:0.56, alpha:1.00)
+        var backgroundColor = UIColor(red: 0.55, green: 0.55, blue: 0.56, alpha: 1.00)
         var textColor = UIColor.black
         var buttonBackgroundColor = UIColor.white
-        var sideButtonsBackgroundColor = UIColor(red:0.81, green:0.82, blue:0.85, alpha:1.00)
+        var sideButtonsBackgroundColor = UIColor(red: 0.81, green: 0.82, blue: 0.85, alpha: 1.00)
         
         if self.appearance == UIKeyboardAppearance.dark {
-            backgroundColor = UIColor(red:0.31, green:0.31, blue:0.31, alpha:1.00)
+            backgroundColor = UIColor(red: 0.31, green: 0.31, blue: 0.31, alpha: 1.00)
             textColor = UIColor.white
-            buttonBackgroundColor = UIColor(red:0.54, green:0.54, blue:0.54, alpha:1.00)
-            sideButtonsBackgroundColor = UIColor(red:0.30, green:0.31, blue:0.32, alpha:1.00)
+            buttonBackgroundColor = UIColor(red: 0.54, green: 0.54, blue: 0.54, alpha: 1.00)
+            sideButtonsBackgroundColor = UIColor(red: 0.30, green: 0.31, blue: 0.32, alpha: 1.00)
         }
         
         self.backgroundColor = backgroundColor
@@ -295,7 +293,7 @@ class PasscodeKeyboard: UIView {
         }
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 320, height: 217)
     }
 

@@ -14,7 +14,6 @@ extension Notification.Name {
     
 }
 
-
 /// Handles font size changes done in the app or in the system. Use FontSizeController.category to get the font size category.
 /// Some class funcs will help with adjusting the lineheight and text size
 class FontSizeController: NSObject {
@@ -50,7 +49,7 @@ class FontSizeController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: - Display title
+    // MARK: - Display title
     
     class func displayTitle(forFontSizeCategory category: String?) -> String {
         let titles: [String: String] = [
@@ -68,7 +67,7 @@ class FontSizeController: NSObject {
         return NSLocalizedString("system-font-size-option", comment: "Font size that follows the system font size")
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func contentSizeCategoryDidChange(_ notification: Notification) {
         if FontSizeController.category == nil {
@@ -76,7 +75,7 @@ class FontSizeController: NSObject {
         }
     }
     
-    //MARK: - Font size information (adjustments, sizes etc)
+    // MARK: - Font size information (adjustments, sizes etc)
     
     private static let lineHeightAdjustments: [String: CGFloat] = [
         UIContentSizeCategory.extraSmall.rawValue: -3,
@@ -89,10 +88,8 @@ class FontSizeController: NSObject {
         UIContentSizeCategory.accessibilityMedium.rawValue: 4, //Same as Extra Extra Extra Large
         UIContentSizeCategory.accessibilityLarge.rawValue: 5,
         UIContentSizeCategory.accessibilityExtraLarge.rawValue: 6,
-        UIContentSizeCategory.accessibilityExtraExtraExtraLarge.rawValue: 7,
+        UIContentSizeCategory.accessibilityExtraExtraExtraLarge.rawValue: 7
     ]
-    
-
     
     private static let fontSizeAdjustments: [String: CGFloat] = [
         UIContentSizeCategory.extraSmall.rawValue: -3,
@@ -105,10 +102,10 @@ class FontSizeController: NSObject {
         UIContentSizeCategory.accessibilityMedium.rawValue: 4, //Same as Extra Extra Extra Large
         UIContentSizeCategory.accessibilityLarge.rawValue: 5,
         UIContentSizeCategory.accessibilityExtraLarge.rawValue: 6,
-        UIContentSizeCategory.accessibilityExtraExtraExtraLarge.rawValue: 7,
+        UIContentSizeCategory.accessibilityExtraExtraExtraLarge.rawValue: 7
     ]
     
-    //MARK: - Font size adjusting methods
+    // MARK: - Font size adjusting methods
     
     class func adjustedLineHeight(_ lineHeight: CGFloat, forContentSizeCategory category: String? = nil) -> CGFloat {
         var contentSizeCategory = UIApplication.shared.preferredContentSizeCategory.rawValue
@@ -119,13 +116,12 @@ class FontSizeController: NSObject {
             contentSizeCategory = category
         }
         
-        
         var adjustment: CGFloat = 0
         if let newAdjustement = self.lineHeightAdjustments[contentSizeCategory] {
             adjustment = newAdjustement
         }
         
-        var newLineHeight: CGFloat = lineHeight+adjustment
+        var newLineHeight: CGFloat = lineHeight + adjustment
         if newLineHeight < 12 {
             newLineHeight = 12
         }
@@ -146,7 +142,7 @@ class FontSizeController: NSObject {
             adjustment = newAdjustement
         }
         
-        var newLineHeight: CGFloat = fontSize+adjustment
+        var newLineHeight: CGFloat = fontSize + adjustment
         if newLineHeight < 12 {
             newLineHeight = 12
         }

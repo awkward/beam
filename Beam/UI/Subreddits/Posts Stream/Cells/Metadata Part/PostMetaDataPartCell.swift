@@ -24,6 +24,7 @@ final class PostMetaDataPartCell: BeamTableViewCell, PostCell {
     // MARK: - Layout
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.selectionStyle = .none
     }
     
@@ -32,7 +33,7 @@ final class PostMetaDataPartCell: BeamTableViewCell, PostCell {
 
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 22)
     }
 }

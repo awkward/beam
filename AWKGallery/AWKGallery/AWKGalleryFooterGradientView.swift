@@ -10,7 +10,7 @@ import UIKit
 
 public class AWKGalleryFooterGradientView: UIView {
     
-    override open class var layerClass : AnyClass {
+    override open class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
     

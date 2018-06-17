@@ -9,7 +9,7 @@
 import UIKit
 import Snoo
 
-protocol MultiredditSubsSearchViewControllerDelegate : SubredditsSearchViewControllerDelegate {
+protocol MultiredditSubsSearchViewControllerDelegate: SubredditsSearchViewControllerDelegate {
     
     func searchViewController(_ viewController: SubredditsSearchViewController, commitEditingStyle editingStyle: UITableViewCellEditingStyle, subreddit: Subreddit)
     func currentAddedSubredditsForSearchViewController(_ viewController: SubredditsSearchViewController) -> [Subreddit]?
@@ -69,7 +69,7 @@ class MultiredditSubsSearchViewController: SubredditsSearchViewController {
 
     fileprivate func editingStyleAtIndexPath(_ indexPath: IndexPath) -> UITableViewCellEditingStyle {
         if let addedSubreddits = self.addedSubreddits, let subreddit = self.objects?[indexPath.row] {
-            return addedSubreddits.index(of: subreddit) != nil ? UITableViewCellEditingStyle.delete : UITableViewCellEditingStyle.insert
+            return addedSubreddits.index(of: subreddit) != nil ? UITableViewCellEditingStyle.delete: UITableViewCellEditingStyle.insert
         }
         
         return UITableViewCellEditingStyle.none

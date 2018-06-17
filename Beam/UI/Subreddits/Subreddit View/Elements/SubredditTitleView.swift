@@ -59,9 +59,9 @@ class SubredditTitleView: BeamView {
             
             let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedStringKey.font: subtitleFont, NSAttributedStringKey.foregroundColor: subtitleColor])
             fullContent.append(subtitleString)
-        } else if let subreddit = self.subreddit , !subreddit.isPrepopulated && subreddit.visibility == SubredditVisibility.Private {
+        } else if let subreddit = self.subreddit, !subreddit.isPrepopulated && subreddit.visibility == SubredditVisibility.Private {
             fullContent.append(NSAttributedString(string: "\n"))
-            let subtitle =  subreddit.visibility == SubredditVisibility.Public ? AWKLocalizedString("public").capitalized(with: Locale.current) : AWKLocalizedString("private").capitalized(with: Locale.current)
+            let subtitle = subreddit.visibility == SubredditVisibility.Public ? AWKLocalizedString("public").capitalized(with: Locale.current) : AWKLocalizedString("private").capitalized(with: Locale.current)
             
             let subtitleFont = UIFont.systemFont(ofSize: 12)
             let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedStringKey.font: subtitleFont, NSAttributedStringKey.foregroundColor: subtitleColor])
@@ -74,7 +74,7 @@ class SubredditTitleView: BeamView {
     @objc fileprivate func objectsDidChangeInContextNotification(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? NSSet
-            if let subreddit = self.subreddit , updatedObjects?.contains(subreddit) == true && subreddit is Multireddit {
+            if let subreddit = self.subreddit, updatedObjects?.contains(subreddit) == true && subreddit is Multireddit {
                 self.contentLabel.attributedText = self.attributedContent
             }
         }

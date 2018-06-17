@@ -33,13 +33,13 @@ public final class PostCollectionQuery: ContentCollectionQuery {
             }
         })
         
-        if let subredditPermalink = permalink , searchKeywords == nil {
+        if let subredditPermalink = permalink, searchKeywords == nil {
             return (subredditPermalink as NSString).appendingPathComponent("\(self.sortType.rawValue).json")
-        } else if let multireddit = self.subreddit as? Multireddit, let author = multireddit.author, let displayName = multireddit.displayName , searchKeywords == nil {
+        } else if let multireddit = self.subreddit as? Multireddit, let author = multireddit.author, let displayName = multireddit.displayName, searchKeywords == nil {
             return "user/\(author)/m/\(displayName.lowercased().trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))/\(self.sortType.rawValue).json"
-        } else if let displayName = displayName , searchKeywords == nil {
+        } else if let displayName = displayName, searchKeywords == nil {
             return "r/\(displayName)/\(self.sortType.rawValue).json"
-        } else if let subredditPermalink = permalink , self.searchKeywords != nil && self.subreddit?.isPrepopulated == false {
+        } else if let subredditPermalink = permalink, self.searchKeywords != nil && self.subreddit?.isPrepopulated == false {
             return (subredditPermalink as NSString).appendingPathComponent("search.json")
         } else if self.searchKeywords != nil {
             return "search.json"
@@ -49,9 +49,8 @@ public final class PostCollectionQuery: ContentCollectionQuery {
     }
     
     override var apiQueryItems: [URLQueryItem]? {
-        let sortContext = self.searchKeywords != nil ? CollectionSortContext.postsSearch : CollectionSortContext.posts
+        let sortContext = self.searchKeywords != nil ? CollectionSortContext.postsSearch: CollectionSortContext.posts
         var items: [URLQueryItem] = [URLQueryItem]()
-        
         
         if let searchKeywords = self.searchKeywords {
             let queryItem: URLQueryItem = URLQueryItem(name: "q", redditQuery: searchKeywords)
@@ -97,13 +96,12 @@ public final class PostCollectionQuery: ContentCollectionQuery {
     
     open override var sortType: CollectionSortType {
         didSet {
-            let sortContext = self.searchKeywords != nil ? CollectionSortContext.postsSearch : CollectionSortContext.posts
+            let sortContext = self.searchKeywords != nil ? CollectionSortContext.postsSearch: CollectionSortContext.posts
             
             if !self.sortType.isSupported(sortContext) {
                 print("The sortType \(self.sortType) might not be supported for posts and lead to unwanted behavior")
             }
         }
     }
-
     
 }

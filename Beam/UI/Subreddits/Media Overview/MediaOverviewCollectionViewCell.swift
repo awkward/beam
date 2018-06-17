@@ -72,7 +72,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
         self.spoilerOverlay?.isHidden = !(self.contentIsNSFW && self.shouldShowNSFWOverlay) && !(self.contentIsSpoiler && self.shouldShowSpoilerOverlay)
     }
     
-    //MARK: -  Lifecycle
+    // MARK: - Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -140,9 +140,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
         
         self.mediaImageView.isOpaque = self.isOpaque
         
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 209/255, green: 208/255, blue: 212/255, alpha: 1.0), darkValue: UIColor(red: 56/255, green: 56/255, blue: 56/255, alpha: 1.0))
-        
-        
+        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 209 / 255, green: 208 / 255, blue: 212 / 255, alpha: 1.0), darkValue: UIColor(red: 56 / 255, green: 56 / 255, blue: 56 / 255, alpha: 1.0))
     }
     
     // MARK: - Content
@@ -189,8 +187,6 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
     }
     
     class func attributedContentForMediaObject(_ mediaObject: Snoo.MediaObject?) -> NSAttributedString? {
-        
-        
         var contentStrings = [NSAttributedString]()
         if let captionTitle = mediaObject?.captionTitle {
             let paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle

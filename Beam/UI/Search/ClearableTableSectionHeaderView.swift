@@ -46,8 +46,6 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
         
         self.contentView.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.contentView, attribute: NSLayoutAttribute.bottomMargin, multiplier: 1, constant: 0))
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[title]-[clear]-|", options: [], metrics: nil, views: ["title": self.titleLabel, "clear": self.clearButton]))
-
-        
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

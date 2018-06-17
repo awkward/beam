@@ -154,7 +154,7 @@ class SubredditMediaCollectionController: NSObject {
     }
     
     func fetchInitialContent() {
-        self.collectionController.startInitialFetching { (collectionID: NSManagedObjectID?, error: Error?) -> Void in
+        self.collectionController.startInitialFetching { (_, _) -> Void in
             let context: NSManagedObjectContext! = AppDelegate.shared.managedObjectContext
             context.perform {
                 self.reloadMedia()
@@ -163,7 +163,7 @@ class SubredditMediaCollectionController: NSObject {
     }
     
     func fetchMoreContent() {
-        self.collectionController.startFetchingMore({ (collectionID: NSManagedObjectID?, error: Error?) -> Void in
+        self.collectionController.startFetchingMore({ (_, _) -> Void in
             let context: NSManagedObjectContext! = AppDelegate.shared.managedObjectContext
             context.perform {
                 self.reloadMedia()

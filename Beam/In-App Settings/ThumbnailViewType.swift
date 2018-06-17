@@ -9,10 +9,10 @@
 import UIKit
 
 public enum ThumbnailsViewType: String {
-    case large = "large"
-    case medium = "medium"
-    case small = "small"
-    case none = "none"
+    case large
+    case medium
+    case small
+    case none
     
     public func headerSpacingHeight(atIndex index: Int) -> CGFloat {
         switch self {

@@ -8,7 +8,6 @@
 
 import UIKit
 
-
 /// The view that can be added to AppLaunchOption to open directly after the app opens
 public enum AppLaunchView: String {
     case Subreddits = "subreddits"
@@ -21,7 +20,7 @@ public enum AppLaunchView: String {
 }
 
 /// The option the user has chose to open the app with, has a title (for display in settings) and a view to open
-public struct AppLaunchOption: Equatable  {
+public struct AppLaunchOption: Equatable {
     public var title: String
     public var view: AppLaunchView
     
@@ -47,7 +46,7 @@ public struct AppLaunchOption: Equatable  {
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-messages"), view: AppLaunchView.Messages),
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-profile"), view: AppLaunchView.Profile)
             ],
-            "subreddit":[
+            "subreddit": [
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-last-visited-subreddit"), view: AppLaunchView.LastVisitedSubreddit),
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-frontpage"), view: AppLaunchView.Frontpage),
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-all"), view: AppLaunchView.All)
@@ -64,6 +63,6 @@ public struct AppLaunchOption: Equatable  {
     }
 }
 
-public func ==(lhs: AppLaunchOption, rhs: AppLaunchOption) -> Bool {
+public func == (lhs: AppLaunchOption, rhs: AppLaunchOption) -> Bool {
     return lhs.view == rhs.view
 }

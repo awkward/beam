@@ -30,11 +30,11 @@ enum AppTabContent: String {
 enum DelayedAppAction {
     case handleNotification(notification: UNNotification)
     case openViewController(viewController: UIViewController)
-    case performBlock(block: (() -> ()))
+    case performBlock(block: (() -> Void))
 }
 
 @UIApplicationMain
-class AppDelegate: UIResponder, UIApplicationDelegate {
+final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     var galleryWindow: UIWindow?
@@ -132,9 +132,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let cacheConfig = SDImageCache.shared().config
         cacheConfig.shouldDecompressImages = false
         //Max cache size: 400MB
-        cacheConfig.maxCacheSize = UInt(400*1000*1000)
+        cacheConfig.maxCacheSize = UInt(400 * 1000 * 1000)
         //Max cache age: 3 days
-        cacheConfig.maxCacheAge = 60*60*60*24*3
+        cacheConfig.maxCacheAge = 60 * 60 * 60 * 24 * 3
         
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contextDidSave(_:)), name: .NSManagedObjectContextDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.cherryAccessTokenDidChange(_:)), name: .CherryAccessTokenDidChange, object: self.cherryController)
@@ -174,7 +174,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.showPasscodeOnActive = true
         
-        Mixpanel.sharedInstance()?.joinExperiments { 
+        Mixpanel.sharedInstance()?.joinExperiments {
             self.configureTabBarItems()
         }
         
@@ -221,7 +221,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey : Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
         do {
             try openApplicationUrl(url)
         } catch {
@@ -246,7 +246,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         return true
     }
     
-    // MARK: - NSUserActivity 
+    // MARK: - NSUserActivity
     
     func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
         if userActivity.activityType == "com.madeawkward.beam.subreddit" {
@@ -282,7 +282,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                         }))
                         return true
                     }
-                    return InternalLinkRoutingController.shared.routeURL(subredditURL);
+                    return InternalLinkRoutingController.shared.routeURL(subredditURL)
                 }
             }
             return false
@@ -449,8 +449,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName())
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true), NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))), NSSortDescriptor(key: "identifier", ascending: true)]
-                fetchRequest.predicate = NSPredicate(format: "isBookmarked == YES && NOT (identifier IN %@)",[Subreddit.frontpageIdentifier, Subreddit.allIdentifier])
-                fetchRequest.fetchLimit = 3;
+                fetchRequest.predicate = NSPredicate(format: "isBookmarked == YES && NOT (identifier IN %@)", [Subreddit.frontpageIdentifier, Subreddit.allIdentifier])
+                fetchRequest.fetchLimit = 3
                 subreddits = try objectContext.fetch(fetchRequest)
                 let frontpage = try Subreddit.frontpageSubreddit()
                 subreddits.insert(frontpage, at: 0)
@@ -504,7 +504,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    
     // MARK: - Background App Refresh
     
     func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
@@ -516,7 +515,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             completionHandler(UIBackgroundFetchResult.noData)
             exit(0)
         }
-        MessageCollectionQuery.fetchUnreadMessages { (messages, error) -> Void in
+        MessageCollectionQuery.fetchUnreadMessages { (messages, _) -> Void in
             guard let messages = messages else {
                 completionHandler(UIBackgroundFetchResult.failed)
                 return
@@ -616,7 +615,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    
     // MARK: - Data changes
     
     @objc private func contextDidSave(_ notification: Notification) {
@@ -654,7 +652,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc private func applicationWindowDidBecomeVisible(_ notification: Notification?) {
         DispatchQueue.main.async { () -> Void in
@@ -681,11 +679,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         if self.scheduledAppAction != nil {
             //Notifications can always replace the delayed action
             switch action {
-            case .handleNotification(_):
+            case .handleNotification:
                 self.scheduledAppAction = action
             default:
                 print("Delayed action already set \(String(describing: self.scheduledAppAction))")
-                break
             }
         } else {
              self.scheduledAppAction = action
@@ -720,7 +717,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         self.configureTabBarItems()
         
         if self.authenticationController.isAuthenticated {
-            self.authenticationController.requestActiveUser({ (userID, identifier, error) -> Void in
+            self.authenticationController.requestActiveUser({ (_, _, _) -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in
                     self.configureTabBarItems()
                 })
@@ -761,7 +758,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let alertController = BeamAlertController(title: AWKLocalizedString("switch-account-title"), message: AWKLocalizedString("switch-account-message"), preferredStyle: UIAlertControllerStyle.actionSheet)
         
         for session in sessions {
-            let action = UIAlertAction(title: session.username ?? "Unknown", style: .default, handler: { (action) -> Void in
+            let action = UIAlertAction(title: session.username ?? "Unknown", style: .default, handler: { (_) -> Void in
                 self.switchToSession(session)
             })
             alertController.addAction(action)
@@ -877,7 +874,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
                     AWKDebugLog("Cherry remote notification registration failed: \(error)")
                 } else {
                     self.hasRegisteredForRemoteNotifications = true
-                    AWKDebugLog("Registered device with result %@ token %@", result,deviceToken.description)
+                    AWKDebugLog("Registered device with result %@ token %@", result, deviceToken.description)
                 }
             }
         })
@@ -890,17 +887,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func changeActiveTabContent(_ newContent: AppTabContent) {
-        if let viewController = self.tabBarController?.viewControllers?.filter({ (viewController: UIViewController) -> Bool in
+        if let viewController = self.tabBarController?.viewControllers?.first(where: { (viewController) -> Bool in
             return viewController.restorationIdentifier == newContent.rawValue
-        }).first {
+        }) {
             self.tabBarController?.selectedViewController = viewController
         }
     }
     
     func viewControllerForAppTabContent(_ content: AppTabContent) -> UIViewController? {
-        if let viewController = self.tabBarController?.viewControllers?.filter({ (viewController: UIViewController) -> Bool in
+        if let viewController = self.tabBarController?.viewControllers?.first(where: { (viewController) -> Bool in
             return viewController.restorationIdentifier == content.rawValue
-        }).first {
+        }) {
             return viewController
         }
         return nil
@@ -941,7 +938,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             selectedImage = UIImage(named: "tabbar_inbox\(extraString)_badge_selected")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
         }
         let tabBarItem = UITabBarItem(title: AWKLocalizedString("messages-title"), image: image, selectedImage: selectedImage)
-        tabBarItem.imageInsets = UIEdgeInsetsMake(-2, 0, 2, 0)
+        tabBarItem.imageInsets = UIEdgeInsets(top: -2, left: 0, bottom: 2, right: 0)
         messagesNavigation.tabBarItem = tabBarItem
     }
     
@@ -1011,7 +1008,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     @objc func userSettingDidChange(_ notification: Notification) {
-        //This method is called when a setting changes, the object will be the key of the setting. 
+        //This method is called when a setting changes, the object will be the key of the setting.
     }
     
 }
@@ -1019,7 +1016,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 extension AppDelegate: SFSafariViewControllerDelegate {
     
     func safariViewControllerDidFinish(_ controller: SFSafariViewController) {
-        if (controller.presentingViewController != nil) {
+        if controller.presentingViewController != nil {
             controller.dismiss(animated: true) { () -> Void in
                 self.authenticationViewController = nil
             }

@@ -34,7 +34,7 @@ class MultiredditImagesOperation: CherryPostParsingOperation {
                     }
                 }
                 
-                if let token = self.cherryController?.accessToken , subredditSet.count > 0 {
+                if let token = self.cherryController?.accessToken, subredditSet.count > 0 {
                     let task = MultiredditMetadataTask(token: token, subredditIDs: subredditSet.filter({ $0.displayName != nil }).map({ $0.displayName! }))
                     self.currentTask = task
                     task.start({ (result: TaskResult) -> Void in

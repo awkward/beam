@@ -28,7 +28,7 @@ public struct MarkdownStylesheet {
         return MarkdownStylesheet.systemStylesheetWithBaseFont(baseFont)
     }
     
-    public static func systemStylesheetWithBaseFont(_ baseFont:UIFont) -> MarkdownStylesheet {
+    public static func systemStylesheetWithBaseFont(_ baseFont: UIFont) -> MarkdownStylesheet {
         
         let baseFontDescriptor: UIFontDescriptor = baseFont.fontDescriptor
         let baseFontBoldDescriptor: UIFontDescriptor? = baseFontDescriptor.withSymbolicTraits([UIFontDescriptorSymbolicTraits.traitBold])
@@ -54,12 +54,11 @@ public struct MarkdownStylesheet {
         attributes[MarkdownElementType.inlineCode] = [NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor.withFamily("Courier"), size: baseFont.pointSize)]
         attributes[MarkdownElementType.code] = [NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor.withFamily("Courier"), size: baseFont.pointSize)]
         
-        
         let headingFontDescriptor: UIFontDescriptor = baseFontBoldDescriptor ?? baseFontDescriptor
         
-        attributes[MarkdownElementType.h1] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize+3)]
-        attributes[MarkdownElementType.h2] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize+2)]
-        attributes[MarkdownElementType.h3] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize+1)]
+        attributes[MarkdownElementType.h1] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 3)]
+        attributes[MarkdownElementType.h2] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 2)]
+        attributes[MarkdownElementType.h3] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 1)]
         attributes[MarkdownElementType.h4] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize)]
         attributes[MarkdownElementType.h5] = [NSAttributedStringKey.font: baseFont]
         
@@ -77,7 +76,7 @@ public struct MarkdownStylesheet {
         return MarkdownStylesheet(attributes: attributes)
     }
     
-    public static func systemStyleSheetWithTextColor(_ textColor:UIColor) -> MarkdownStylesheet {
+    public static func systemStyleSheetWithTextColor(_ textColor: UIColor) -> MarkdownStylesheet {
         let stylesheet = MarkdownStylesheet.systemStylesheet()
         var attributes = stylesheet.attributes
         for element in attributes.keys {

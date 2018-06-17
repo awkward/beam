@@ -27,7 +27,7 @@ class ShareActivityViewController: UIActivityViewController {
         if object is Post {
             applicationActivities.append(contentsOf: [ReportPostActivity(), HidePostActivity(), UnhidePostActivity(), DeletePostActivity(), EditPostActivity(), SavePostActivity(), UnsavePostActivity()])
         } else if object is Comment {
-            applicationActivities.append(contentsOf: [CopyLinkActivity(),EditCommentActivity(),CopyCommentActivity(), SaveCommentActivity(), UnsaveCommentActivity(), DeleteCommentActivity()])
+            applicationActivities.append(contentsOf: [CopyLinkActivity(), EditCommentActivity(), CopyCommentActivity(), SaveCommentActivity(), UnsaveCommentActivity(), DeleteCommentActivity()])
         }
         
         super.init(activityItems: [urlProvider, object], applicationActivities: applicationActivities)

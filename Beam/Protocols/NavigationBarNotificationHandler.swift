@@ -56,7 +56,7 @@ extension NavigationBarNotification where Self: UIView {
                 self.bottomNotificationConstraint?.isActive = true
                 //Also here the next line is required, otherwise the animation will not work as smoothly
                 superView.layoutIfNeeded()
-                }, completion: { (finished) in
+                }, completion: { (_) in
                     self.removeFromSuperview()
                     self.removeConstraints(self.constraints)
                     notificationIsActive = false
@@ -79,8 +79,8 @@ extension UINavigationController {
     @param style The style the notification view is being displayed, free will snap it only to the top and center it horizontally, full width will snap it to the top and sides. Defaults to FullWidth
     @param insets The edge insets to display the notification. This can be handy when using the free style it will allow a space between the top view and the notification view. Defaults to none (all zero)
     */
-    func presentNotificationView<NotificationView: UIView>(_ view: NotificationView, style: NavigationBarNotificationStyle = .fullWidth,insets: UIEdgeInsets = UIEdgeInsets()) where NotificationView: NavigationBarNotification {
-        if(notificationIsActive) {
+    func presentNotificationView<NotificationView: UIView>(_ view: NotificationView, style: NavigationBarNotificationStyle = .fullWidth, insets: UIEdgeInsets = UIEdgeInsets()) where NotificationView: NavigationBarNotification {
+        if notificationIsActive {
             return
         }
         notificationIsActive = true
@@ -107,7 +107,7 @@ extension UINavigationController {
                 view.bottomNotificationConstraint!.isActive = false
                 //Also here the next line is required, otherwise the animation will not work as smoothly
                 superView.layoutIfNeeded()
-                }, completion: { (finished) in
+                }, completion: { (_) in
                     self.checkForAutoDismissal(view)
             })
         } else {
@@ -125,7 +125,7 @@ extension UINavigationController {
         }
     }
     
-    fileprivate func addConstraintsForFullWidth<NotificationView: UIView>(_ view: NotificationView,superView: UIView, topView: UIView, insets: UIEdgeInsets) where NotificationView: NavigationBarNotification {
+    fileprivate func addConstraintsForFullWidth<NotificationView: UIView>(_ view: NotificationView, superView: UIView, topView: UIView, insets: UIEdgeInsets) where NotificationView: NavigationBarNotification {
         let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: topView, attribute: .bottom, multiplier: 1.0, constant: insets.top)
         topConstraint.priority = UILayoutPriority.defaultLow
         superView.addConstraint(topConstraint)
@@ -139,7 +139,7 @@ extension UINavigationController {
         superView.addConstraint(NSLayoutConstraint(item: view, attribute: .left, relatedBy: .equal, toItem: superView, attribute: .left, multiplier: 1.0, constant: insets.left))
     }
     
-    fileprivate func addConstraintsForFreePlacement<NotificationView: UIView>(_ view: NotificationView,superView: UIView, topView: UIView, insets: UIEdgeInsets) where NotificationView: NavigationBarNotification {
+    fileprivate func addConstraintsForFreePlacement<NotificationView: UIView>(_ view: NotificationView, superView: UIView, topView: UIView, insets: UIEdgeInsets) where NotificationView: NavigationBarNotification {
         let topConstraint = NSLayoutConstraint(item: view, attribute: .top, relatedBy: .equal, toItem: topView, attribute: .bottom, multiplier: 1.0, constant: insets.top)
         topConstraint.priority = UILayoutPriority.defaultLow
         superView.addConstraint(topConstraint)
@@ -154,7 +154,7 @@ extension UINavigationController {
         superView.addConstraint(NSLayoutConstraint(item: view, attribute: .centerX, relatedBy: .equal, toItem: superView, attribute: .centerX, multiplier: 1.0, constant: 0))
     }
     
-    fileprivate func findTopViewController(_ viewController:UIViewController?) -> UIViewController? {
+    fileprivate func findTopViewController(_ viewController: UIViewController?) -> UIViewController? {
         if let navigationController = viewController as? UINavigationController {
             return self.findTopViewController(navigationController)
         } else if let tabBarController = viewController as? UITabBarController {

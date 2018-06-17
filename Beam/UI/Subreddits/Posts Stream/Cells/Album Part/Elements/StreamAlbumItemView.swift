@@ -12,15 +12,15 @@ import SDWebImage
 
 final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabels {
     
-    //MARK: - Image Loading
+    // MARK: - Image Loading
     
     internal var imageOperation: SDWebImageOperation?
     
-    //MARK: - External Properties
+    // MARK: - External Properties
     
     var shouldShowNSFWOverlay: Bool = true {
         didSet {
-            if self.preparedForShow && self.shouldShowNSFWOverlay != oldValue{
+            if self.preparedForShow && self.shouldShowNSFWOverlay != oldValue {
                 self.reloadOverlayAndMoreCount()
             }
         }
@@ -52,14 +52,14 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
     internal var preferredThumbnailSize: CGSize {
         if self.mediaImageView.bounds.size.width <= 0 {
             //If no size is available, use half of the screensize for the preffered thumbnail size
-            return CGSize(width: UIScreen.main.bounds.size.width/2, height: UIScreen.main.bounds.size.width/2)
+            return CGSize(width: UIScreen.main.bounds.size.width / 2, height: UIScreen.main.bounds.size.width / 2)
         }
         return self.mediaImageView.bounds.size
     }
     
     fileprivate var preparedForShow = false
     
-    //MARK: - View properties
+    // MARK: - View properties
     
     var mediaImageView: UIImageView! = UIImageView()
     internal let progressView = CircularProgressView()
@@ -81,7 +81,6 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
     }
     
     fileprivate func setupView() {
-
         self.layoutMargins = UIEdgeInsets(top: 8, left: 8, bottom: 8, right: 8)
         
         self.mediaImageView.clipsToBounds = true
@@ -89,8 +88,6 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
         self.mediaImageView.backgroundColor = UIColor.white
         self.mediaImageView.contentMode = UIViewContentMode.scaleAspectFill
         self.addSubview(self.mediaImageView)
-        
-        
         self.addSubview(self.progressView)
     }
     
@@ -190,7 +187,7 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
         
         //Progress view
         let progressViewSize = self.progressView.intrinsicContentSize
-        self.progressView.frame = CGRect(origin: CGPoint(x: self.bounds.midX-(progressViewSize.width/2), y: self.bounds.midY-(progressViewSize.height/2)), size: progressViewSize)
+        self.progressView.frame = CGRect(origin: CGPoint(x: self.bounds.midX - (progressViewSize.width / 2), y: self.bounds.midY - (progressViewSize.height / 2)), size: progressViewSize)
         
         //Effect view
         self.blurEffectView?.frame = self.bounds

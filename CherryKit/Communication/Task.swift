@@ -67,7 +67,7 @@ open class Task: NSObject {
     func cherryRequest(_ apiPath: String, queryItems: [URLQueryItem]? = nil, method: RequestMethod) -> URLRequest {
         var baseURL = self.baseURL
         #if !DEBUG
-            if apiPath.lowercased() == "hello"  {
+            if apiPath.lowercased() == "hello" {
                 baseURL = "http://hello.beamreddit.com"
             }
         #endif
@@ -125,7 +125,7 @@ open class Task: NSObject {
             
             if let error = error {
                 completionHandler?(TaskResult(error: error, response: (response as? HTTPURLResponse)))
-            } else if let httpResponse = response as? HTTPURLResponse , httpResponse.statusCode != 200 {
+            } else if let httpResponse = response as? HTTPURLResponse, httpResponse.statusCode != 200 {
                 do {
                     if let data = data, let errorObject = try JSONSerialization.jsonObject(with: data, options: []) as? [String: AnyObject], let message = errorObject["message"] as? String {
                         let error = NSError(domain: CherryKitErrorDomain, code: CherryKitNetworkingErrorCode, userInfo: [NSLocalizedDescriptionKey: message])

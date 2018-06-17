@@ -50,7 +50,6 @@ final class PostURLPartCell: BeamTableViewCell, PostCell {
         self.linkPreviewView.isSelected = selected
     }
 
-    
     class func heightForLink(isVideo: Bool, forWidth width: CGFloat) -> CGFloat {
         return PostLinkPreviewView.height(for: nil, inWidth: width, isVideoPreview: isVideo)
     }

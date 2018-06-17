@@ -13,7 +13,7 @@ extension UIViewController {
     var usesRoundedCorners: Bool {
         set {
             self.view.layer.masksToBounds = newValue
-            self.view.layer.cornerRadius = (newValue ? 6 : 0)
+            self.view.layer.cornerRadius = (newValue ? 6: 0)
         }
         get {
             return self.view.layer.cornerRadius > 0

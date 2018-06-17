@@ -35,8 +35,8 @@ internal struct MarkdownElement: Equatable {
     var url: URL?
     var isLineElement: Bool?
     
-    init(range: NSRange, startIndexOffset: Int = 0,  type: MarkdownElementType) {
-        let startIndex = range.location+startIndexOffset
+    init(range: NSRange, startIndexOffset: Int = 0, type: MarkdownElementType) {
+        let startIndex = range.location + startIndexOffset
         self.range = NSRange(location: startIndex, length: range.length)
         self.type = type
     }
@@ -58,7 +58,7 @@ internal struct MarkdownElement: Equatable {
     }
     
     internal static func decode(_ encodedElement: [NSString: AnyObject], baseString: NSString) -> MarkdownElement {
-        let range = NSMakeRange((encodedElement["start"] as? NSNumber)?.intValue ?? 0, (encodedElement["count"] as? NSNumber)?.intValue ?? 0)
+        let range = NSRange(location: (encodedElement["start"] as? NSNumber)?.intValue ?? 0, length: (encodedElement["count"] as? NSNumber)?.intValue ?? 0)
         let type = MarkdownElementType(rawValue: (encodedElement["type"] as? NSNumber)?.intValue ?? 1) ?? MarkdownElementType.paragraph
         var element = MarkdownElement(range: range, type: type)
         element.url = encodedElement["url"] as? URL
@@ -68,7 +68,7 @@ internal struct MarkdownElement: Equatable {
     
 }
 
-func ==(lhs: MarkdownElement, rhs: MarkdownElement) -> Bool {
+func == (lhs: MarkdownElement, rhs: MarkdownElement) -> Bool {
     return lhs.range.location == rhs.range.location &&
         lhs.range.length == rhs.range.length &&
         lhs.type == rhs.type

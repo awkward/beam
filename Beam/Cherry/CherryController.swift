@@ -12,11 +12,11 @@ import CherryKit
 import CoreData
 
 struct CherryFeatures {
-    var imageURLPatterns: [String] = ["^https?://i.imgur.com/","^https?://i.reddituploads.com/", "^https?://(?: www.)?gfycat.com/", "(.jpe?g|.png|.gif)$"]
+    var imageURLPatterns: [String] = ["^https?://i.imgur.com/", "^https?://i.reddituploads.com/", "^https?://(?: www.)?gfycat.com/", "(.jpe?g|.png|.gif)$"]
     
     /// The search keywords that are blocked. If the search term (the complete string) contains any of these words it's blocked from search, unless it's in the whitelist.
     /// This list is loaded from features.json upon reload, but also has some keywords below in case the features.json fails
-    var blockedSearchKeywords: [String] = ["nude","gonewild", "porn", "boob", "naked", "dick", "penis", "vagina", "ass", "butt", "pussy", "tit", "fuck", "nsfw"]
+    var blockedSearchKeywords: [String] = ["nude", "gonewild", "porn", "boob", "naked", "dick", "penis", "vagina", "ass", "butt", "pussy", "tit", "fuck", "nsfw"]
     
     /// The full search terms (so multiple keywords) that are allowed when one of the keywords is blocked in `blockedSearchKeywords`.
     /// Example: `fuck` is blocked, but if `interestingasfuck` is in this list, `interestingasfuck` is no longer blocked, but `fucking`, `fucked` or `fuck you` still are
@@ -54,7 +54,6 @@ extension Notification.Name {
     
 }
 
-
 final class CherryController: NSObject {
     
     var accessToken: String? {
@@ -79,14 +78,12 @@ final class CherryController: NSObject {
         self.loadFeatures()
         
         do {
-            guard let let data: Data = try Keychain.load("cherry-access-token"), let accessToken: String = String(data: data, encoding: String.Encoding.utf8) else {
-                return
+            if let data = try Keychain.load("cherry-access-token"), let accessToken: String = String(data: data, encoding: String.Encoding.utf8) {
+                self.accessToken = accessToken
             }
-            self.accessToken = accessToken
         } catch {
             //We don't care about the error
         }
-        
         
         self.configureCherry()
     }
@@ -171,7 +168,7 @@ final class CherryController: NSObject {
         context?.performAndWait {
             username = AppDelegate.shared.authenticationController.activeUser(context)?.username
         }
-        if let username = username , self.features?.adminUsers?.contains(username) == true {
+        if let username = username, self.features?.adminUsers?.contains(username) == true {
             return true
         }
     

@@ -47,7 +47,6 @@ final class BatchDeleteOperation: DataOperation {
 #endif
                     }
                     
-                
                 }
             } catch {
                 self.error = error
@@ -62,7 +61,7 @@ final class BatchDeleteOperation: DataOperation {
             return NSDate(timeIntervalSinceNow: DataController.SubredditTimeOut * -1)
         } else if entityName == PostMetadata.entityName() {
             return NSDate(timeIntervalSinceNow: DataController.PostMetadataExpirationTimeOut * -1)
-        }  else {
+        } else {
             return NSDate(timeIntervalSinceNow: DataController.ExpirationTimeOut * -1)
         }
     }

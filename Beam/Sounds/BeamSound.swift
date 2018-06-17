@@ -12,9 +12,9 @@ import AudioToolbox
 
 //The string will be the file name in the bundle
 enum BeamSoundType: String {
-    case upvote = "upvote"
-    case downvote = "downvote"
-    case tap = "tap"
+    case upvote
+    case downvote
+    case tap
     
     func play() {
         guard UserSettings[.playSounds] else {
@@ -26,7 +26,7 @@ enum BeamSoundType: String {
             // Play
             AudioServicesPlaySystemSound(mySound)
             
-            AudioServicesAddSystemSoundCompletion(mySound, nil, nil, { (soundID, poiner) in
+            AudioServicesAddSystemSoundCompletion(mySound, nil, nil, { (soundID, _) in
                 AudioServicesRemoveSystemSoundCompletion(soundID)
                 AudioServicesDisposeSystemSoundID(soundID)
                 }, nil)
@@ -34,7 +34,7 @@ enum BeamSoundType: String {
     }
 }
 
-//Extension of VoteStatus for vote sound 
+//Extension of VoteStatus for vote sound
 extension VoteStatus {
     
     var soundType: BeamSoundType {

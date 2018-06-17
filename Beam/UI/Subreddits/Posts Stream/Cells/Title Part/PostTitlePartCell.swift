@@ -38,7 +38,6 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
             
             self.reloadTitleColor()
             
-            
             self.setNeedsLayout()
             
         }
@@ -115,7 +114,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
         self.reloadFont()
         
         self.thumbnailView?.addTarget(self, action: #selector(PostTitlePartCell.thumbnailTapped(_:)), for: UIControlEvents.touchUpInside)
-        self.topSeperatorViewHeightConstraint?.constant = 1/UIScreen.main.scale
+        self.topSeperatorViewHeightConstraint?.constant = 1 / UIScreen.main.scale
     }
     
     deinit {
@@ -137,7 +136,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
             if  self.post?.isSelfText.boolValue == true && NSString(string: self.post?.content ?? "").length > 0 {
                 useBottomSpacing = false
             }
-            self.bottomLayoutConstraint?.constant = (useBottomSpacing ? 10 : 0)
+            self.bottomLayoutConstraint?.constant = (useBottomSpacing ? 10: 0)
         }
     }
     
@@ -166,7 +165,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
     
     func reloadTitleColor() {
         if self.post?.isVisited == true && UserSettings[.postMarking] && self.onDetailView == false {
-            self.titleLabel.textColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
+            self.titleLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         } else {
             self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         }
@@ -185,7 +184,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
     
     @objc fileprivate func postDidChangeVisitedState(_ notification: Notification) {
         DispatchQueue.main.async {
-            if let post = notification.object as? Post , post == self.post {
+            if let post = notification.object as? Post, post == self.post {
                 self.reloadTitleColor()
             }
         }

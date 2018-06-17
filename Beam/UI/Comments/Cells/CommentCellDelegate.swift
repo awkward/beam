@@ -55,7 +55,7 @@ extension CommentCellDelegate where Self: UITableViewController {
         self.tableView.reloadData()
         
         //If the collapsed IndexPath isn't visible in the tableView at all, we scroll it to a visible position to make sure both the next comment and the collapsed comment are visible to the user
-        if let indexPath: IndexPath = dataSource.indexPath(forComment: comment), dataSource.isCommentCollapsed(comment)  {
+        if let indexPath: IndexPath = dataSource.indexPath(forComment: comment), dataSource.isCommentCollapsed(comment) {
             self.scrollIndexPathToVisible(indexPath)
         }
     }
@@ -102,7 +102,7 @@ extension CommentCellDelegate where Self: UITableViewController {
             self.tableView.reloadData()
             
             //If the collapsed IndexPath isn't visible in the tableView at all, we scroll it to a visible position to make sure both the next comment and the collapsed comment are visible to the user
-            if let indexPath: IndexPath = collapsedIndexPath, dataSource.isCommentCollapsed(comment)  {
+            if let indexPath: IndexPath = collapsedIndexPath, dataSource.isCommentCollapsed(comment) {
                 self.scrollIndexPathToVisible(indexPath)
             }
         }
@@ -144,16 +144,15 @@ extension CommentCellDelegate where Self: UITableViewController {
         }
     }
     
-    
     func commentCell(_ cell: CommentCell, didTapImagePreview comment: Comment, mediaObjects: [MediaObject]) {
         //We do nothing
         print("didTapImagePreview has no default implementation. Please implement it to use it")
     }
     
-    //MARK: - Comment action methods
+    // MARK: - Comment action methods
     
     fileprivate func showProfileForComment(_ comment: Comment) {
-        if let username = comment.author , username != "[deleted]" {
+        if let username = comment.author, username != "[deleted]" {
             let navigationController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! BeamColorizedNavigationController
             let profileViewController = navigationController.viewControllers.first as! ProfileViewController
             profileViewController.username = username
@@ -212,7 +211,7 @@ extension CommentCellDelegate where Self: UITableViewController {
             DispatchQueue.main.async(execute: { () -> Void in
                 if let error = error as NSError? {
                     comment.updateScore(oldVoteStatus, oldVoteStatus: direction)
-                    comment.voteStatus = NSNumber(value :oldVoteStatus.rawValue)
+                    comment.voteStatus = NSNumber(value: oldVoteStatus.rawValue)
                     if error.code == NSURLErrorNotConnectedToInternet && error.domain == NSURLErrorDomain {
                         self.commentCell(cell, didProduceErrorMessage: AWKLocalizedString("error-vote-internet"))
                     } else {

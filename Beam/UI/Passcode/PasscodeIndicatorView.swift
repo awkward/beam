@@ -73,8 +73,8 @@ class PasscodeIndicatorView: UIView {
     }
     
     func drawPasscodeIndicator(lineWidth: CGFloat = 1, frame: CGRect = CGRect(x: 0, y: 0, width: 15, height: 15), color: UIColor = UIColor(red: 0.000, green: 0.000, blue: 0.000, alpha: 1.000)) {
-        let offset = lineWidth/2
-        let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX+offset, y: frame.minY+offset, width: frame.width-lineWidth, height:  frame.height-lineWidth))
+        let offset = lineWidth / 2
+        let ovalPath = UIBezierPath(ovalIn: CGRect(x: frame.minX + offset, y: frame.minY + offset, width: frame.width - lineWidth, height: frame.height - lineWidth))
         ovalPath.lineWidth = lineWidth
 
         color.setStroke()
@@ -88,8 +88,6 @@ class PasscodeIndicatorView: UIView {
         ovalPath.fill()
     }
 
-
-    
     func updateStateImage(_ animated: Bool = false) {
         var duration = 0.32
         if animated == false {
@@ -97,7 +95,7 @@ class PasscodeIndicatorView: UIView {
         }
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)
-        self.layer.contents = self.filled ? self.filledImage?.cgImage : self.normalImage?.cgImage
+        self.layer.contents = self.filled ? self.filledImage?.cgImage: self.normalImage?.cgImage
         CATransaction.commit()
     }
     
@@ -108,8 +106,7 @@ class PasscodeIndicatorView: UIView {
         return super.action(for: layer, forKey: event)
     }
     
-    
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 15, height: 15)
     }
 

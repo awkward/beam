@@ -10,17 +10,17 @@ import UIKit
 
 class DisplayOptionsViewController: BeamTableViewController {
     
-    @IBOutlet private var darkModeActiveCell:UITableViewCell!
+    @IBOutlet private var darkModeActiveCell: UITableViewCell!
     private let darkModeActiveSwitch = UISwitch()
     
-    @IBOutlet private var darkModeAutomaticallyCell:UITableViewCell!
+    @IBOutlet private var darkModeAutomaticallyCell: UITableViewCell!
     private let darkModeAutomaticallySwitch = UISwitch()
-    @IBOutlet private var darkModeAutomaticThresholdSlider:UISlider!
+    @IBOutlet private var darkModeAutomaticThresholdSlider: UISlider!
     
-    @IBOutlet private var largeThumbnailsCell:UITableViewCell!
-    @IBOutlet private var mediumThumbnailsCell:UITableViewCell!
-    @IBOutlet private var smallThumbnailsCell:UITableViewCell!
-    @IBOutlet private var noThumbnailsCell:UITableViewCell!
+    @IBOutlet private var largeThumbnailsCell: UITableViewCell!
+    @IBOutlet private var mediumThumbnailsCell: UITableViewCell!
+    @IBOutlet private var smallThumbnailsCell: UITableViewCell!
+    @IBOutlet private var noThumbnailsCell: UITableViewCell!
     
     @IBOutlet private var autoPlayGifsCell: UITableViewCell!
     private let autoPlayGifsSwitch = UISwitch()
@@ -29,28 +29,28 @@ class DisplayOptionsViewController: BeamTableViewController {
     
     @IBOutlet private var fontSizeCell: UITableViewCell!
     
-    @IBOutlet private var showMetadataCell:UITableViewCell!
+    @IBOutlet private var showMetadataCell: UITableViewCell!
     private let showMetadataSwitch = UISwitch()
     
-    @IBOutlet private var showMetadataDateCell:UITableViewCell!
+    @IBOutlet private var showMetadataDateCell: UITableViewCell!
     private let showMetadataDateSwitch = UISwitch()
     
-    @IBOutlet private var showMetadataSubredditCell:UITableViewCell!
+    @IBOutlet private var showMetadataSubredditCell: UITableViewCell!
     private let showMetadataSubredditSwitch = UISwitch()
     
-    @IBOutlet private var showMetadataUsernameCell:UITableViewCell!
+    @IBOutlet private var showMetadataUsernameCell: UITableViewCell!
     private let showMetadataUsernameSwitch = UISwitch()
     
-    @IBOutlet private var showMetadataGildedCell:UITableViewCell!
+    @IBOutlet private var showMetadataGildedCell: UITableViewCell!
     private let showMetadataGildedSwitch = UISwitch()
     
-    @IBOutlet private var showMetadataDomainCell:UITableViewCell!
+    @IBOutlet private var showMetadataDomainCell: UITableViewCell!
     private let showMetadataDomainSwitch = UISwitch()
     
-    @IBOutlet private var showMetadataStickiedCell:UITableViewCell!
+    @IBOutlet private var showMetadataStickiedCell: UITableViewCell!
     private let showMetadataStickiedSwitch = UISwitch()
     
-    @IBOutlet private var showMetadataLockedCell:UITableViewCell!
+    @IBOutlet private var showMetadataLockedCell: UITableViewCell!
     private let showMetadataLockedSwitch = UISwitch()
     
     @IBOutlet private var cells: [UITableViewCell]!
@@ -152,7 +152,7 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.updateSwitchStatuses()
     }
     
-    @IBAction func darkMoreThresholdChanged(_ slider:UISlider) {
+    @IBAction func darkMoreThresholdChanged(_ slider: UISlider) {
         UserSettings[.nightModeAutomaticThreshold] = slider.value
     }
     
@@ -170,7 +170,7 @@ class DisplayOptionsViewController: BeamTableViewController {
         //Show metadata
         self.showMetadataSwitch.isOn = UserSettings[.showPostMetadata]
         //Show metadata date
-        self.showMetadataDateSwitch.isOn =  UserSettings[.showPostMetadataDate]
+        self.showMetadataDateSwitch.isOn = UserSettings[.showPostMetadataDate]
         //Show metadata subreddit
         self.showMetadataSubredditSwitch.isOn = UserSettings[.showPostMetadataSubreddit]
         //Show metadata username
@@ -185,7 +185,7 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.showMetadataLockedSwitch.isOn = UserSettings[.showPostMetadataLocked]
         
         //Show metadata date
-        self.showMetadataDateSwitch.isEnabled =  UserSettings[.showPostMetadata]
+        self.showMetadataDateSwitch.isEnabled = UserSettings[.showPostMetadata]
         //Show metadata subreddit
         self.showMetadataSubredditSwitch.isEnabled = UserSettings[.showPostMetadata]
         //Show metadata username
@@ -200,13 +200,13 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.showMetadataLockedSwitch.isEnabled = UserSettings[.showPostMetadata]
         
         self.autoPlayGifsSwitch.isOn = UserSettings[.autoPlayGifsEnabled]
-        self.autoPlayGifsSwitch.isEnabled =  (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
+        self.autoPlayGifsSwitch.isEnabled = (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
         
         self.autoPlayGifsOnCellularSwitch.isOn = UserSettings[.autoPlayGifsEnabledOnCellular]
         self.autoPlayGifsOnCellularSwitch.isEnabled = UserSettings[.autoPlayGifsEnabled] && (UserSettings[.thumbnailsViewType] == .large || UserSettings[.thumbnailsViewType] == .medium)
     }
     
-    @objc func switchChanged(_ sender:UISwitch?) {
+    @objc func switchChanged(_ sender: UISwitch?) {
         if let sender = sender {
             var callUpdateSwitches = false
             var key: SettingsKey<Bool>?
@@ -226,7 +226,7 @@ class DisplayOptionsViewController: BeamTableViewController {
                 key = .showPostMetadataUsername
              } else if sender == self.showMetadataGildedSwitch {
                 key = .showPostMetadataGilded
-             }  else if sender == self.showMetadataDomainSwitch {
+             } else if sender == self.showMetadataDomainSwitch {
                 key = .showPostMetadataDomain
              } else if sender == self.showMetadataStickiedSwitch {
                 key = .showPostMetadataStickied
@@ -238,7 +238,7 @@ class DisplayOptionsViewController: BeamTableViewController {
              } else if sender == self.autoPlayGifsOnCellularSwitch {
                 key = .autoPlayGifsEnabledOnCellular
              } else {
-                assert(false,"Unimplemented switch change")
+                assert(false, "Unimplemented switch change")
             }
             if let key = key {
                 UserSettings[key] = sender.isOn
@@ -270,7 +270,7 @@ class DisplayOptionsViewController: BeamTableViewController {
         }
     }
     
-    //MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         if (indexPath as IndexPath).section == 1 {
@@ -293,7 +293,7 @@ class DisplayOptionsViewController: BeamTableViewController {
         }
     }
     
-    //MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
     override func tableView(_ tableView: UITableView, heightForHeaderInSection section: Int) -> CGFloat {
         if section == 5 {
             return 5
@@ -311,7 +311,7 @@ class DisplayOptionsViewController: BeamTableViewController {
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         switch section {
         case 0:
-            return NSLocalizedString("display-options-header-night-mode", comment: "Header in the display options view for night mode");
+            return NSLocalizedString("display-options-header-night-mode", comment: "Header in the display options view for night mode")
         case 1:
             return NSLocalizedString("display-options-header-image-thumbnails", comment: "Header in the display options view for image thumbnails")
         case 2:

@@ -14,7 +14,7 @@ import Trekker
 
 class RedditMessageComposeViewController: BeamViewController {
     
-    //MARK: - IBOutlets
+    // MARK: - IBOutlets
     
     @IBOutlet var subjectTextField: UITextField!
     @IBOutlet var textView: UITextView!
@@ -27,7 +27,7 @@ class RedditMessageComposeViewController: BeamViewController {
     @IBOutlet var seperatorView: UIView!
     @IBOutlet var seperatorViewHeightConstaint: NSLayoutConstraint!
     
-    //MARK: - Properties
+    // MARK: - Properties
     
     /// The user sending the message to. Must always be filled
     var user: User!
@@ -52,7 +52,7 @@ class RedditMessageComposeViewController: BeamViewController {
         return (self.subjectTextField.text?.count ?? 0) > 0 || self.textView.text.count > 0
     }
     
-    //MARK: - View Lifecyle
+    // MARK: - View Lifecyle
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -69,7 +69,7 @@ class RedditMessageComposeViewController: BeamViewController {
         }
         
         //Set the height of the seperator view
-        self.seperatorViewHeightConstaint.constant = 1/UIScreen.main.scale
+        self.seperatorViewHeightConstaint.constant = 1 / UIScreen.main.scale
         
         //Set the placeholder that is behind the message text field
         self.textViewPlaceholderLabel.text = NSLocalizedString("your-message-placeholder", comment: "The placeholder behind the text field for your message")
@@ -98,14 +98,14 @@ class RedditMessageComposeViewController: BeamViewController {
         self.reloadSendButton()
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @IBAction internal func cancelTapped(_ sender: AnyObject) {
         if self.hasContent {
-            let title =  NSLocalizedString("discard-message-alert-title", comment: "The message shown when the user is trying to cancel the view when creating a message")
+            let title = NSLocalizedString("discard-message-alert-title", comment: "The message shown when the user is trying to cancel the view when creating a message")
             let message = NSLocalizedString("discard-message-alert-message", comment: "The message shown when the user is trying to cancel the view when creating a message")
             let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("discard-button", comment: "Generic discard button"), style: UIAlertActionStyle.destructive, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("discard-button", comment: "Generic discard button"), style: UIAlertActionStyle.destructive, handler: { (_) in
                 self.dismiss(animated: true, completion: nil)
             }))
             alertController.addAction(UIAlertAction(title: NSLocalizedString("keep-button", comment: "Generic keep button"), style: UIAlertActionStyle.cancel, handler: nil))
@@ -120,7 +120,7 @@ class RedditMessageComposeViewController: BeamViewController {
         
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func textFieldTextDidChange(notification: Notification) {
         self.reloadSendButton()
@@ -129,14 +129,14 @@ class RedditMessageComposeViewController: BeamViewController {
     @objc fileprivate func keyboardDidChangeFrame(notification: Notification) {
         let frame = ((notification as NSNotification).userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
         let animationDuration = ((notification as NSNotification).userInfo![UIKeyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
-        var animationCurveOption : UIViewAnimationOptions = UIViewAnimationOptions()
+        var animationCurveOption: UIViewAnimationOptions = UIViewAnimationOptions()
         if (notification as NSNotification).userInfo?[UIKeyboardAnimationCurveUserInfoKey] != nil {
             ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurveOption)
         }
         let keyboardFrame = self.view.convert(frame, from: nil)
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
             //ANIMATE
-            let bottomInset: CGFloat = max(self.view.bounds.height-keyboardFrame.minY, 0)
+            let bottomInset: CGFloat = max(self.view.bounds.height - keyboardFrame.minY, 0)
             var contentInset = self.scrollView.contentInset
             contentInset.bottom = bottomInset
             self.scrollView.contentInset = contentInset
@@ -149,13 +149,13 @@ class RedditMessageComposeViewController: BeamViewController {
         }, completion: nil)
     }
     
-    //MARK: - Utils
+    // MARK: - Utils
     
     internal func reloadSendButton() {
         self.navigationItem.rightBarButtonItem?.isEnabled = self.canSend && self.isSending == false
     }
     
-    //MARK: - Display Mode
+    // MARK: - Display Mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -177,10 +177,10 @@ class RedditMessageComposeViewController: BeamViewController {
         self.subjectTextField.keyboardAppearance = keyboardAppearance
         self.textView.keyboardAppearance = keyboardAppearance
         
-        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     fileprivate func sizeTextView() {
         guard let navigationController = self.navigationController else {
@@ -202,20 +202,19 @@ class RedditMessageComposeViewController: BeamViewController {
         self.sizeTextView()
     }
     
-    //MARK: - Blocking user action while posting
+    // MARK: - Blocking user action while posting
     
     func lockView(_ locked: Bool) {
         self.navigationItem.leftBarButtonItem?.isEnabled = !locked
         self.navigationItem.rightBarButtonItem?.isEnabled = !locked
     }
     
-    //MARK: - State changes
+    // MARK: - State changes
     
     /// Called when the submit starts
     internal func didStartSubmit() {
         
     }
-    
     
     /// Called when an error occurs or the sending is finished
     internal func didFinishSending(_ error: Error?, cancelled: Bool) {
@@ -252,8 +251,8 @@ class RedditMessageComposeViewController: BeamViewController {
                 switch redditError {
                 case .BadCaptcha:
                     alertController.title = NSLocalizedString("incorrect-captcha-error-title", comment: "Title of the message when the captcha was incorrect for sending a message of submitting a post")
-                    alertController.message = NSLocalizedString("incorrect-captcha-error-message",  comment: "Message when the captcha was incorrect for sending a message of submitting a post")
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("retry-button", comment: "Generic retry button"), style: UIAlertActionStyle.default, handler: { (action) in
+                    alertController.message = NSLocalizedString("incorrect-captcha-error-message", comment: "Message when the captcha was incorrect for sending a message of submitting a post")
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("retry-button", comment: "Generic retry button"), style: UIAlertActionStyle.default, handler: { (_) in
                         self.startSending()
                     }))
                 case .RateLimited:
@@ -268,7 +267,7 @@ class RedditMessageComposeViewController: BeamViewController {
         
     }
     
-    //MARK: - Message sending
+    // MARK: - Message sending
     
     fileprivate func startSending() {
         self.didStartSubmit()
@@ -287,7 +286,7 @@ class RedditMessageComposeViewController: BeamViewController {
         }
     }
     
-    fileprivate func sendMessage(to: User, subject: String, message: String, completionHandler: @escaping ((_ error: Error?) -> ())) {
+    fileprivate func sendMessage(to: User, subject: String, message: String, completionHandler: @escaping ((_ error: Error?) -> Void)) {
         guard subject.trimmingCharacters(in: CharacterSet.whitespaces).count != 0 else {
             completionHandler(NSError.beamError(-401, localizedDescription: "Subject missing"))
             return
@@ -296,7 +295,6 @@ class RedditMessageComposeViewController: BeamViewController {
             completionHandler(NSError.beamError(-402, localizedDescription: "Text missing"))
             return
         }
-        
         
         let authenticationController = AppDelegate.shared.authenticationController
         let dataController = DataController.shared
@@ -324,7 +322,7 @@ class RedditMessageComposeViewController: BeamViewController {
     
 }
 
-//MARK: - UITextViewDelegate
+// MARK: - UITextViewDelegate
 
 extension RedditMessageComposeViewController: UITextViewDelegate {
     
@@ -342,14 +340,14 @@ extension RedditMessageComposeViewController: UITextViewDelegate {
     
 }
 
-//MARK: - UITextFieldDelegate
+// MARK: - UITextFieldDelegate
 
 extension RedditMessageComposeViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.subjectTextField {
             let currentCharacterCount = textField.text?.count ?? 0
-            if (range.length + range.location > currentCharacterCount){
+            if range.length + range.location > currentCharacterCount {
                 return false
             }
             let newLength = currentCharacterCount + string.count - range.length
@@ -374,4 +372,3 @@ extension RedditMessageComposeViewController: BeamModalPresentation {
         return BeamModalPresentationStyle.formsheet
     }
 }
-

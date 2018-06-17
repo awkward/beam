@@ -10,7 +10,6 @@ import Foundation
 
 extension URLQueryItem {
     
-    
     /// Creates a URLQueryItem with a reddit query. This means the value replaces spaces for `+` symbols. Especially usefull for search
     ///
     /// - Parameters:

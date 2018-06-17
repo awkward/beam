@@ -57,11 +57,11 @@ final class SavePostActivity: SaveContentActivity<Post> {
         return UIActivityType(rawValue: "com.madeawkward.beam.save-post")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("post-save-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "save_activity_icon")
     }
     
@@ -77,11 +77,11 @@ final class UnsavePostActivity: SaveContentActivity<Post> {
         return UIActivityType(rawValue: "com.madeawkward.beam.unsave-post")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("post-unsave-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "unsave_activity_icon")
     }
     
@@ -97,11 +97,11 @@ final class SaveCommentActivity: SaveContentActivity<Comment> {
         return UIActivityType(rawValue: "com.madeawkward.beam.save-comment")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("comment-save-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "save_activity_icon")
     }
     
@@ -117,13 +117,12 @@ final class UnsaveCommentActivity: SaveContentActivity<Comment> {
         return UIActivityType(rawValue: "com.madeawkward.beam.unsave-comment")
     }
     
-    override var activityTitle : String? {
+    override var activityTitle: String? {
         return AWKLocalizedString("comment-unsave-activity-title")
     }
     
-    override var activityImage : UIImage? {
+    override var activityImage: UIImage? {
         return UIImage(named: "unsave_activity_icon")
     }
     
 }
-

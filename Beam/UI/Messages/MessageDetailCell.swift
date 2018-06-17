@@ -66,7 +66,7 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        self.authorButton.setTitleColor(DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217/255.0, green: 217/255.0, blue: 217/255.0, alpha: 1)), for: UIControlState())
+        self.authorButton.setTitleColor(DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)), for: UIControlState())
         
         self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
         self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)

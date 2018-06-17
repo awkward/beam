@@ -11,7 +11,7 @@ import Snoo
 
 final class EditCommentActivity: CustomObjectActivity<Comment> {
 
-    override var activityType:  UIActivityType? {
+    override var activityType: UIActivityType? {
         return UIActivityType(rawValue: "com.madeawkward.beam.edit-comment")
     }
     
@@ -23,7 +23,7 @@ final class EditCommentActivity: CustomObjectActivity<Comment> {
         return UIImage(named: "edit_comment_activity_icon")
     }
     
-    override var activityViewController : UIViewController? {
+    override var activityViewController: UIViewController? {
         let storyBoard = UIStoryboard(name: "Comments", bundle: nil)
         let navigationController = storyBoard.instantiateViewController(withIdentifier: "compose") as! CommentsNavigationController
         navigationController.useInteractiveDismissal = false

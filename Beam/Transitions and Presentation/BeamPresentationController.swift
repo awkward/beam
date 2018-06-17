@@ -10,7 +10,7 @@ import UIKit
 
 class BeamPresentationController: UIPresentationController {
     
-    override var frameOfPresentedViewInContainerView : CGRect {
+    override var frameOfPresentedViewInContainerView: CGRect {
         let containerBounds = self.containerView?.bounds ?? UIScreen.main.bounds
         return CGRect(x: 0, y: 0, width: containerBounds.width, height: containerBounds.height)
     }
@@ -31,8 +31,7 @@ class BeamPresentationController: UIPresentationController {
         }
         return false
     }
-    
-    
+
     override func adaptivePresentationStyle(for traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         if traitCollection.horizontalSizeClass != .compact && traitCollection.verticalSizeClass != .compact && self.shouldUseFormSheetIfPossible {
             return .formSheet

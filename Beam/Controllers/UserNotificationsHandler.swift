@@ -52,12 +52,12 @@ final class UserNotificationsHandler: NSObject {
     }
     
     public func registerForUserNotifications() {
-        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (access, error) in
+        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { (_, _) in
             
         }
     }
     
-    //MARK: - Notification actions
+    // MARK: - Notification actions
     
     fileprivate func scheduleFailedMessageNotification() {
         let content = UNMutableNotificationContent()
@@ -69,7 +69,7 @@ final class UserNotificationsHandler: NSObject {
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
     }
     
-    //MARK: - Notification handling
+    // MARK: - Notification handling
     
     func handleNotification(_ notification: UNNotification) {
         self.handleNotificationContent(notification.request.content)
@@ -149,7 +149,7 @@ final class UserNotificationsHandler: NSObject {
         alertController.addAction(UIAlertAction(title: alertCancelButton, style: UIAlertActionStyle.cancel, handler: nil))
         
         if let detailURL = detailURL, alertDetailButton != nil {
-            let detailAction = UIAlertAction(title: alertDetailButton, style: UIAlertActionStyle.default, handler: { (action) -> Void in
+            let detailAction = UIAlertAction(title: alertDetailButton, style: UIAlertActionStyle.default, handler: { (_) -> Void in
                 UIApplication.shared.open(detailURL, options: [:], completionHandler: nil)
             })
             alertController.addAction(detailAction)
@@ -229,7 +229,7 @@ final class UserNotificationsHandler: NSObject {
     fileprivate func handleShowThread(_ customInfo: [AnyHashable: Any]?) {
         AppDelegate.shared.changeActiveTabContent(AppTabContent.MessagesNavigation)
         if let customInfo = customInfo, let comment = self.objectFromCustomInfo(customInfo) as? Comment {
-            MessagesViewController.fetchComment(comment.objectName!, handler: { (comment, error) -> () in
+            MessagesViewController.fetchComment(comment.objectName!, handler: { (comment, _) in
                 DispatchQueue.main.async(execute: { () -> Void in
                     let commentsStoryboard = UIStoryboard(name: "Comments", bundle: nil)
                     let viewController = commentsStoryboard.instantiateViewController(withIdentifier: "comments") as! CommentsViewController
@@ -264,7 +264,7 @@ final class UserNotificationsHandler: NSObject {
         }
     }
     
-    //MARK: - View Controllers
+    // MARK: - View Controllers
     
     fileprivate func showCommentThreadViewController(_ comment: Comment) {
         let commentsStoryboard = UIStoryboard(name: "Comments", bundle: nil)
@@ -304,7 +304,7 @@ final class UserNotificationsHandler: NSObject {
         }
     }
     
-    //MARK: - Objects
+    // MARK: - Objects
     
     fileprivate func objectFromCustomInfo(_ customInfo: [AnyHashable: Any]) -> SyncObject? {
         guard let objectInfo = customInfo[UserNotificationCustomBodyKeys.Object.rawValue] as? NSDictionary, let name = objectInfo["name"] as? String else {
@@ -341,7 +341,7 @@ final class UserNotificationsHandler: NSObject {
             let message = try Message.objectWithIdentifier(parentMessageIdentifier, cache: nil, context: AppDelegate.shared.managedObjectContext) as! Message
             
             let operations = message.replyOperations(response.userText, authenticationcontroller: AppDelegate.shared.authenticationController)
-            DataController.shared.executeAndSaveOperations(operations, handler: { (error) -> Void in
+            DataController.shared.executeAndSaveOperations(operations, handler: { (_) -> Void in
                 //Warn the user the message failed
                 self.scheduleFailedMessageNotification()
                 DispatchQueue.main.async {

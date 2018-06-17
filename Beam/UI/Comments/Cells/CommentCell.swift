@@ -13,8 +13,8 @@ import TTTAttributedLabel
 import Trekker
 
 /**
- DeadZonesScrollView is a subclass of UIScrollView that supports "dead zones". 
- These dead zones are places where the user can't start scrolling. 
+ DeadZonesScrollView is a subclass of UIScrollView that supports "dead zones".
+ These dead zones are places where the user can't start scrolling.
  If the initial touch of a scroll is in one of these dead zones, the scrolling doesn't start.
  */
 class DeadZonesScrollView: UIScrollView {
@@ -28,8 +28,8 @@ class DeadZonesScrollView: UIScrollView {
     override func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         var point = gestureRecognizer.location(in: self)
         //The point will be relative to the bounds of the UISrollView. However we want to use is it relative to the frame of the UIScrollView
-        point.x = point.x - contentOffset.x
-        point.y = point.y - contentOffset.y
+        point.x -= contentOffset.x
+        point.y -= contentOffset.y
         if let deadZones = self.deadZones {
             for zone in deadZones {
                 if zone.contains(point) {
@@ -57,7 +57,7 @@ enum CommentCellAction {
         case CommentCellAction.reply:
             return UIColor.beamYellow()
         case CommentCellAction.more:
-            return UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha: 1)
+            return UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1)
         case CommentCellAction.downvote:
             return UIColor.beamBlue()
         case CommentCellAction.upvote:
@@ -161,7 +161,6 @@ class CommentCell: BaseCommentCell {
         
         self.displayModeDidChange()
         
-        
         let links = self.contentLabel.linksWithSchemes(schemes: ["http", "https"])
         
         let showsLinkPreview = links.count > 0 && !self.isCollapsed
@@ -174,7 +173,6 @@ class CommentCell: BaseCommentCell {
         }
         
         self.contentLabel.isHidden = self.isCollapsed
-        
         
         self.commentDidChange = false
     }
@@ -206,14 +204,14 @@ class CommentCell: BaseCommentCell {
     }
     
     func resetScrollViewOffset() {
-        self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width*3, height: self.contentView.bounds.height)
+        self.scrollView.contentSize = CGSize(width: self.contentView.bounds.width * 3, height: self.contentView.bounds.height)
         self.scrollView.contentOffset = CGPoint(x: self.contentView.bounds.width, y: 0)
     }
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        let alphaValue: CGFloat = self.isCollapsed ? 0.5 : 1.0
+        let alphaValue: CGFloat = self.isCollapsed ? 0.5: 1.0
         self.gildCountView.alpha = alphaValue
         self.authorButton.alpha = alphaValue
         self.metadataLabel.alpha = alphaValue
@@ -238,7 +236,7 @@ class CommentCell: BaseCommentCell {
         self.metadataLabel.backgroundColor = self.contentView.backgroundColor
         self.metadataLabel.isOpaque = true
         
-        self.flairLabel.textColor = UIColor(red:0.52941, green:0.62745, blue:1.00000, alpha:1.00000)
+        self.flairLabel.textColor = UIColor(red: 0.52941, green: 0.62745, blue: 1.00000, alpha: 1.00000)
         self.flairLabel.backgroundColor = self.contentView.backgroundColor
         self.flairLabel.isOpaque = true
         
@@ -280,7 +278,7 @@ class CommentCell: BaseCommentCell {
         }
         
         if self.displayMode == .dark {
-            textColor = UIColor(red: 158/255, green: 156/255, blue: 166/255, alpha: 1.0)
+            textColor = UIColor(red: 158 / 255, green: 156 / 255, blue: 166 / 255, alpha: 1.0)
         }
         
         if self.isCollapsed {
@@ -291,23 +289,23 @@ class CommentCell: BaseCommentCell {
         var metadata = [NSAttributedString]()
         if let comment = comment {
             if comment.scoreHidden == true {
-                metadata.append(NSAttributedString(string: AWKLocalizedString("score-hidden-block"), attributes: [NSAttributedStringKey.foregroundColor:pointsTextColor]))
+                metadata.append(NSAttributedString(string: AWKLocalizedString("score-hidden-block"), attributes: [NSAttributedStringKey.foregroundColor: pointsTextColor]))
             } else if let score = self.comment?.score {
                 var localizedPoints = NSLocalizedString("points-inline", comment: "")
                 if score.intValue == 1 || score.intValue == -1 {
                     localizedPoints = NSLocalizedString("point-inline", comment: "")
                 }
                     
-                metadata.append(NSAttributedString(string: "\(score.intValue) \(localizedPoints)", attributes: [NSAttributedStringKey.foregroundColor:pointsTextColor]))
+                metadata.append(NSAttributedString(string: "\(score.intValue) \(localizedPoints)", attributes: [NSAttributedStringKey.foregroundColor: pointsTextColor]))
             }
             
             if let timeString = comment.creationDate?.localizedRelativeTimeString {
-                metadata.append(NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.foregroundColor:textColor]))
+                metadata.append(NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.foregroundColor: textColor]))
             }
             
             //Add the gilded status to the comment
             
-            if let gildCount = comment.gildCount?.intValue , gildCount > 0 {
+            if let gildCount = comment.gildCount?.intValue, gildCount > 0 {
                 self.gildCountView.count = gildCount
                 self.gildCountView.isHidden = false
             } else {
@@ -317,8 +315,8 @@ class CommentCell: BaseCommentCell {
         let attributedString = NSMutableAttributedString()
         for meta in metadata {
             attributedString.append(meta)
-            if let index = metadata.index(of: meta), index < metadata.count-1 {
-                attributedString.append(NSAttributedString(string: NSLocalizedString("list-separator", comment: "separated items by a comma: ', '"), attributes: [NSAttributedStringKey.foregroundColor:textColor]))
+            if let index = metadata.index(of: meta), index < metadata.count - 1 {
+                attributedString.append(NSAttributedString(string: NSLocalizedString("list-separator", comment: "separated items by a comma: ', '"), attributes: [NSAttributedStringKey.foregroundColor: textColor]))
             }
         }
         self.metadataLabel.attributedText = attributedString
@@ -326,9 +324,9 @@ class CommentCell: BaseCommentCell {
     
     fileprivate func reloadAuthorTextColor() {
         let authorIsOriginalPoster = (comment?.author == comment?.post?.author)
-        var titleColor =  DisplayModeValue(UIColor(red: 12/255, green: 11/255, blue: 13/255, alpha: 1), darkValue: UIColor(red: 217/255, green: 217/255, blue: 217/255, alpha: 1.0))
-        if authorIsOriginalPoster && !self.isCollapsed{
-            titleColor = UIColor(red:0.18823, green:0.56471, blue:0.97647, alpha:1.00000)
+        var titleColor = DisplayModeValue(UIColor(red: 12 / 255, green: 11 / 255, blue: 13 / 255, alpha: 1), darkValue: UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1.0))
+        if authorIsOriginalPoster && !self.isCollapsed {
+            titleColor = UIColor(red: 0.18823, green: 0.56471, blue: 0.97647, alpha: 1.00000)
         }
         self.authorButton.setTitleColor(titleColor, for: UIControlState())
     }
@@ -338,7 +336,6 @@ class CommentCell: BaseCommentCell {
             self.delegate?.commentCell(self, didTapUsernameOnComment: comment)
         }
     }
-    
     
     @IBAction fileprivate func linkPreviewTapped(sender: UIControl) {
         guard let comment = self.comment, let link = self.commentLinkPreview.link else {
@@ -380,7 +377,7 @@ class CommentCell: BaseCommentCell {
     }
     
     func actionForContentOffset(_ contentOffset: CGPoint) -> CommentCellAction {
-        let offset = contentOffset.x-self.bounds.width
+        let offset = contentOffset.x - self.bounds.width
         let minimumOffset: CGFloat = 50
         let actionWidth: CGFloat = 150
         if offset > 0 {
@@ -394,7 +391,7 @@ class CommentCell: BaseCommentCell {
             }
         } else {
             //The user is swiping from the left side. The number will be negative so make it positive
-            let positiveOffset = offset*CGFloat(-1)
+            let positiveOffset = offset * CGFloat(-1)
             
             if positiveOffset <= minimumOffset {
                 return CommentCellAction.none

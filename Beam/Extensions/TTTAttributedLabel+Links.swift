@@ -14,7 +14,7 @@ extension TTTAttributedLabel {
         return [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleNone.rawValue]
     }
     
-    class func beamLinkAttributesForMode(_ mode:DisplayMode) -> [NSAttributedStringKey: Any] {
+    class func beamLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedStringKey: Any] {
         var linkAttributes = TTTAttributedLabel.baseBeamLinkAttributes()
         switch mode {
         case .dark:
@@ -25,7 +25,7 @@ extension TTTAttributedLabel {
         return linkAttributes
     }
     
-    class func beamActiveLinkAttributesForMode(_ mode:DisplayMode) -> [NSAttributedStringKey: Any] {
+    class func beamActiveLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedStringKey: Any] {
         var linkAttributes = TTTAttributedLabel.baseBeamLinkAttributes()
         switch mode {
         case .dark:
@@ -35,7 +35,6 @@ extension TTTAttributedLabel {
         }
         return linkAttributes
     }
-    
     
     /// Returns links found in the label with the given scheme
     ///
@@ -52,6 +51,4 @@ extension TTTAttributedLabel {
         }
         return links
     }
-    
-    
 }

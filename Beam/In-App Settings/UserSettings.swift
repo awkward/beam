@@ -8,8 +8,7 @@
 
 import UIKit
 
-//MARK: - Shared instance
-
+// MARK: - Shared instance
 
 /// The user settings that are either chanable in a dedicated Settings View, or changed by the app based on a user'ss action.
 /// To use a UserSetting, simply define the key below and then use `UserSettings[.KEY]` to get the value or use `UserSettings[.KEY] = VALUE` to set the value.
@@ -59,7 +58,7 @@ public let UserSettings = Settings(allKeys: [
     .lastAppReviewRequestDate
 ])
 
-//MARK: - Settings Keys
+// MARK: - Settings Keys
 
 ///IMPORTANT: All keys defined here have to be included when initializing UserSettings. Especially keys with a default value!
 extension SettingsKeys {
@@ -86,7 +85,7 @@ extension SettingsKeys {
     static let cherryAdminUsers = SettingsKey<[String]?>("CherryAdminUsers")
     
     /// The NSRegularExpression patterns that are defined in the feature flags. These are used to detect image links that should be parsed on the cherry server
-    static let cherryImageURLPatterns = SettingsKey<[String]>("CherryImageURLPatterns", defaultValue: ["^https?://.*imgur.com/","^https?://(?: www.)?gfycat.com/", "(.jpe?g|.png|.gif)"])
+    static let cherryImageURLPatterns = SettingsKey<[String]>("CherryImageURLPatterns", defaultValue: ["^https?://.*imgur.com/", "^https?://(?: www.)?gfycat.com/", "(.jpe?g|.png|.gif)"])
     
     /// If the manual night mode is enabled
     static let nightModeEnabled = SettingsKey<Bool>("DarkModeActive", defaultValue: false)
@@ -194,8 +193,3 @@ extension SettingsKeys {
     static let lastAppReviewRequestDate = SettingsKey<Date?>("LastAppReviewRequestDate")
     
 }
-
-//MARK: - External apps (Browser and YouTube)
-
-
-

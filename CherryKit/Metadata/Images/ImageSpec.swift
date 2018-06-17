@@ -87,6 +87,6 @@ extension ImageSpec: Hashable {
     
 }
 
-public func ==(lhs: ImageSpec, rhs: ImageSpec) -> Bool {
+public func == (lhs: ImageSpec, rhs: ImageSpec) -> Bool {
     return lhs.URL == rhs.URL && lhs.size == rhs.size
 }

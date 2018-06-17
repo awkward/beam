@@ -43,6 +43,4 @@ extension AssetsPickerControllerDelegate {
         return nil
     }
     
-    
-    
 }

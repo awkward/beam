@@ -127,7 +127,6 @@ extension GalleryAlbumContentViewController: UICollectionViewDataSource {
             let mediaObject = self.post?.mediaObjects?[indexPath.item] as? MediaObject
             cell.mediaObject = mediaObject
 
-            
             if (indexPath as IndexPath).item == (self.itemCount - 1) {
                 cell.moreCount = (self.post?.mediaObjects?.count ?? 0) - self.itemCount
             } else {
@@ -256,7 +255,7 @@ extension GalleryAlbumContentViewController: UIViewControllerPreviewingDelegate 
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true;
+            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
             self.presentGalleryViewController(galleryViewController, sourceView: nil)
         }
     }

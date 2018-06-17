@@ -14,7 +14,7 @@ extension ImgurImage {
     func aspectRatioSizeWithMaxWidth(_ maxWidth: CGFloat, maxHeight: CGFloat? = nil) -> CGSize? {
         if let imageHeight = self.imageSize?.height, let imageWidth = self.imageSize?.width {
             let aspectRatioImageHeight = CGFloat(imageHeight) * maxWidth / CGFloat(imageWidth)
-            var newHeight = aspectRatioImageHeight;
+            var newHeight = aspectRatioImageHeight
             if let maxHeight = maxHeight {
                 newHeight = min(aspectRatioImageHeight, maxHeight)
             }

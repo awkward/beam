@@ -31,7 +31,7 @@ class RefreshNotificationView: BeamControl, NavigationBarNotification {
         return label
     }()
     
-    let presentationEdgeInsets = UIEdgeInsetsMake(12, 12, 0, 12)
+    let presentationEdgeInsets = UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
     
     var dismissOnTap: Bool = true
     
@@ -46,11 +46,11 @@ class RefreshNotificationView: BeamControl, NavigationBarNotification {
     }
     
     func setupViews() {
-        self.layoutMargins = UIEdgeInsetsMake(10, 12, 10, 12)
+        self.layoutMargins = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         
         self.addSubview(self.iconImageView)
         self.addSubview(self.textLabel)
-        let views = ["icon":self.iconImageView,"text":self.textLabel]
+        let views = ["icon": self.iconImageView, "text": self.textLabel]
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[icon]-(10)-[text]-|", options: [], metrics: nil, views: views))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[icon]-|", options: [], metrics: nil, views: views))
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-[text]-|", options: [], metrics: nil, views: views))
@@ -69,15 +69,15 @@ class RefreshNotificationView: BeamControl, NavigationBarNotification {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.cornerRadius = self.frame.height/2
+        self.layer.cornerRadius = self.frame.height / 2
         self.layer.masksToBounds = true
     }
     
-    internal func dismissWithSender(_ sender:AnyObject?) {
+    internal func dismissWithSender(_ sender: AnyObject?) {
         self.dismiss()
     }
     
-    @objc func hasBeenTapped(_ sender:AnyObject?) {
+    @objc func hasBeenTapped(_ sender: AnyObject?) {
         if self.dismissOnTap {
             self.dismiss()
         }

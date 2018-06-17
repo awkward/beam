@@ -10,14 +10,14 @@ import UIKit
 import CoreData
 
 public enum UserContentType: String {
-    case overview = "overview"
-    case submitted = "submitted"
-    case comments = "comments"
-    case upvoted = "upvoted"
-    case downvoted = "downvoted"
-    case hidden = "hidden"
-    case saved = "saved"
-    case gilded = "gilded"
+    case overview
+    case submitted
+    case comments
+    case upvoted
+    case downvoted
+    case hidden
+    case saved
+    case gilded
 }
 
 public final class UserContentCollectionQuery: ContentCollectionQuery {

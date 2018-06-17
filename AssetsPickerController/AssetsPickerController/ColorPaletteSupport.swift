@@ -18,7 +18,6 @@ internal protocol ColorPaletteSupport: class {
     
     func colorPaletteDidChange()
     
-    
 }
 
 extension ColorPaletteSupport {
@@ -40,5 +39,3 @@ extension ColorPaletteSupport {
         self.colorPaletteDidChange()
     }
 }
-
-

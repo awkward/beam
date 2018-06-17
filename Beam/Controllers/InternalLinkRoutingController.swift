@@ -32,7 +32,7 @@ class InternalLinkRoutingController: JLRoutes {
         let subredditRoutes: [String] = ["subreddit/:name",
                                          "r/:name",
                                          "reddit.com/r/:name"]
-        self.addRoutes(subredditRoutes) { (parameters:[String: Any]?) -> Bool in
+        self.addRoutes(subredditRoutes) { (parameters: [String: Any]?) -> Bool in
             return self.handleSubredditCallWithParameters(parameters)
         }
         //Multireddit routes, required parameter: username, multiredditname
@@ -40,14 +40,14 @@ class InternalLinkRoutingController: JLRoutes {
                                  "user/:username/m/:multiredditname",
                                  "reddit.com/user/:username/m/:multiredditname",
                                  "reddit.com/u/:username/m/:multiredditname"]
-        self.addRoutes(multiredditRoutes) { (parameters:[String: Any]?) -> Bool in
+        self.addRoutes(multiredditRoutes) { (parameters: [String: Any]?) -> Bool in
             return self.handleMultiredditCallWithParameters(parameters)
         }
         //User routes, required parameter: username
         let userRoutes: [String] = ["user/:username",
                                     "u/:username",
                                     "reddit.com/u/:username"]
-        self.addRoutes(userRoutes) { (parameters:[String: Any]?) -> Bool in
+        self.addRoutes(userRoutes) { (parameters: [String: Any]?) -> Bool in
             return self.handleUserCallWithParameters(parameters)
         }
         //Post routes, required parameter: postid, subredditname optional
@@ -58,18 +58,18 @@ class InternalLinkRoutingController: JLRoutes {
                                     "/r/:subredditname/comments/:postid/:postname/*",
                                     "post/:postid/:postname",
                                     "post/:postid"]
-        self.addRoutes(postRoutes) { (parameters:[String: Any]?) -> Bool in
+        self.addRoutes(postRoutes) { (parameters: [String: Any]?) -> Bool in
             return self.handlePostCallWithParameters(parameters)
         }
         
     }
     
-    //MARK: - Handle methods
+    // MARK: - Handle methods
     
     fileprivate func handleSubredditCallWithParameters(_ parameters: [String: Any]!) -> Bool {
         //Get the subreddit name
         if let rawSubredditName: String = parameters["name"] as? String {
-            SubredditQuery.fetchSubreddit(rawSubredditName, handler: { (subreddit: Subreddit?, error: Error?) in
+            SubredditQuery.fetchSubreddit(rawSubredditName, handler: { (subreddit, _) in
                 if let subreddit: Subreddit = subreddit {
                     _ = self.presentViewControllerForSubreddit(subreddit, fromViewController: self.currentViewController!)
                 } else {
@@ -110,7 +110,7 @@ class InternalLinkRoutingController: JLRoutes {
         //Get the subreddit name
         if let rawUsername = parameters["username"] as? String, let rawMultiredditName = parameters["multiredditname"] as? String {
             
-            MultiredditQuery.fetchMultireddit(rawUsername, multiredditName: rawMultiredditName, handler: { (multireddit, error) -> () in
+            MultiredditQuery.fetchMultireddit(rawUsername, multiredditName: rawMultiredditName, handler: { (multireddit, _) in
                 if multireddit != nil {
                     _ = self.presentViewControllerForSubreddit(multireddit!, fromViewController: self.currentViewController!)
                 } else {
@@ -141,7 +141,7 @@ class InternalLinkRoutingController: JLRoutes {
             
             let rawCommentID: String? = parameters["commentid"] as? String
             var commentFullName: String? = rawCommentID
-            if let commentID: String = rawCommentID , commentFullName?.contains("t1_") == false {
+            if let commentID: String = rawCommentID, commentFullName?.contains("t1_") == false {
                 commentFullName = "t1_\(commentID)"
             }
             
@@ -166,7 +166,7 @@ class InternalLinkRoutingController: JLRoutes {
                 
                 //if the post contained a comment, download it and show it
                 if let fullName: String = commentFullName {
-                    InfoQuery.fetch(fullName, handler: { (object, error) in
+                    InfoQuery.fetch(fullName, handler: { (object, _) in
                         if let comment: Comment = object as? Comment {
                             DispatchQueue.main.async {
                                 self.presentComment(onPostDetailViewController: postDetailViewController, comment: comment)
@@ -181,14 +181,12 @@ class InternalLinkRoutingController: JLRoutes {
             
             if let subredditName: String = parameters["subredditname"] as? String {
                 //We also have a subreddit, we should first present the subreddit, than the post
-                SubredditQuery.fetchSubreddit(subredditName, handler: { (subreddit: Subreddit?, error: Error?) -> Void in
+                SubredditQuery.fetchSubreddit(subredditName, handler: { (subreddit, _) -> Void in
                     _ = subredditCompletionHandler(subreddit)
                 })
             } else {
                 //No subreddit, show the post on the frontpage
                 return subredditCompletionHandler(nil)
-                
-
             }
         } else {
             return false
@@ -207,7 +205,7 @@ class InternalLinkRoutingController: JLRoutes {
         detailViewController.navigationController?.pushViewController(commentsViewController, animated: true)
     }
     
-    class func fetchComment(_ objectName: String, handler: @escaping ((_ comment: Comment?, _ error: Error?) -> ())) {
+    class func fetchComment(_ objectName: String, handler: @escaping ((_ comment: Comment?, _ error: Error?) -> Void)) {
         let collectionController = CollectionController(authentication: AppDelegate.shared.authenticationController, context: AppDelegate.shared.managedObjectContext)
         let query = InfoQuery(fullName: objectName)
         collectionController.query = query
@@ -216,7 +214,7 @@ class InternalLinkRoutingController: JLRoutes {
                 if error != nil {
                     handler(nil, error)
                 }
-                if let collectionID = collectionController.collectionID, let collection = AppDelegate.shared.managedObjectContext.object(with: collectionID) as? ObjectCollection,let comment = collection.objects?.firstObject as? Comment {
+                if let collectionID = collectionController.collectionID, let collection = AppDelegate.shared.managedObjectContext.object(with: collectionID) as? ObjectCollection, let comment = collection.objects?.firstObject as? Comment {
                     handler(comment, nil)
                 } else {
                     handler(nil, NSError.beamError(404, localizedDescription: "Comment '\(objectName)' not found"))
@@ -290,43 +288,43 @@ class InternalLinkRoutingController: JLRoutes {
     
     // MARK: - Route Functions
     
-    override class func routeURL(_ URL: Foundation.URL!) -> Bool {
-        return InternalLinkRoutingController.shared.routeURL(URL)
+    override class func routeURL(_ url: URL!) -> Bool {
+        return InternalLinkRoutingController.shared.routeURL(url)
     }
     
-    override class func routeURL(_ URL: Foundation.URL!, withParameters parameters: [String: Any]!) -> Bool {
-        return InternalLinkRoutingController.shared.routeURL(URL, withParameters: parameters)
+    override class func routeURL(_ url: URL!, withParameters parameters: [String: Any]!) -> Bool {
+        return InternalLinkRoutingController.shared.routeURL(url, withParameters: parameters)
     }
     
-    override func routeURL(_ URL: Foundation.URL!) -> Bool {
+    override func routeURL(_ url: URL!) -> Bool {
         if let rootViewController = AppDelegate.shared.galleryWindow?.rootViewController?.presentedViewController as? AWKGalleryViewController {
             //Check if the window or rootViewController exist, otherwise we can't navigate. This also sets the currentViewController to present all the other views on.
             self.currentViewController = AppDelegate.topViewController(rootViewController)
-            return super.routeURL(URL)
+            return super.routeURL(url)
         } else if let rootViewController = AppDelegate.shared.window?.rootViewController {
             //Check if the window or rootViewController exist, otherwise we can't navigate. This also sets the currentViewController to present all the other views on.
             self.currentViewController = AppDelegate.topViewController(rootViewController)
-            return super.routeURL(URL)
+            return super.routeURL(url)
         }
         return false
     }
     
-    override func routeURL(_ URL: Foundation.URL!, withParameters parameters: [String: Any]!) -> Bool {
+    override func routeURL(_ url: URL!, withParameters parameters: [String: Any]!) -> Bool {
         if let rootViewController = AppDelegate.shared.galleryWindow?.rootViewController?.presentedViewController as? AWKGalleryViewController {
             //Check if the window or rootViewController exist, otherwise we can't navigate. This also sets the currentViewController to present all the other views on.
             self.currentViewController = AppDelegate.topViewController(rootViewController)
-            return super.routeURL(URL, withParameters: parameters)
+            return super.routeURL(url, withParameters: parameters)
         } else if let rootViewController = AppDelegate.shared.window?.rootViewController {
             //Check if the window or rootViewController exist, otherwise we can't navigate. This also sets the currentViewController to present all the other views on.
             self.currentViewController = AppDelegate.topViewController(rootViewController)
-            return super.routeURL(URL, withParameters: parameters)
+            return super.routeURL(url, withParameters: parameters)
         }
         return false
     }
     
-    func routeURL(_ URL: Foundation.URL,onViewController viewController: UIViewController) -> Bool {
+    func routeURL(_ url: URL, onViewController viewController: UIViewController) -> Bool {
         self.currentViewController = viewController
-        return super.routeURL(URL)
+        return super.routeURL(url)
     }
     
 }

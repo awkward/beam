@@ -34,7 +34,7 @@ class MessageHeaderView: BeamView {
     }()
 
     override func draw(_ rect: CGRect) {
-        let seperatorPath = UIBezierPath(rect: CGRect(x: 12, y: rect.height-0.5, width: rect.width-22, height: 0.5))
+        let seperatorPath = UIBezierPath(rect: CGRect(x: 12, y: rect.height - 0.5, width: rect.width - 22, height: 0.5))
         let seperatorColor = DisplayModeValue(UIColor.beamSeperatorColor(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
         seperatorColor.setFill()
         seperatorPath.fill()
@@ -49,7 +49,7 @@ class MessageHeaderView: BeamView {
         case .default:
             self.backgroundColor = UIColor.white
             self.titleLabel.textColor = UIColor.beamGreyExtraDark()
-            self.dateLabel.textColor = UIColor(red: 127/255, green: 127/255, blue: 127/255, alpha: 1)
+            self.dateLabel.textColor = UIColor(red: 127 / 255, green: 127 / 255, blue: 127 / 255, alpha: 1)
         case .dark:
             self.backgroundColor = UIColor.beamDarkContentBackgroundColor()
             self.titleLabel.textColor = UIColor.white

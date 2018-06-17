@@ -11,15 +11,13 @@ import Snoo
 extension AuthenticationController {
     
     var userCanViewNSFWContent: Bool {
-        get {
-            if !AppDelegate.shared.authenticationController.isAuthenticated {
-                return false
-            }
-            if AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.isOver18.boolValue == false {
-                return false
-            }
-            return true
+        if !AppDelegate.shared.authenticationController.isAuthenticated {
+            return false
         }
+        if AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.isOver18.boolValue == false {
+            return false
+        }
+        return true
     }
     
 }

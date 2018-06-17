@@ -10,8 +10,6 @@ import UIKit
 
 extension String {
     
-    
-    
     /// Replaces placeholders in a localizable string
     /// Placeholders should be formatted like this: [KEY]. with an uppercased key name to make sure it clear it's a placeholder
     ///

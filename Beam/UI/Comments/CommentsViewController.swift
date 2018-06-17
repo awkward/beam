@@ -13,8 +13,8 @@ import TTTAttributedLabel
 import Trekker
 import AWKGallery
 
-/// This is the class to only display comments or display a single comment thread. 
-/// This view embeds a view controller so a button can be added on top of the UITableViewController. 
+/// This is the class to only display comments or display a single comment thread.
+/// This view embeds a view controller so a button can be added on top of the UITableViewController.
 /// UITableViewController is used because a refresh control is needed on iOS 9.
 class CommentsViewController: BeamViewController, CommentThreadSkipping {
 
@@ -48,7 +48,6 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
             self.embeddedViewController.query = newValue
         }
     }
-    
     
     /// The parent comment. If set, the view will only display this parent comment and it's replies
     var parentComment: Comment? {
@@ -102,7 +101,7 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
         }
     }
     
-    // MARK - Actions
+    // MARK: - Actions
     
     @objc fileprivate func doneButtonTapped(_ sender: AnyObject) {
         self.dismiss(animated: true, completion: nil)
@@ -142,9 +141,9 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
 }
 
 /// The view controller that displays the actual comments and is embbeded in CommentsViewController
-fileprivate class CommentsEmbeddedViewController: BeamTableViewController, MediaObjectsGalleryPresentation {
+private class CommentsEmbeddedViewController: BeamTableViewController, MediaObjectsGalleryPresentation {
     
-    //MARK: - Data Source
+    // MARK: - Data Source
     fileprivate var dataSource = CommentsDataSource()
     
     var galleryMediaObjects: [MediaObject]?
@@ -229,7 +228,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
         }
     }
     
-    @objc func refresh(_ sender:AnyObject?) {
+    @objc func refresh(_ sender: AnyObject?) {
         self.fetchComments()
     }
     
@@ -238,7 +237,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
             self.reloadLoadingState()
             return
         }
-        self.dataSource.fetchComments { (collectionID, error) -> Void in
+        self.dataSource.fetchComments { (_, error) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 if error != nil {
                     self.presentErrorMessage(AWKLocalizedString("error-loading-comments"))
@@ -256,12 +255,12 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
     func reloadLoadingState() {
         var view: CommentsFooterView? = nil
         
-        let isFetching: Bool =  self.dataSource.status == .fetching
+        let isFetching: Bool = self.dataSource.status == .fetching
         
         if let threads: [[Comment]] = self.dataSource.threads {
             if threads.count == 0 && isFetching == true {
                 self.footerView.state = CommentsFooterViewState.loading
-                let height: CGFloat = self.view.frame.height-self.topLayoutGuide.length
+                let height: CGFloat = self.view.frame.height - self.topLayoutGuide.length
                 self.footerView.height = height
                 view = self.footerView
             }
@@ -305,7 +304,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
     }
     
     override func tableView(_ tableView: UITableView, heightForFooterInSection section: Int) -> CGFloat {
-        if section == tableView.numberOfSections-1 {
+        if section == tableView.numberOfSections - 1 {
             return 8
         }
         return 4
@@ -336,7 +335,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
         return UITableViewAutomaticDimension
     }
     
-    // MARK: - UITableViewDelegate 
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         if let commentCell = cell as? CommentCell {
@@ -349,7 +348,7 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
         if let comment = self.dataSource.commentAtIndexPath(indexPath) {
             if self.dataSource.isCommentOutsideOfDepthLimit(comment), let viewController = commentsStoryboard.instantiateViewController(withIdentifier: "comments") as? CommentsViewController {
                 let childQuery = CommentCollectionQuery()
-                childQuery.parentComment = self.dataSource.commentAtIndexPath(IndexPath(row: indexPath.row-1, section: indexPath.section))
+                childQuery.parentComment = self.dataSource.commentAtIndexPath(IndexPath(row: indexPath.row - 1, section: indexPath.section))
                 childQuery.post = self.query.post
                 childQuery.sortType = self.query.sortType
                 viewController.query = childQuery
@@ -395,8 +394,6 @@ fileprivate class CommentsEmbeddedViewController: BeamTableViewController, Media
     
 }
 
-
-
 extension CommentsEmbeddedViewController: CommentsHeaderViewDelegate {
     
     func commentsHeaderView(_ headerView: CommentsHeaderView, didChangeSortType sortType: CollectionSortType) {
@@ -425,7 +422,7 @@ extension CommentsEmbeddedViewController: TTTAttributedLabelDelegate {
 
 extension CommentsEmbeddedViewController: AWKGalleryDataSource {
     
-    //MARK: - AWKGalleryDataSource
+    // MARK: - AWKGalleryDataSource
     
     func numberOfItems(inGallery galleryViewController: AWKGalleryViewController) -> Int {
         guard let mediaObjects = self.galleryMediaObjects else {
@@ -433,7 +430,6 @@ extension CommentsEmbeddedViewController: AWKGalleryDataSource {
         }
         return mediaObjects.count
     }
-    
     
     func gallery(_ galleryViewController: AWKGalleryViewController, itemAt index: UInt) -> AWKGalleryItem {
         if let mediaObject = self.galleryMediaObjects?[Int(index)] {
@@ -451,14 +447,13 @@ extension CommentsEmbeddedViewController: AWKGalleryDataSource {
     
 }
 
-//MARK: - AWKGalleryDelegate
+// MARK: - AWKGalleryDelegate
 
 extension CommentsEmbeddedViewController: AWKGalleryDelegate {
     
     func gallery(_ galleryViewController: AWKGalleryViewController, presentationAnimationSourceViewFor item: AWKGalleryItem) -> UIView? {
         return nil
     }
-    
     
     func gallery(_ galleryViewController: AWKGalleryViewController, shouldBeDismissedAnimated animated: Bool) {
         self.dismissGalleryViewController(galleryViewController, sourceView: nil)
@@ -517,7 +512,7 @@ extension CommentsEmbeddedViewController: UIViewControllerPreviewingDelegate {
         if viewControllerToCommit is BeamSafariViewController || viewControllerToCommit is UINavigationController {
             self.present(viewControllerToCommit, animated: true, completion: nil)
         } else if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true;
+            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
             self.presentGalleryViewController(galleryViewController, sourceView: nil)
         } else {
             self.navigationController?.show(viewControllerToCommit, sender: previewingContext)

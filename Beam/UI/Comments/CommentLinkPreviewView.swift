@@ -55,10 +55,8 @@ class CommentLinkPreviewView: BeamControl {
                 self?.urlInformation = information
                 self?.isLoading = false
                 //Ignore cancel errors
-                if let error = error as NSError? , !(error.code == NSURLErrorCancelled && error.domain == NSURLErrorDomain) {
+                if let error = error as NSError?, !(error.code == NSURLErrorCancelled && error.domain == NSURLErrorDomain) {
                     NSLog("Error while fetching URL metadata: \(error)")
-                    
-                    
                 }
             }
         }
@@ -80,7 +78,7 @@ class CommentLinkPreviewView: BeamControl {
                     self?.isLoading = false
                     
                     //Ignore cancel errors
-                    if let error = result.error as NSError? , !(error.code == NSURLErrorCancelled && error.domain == NSURLErrorDomain) {
+                    if let error = result.error as NSError?, !(error.code == NSURLErrorCancelled && error.domain == NSURLErrorDomain) {
                         NSLog("Error while fetching URL metadata: \(error)")
                         
                     }
@@ -90,7 +88,7 @@ class CommentLinkPreviewView: BeamControl {
     }
     
     private func isCherryAcceptedImageLink(_ link: URL) -> Bool {
-        guard let imageUrlPatterns = AppDelegate.shared.cherryController.features?.imageURLPatterns else{
+        guard let imageUrlPatterns = AppDelegate.shared.cherryController.features?.imageURLPatterns else {
             return false
         }
         var isImageLink = false
@@ -169,7 +167,6 @@ class CommentLinkPreviewView: BeamControl {
                 }
             }
             
-            
             if let thumbnailUrlString = mediaObject.thumbnailWithSize(self.thumbnailImageView.bounds.size)?.urlString, let imageUrl = URL(string: thumbnailUrlString) {
                 self.thumbnailImageView.isHidden = false
                 self.thumbnailImageView.sd_setImage(with: imageUrl)
@@ -239,22 +236,22 @@ class CommentLinkPreviewView: BeamControl {
         
         self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         
-        var containerBackgroundColor = DisplayModeValue(UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0), darkValue: UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1.0))
+        var containerBackgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         if self.isHighlighted || self.isSelected {
-            containerBackgroundColor = DisplayModeValue(UIColor(red:0.9, green:0.9, blue:0.9, alpha:1), darkValue: UIColor(red:0.23, green:0.23, blue:0.23, alpha:1))
+            containerBackgroundColor = DisplayModeValue(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), darkValue: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
         }
         self.backgroundColor = containerBackgroundColor
         self.thumbnailImageView.backgroundColor = containerBackgroundColor
         self.titleLabel.backgroundColor = containerBackgroundColor
         self.domainLabel.backgroundColor = containerBackgroundColor
         
-        let borderColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        let borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         
         self.layer.borderColor = borderColor.cgColor
         self.domainLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     //We want to keep the performance as high as possible in the comments, therefore we use layoutSubviews instead of Auto layout
     override func layoutSubviews() {
@@ -268,7 +265,7 @@ class CommentLinkPreviewView: BeamControl {
         let spacing: CGFloat = 10
         
         if hasImage {
-            let imageHeight = self.bounds.height-self.layoutMargins.top-self.layoutMargins.bottom
+            let imageHeight = self.bounds.height - self.layoutMargins.top - self.layoutMargins.bottom
             let imageViewFrame = CGRect(x: x, y: y, width: imageHeight, height: imageHeight)
             self.thumbnailImageView.frame = imageViewFrame
             
@@ -277,9 +274,9 @@ class CommentLinkPreviewView: BeamControl {
         
         if hasTitle {
             //We show the title and the domain
-            let maxWidth = self.bounds.width-x-self.layoutMargins.right
-            let maxHeight = self.bounds.height-self.layoutMargins.top-self.layoutMargins.bottom
-            let maxSize = CGSize(width: maxWidth, height: maxHeight/2)
+            let maxWidth = self.bounds.width - x - self.layoutMargins.right
+            let maxHeight = self.bounds.height - self.layoutMargins.top - self.layoutMargins.bottom
+            let maxSize = CGSize(width: maxWidth, height: maxHeight / 2)
             
             self.titleLabel.preferredMaxLayoutWidth = maxWidth
             self.domainLabel.preferredMaxLayoutWidth = maxWidth
@@ -289,7 +286,7 @@ class CommentLinkPreviewView: BeamControl {
             var domainLabelSize = self.domainLabel.sizeThatFits(maxSize)
             domainLabelSize.width = min(domainLabelSize.width, maxWidth)
             
-            y = (self.bounds.height-(titleLabelSize.height+domainLabelSize.height+2))/2
+            y = (self.bounds.height - (titleLabelSize.height + domainLabelSize.height + 2)) / 2
             
             self.titleLabel.frame = CGRect(origin: CGPoint(x: x, y: y), size: titleLabelSize)
             y += titleLabelSize.height
@@ -298,15 +295,15 @@ class CommentLinkPreviewView: BeamControl {
             self.domainLabel.frame = CGRect(origin: CGPoint(x: x, y: y), size: domainLabelSize)
         } else {
             //We only show the domain of the URL
-            let maxWidth = self.bounds.width-x-self.layoutMargins.right
-            let maxHeight = self.bounds.height-self.layoutMargins.top-self.layoutMargins.bottom
+            let maxWidth = self.bounds.width - x - self.layoutMargins.right
+            let maxHeight = self.bounds.height - self.layoutMargins.top - self.layoutMargins.bottom
             let maxSize = CGSize(width: maxWidth, height: maxHeight)
             
             self.domainLabel.preferredMaxLayoutWidth = maxWidth
             
             let domainLabelSize = self.domainLabel.sizeThatFits(maxSize)
             
-            y = (self.bounds.height-(domainLabelSize.height))/2
+            y = (self.bounds.height - (domainLabelSize.height)) / 2
             
             self.domainLabel.frame = CGRect(origin: CGPoint(x: x, y: y), size: domainLabelSize)
         }

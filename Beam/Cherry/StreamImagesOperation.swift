@@ -47,7 +47,7 @@ class StreamImagesOperation: CherryPostParsingOperation {
                             self.finishOperation()
                             return
                         }
-                        if let result = result as? ImageMetadataTaskResult , result.metadata.count > 0 {
+                        if let result = result as? ImageMetadataTaskResult, result.metadata.count > 0 {
                             self.parsingOperation?.objectContext.performAndWait {
                                 self.insertMediaObjectsArray(result.metadata, posts: posts)
                             }
@@ -94,7 +94,6 @@ class StreamImagesOperation: CherryPostParsingOperation {
                     return false
                 }
                 
-                
                 for pattern in patterns {
                     do {
                         let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
@@ -126,7 +125,5 @@ class StreamImagesOperation: CherryPostParsingOperation {
             }
         }
     }
-    
-
 
 }

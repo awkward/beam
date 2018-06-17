@@ -32,5 +32,4 @@ class LoaderFooterView: BeamView {
         self.activityIndicatorView.stopAnimating()
     }
     
-    
 }

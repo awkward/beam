@@ -118,8 +118,8 @@ class PostLinkPreviewView: BeamControl {
             //If the post is marked as a spoiler, we don't show the title and description
             return nil
         }
-        let titleAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.titleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.white : UIColor.beamGreyExtraDark()]
-        let descriptionAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.subtitleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.beamGrey() : UIColor(red:0.58, green:0.58, blue:0.58, alpha:1)]
+        let titleAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.titleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.white: UIColor.beamGreyExtraDark()]
+        let descriptionAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.subtitleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.beamGrey() : UIColor(red: 0.58, green: 0.58, blue: 0.58, alpha: 1)]
         let isImgurLink = post.urlString?.contains("imgur.com") == true
         
         let string = NSMutableAttributedString()
@@ -161,7 +161,6 @@ class PostLinkPreviewView: BeamControl {
         return self.shouldShowImagePreview
     }
     
-    
     /// If the image preview view should show, if there is a spoiler or NSFW it should show, but not load the image!
     fileprivate var shouldShowImagePreview: Bool {
         if self.isVideoPreview {
@@ -176,7 +175,7 @@ class PostLinkPreviewView: BeamControl {
         return self.information?.imageURL != nil
     }
     
-    //MARK: - Initialization
+    // MARK: - Initialization
     
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -254,7 +253,7 @@ class PostLinkPreviewView: BeamControl {
         self.setNeedsLayout()
         
         if self.shouldLoadImagePreview, let imageURL = self.information?.imageURL {
-            self.previewImageView.sd_setImage(with: imageURL, completed: { (image, error, cacheType, imageURL) -> Void in
+            self.previewImageView.sd_setImage(with: imageURL, completed: { (image, _, _, _) -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in
                     self.doneLoading(animated: true)
                     self.previewImageView.image = image
@@ -303,14 +302,14 @@ class PostLinkPreviewView: BeamControl {
                 self.titleLabel.alpha = 1.0
                 self.domainLabel.alpha = 1.0
                 self.previewImageView.alpha = 1.0
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 self.loadingPlaceholderImageView.isHidden = !self.isLoading
                 self.loadingPlaceholderImageView.alpha = 1.0
             })
         }
     }
     
-    //MARK: - Metadata loading
+    // MARK: - Metadata loading
     
     fileprivate var requestDelay: TimeInterval = 0.5
     
@@ -335,7 +334,7 @@ class PostLinkPreviewView: BeamControl {
         self.cancelAllRequests()
         
         if let link = self.link {
-            let request = link.oca.fetchInformation(completionHandler: { [weak self] (information, error) in
+            let request = link.oca.fetchInformation(completionHandler: { [weak self] (information, _) in
                 DispatchQueue.main.async {
                     self?.information = information
                 }
@@ -357,7 +356,7 @@ class PostLinkPreviewView: BeamControl {
         self.previewImageView.sd_cancelCurrentImageLoad()
     }
     
-    //MARK: - Colors
+    // MARK: - Colors
     
     override var isHighlighted: Bool {
         didSet {
@@ -376,9 +375,9 @@ class PostLinkPreviewView: BeamControl {
         
         self.titleLabel.attributedText = self.attributedTitle
         
-        var backgroundColor = DisplayModeValue(UIColor(red: 245/255, green: 245/255, blue: 245/255, alpha: 1.0), darkValue: UIColor(red: 38/255, green: 38/255, blue: 38/255, alpha: 1.0))
+        var backgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         if self.isHighlighted || self.isSelected {
-            backgroundColor = DisplayModeValue(UIColor(red:0.9, green:0.9, blue:0.9, alpha:1), darkValue: UIColor(red:0.23, green:0.23, blue:0.23, alpha:1))
+            backgroundColor = DisplayModeValue(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), darkValue: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
         }
         self.backgroundColor = backgroundColor
         self.titleLabel.backgroundColor = backgroundColor
@@ -386,14 +385,13 @@ class PostLinkPreviewView: BeamControl {
         self.loadingPlaceholderImageView.backgroundColor = backgroundColor
         
         //The color used for the border, loading placeholder and empty imageView
-        let secondColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        let secondColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         self.previewImageView.backgroundColor = secondColor
         self.layer.borderColor = secondColor.cgColor
         //Setting the tintColor when it's already the correct tintColor causes the image to be tinted again, this leads to high CPU usage
         if self.loadingPlaceholderImageView.tintColor != secondColor {
             self.loadingPlaceholderImageView.tintColor = secondColor
         }
-        
         
         self.domainLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
         //Setting the tintColor when it's already the correct tintColor causes the image to be tinted again, this leads to high CPU usage
@@ -408,7 +406,7 @@ class PostLinkPreviewView: BeamControl {
         
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     private let videoRatio: CGFloat = 16 / 9
     private let viewInsetsLink = UIEdgeInsets(top: 9, left: 9, bottom: 9, right: 9)
@@ -433,7 +431,7 @@ class PostLinkPreviewView: BeamControl {
     
     private func layoutForVideoPreview() {
         //First, layout the image
-        let imageHeight = self.bounds.width/self.videoRatio
+        let imageHeight = self.bounds.width / self.videoRatio
         let imageFrame = CGRect(x: 0, y: 0, width: self.bounds.width, height: imageHeight)
         self.previewImageView.frame = imageFrame
         self.playIconImageView.frame = imageFrame
@@ -441,7 +439,7 @@ class PostLinkPreviewView: BeamControl {
         if !self.spoilerBadgeImageView.isHidden, let image = self.spoilerBadgeImageView.image {
             //Add the badge on top of the image view
             let badgeSize = image.size
-            let badgeFrame = CGRect(x: self.bounds.width-self.viewInsetsVideo.right-badgeSize.width, y: self.viewInsetsVideo.top, width: badgeSize.width, height: badgeSize.height)
+            let badgeFrame = CGRect(x: self.bounds.width - self.viewInsetsVideo.right - badgeSize.width, y: self.viewInsetsVideo.top, width: badgeSize.width, height: badgeSize.height)
             self.spoilerBadgeImageView.frame = badgeFrame
         }
         
@@ -462,7 +460,7 @@ class PostLinkPreviewView: BeamControl {
         domainSize.width = min(domainSize.width, descriptionRect.width)
         
         guard self.titleLabel.attributedText != nil else {
-            var yPosition = (descriptionRect.height-domainSize.height)/2
+            var yPosition = (descriptionRect.height - domainSize.height) / 2
             yPosition += insets.top
             
             self.domainLabel.frame = CGRect(origin: CGPoint(x: insets.left, y: yPosition), size: domainSize)
@@ -476,7 +474,7 @@ class PostLinkPreviewView: BeamControl {
         var titleSize = self.titleLabel.sizeThatFits(maxSize)
         titleSize.width = min(titleSize.width, descriptionRect.width)
         let combinedHeight = titleSize.height + domainSize.height + titleToDomainSpacing
-        var yPosition = (descriptionRect.height-combinedHeight)/2
+        var yPosition = (descriptionRect.height - combinedHeight) / 2
         yPosition += insets.top
         
         self.titleLabel.frame = CGRect(origin: CGPoint(x: insets.left, y: yPosition), size: titleSize)
@@ -496,7 +494,7 @@ class PostLinkPreviewView: BeamControl {
         var xPosition = insets.left
         if !self.previewImageView.isHidden {
             //First, layout the image
-            let imageHeight = self.bounds.height-insets.top-insets.bottom
+            let imageHeight = self.bounds.height - insets.top - insets.bottom
             let imageFrame = CGRect(x: xPosition, y: insets.top, width: imageHeight, height: imageHeight)
             self.previewImageView.frame = imageFrame
             
@@ -523,7 +521,7 @@ class PostLinkPreviewView: BeamControl {
         domainSize.width = min(domainSize.width, descriptionRect.width)
         
         guard self.titleLabel.attributedText != nil else {
-            var yPosition = (descriptionRect.height-domainSize.height)/2
+            var yPosition = (descriptionRect.height - domainSize.height) / 2
             yPosition += insets.top
             
             self.domainLabel.frame = CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: domainSize)
@@ -537,7 +535,7 @@ class PostLinkPreviewView: BeamControl {
         var titleSize = self.titleLabel.sizeThatFits(maxSize)
         titleSize.width = min(titleSize.width, descriptionRect.width)
         let combinedHeight = titleSize.height + domainSize.height + titleToDomainSpacing
-        var yPosition = (descriptionRect.height-combinedHeight)/2
+        var yPosition = (descriptionRect.height - combinedHeight) / 2
         yPosition += insets.top
         
         self.titleLabel.frame = CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: titleSize)
@@ -548,7 +546,7 @@ class PostLinkPreviewView: BeamControl {
         
     }
     
-    //MARK: - Size
+    // MARK: - Size
     
     override var intrinsicContentSize: CGSize {
         guard self.isVideoPreview else {
@@ -563,7 +561,7 @@ class PostLinkPreviewView: BeamControl {
         if isVideoPreview {
             let ratio: CGFloat = 16 / 9
             let insets = UIEdgeInsets(top: 0, left: 10, bottom: 10, right: 10)
-            let videoWidth = width-insets.left-insets.right
+            let videoWidth = width - insets.left - insets.right
             let imageHeight = videoWidth / ratio
             let descriptionHeight: CGFloat = 65
             let height: CGFloat = imageHeight + descriptionHeight + insets.bottom + insets.top

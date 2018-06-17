@@ -15,7 +15,7 @@ let MultiredditMaxSubredditsCount = 50
 
 class MultiredditSubsSearchController: UISearchController {
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
     }
 }
@@ -79,7 +79,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         subredditsQuery.userIdentifier = AppDelegate.shared.authenticationController.activeUserIdentifier
         
         self.collectionController.query = subredditsQuery
-        self.collectionController.startInitialFetching { (collectionID, error) -> Void in
+        self.collectionController.startInitialFetching { (collectionID, _) -> Void in
             self.updateSuggestions(collectionID)
         }
         self.updateSuggestions(self.collectionController.collectionID)
@@ -132,13 +132,13 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
                 
                 UIApplication.stopNetworkActivityIndicator(for: operation)
                 
-                if let error = error , operation.multireddit.managedObjectContext != nil {
+                if let error = error, operation.multireddit.managedObjectContext != nil {
                     DispatchQueue.main.async {
                         let name = operation.multireddit.displayName ?? AWKLocalizedString("multireddit")
                         let titleString = AWKLocalizedString("multireddit-update-failure").replacingOccurrences(of: "[MULTIREDDIT]", with: name)
                         let alert = BeamAlertController(title: titleString as String, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
                         alert.addCancelAction()
-                        alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: .default, handler: { (action) -> Void in
+                        alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: .default, handler: { (_) -> Void in
                             updateMultireddit(operation.multireddit)
                         }))
                         AppDelegate.topViewController()?.present(alert, animated: true, completion: nil)
@@ -149,7 +149,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         }
     }
     
-    //MARK: - Display Mode
+    // MARK: - Display Mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -187,10 +187,10 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         
         if let oldIndex = self.suggestions?.index(of: subreddit) {
             if self.suggestions?.count == 1 {
-                self.tableView.deleteSections(IndexSet(integer: self.hasSubredditsSection ? 1 : 0), with: .automatic)
+                self.tableView.deleteSections(IndexSet(integer: self.hasSubredditsSection ? 1: 0), with: .automatic)
                 self.tableView.insertRows(at: [newIndexPath], with: .automatic)
             } else {
-                let oldIndexPath = IndexPath(row: oldIndex, section: self.hasSubredditsSection ? 1 : 0)
+                let oldIndexPath = IndexPath(row: oldIndex, section: self.hasSubredditsSection ? 1: 0)
                 
                 if self.hasSubredditsSection {
                     self.tableView.moveRow(at: oldIndexPath, to: newIndexPath)
@@ -229,7 +229,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         self.subreddits?.remove(at: index)
         let newSuggestions = self.filteredSuggestions(self.collectionController.collectionID)
         
-        if let destinationIndex = newSuggestions?.index(of: subreddit) , self.hasSubredditsSection && self.hasSuggestionsSection {
+        if let destinationIndex = newSuggestions?.index(of: subreddit), self.hasSubredditsSection && self.hasSuggestionsSection {
             
             let indexPath = IndexPath(row: index, section: 0)
             let newIndexPath = IndexPath(row: destinationIndex, section: 1)
@@ -244,7 +244,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
             }
             
             let destinationIndex = newSuggestions?.index(of: subreddit)
-            if let destinationIndex = destinationIndex , self.hasSuggestionsSection {
+            if let destinationIndex = destinationIndex, self.hasSuggestionsSection {
                 self.tableView.insertRows(at: [IndexPath(row: destinationIndex, section: 0)], with: .automatic)
             } else if destinationIndex != nil {
                 self.tableView.insertSections(IndexSet(integer: 1), with: .automatic)
@@ -265,7 +265,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
     // MARK: - Table view data source
     
     override func numberOfSections(in tableView: UITableView) -> Int {
-        return (self.hasSubredditsSection ? 1 : 0) + (self.hasSuggestionsSection ? 1 : 0)
+        return (self.hasSubredditsSection ? 1: 0) + (self.hasSuggestionsSection ? 1: 0)
     }
 
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -317,9 +317,12 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
     override func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
         if self.hasSubredditsSection && self.hasSuggestionsSection {
             switch section {
-            case 0: return AWKLocalizedString("subreddits-in-multireddit").uppercased(with: Locale.current)
-            case 1: return AWKLocalizedString("my-subreddits-title").uppercased(with: Locale.current)
-            default: return nil
+            case 0:
+                return AWKLocalizedString("subreddits-in-multireddit").uppercased(with: Locale.current)
+            case 1:
+                return AWKLocalizedString("my-subreddits-title").uppercased(with: Locale.current)
+            default:
+                return nil
             }
         }
         return nil
@@ -419,7 +422,7 @@ extension MultiredditSubsViewController: UIViewControllerPreviewingDelegate {
             return tabBarController
         }
 
-        return nil;
+        return nil
         
     }
     

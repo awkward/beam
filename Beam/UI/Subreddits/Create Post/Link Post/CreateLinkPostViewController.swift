@@ -9,7 +9,6 @@
 import UIKit
 import Snoo
 
-
 class CreateLinkPostViewController: CreatePostViewController {
 
     var animateKeyboardAppearance = false
@@ -53,7 +52,6 @@ class CreateLinkPostViewController: CreatePostViewController {
         self.linkTextField?.resignFirstResponder()
     }
 
-    
     fileprivate func configureRecentLink() {
         if let URL = UIPasteboard.general.url {
             self.linkTextField?.rightView = self.inlineRecentLinkView
@@ -83,7 +81,7 @@ class CreateLinkPostViewController: CreatePostViewController {
         self.scrollView.layoutIfNeeded()
     }
     
-    //MARK: Actions
+    // MARK: Actions
     
     override func submitTapped(_ sender: AnyObject) {
         guard self.linkIsValidURL(self.linkTextField?.text ?? "") == true else {
@@ -99,8 +97,8 @@ class CreateLinkPostViewController: CreatePostViewController {
             return false
         }
         if (link.hasPrefix("https://") || link.hasPrefix("http://") || link.hasPrefix("www.")) && URL(string: link) != nil {
-            let URL = Foundation.URL(string: link)!
-            if URL.host == nil {
+            let url = URL(string: link)!
+            if url.host == nil {
                 return false
             }
             return true
@@ -109,10 +107,10 @@ class CreateLinkPostViewController: CreatePostViewController {
         }
     }
     
-    //MARK: Notifications
+    // MARK: Notifications
     
     override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIViewAnimationOptions) {
-        let bottomInset: CGFloat = max(self.view.bounds.height-frame.minY, 0)
+        let bottomInset: CGFloat = max(self.view.bounds.height - frame.minY, 0)
         
         if self.animateKeyboardAppearance == false {
             UIView.performWithoutAnimation({
@@ -122,9 +120,7 @@ class CreateLinkPostViewController: CreatePostViewController {
             UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
                 //ANIMATE
                 self.applyScrollViewBottomInset(bottomInset)
-            }) { (finished) in
-                //Complete
-            }
+            }, completion: nil)
         }
         
     }
@@ -141,7 +137,7 @@ class CreateLinkPostViewController: CreatePostViewController {
         
     }
     
-    //MARK: Display Mode
+    // MARK: Display Mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -163,10 +159,10 @@ class CreateLinkPostViewController: CreatePostViewController {
         self.titleTextField?.keyboardAppearance = keyboardAppearance
         self.linkTextField?.keyboardAppearance = keyboardAppearance
         
-        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
     }
     
-    //MARK: CreatePostViewController properties and functions
+    // MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
         guard let title = self.titleTextField?.text, let link = self.linkTextField?.text else {
@@ -199,7 +195,7 @@ class CreateLinkPostViewController: CreatePostViewController {
     
     override func lockView(_ locked: Bool) {
         super.lockView(locked)
-        let alpha: CGFloat = locked ? 0.5 : 1.0
+        let alpha: CGFloat = locked ? 0.5: 1.0
         self.titleTextField?.isEnabled = !locked
         self.titleTextField?.alpha = alpha
         self.linkTextField?.isEnabled = !locked
@@ -221,7 +217,7 @@ extension CreateLinkPostViewController: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == self.linkTextField && textField.text == "http://" && (string == UIPasteboard.general.string || string == UIPasteboard.general.url?.absoluteString)  {
+        if textField == self.linkTextField && textField.text == "http://" && (string == UIPasteboard.general.string || string == UIPasteboard.general.url?.absoluteString) {
             textField.text = nil
         }
         if textField == self.linkTextField && string == UIPasteboard.general.string && !string.contains("http") {
@@ -230,7 +226,7 @@ extension CreateLinkPostViewController: UITextFieldDelegate {
         }
         if textField == self.titleTextField {
             let currentCharacterCount = textField.text?.count ?? 0
-            if (range.length + range.location > currentCharacterCount){
+            if range.length + range.location > currentCharacterCount {
                 return false
             }
             let newLength = currentCharacterCount + string.count - range.length

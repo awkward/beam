@@ -10,8 +10,6 @@ import UIKit
 import XCTest
 @testable import Snoo
 
-
-
 class Authentication: XCTestCase {
     
     var testController: TestController {
@@ -79,10 +77,13 @@ class Authentication: XCTestCase {
             XCTAssertNotNil(userID)
             XCTAssertNotNil(identifier)
             
-            let objectContext = DataController.sharedController.privateContext
-            objectContext.performBlock({ () -> Void in
+            guard let objectContext = DataController.shared.privateContext else {
+                XCTFail("Context missing")
+                return
+            }
+            objectContext.perform {
                 do {
-                    if let userID = userID, let user = try objectContext.existingObjectWithID(userID) as? User {
+                    if let userID = userID, let user = try objectContext.existingObject(with: userID) as? User {
                         XCTAssertNotNil(user)
                         XCTAssertEqual(user.identifier, identifier)
                         XCTAssertEqual(user.username, self.testController.username)
@@ -92,7 +93,7 @@ class Authentication: XCTestCase {
                 }
                 
                 expectation.fulfill()
-            })
+            }
             
         }
         
@@ -109,7 +110,7 @@ class Authentication: XCTestCase {
         
         let expectation = self.expectation(description: "Logout")
         if let session = self.authenticationController.activeUserSession {
-            self.authenticationController.removeUserSession(session, handler: { 
+            self.authenticationController.removeUserSession(session, handler: {
                 expectation.fulfill()
             })
         } else {
@@ -148,11 +149,10 @@ class Authentication: XCTestCase {
     }
     
     func performAuthentication() {
-        
         let authOperations = self.authenticationController.authenticationOperations()
         
         let expectation = self.expectation(description: "User authentication")
-        DataController.sharedController.executeOperations(authOperations) { (error) -> Void in
+        DataController.shared.executeOperations(authOperations) { (error) -> Void in
             XCTAssertNil(error, "An error occured while refreshing access token: \(error)")
             expectation.fulfill()
         }
@@ -184,7 +184,6 @@ class Authentication: XCTestCase {
         XCTAssertFalse(self.authenticationController.isApplicationAuthenticated)
         XCTAssertFalse(self.authenticationController.isAuthenticated)
     }
-    
     
     override func tearDown() {
 

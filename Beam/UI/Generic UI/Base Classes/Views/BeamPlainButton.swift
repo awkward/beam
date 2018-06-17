@@ -45,8 +45,8 @@ class BeamPlainButton: UIButton, DynamicDisplayModeView {
     override var isEnabled: Bool {
         didSet {
             if self.buttonType == .custom {
-                self.titleLabel?.alpha = isEnabled ? 1 : 0.5
-                self.imageView?.alpha = isEnabled ? 1 : 0.5
+                self.titleLabel?.alpha = isEnabled ? 1: 0.5
+                self.imageView?.alpha = isEnabled ? 1: 0.5
             }
         }
     }
@@ -55,7 +55,7 @@ class BeamPlainButton: UIButton, DynamicDisplayModeView {
         self.adjustsImageWhenHighlighted = false
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         let size = super.intrinsicContentSize
         return CGSize(width: size.width, height: 44)
     }
@@ -67,8 +67,8 @@ class BeamPlainButton: UIButton, DynamicDisplayModeView {
             }
             
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
-                self.titleLabel?.alpha = self.isHighlighted ? 0.5 : 1
-                self.imageView?.alpha = self.isHighlighted ? 0.5 : 1
+                self.titleLabel?.alpha = self.isHighlighted ? 0.5: 1
+                self.imageView?.alpha = self.isHighlighted ? 0.5: 1
                 }, completion: nil)
         }
     }

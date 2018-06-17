@@ -40,7 +40,7 @@ internal class DeleteContentActivity<T: Content>: CustomObjectActivity<T> {
         }
         let alertController = BeamAlertController(title: AWKLocalizedString("delete-\(self.contentType)-title"), message: AWKLocalizedString("delete-\(self.contentType)-message"), preferredStyle: UIAlertControllerStyle.alert)
         alertController.addCancelAction()
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertActionStyle.destructive, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
             let operations = content.deleteOperations(AppDelegate.shared.authenticationController)
             DataController.shared.executeAndSaveOperations(operations, context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in

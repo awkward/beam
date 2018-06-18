@@ -274,29 +274,28 @@ public final class AuthenticationController: NSObject {
             
             let userParser = UserParsingOperation()
             userParser.addDependency(userRequest)
-            userParser.userParsingCompletionHandler = { () in
-                if let response = tokenRequest.HTTPResponse {
-                    //Only update the user session when there is an actual reponse
-                    if response.statusCode == 200 {
-                        //The request was sucessful, update the userSession
-                        let userSession = tokenRequest.authenticationSession
-                        userSession?.userIdentifier = userParser.userIdentifier
-                        userSession?.username = userParser.username
-                        userSession?.refreshToken = self.userSession?.refreshToken
-                        self.userSession = userSession
-                        
-                    } else if response.statusCode == 400 {
-                        //Bad request, the refresh token is probably invalid. This error is not returned when something is missing from the request, that will be a 403
-                        self.userSession?.destroy()
-                        self.userSession = nil
-                        print("Bad request, destroying user session, statusCode: \(response.statusCode) error: \(String(describing: tokenRequest.error))")
-                    } else {
-                        print("Unknown error updating access token, statusCode: \(response.statusCode) error: \(String(describing: tokenRequest.error))")
-                    }
-                } else {
-                    print("Unknown error updating access token, no response code, error: \(String(describing: tokenRequest.error))")
+            userParser.userParsingCompletionHandler = { [weak self, weak tokenRequest] () in
+                guard let request = tokenRequest, let response = request.HTTPResponse else {
+                    print("Unknown error updating access token, no response code, error: \(String(describing: tokenRequest?.error))")
+                    return
                 }
-                
+                //Only update the user session when there is an actual reponse
+                if response.statusCode == 200 {
+                    //The request was sucessful, update the userSession
+                    let userSession = request.authenticationSession
+                    userSession?.userIdentifier = userParser.userIdentifier
+                    userSession?.username = userParser.username
+                    userSession?.refreshToken = self?.userSession?.refreshToken
+                    self?.userSession = userSession
+                    
+                } else if response.statusCode == 400 {
+                    //Bad request, the refresh token is probably invalid. This error is not returned when something is missing from the request, that will be a 403
+                    self?.userSession?.destroy()
+                    self?.userSession = nil
+                    print("Bad request, destroying user session, statusCode: \(response.statusCode) error: \(String(describing: request.error))")
+                } else {
+                    print("Unknown error updating access token, statusCode: \(response.statusCode) error: \(String(describing: request.error))")
+                }
             }
             
             return [tokenRequest, userRequest, userParser]
@@ -486,9 +485,9 @@ public final class AuthenticationController: NSObject {
         
         let currentSessions = self.authenticationSessions
         
-        if let existingSession = currentSessions.filter({ (filterSession) -> Bool in
+        if let existingSession = currentSessions.first(where: { (filterSession) -> Bool in
             filterSession.userIdentifier == session.userIdentifier
-        }).first {
+        }) {
             existingSession.refreshToken = session.refreshToken
             existingSession.userIdentifier = session.userIdentifier
             if let username = session.username {
@@ -506,7 +505,9 @@ public final class AuthenticationController: NSObject {
     open func removeUserSession(_ session: AuthenticationSession, handler: (() -> Void)?) {
         let sessions = self.authenticationSessions
         
-        if let newSession = sessions.filter({ $0.userIdentifier != session.userIdentifier }).first {
+        if let newSession = sessions.first(where: { (filterSession) -> Bool in
+           filterSession.userIdentifier != session.userIdentifier
+        }) {
             self.switchToAuthenticationSession(newSession) { (_) in
                 session.destroy()
                 NotificationCenter.default.post(name: AuthenticationController.UserDidLogoutNotificationName, object: self, userInfo: self.authenticationNotificationUserInfo(forSession: session))

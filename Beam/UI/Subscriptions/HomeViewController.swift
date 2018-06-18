@@ -51,8 +51,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
     
     // MARK: - UIViewController
     
-    override func loadView() {
-        super.loadView()
+    private func setupView() {
         self.view.insertSubview(self.multiredditsViewController.view, belowSubview: self.toolbar)
         self.addChildViewController(self.multiredditsViewController)
         self.multiredditsViewController.didMove(toParentViewController: self)
@@ -73,6 +72,8 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupView()
         
         self.buttonBar.items = [ButtonBarButton(title: AWKLocalizedString("subreddits-title")), ButtonBarButton(title: AWKLocalizedString("multireddits-title"))]
         self.buttonBar.addTarget(self, action: #selector(HomeViewController.buttonBarChanged(_:)), for: UIControlEvents.valueChanged)

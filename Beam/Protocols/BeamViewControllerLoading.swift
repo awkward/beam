@@ -134,7 +134,6 @@ extension BeamViewControllerLoading where Self: UIViewController {
             }
             
             self.updateLoadingState()
-
         })
     }
     
@@ -166,7 +165,7 @@ extension BeamViewControllerLoading where Self: UIViewController {
                 self.loadingState = BeamViewControllerLoadingState.empty
                 
                 self.updateEmptyView()
-                return 
+                return
         }
 
         guard query.requiresAuthentication == false || (query.requiresAuthentication == true && AppDelegate.shared.authenticationController.isAuthenticated == true) else {

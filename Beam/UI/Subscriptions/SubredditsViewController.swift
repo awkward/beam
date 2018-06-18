@@ -202,16 +202,16 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
     }
     
     fileprivate func indexPathForSubreddit(_ subreddit: Subreddit) -> IndexPath? {
-        if let content = self.content {
-            for (sectionIdx, section) in content.enumerated() {
-                for (rowIdx, object) in section.subreddits.enumerated() {
-                    if object == subreddit {
-                        return IndexPath(row: rowIdx, section: sectionIdx)
-                    }
-                }
+        guard let content = self.content else {
+            return nil
+        }
+        for (sectionIdx, section) in content.enumerated() {
+            if let rowIndex = section.subreddits.index(where: { (object) -> Bool in
+                return object == subreddit
+            }) {
+                return IndexPath(row: rowIndex, section: sectionIdx)
             }
         }
-        
         return nil
     }
     
@@ -308,7 +308,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
             return
         }
         
-        if let notification = AppDelegate.shared.cherryController.features?.bannerNotifications?.filter({ $0.shouldDisplay == true }).first {
+        if let notification = AppDelegate.shared.cherryController.features?.bannerNotifications?.first(where: { $0.shouldDisplay == true }) {
             self.bannerView = TableViewHeaderBannerView.bannerView(notification, tapHandler: { (notification) in
                AppDelegate.shared.userNotificationsHandler.handleNotificationContent(notification.userNotificationContent)
                 self.removeBanner()

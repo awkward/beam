@@ -25,6 +25,7 @@ class BeamCollectionReusableView: UICollectionReusableView, DynamicDisplayModeVi
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.displayModeDidChange()
         self.registerForDisplayModeChangeNotifications()
     }

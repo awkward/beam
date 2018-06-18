@@ -284,7 +284,7 @@ extension AssetsGridViewController: UIImagePickerControllerDelegate {
         PHPhotoLibrary.shared().performChanges({
             let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
             localIdentifier = request.placeholderForCreatedAsset?.localIdentifier
-        }) { (_, error) in
+        }, completionHandler: { (_, error) in
             DispatchQueue.main.async(execute: {
                 if let error = error {
                     NSLog("Error performing changes \(error)")
@@ -299,7 +299,7 @@ extension AssetsGridViewController: UIImagePickerControllerDelegate {
                     }
                 }
             })
-        }
+        })
         picker.dismiss(animated: true, completion: nil)
     }
 }

@@ -34,7 +34,9 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     }
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.filter({ $0 is StreamViewController }).first as? StreamViewController
+        return self.childViewControllers.first(where: { (viewController) -> Bool in
+            viewController is StreamViewController
+        }) as? StreamViewController
     }
     
     weak var query: PostCollectionQuery? {
@@ -50,8 +52,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
         }
     }
     
-    override func loadView() {
-        super.loadView()
+    private func setupView() {
         let storyboard = UIStoryboard(name: "Stream", bundle: nil)
         if let streamViewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamViewController.useCompactViewMode = true
@@ -93,6 +94,8 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupView()
         
         self.streamViewController?.additionalSafeAreaInsets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
         

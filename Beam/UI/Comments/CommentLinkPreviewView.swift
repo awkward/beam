@@ -95,7 +95,7 @@ class CommentLinkPreviewView: BeamControl {
         for pattern in imageUrlPatterns {
             do {
                 let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-                guard let match = regex.firstMatch(in: link.absoluteString, options: [], range: NSMakeRange(0, (link.absoluteString as NSString).length)), match.numberOfRanges > 0 else {
+                guard let match = regex.firstMatch(in: link.absoluteString, options: [], range: NSRange(location: 0, length: (link.absoluteString as NSString).length)), match.numberOfRanges > 0 else {
                     continue
                 }
                 isImageLink = true

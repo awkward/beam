@@ -163,9 +163,13 @@ class SubredditTabBarController: SmallTabBarController {
         }) as! [UINavigationController]
         
         //Check if a the media view is already in the tabbar
-        let mediaViewController: SubredditMediaOverviewViewController? = mediaNavigationControllers.filter({ let navigationController: UINavigationController = $0
-            guard let topViewController = navigationController.topViewController else { return false }
-            return topViewController is SubredditMediaOverviewViewController }).first?.topViewController as? SubredditMediaOverviewViewController
+        let mediaViewController = mediaNavigationControllers.first(where: {
+            let navigationController: UINavigationController = $0
+            guard let topViewController = navigationController.topViewController else {
+                return false
+            }
+            return topViewController is SubredditMediaOverviewViewController
+        })?.topViewController as? SubredditMediaOverviewViewController
         
         //Only configure the media view controller if it's not already in there
         if mediaViewController == nil {

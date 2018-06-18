@@ -40,9 +40,9 @@ public final class CollectionParsingOperation: DataOperation {
     var before: String?
     
     var requestOperation: RedditRequest? {
-        let requestOperation = self.dependencies.filter({ (operation: Operation) -> Bool in
+        let requestOperation = self.dependencies.first(where: { (operation) -> Bool in
             return operation is RedditRequest
-        }).first
+        })
         return requestOperation as? RedditRequest
     }
     

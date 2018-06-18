@@ -164,12 +164,9 @@ class BannerNotification: NSObject {
         guard self.hasBeenShown() == false else {
             return false
         }
-        for requirement in self.requirements {
-            if !requirement.satisfied {
-                return false
-            }
+        return !self.requirements.contains { (requirement) -> Bool in
+            return !requirement.satisfied
         }
-        return true
     }
     
     func hasBeenShown() -> Bool {

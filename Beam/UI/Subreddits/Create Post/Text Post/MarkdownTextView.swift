@@ -119,7 +119,7 @@ class MarkdownTextView: UITextView {
             if self.isFirstResponder == false {
                 self.becomeFirstResponder()
             }
-            self.selectedRange = NSMakeRange(selectedRange.location + 1, link.count)
+            self.selectedRange = NSRange(location: selectedRange.location + 1, length: link.count)
         }
     }
     
@@ -132,7 +132,7 @@ class MarkdownTextView: UITextView {
                 //Append to the text and set the cursor
                 let selectedRange = self.selectedRange
                 self.replace(selectedTextRange, withText: styling.beginString + styling.endString)
-                self.selectedRange = NSMakeRange(selectedRange.location + styling.beginString.count, 0)
+                self.selectedRange = NSRange(location: selectedRange.location + styling.beginString.count, length: 0)
             } else {
                 //Append to the end, make the textview first responder and set the cursor
                 var newText = self.text ?? ""
@@ -141,7 +141,7 @@ class MarkdownTextView: UITextView {
                 if self.isFirstResponder != true {
                     self.becomeFirstResponder()
                 }
-                self.selectedRange = NSMakeRange(self.text.count - styling.endString.count, 0)
+                self.selectedRange = NSRange(location: self.text.count - styling.endString.count, length: 0)
             }
         }
     }

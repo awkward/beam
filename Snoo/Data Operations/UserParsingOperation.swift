@@ -25,9 +25,9 @@ final public class UserParsingOperation: DataOperation {
     override open func start() {
         super.start()
         
-        let userRequest = self.dependencies.filter { (operation: Operation) -> Bool in
+        let userRequest = self.dependencies.first(where: { (operation) -> Bool in
             return operation is RedditUserRequest
-        }.first
+        })
         if let userRequest = userRequest as? RedditUserRequest, let data = userRequest.result {
 
             self.objectContext?.performAndWait { () -> Void in

@@ -82,7 +82,7 @@ extension Subreddit {
         if !UserSettings[.showSpoilerOverlay] {
             return false
         }
-        if let subreddits = UserSettings[.subredditsSpoilerOverlaySetting]  {
+        if let subreddits = UserSettings[.subredditsSpoilerOverlaySetting] {
             return subreddits[overlayIdentifier]?.boolValue ?? true
         }
         return UserSettings[.showSpoilerOverlay]

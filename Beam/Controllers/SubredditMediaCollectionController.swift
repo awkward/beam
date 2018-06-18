@@ -132,14 +132,12 @@ class SubredditMediaCollectionController: NSObject {
     }
     
     func indexPathForCollectionItem(_ item: Post) -> IndexPath? {
-        if let collection = self.collection {
-            for (index, object) in collection.enumerated() {
-                if item == object {
-                    return IndexPath(item: index, section: 0)
-                }
-            }
+        guard let index = self.collection?.index(where: { (post) -> Bool in
+            post == item
+        }) else {
+            return nil
         }
-        return nil
+        return IndexPath(item: index, section: 0)
     }
     
     func cancelFetching() {

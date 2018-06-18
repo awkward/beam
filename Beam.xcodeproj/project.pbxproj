@@ -2926,7 +2926,6 @@
 				766074111B38073100F4C777 /* Resources */,
 				76CBB3281B4E80610060440B /* Embed Frameworks */,
 				0CF61A4B20D6EBF90054D4F3 /* Swiftlint */,
-				0C1B91BB1C21A6B00005F5D8 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -3372,19 +3371,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C1B91BB1C21A6B00005F5D8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
-		};
 		0C980CFB1F62D94F006E3920 /* Confirm Config.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

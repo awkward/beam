@@ -26,7 +26,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
     fileprivate var trackedVisitEvent = false
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.filter({ $0 is StreamViewController }).first as? StreamViewController
+        return self.childViewControllers.first(where: { $0 is StreamViewController }) as? StreamViewController
     }
     
     var titleView: SubredditTitleView = SubredditTitleView.titleViewWithSubreddit(nil)
@@ -63,9 +63,26 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
             self.trackedVisitEvent = true
         }
     }
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.setupView()
+        
+        self.updateNavigationItem()
+        
+        self.streamViewController?.hidingButtonBarDelegate = self
+        
+        self.changeSorting(self.subreddit?.streamSortType ?? .hot, timeFrame: self.subreddit?.streamTimeFrame ?? .thisMonth)
+        
+        self.sortingBar.items = [AWKLocalizedString("hot"), AWKLocalizedString("new"), AWKLocalizedString("rising"), AWKLocalizedString("controversial"), AWKLocalizedString("top"), AWKLocalizedString("gilded")]
+        self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.subreddit?.streamSortType ?? .hot)
+        self.sortingBar.addTarget(self, action: #selector(SubredditStreamViewController.sortingBarItemTapped(_:)), for: UIControlEvents.valueChanged)
+        
+        self.streamViewController?.additionalSafeAreaInsets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
+    }
     
-    override func loadView() {
-        super.loadView()
+    private func setupView() {
         let storyboard = UIStoryboard(name: "Stream", bundle: nil)
         if let streamviewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamviewController.streamDelegate = self
@@ -109,22 +126,6 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
         } else {
             fatalError("StreamViewController should be in Stream storyboard.")
         }
-    }
-
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.updateNavigationItem()
-        
-        self.streamViewController?.hidingButtonBarDelegate = self
-        
-        self.changeSorting(self.subreddit?.streamSortType ?? .hot, timeFrame: self.subreddit?.streamTimeFrame ?? .thisMonth)
-        
-        self.sortingBar.items = [AWKLocalizedString("hot"), AWKLocalizedString("new"), AWKLocalizedString("rising"), AWKLocalizedString("controversial"), AWKLocalizedString("top"), AWKLocalizedString("gilded")]
-        self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.subreddit?.streamSortType ?? .hot)
-        self.sortingBar.addTarget(self, action: #selector(SubredditStreamViewController.sortingBarItemTapped(_:)), for: UIControlEvents.valueChanged)
-        
-        self.streamViewController?.additionalSafeAreaInsets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
     }
     
     deinit {

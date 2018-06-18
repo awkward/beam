@@ -112,6 +112,7 @@ open class Content: SyncObject {
             // Insertion
             if let context = self.managedObjectContext,
                 let entity = NSEntityDescription.entity(forEntityName: MediaObject.entityName(), in: context) {
+                //swiftlint:disable explicit_init
                 insertedObject = MediaObject.init(entity: entity, insertInto: context)
             }
             

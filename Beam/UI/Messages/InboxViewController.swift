@@ -14,9 +14,9 @@ import Trekker
 class InboxViewController: BeamViewController {
     
     var messagesViewController: MessagesViewController {
-        return self.childViewControllers.filter { (childVC: UIViewController) -> Bool in
-            return childVC is MessagesViewController
-        }.first as! MessagesViewController
+        return self.childViewControllers.first(where: { (childViewController) -> Bool in
+            return childViewController is MessagesViewController
+        }) as! MessagesViewController
     }
     
     @IBOutlet weak var toolbar: UIToolbar!

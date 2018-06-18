@@ -705,13 +705,11 @@ extension SubredditMediaOverviewViewController: SubredditMediaCollectionControll
             
             //containsString and length are faster on NSString than on swift string
             if shouldFilterSubreddits {
-                if let filterSubreddits: [String] = subreddit.filterSubreddits, let subreddit: NSString = subredditName?.lowercased() as NSString?, subreddit.length > 0 {
-                    for keyword: String in filterSubreddits {
-                        if subreddit as String == keyword {
-                            //If it contains the keyword, we don't want to continue!
-                            return false
-                        }
-                    }
+                if let filterSubreddits: [String] = subreddit.filterSubreddits, let subreddit = subredditName?.lowercased(), subreddit.count > 0 {
+                    //If it contains the keyword, we don't want to continue!
+                    return !filterSubreddits.contains(where: { (keyword) -> Bool in
+                        return subreddit == keyword
+                    })
                 }
             }
             

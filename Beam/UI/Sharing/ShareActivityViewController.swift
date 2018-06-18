@@ -13,8 +13,13 @@ class ShareActivityViewController: UIActivityViewController {
 
     var shareItemProvider: URLShareItemProvider
     
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.setupView()
+    }
+    
+    private func setupView() {
         //Set the share tintColor on iOS 9 (UIAppearance doesn't always work)
         self.view.tintColor = UIColor.beamColor()
     }

@@ -24,7 +24,7 @@ extension UISearchBar {
         searchTextField?.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         
         self.setImage(UISearchBar.searchIconWithColor(placeholderColor), for: .search, state: UIControlState())
-        self.searchTextPositionAdjustment = UIOffsetMake(8, 0)
+        self.searchTextPositionAdjustment = UIOffset(horizontal: 8, vertical: 0)
         
         self.keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
     }

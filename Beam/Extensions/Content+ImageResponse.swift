@@ -99,15 +99,15 @@ extension Content {
             urlString = urlString.replacingOccurrences(of: ".gif", with: "")
             
             let regularExpression = try NSRegularExpression(pattern: "((-|/)([a-zA-Z0-9]+?)(?:/|$))", options: [])
-            let matches = regularExpression.matches(in: urlString, options: [], range: NSMakeRange(0, (urlString as NSString).length))
+            let matches = regularExpression.matches(in: urlString, options: [], range: NSRange(location: 0, length: (urlString as NSString).length))
             let nsString = urlString as NSString
-            for match in matches {
-                if match.numberOfRanges >= 4 {
-                    let stringRange = match.range(at: 3)
-                    giphyID = nsString.substring(with: stringRange)
-                }
-                
+            
+            if let stringRange = matches.first(where: { (match) -> Bool in
+                return match.numberOfRanges >= 4
+            })?.range(at: 3) {
+                giphyID = nsString.substring(with: stringRange)
             }
+            
             if giphyID == nil {
                 //Try the last part of the path
                 let components = urlString.components(separatedBy: "/")
@@ -146,7 +146,7 @@ extension Content {
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
             if let string = object.contentURLString,
-                let url = URL(string: string), regex.firstMatch(in: string, options: [], range: NSMakeRange(0, (string as NSString).length)) != nil {
+                let url = URL(string: string), regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: (string as NSString).length)) != nil {
                 var pathExtension = url.pathExtension
                 
                 let pathWithoutExtension = (pathExtension as NSString).length > 0 ? url.path.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path

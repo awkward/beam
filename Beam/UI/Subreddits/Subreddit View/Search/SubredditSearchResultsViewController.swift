@@ -28,7 +28,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     }
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.filter({ $0 is StreamViewController }).first as? StreamViewController
+        return self.childViewControllers.first(where: { $0 is StreamViewController }) as? StreamViewController
     }
     
     weak var subreddit: Subreddit? {
@@ -55,9 +55,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     
     fileprivate var requestTimer: Timer?
     
-    override func loadView() {
-        super.loadView()
-        
+    private func setupView() {
         let storyboard = UIStoryboard(name: "Stream", bundle: nil)
         if let streamViewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamViewController.useCompactViewMode = true
@@ -98,6 +96,8 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupView()
         
         self.streamViewController?.hidingButtonBarDelegate = self
         

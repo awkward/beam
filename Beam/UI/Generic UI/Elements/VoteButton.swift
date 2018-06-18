@@ -192,18 +192,16 @@ class VoteButton: UIControl {
                 votedFace.arrowView.alpha = 1
                 }, completion: nil)
             
-            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-                
+            UIView.animate(withDuration: 0.6, delay: 0.0, usingSpringWithDamping: 0.4, initialSpringVelocity: 0, options: [], animations: {
                 votedFace.transform = CGAffineTransform.identity
-                
-                }) { (completed: Bool) -> Void in
+            }, completion: { (completed) in
                     if completed == false {
                         votedFace.removeFromSuperview()
                     } else {
                         self.face = votedFace
                     }
                     self.animating = false
-            }
+            })
             
             CATransaction.commit()
         }
@@ -229,35 +227,35 @@ class VoteButton: UIControl {
         
         func animateDefaultFace() {
             newFace.isHidden = false
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
                 newFace.transform = CGAffineTransform.identity
                 newFace.alpha = 1
-                }) { (completed) -> Void in
-                    if completed == false {
-                        newFace.removeFromSuperview()
-                    } else {
-                        self.face = newFace
-                    }
-                    self.animating = false
-            }
+            }, completion: { (completed) in
+                if completed == false {
+                    newFace.removeFromSuperview()
+                } else {
+                    self.face = newFace
+                }
+                self.animating = false
+            })
         }
         
         self.face.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         CATransaction.begin()
         
-        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
             self.face.arrowView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             self.face.arrowView.alpha = 0
-            }, completion: nil)
+        }, completion: nil)
         
-        UIView.animate(withDuration: 0.2, delay: 0.075, options: UIViewAnimationOptions.curveEaseIn, animations: { () -> Void in
+        UIView.animate(withDuration: 0.2, delay: 0.075, options: UIViewAnimationOptions.curveEaseIn, animations: {
             self.face.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             self.face.alpha = 0
-            }) { (completed: Bool) -> Void in
+        }, completion: { (completed) in
                 if completed {
                     animateDefaultFace()
                 }
-        }
+        })
         
         CATransaction.commit()
     }

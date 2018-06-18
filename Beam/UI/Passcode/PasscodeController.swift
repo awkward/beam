@@ -29,7 +29,7 @@ class PasscodeController: NSObject {
     var currentDelayOption: PasscodeDelayOption? {
         get {
             let time = UserDefaults.standard.double(forKey: PasscodeDelaySettingKey)
-            return self.delayOptions.filter({ $0.time == time }).first
+            return self.delayOptions.first(where: { $0.time == time })
         }
         set {
             if newValue == nil {

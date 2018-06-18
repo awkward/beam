@@ -34,10 +34,10 @@ class CherryKitTests: XCTestCase {
                     XCTAssertEqual(spec.size, CGSize(width: 620, height: 2342))
                     XCTAssertEqual(spec.URL, NSURL(string: "http://i.imgur.com/spygYxW.jpg")! as URL)
                 } else {
-                    XCTFail()
+                    XCTFail("First image spec missing")
                 }
             } else {
-                XCTFail()
+                XCTFail("Result missing")
             }
             
             expectation.fulfill()
@@ -52,7 +52,7 @@ class CherryKitTests: XCTestCase {
         
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-            if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) {
+            if let match = regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.count)) {
                 XCTAssert(match.numberOfRanges > 0, "Match must have at least 1 range.")
             } else {
                 XCTFail("Pattern not found for '\(string)")
@@ -68,7 +68,7 @@ class CherryKitTests: XCTestCase {
         
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-            if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) {
+            if let match = regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.count)) {
                 XCTAssert(match.numberOfRanges > 0, "Match must not have 0 ranges.")
                 XCTAssert(match.numberOfRanges == 1, "Match must have 1 range.")
             } else {
@@ -86,7 +86,7 @@ class CherryKitTests: XCTestCase {
             let pattern = "(.jpe?g|.png|.gif)$"
             do {
                 let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-                if let match = regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) {
+                if let match = regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.count)) {
                     XCTAssert(match.numberOfRanges > 0, "Match must more than 0 ranges.")
                 } else {
                     XCTFail("Pattern not found for '\(string)")
@@ -95,30 +95,6 @@ class CherryKitTests: XCTestCase {
                 XCTFail("Regex failed with error: \(error as NSError)")
             }
         }
-    }
-    
-    func testURLMetadata() {
-        let expectation = self.expectation(description: "URL metadata")
-        
-        let URL = Foundation.URL(string: "http://www.iculture.nl/reviews/apple-watch/")!
-        
-        URLMetadataTask(token: accessToken, url: URL).start { (result: TaskResult) -> Void in
-            XCTAssertFalse(NSThread.isMainThread())
-            XCTAssert(result is URLMetadataTaskResult, "An error occured while getting metadata")
-            if let result = result as? URLMetadataTaskResult {
-                if let title = result.metadata.title {
-                    NSLog("title: %@", title)
-                }
-            } else if let error = result.error {
-                XCTFail("URL Metadata error: \(error)")
-            } else {
-                XCTFail()
-            }
-            
-            expectation.fulfill()
-        }
-        
-        waitForExpectations(timeout: 10, handler: nil)
     }
     
 }

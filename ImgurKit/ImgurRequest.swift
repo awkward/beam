@@ -126,6 +126,9 @@ public class ImgurRequest: Operation {
     
     internal var currentTask: URLSessionTask?
     
+    internal var uploadProgressObserver: NSKeyValueObservation?
+    internal var downloadProgressObserver: NSKeyValueObservation?
+    
     internal var URLRequest: Foundation.URLRequest {
         let URL = Foundation.URL(string: endpoint, relativeTo: self.imgurController.APIURL as URL)!
         let request = NSMutableURLRequest(url: URL)
@@ -181,13 +184,27 @@ public class ImgurRequest: Operation {
     internal func addProgressObservers() {
         self.updateDownloadProgress(0)
         self.updateUploadProgress(0)
-        self.currentTask?.addObserver(self, forKeyPath: "countOfBytesSent", options: [NSKeyValueObservingOptions.initial, NSKeyValueObservingOptions.new], context: nil)
-        self.currentTask?.addObserver(self, forKeyPath: "countOfBytesReceived", options: [NSKeyValueObservingOptions.initial, NSKeyValueObservingOptions.new], context: nil)
+        self.uploadProgressObserver = self.currentTask?.observe(\URLSessionTask.countOfBytesSent, changeHandler: { (task, _) in
+            guard task.countOfBytesExpectedToSend > 0 && task.countOfBytesSent > 0 else {
+                return
+            }
+            let progress = CGFloat(task.countOfBytesSent) / CGFloat(task.countOfBytesExpectedToSend)
+            self.updateUploadProgress(progress)
+        })
+        self.downloadProgressObserver = self.currentTask?.observe(\URLSessionTask.countOfBytesReceived, changeHandler: { (task, _) in
+            guard task.countOfBytesReceived > 0 && task.countOfBytesExpectedToReceive > 0 else {
+                return
+            }
+            let progress = CGFloat(task.countOfBytesReceived) / CGFloat(task.countOfBytesExpectedToReceive)
+            self.updateDownloadProgress(progress)
+        })
     }
     
     internal func removeProgressObservers() {
-        self.currentTask?.removeObserver(self, forKeyPath: "countOfBytesSent")
-        self.currentTask?.removeObserver(self, forKeyPath: "countOfBytesReceived")
+        self.uploadProgressObserver?.invalidate()
+        self.downloadProgressObserver?.invalidate()
+        self.uploadProgressObserver = nil
+        self.downloadProgressObserver = nil
         self.updateUploadProgress(1)
         self.updateDownloadProgress(1)
     }
@@ -201,22 +218,6 @@ public class ImgurRequest: Operation {
     internal func updateDownloadProgress(_ progress: CGFloat) {
         self.downloadProgress = progress
         self.downloadProgressHandler?(self, progress)
-    }
-    
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if let task = object as? URLSessionTask, let keyPath = keyPath, task == self.currentTask && keyPath == "countOfBytesSent" {
-            if task.countOfBytesExpectedToSend > 0 && task.countOfBytesSent > 0 {
-                let progress: CGFloat = CGFloat(task.countOfBytesSent) / CGFloat(task.countOfBytesExpectedToSend)
-                self.updateUploadProgress(progress)
-            }
-        } else if let task = object as? URLSessionTask, let keyPath = keyPath, task == self.currentTask && keyPath == "countOfBytesReceived" {
-            if task.countOfBytesExpectedToSend > 0 && task.countOfBytesSent > 0 {
-                let progress: CGFloat = CGFloat(task.countOfBytesReceived) / CGFloat(task.countOfBytesExpectedToReceive)
-                self.updateDownloadProgress(progress)
-            }
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
     }
     
     // MARK: - Response methods and properties

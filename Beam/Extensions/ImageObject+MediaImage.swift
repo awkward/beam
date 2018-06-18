@@ -15,7 +15,7 @@ extension Snoo.MediaObject {
         let pattern = "^https?://.*imgur.com/"
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
-            if let string = self.contentURLString, let url = NSURL(string: string), regex.firstMatch(in: string, options: [], range: NSMakeRange(0, string.count)) != nil {
+            if let string = self.contentURLString, let url = NSURL(string: string), regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.count)) != nil {
                 
                 var pathExtension = url.pathExtension ?? ""
                 

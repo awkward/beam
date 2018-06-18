@@ -192,9 +192,7 @@ class ImageEditViewController: BeamViewController {
             let bottomInset: CGFloat = self.view.bounds.height - frame.minY
             self.bottomViewBottomConstraint?.constant = bottomInset
             self.view.layoutIfNeeded()
-        }) { (_) in
-            //Complete
-        }
+        }, completion: nil)
     }
     
 }

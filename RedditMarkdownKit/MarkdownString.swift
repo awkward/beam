@@ -304,7 +304,7 @@ open class MarkdownString: NSObject, NSSecureCoding {
     fileprivate func parseRawLinkElements() -> [MarkdownElement] {
         do {
             let dataDetector = try NSDataDetector(types: NSTextCheckingResult.CheckingType.link.rawValue)
-            return dataDetector.matches(in: baseString as String, options: [], range: NSMakeRange(0, self.baseString.length)).map({ (match: NSTextCheckingResult) -> MarkdownElement in
+            return dataDetector.matches(in: baseString as String, options: [], range: NSRange(location: 0, length: self.baseString.length)).map({ (match: NSTextCheckingResult) -> MarkdownElement in
                 var element = MarkdownElement(range: match.range, type: MarkdownElementType.paragraph)
                 var urlString = baseString.substring(with: match.range)
                 
@@ -350,7 +350,7 @@ open class MarkdownString: NSObject, NSSecureCoding {
             
             var lengthOffset = 0
             
-            for match in regex.matches(in: baseString as String, options: [], range: NSMakeRange(0, self.baseString.length)) {
+            for match in regex.matches(in: baseString as String, options: [], range: NSRange(location: 0, length: self.baseString.length)) {
 
                 if match.numberOfRanges == 4 {
                     let urlRange = match.range(at: 3).rangeWithLocationoffset(lengthOffset)
@@ -399,28 +399,25 @@ open class MarkdownString: NSObject, NSSecureCoding {
     fileprivate func parseRedditLinkElements(_ pattern: String, linkType: RedditLinkType) -> [MarkdownElement] {
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.anchorsMatchLines, NSRegularExpression.Options.caseInsensitive])
-            var elements = [MarkdownElement]()
-            
-            for match in regex.matches(in: baseString as String, options: [], range: NSMakeRange(0, baseString.length)) {
+            let elements = regex.matches(in: baseString as String, options: [], range: NSRange(location: 0, length: self.baseString.length)).compactMap({ (match) -> MarkdownElement? in
+                guard match.numberOfRanges == 2 else {
+                    return nil
+                }
+                let elementRange = match.range(at: 0)
+                let displayNameRange = match.range(at: 1)
+                let displayName = self.baseString.substring(with: displayNameRange)
                 
-                if match.numberOfRanges == 2 {
-                    let elementRange = match.range(at: 0)
-                    let displayNameRange = match.range(at: 1)
-                    let displayName = self.baseString.substring(with: displayNameRange)
-                    
-                    let resultRange = replaceRange(elementRange, with: baseString.substring(with: elementRange) as NSString?)
-                    
-                    var element = MarkdownElement(range: resultRange, type: .paragraph)
-                    if linkType == RedditLinkType.subreddit {
-                        element.url = URL(string: "\(MarkdownString.BeamInternalURLScheme)://subreddit/\(displayName)/")
-                    } else if linkType == RedditLinkType.user {
-                        element.url = URL(string: "\(MarkdownString.BeamInternalURLScheme)://user/\(displayName)/")
-                    }
-                    
-                    elements.append(element)
+                let resultRange = replaceRange(elementRange, with: baseString.substring(with: elementRange) as NSString?)
+                
+                var element = MarkdownElement(range: resultRange, type: .paragraph)
+                if linkType == RedditLinkType.subreddit {
+                    element.url = URL(string: "\(MarkdownString.BeamInternalURLScheme)://subreddit/\(displayName)/")
+                } else if linkType == RedditLinkType.user {
+                    element.url = URL(string: "\(MarkdownString.BeamInternalURLScheme)://user/\(displayName)/")
                 }
                 
-            }
+                return element
+            })
             return elements
         } catch {
             NSLog("Could not parse link elements with pattern '%@': %@", pattern, error as NSError)
@@ -431,25 +428,26 @@ open class MarkdownString: NSObject, NSSecureCoding {
     fileprivate func parseMarkupElements(_ pattern: String, type: MarkdownElementType) -> [MarkdownElement] {
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.anchorsMatchLines])
-            var elements = [MarkdownElement]()
             
             var lengthOffset = 0
             
-            for match in regex.matches(in: baseString as String, options: [], range: NSMakeRange(0, baseString.length)) {
-                if match.numberOfRanges == 3 {
-                    let elementRange = match.range(at: 1).rangeWithLocationoffset(lengthOffset)
-                    let visibleRange = match.range(at: 2).rangeWithLocationoffset(lengthOffset)
-                    
-                    //Skip elements that have already been parsed to links
-                    if !self.containsLinkAtRange(elementRange) {
-                        lengthOffset -= (elementRange.length - visibleRange.length)
-                        
-                        let resultRange = replaceRange(elementRange, with: baseString.substring(with: visibleRange) as NSString)
-                        
-                        elements.append(MarkdownElement(range: resultRange, type: type))
-                    }
+            let elements = regex.matches(in: baseString as String, options: [], range: NSRange(location: 0, length: baseString.length)).compactMap({ (match) -> MarkdownElement? in
+                guard match.numberOfRanges == 3 else {
+                    return nil
                 }
-            }
+                let elementRange = match.range(at: 1).rangeWithLocationoffset(lengthOffset)
+                let visibleRange = match.range(at: 2).rangeWithLocationoffset(lengthOffset)
+                
+                //Skip elements that have already been parsed to links
+                guard !self.containsLinkAtRange(elementRange) else {
+                    return nil
+                }
+                lengthOffset -= (elementRange.length - visibleRange.length)
+                
+                let resultRange = replaceRange(elementRange, with: baseString.substring(with: visibleRange) as NSString)
+                
+                return MarkdownElement(range: resultRange, type: type)
+            })
             return elements
         } catch {
             NSLog("Could not parse markup elements with pattern '%@': %@", pattern, error as NSError)

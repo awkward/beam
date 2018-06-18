@@ -23,6 +23,7 @@ class BeamPlainButton: UIButton, DynamicDisplayModeView {
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.displayModeDidChange()
         self.registerForDisplayModeChangeNotifications()
         self.setupButton()

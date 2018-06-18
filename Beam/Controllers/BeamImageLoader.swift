@@ -26,7 +26,7 @@ class BeamImageLoader: NSObject {
             let options = downscalingOptions ?? DownscaledImageOptions()
             let scaledImage = UIImage.downscaledImageWithImage(image, options: options)
             
-            if let cacheKey = url?.absoluteString, downscalingOptions == nil  {
+            if let cacheKey = url?.absoluteString, downscalingOptions == nil {
                 SDImageCache.shared().store(scaledImage, forKey: cacheKey + "_scaled", toDisk: true)
             }
             

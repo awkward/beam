@@ -42,16 +42,16 @@ final class ImageSpoilerView: BeamView {
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.loadView()
+        self.setupView()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.loadView()
+        self.setupView()
     }
     
-    fileprivate func loadView() {
+    fileprivate func setupView() {
         self.isUserInteractionEnabled = true
         self.isOpaque = false
         self.backgroundColor = UIColor.clear

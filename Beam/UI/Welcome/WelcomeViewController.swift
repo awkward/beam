@@ -40,6 +40,8 @@ class WelcomeViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupView()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: AppDelegate.shared.authenticationController)
         
         NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
@@ -55,8 +57,7 @@ class WelcomeViewController: BeamViewController {
         return true
     }
     
-    override func loadView() {
-        super.loadView()
+    private func setupView() {
         let tintColor = UIColor.beamColor()
         let cornerRadius: CGFloat = 3
         

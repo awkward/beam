@@ -375,12 +375,10 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             //containsString and length are faster on NSString than on swift string
             if shouldFilterSubreddits {
                 if let filterSubreddits = subreddit.filterSubreddits, let subreddit = subredditName?.lowercased(), subreddit.count > 0 {
-                    for keyword in filterSubreddits {
-                        if subreddit == keyword {
-                            //If it contains the keyword, we don't want to continue!
-                            return false
-                        }
-                    }
+                    //If it contains the keyword, we don't want to continue!
+                    return !filterSubreddits.contains(where: { (keyword) -> Bool in
+                        return subreddit == keyword
+                    })
                 }
             }
 

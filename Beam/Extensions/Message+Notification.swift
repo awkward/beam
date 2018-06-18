@@ -1,4 +1,3 @@
-
 //
 //  Message+Notification.swift
 //  Beam

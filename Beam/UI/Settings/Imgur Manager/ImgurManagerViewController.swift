@@ -173,7 +173,9 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
     
     func removeObjectsWithHashes(_ hashes: [String]) {
         for hash in hashes {
-            guard let item = self.items?.filter({ $0.deleteHash == hash }).first else {
+            guard let item = self.items?.first(where: { (object) -> Bool in
+                return object.deleteHash == hash
+            }) else {
                 continue
             }
             if let image = item as? ImgurImage {

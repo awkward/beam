@@ -135,9 +135,7 @@ class CreateTextPostViewController: CreatePostViewController {
                 self.view.layoutIfNeeded()
             })
             
-        }) { (_) in
-            //Complete
-        }
+        }, completion: nil)
     }
 
     override func textfieldDidChange(_ textField: UITextField) {

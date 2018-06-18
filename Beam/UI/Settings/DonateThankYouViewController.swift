@@ -33,6 +33,8 @@ class DonateThankYouViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupView()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
@@ -46,8 +48,7 @@ class DonateThankYouViewController: BeamViewController {
         return true
     }
     
-    override func loadView() {
-        super.loadView()
+    private func setupView() {
         let tintColor = UIColor.beamColor()
         let cornerRadius: CGFloat = 3
         

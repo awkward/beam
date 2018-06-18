@@ -33,6 +33,8 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
     
     @IBOutlet fileprivate var progressView: CircularProgressView!
     
+    fileprivate var imageViewHiddenObserver: NSKeyValueObservation?
+    
     var mediaObject: MediaObject? {
         didSet {
             self.configureCellHeight()
@@ -69,11 +71,14 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
         self.gifPlayerView.accessibilityIgnoresInvertColors = true
         self.mediaImageView.accessibilityIgnoresInvertColors = true
         
-        self.mediaImageView.addObserver(self, forKeyPath: #keyPath(UIImageView.isHidden), options: [.new], context: &self.ImageViewHiddenObserverContext)
+        self.imageViewHiddenObserver = self.mediaImageView.observe(\UIImageView.isHidden, options: [.new]) { (_, _) in
+            self.gifPlayerView.isHidden = self.mediaImageView.isHidden
+        }
     }
     
     deinit {
-        self.mediaImageView.removeObserver(self, forKeyPath: #keyPath(UIImageView.isHidden), context: &self.ImageViewHiddenObserverContext)
+        self.imageViewHiddenObserver?.invalidate()
+        self.imageViewHiddenObserver = nil
         NotificationCenter.default.removeObserver(self)
     }
     
@@ -129,12 +134,4 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
         return 100
     }
     
-    override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey: Any]?, context: UnsafeMutableRawPointer?) {
-        if context == &self.ImageViewHiddenObserverContext {
-            self.gifPlayerView.isHidden = self.mediaImageView.isHidden
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
-
 }

@@ -62,8 +62,7 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
         super.init(coder: aDecoder)
     }
     
-    override func loadView() {
-        super.loadView()
+    private func setupView() {
         self.embeddedViewController.view.frame = self.view.bounds
         self.embeddedViewController.willMove(toParentViewController: self)
         self.addChildViewController(self.embeddedViewController)
@@ -96,6 +95,8 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupView()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItemStyle.plain, target: self.embeddedViewController, action: #selector(PostDetailEmbeddedViewController.composeTapped(_:)))
     

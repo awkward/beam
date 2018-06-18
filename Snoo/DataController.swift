@@ -305,24 +305,28 @@ public final class DataController: NSObject {
             }
             
             // Remove all other persistent stores.
-            for identifier: String in storeIdentifiers {
-                if identifier != currentIdentifier {
-                    do {
-                        try self.removePersistentStore(identifier)
-                    } catch {
-                        NSLog("Could not remove persistent store: \(error)")
-                    }
+            storeIdentifiers.forEach({ (identifier) in
+                guard identifier != currentIdentifier else {
+                    return
                 }
-            }
+                do {
+                    try self.removePersistentStore(identifier)
+                } catch {
+                    NSLog("Could not remove persistent store: \(error)")
+                }
+            })
         }
         
         NotificationCenter.default.post(name: .DataControllerPersistentStoreDidChange, object: self)
     }
     
     fileprivate func removePersistentStore(_ databaseName: String) throws {
-        if let store = self.storeCoordinator?.persistentStores.filter({ $0.identifier == databaseName }).first {
-            try self.storeCoordinator?.remove(store)
+        guard let store = self.storeCoordinator?.persistentStores.first(where: { (store) -> Bool in
+            return store.identifier == databaseName
+        }) else {
+            return
         }
+        try self.storeCoordinator?.remove(store)
     }
     
     fileprivate func addPersistentStore(_ databaseName: String) throws {

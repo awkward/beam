@@ -47,8 +47,21 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
         }
     }
     
+    weak var post: Post? {
+        didSet {
+            self.reloadContents()
+        }
+    }
+    
     override func awakeFromNib() {
         super.awakeFromNib()
+        
+        self.setupView()
+    }
+    
+    private func setupView() {
+        self.preservesSuperviewLayoutMargins = false
+        self.contentView.layoutMargins = UIEdgeInsets(top: 8, left: 12, bottom: 8, right: 12)
         
         self.spoilerOverlay.layer.cornerRadius = 3
         self.spoilerOverlay.layer.masksToBounds = true
@@ -56,12 +69,6 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
         self.spoilerOverlay.isOpaque = true
         
         self.showsSummary = true
-    }
-    
-    weak var post: Post? {
-        didSet {
-            self.reloadContents()
-        }
     }
     
     func reloadContents() {

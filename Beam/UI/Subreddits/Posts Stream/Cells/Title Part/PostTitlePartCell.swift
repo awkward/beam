@@ -108,13 +108,19 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.setupView()
+    }
+    
+    private func setupView() {
+        self.preservesSuperviewLayoutMargins = false
+        self.contentView.layoutMargins = UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(PostTitlePartCell.postDidChangeVisitedState(_:)), name: .PostDidChangeVisitedState, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PostTitlePartCell.contentSizeCategoryDidChange(_:)), name: .FontSizeCategoryDidChange, object: nil)
         
         self.reloadFont()
         
         self.thumbnailView?.addTarget(self, action: #selector(PostTitlePartCell.thumbnailTapped(_:)), for: UIControlEvents.touchUpInside)
-        self.topSeperatorViewHeightConstraint?.constant = 1 / UIScreen.main.scale
     }
     
     deinit {

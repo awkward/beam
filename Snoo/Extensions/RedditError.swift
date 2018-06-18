@@ -120,7 +120,7 @@ extension NSError {
                  redditErrorDescription = error
             }
         }
-        var userInfo = [AnyHashable: Any]()
+        var userInfo = [String: Any]()
         userInfo[NSLocalizedDescriptionKey] = errorKey?.errorDescription ?? RedditUnknownErrorDescription
         if let redditErrorDescription = redditErrorDescription {
             userInfo[RedditErrorDescriptionKey] = redditErrorDescription
@@ -129,7 +129,7 @@ extension NSError {
             userInfo[RedditErrorKeyKey] = redditErrorKeyString
         }
         userInfo[RedditErrorsArrayKey] = errors
-        return NSError(domain: RedditErrorDomain, code: errorKey?.errorCode ?? RedditUnknownErrorCode, userInfo: userInfo as! [String: Any])
+        return NSError(domain: RedditErrorDomain, code: errorKey?.errorCode ?? RedditUnknownErrorCode, userInfo: userInfo)
     }
     
     public var redditErrorKey: RedditErrorKey? {

@@ -388,13 +388,17 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
 }
 
 // MARK: - UICollectionViewDataSource
-extension SubredditMediaOverviewViewController {
+extension SubredditMediaOverviewViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.mediaCollectionController?.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let post = self.mediaCollectionController?.itemAtIndexPath(indexPath)
         let cellIdentifier = "media"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! MediaOverviewCollectionViewCell
@@ -405,7 +409,7 @@ extension SubredditMediaOverviewViewController {
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionFooter {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "loader", for: indexPath) as! CollectionViewLoaderFooterView
             return view

@@ -184,7 +184,7 @@ public final class CollectionController: NSObject {
         if let collectionID = self.collectionID {
             let collections = changedObjects.filter({ $0 is ObjectCollection })
             if collections.map({ ($0 as! ObjectCollection).objectID }).contains(collectionID) {
-                self.delegate?.collectionController(self, collectionDidUpdateWithID:collectionID)
+                self.delegate?.collectionController(self, collectionDidUpdateWithID: collectionID)
             }
         }
     }
@@ -196,9 +196,11 @@ public final class CollectionController: NSObject {
         
         if let collectionID = self.collectionID, let query = self.query, let contentPredicate = query.compoundContentPredicate {
             if let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject> {
-                let updatedSyncObjects = updatedObjects.filter({ $0 is SyncObject }) as! [SyncObject]
+                let updatedSyncObjects = updatedObjects.compactMap { (object) -> SyncObject? in
+                    return object as? SyncObject
+                }
                 let collection = self.managedObjectContext.object(with: collectionID) as? ObjectCollection
-                if collection?.objects?.contains( where: { updatedSyncObjects.contains($0 as! SyncObject) } ) == true {
+                if collection?.objects?.contains( where: { updatedSyncObjects.contains($0 as! SyncObject) }) == true {
                     collection?.objects = collection?.objects?.filtered(using: contentPredicate)
                 }
             }
@@ -217,7 +219,7 @@ public final class CollectionController: NSObject {
     */
     open func startInitialFetching(_ overwrite: Bool = false, handler: CollectionControllerHandler?) {
         // Delete the old collection when overwriting. The content can be totally different.
-        if let collectionID = self.collectionID , overwrite == true {
+        if let collectionID = self.collectionID, overwrite == true {
             let deleteOperation = BlockOperation(block: { () -> Void in
                 self.managedObjectContext.performAndWait({ () -> Void in
                     let collection = self.managedObjectContext.object(with: collectionID) as! ObjectCollection
@@ -302,7 +304,7 @@ public final class CollectionController: NSObject {
         parseOperation.objectContext = DataController.shared.privateContext
         parseOperation.shouldDeleteMissingMemoryObjects = after == nil
         parseOperation.objectContext?.performAndWait { () -> Void in
-            if let collectionID = self.collectionID , after != nil {
+            if let collectionID = self.collectionID, after != nil {
                 parseOperation.objectCollection = parseOperation.objectContext?.object(with: collectionID) as? ObjectCollection
             }
         }

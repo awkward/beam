@@ -8,13 +8,12 @@
 
 import Foundation
 
-
 open class ReportTask: Task {
     
     open let objectName: String
     open let reason: String
     
-    public init(token: String, reason: String ,objectName: String) {
+    public init(token: String, reason: String, objectName: String) {
         
         self.reason = reason
         self.objectName = objectName
@@ -36,7 +35,7 @@ open class ReportTask: Task {
     
     override func parseJSONData(_ data: Data) -> TaskResult {
         do {
-            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary , (json["sucess"] as? Bool) == true {
+            if let json = try JSONSerialization.jsonObject(with: data, options: []) as? NSDictionary, (json["sucess"] as? Bool) == true {
                 return TaskResult(error: nil)
             } else {
                 throw NSError(domain: CherryKitErrorDomain, code: CherryKitParsingErrorCode, userInfo: [NSLocalizedDescriptionKey: "Could not parse share JSON response format"])
@@ -46,4 +45,3 @@ open class ReportTask: Task {
         }
     }
 }
-

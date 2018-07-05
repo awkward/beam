@@ -38,7 +38,7 @@ open class ContentCollectionQuery: CollectionQuery {
         }
         if self.hideNSFWContent == true {
             //isContentNSFW only wroks on posts, but the ContentCollectionQuery can actually also contain comments
-            predicates.append(NSPredicate(format: "(objectName BEGINSWITH[c] %@ AND isContentNSFW != YES) OR objectName BEGINSWITH[c] %@","\(SyncObjectType.LinkType.rawValue)_", "\(SyncObjectType.CommentType.rawValue)_"))
+            predicates.append(NSPredicate(format: "(objectName BEGINSWITH[c] %@ AND isContentNSFW != YES) OR objectName BEGINSWITH[c] %@", "\(SyncObjectType.LinkType.rawValue)_", "\(SyncObjectType.CommentType.rawValue)_"))
         }
         return predicates
     }

@@ -5,10 +5,11 @@
 //  Created by Robin Speijer on 18-06-15.
 //  Copyright © 2015 Awkward. All rights reserved.
 //
+//swiftlint:disable operator_usage_whitespace
 
 import Foundation
 
-enum KeychainError : OSStatus, Error {
+enum KeychainError: OSStatus, Error {
     case success                               = 0       /* No error. */
     case unimplemented                         = -4      /* Function or operation not implemented. */
     case io                                    = -36     /*I/O error (bummers)*/
@@ -32,18 +33,18 @@ class Keychain {
     
     static func save(_ key: String, data: Data) throws {
         let query = [
-            kSecClass as String       : kSecClassGenericPassword as String,
-            kSecAttrAccount as String : key,
-            kSecValueData as String   : data,
+            kSecClass as String: kSecClassGenericPassword as String,
+            kSecAttrAccount as String: key,
+            kSecValueData as String: data,
             kSecAttrIsInvisible as String: kCFBooleanTrue,
             kSecAttrService as String: self.serviceName,
             kSecAttrAccessible as String: kSecAttrAccessibleAlways
-        ] as [String : Any]
+        ] as [String: Any]
         
         SecItemDelete(query as CFDictionary)
         
         let status: OSStatus = SecItemAdd(query as CFDictionary, nil)
-        if (status != noErr) {
+        if status != noErr {
             if let error = KeychainError(rawValue: status) {
                 throw error
             } else {
@@ -54,11 +55,11 @@ class Keychain {
     
     static func load(_ key: String) throws -> Data? {
         let query = [
-            kSecClass as String       : kSecClassGenericPassword,
-            kSecAttrAccount as String : key,
-            kSecReturnData as String  : kCFBooleanTrue,
-            kSecMatchLimit as String  : kSecMatchLimitOne,
-            kSecAttrService as String: self.serviceName] as [String : Any]
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecReturnData as String: kCFBooleanTrue,
+            kSecMatchLimit as String: kSecMatchLimitOne,
+            kSecAttrService as String: self.serviceName] as [String: Any]
         
         var dataTypeRef: AnyObject?
         
@@ -79,12 +80,12 @@ class Keychain {
     
     static func delete(_ key: String) throws {
         let query = [
-            kSecClass as String       : kSecClassGenericPassword,
-            kSecAttrAccount as String : key,
-            kSecAttrService as String: self.serviceName] as [String : Any]
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key,
+            kSecAttrService as String: self.serviceName] as [String: Any]
         
         let status: OSStatus = SecItemDelete(query as CFDictionary)
-        if (status != noErr) {
+        if status != noErr {
             if let error = KeychainError(rawValue: status) {
                 throw error
             } else {
@@ -93,13 +94,12 @@ class Keychain {
         }
     }
     
-    
     static func clear() throws {
-        let query = [ kSecClass as String : kSecClassGenericPassword, kSecAttrService as String: self.serviceName ] as [String : Any]
+        let query = [ kSecClass as String: kSecClassGenericPassword, kSecAttrService as String: self.serviceName ] as [String: Any]
         
         let status: OSStatus = SecItemDelete(query as CFDictionary)
         
-        if (status != noErr) {
+        if status != noErr {
             if let error = KeychainError(rawValue: status) {
                 throw error
             } else {

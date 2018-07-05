@@ -35,12 +35,12 @@ public class SettingsKeys: Equatable {
     
 }
 
-public func ==(lhs: SettingsKeys, rhs: SettingsKeys) -> Bool {
+public func == (lhs: SettingsKeys, rhs: SettingsKeys) -> Bool {
     return lhs._key == rhs._key
 }
 
-public class SettingsKey <ValueType>: SettingsKeys, SettingKeyProtocol  {
-    public var _defaultValue: Any? = nil
+public class SettingsKey <ValueType>: SettingsKeys, SettingKeyProtocol {
+    public var _defaultValue: Any?
     
     public init(_ key: String) {
         super.init(key: key)
@@ -52,7 +52,6 @@ public class SettingsKey <ValueType>: SettingsKeys, SettingKeyProtocol  {
     }
     
 }
-
 
 public class Settings {
     
@@ -94,7 +93,7 @@ public class Settings {
         self.userDefaults.register(defaults: dictionary)
     }
     
-    //MARK: - Subscript
+    // MARK: - Subscript
     
     public subscript(key: SettingsKey<String>) -> String {
         get { return self.userDefaults.string(forKey: key._key) ?? "" }
@@ -151,7 +150,7 @@ public class Settings {
         set { self.set(newValue, forKey: key) }
     }
     
-    //MARK: - Custom enum types
+    // MARK: - Custom enum types
     
     public subscript(key: SettingsKey<ExternalLinkOpenOption>) -> ExternalLinkOpenOption {
         get { return ExternalLinkOpenOption(rawValue: self.userDefaults.string(forKey: key._key) ?? "") ?? ExternalLinkOpenOption.inApp }
@@ -163,7 +162,7 @@ public class Settings {
         set { self.set(newValue.rawValue, forKey: key) }
     }
     
-    //MARK: - Custom struct types
+    // MARK: - Custom struct types
     
     public subscript(key: SettingsKey<AppLaunchOption>) -> AppLaunchOption {
         get {
@@ -175,8 +174,7 @@ public class Settings {
         set { self.archive(object: newValue.dictionaryRepresentation(), key: key) }
     }
     
-    
-    //MARK: - Array types
+    // MARK: - Array types
     
     public subscript(key: SettingsKey<[String]>) -> [String] {
         get { return self.unarchive(key: key) as? [String] ?? [String]() }
@@ -188,7 +186,7 @@ public class Settings {
         set { self.archive(object: newValue, key: key) }
     }
     
-    //MARK: - Dictionary types
+    // MARK: - Dictionary types
     
     public subscript(key: SettingsKey<[String: NSNumber]>) -> [String: NSNumber] {
         get { return self.unarchive(key: key) as? [String: NSNumber] ?? [String: NSNumber]() }
@@ -210,7 +208,7 @@ public class Settings {
         set { self.archive(object: newValue, key: key) }
     }
     
-    //MARK: - Archiving
+    // MARK: - Archiving
     
     private func archive(object: Any?, key: SettingKeyProtocol) {
         guard let object = object else {
@@ -230,7 +228,7 @@ public class Settings {
         return object
     }
     
-    //MARK: - Change notifications
+    // MARK: - Change notifications
     
     private func set(_ value: Any?, forKey key: SettingKeyProtocol) {
         guard let value = value else {
@@ -253,5 +251,3 @@ public class Settings {
     }
     
 }
-
-

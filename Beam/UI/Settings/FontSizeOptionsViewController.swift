@@ -41,7 +41,6 @@ class FontSizeOptionsViewController: BeamTableViewController {
         }
         
     }
-
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "font-size-cell", for: indexPath)
@@ -75,7 +74,6 @@ class FontSizeOptionsViewController: BeamTableViewController {
             }
         }
         
-
         return cell
     }
     

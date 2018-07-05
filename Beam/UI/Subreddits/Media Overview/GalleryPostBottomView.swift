@@ -24,7 +24,7 @@ class GalleryPostBottomView: UIView {
     
     var shouldShowSubreddit: Bool = false {
         didSet {
-            self.metadataView.shouldShowSubreddit = self.shouldShowSubreddit;
+            self.metadataView.shouldShowSubreddit = self.shouldShowSubreddit
         }
     }
     

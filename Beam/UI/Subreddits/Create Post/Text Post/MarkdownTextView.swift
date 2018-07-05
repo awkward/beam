@@ -33,7 +33,7 @@ enum MarkdownTextViewStyling {
 
 class MarkdownTextView: UITextView {
     
-    override var canBecomeFirstResponder : Bool {
+    override var canBecomeFirstResponder: Bool {
         return true
     }
     
@@ -53,13 +53,13 @@ class MarkdownTextView: UITextView {
         return self.text(in: self.selectedTextRange!)
     }
     
-    internal func keyCommandUsed(_ sender: UIKeyCommand) {
+    @objc internal func keyCommandUsed(_ sender: UIKeyCommand) {
         if sender.modifierFlags == [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate] {
-            if sender.input == "b"  {
+            if sender.input == "b" {
                 self.applyBoldStylingToText()
-            } else if sender.input == "i"  {
+            } else if sender.input == "i" {
                 self.applyItalicStylingToText()
-            } else if sender.input == "l"  {
+            } else if sender.input == "l" {
                 self.startAddingLink()
             }
         }
@@ -95,7 +95,7 @@ class MarkdownTextView: UITextView {
             newText = "[\(title)](\(link))"
         } else if let link = link {
             newText = "[\(link)](\(link))"
-        }  else {
+        } else {
             newText = title
         }
         if let selectedTextRange = selectedTextRange {
@@ -115,11 +115,11 @@ class MarkdownTextView: UITextView {
     
     func insertLink(_ link: String, selectedTextRange: UITextRange?, selectedRange: NSRange?, selectTitle: Bool = true) {
         self.applyLink(link, link: link, selectedTextRange: selectedTextRange)
-        if let selectedRange = selectedRange , selectTitle == true {
+        if let selectedRange = selectedRange, selectTitle == true {
             if self.isFirstResponder == false {
                 self.becomeFirstResponder()
             }
-            self.selectedRange = NSMakeRange(selectedRange.location+1, link.count)
+            self.selectedRange = NSRange(location: selectedRange.location + 1, length: link.count)
         }
     }
     
@@ -128,20 +128,20 @@ class MarkdownTextView: UITextView {
             let newString = styling.beginString + selectedText + styling.endString
             self.replace(selectedRange!, withText: newString)
         } else {
-            if let selectedTextRange = selectedRange , self.isFirstResponder == true {
+            if let selectedTextRange = selectedRange, self.isFirstResponder == true {
                 //Append to the text and set the cursor
                 let selectedRange = self.selectedRange
-                self.replace(selectedTextRange, withText: styling.beginString+styling.endString)
-                self.selectedRange = NSMakeRange(selectedRange.location+styling.beginString.count, 0)
+                self.replace(selectedTextRange, withText: styling.beginString + styling.endString)
+                self.selectedRange = NSRange(location: selectedRange.location + styling.beginString.count, length: 0)
             } else {
                 //Append to the end, make the textview first responder and set the cursor
                 var newText = self.text ?? ""
-                newText += styling.beginString+styling.endString
+                newText += styling.beginString + styling.endString
                 self.text = newText
                 if self.isFirstResponder != true {
                     self.becomeFirstResponder()
                 }
-                self.selectedRange = NSMakeRange(self.text.count-styling.endString.count, 0)
+                self.selectedRange = NSRange(location: self.text.count - styling.endString.count, length: 0)
             }
         }
     }
@@ -157,7 +157,7 @@ class MarkdownTextView: UITextView {
             textField.placeholder = AWKLocalizedString("link-url-placeholder")
             textField.keyboardType = UIKeyboardType.URL
         }
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("add-link"), style: UIAlertActionStyle.default, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("add-link"), style: UIAlertActionStyle.default, handler: { (_) in
             self.applyLink(alertController.textFields![0].text, link: alertController.textFields![1].text, selectedTextRange: selectedTextRange)
         }))
         alertController.addCancelAction()

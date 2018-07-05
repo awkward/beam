@@ -121,6 +121,11 @@ static const NSTimeInterval AWKGalleryViewControllerDefaultAnimationDuration = 0
     [self configureAudioSessionWithItem:self.currentItem];
 }
 
+- (void)viewDidLoad {
+    [super viewDidLoad];
+    [self setupView];
+}
+
 - (void)viewDidAppear:(BOOL)animated {
     [super viewDidAppear:animated];
     
@@ -154,9 +159,7 @@ static const NSTimeInterval AWKGalleryViewControllerDefaultAnimationDuration = 0
     self.currentItem = self.currentItem;
 }
 
-- (void)loadView {
-    [super loadView];
-    
+- (void)setupView {
     self.view.backgroundColor = [UIColor galleryBackgroundColor];
     self.view.accessibilityIgnoresInvertColors = true;
     

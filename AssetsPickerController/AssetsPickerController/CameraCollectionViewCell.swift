@@ -50,7 +50,7 @@ class CameraIconView: UIView {
         bodyPath.addCurve(to: CGPoint(x: 33, y: 8.5), controlPoint1: CGPoint(x: 33.67, y: 7), controlPoint2: CGPoint(x: 33, y: 7.67))
         bodyPath.addCurve(to: CGPoint(x: 34.5, y: 10), controlPoint1: CGPoint(x: 33, y: 9.33), controlPoint2: CGPoint(x: 33.67, y: 10))
         bodyPath.close()
-        bodyPath.usesEvenOddFillRule = true;
+        bodyPath.usesEvenOddFillRule = true
         
         color?.setFill()
         bodyPath.fill()
@@ -61,7 +61,7 @@ class CameraIconView: UIView {
         lensPath.fill()
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 40, height: 33)
     }
     
@@ -89,6 +89,5 @@ class CameraCollectionViewCell: UICollectionViewCell, ColorPaletteSupport {
         self.contentView.backgroundColor = self.colorPalette.assetCellBackgroundColor
         self.iconView.tintColor = self.colorPalette.cameraIconColor
     }
-    
     
 }

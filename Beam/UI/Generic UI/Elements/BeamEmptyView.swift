@@ -62,7 +62,7 @@ class BeamEmptyView: BeamView {
     
     @IBOutlet fileprivate var buttonConstraints: [NSLayoutConstraint]!
     
-    var buttonHandler: ((_ button:UIButton?) -> ())? {
+    var buttonHandler: ((_ button: UIButton?) -> Void)? {
         didSet {
             self.button.isHidden = self.buttonHandler == nil
         }
@@ -132,7 +132,7 @@ class BeamEmptyView: BeamView {
             
             self.titleLabel.text = AWKLocalizedString(key)
             
-            var errorCodeString: String = "";
+            var errorCodeString: String = ""
             if let error = self.error as NSError? {
                 if AppDelegate.shared.cherryController.isAdminUser {
                     errorCodeString = "\n(\(error.domain) \(error.code))"
@@ -147,7 +147,7 @@ class BeamEmptyView: BeamView {
                 messageKey = "search_no_results_message_logged_out"
             }
             
-            self.textLabel.text = AWKLocalizedString(messageKey).replacingLocalizablePlaceholders(for: ["error-code-string":errorCodeString])
+            self.textLabel.text = AWKLocalizedString(messageKey).replacingLocalizablePlaceholders(for: ["error-code-string": errorCodeString])
             
             self.button.setTitle(AWKLocalizedString(buttonKey), for: UIControlState())
             self.setNeedsUpdateConstraints()
@@ -193,8 +193,6 @@ class BeamEmptyView: BeamView {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        
-        
         switch self.displayMode {
         case .default:
             self.titleLabel.textColor = UIColor.black
@@ -209,8 +207,8 @@ class BeamEmptyView: BeamView {
         self.backgroundColor = DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.beamDarkContentBackgroundColor())
     }
     
-    func buttonTapped(_ sender:UIButton?) {
-        self.buttonHandler?(sender) 
+    @objc func buttonTapped(_ sender: UIButton?) {
+        self.buttonHandler?(sender)
     }
     
 }

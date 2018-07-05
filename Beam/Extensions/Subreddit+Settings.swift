@@ -26,7 +26,6 @@ extension Subreddit {
         return nil
     }
     
-    
     // MARK: - NSFW Overlay
     
     func setShowNSFWOverlay(_ show: Bool) {
@@ -64,12 +63,12 @@ extension Subreddit {
         guard let overlayIdentifier = self.overlayIdentifier() else {
             return
         }
-        var subredditLinks:Dictionary = [String: NSNumber]()
+        var subredditLinks: Dictionary = [String: NSNumber]()
         if let subreddits = UserSettings[.subredditsSpoilerOverlaySetting] {
             subredditLinks = subreddits
         }
         subredditLinks[overlayIdentifier] = NSNumber(value: show)
-       UserSettings[.subredditsSpoilerOverlaySetting] = subredditLinks
+        UserSettings[.subredditsSpoilerOverlaySetting] = subredditLinks
         DispatchQueue.main.async {
             NotificationCenter.default.post(name: .SubredditSpoilerOverlaySettingDidChange, object: self)
         }
@@ -83,7 +82,7 @@ extension Subreddit {
         if !UserSettings[.showSpoilerOverlay] {
             return false
         }
-        if let subreddits = UserSettings[.subredditsSpoilerOverlaySetting]  {
+        if let subreddits = UserSettings[.subredditsSpoilerOverlaySetting] {
             return subreddits[overlayIdentifier]?.boolValue ?? true
         }
         return UserSettings[.showSpoilerOverlay]

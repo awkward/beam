@@ -76,7 +76,7 @@ extension Multireddit {
             }
             
             // The collection also changes on deletion or creation, so need to expire.
-            if let collections = self.collections as? Set<ObjectCollection> , action == RedditMultiRequestAction.delete || action == RedditMultiRequestAction.create {
+            if let collections = self.collections as? Set<ObjectCollection>, action == RedditMultiRequestAction.delete || action == RedditMultiRequestAction.create {
                 for collection in collections {
                     collection.expirationDate = nil
                 }

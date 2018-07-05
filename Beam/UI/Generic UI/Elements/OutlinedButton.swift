@@ -19,7 +19,7 @@ class OutlinedButton: BeamButton {
     override func setupButton() {
         super.setupButton()
         
-        self.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightSemibold)
+        self.titleLabel?.font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
     }
     
     var isOutlined: Bool {
@@ -27,7 +27,7 @@ class OutlinedButton: BeamButton {
             return self.layer.borderWidth > 0
         }
         set {
-            self.layer.borderWidth = newValue ? 1 : 0
+            self.layer.borderWidth = newValue ? 1: 0
         }
     }
 

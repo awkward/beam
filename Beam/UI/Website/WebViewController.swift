@@ -26,7 +26,7 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
         }
     }
     
-    func doneButtonTapped(_ sender: AnyObject) {
+    @objc func doneButtonTapped(_ sender: AnyObject) {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
 
@@ -40,13 +40,13 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
         UIApplication.stopNetworkActivityIndicator(for: self)
         let nsError = error as NSError
         if nsError.code == NSURLErrorCancelled { return }
-        if nsError.code == 102 && nsError.domain == "WebKitErrorDomain" { return };
+        if nsError.code == 102 && nsError.domain == "WebKitErrorDomain" { return }
         
         let alert = BeamAlertController(title: AWKLocalizedString("could-not-load-page"), message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
-        alert.addCancelAction({ (action) in
+        alert.addCancelAction({ (_) in
             self.dismiss(animated: true, completion: nil)
         })
-        alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: UIAlertActionStyle.default, handler: { (action: UIAlertAction) -> Void in
+        alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: UIAlertActionStyle.default, handler: { (_) -> Void in
             if let url = self.initialUrl {
                 self.webView.loadRequest(URLRequest(url: url))
             }

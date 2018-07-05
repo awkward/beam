@@ -34,8 +34,8 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
     fileprivate func setupView() {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.titleLabel)
-        self.titleLabel.setContentHuggingPriority(UILayoutPriorityDefaultLow, for: UILayoutConstraintAxis.horizontal)
-        self.titleLabel.setContentCompressionResistancePriority(UILayoutPriorityDefaultLow, for: UILayoutConstraintAxis.horizontal)
+        self.titleLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.horizontal)
+        self.titleLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.horizontal)
         self.titleLabel.font = UIFont.systemFont(ofSize: 11)
         self.titleLabel.textColor = UIColor.beamGreyDark()
         
@@ -46,8 +46,6 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
         
         self.contentView.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.contentView, attribute: NSLayoutAttribute.bottomMargin, multiplier: 1, constant: 0))
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[title]-[clear]-|", options: [], metrics: nil, views: ["title": self.titleLabel, "clear": self.clearButton]))
-
-        
     }
     
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {

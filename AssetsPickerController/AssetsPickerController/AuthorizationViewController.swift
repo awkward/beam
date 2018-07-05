@@ -32,7 +32,7 @@ class AuthorizationViewController: UIViewController, ColorPaletteSupport, Assets
         if let view = self.assetsPickerController?.delegate?.assetsPickerController(self.assetsPickerController!, viewForAuthorizationStatus: PHPhotoLibrary.authorizationStatus()) {
             self.emptyView = view
             view.translatesAutoresizingMaskIntoConstraints = false
-            view.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length+20, left: 20, bottom: self.bottomLayoutGuide.length+20, right: 20)
+            view.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length + 20, left: 20, bottom: self.bottomLayoutGuide.length + 20, right: 20)
             self.view.addSubview(view)
             self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0))
             self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0))
@@ -57,8 +57,7 @@ class AuthorizationViewController: UIViewController, ColorPaletteSupport, Assets
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.emptyView?.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length+20, left: 20, bottom: self.bottomLayoutGuide.length+20, right: 20)
+        self.emptyView?.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length + 20, left: 20, bottom: self.bottomLayoutGuide.length + 20, right: 20)
     }
-
 
 }

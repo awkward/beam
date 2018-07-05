@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public enum SubredditVisibility : String {
+public enum SubredditVisibility: String {
     case Public = "public"
     case Restricted = "restricted"
     case Private = "private"
@@ -121,7 +121,7 @@ open class Subreddit: SyncObject {
         self.isModerator = json["user_is_moderator"] as? NSNumber ?? self.isModerator
         self.isContributor = json["user_is_contributor"] as? NSNumber ?? self.isContributor
         self.isSubscriber = json["user_is_subscriber"] as? NSNumber ?? self.isSubscriber
-        self.isNSFW =  json["over18"] as? NSNumber ?? self.isNSFW
+        self.isNSFW = json["over18"] as? NSNumber ?? self.isNSFW
         self.submissionTypeString = json["submission_type"] as? String ?? self.submissionTypeString
     
         //Create a sectionName for the subreddit if it has not been bookmarked
@@ -139,7 +139,7 @@ open class Subreddit: SyncObject {
         }
         
         //If no permalink is set, create one from the displayName
-        if let displayName = self.displayName , self.permalink == nil {
+        if let displayName = self.displayName, self.permalink == nil {
             self.permalink = "/r/\(displayName)/"
         }
         
@@ -150,7 +150,7 @@ open class Subreddit: SyncObject {
         
     }
     
-    open override func redditDictionaryRepresentation() -> [String : Any] {
+    open override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["description"] = self.descriptionText as AnyObject?

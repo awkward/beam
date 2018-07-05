@@ -26,14 +26,14 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
     
     var album: Album! {
         didSet {
-            self.title = self.assetsPickerController?.delegate?.assetsPickerController(self.assetsPickerController!, navigationBarTitleForAlbum:  self.album.title)
+            self.title = self.assetsPickerController?.delegate?.assetsPickerController(self.assetsPickerController!, navigationBarTitleForAlbum: self.album.title)
             self.startFetchingAssets()
         }
     }
     
     var emptyView: UIView? {
         didSet {
-            self.emptyView?.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length+20, left: 20, bottom: self.bottomLayoutGuide.length+20, right: 20)
+            self.emptyView?.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length + 20, left: 20, bottom: self.bottomLayoutGuide.length + 20, right: 20)
             self.collectionView?.backgroundView = self.emptyView
         }
     }
@@ -58,32 +58,30 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
     }
     
     var numberOfCells: Int {
-        return (self.assets?.count ?? 0)+(self.showCameraButton ? 1 : 0)
+        return (self.assets?.count ?? 0) + (self.showCameraButton ? 1 : 0)
     }
     
-    //MARK: - Assets
+    // MARK: - Assets
     
     fileprivate var assets: [PHAsset]? {
         willSet {
-            if let assets = self.assets, let newValue = newValue , newValue != assets {
+            if let assets = self.assets, let newValue = newValue, newValue != assets {
                 self.stopCachingThumbnails()
             }
         }
         didSet {
-            if let assets = self.assets, let oldValue = oldValue , oldValue != assets {
+            if let assets = self.assets, let oldValue = oldValue, oldValue != assets {
                 self.startCachingThumbnails()
             }
             DispatchQueue.main.async {
-                UIView.performWithoutAnimation({ 
+                UIView.performWithoutAnimation({
                     self.collectionView?.reloadSections(IndexSet(integer: 0))
                     for selectedAsset in self.selectedAssets {
                         if let index = self.assets?.index(of: selectedAsset) {
-                            self.collectionView?.selectItem(at: IndexPath(item: index+(self.showCameraButton ? 1 : 0), section: 0), animated: false, scrollPosition: UICollectionViewScrollPosition())
+                            self.collectionView?.selectItem(at: IndexPath(item: index + (self.showCameraButton ? 1 : 0), section: 0), animated: false, scrollPosition: UICollectionViewScrollPosition())
                         }
                     }
                 })
-                
-                
             }
         }
     }
@@ -97,14 +95,14 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         if (indexPath as NSIndexPath).row == 0 && self.showCameraButton {
             return nil
         }
-        let index = (indexPath as NSIndexPath).row-(self.showCameraButton ? 1 : 0)
+        let index = (indexPath as NSIndexPath).row - (self.showCameraButton ? 1 : 0)
         guard let assets = self.assets, index < assets.count && index >= 0 else {
             return nil
         }
         return assets[index]
     }
     
-    //MARK: - View Lifecycle
+    // MARK: - View Lifecycle
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -131,7 +129,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         NotificationCenter.default.removeObserver(self)
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @objc fileprivate func doneTapped(_ sender: AnyObject) {
         let selectedAssets = self.selectedAssets
@@ -142,7 +140,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         }
     }
     
-    //MARK: Fetching
+    // MARK: Fetching
     
     fileprivate func startFetchingAssets() {
         guard self.assetsPickerController != nil else {
@@ -157,7 +155,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
                 result = PHAsset.fetchAssets(with: fetchOptions)
             }
             var allAssets = [PHAsset]()
-            result.enumerateObjects({ (asset, index, stop) in
+            result.enumerateObjects({ (asset, _, _) in
                 allAssets.append(asset)
             })
             DispatchQueue.main.async {
@@ -174,7 +172,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         self.startFetchingAssets()
     }
     
-    //MARK: - UICollectionViewDataSource
+    // MARK: - UICollectionViewDataSource
     
     override func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.numberOfCells
@@ -196,7 +194,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         }
     }
     
-    //MARK: - UICollectionViewDelegate 
+    // MARK: - UICollectionViewDelegate
     
     override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         if let asset = self.assetForIndexPath(indexPath) {
@@ -220,12 +218,11 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         }
     }
     
-    
-    //MARK: - Layout
+    // MARK: - Layout
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        self.emptyView?.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length+20, left: 20, bottom: self.bottomLayoutGuide.length+20, right: 20)
+        self.emptyView?.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length + 20, left: 20, bottom: self.bottomLayoutGuide.length + 20, right: 20)
     }
     
     override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -239,7 +236,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
             numberOfColumns = 7
         }
         let spacing: CGFloat = 1
-        let cellWidth = floor((self.view.frame.width-(spacing*numberOfColumns-1))/numberOfColumns)
+        let cellWidth = floor((self.view.frame.width - (spacing * numberOfColumns - 1)) / numberOfColumns)
         if let flowLayout = self.collectionViewLayout as? UICollectionViewFlowLayout {
             self.thumbnailImageSize = CGSize(width: cellWidth, height: cellWidth)
             flowLayout.itemSize = self.thumbnailImageSize
@@ -249,8 +246,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         
     }
     
-    
-    //MARK: - Thumbnail caching
+    // MARK: - Thumbnail caching
     
     fileprivate func stopCachingThumbnails() {
 //        self.thumbnailCachingManager.stopCachingImagesForAllAssets()
@@ -263,11 +259,11 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
 //                let options = PHImageRequestOptions()
 //                self.thumbnailCachingManager.startCachingImagesForAssets(assets, targetSize: self.thumbnailImageSize, contentMode: PHImageContentMode.AspectFill, options: options)
 //            })
-//            
+//
 //        }
     }
     
-    //MARK: Color palette support
+    // MARK: Color palette support
     
     func colorPaletteDidChange() {
         self.view.backgroundColor = self.colorPalette.backgroundColor
@@ -282,29 +278,28 @@ extension AssetsGridViewController: UIImagePickerControllerDelegate {
         picker.dismiss(animated: true, completion: nil)
     }
     
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String : AnyObject]?) {
+    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingImage image: UIImage, editingInfo: [String: AnyObject]?) {
         //Save the image
         var localIdentifier: String?
-        PHPhotoLibrary.shared().performChanges({ 
+        PHPhotoLibrary.shared().performChanges({
             let request = PHAssetChangeRequest.creationRequestForAsset(from: image)
             localIdentifier = request.placeholderForCreatedAsset?.localIdentifier
-            }) { (success, error) in
-                DispatchQueue.main.async(execute: { 
-                    if let error = error {
-                        NSLog("Error performing changes \(error)")
+        }, completionHandler: { (_, error) in
+            DispatchQueue.main.async(execute: {
+                if let error = error {
+                    NSLog("Error performing changes \(error)")
+                } else {
+                    if let localIdentifier = localIdentifier, let asset = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil).firstObject {
+                        NSLog("Adding asset \(asset)")
+                        self.selectedAssets.append(asset)
+                        self.assets?.insert(asset, at: 0)
+                        
                     } else {
-                        if let localIdentifier = localIdentifier, let asset = PHAsset.fetchAssets(withLocalIdentifiers: [localIdentifier], options: nil).firstObject  {
-                            NSLog("Adding asset \(asset)")
-                            self.selectedAssets.append(asset)
-                            self.assets?.insert(asset, at: 0)
-                            
-                        } else {
-                            self.startFetchingAssets()
-                        }
+                        self.startFetchingAssets()
                     }
-                })
-                
-        }
+                }
+            })
+        })
         picker.dismiss(animated: true, completion: nil)
     }
 }

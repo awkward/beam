@@ -26,7 +26,7 @@ class GalleryAlbumItemAnimator: NSObject, UIViewControllerAnimatedTransitioning 
     }
 
     func transitionDuration(using transitionContext: UIViewControllerContextTransitioning?) -> TimeInterval {
-        return self.dismissal ? 0.15 : 0.3
+        return self.dismissal ? 0.15: 0.3
     }
     
     func animationEnded(_ transitionCompleted: Bool) {
@@ -107,8 +107,6 @@ class GalleryAlbumItemAnimator: NSObject, UIViewControllerAnimatedTransitioning 
             }
             
         }
-        
-        
     }
 
 }

@@ -40,6 +40,6 @@ open class ImgurObject: NSObject, NSCoding {
 
 }
 
-func ==(lhs: ImgurObject, rhs: ImgurObject) -> Bool {
+func == (lhs: ImgurObject, rhs: ImgurObject) -> Bool {
     return lhs.identifier == rhs.identifier && object_getClassName(rhs) == object_getClassName(lhs)
 }

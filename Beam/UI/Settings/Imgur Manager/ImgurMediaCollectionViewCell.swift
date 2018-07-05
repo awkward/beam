@@ -50,7 +50,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
         }
     }
     
-    //MARK: -  Lifecycle
+    // MARK: - Lifecycle
     
     override func prepareForReuse() {
         super.prepareForReuse()
@@ -106,8 +106,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
         
         self.mediaImageView.isOpaque = self.isOpaque
         self.mediaImageView.backgroundColor = self.backgroundColor
-        
-        
+    
     }
     
     // MARK: - Content
@@ -140,8 +139,8 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
             } else {
                 let request: URLRequest = URLRequest(url: URL, cachePolicy: NSURLRequest.CachePolicy.returnCacheDataElseLoad, timeoutInterval: 60)
                 UIApplication.startNetworkActivityIndicator(for: self)
-                self.imageTask = URLSession.shared.downloadTask(with: request, completionHandler: { (location, response, error) -> Void in
-                    if let location: Foundation.URL = location {
+                self.imageTask = URLSession.shared.downloadTask(with: request, completionHandler: { (location, _, _) in
+                    if let location: URL = location {
                         var options: DownscaledImageOptions = DownscaledImageOptions()
                         options.constrainingSize = self.mediaImageView.bounds.size
                         options.contentMode = UIViewContentMode.scaleAspectFill

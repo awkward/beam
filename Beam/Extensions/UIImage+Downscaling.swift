@@ -23,17 +23,17 @@ struct DownscaledImageOptions {
 extension UIImage {
 
     fileprivate class func destinationImageSizeWithOriginalSize(_ size: CGSize, options: DownscaledImageOptions) -> CGSize {
-        let sourceRatio: CGFloat = size.width / size.height;
-        let boundsRatio: CGFloat = options.constrainingSize.width / options.constrainingSize.height;
+        let sourceRatio: CGFloat = size.width / size.height
+        let boundsRatio: CGFloat = options.constrainingSize.width / options.constrainingSize.height
         
         let widthConstrainedSize = CGSize(width: options.constrainingSize.width, height: options.constrainingSize.width / sourceRatio)
         let heightConstrainedSize = CGSize(width: options.constrainingSize.height * sourceRatio, height: options.constrainingSize.height)
         
         switch options.contentMode {
         case .scaleAspectFit:
-            return sourceRatio < boundsRatio ? heightConstrainedSize : widthConstrainedSize
+            return sourceRatio < boundsRatio ? heightConstrainedSize: widthConstrainedSize
         case .scaleAspectFill:
-            return sourceRatio < boundsRatio ? widthConstrainedSize : heightConstrainedSize
+            return sourceRatio < boundsRatio ? widthConstrainedSize: heightConstrainedSize
         case .scaleToFill:
             return options.constrainingSize
         default:
@@ -47,7 +47,7 @@ extension UIImage {
         
         var resultingImage: UIImage?
         
-        autoreleasepool { () -> () in
+        autoreleasepool { () in
             // create an image from the image path. Note this
             // doesn't actually read any pixel information from disk, as that
             // is actually done at draw time.
@@ -87,8 +87,8 @@ extension UIImage {
             // create an offscreen bitmap context that will hold the output image
             // pixel data, as it becomes available by the downscaling routine.
             // use the RGB colorspace as this is the colorspace iOS GPU is optimized for.
-            let colorSpace = CGColorSpaceCreateDeviceRGB();
-            let bytesPerRow = bytesPerPixel * destResolution.width;
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bytesPerRow = bytesPerPixel * destResolution.width
             let destBitmapData = malloc(Int(bytesPerRow * destResolution.height))
             
             guard destBitmapData != nil else {
@@ -106,8 +106,8 @@ extension UIImage {
             // flip the output graphics context so that it aligns with the
             // cocoa style orientation of the input document. this is needed
             // because we used cocoa's UIImage -imageNamed to open the input file.
-            //            CGContextTranslateCTM(destContext, 0.0, destResolution.height);
-            //            CGContextScaleCTM(destContext, 1.0, -1.0);
+            //            CGContextTranslateCTM(destContext, 0.0, destResolution.height)
+            //            CGContextScaleCTM(destContext, 1.0, -1.0)
             
             // now define the size of the rectangle to be used for the
             // incremental blits from the input image to the output image.
@@ -119,11 +119,11 @@ extension UIImage {
             // from a decoding opertion by achnoring our tile size to the full
             // width of the input image.
             var sourceTile = CGRect()
-            sourceTile.size.width = sourceResolution.width;
+            sourceTile.size.width = sourceResolution.width
             // the source tile height is dynamic. Since we specified the size
             // of the source tile in MB, see how many rows of pixels high it
             // can be given the input image width.
-            sourceTile.size.height = CGFloat(floorf(Float(tileTotalPixels / sourceTile.size.width)));
+            sourceTile.size.height = CGFloat(floorf(Float(tileTotalPixels / sourceTile.size.width)))
             sourceTile.origin.x = 0
             
             // the output tile is the same proportions as the input tile, but
@@ -134,7 +134,7 @@ extension UIImage {
             destTile.origin.x = 0.0
             // the source seem overlap is proportionate to the destination seem overlap.
             // this is the amount of pixels to overlap each tile as we assemble the ouput image.
-            let sourceSeemOverlap = Int((destSeemOverlap / destResolution.height) * sourceResolution.height );
+            let sourceSeemOverlap = Int((destSeemOverlap / destResolution.height) * sourceResolution.height)
             
             // calculate the number of read/write opertions required to assemble the
             // output image.
@@ -161,7 +161,7 @@ extension UIImage {
                 destContext.draw(sourceTileImageRef, in: destTile)
             } else {
                 for y in 0 ..< iterations {
-                    autoreleasepool(invoking: { () -> () in
+                    autoreleasepool(invoking: { () in
                         sourceTile.origin.y = CGFloat(y) * sourceTileHeightMinusOverlap + CGFloat(sourceSeemOverlap)
                         destTile.origin.y = ( destResolution.height ) - ( CGFloat( y + 1 ) * sourceTileHeightMinusOverlap * imageScale.height + destSeemOverlap )
                         // create a reference to the source image with its context clipped to the argument rect.
@@ -171,7 +171,7 @@ extension UIImage {
                         // if this is the last tile, it's size may be smaller than the source tile height.
                         // adjust the dest tile size to account for that difference.
                         if y == iterations - 1 && remainder > 0 {
-                            var dify = destTile.size.height;
+                            var dify = destTile.size.height
                             destTile.size.height = CGFloat(sourceTileImageRef.height) * imageScale.height
                             dify -= destTile.size.height
                             destTile.origin.y += dify
@@ -196,7 +196,7 @@ extension UIImage {
         
         var resultingImage: UIImage?
         
-        autoreleasepool { () -> () in
+        autoreleasepool { () in
             // create an image from the image path. Note this
             // doesn't actually read any pixel information from disk, as that
             // is actually done at draw time.
@@ -231,8 +231,8 @@ extension UIImage {
             // create an offscreen bitmap context that will hold the output image
             // pixel data, as it becomes available by the downscaling routine.
             // use the RGB colorspace as this is the colorspace iOS GPU is optimized for.
-            let colorSpace = CGColorSpaceCreateDeviceRGB();
-            let bytesPerRow = bytesPerPixel * destResolution.width;
+            let colorSpace = CGColorSpaceCreateDeviceRGB()
+            let bytesPerRow = bytesPerPixel * destResolution.width
             let destBitmapData = malloc(Int(bytesPerRow * destResolution.height))
             
             guard destBitmapData != nil else {
@@ -250,8 +250,8 @@ extension UIImage {
             // flip the output graphics context so that it aligns with the
             // cocoa style orientation of the input document. this is needed
             // because we used cocoa's UIImage -imageNamed to open the input file.
-            //            CGContextTranslateCTM(destContext, 0.0, destResolution.height);
-            //            CGContextScaleCTM(destContext, 1.0, -1.0);
+            //            CGContextTranslateCTM(destContext, 0.0, destResolution.height)
+            //            CGContextScaleCTM(destContext, 1.0, -1.0)
             
             // now define the size of the rectangle to be used for the
             // incremental blits from the input image to the output image.
@@ -263,11 +263,11 @@ extension UIImage {
             // from a decoding opertion by achnoring our tile size to the full
             // width of the input image.
             var sourceTile = CGRect()
-            sourceTile.size.width = sourceResolution.width;
+            sourceTile.size.width = sourceResolution.width
             // the source tile height is dynamic. Since we specified the size
             // of the source tile in MB, see how many rows of pixels high it
             // can be given the input image width.
-            sourceTile.size.height = CGFloat(floorf(Float(tileTotalPixels / sourceTile.size.width)));
+            sourceTile.size.height = CGFloat(floorf(Float(tileTotalPixels / sourceTile.size.width)))
             sourceTile.origin.x = 0
             
             // the output tile is the same proportions as the input tile, but
@@ -278,7 +278,7 @@ extension UIImage {
             destTile.origin.x = 0.0
             // the source seem overlap is proportionate to the destination seem overlap.
             // this is the amount of pixels to overlap each tile as we assemble the ouput image.
-            let sourceSeemOverlap = Int((destSeemOverlap / destResolution.height) * sourceResolution.height );
+            let sourceSeemOverlap = Int((destSeemOverlap / destResolution.height) * sourceResolution.height)
             
             // calculate the number of read/write opertions required to assemble the
             // output image.
@@ -305,7 +305,7 @@ extension UIImage {
                 destContext.draw(sourceTileImageRef, in: destTile)
             } else {
                 for y in 0 ..< iterations {
-                    autoreleasepool(invoking: { () -> () in
+                    autoreleasepool(invoking: { () in
                         sourceTile.origin.y = CGFloat(y) * sourceTileHeightMinusOverlap + CGFloat(sourceSeemOverlap)
                         destTile.origin.y = ( destResolution.height ) - ( CGFloat( y + 1 ) * sourceTileHeightMinusOverlap * imageScale.height + destSeemOverlap )
                         // create a reference to the source image with its context clipped to the argument rect.
@@ -315,7 +315,7 @@ extension UIImage {
                         // if this is the last tile, it's size may be smaller than the source tile height.
                         // adjust the dest tile size to account for that difference.
                         if y == iterations - 1 && remainder > 0 {
-                            var dify = destTile.size.height;
+                            var dify = destTile.size.height
                             destTile.size.height = CGFloat(sourceTileImageRef.height) * imageScale.height
                             dify -= destTile.size.height
                             destTile.origin.y += dify

@@ -23,7 +23,6 @@ extension Notification.Name {
     
 }
 
-
 extension Post {
     
     public func markHiddenOperation(_ hidden: Bool, authenticationController: AuthenticationController) -> Operation {

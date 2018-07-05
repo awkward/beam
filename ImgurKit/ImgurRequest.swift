@@ -17,7 +17,7 @@ public enum ImgurHTTPMethod: String {
 
 public class ImgurRequest: Operation {
     
-    //MARK: - Operation methods
+    // MARK: - Operation methods
     
     fileprivate var operationIsExecuting: Bool = false {
         willSet {
@@ -106,11 +106,11 @@ public class ImgurRequest: Operation {
         return self.operationIsCancelled
     }
     
-    //MARK: - Imgur controller
+    // MARK: - Imgur controller
     
     internal var imgurController: ImgurController!
     
-    //MARK: - Request methods and properties
+    // MARK: - Request methods and properties
     
     open var endpoint: String!
     open var parameters: [String: Any]?
@@ -118,13 +118,16 @@ public class ImgurRequest: Operation {
     
     open var deleteHash: String?
     
-    open var uploadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> ())?
-    open var downloadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> ())?
+    open var uploadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> Void)?
+    open var downloadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> Void)?
     
     open var uploadProgress: CGFloat = 0
     open var downloadProgress: CGFloat = 0
     
     internal var currentTask: URLSessionTask?
+    
+    internal var uploadProgressObserver: NSKeyValueObservation?
+    internal var downloadProgressObserver: NSKeyValueObservation?
     
     internal var URLRequest: Foundation.URLRequest {
         let URL = Foundation.URL(string: endpoint, relativeTo: self.imgurController.APIURL as URL)!
@@ -151,7 +154,7 @@ public class ImgurRequest: Operation {
         
     }
     
-    internal func performRequest(_ completionHandler: @escaping ((_ resultObject: AnyObject?, _ error: NSError?) -> ())) {
+    internal func performRequest(_ completionHandler: @escaping ((_ resultObject: AnyObject?, _ error: NSError?) -> Void)) {
         self.currentTask = self.session.dataTask(with: self.URLRequest, completionHandler: { (data, response, error) in
             if self.isCancelled {
                 self.removeProgressObservers()
@@ -159,7 +162,7 @@ public class ImgurRequest: Operation {
                 return
             }
             var resultObject: AnyObject?
-            if let data = data, let response = response as? HTTPURLResponse , self.HTTPMethod != ImgurHTTPMethod.Delete {
+            if let data = data, let response = response as? HTTPURLResponse, self.HTTPMethod != ImgurHTTPMethod.Delete {
                 do {
                     let JSONDictionary = try JSONSerialization.jsonObject(with: data, options: []) as! NSDictionary
                     resultObject = try self.parseResponse(JSONDictionary, response: response)
@@ -171,23 +174,37 @@ public class ImgurRequest: Operation {
             }
             self.removeProgressObservers()
             completionHandler(resultObject, error as NSError?)
-        }) 
+        })
         self.addProgressObservers()
         self.currentTask!.resume()
     }
     
-    //MARK: - Progress
+    // MARK: - Progress
     
     internal func addProgressObservers() {
         self.updateDownloadProgress(0)
         self.updateUploadProgress(0)
-        self.currentTask?.addObserver(self, forKeyPath: "countOfBytesSent", options: [NSKeyValueObservingOptions.initial, NSKeyValueObservingOptions.new] , context: nil)
-        self.currentTask?.addObserver(self, forKeyPath: "countOfBytesReceived", options: [NSKeyValueObservingOptions.initial, NSKeyValueObservingOptions.new] , context: nil)
+        self.uploadProgressObserver = self.currentTask?.observe(\URLSessionTask.countOfBytesSent, changeHandler: { (task, _) in
+            guard task.countOfBytesExpectedToSend > 0 && task.countOfBytesSent > 0 else {
+                return
+            }
+            let progress = CGFloat(task.countOfBytesSent) / CGFloat(task.countOfBytesExpectedToSend)
+            self.updateUploadProgress(progress)
+        })
+        self.downloadProgressObserver = self.currentTask?.observe(\URLSessionTask.countOfBytesReceived, changeHandler: { (task, _) in
+            guard task.countOfBytesReceived > 0 && task.countOfBytesExpectedToReceive > 0 else {
+                return
+            }
+            let progress = CGFloat(task.countOfBytesReceived) / CGFloat(task.countOfBytesExpectedToReceive)
+            self.updateDownloadProgress(progress)
+        })
     }
     
     internal func removeProgressObservers() {
-        self.currentTask?.removeObserver(self, forKeyPath: "countOfBytesSent")
-        self.currentTask?.removeObserver(self, forKeyPath: "countOfBytesReceived")
+        self.uploadProgressObserver?.invalidate()
+        self.downloadProgressObserver?.invalidate()
+        self.uploadProgressObserver = nil
+        self.downloadProgressObserver = nil
         self.updateUploadProgress(1)
         self.updateDownloadProgress(1)
     }
@@ -203,24 +220,7 @@ public class ImgurRequest: Operation {
         self.downloadProgressHandler?(self, progress)
     }
     
-    open override func observeValue(forKeyPath keyPath: String?, of object: Any?, change: [NSKeyValueChangeKey : Any]?, context: UnsafeMutableRawPointer?) {
-        if let task = object as? URLSessionTask, let keyPath = keyPath , task == self.currentTask && keyPath == "countOfBytesSent" {
-            if task.countOfBytesExpectedToSend > 0 && task.countOfBytesSent > 0{
-                let progress: CGFloat = CGFloat(task.countOfBytesSent)/CGFloat(task.countOfBytesExpectedToSend)
-                self.updateUploadProgress(progress)
-            }
-        } else if let task = object as? URLSessionTask, let keyPath = keyPath , task == self.currentTask && keyPath == "countOfBytesReceived" {
-            if task.countOfBytesExpectedToSend > 0 && task.countOfBytesSent > 0{
-                let progress: CGFloat = CGFloat(task.countOfBytesReceived)/CGFloat(task.countOfBytesExpectedToReceive)
-                self.updateDownloadProgress(progress)
-            }
-        } else {
-            super.observeValue(forKeyPath: keyPath, of: object, change: change, context: context)
-        }
-    }
-    
-    
-    //MARK: - Response methods and properties
+    // MARK: - Response methods and properties
     
     open var error: NSError?
     open var resultObject: AnyObject?

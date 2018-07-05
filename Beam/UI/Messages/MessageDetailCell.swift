@@ -34,13 +34,13 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
             if self.sentMessage {
                 let textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor.white)
                 let fontSize: CGFloat = FontSizeController.adjustedFontSize(17)
-                let textFont = UIFont.systemFont(ofSize: fontSize, weight: UIFontWeightSemibold)
+                let textFont = UIFont.systemFont(ofSize: fontSize, weight: UIFont.Weight.semibold)
                 
                 let typeTextColor = DisplayModeValue(UIColor.beamGreyExtraDark().withAlphaComponent(0.5), darkValue: UIColor.white.withAlphaComponent(0.5))
-                let typeTextFont = UIFont.systemFont(ofSize: fontSize, weight: UIFontWeightSemibold)
+                let typeTextFont = UIFont.systemFont(ofSize: fontSize, weight: UIFont.Weight.semibold)
                 
-                let authorAttributedString = NSAttributedString(string: author, attributes: [NSForegroundColorAttributeName: textColor, NSFontAttributeName: textFont])
-                let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSForegroundColorAttributeName: typeTextColor, NSFontAttributeName: typeTextFont])
+                let authorAttributedString = NSAttributedString(string: author, attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: textFont])
+                let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSAttributedStringKey.foregroundColor: typeTextColor, NSAttributedStringKey.font: typeTextFont])
                 typeAttributedString.append(authorAttributedString)
                 self.authorButton.setAttributedTitle(typeAttributedString, for: UIControlState())
             } else {
@@ -66,7 +66,7 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        self.authorButton.setTitleColor(DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217/255.0, green: 217/255.0, blue: 217/255.0, alpha: 1)), for: UIControlState())
+        self.authorButton.setTitleColor(DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)), for: UIControlState())
         
         self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
         self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)

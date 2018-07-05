@@ -91,13 +91,13 @@ extension Subreddit {
     
     var filterKeywords: [String]? {
         get {
-            if let filterKeywords: [String] = self.metadataValueForKey(SubredditMetadataKey.FilterKeywords.rawValue) as? [String] , filterKeywords.count > 0 {
+            if let filterKeywords: [String] = self.metadataValueForKey(SubredditMetadataKey.FilterKeywords.rawValue) as? [String], filterKeywords.count > 0 {
                 return filterKeywords
             }
             return nil
         }
         set {
-            if newValue == nil || (newValue?.count)! <= 0  {
+            if newValue == nil || (newValue?.count)! <= 0 {
                 self.removeMetadataValueForKey(SubredditMetadataKey.FilterKeywords.rawValue)
             } else {
                 self.setMetadataValue(newValue!, forKey: SubredditMetadataKey.FilterKeywords.rawValue)
@@ -107,7 +107,7 @@ extension Subreddit {
     
     var filterSubreddits: [String]? {
         get {
-            if let filterSubreddits: [String] = self.metadataValueForKey(SubredditMetadataKey.FilterSubreddits.rawValue) as? [String] , filterSubreddits.count > 0 {
+            if let filterSubreddits: [String] = self.metadataValueForKey(SubredditMetadataKey.FilterSubreddits.rawValue) as? [String], filterSubreddits.count > 0 {
                 return filterSubreddits
             }
             return nil

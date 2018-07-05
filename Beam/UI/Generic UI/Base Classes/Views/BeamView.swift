@@ -18,8 +18,6 @@ class BeamView: UIView, DynamicDisplayModeView {
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        
     }
     
     deinit {
@@ -27,6 +25,7 @@ class BeamView: UIView, DynamicDisplayModeView {
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.displayModeDidChange()
         self.registerForDisplayModeChangeNotifications()
     }

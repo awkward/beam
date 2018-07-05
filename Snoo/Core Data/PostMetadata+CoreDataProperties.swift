@@ -9,7 +9,6 @@
 import Foundation
 import CoreData
 
-
 extension PostMetadata {
 
     /// If the post has been visited already or not

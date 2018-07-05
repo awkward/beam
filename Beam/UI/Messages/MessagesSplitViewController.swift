@@ -10,7 +10,7 @@ import UIKit
 
 extension UISplitViewController {
     
-    /// Toggleing the master view as an overlay is possible in code, but requires you to manage the complete display mode state etc. 
+    /// Toggleing the master view as an overlay is possible in code, but requires you to manage the complete display mode state etc.
     /// This is a simple hack using the supplied button to toggle the overlay view, with the default animation.
     /// It simply perform the same action as the default display mode button item you are suppose to add to a UINavigationItem of the secondaryViewController
     /// http://stackoverflow.com/questions/27243158/hiding-the-master-view-controller-with-uisplitviewcontroller-in-ios8
@@ -84,7 +84,7 @@ extension MessagesSplitViewController: UISplitViewControllerDelegate {
         guard let primaryNavigationController = primaryViewController as? UINavigationController, let secondaryNavigationController = secondaryViewController as? UINavigationController else {
             return false
         }
-        if let messageViewController = secondaryNavigationController.viewControllers.first as? MessageConversationViewController  {
+        if let messageViewController = secondaryNavigationController.viewControllers.first as? MessageConversationViewController {
             primaryNavigationController.pushViewController(messageViewController, animated: true)
         }
         secondaryNavigationController.viewControllers = []
@@ -99,7 +99,7 @@ extension MessagesSplitViewController: UISplitViewControllerDelegate {
         
         let navigationController = BeamColorizedNavigationController()
         navigationController.useInteractiveDismissal = false
-        if primaryNavigationController.viewControllers.last is MessageConversationViewController  {
+        if primaryNavigationController.viewControllers.last is MessageConversationViewController {
             let viewController = primaryNavigationController.popViewController(animated: true)!
             navigationController.viewControllers = [viewController]
         }

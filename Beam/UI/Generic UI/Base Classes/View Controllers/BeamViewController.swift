@@ -35,11 +35,11 @@ class BeamViewController: UIViewController, DynamicDisplayModeView, NoticeHandli
         setNeedsStatusBarAppearanceUpdate()
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return displayMode == .dark ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
             return .all
         }

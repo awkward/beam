@@ -86,7 +86,7 @@ class GalleryItem: NSObject {
     
     init(mediaObject: MediaObject) {
         self.mediaObject = mediaObject
-        super.init()        
+        super.init()
     }
     
 }
@@ -111,8 +111,8 @@ extension GalleryItem: AWKGalleryItem {
                 return cachedContentType
             }
             var contentType: AWKGalleryItemContentType = AWKGalleryItemContentType.image
-            if let contentURL: URL = self.contentURL , self.animated == true {
-                //The image is animated, check if it's a gif file or MP4 file 
+            if let contentURL: URL = self.contentURL, self.animated == true {
+                //The image is animated, check if it's a gif file or MP4 file
                 let pathExtension: String? = self.animatedURLString?.pathExtension
                 if pathExtension == "mp4" {
                     //The extension ends in MP4 so it's a MP4 for sure
@@ -172,9 +172,7 @@ extension GalleryItem: AWKGalleryItem {
     }
     
     @objc var contentSize: CGSize {
-        get {
-            return CGSize(width: CGFloat(self.mediaObject?.width?.floatValue ?? 0), height: CGFloat(self.mediaObject?.height?.floatValue ?? 0))
-        }
+        return CGSize(width: CGFloat(self.mediaObject?.width?.floatValue ?? 0), height: CGFloat(self.mediaObject?.height?.floatValue ?? 0))
     }
     
     fileprivate var isAlbumItem: Bool {
@@ -182,12 +180,12 @@ extension GalleryItem: AWKGalleryItem {
     }
     
     @objc var attributedTitle: NSAttributedString? {
-        if let post = self.mediaObject?.content as? Post, let postTitle = post.title , !self.isAlbumItem {
-            return NSAttributedString(string: postTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 17)])
-        } else if let imageTitle = self.mediaObject?.captionTitle , self.isAlbumItem {
+        if let post = self.mediaObject?.content as? Post, let postTitle = post.title, !self.isAlbumItem {
+            return NSAttributedString(string: postTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)])
+        } else if let imageTitle = self.mediaObject?.captionTitle, self.isAlbumItem {
             let paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
             paragraphStyle.paragraphSpacing = 4
-            return NSAttributedString(string: imageTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: 17), NSParagraphStyleAttributeName: paragraphStyle])
+            return NSAttributedString(string: imageTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.paragraphStyle: paragraphStyle])
         }
         return nil
     }
@@ -199,11 +197,9 @@ extension GalleryItem: AWKGalleryItem {
             // Show the caption title in the subtitle for posts, as the post title is being shown in the title instead of the caption title
             if !self.isAlbumItem {
                 
-                
                 if let captionTitle = self.mediaObject?.captionTitle {
                     
-                    
-                    let titleString = NSAttributedString(string: captionTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSForegroundColorAttributeName: UIColor.white, NSFontAttributeName: UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote).pointSize, weight: UIFontWeightMedium)])
+                    let titleString = NSAttributedString(string: captionTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote).pointSize, weight: UIFont.Weight.medium)])
                     content.append(titleString)
                 }
                 
@@ -215,7 +211,7 @@ extension GalleryItem: AWKGalleryItem {
             
             if let captionDescription = self.mediaObject?.captionDescription {
                 
-                let subtitleString = NSAttributedString(string: captionDescription, attributes: [NSForegroundColorAttributeName: UIColor.white.withAlphaComponent(0.8), NSFontAttributeName: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)])
+                let subtitleString = NSAttributedString(string: captionDescription, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.8), NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)])
                 content.append(subtitleString)
             }
             
@@ -227,7 +223,7 @@ extension GalleryItem: AWKGalleryItem {
     
 }
 
-func ==(lhs: GalleryItem, rhs: GalleryItem) -> Bool {
+func == (lhs: GalleryItem, rhs: GalleryItem) -> Bool {
     return lhs.contentURL == rhs.contentURL
 }
 

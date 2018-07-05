@@ -10,9 +10,9 @@ import Foundation
 import CoreData
 
 public enum MessageBox: String {
-    case inbox = "inbox"
-    case unread = "unread"
-    case sent = "sent"
+    case inbox
+    case unread
+    case sent
 }
 
 public final class Message: InteractiveContent {
@@ -35,7 +35,7 @@ public final class Message: InteractiveContent {
         self.unread = json["new"] as? NSNumber ?? self.unread
         self.destination = json["dest"] as? String ?? self.destination
         
-        if let referenceInfo = json["snoo_reference"] as? [String : AnyObject], let name = referenceInfo["name"] as? String {
+        if let referenceInfo = json["snoo_reference"] as? [String: AnyObject], let name = referenceInfo["name"] as? String {
             do {
                 if let referenceType = try SyncObject.identifierAndTypeWithObjectName(name) {
                     switch referenceType.type {
@@ -53,7 +53,7 @@ public final class Message: InteractiveContent {
         }
     }
     
-    open override func redditDictionaryRepresentation() -> [String : Any] {
+    open override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["body"] = self.content as AnyObject?

@@ -28,7 +28,7 @@ extension URL {
     
     var isYouTubeURL: Bool {
         //Unwrapping two times creates some extra CPU time
-        if let host = self.host?.lowercased() , host.contains("youtu.be") || host.contains("youtube.com") || host.contains("youtube.co.uk") {
+        if let host = self.host?.lowercased(), host.contains("youtu.be") || host.contains("youtube.com") || host.contains("youtube.co.uk") {
             return true
         }
         return false
@@ -42,12 +42,10 @@ extension URL {
     }
     
     fileprivate var mobileYouTubeURL: URL? {
-        
         guard let youTubeID = self.youTubeVideoID else {
             return nil
         }
-        let URL: Foundation.URL? = Foundation.URL(string: "https://m.youtube.com/watch?v=\(youTubeID)")
-        return URL
+        return  URL(string: "https://m.youtube.com/watch?v=\(youTubeID)")
         
     }
     

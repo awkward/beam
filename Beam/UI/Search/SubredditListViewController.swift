@@ -97,11 +97,11 @@ extension SubredditListViewController {
                 }
             } else {
                 let alert = BeamAlertController(title: AWKLocalizedString("search_subreddit_private"), message: subreddit.publicDescription, preferredStyle: UIAlertControllerStyle.alert)
-                alert.addCancelAction({ (action) in
+                alert.addCancelAction({ (_) in
                     tableView.deselectRow(at: indexPath, animated: true)
                 })
                 if !AppDelegate.shared.authenticationController.isAuthenticated {
-                    alert.addAction(UIAlertAction(title: AWKLocalizedString("login"), style: .default, handler: { (action) -> Void in
+                    alert.addAction(UIAlertAction(title: AWKLocalizedString("login"), style: .default, handler: { (_) -> Void in
                         tableView.deselectRow(at: indexPath, animated: false)
                         AppDelegate.shared.changeActiveTabContent(AppTabContent.ProfileNavigation)
                         

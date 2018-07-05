@@ -38,7 +38,6 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
             
             self.reloadTitleColor()
             
-            
             self.setNeedsLayout()
             
         }
@@ -64,7 +63,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
         let paragrapthStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragrapthStyle.minimumLineHeight = 21
         paragrapthStyle.maximumLineHeight = 21
-        let attributes: [String: Any] = [NSParagraphStyleAttributeName: paragrapthStyle]
+        let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.paragraphStyle: paragrapthStyle]
         return NSAttributedString(string: title, attributes: attributes)
     }
 
@@ -109,13 +108,19 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.setupView()
+    }
+    
+    private func setupView() {
+        self.preservesSuperviewLayoutMargins = false
+        self.contentView.layoutMargins = UIEdgeInsets(top: 12, left: 12, bottom: 0, right: 12)
+        
         NotificationCenter.default.addObserver(self, selector: #selector(PostTitlePartCell.postDidChangeVisitedState(_:)), name: .PostDidChangeVisitedState, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(PostTitlePartCell.contentSizeCategoryDidChange(_:)), name: .FontSizeCategoryDidChange, object: nil)
         
         self.reloadFont()
         
         self.thumbnailView?.addTarget(self, action: #selector(PostTitlePartCell.thumbnailTapped(_:)), for: UIControlEvents.touchUpInside)
-        self.topSeperatorViewHeightConstraint?.constant = 1/UIScreen.main.scale
     }
     
     deinit {
@@ -137,14 +142,14 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
             if  self.post?.isSelfText.boolValue == true && NSString(string: self.post?.content ?? "").length > 0 {
                 useBottomSpacing = false
             }
-            self.bottomLayoutConstraint?.constant = (useBottomSpacing ? 10 : 0)
+            self.bottomLayoutConstraint?.constant = (useBottomSpacing ? 10: 0)
         }
     }
     
     func reloadFont() {
         let fontSize: CGFloat = FontSizeController.adjustedFontSize(17)
         if self.onDetailView && self.post?.isSelfText == true {
-            self.titleLabel.font = UIFont.systemFont(ofSize: fontSize, weight: UIFontWeightSemibold)
+            self.titleLabel.font = UIFont.systemFont(ofSize: fontSize, weight: UIFont.Weight.semibold)
         } else {
             self.titleLabel.font = UIFont.systemFont(ofSize: fontSize)
         }
@@ -166,7 +171,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
     
     func reloadTitleColor() {
         if self.post?.isVisited == true && UserSettings[.postMarking] && self.onDetailView == false {
-            self.titleLabel.textColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
+            self.titleLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         } else {
             self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         }
@@ -185,7 +190,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
     
     @objc fileprivate func postDidChangeVisitedState(_ notification: Notification) {
         DispatchQueue.main.async {
-            if let post = notification.object as? Post , post == self.post {
+            if let post = notification.object as? Post, post == self.post {
                 self.reloadTitleColor()
             }
         }

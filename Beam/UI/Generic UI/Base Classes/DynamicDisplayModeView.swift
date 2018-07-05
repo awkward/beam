@@ -8,7 +8,7 @@
 
 import UIKit
 
-/** Protocol to implement to support different display modes like dark mode. This has been implemented by default by all beam base views/viewcontrollers. 
+/** Protocol to implement to support different display modes like dark mode. This has been implemented by default by all beam base views/viewcontrollers.
 
     To implement this protocol, you need to listen for DisplayModeDidChangeNotificationName notifications. When the notification fires, call displayModeDidChange(newMode: animated:). Implement displayModeDidChange to update UI elements according to the display mode. This method will be called within an animation block whenever appropiate.
 */

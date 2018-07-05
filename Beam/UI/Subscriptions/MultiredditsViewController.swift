@@ -40,10 +40,14 @@ final class MultiredditsViewController: BeamTableViewController, NSFetchedResult
     
     func emptyViewTypeForState(_ state: BeamViewControllerLoadingState) -> BeamEmptyViewType {
         switch state {
-        case .loading: return BeamEmptyViewType.Loading
-        case .noInternetConnection: return BeamEmptyViewType.Error
-        case .noAccess: return BeamEmptyViewType.MultiredditsNotLoggedIn
-        default: return self.defaultEmptyViewType
+        case .loading:
+            return BeamEmptyViewType.Loading
+        case .noInternetConnection:
+            return BeamEmptyViewType.Error
+        case .noAccess:
+            return BeamEmptyViewType.MultiredditsNotLoggedIn
+        default:
+            return self.defaultEmptyViewType
         }
     }
     
@@ -110,7 +114,7 @@ final class MultiredditsViewController: BeamTableViewController, NSFetchedResult
     }
     
     @objc fileprivate func expiredContentDeleted(_ notification: Notification) {
-        if let managedObjectContext = notification.object as? NSManagedObjectContext , managedObjectContext.deletedObjects.contains( where: { $0 is Multireddit } ) {
+        if let managedObjectContext = notification.object as? NSManagedObjectContext, managedObjectContext.deletedObjects.contains( where: { $0 is Multireddit }) {
             DispatchQueue.main.async { () -> Void in
                 self.startCollectionControllerFetching(respectingExpirationDate: false)
             }
@@ -123,7 +127,7 @@ final class MultiredditsViewController: BeamTableViewController, NSFetchedResult
         }
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @objc fileprivate func refreshContent(sender: UIRefreshControl) {
         self.startCollectionControllerFetching(respectingExpirationDate: false)
@@ -173,7 +177,7 @@ extension MultiredditsViewController {
     
 }
 
-// MARK: - UITableViewDelegate 
+// MARK: - UITableViewDelegate
 
 extension MultiredditsViewController {
     

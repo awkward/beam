@@ -12,10 +12,10 @@ extension URL {
     
     var fragmentParameters: [String: String]? {
         if let queries = fragment?.components(separatedBy: "&") {
-            var parameters = Dictionary<String, String>()
+            var parameters = [String: String]()
             for query in queries {
                 let components = query.components(separatedBy: "=")
-                if (components.count == 2) {
+                if components.count == 2 {
                     parameters[components[0]] = components[1]
                 }
             }
@@ -26,10 +26,10 @@ extension URL {
     
     var queryParameters: [String: String]? {
         if let queries = query?.components(separatedBy: "&") {
-            var parameters = Dictionary<String, String>()
+            var parameters = [String: String]()
             for query in queries {
                 let components = query.components(separatedBy: "=")
-                if (components.count == 2) {
+                if components.count == 2 {
                     parameters[components[0]] = components[1]
                 }
             }

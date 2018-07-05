@@ -8,7 +8,7 @@
 
 import UIKit
 
-enum RedditMeRequestType : String {
+enum RedditMeRequestType: String {
     case overview = ""
     case karma = "karma"
     case prefs = "prefs"
@@ -45,7 +45,9 @@ open class RedditUserRequest: RedditRequest {
     
     open override func start() {
         //Set the URL Session only if there is a token request before it. Else it will pick up the URL Session automatically from the AuthenticationController.
-        if let accessTokenRequest = self.dependencies.filter({ $0 is AccessTokenRequest }).first as? AccessTokenRequest, let session = accessTokenRequest.authenticationSession {
+        if let accessTokenRequest = self.dependencies.first(where: { (operation) -> Bool in
+            return operation is AccessTokenRequest
+        }) as? AccessTokenRequest, let session = accessTokenRequest.authenticationSession {
             self.urlSession = self.urlSessionWithAuthenticationSession(session)
         }
         
@@ -65,6 +67,5 @@ open class RedditUserRequest: RedditRequest {
         
         return URLSession(configuration: configuration)
     }
-    
     
 }

@@ -11,7 +11,7 @@ import Snoo
 
 class SubredditSearchViewSearchController: UISearchController {
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
     }
 }
@@ -22,7 +22,7 @@ class SubredditSearchViewController: BeamTableViewController, SubredditTabItemVi
     
     weak var subreddit: Subreddit? {
         didSet {
-            if let subreddit = self.subreddit, let displayName = subreddit.displayName , subreddit.isPrepopulated == false {
+            if let subreddit = self.subreddit, let displayName = subreddit.displayName, subreddit.isPrepopulated == false {
                 self.searchController.searchBar.placeholder = AWKLocalizedString("search-subreddit-placeholder").replacingOccurrences(of: "[SUBREDDIT]", with: displayName)
             } else {
                 self.searchController.searchBar.placeholder = AWKLocalizedString("search-reddit-placeholder")
@@ -79,7 +79,7 @@ class SubredditSearchViewController: BeamTableViewController, SubredditTabItemVi
 extension SubredditSearchViewController: UISearchBarDelegate {
     
     func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
-        self.resultsController.startFetching(searchBar.text);
+        self.resultsController.startFetching(searchBar.text)
     }
     
 }

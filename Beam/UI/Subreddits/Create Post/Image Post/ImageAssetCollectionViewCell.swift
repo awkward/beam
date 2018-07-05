@@ -52,8 +52,8 @@ class ImageAssetCollectionViewCell: UICollectionViewCell {
             if let imageAsset = self.imageAsset {
                 let requestOptions = PHImageRequestOptions()
                 requestOptions.resizeMode = PHImageRequestOptionsResizeMode.exact
-                let retinaImageSize = CGSize(width: imageSize.width*UIScreen.main.scale, height: imageSize.height*UIScreen.main.scale)
-                self.currentRequest = imageManager.requestImage(for: imageAsset.asset, targetSize: retinaImageSize, contentMode: contentMode, options: requestOptions, resultHandler: { (image, userInfo) in
+                let retinaImageSize = CGSize(width: imageSize.width * UIScreen.main.scale, height: imageSize.height * UIScreen.main.scale)
+                self.currentRequest = imageManager.requestImage(for: imageAsset.asset, targetSize: retinaImageSize, contentMode: contentMode, options: requestOptions, resultHandler: { (image, _) in
                     NSLog("Image Size \(image!.size)")
                     self.imageView.image = image
                 })

@@ -19,7 +19,7 @@ class LoadMoreCommentsCell: BaseCommentCell {
     override func reloadContents() {
         super.reloadContents()
         
-        if let morePlaceholder = self.comment as? MoreComment , let count = morePlaceholder.count, count.intValue > 0 {
+        if let morePlaceholder = self.comment as? MoreComment, let count = morePlaceholder.count, count.intValue > 0 {
             self.titleLabel.text = AWKLocalizedString("load-more-comments-with-count").replacingOccurrences(of: "[REPLY-COUNT]", with: "\(morePlaceholder.count!.intValue)")
         } else {
             self.titleLabel.text = AWKLocalizedString("load-more-comments-no-count")

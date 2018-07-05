@@ -47,7 +47,7 @@ class SelectionIconView: UIView {
         bezierPath.addCurve(to: CGPoint(x: 1, y: 11.5), controlPoint1: CGPoint(x: 5.7, y: 1), controlPoint2: CGPoint(x: 1, y: 5.7))
         bezierPath.addCurve(to: CGPoint(x: 11.5, y: 22), controlPoint1: CGPoint(x: 1, y: 17.3), controlPoint2: CGPoint(x: 5.7, y: 22))
         bezierPath.close()
-        bezierPath.usesEvenOddFillRule = true;
+        bezierPath.usesEvenOddFillRule = true
         
         context!.saveGState()
         context!.setShadow(offset: shadow.shadowOffset, blur: shadow.shadowBlurRadius, color: (shadow.shadowColor as! UIColor).cgColor)
@@ -56,9 +56,8 @@ class SelectionIconView: UIView {
         context!.restoreGState()
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 23, height: 23)
     }
  
-
 }

@@ -54,7 +54,7 @@ class MarkdownActionBar: BeamView {
         UIView.animate(withDuration: 0.1, animations: {
             self.boldButton.alpha = 0
             self.italicButton.alpha = 0
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 self.boldButton.isHidden = true
                 self.italicButton.isHidden = true
                 
@@ -65,7 +65,7 @@ class MarkdownActionBar: BeamView {
                 UIView.animate(withDuration: 0.1, animations: {
                     self.linkTextField.alpha = 1
                     self.addLinkButton.alpha = 1
-                    }, completion: { (finished) in
+                    }, completion: { (_) in
                         self.linkTextField.isEnabled = true
                         self.linkTextField.becomeFirstResponder()
                 })
@@ -79,7 +79,7 @@ class MarkdownActionBar: BeamView {
             self.linkTextField.alpha = 0
             self.addLinkButton.alpha = 0
             
-            }, completion: { (finished) in
+            }, completion: { (_) in
                 self.linkTextField.isHidden = true
                 self.addLinkButton.isHidden = true
                 
@@ -109,14 +109,14 @@ class MarkdownActionBar: BeamView {
         self.collapseLinkField()
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 40)
     }
     
     override func draw(_ rect: CGRect) {
-        let height = 1/UIScreen.main.scale
+        let height = 1 / UIScreen.main.scale
         let path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: height))
-        let borderColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        let borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         borderColor.setFill()
         path.fill()
     }
@@ -125,7 +125,7 @@ class MarkdownActionBar: BeamView {
         super.displayModeDidChange()
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("link-field-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("link-field-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         
         self.linkTextField.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
@@ -153,7 +153,7 @@ extension MarkdownActionBar: UITextFieldDelegate {
     }
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
-        if textField == self.linkTextField && textField.text == "http://" && (string == UIPasteboard.general.string || string == UIPasteboard.general.url?.absoluteString)  {
+        if textField == self.linkTextField && textField.text == "http://" && (string == UIPasteboard.general.string || string == UIPasteboard.general.url?.absoluteString) {
             textField.text = nil
         }
         if textField == self.linkTextField && string == UIPasteboard.general.string && !string.contains("http") {

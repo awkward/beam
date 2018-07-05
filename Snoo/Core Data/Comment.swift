@@ -48,9 +48,9 @@ open class Comment: InteractiveContent {
                 permalink = path
                 if pathComponents.count > 3 {
                     if pathComponents[3] == "comments" || pathComponents[3] == "/" {
-                        postID = pathComponents[4];
+                        postID = pathComponents[4]
                     } else {
-                        postID = pathComponents[3];
+                        postID = pathComponents[3]
                     }
                     
                 }
@@ -68,7 +68,7 @@ open class Comment: InteractiveContent {
                     post.author = postAuthor
                 }
                 if let subredditID: String = json["subreddit_id"] as? String, let subreddit: String = json["subreddit"] as? String {
-                    let subredditDictionary: [String: String] = ["name": subredditID ,"display_name": subreddit]
+                    let subredditDictionary: [String: String] = ["name": subredditID, "display_name": subreddit]
                     if let subreddit: Subreddit = try Subreddit.objectWithDictionary(subredditDictionary as NSDictionary, cache: nil, context: self.managedObjectContext!) as? Subreddit {
                         try subreddit.parseObject(subredditDictionary as NSDictionary, cache: nil)
                         post.subreddit = subreddit
@@ -85,7 +85,7 @@ open class Comment: InteractiveContent {
             }
         }
         
-        if let parentID: String = json["parent_id"] as? String , parentID.range(of: "t1_") != nil {
+        if let parentID: String = json["parent_id"] as? String, parentID.range(of: "t1_") != nil {
             let parentCommentID: String = parentID.replacingOccurrences(of: "t1_", with: "")
             if let parentComment: Comment = try Comment.objectWithIdentifier(parentCommentID, cache: nil, context: self.managedObjectContext!) as? Comment {
                 self.parent = parentComment
@@ -94,7 +94,7 @@ open class Comment: InteractiveContent {
         
     }
     
-    open override func redditDictionaryRepresentation() -> [String : Any] {
+    open override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["parent_id"] = self.parent?.objectName as AnyObject?

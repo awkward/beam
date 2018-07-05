@@ -17,7 +17,7 @@ protocol StreamAlbumViewDelegate: class {
 
 final class StreamAlbumView: UIView {
     
-    ///MARK: - Public Properties
+    /// MARK: - Public Properties
     var mediaObjects: [MediaObject]? {
         didSet {
             self.updateContents()
@@ -47,10 +47,10 @@ final class StreamAlbumView: UIView {
     
     weak var delegate: StreamAlbumViewDelegate?
     
-    //MARK: Internal properties
+    // MARK: Internal properties
     
     fileprivate var itemViewsPerRow = [[StreamAlbumItemView]]()
-    fileprivate var reusableItemViews =  Set<StreamAlbumItemView>()
+    fileprivate var reusableItemViews = Set<StreamAlbumItemView>()
     fileprivate var allItemViews: [StreamAlbumItemView] {
         var itemViews = [StreamAlbumItemView]()
         for existingItemViews in self.itemViewsPerRow {
@@ -80,7 +80,7 @@ final class StreamAlbumView: UIView {
         self.setupView()
     }
     
-    //MARK: - View contents
+    // MARK: - View contents
     
     fileprivate func setupView() {
         self.isUserInteractionEnabled = true
@@ -89,7 +89,7 @@ final class StreamAlbumView: UIView {
     
     fileprivate func heightForRow(_ row: Int) -> CGFloat {
         let itemViews = self.itemViewsPerRow[row]
-        let imageWidth = self.bounds.size.width/CGFloat(itemViews.count)
+        let imageWidth = self.bounds.size.width / CGFloat(itemViews.count)
         //All images are square, so return the imageWidth
         return imageWidth
     }
@@ -117,7 +117,7 @@ final class StreamAlbumView: UIView {
                 }
             } else if numberOfImages % StreamAlbumView.numberOfRows == 0 {
                 //We have an even number so we can evenly distribute the images over 2 rows
-                let numberOfImagesPerRow = numberOfImages/StreamAlbumView.numberOfRows
+                let numberOfImagesPerRow = numberOfImages / StreamAlbumView.numberOfRows
                 var mediaObjectIndex = 0
                 for rowIndex in 0 ..< StreamAlbumView.numberOfRows {
                     self.itemViewsPerRow.insert([StreamAlbumItemView](), at: rowIndex)
@@ -130,10 +130,10 @@ final class StreamAlbumView: UIView {
             } else {
                 //We have an uneven number, handle it!
                 var numberOfImagesPerRow = [Int]()
-                numberOfImagesPerRow.append(Int(ceil(Float(numberOfImages)/2.0)))
-                numberOfImagesPerRow.append(Int(floor(Float(numberOfImages)/2.0)))
+                numberOfImagesPerRow.append(Int(ceil(Float(numberOfImages) / 2.0)))
+                numberOfImagesPerRow.append(Int(floor(Float(numberOfImages) / 2.0)))
     
-                var mediaObjectIndex = 0;
+                var mediaObjectIndex = 0
                 for rowIndex in 0 ..< numberOfImagesPerRow.count {
                     self.itemViewsPerRow.insert([StreamAlbumItemView](), at: rowIndex)
                     for imageIndex in 0 ..< numberOfImagesPerRow[rowIndex] {
@@ -147,7 +147,7 @@ final class StreamAlbumView: UIView {
             if mediaObjects.count > numberOfImages {
                 if let itemView = self.itemViewsPerRow.last?.last {
                     //Remove the last image that contains the label from the number of images
-                    itemView.moreCount = mediaObjects.count-(numberOfImages-1)
+                    itemView.moreCount = mediaObjects.count - (numberOfImages - 1)
                 }
             }
         }
@@ -170,9 +170,9 @@ final class StreamAlbumView: UIView {
         return itemView
     }
     
-    //MARK: - Interaction
+    // MARK: - Interaction
     
-    func handleTapGestureRecognizer(_ tapGestureRecognizer: UITapGestureRecognizer) {
+    @objc func handleTapGestureRecognizer(_ tapGestureRecognizer: UITapGestureRecognizer) {
         if tapGestureRecognizer.state == UIGestureRecognizerState.ended {
             let location = tapGestureRecognizer.location(in: self)
             if let itemView = self.albumItemViewForLocation(location) {
@@ -181,7 +181,7 @@ final class StreamAlbumView: UIView {
         }
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
@@ -194,8 +194,8 @@ final class StreamAlbumView: UIView {
     
     func layoutImagesInRow(_ row: Int, yPosition: CGFloat) {
         let itemViews = self.itemViewsPerRow[row]
-        let rowHeight =  self.heightForRow(row)
-        let imageSize = CGSize(width: self.bounds.width/CGFloat(itemViews.count), height: rowHeight)
+        let rowHeight = self.heightForRow(row)
+        let imageSize = CGSize(width: self.bounds.width / CGFloat(itemViews.count), height: rowHeight)
         var imagePosition = CGPoint(x: 0, y: yPosition)
         for itemView in itemViews {
             if itemView.superview == nil {
@@ -206,11 +206,11 @@ final class StreamAlbumView: UIView {
         }
     }
     
-    //MARK: - Getting imageview and location
+    // MARK: - Getting imageview and location
     
     func albumItemViewForLocation(_ point: CGPoint) -> StreamAlbumItemView? {
         for subview in self.subviews {
-            if let itemView = subview as? StreamAlbumItemView , itemView.frame.contains(point) {
+            if let itemView = subview as? StreamAlbumItemView, itemView.frame.contains(point) {
                 return itemView
             }
         }
@@ -226,7 +226,7 @@ final class StreamAlbumView: UIView {
     }
     
     func indexOfItemView(_ itemView: StreamAlbumItemView) -> Int {
-        var index = 0;
+        var index = 0
         let itemViews = self.allItemViews
         for existingItemView in itemViews {
             if itemView == existingItemView {
@@ -238,7 +238,7 @@ final class StreamAlbumView: UIView {
     }
     
     func albumItemViewAtIndex(_ index: Int) -> StreamAlbumItemView? {
-        var inrecementIndex = 0;
+        var inrecementIndex = 0
         let itemViews = self.allItemViews
         for existingItemView in itemViews {
             if inrecementIndex == index {
@@ -249,7 +249,7 @@ final class StreamAlbumView: UIView {
         return nil
     }
     
-    //MARK: - Sizing
+    // MARK: - Sizing
     
     class func sizeWithNumberOfMediaObjects(_ numberOfMediaObjects: Int, maxWidth width: CGFloat) -> CGSize {
         let numberOfImages = min(numberOfMediaObjects, StreamAlbumView.maxNumberOfImages)
@@ -258,25 +258,25 @@ final class StreamAlbumView: UIView {
         }
         
         if numberOfImages <= self.maxRowImageCount {
-            return CGSize(width: width, height: width/CGFloat(numberOfMediaObjects))
+            return CGSize(width: width, height: width / CGFloat(numberOfMediaObjects))
         } else if numberOfImages % StreamAlbumView.numberOfRows == 0 {
             //We have an even number so we can evenly distribute the images over 2 rows
-            let numberOfImagesPerRow = numberOfImages/StreamAlbumView.numberOfRows
-            let imageWidth = width/CGFloat(numberOfImagesPerRow)
-            return CGSize(width: width, height: imageWidth*CGFloat(StreamAlbumView.numberOfRows))
+            let numberOfImagesPerRow = numberOfImages / StreamAlbumView.numberOfRows
+            let imageWidth = width / CGFloat(numberOfImagesPerRow)
+            return CGSize(width: width, height: imageWidth * CGFloat(StreamAlbumView.numberOfRows))
         } else {
             //We have an uneven number, handle it!
             var height: CGFloat = 0
             for rowIndex in 0 ..< StreamAlbumView.numberOfRows {
                 var numberOfImagesInRow: Int = 0
-                if rowIndex+1 == StreamAlbumView.numberOfRows {
+                if rowIndex + 1 == StreamAlbumView.numberOfRows {
                     //It is the last row, use floor instead of ceil
-                    numberOfImagesInRow = Int(floor(Float(numberOfImages)/Float(StreamAlbumView.numberOfRows)))
+                    numberOfImagesInRow = Int(floor(Float(numberOfImages) / Float(StreamAlbumView.numberOfRows)))
                 } else {
                     //Use ceil for rounding the number of rows
-                    numberOfImagesInRow = Int(ceil(Float(numberOfImages)/Float(StreamAlbumView.numberOfRows)))
+                    numberOfImagesInRow = Int(ceil(Float(numberOfImages) / Float(StreamAlbumView.numberOfRows)))
                 }
-                let imageWidth = width/CGFloat(numberOfImagesInRow)
+                let imageWidth = width / CGFloat(numberOfImagesInRow)
                 //Add the imageWidth to the height
                 height += imageWidth
             }
@@ -284,7 +284,7 @@ final class StreamAlbumView: UIView {
         }
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return StreamAlbumView.sizeWithNumberOfMediaObjects(self.mediaObjects?.count ?? 0, maxWidth: UIScreen.main.bounds.size.width)
     }
     

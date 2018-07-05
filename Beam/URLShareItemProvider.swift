@@ -29,7 +29,6 @@ final class URLShareItemProvider: UIActivityItemProvider {
         super.init(placeholderItem: redditUrl)
     }
 
-    
     override var item: Any {
         return self.redditUrl
     }
@@ -42,7 +41,7 @@ final class URLShareItemProvider: UIActivityItemProvider {
         return self.item
     }
     
-    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType) -> Any? {
+    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
         return self.item
     }
     

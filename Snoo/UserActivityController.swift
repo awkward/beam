@@ -76,7 +76,7 @@ public final class UserActivityController: NSObject {
             self.flushingVisits = false
             if let error = error as NSError? {
                 if error.code == 403 {
-                    //The user is no longer a gold member, however still clear the qeue! 
+                    //The user is no longer a gold member, however still clear the qeue!
                     self.visitedPostNames.removeAll()
                 }
             } else {

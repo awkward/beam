@@ -10,14 +10,13 @@ import UIKit
 import Snoo
 import CoreData
 
-
 /// SubredditTabItemViewController should be implemented by all ViewControllers in the SubredditTabBarController.
 /// This protocol will make sure the required properties are available, will add the `subredditTabBarController` property and
 /// has a method to take care of updating the navigation item with the correct title and buttons
 protocol SubredditTabItemViewController {
     
-    /// The subreddit, this property is set by the SubredditTabBarController. When this property changes, 
-    /// the navigation item should be updated by calling `updateNavigationItem()`. 
+    /// The subreddit, this property is set by the SubredditTabBarController. When this property changes,
+    /// the navigation item should be updated by calling `updateNavigationItem()`.
     /// This is also the place to update queries
     var subreddit: Subreddit? { get set }
     
@@ -27,13 +26,13 @@ protocol SubredditTabItemViewController {
     /// This represents the SubredditTabBarController if the viewController is in a SubredditTabBarController
     var subredditTabBarController: SubredditTabBarController? { get }
     
-    /// This method will update the navigation item of the view controller with the approriate buttons. 
-    /// This method should be called manually in `viewDidLoad()` and the setter of `subreddit`. Or other times when the titleView or 
+    /// This method will update the navigation item of the view controller with the approriate buttons.
+    /// This method should be called manually in `viewDidLoad()` and the setter of `subreddit`. Or other times when the titleView or
     /// items need updating (like upon subscribing/unsubscribing)
     func updateNavigationItem()
 }
 
-extension SubredditTabItemViewController where Self : UIViewController {
+extension SubredditTabItemViewController where Self: UIViewController {
     
     weak var subredditTabBarController: SubredditTabBarController? {
         return self.tabBarController as? SubredditTabBarController

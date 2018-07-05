@@ -1,4 +1,3 @@
-
 //
 //  CollectionViewLoaderFooterView.swift
 //  Beam

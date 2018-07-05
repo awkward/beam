@@ -41,7 +41,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
                 self.bannerView!.sizeToFit()
                 var layoutMargings = self.bannerView!.layoutMargins
                 //Add the inset of the section titles scrubber
-                layoutMargings.right += 20;
+                layoutMargings.right += 20
                 self.bannerView?.layoutMargins = layoutMargings
                 self.tableView.tableHeaderView = self.bannerView
             }
@@ -108,7 +108,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
                 var index: Int = 0
                 for bookmark: Subreddit in bookmarkedSubreddits {
                     bookmark.order = NSNumber(value: index)
-                    index = index + 1
+                    index += 1
                 }
             }
             
@@ -124,7 +124,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
                     
                     if currentSection == nil {
                         currentSection = SubredditsViewControllerSection(uppercaseName, subreddits)
-                    } else if currentSection!.sectionName == uppercaseName{
+                    } else if currentSection!.sectionName == uppercaseName {
                         currentSection!.subreddits.append(subreddit)
                     } else {
                         content.append(currentSection!)
@@ -202,16 +202,16 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
     }
     
     fileprivate func indexPathForSubreddit(_ subreddit: Subreddit) -> IndexPath? {
-        if let content = self.content {
-            for (sectionIdx, section) in content.enumerated() {
-                for (rowIdx, object) in section.subreddits.enumerated() {
-                    if object == subreddit {
-                        return IndexPath(row: rowIdx, section: sectionIdx)
-                    }
-                }
+        guard let content = self.content else {
+            return nil
+        }
+        for (sectionIdx, section) in content.enumerated() {
+            if let rowIndex = section.subreddits.index(where: { (object) -> Bool in
+                return object == subreddit
+            }) {
+                return IndexPath(row: rowIndex, section: sectionIdx)
             }
         }
-        
         return nil
     }
     
@@ -266,7 +266,6 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshContent(sender:)), for: .valueChanged)
         self.refreshControl = refreshControl
-        
 
     }
     
@@ -309,11 +308,11 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
             return
         }
         
-        if let notification = AppDelegate.shared.cherryController.features?.bannerNotifications?.filter( { $0.shouldDisplay == true } ).first {
-            self.bannerView = TableViewHeaderBannerView.bannerView(notification, tapHandler: { (notification) -> () in
+        if let notification = AppDelegate.shared.cherryController.features?.bannerNotifications?.first(where: { $0.shouldDisplay == true }) {
+            self.bannerView = TableViewHeaderBannerView.bannerView(notification, tapHandler: { (notification) in
                AppDelegate.shared.userNotificationsHandler.handleNotificationContent(notification.userNotificationContent)
                 self.removeBanner()
-                }, closeHandler: { (notification) -> () in
+                }, closeHandler: { (_) in
                     self.removeBanner()
             })
         } else {
@@ -331,7 +330,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
     override func setEditing(_ editing: Bool, animated: Bool) {
         super.setEditing(editing, animated: animated)
         
-        if (editing) {
+        if editing {
             self.editContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
             self.editContext?.parent = AppDelegate.shared.managedObjectContext
         } else {
@@ -352,7 +351,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
         
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func authenticatedUserDidChange(_ notification: Notification) {
         DispatchQueue.main.async { [weak self] () -> Void in
@@ -374,7 +373,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
     }
     
     @objc fileprivate func expiredContentDeleted(_ notification: Notification) {
-        if let managedObjectContext = notification.object as? NSManagedObjectContext , managedObjectContext.deletedObjects.contains( where: { $0 is Subreddit } ) {
+        if let managedObjectContext = notification.object as? NSManagedObjectContext, managedObjectContext.deletedObjects.contains( where: { $0 is Subreddit }) {
             DispatchQueue.main.async {
                 self.startCollectionControllerFetching(respectingExpirationDate: true)
             }
@@ -403,7 +402,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
         }
     }
     
-    //MARK: - Display mode
+    // MARK: - Display mode
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
@@ -414,7 +413,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
         }
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -429,7 +428,6 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
         self.previousViewSize = self.view.frame.size
     }
 }
-
 
 // MARK: - UITableViewDataSource
 
@@ -492,7 +490,7 @@ extension SubredditsViewController {
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
-        return (indexPath as IndexPath).section == 0 ? 62.5 : 44
+        return (indexPath as IndexPath).section == 0 ? 62.5: 44
     }
     
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
@@ -505,30 +503,28 @@ extension SubredditsViewController {
     
     override func tableView(_ tableView: UITableView, moveRowAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
         
-        if let sectionObjects = self.content?[(sourceIndexPath as IndexPath).section].subreddits , (sourceIndexPath as IndexPath).section == 0 && (sourceIndexPath as IndexPath).section == (destinationIndexPath as IndexPath).section && (sourceIndexPath as IndexPath).row != (destinationIndexPath as IndexPath).row {
+        if let sectionObjects = self.content?[(sourceIndexPath as IndexPath).section].subreddits, (sourceIndexPath as IndexPath).section == 0 && (sourceIndexPath as IndexPath).section == (destinationIndexPath as IndexPath).section && (sourceIndexPath as IndexPath).row != (destinationIndexPath as IndexPath).row {
             
-            if ((destinationIndexPath as IndexPath).row > (sourceIndexPath as IndexPath).row) {
+            if (destinationIndexPath as IndexPath).row > (sourceIndexPath as IndexPath).row {
                 let fromIndex = (sourceIndexPath as IndexPath).row + 1
                 let toIndex = (destinationIndexPath as IndexPath).row + 1
                 let objectsToChange = sectionObjects[fromIndex..<toIndex]
                 
                 var index = fromIndex
                 for object in objectsToChange {
-                        object.order = NSNumber(value: index-1)
+                        object.order = NSNumber(value: index - 1)
                     index += 1
                 }
                 
                 sectionObjects[sourceIndexPath.row].order = NSNumber(value: destinationIndexPath.row)
             } else {
-                
-                
                 let fromIndex = (destinationIndexPath as IndexPath).row
                 let toIndex = (sourceIndexPath as IndexPath).row
                 let objectsToChange = sectionObjects[fromIndex..<toIndex]
                 
                 var index = fromIndex
                 for object in objectsToChange {
-                    object.order = NSNumber(value: index+1)
+                    object.order = NSNumber(value: index + 1)
                     index += 1
                 }
                 
@@ -555,11 +551,11 @@ extension SubredditsViewController {
     }
     
     override func tableView(_ tableView: UITableView, targetIndexPathForMoveFromRowAt sourceIndexPath: IndexPath, toProposedIndexPath proposedDestinationIndexPath: IndexPath) -> IndexPath {
-        if (proposedDestinationIndexPath.section == 0) {
+        if proposedDestinationIndexPath.section == 0 {
             return proposedDestinationIndexPath
         } else {
             if let section0 = self.content?[0] {
-                return IndexPath(row: section0.subreddits.count-1, section: 0)
+                return IndexPath(row: section0.subreddits.count - 1, section: 0)
             } else {
                 return IndexPath(row: 0, section: 0)
             }
@@ -616,7 +612,7 @@ extension SubredditsViewController {
         
         let title = subreddit.isBookmarked.boolValue ? "Unfavorite" : "Favorite"
         let style: UIContextualAction.Style = subreddit.isBookmarked.boolValue ? .destructive : .normal
-        let favoriteAction = UIContextualAction(style: style, title: title, handler: { (action, sourceView, callback) in
+        let favoriteAction = UIContextualAction(style: style, title: title, handler: { (_, _, callback) in
             guard !subreddit.isPrepopulated else {
                 callback(false)
                 return
@@ -698,7 +694,7 @@ extension SubredditsViewController {
         var actions = [UIContextualAction]()
         
         if !subreddit.isPrepopulated {
-            let unsubscribeAction = UIContextualAction(style: .destructive, title: AWKLocalizedString("unsubscribe-button"), handler: { (action, sourceView, callback) in
+            let unsubscribeAction = UIContextualAction(style: .destructive, title: AWKLocalizedString("unsubscribe-button"), handler: { (_, _, callback) in
                 guard let subreddits = self.content?[indexPath.section].subreddits, let index = subreddits.index(of: subreddit), !subreddit.isPrepopulated else {
                     callback(false)
                     return
@@ -724,7 +720,7 @@ extension SubredditsViewController {
         DataController.shared.executeAndSaveOperations(subscribeOperations, context: AppDelegate.shared.managedObjectContext) { (error) -> Void in
             
             DispatchQueue.main.async(execute: { () -> Void in
-                Trekker.default.track(event: TrekkerEvent(event: "Unsubscribe Subreddit", properties: ["View":"Subreddits"]))
+                Trekker.default.track(event: TrekkerEvent(event: "Unsubscribe Subreddit", properties: ["View": "Subreddits"]))
                 if let error = error {
                     let message = NSString(format: AWKLocalizedString("unsubscribe_subreddit_failure") as NSString, subreddit.displayName ?? AWKLocalizedString("subreddit"), error.localizedDescription)
                     self.presentErrorMessage(message as String)
@@ -829,10 +825,10 @@ extension SubredditsViewController: CollectionControllerDelegate {
                     (controller.query as? SubredditsCollectionQuery)?.shouldFetchDefaults = true
                     self.startCollectionControllerFetching()
                 })
-            } else if let subredditsQuery = controller.query as? SubredditsCollectionQuery , subredditsQuery.shouldFetchDefaults == true{
+            } else if let subredditsQuery = controller.query as? SubredditsCollectionQuery, subredditsQuery.shouldFetchDefaults == true {
                 subredditsQuery.shouldFetchDefaults = false
             }
-        } else if let subredditsQuery = controller.query as? SubredditsCollectionQuery , subredditsQuery.shouldFetchDefaults == true && newStatus == .inMemory {
+        } else if let subredditsQuery = controller.query as? SubredditsCollectionQuery, subredditsQuery.shouldFetchDefaults == true && newStatus == .inMemory {
             subredditsQuery.shouldFetchDefaults = false
         }
     }

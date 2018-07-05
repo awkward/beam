@@ -16,8 +16,6 @@ extension Notification.Name {
     public static let RedditMessageDidSend = NSNotification.Name(rawValue: "MessageSentNotification")
 }
 
-
-
 extension Message {
     
     public func markReadOperation(_ read: Bool, authenticationController: AuthenticationController) -> Operation {
@@ -96,7 +94,7 @@ extension Message {
             guard error == nil else {
                 return
             }
-            managedObjectContext.performAndWait({ 
+            managedObjectContext.performAndWait({
                 managedObjectContext.delete(self)
             })
         }

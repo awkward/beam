@@ -40,9 +40,9 @@ public final class CollectionParsingOperation: DataOperation {
     var before: String?
     
     var requestOperation: RedditRequest? {
-        let requestOperation = self.dependencies.filter({ (operation: Operation) -> Bool in
+        let requestOperation = self.dependencies.first(where: { (operation) -> Bool in
             return operation is RedditRequest
-        }).first
+        })
         return requestOperation as? RedditRequest
     }
     
@@ -95,7 +95,7 @@ public final class CollectionParsingOperation: DataOperation {
                     self.error = error
                 }
             }
-        } else if let requestOperation = self.requestOperation , requestOperation.isCancelled == true {
+        } else if let requestOperation = self.requestOperation, requestOperation.isCancelled == true {
             self.cancelOperation()
         } else {
             if self.requestOperation == nil {
@@ -117,7 +117,7 @@ public final class CollectionParsingOperation: DataOperation {
         if self.objectCollection == nil {
             self.objectCollection = try self.fetchLocalCollection(self.query)
             
-            if (self.objectCollection == nil) {
+            if self.objectCollection == nil {
                 self.objectCollection = self.insertCollectionWithType(query.collectionType(), context: self.objectContext!)
             }
         }
@@ -132,7 +132,7 @@ public final class CollectionParsingOperation: DataOperation {
         if let jsonDict = json as? NSDictionary, let data = jsonDict["data"] as? NSDictionary {
             try self.parseRootData(data, inCollection: self.objectCollection!)
         } else if let jsonArray = json as? NSArray {
-            let lastRootObject = jsonArray[jsonArray.count-1]
+            let lastRootObject = jsonArray[jsonArray.count - 1]
             try self.parseRootData(lastRootObject as! NSDictionary, inCollection: self.objectCollection!)
         }
         
@@ -155,17 +155,16 @@ public final class CollectionParsingOperation: DataOperation {
                 }
             }
             
-            
             var types = [SyncObjectType]()
             for fullName in fullNames {
-                if let identifierAndType = try? SyncObject.identifierAndTypeWithObjectName(fullName), let type = identifierAndType?.type , !types.contains(type) {
+                if let identifierAndType = try? SyncObject.identifierAndTypeWithObjectName(fullName), let type = identifierAndType?.type, !types.contains(type) {
                     types.append(type)
                 }
             }
             
             var fetchRequests = [NSFetchRequest<SyncObject>]()
             for type in types {
-                let identifiers = fullNames.filter( { $0.hasPrefix(type.rawValue) }).map( { return SyncObject.identifierWithObjectName($0)! } )
+                let identifiers = fullNames.filter({ $0.hasPrefix(type.rawValue) }).map({ return SyncObject.identifierWithObjectName($0)! })
                 if identifiers.count > 0 {
                     let entityName = type.itemClass.entityName()
                     let fetchRequest = NSFetchRequest<SyncObject>(entityName: entityName)
@@ -184,14 +183,13 @@ public final class CollectionParsingOperation: DataOperation {
 
             }
             
-            
             let childObjects = NSMutableOrderedSet(capacity: children.count)
             
             for (childIdx, child) in children.enumerated() {
                 guard let childDictionary = child as? NSDictionary else {
                     continue
                 }
-                if (childDictionary["kind"] as? String == "Listing") && (childIdx == children.count-1) {
+                if childDictionary["kind"] as? String == "Listing" && childIdx == children.count - 1 {
                     if let data = childDictionary["data"] as? NSDictionary {
                         return try self.parseListing(data)
                     }
@@ -257,9 +255,9 @@ public final class CollectionParsingOperation: DataOperation {
             }
             
             do {
-                try object.parseObject(data, cache:cache)
+                try object.parseObject(data, cache: cache)
                 
-                if let referenceObject = object as? Content , kind != SyncObjectType.MessageType && self.query is MessageCollectionQuery {
+                if let referenceObject = object as? Content, kind != SyncObjectType.MessageType && self.query is MessageCollectionQuery {
                     
                     let message = try Message.objectWithDictionary(data, cache: cache, context: self.objectContext) as! Message
                     try message.parseObject(data, cache: cache)
@@ -303,13 +301,12 @@ public final class CollectionParsingOperation: DataOperation {
             shouldUnionSet = collectionRequest.after != nil
         }
         
-        
         // Listing
         if data["children"] != nil {
             
             let responseObjects = try self.parseListing(data)
             
-            if let oldObjects = collection.objects?.array as? [SyncObject] , self.shouldDeleteMissingMemoryObjects {
+            if let oldObjects = collection.objects?.array as? [SyncObject], self.shouldDeleteMissingMemoryObjects {
                 for oldObject in oldObjects {
                     if !responseObjects.contains(oldObject) {
                         parsedObjects.remove(oldObject)
@@ -322,7 +319,6 @@ public final class CollectionParsingOperation: DataOperation {
             } else {
                 parsedObjects = responseObjects.mutableCopy() as! NSMutableOrderedSet
             }
-            
             
             // Single Subreddit object
         } else if query is MultiredditQuery {

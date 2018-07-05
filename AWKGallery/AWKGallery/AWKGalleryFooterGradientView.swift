@@ -10,12 +10,12 @@ import UIKit
 
 public class AWKGalleryFooterGradientView: UIView {
     
-    override open class var layerClass : AnyClass {
+    override open class var layerClass: AnyClass {
         return CAGradientLayer.self
     }
     
     // The relative middle location of the gradient
-    open var relativeMidLocation: Float = 0.5 {
+    @objc open var relativeMidLocation: Float = 0.5 {
         didSet {
             self.configureView()
         }

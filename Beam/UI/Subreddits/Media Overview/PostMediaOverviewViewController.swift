@@ -10,7 +10,7 @@ import UIKit
 import Snoo
 import AWKGallery
 
-private enum PostMediaOverviewViewControllerLayout:Int {
+private enum PostMediaOverviewViewControllerLayout: Int {
     case list = 0
     case grid = 1
 }
@@ -98,11 +98,11 @@ class PostMediaOverviewViewController: BeamCollectionViewController, PostMetadat
             newLayout.minimumLineSpacing = 1
         }
         
-        collectionView?.setCollectionViewLayout(newLayout, animated: animated, completion: { (success: Bool) -> Void in
+        collectionView?.setCollectionViewLayout(newLayout, animated: animated, completion: { (_) -> Void in
             self.collectionView?.reloadData()
         })
     
-        if(self.mediaCollectionController.count > 0) {
+        if self.mediaCollectionController.count > 0 {
             collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: false)
         }
     }
@@ -123,7 +123,7 @@ class PostMediaOverviewViewController: BeamCollectionViewController, PostMetadat
         toolbar?.toolbarView.delegate = self
         toolbar?.metadataView.delegate = self
         gallery.bottomView = toolbar
-        return gallery;
+        return gallery
     }
     
 }
@@ -160,7 +160,7 @@ extension PostMediaOverviewViewController: PostToolbarViewDelegate {
 extension PostMediaOverviewViewController: UICollectionViewDelegateFlowLayout {
 
     func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let mediaObject = self.mediaCollectionController.itemAtIndexPath(indexPath) , layout == .list {
+        if let mediaObject = self.mediaCollectionController.itemAtIndexPath(indexPath), layout == .list {
             let sectionInset = flowLayout.sectionInset
             let imageWidth = collectionView.bounds.width - sectionInset.left - sectionInset.right
             let imageHeight = imageWidth / self.imagesInRow * (self.imagesInRow - 1)
@@ -283,7 +283,7 @@ extension PostMediaOverviewViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true;
+            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
             self.presentGalleryViewController(galleryViewController, sourceView: nil)
         }
     }

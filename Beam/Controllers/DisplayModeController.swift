@@ -20,8 +20,10 @@ func DisplayModeValue<T>(_ defaultValue: T, darkValue: T) -> T {
         return defaultValue
     #endif
     switch AppDelegate.shared.displayModeController.currentMode {
-    case .dark: return darkValue
-    default: return defaultValue
+    case .dark:
+        return darkValue
+    default:
+        return defaultValue
     }
 }
 
@@ -41,7 +43,7 @@ class DisplayModeController: NSObject {
     var brightnessReference: Float = 0.5 {
         didSet {
             if self.brightnessReference != oldValue {
-                if let timer = brightnessTimer  {
+                if let timer = brightnessTimer {
                     self.brightnessTimerFired(timer)
                 }
             }
@@ -66,9 +68,7 @@ class DisplayModeController: NSObject {
     }
     
     var shouldUseDarkModeBasedOnBrightness: Bool {
-        get {
-            return UIScreen.main.brightness < CGFloat(self.brightnessReference)
-        }
+        return UIScreen.main.brightness < CGFloat(self.brightnessReference)
     }
     
     override init() {
@@ -84,8 +84,8 @@ class DisplayModeController: NSObject {
         self.updateCurrentMode()
     }
     
-    func userSettingChanged(_ notification:Notification) {
-        if notification.object as? SettingsKey == SettingsKeys.nightModeEnabled || notification.object as? SettingsKey == SettingsKeys.nightModeAutomaticEnabled ||  notification.object as? SettingsKey == SettingsKeys.nightModeAutomaticThreshold {
+    @objc func userSettingChanged(_ notification: Notification) {
+        if notification.object as? SettingsKey == SettingsKeys.nightModeEnabled || notification.object as? SettingsKey == SettingsKeys.nightModeAutomaticEnabled || notification.object as? SettingsKey == SettingsKeys.nightModeAutomaticThreshold {
            self.updateSettings()
         }
     }
@@ -118,9 +118,5 @@ class DisplayModeController: NSObject {
         self.brightnessReference = UserSettings[.nightModeAutomaticThreshold]
         self.updateCurrentMode()
     }
-    
-
-    
-    
     
 }

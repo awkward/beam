@@ -33,6 +33,8 @@ class DonateThankYouViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupView()
+        
         NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
         
         NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
@@ -42,13 +44,11 @@ class DonateThankYouViewController: BeamViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override var prefersStatusBarHidden : Bool {
+    override var prefersStatusBarHidden: Bool {
         return true
     }
     
-    override func loadView() {
-        super.loadView()
-        
+    private func setupView() {
         let tintColor = UIColor.beamColor()
         let cornerRadius: CGFloat = 3
         
@@ -57,7 +57,6 @@ class DonateThankYouViewController: BeamViewController {
         
         //Text
         self.textLabel.text = AWKLocalizedString("donate-thankyou-message")
-        
         
         //Connect button
         self.closeButton.setTitle(AWKLocalizedString("close-button"), for: UIControlState())
@@ -87,7 +86,7 @@ class DonateThankYouViewController: BeamViewController {
             }, completion: nil)
     }
     
-    func applicationStateChanged(_ notification: Notification) {
+    @objc func applicationStateChanged(_ notification: Notification) {
         self.backgroundView.paused = (UIApplication.shared.applicationState != .active)
     }
     

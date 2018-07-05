@@ -26,7 +26,7 @@ class ButtonBar: UIControl {
                 let button = UIButton(type: UIButtonType.system)
                 button.setTitle(item.title, for: UIControlState())
                 button.setTitleColor(UIColor.beamGrey(), for: UIControlState())
-                button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFontWeightMedium)
+                button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
                 button.addTarget(self, action: #selector(ButtonBar.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
                 return button
             })
@@ -99,7 +99,7 @@ class ButtonBar: UIControl {
         if let buttons = buttons {
             for (index, button) in buttons.enumerated() {
                 let deselectedColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-                button.setTitleColor(self.selectedItemIndex == index ? self.tintColor : deselectedColor, for: UIControlState())
+                button.setTitleColor(self.selectedItemIndex == index ? self.tintColor: deselectedColor, for: UIControlState())
             }
         }
     }
@@ -107,7 +107,7 @@ class ButtonBar: UIControl {
     override func layoutSubviews() {
         super.layoutSubviews()
         
-        if let buttons = buttons , buttons.count > 0 {
+        if let buttons = buttons, buttons.count > 0 {
             for (idx, button) in buttons.enumerated() {
                 button.frame = buttonRectAtIndex(idx)
             }
@@ -133,38 +133,35 @@ class ButtonBar: UIControl {
     override func draw(_ rect: CGRect) {
         super.draw(rect)
         
-        if let buttons = buttons {
-            for (index, _) in buttons.enumerated() {
-                if index > 0 {
-                    let buttonFrame = self.buttonRectAtIndex(index)
-                    
-                    guard let context: CGContext = UIGraphicsGetCurrentContext() else {
-                        return
-                    }
-                    let lineHeight = 0.5 * buttonFrame.height
-                    context.move(to: CGPoint(x: buttonFrame.minX, y: buttonFrame.midY - lineHeight * 0.5))
-                    context.setLineWidth(1.0 / UIScreen.main.scale)
-                    let strokeColor = self.displayMode == .default ? UIColor.beamSeparator() : UIColor.beamDarkTableViewSeperatorColor()
-                    strokeColor.setStroke()
-                    context.addLine(to: CGPoint(x: buttonFrame.minX, y: buttonFrame.midY + lineHeight * 0.5))
-                    context.strokePath()
-                    
-                }
+        buttons?.indices.forEach({ (index) in
+            if index > 0 {
+                let buttonFrame = self.buttonRectAtIndex(index)
                 
-                if let buttonItem = self.items?[index] , buttonItem.showsBadge == true {
-                    let badgeSize = CGSize(width: 6, height: 6)
-                    let titleFrame = self.buttons?[index].titleLabel?.frame ?? CGRect.zero
-                    let buttonFrame = self.buttonRectAtIndex(index)
-                    
-                    let xPosition = buttonFrame.origin.x+titleFrame.origin.x+1+titleFrame.width
-                    let yPosition = buttonFrame.origin.y+titleFrame.origin.y+(badgeSize.height/2)
-                    let path = UIBezierPath(ovalIn: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: badgeSize))
-                    self.tintColor.setFill()
-                    path.fill()
+                guard let context: CGContext = UIGraphicsGetCurrentContext() else {
+                    return
                 }
+                let lineHeight = 0.5 * buttonFrame.height
+                context.move(to: CGPoint(x: buttonFrame.minX, y: buttonFrame.midY - lineHeight * 0.5))
+                context.setLineWidth(1.0 / UIScreen.main.scale)
+                let strokeColor = self.displayMode == .default ? UIColor.beamSeparator() : UIColor.beamDarkTableViewSeperatorColor()
+                strokeColor.setStroke()
+                context.addLine(to: CGPoint(x: buttonFrame.minX, y: buttonFrame.midY + lineHeight * 0.5))
+                context.strokePath()
                 
             }
-        }
+            
+            if let buttonItem = self.items?[index], buttonItem.showsBadge == true {
+                let badgeSize = CGSize(width: 6, height: 6)
+                let titleFrame = self.buttons?[index].titleLabel?.frame ?? CGRect.zero
+                let buttonFrame = self.buttonRectAtIndex(index)
+                
+                let xPosition = buttonFrame.origin.x + titleFrame.origin.x + 1 + titleFrame.width
+                let yPosition = buttonFrame.origin.y + titleFrame.origin.y + (badgeSize.height / 2)
+                let path = UIBezierPath(ovalIn: CGRect(origin: CGPoint(x: xPosition, y: yPosition), size: badgeSize))
+                self.tintColor.setFill()
+                path.fill()
+            }
+        })
     }
 
 }

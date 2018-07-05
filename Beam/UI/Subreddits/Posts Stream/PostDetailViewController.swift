@@ -62,9 +62,7 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
         super.init(coder: aDecoder)
     }
     
-    override func loadView() {
-        super.loadView()
-        
+    private func setupView() {
         self.embeddedViewController.view.frame = self.view.bounds
         self.embeddedViewController.willMove(toParentViewController: self)
         self.addChildViewController(self.embeddedViewController)
@@ -82,7 +80,7 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
         let widthConstraint = NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
-        widthConstraint.priority = UILayoutPriorityDefaultHigh
+        widthConstraint.priority = UILayoutPriority.defaultHigh
         self.embeddedViewController.view.addConstraint(widthConstraint)
         
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": self.embeddedViewController.view]))
@@ -97,6 +95,8 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupView()
         
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItemStyle.plain, target: self.embeddedViewController, action: #selector(PostDetailEmbeddedViewController.composeTapped(_:)))
     
@@ -248,8 +248,6 @@ class PostDetailEmbeddedViewController: StreamViewController {
         if self.presentedViewController == nil {
             self.commentsDataSource.createThreads()
         }
-
-        
     }
     
     @objc fileprivate func composeTapped(_ sender: AnyObject) {
@@ -280,7 +278,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
             self.reloadCommentsLoadingState()
             return
         }
-        self.commentsDataSource.fetchComments { (collectionID, error) -> Void in
+        self.commentsDataSource.fetchComments { (_, error) -> Void in
             DispatchQueue.main.async(execute: { () -> Void in
                 if error != nil {
                     self.presentErrorMessage(AWKLocalizedString("error-loading-comments"))
@@ -304,12 +302,12 @@ class PostDetailEmbeddedViewController: StreamViewController {
     fileprivate func reloadCommentsLoadingState() {
         var view: CommentsFooterView? = nil
         
-        let isFetching: Bool =  self.commentsDataSource.status == .fetching
+        let isFetching: Bool = self.commentsDataSource.status == .fetching
         
         if let content: [Content] = self.content, let threads: [[Comment]] = self.commentsDataSource.threads {
             if threads.count == 0 && content.count > 0 && isFetching == true {
                 self.commentsFooterView.state = CommentsFooterViewState.loading
-                let height: CGFloat = self.view.frame.height-self.commentsHeaderView.frame.height-self.topLayoutGuide.length
+                let height: CGFloat = self.view.frame.height - self.commentsHeaderView.frame.height - self.topLayoutGuide.length
                 self.commentsFooterView.height = height
                 view = self.commentsFooterView
             }
@@ -329,7 +327,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
         }
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func commentPosted(_ notification: Notification) {
         DispatchQueue.main.async {
@@ -368,9 +366,9 @@ class PostDetailEmbeddedViewController: StreamViewController {
     
     override func postDidChangeSavedState(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            if let post = notification.object as? Post , post.isSaved.boolValue == true && self.content?.contains(post) == true {
+            if let post = notification.object as? Post, post.isSaved.boolValue == true && self.content?.contains(post) == true {
                 self.presentSuccessMessage(AWKLocalizedString("post-saved-succesfully"))
-            } else if let comment = notification.object as? Comment , comment.isSaved.boolValue == true {
+            } else if let comment = notification.object as? Comment, comment.isSaved.boolValue == true {
                 self.presentSuccessMessage(AWKLocalizedString("comment-saved-succesfully"))
             }
         }
@@ -380,23 +378,23 @@ class PostDetailEmbeddedViewController: StreamViewController {
         //We want custom behavior if the currently displayed post is hidden. In the case the current post is hidden, we just want to close the view. Calling super could cause a crash because it wants to reload a post that no longer exists
         if let content = self.content, let post = notification.object as? Post, content.contains(post) == true {
             _ = self.navigationController?.popViewController(animated: true)
-        }   else {
+        } else {
             super.postDidChangeHiddenFlag(notification)
         }
     }
     
     //Translates the indexPath to one for the comments. This just makes the section start at 0
     func commentIndexPath(_ indexPath: IndexPath) -> IndexPath {
-        return IndexPath(row: (indexPath as IndexPath).row, section: (indexPath as IndexPath).section-1)
+        return IndexPath(row: (indexPath as IndexPath).row, section: (indexPath as IndexPath).section - 1)
     }
     
-    //MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         if let content = self.content, content.count > 0 {
             //Add comments count
             let threadCount: Int = (self.commentsDataSource.threads?.count ?? 0)
-            return 1+max(threadCount, 1)
+            return 1 + max(threadCount, 1)
         }
         return 0
     }
@@ -406,7 +404,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
             return super.tableView(tableView, numberOfRowsInSection: section)
         } else {
             //Comments count
-            return self.commentsDataSource.commentsAtIndex(section-1)?.count ?? 0
+            return self.commentsDataSource.commentsAtIndex(section - 1)?.count ?? 0
         }
     }
     
@@ -427,7 +425,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat{
+    override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath as IndexPath).section == 0 {
             return super.tableView(tableView, heightForRowAt: indexPath)
         } else if let comment = self.commentsDataSource.commentAtIndexPath(self.commentIndexPath(indexPath)) {
@@ -445,7 +443,6 @@ class PostDetailEmbeddedViewController: StreamViewController {
         return 60
     }
     
-
     override func tableView(_ tableView: UITableView, viewForHeaderInSection section: Int) -> UIView? {
         if section == 1 {
             return self.commentsHeaderView
@@ -467,14 +464,14 @@ class PostDetailEmbeddedViewController: StreamViewController {
         if section == 0 {
             return ThumbnailsViewType.large.footerSpacingHeight(atIndex: section)
         } else {
-            if section == tableView.numberOfSections-1 {
+            if section == tableView.numberOfSections - 1 {
                 return 8
             }
             return 4
         }
     }
     
-    //MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         super.tableView(tableView, willDisplay: cell, forRowAt: indexPath)
@@ -493,7 +490,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
                     let storyboard = UIStoryboard(name: "Comments", bundle: nil)
                     let viewController = storyboard.instantiateViewController(withIdentifier: "comments") as! CommentsViewController
                     let childQuery = CommentCollectionQuery()
-                    childQuery.parentComment = self.commentsDataSource.commentAtIndexPath(IndexPath(row: newIndexPath.row-1, section: indexPath.section-1))
+                    childQuery.parentComment = self.commentsDataSource.commentAtIndexPath(IndexPath(row: newIndexPath.row - 1, section: indexPath.section - 1))
                     childQuery.post = self.commentsDataSource.query.post
                     childQuery.sortType = self.commentsDataSource.query.sortType
                     viewController.query = childQuery

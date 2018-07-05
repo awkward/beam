@@ -21,7 +21,7 @@ class ImagePostCollectionHeaderView: BeamCollectionReusableView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.seperatorViewHeightConstraint.constant = 1/UIScreen.main.scale
+        self.seperatorViewHeightConstraint.constant = 1 / UIScreen.main.scale
     }
     
     var titleTextField: UITextField? {
@@ -64,7 +64,7 @@ class ImagePostCollectionHeaderView: BeamCollectionReusableView {
         self.descriptionTextFieldHolder.backgroundColor = backgroundColor
         self.backgroundColor = backgroundColor
         
-        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
     }
     
 }

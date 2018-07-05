@@ -134,7 +134,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.settingDidChange(_:)), name: .SubredditNSFWOverlaySettingDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.settingDidChange(_:)), name: .SubredditSpoilerOverlaySettingDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.contextDidSaveNotification(_:)) , name: .NSManagedObjectContextDidSave, object: AppDelegate.shared.managedObjectContext)
+        NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.contextDidSaveNotification(_:)), name: .NSManagedObjectContextDidSave, object: AppDelegate.shared.managedObjectContext)
         
         let insets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
         self.collectionView?.contentInset = insets
@@ -156,7 +156,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
             self.startLoadingMoreContentIfPossible()
         }
         
-        if self.presentedViewController == nil  {
+        if self.presentedViewController == nil {
             Trekker.default.track(event: TrekkerEvent(event: "Use media view"))
         }
         
@@ -181,7 +181,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         DispatchQueue.main.async { () -> Void in
             
             // Check whether the subreddit in the collection query changed outside of the known collection controller
-            if let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>, let postsSubreddit = self.subreddit , self.mediaCollectionController?.status == CollectionControllerStatus.inMemory {
+            if let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? Set<NSManagedObject>, let postsSubreddit = self.subreddit, self.mediaCollectionController?.status == CollectionControllerStatus.inMemory {
                 if updatedObjects.contains(postsSubreddit) {
                     self.mediaCollectionController?.reloadMedia()
                 }
@@ -272,25 +272,25 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
     fileprivate func showTimeFrameActionSheet(_ sortType: CollectionSortType, sortingBar: ScrollableButtonBar) {
         let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisHour)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .today)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisWeek)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisMonth)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisYear)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .allTime)
         }))
-        alertController.addCancelAction { (action) in
+        alertController.addCancelAction { (_) in
             self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.mediaCollectionController?.sortType ?? .hot)
         }
         
@@ -368,14 +368,13 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         gallery.dataSource = self
         gallery.delegate = self
 
-        
         let postToolbarXib = UINib(nibName: "GalleryPostBottomView", bundle: nil)
         let toolbar = postToolbarXib.instantiate(withOwner: nil, options: nil).first as? GalleryPostBottomView
         toolbar?.post = post
         toolbar?.toolbarView.delegate = self
         toolbar?.metadataView.delegate = self
         
-        let shouldShowSubreddit = (self.subreddit is Multireddit || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier) &&  UserSettings[.showPostMetadataSubreddit] &&  UserSettings[.showPostMetadata]
+        let shouldShowSubreddit = (self.subreddit is Multireddit || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier) && UserSettings[.showPostMetadataSubreddit] && UserSettings[.showPostMetadata]
         toolbar?.shouldShowSubreddit = shouldShowSubreddit
         
         gallery.bottomView = toolbar
@@ -384,30 +383,33 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         
         gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItemStyle.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
         
-        
         return gallery
     }
 }
 
 // MARK: - UICollectionViewDataSource
-extension SubredditMediaOverviewViewController {
+extension SubredditMediaOverviewViewController: UICollectionViewDataSource {
+    
+    func numberOfSections(in collectionView: UICollectionView) -> Int {
+        return 1
+    }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return self.mediaCollectionController?.count ?? 0
     }
     
-    func collectionView(_ collectionView: UICollectionView, cellForItemAtIndexPath indexPath: IndexPath) -> UICollectionViewCell {
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let post = self.mediaCollectionController?.itemAtIndexPath(indexPath)
         let cellIdentifier = "media"
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellIdentifier, for: indexPath) as! MediaOverviewCollectionViewCell
         cell.isOpaque = false
         cell.mediaObject = post?.mediaObjects?.firstObject as? Snoo.MediaObject
-        cell.shouldShowNSFWOverlay = self.subreddit?.shouldShowNSFWOverlay() ??  UserSettings[.showPrivacyOverlay]
+        cell.shouldShowNSFWOverlay = self.subreddit?.shouldShowNSFWOverlay() ?? UserSettings[.showPrivacyOverlay]
         cell.shouldShowSpoilerOverlay = self.subreddit?.shouldShowSpoilerOverlay() ?? UserSettings[.showSpoilerOverlay]
         return cell
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: IndexPath) -> UICollectionReusableView {
+    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         if kind == UICollectionElementKindSectionFooter {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "loader", for: indexPath) as! CollectionViewLoaderFooterView
             return view
@@ -422,7 +424,7 @@ extension SubredditMediaOverviewViewController {
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
         
         //Determine if the user is in the "load more" scroll region
-        if (scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height && (scrollView.isDragging || scrollView.isDecelerating)) {
+        if scrollView.contentOffset.y > scrollView.contentSize.height - scrollView.bounds.height && (scrollView.isDragging || scrollView.isDecelerating) {
             self.startLoadingMoreContentIfPossible()
         } else {
             self.hasEnteredLoadMoreState = false
@@ -477,7 +479,7 @@ extension SubredditMediaOverviewViewController: UICollectionViewDelegateFlowLayo
                 galleryViewController.transitioningDelegate = oldTransitioningDelegate
             }
             
-            if let count = self.mediaCollectionController?.count , indexPath.row >= count-5 {
+            if let count = self.mediaCollectionController?.count, indexPath.row >= count - 5 {
                 self.startLoadingMoreContentIfPossible()
             }
         }
@@ -511,8 +513,8 @@ extension SubredditMediaOverviewViewController: AWKGalleryDataSource {
         return 0
     }
     
-    func gallery(_ galleryViewController: AWKGalleryViewController, contentViewControllerFor item: AWKGalleryItem) -> UIViewController? {
-        if let image = item as? GalleryItem, let mediaObject = image.mediaObject, let post = mediaObject.content as? Post , (post.mediaObjects?.count ?? 0) > 1 {
+    func gallery(_ galleryViewController: AWKGalleryViewController, contentViewControllerFor item: AWKGalleryItem) -> (UIViewController & AWKGalleryItemContent)? {
+        if let image = item as? GalleryItem, let mediaObject = image.mediaObject, let post = mediaObject.content as? Post, (post.mediaObjects?.count ?? 0) > 1 {
             let storyboard = UIStoryboard(name: "MediaOverview", bundle: nil)
             if let albumViewController = storyboard.instantiateViewController(withIdentifier: "gallery-album") as? GalleryAlbumContentViewController {
                 albumViewController.galleryViewController = galleryViewController
@@ -555,14 +557,14 @@ extension SubredditMediaOverviewViewController: AWKGalleryDelegate {
             let toIndexPath = IndexPath(item: itemIndex, section: 0)
             self.collectionView?.cellForItem(at: toIndexPath)?.contentView.isHidden = true
             
-            if let count = self.mediaCollectionController?.count , itemIndex >= count-5 {
+            if let count = self.mediaCollectionController?.count, itemIndex >= count - 5 {
                 self.startLoadingMoreContentIfPossible()
             }
         }
         
     }
     
-    func gallery(_ galleryViewController: AWKGalleryViewController, shouldBeDismissedWithCustomContentViewController viewController: UIViewController) {
+    func gallery(_ galleryViewController: AWKGalleryViewController, shouldBeDismissedWithCustomContentViewController viewController: UIViewController & AWKGalleryItemContent) {
         
         let oldTransitioningDelegate = galleryViewController.transitioningDelegate
         
@@ -632,9 +634,7 @@ extension SubredditMediaOverviewViewController: UIViewControllerTransitioningDel
         if let currentItem = gallery.currentItem as? GalleryItem,
             let post = currentItem.mediaObject?.content as? Post,
             let indexPath = self.mediaCollectionController?.indexPathForCollectionItem(post),
-            let cell = self.collectionView?.cellForItem(at: indexPath) as? MediaOverviewCollectionViewCell
-            , post.mediaObjects?.count ?? 0 > 0 {
-                
+            let cell = self.collectionView?.cellForItem(at: indexPath) as? MediaOverviewCollectionViewCell, post.mediaObjects?.count ?? 0 > 0 {
                 let animator = GalleryAlbumItemAnimator()
                 animator.sourceView = cell.mediaImageView
                 animator.dismissal = dismissal
@@ -650,7 +650,7 @@ extension SubredditMediaOverviewViewController: UIViewControllerTransitioningDel
 extension SubredditMediaOverviewViewController: SubredditMediaCollectionControllerDelegate {
     
     func mediaCollectionController(_ controller: SubredditMediaCollectionController, didChangeCollection collection: [Post]?) {
-        DispatchQueue.main.async { 
+        DispatchQueue.main.async {
             if self.mediaCollectionController?.count ?? 0 == 0 {
                 self.loadingState = BeamViewControllerLoadingState.empty
             } else {
@@ -698,7 +698,7 @@ extension SubredditMediaOverviewViewController: SubredditMediaCollectionControll
             let postTitle: String? = content.title
             let subredditName: String? = content.subreddit?.displayName
             //containsString and length are faster on NSString than on swift string
-            if let keywords: [String] = subreddit.filterKeywords, let title: NSString = postTitle?.lowercased() as NSString? , title.length > 0 {
+            if let keywords: [String] = subreddit.filterKeywords, let title: NSString = postTitle?.lowercased() as NSString?, title.length > 0 {
                 for filterKeyword: String in keywords {
                     if title.contains(filterKeyword) {
                         //If it contains the keyword, we don't want to continue!
@@ -709,13 +709,11 @@ extension SubredditMediaOverviewViewController: SubredditMediaCollectionControll
             
             //containsString and length are faster on NSString than on swift string
             if shouldFilterSubreddits {
-                if let filterSubreddits: [String] = subreddit.filterSubreddits, let subreddit: NSString = subredditName?.lowercased() as NSString? , subreddit.length > 0 {
-                    for keyword: String in filterSubreddits {
-                        if subreddit as String == keyword {
-                            //If it contains the keyword, we don't want to continue!
-                            return false
-                        }
-                    }
+                if let filterSubreddits: [String] = subreddit.filterSubreddits, let subreddit = subredditName?.lowercased(), subreddit.count > 0 {
+                    //If it contains the keyword, we don't want to continue!
+                    return !filterSubreddits.contains(where: { (keyword) -> Bool in
+                        return subreddit == keyword
+                    })
                 }
             }
             
@@ -738,8 +736,8 @@ extension SubredditMediaOverviewViewController: UIToolbarDelegate {
 // MARK: - NavigationBarNotificationDisplayingDelegate
 extension SubredditMediaOverviewViewController: NavigationBarNotificationDisplayingDelegate {
     
-    func topViewForDisplayOfnotificationView<NotificationView : UIView>(_ view: NotificationView) -> UIView? where NotificationView : NavigationBarNotification {
-        return self.sortingBar.superview;
+    func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
+        return self.sortingBar.superview
     }
 }
 
@@ -777,7 +775,7 @@ extension SubredditMediaOverviewViewController: UIViewControllerPreviewingDelega
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
         if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true;
+            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
             self.presentGalleryViewController(galleryViewController, sourceView: nil)
         }
     }

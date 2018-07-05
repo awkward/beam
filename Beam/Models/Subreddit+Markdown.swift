@@ -30,5 +30,4 @@ extension Subreddit {
             objc_setAssociatedObject(self, &SubredditMarkdownStringAssociationKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
         }
     }
-    
 }

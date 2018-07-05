@@ -28,7 +28,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     }
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.filter( { $0 is StreamViewController } ).first as? StreamViewController
+        return self.childViewControllers.first(where: { $0 is StreamViewController }) as? StreamViewController
     }
     
     weak var subreddit: Subreddit? {
@@ -55,9 +55,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     
     fileprivate var requestTimer: Timer?
     
-    override func loadView() {
-        super.loadView()
-        
+    private func setupView() {
         let storyboard = UIStoryboard(name: "Stream", bundle: nil)
         if let streamViewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamViewController.useCompactViewMode = true
@@ -78,7 +76,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
             
             //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
             let widthConstraint = NSLayoutConstraint(item: streamViewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
-            widthConstraint.priority = UILayoutPriorityDefaultHigh
+            widthConstraint.priority = UILayoutPriority.defaultHigh
             streamViewController.view.addConstraint(widthConstraint)
             
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": streamViewController.view]))
@@ -98,6 +96,8 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupView()
         
         self.streamViewController?.hidingButtonBarDelegate = self
         
@@ -134,7 +134,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     
     func startFetching(_ searchText: String? = nil) {
         self.streamViewController?.cancelCollectionControllerFetching()
-        if let searchText = searchText , searchText.count > 0 {
+        if let searchText = searchText, searchText.count > 0 {
             self.query?.searchKeywords = searchText
         }
         self.streamViewController?.startCollectionControllerFetching()
@@ -157,25 +157,25 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
     fileprivate func showTimeFrameActionSheet(_ sortType: CollectionSortType, sortingBar: ScrollableButtonBar) {
         let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisHour)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .today)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisWeek)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisMonth)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisYear)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .allTime)
         }))
-        alertController.addCancelAction { (action) in
+        alertController.addCancelAction { (_) in
             self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.streamViewController?.query?.sortType ?? CollectionSortType.relevance)
         }
         
@@ -241,7 +241,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
         }
     }
     
-    //MARK: - Request timer
+    // MARK: - Request timer
     
     fileprivate func startRequestTimer() {
         self.invalidateRequestTimer()
@@ -294,7 +294,7 @@ extension SubredditSearchResultsViewController: UIToolbarDelegate {
 
 extension SubredditSearchResultsViewController: NavigationBarNotificationDisplayingDelegate {
     
-    func topViewForDisplayOfnotificationView<NotificationView : UIView>(_ view: NotificationView) -> UIView? where NotificationView : NavigationBarNotification {
-        return self.sortingBar.superview;
+    func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
+        return self.sortingBar.superview
     }
 }

@@ -31,7 +31,7 @@ open class RedditSubmitRequest: RedditRequest {
     
     override open var urlRequest: URLRequest? {
         get {
-            let url =  Foundation.URL(string: "/api/submit", relativeTo: self.oauthBaseURL as URL)
+            let url = Foundation.URL(string: "/api/submit", relativeTo: self.oauthBaseURL as URL)
             var urlComponents = URLComponents(url: url!, resolvingAgainstBaseURL: true)
             urlComponents?.queryItems = [URLQueryItem(name: "api_type", value: "json")]
             if let requestURL = urlComponents?.url {

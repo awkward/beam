@@ -12,7 +12,7 @@ import TTTAttributedLabel
 extension MarkdownStylesheet {
 
     public static func beamStyleSheet(_ textStyle: UIFontTextStyle, darkmode: Bool = false) -> MarkdownStylesheet {
-        let textColor = darkmode ? UIColor(red: 214/255, green: 214/255, blue: 214/255, alpha: 1) : UIColor(red: 65/255, green: 65/255, blue: 65/255, alpha:1.00000)
+        let textColor = darkmode ? UIColor(red: 214 / 255, green: 214 / 255, blue: 214 / 255, alpha: 1) : UIColor(red: 65 / 255, green: 65 / 255, blue: 65 / 255, alpha: 1.00000)
         let headlineColor = textColor
         let baseFont: UIFont!
         if textStyle == .subheadline {
@@ -26,31 +26,32 @@ extension MarkdownStylesheet {
         }
         
         let stylesheet = MarkdownStylesheet.systemStylesheetWithBaseFont(baseFont)
-        var attributes: [MarkdownElementType: [String: Any]] = stylesheet.attributes
+        var attributes: [MarkdownElementType: [NSAttributedStringKey: Any]] = stylesheet.attributes
         
         let lineHeight: CGFloat? = ceil(baseFont.lineHeight)
         
         for element in attributes.keys {
-            var elementAttributes: [String: Any] = attributes[element]!
+            var elementAttributes: [NSAttributedStringKey: Any] = attributes[element]!
             
             //Adjust the colors
             if element == .h1 || element == .h2 || element == .h3 {
-                elementAttributes[NSForegroundColorAttributeName] = headlineColor
+                elementAttributes[NSAttributedStringKey.foregroundColor] = headlineColor
             } else if element == .quote {
-                elementAttributes[NSForegroundColorAttributeName] = textColor.withAlphaComponent(0.8)
+                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor.withAlphaComponent(0.8)
             } else {
-                elementAttributes[NSForegroundColorAttributeName] = textColor
+                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor
             }
             
             //Add the custom striketrougk
             if element == .strikethrough {
-                elementAttributes[kTTTStrikeOutAttributeName] = true
+                //elementAttributes[kTTTStrikeOutAttributeName] = true
+                //TODO: Add strikethrough
             }
             
             if lineHeight != nil {
                 //Adjust the paragraph style
                 var paragraphStyle: NSMutableParagraphStyle!
-                if let existingParagraphStyle = elementAttributes[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+                if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
                     paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -58,7 +59,7 @@ extension MarkdownStylesheet {
                 paragraphStyle.minimumLineHeight = lineHeight!
                 paragraphStyle.maximumLineHeight = lineHeight!
                 
-                elementAttributes[NSParagraphStyleAttributeName] = paragraphStyle
+                elementAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
             }
             
             attributes[element] = elementAttributes
@@ -67,37 +68,37 @@ extension MarkdownStylesheet {
     }
 
     public static func beamCommentsStyleSheet(_ darkmode: Bool = false) -> MarkdownStylesheet {
-        let textColor = darkmode ? UIColor(red: 167/255, green: 167/255, blue: 167/255, alpha: 1) : UIColor(red: 65/255, green: 65/255, blue: 65/255, alpha:1.00000)
+        let textColor = darkmode ? UIColor(red: 167 / 255, green: 167 / 255, blue: 167 / 255, alpha: 1) : UIColor(red: 65 / 255, green: 65 / 255, blue: 65 / 255, alpha: 1.00000)
         let headlineColor = textColor
          let fontSize: CGFloat = FontSizeController.adjustedFontSize(14)
         let baseFont = UIFont.systemFont(ofSize: fontSize)
         let stylesheet = MarkdownStylesheet.systemStylesheetWithBaseFont(baseFont)
-        var attributes: [MarkdownElementType: [String: Any]] = stylesheet.attributes
-        
+        var attributes: [MarkdownElementType: [NSAttributedStringKey: Any]] = stylesheet.attributes
         
         let lineHeight: CGFloat? = FontSizeController.adjustedLineHeight(20)
         
         for element in attributes.keys {
-            var elementAttributes: [String: Any] = attributes[element]!
+            var elementAttributes: [NSAttributedStringKey: Any] = attributes[element]!
             
             //Adjust the colors
             if element == .h1 || element == .h2 || element == .h3 {
-                elementAttributes[NSForegroundColorAttributeName] = headlineColor
+                elementAttributes[NSAttributedStringKey.foregroundColor] = headlineColor
             } else if element == .quote {
-                elementAttributes[NSForegroundColorAttributeName] = textColor.withAlphaComponent(0.8)
+                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor.withAlphaComponent(0.8)
             } else {
-                elementAttributes[NSForegroundColorAttributeName] = textColor
+                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor
             }
             
             //Add the custom striketrougk
             if element == .strikethrough {
-                elementAttributes[kTTTStrikeOutAttributeName] = true
+                //elementAttributes[kTTTStrikeOutAttributeName] = true
+                //TODO: Bring striketrhough back
             }
         
             if lineHeight != nil {
                 //Adjust the paragraph style
                 var paragraphStyle: NSMutableParagraphStyle!
-                if let existingParagraphStyle = elementAttributes[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+                if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
                     paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -105,7 +106,7 @@ extension MarkdownStylesheet {
                 paragraphStyle.minimumLineHeight = lineHeight!
                 paragraphStyle.maximumLineHeight = lineHeight!
                 
-                elementAttributes[NSParagraphStyleAttributeName] = paragraphStyle
+                elementAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
             }
             
             attributes[element] = elementAttributes
@@ -114,7 +115,7 @@ extension MarkdownStylesheet {
     }
     
     public static func beamSelfPostStyleSheet(_ darkmode: Bool = false) -> MarkdownStylesheet {
-        let textColor = darkmode ? UIColor(red: 214/255, green: 214/255, blue: 214/255, alpha: 1) : UIColor(red: 65/255, green: 65/255, blue: 65/255, alpha:1.00000)
+        let textColor = darkmode ? UIColor(red: 214 / 255, green: 214 / 255, blue: 214 / 255, alpha: 1) : UIColor(red: 65 / 255, green: 65 / 255, blue: 65 / 255, alpha: 1.00000)
         let headlineColor = textColor
         let fontSize: CGFloat = FontSizeController.adjustedFontSize(14)
         let baseFont = UIFont.systemFont(ofSize: fontSize)
@@ -128,22 +129,23 @@ extension MarkdownStylesheet {
             
             //Adjust the colors
             if element == .h1 || element == .h2 || element == .h3 {
-                elementAttributes[NSForegroundColorAttributeName] = headlineColor
+                elementAttributes[NSAttributedStringKey.foregroundColor] = headlineColor
             } else if element == .quote {
-                elementAttributes[NSForegroundColorAttributeName] = textColor.withAlphaComponent(0.8)
+                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor.withAlphaComponent(0.8)
             } else {
-                elementAttributes[NSForegroundColorAttributeName] = textColor
+                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor
             }
             
             //Add the custom striketrougk
             if element == .strikethrough {
-                elementAttributes[kTTTStrikeOutAttributeName] = true
+                //elementAttributes[kTTTStrikeOutAttributeName] = true
+                //TODO: Bring strikethrough back
             }
             
             if lineHeight != nil {
                 //Adjust the paragraph style
                 var paragraphStyle: NSMutableParagraphStyle!
-                if let existingParagraphStyle = elementAttributes[NSParagraphStyleAttributeName] as? NSParagraphStyle {
+                if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
                     paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -151,7 +153,7 @@ extension MarkdownStylesheet {
                 paragraphStyle.minimumLineHeight = lineHeight!
                 paragraphStyle.maximumLineHeight = lineHeight!
                 
-                elementAttributes[NSParagraphStyleAttributeName] = paragraphStyle
+                elementAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
             }
             attributes[element] = elementAttributes
         }

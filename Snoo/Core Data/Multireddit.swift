@@ -29,11 +29,11 @@ public final class Multireddit: Subreddit {
         self.visibilityString = json["visibility"] as? String ?? self.visibilityString
         self.permalink = json["path"] as? String ?? self.permalink
         self.descriptionText = (json["description_md"] as? String)?.stringByUnescapeHTMLEntities() ?? self.descriptionText
-        //Working around a bug in the reddit API. The reddit api has an unused "display_name" field that always contains the first name given to a subreddit. While the "name" field is used everywhere else. 
+        //Working around a bug in the reddit API. The reddit api has an unused "display_name" field that always contains the first name given to a subreddit. While the "name" field is used everywhere else.
         self.displayName = json["name"] as? String ?? self.displayName
         
         //Only parse subreddits when the are dictionaries containing the data key.
-        if let subredditSummaries = json["subreddits"] as? [[String: AnyObject]] , subredditSummaries.first?["data"] != nil {
+        if let subredditSummaries = json["subreddits"] as? [[String: AnyObject]], subredditSummaries.first?["data"] != nil {
             let subreddits = NSMutableSet(capacity: subredditSummaries.count)
             for subredditSummary in subredditSummaries {
                 if let subredditData = subredditSummary["data"] as? [String: AnyObject], let context = self.managedObjectContext {
@@ -55,7 +55,7 @@ public final class Multireddit: Subreddit {
     
     func jsonRepresentation() throws -> String? {
         
-        var dictionary = Dictionary<String, Any>()
+        var dictionary = [String: Any]()
         dictionary["description_md"] = self.descriptionText as AnyObject?
         dictionary["display_name"] = self.displayName as AnyObject?
         dictionary["icon_name"] = "" as AnyObject?
@@ -70,7 +70,7 @@ public final class Multireddit: Subreddit {
         return NSString(data: try JSONSerialization.data(withJSONObject: dictionary, options: []), encoding: String.Encoding.utf8.rawValue) as String?
     }
     
-    override open func redditDictionaryRepresentation() -> [String : Any] {
+    override open func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["description_md"] = self.descriptionText as AnyObject?

@@ -17,11 +17,16 @@ public enum RedditMultiRequestAction {
     
     func HTTPMethod() -> String {
         switch self {
-        case .update: return "PUT"
-        case .create: return "POST"
-        case .delete: return "DELETE"
-        case .rename: return "POST"
-        case .copy: return "POST"
+        case .update:
+            return "PUT"
+        case .create:
+            return "POST"
+        case .delete:
+            return "DELETE"
+        case .rename:
+            return "POST"
+        case .copy:
+            return "POST"
         }
     }
 }
@@ -42,7 +47,7 @@ open class RedditMultiRequest: RedditRequest {
             if self.action == RedditMultiRequestAction.rename {
                 if let url = URL(string: "api/multi/rename", relativeTo: self.oauthBaseURL as URL) {
                     let request = NSMutableURLRequest(url: url)
-                    var body = Dictionary<String, String>()
+                    var body = [String: String]()
                     
                     body["display_name"] = self.multireddit.displayName
                     body["from"] = self.multireddit.permalink
@@ -58,7 +63,7 @@ open class RedditMultiRequest: RedditRequest {
             } else if self.action == RedditMultiRequestAction.copy {
                 if let url = URL(string: "api/multi/copy", relativeTo: self.oauthBaseURL as URL), let copyFromPermalink = self.copyFromPermalink {
                     let request = NSMutableURLRequest(url: url)
-                    var body = Dictionary<String, String>()
+                    var body = [String: String]()
                     
                     self.multireddit.managedObjectContext?.performAndWait({ () -> Void in
                             body["display_name"] = self.multireddit.displayName
@@ -77,7 +82,7 @@ open class RedditMultiRequest: RedditRequest {
             } else {
                 if let permalink = multireddit.permalink, let url = URL(string: "api/multi/\(permalink)", relativeTo: self.oauthBaseURL as URL) {
                     let request = NSMutableURLRequest(url: url)
-                    var body = Dictionary<String, String>()
+                    var body = [String: String]()
                     var thrownError: Error?
                     
                     if self.action != .delete {
@@ -117,4 +122,3 @@ open class RedditMultiRequest: RedditRequest {
     }
 
 }
-

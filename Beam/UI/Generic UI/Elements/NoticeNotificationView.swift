@@ -30,7 +30,7 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
         let label = UILabel()
         label.numberOfLines = 3
         label.textAlignment = .center
-        label.font = UIFont.systemFont(ofSize: 13, weight: UIFontWeightSemibold)
+        label.font = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.semibold)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -45,7 +45,7 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
     /**
      To use the message call "presentNoticeNotificationView" on a UINavigationController
      
-     - Parameter message:   The message in the message view
+     - Parameter message: The message in the message view
      - Parameter type: The type of the message, this determnse the colors
      - Parameter dismissDelay: The time to dismiss the message automagicly. Negatice values mean no automagic dismissal
 
@@ -84,15 +84,15 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
         let alpha: CGFloat = 0.95
         switch type {
         case .error:
-            return (UIColor(red: 208/255.0, green: 46/255.0, blue: 56/255.0, alpha: alpha), UIColor.white)
+            return (UIColor(red: 208 / 255.0, green: 46 / 255.0, blue: 56 / 255.0, alpha: alpha), UIColor.white)
         case .information:
-            return (UIColor(red: 96/255.0, green: 94/255.0, blue: 102/255.0, alpha: alpha), UIColor.white)
+            return (UIColor(red: 96 / 255.0, green: 94 / 255.0, blue: 102 / 255.0, alpha: alpha), UIColor.white)
         case .success:
-            return (DisplayModeValue(UIColor(red:0.26, green:0.19, blue:0.48, alpha: alpha), darkValue: UIColor(red:0.46, green:0.43, blue:0.6, alpha: alpha)), UIColor.white)
+            return (DisplayModeValue(UIColor(red: 0.26, green: 0.19, blue: 0.48, alpha: alpha), darkValue: UIColor(red: 0.46, green: 0.43, blue: 0.6, alpha: alpha)), UIColor.white)
         }
     }
     
-    internal func dismissWithSender(_ sender: AnyObject?) {
+    @objc internal func dismissWithSender(_ sender: AnyObject?) {
         self.dismiss()
     }
 }

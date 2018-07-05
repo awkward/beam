@@ -26,7 +26,7 @@ protocol HidingButtonBarDelegate: class {
     
 }
 
-extension HidingButtonBarDelegate where Self : UIViewController {
+extension HidingButtonBarDelegate where Self: UIViewController {
     
     func buttonBarScrollViewDidScroll(_ scrollView: UIScrollView) {
         let scrollSpeedTreshold: CGFloat = 0.8
@@ -41,7 +41,7 @@ extension HidingButtonBarDelegate where Self : UIViewController {
             if !scrollView.isDragging && self.lastButtonBarScrollViewOffset == nil {
                 shouldHideOrShow = false
             }
-            if verticalContentOffsetWithTopInset-44.0 <= 0.0 {
+            if verticalContentOffsetWithTopInset - 44.0 <= 0.0 {
                 shouldHideOrShow = true
             }
             if self.lastButtonBarScrollViewOffset != nil {
@@ -81,9 +81,9 @@ extension HidingButtonBarDelegate where Self : UIViewController {
     
     /**
      This method calculates the speed by getting the offset between to scrolls. For the first time this will return 0.
-     All requests after will return the speed as a positive number in pixels per milisecond. 
-     `self.lastScrollViewOffset` and `self.lastScrollViewOffsetCapture` are required to be set everytime `buttonBarScrollViewDidScroll:` is called. 
-     Otherwise the speed calculations won't work. 
+     All requests after will return the speed as a positive number in pixels per milisecond.
+     `self.lastScrollViewOffset` and `self.lastScrollViewOffsetCapture` are required to be set everytime `buttonBarScrollViewDidScroll:` is called.
+     Otherwise the speed calculations won't work.
      */
     fileprivate func calculateSpeed(_ scrollView: UIScrollView) -> CGFloat {
         let currentOffset = scrollView.contentOffset
@@ -92,7 +92,7 @@ extension HidingButtonBarDelegate where Self : UIViewController {
             let timeDifference = currentTime - lastOffsetCapture
             if timeDifference > 0.01 {
                 let distance = lastOffset.y - currentOffset.y
-                let scrollSpeed = fabs((distance/CGFloat(timeDifference)) / 1000) //Scrollspeed in pixels per milisecond
+                let scrollSpeed = fabs((distance / CGFloat(timeDifference)) / 1000) //Scrollspeed in pixels per milisecond
                 return scrollSpeed
             }
         }
@@ -107,11 +107,11 @@ extension HidingButtonBarDelegate where Self : UIViewController {
     }
     
     var buttonBarVerticalOffset: CGFloat {
-        return self.topButtonBarConstraint.constant-self.topButtonBarOffset
+        return self.topButtonBarConstraint.constant - self.topButtonBarOffset
     }
     
     func updateButtonBarVerticalOffset(_ offset: CGFloat) {
-        self.topButtonBarConstraint.constant = offset+self.topButtonBarOffset
+        self.topButtonBarConstraint.constant = offset + self.topButtonBarOffset
     }
     
     var topButtonBarOffset: CGFloat {

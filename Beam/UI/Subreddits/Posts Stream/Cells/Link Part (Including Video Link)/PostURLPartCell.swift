@@ -37,6 +37,13 @@ final class PostURLPartCell: BeamTableViewCell, PostCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
+        self.setupView()
+    }
+    
+    private func setupView() {
+        self.preservesSuperviewLayoutMargins = false
+        self.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
+        
         self.linkPreviewView.isEnabled = false
     }
     
@@ -50,7 +57,6 @@ final class PostURLPartCell: BeamTableViewCell, PostCell {
         self.linkPreviewView.isSelected = selected
     }
 
-    
     class func heightForLink(isVideo: Bool, forWidth width: CGFloat) -> CGFloat {
         return PostLinkPreviewView.height(for: nil, inWidth: width, isVideoPreview: isVideo)
     }

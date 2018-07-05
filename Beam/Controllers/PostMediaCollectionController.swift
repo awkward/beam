@@ -30,14 +30,12 @@ class PostMediaCollectionController: NSObject {
     }
     
     func indexPathForCollectionItem(_ item: MediaCollectionItem) -> IndexPath? {
-        if let collection = self.collection {
-            for (index, object) in collection.enumerated() {
-                if item == object {
-                    return IndexPath(item: index, section: 0)
-                }
-            }
+        guard let index = collection?.index(where: { (object) -> Bool in
+            return object == item
+        }) else {
+            return nil
         }
-        return nil
+        return IndexPath(item: index, section: 0)
     }
 
 }

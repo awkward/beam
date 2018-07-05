@@ -16,7 +16,6 @@ public enum ExternalLinkOpenOption: String {
     case youTube = "youtube"
     case proTube = "protube"
     
-    
     /// Returns if the app is available and installed for opening HTTP or HTTPS urls
     public var isAvailableForExternalLinks: Bool {
         switch self {
@@ -47,12 +46,11 @@ public enum ExternalLinkOpenOption: String {
         }
     }
     
-    
     /// Returns an array (in order) of available options for opening links
     ///
     /// - Returns: All options that are available for opening links
     static func availableOptionsForLinks() -> [ExternalLinkOpenOption] {
-        let options: [ExternalLinkOpenOption] = [.inApp,.safari,.chrome]
+        let options: [ExternalLinkOpenOption] = [.inApp, .safari, .chrome]
         return options.filter({ (option) -> Bool in
             return option.isAvailableForExternalLinks
         })
@@ -62,7 +60,7 @@ public enum ExternalLinkOpenOption: String {
     ///
     /// - Returns: All options that are available for opening youtube links
     static func availableOptionsForYouTubeLinks() -> [ExternalLinkOpenOption] {
-        let options: [ExternalLinkOpenOption] = [.inApp,.youTube,.proTube]
+        let options: [ExternalLinkOpenOption] = [.inApp, .youTube, .proTube]
         return options.filter({ (option) -> Bool in
             return option.isAvailableForYouTubeLinks
         })
@@ -256,7 +254,7 @@ public enum ExternalLinkOpenOption: String {
         }
         let message = AWKLocalizedString("privacy-mode-warning-message").replacingOccurrences(of: "[SERVICE]", with: service)
         let alertController = BeamAlertController(title: AWKLocalizedString("privacy-mode-warning"), message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("continue-button"), style: UIAlertActionStyle.default, handler: { (action) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("continue-button"), style: UIAlertActionStyle.default, handler: { (_) in
             if let webViewController = UserSettings[.browser].handleURL(url) {
                 viewController.present(webViewController, animated: true, completion: nil)
             }

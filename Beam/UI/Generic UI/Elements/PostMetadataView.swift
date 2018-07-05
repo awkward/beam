@@ -17,7 +17,7 @@ protocol PostMetadataViewDelegate: class {
 }
 
 @IBDesignable
-class PostMetdataSeperatorView: BeamView  {
+class PostMetdataSeperatorView: BeamView {
 
     override init(frame: CGRect) {
         super.init(frame: frame)
@@ -31,7 +31,7 @@ class PostMetdataSeperatorView: BeamView  {
     
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(ovalIn: rect)
-        let fillColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
+        let fillColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         fillColor.setFill()
         path.fill()
     }
@@ -47,7 +47,7 @@ class PostMetdataSeperatorView: BeamView  {
         self.setNeedsDisplay()
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 2, height: 2)
     }
 
@@ -73,8 +73,8 @@ class PostMetadataGildedView: BeamView {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        self.textlabel.textColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
-        self.iconImageView.tintColor = DisplayModeValue(UIColor(red: 250/255, green: 212/255, blue: 25/255, alpha: 1.0), darkValue: UIColor(red: 170/255, green: 147/255, blue: 35/255, alpha: 1.0))
+        self.textlabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        self.iconImageView.tintColor = DisplayModeValue(UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0), darkValue: UIColor(red: 170 / 255, green: 147 / 255, blue: 35 / 255, alpha: 1.0))
     }
     
     var count: Int = 0 {
@@ -86,7 +86,7 @@ class PostMetadataGildedView: BeamView {
         }
     }
     
-    var font: UIFont = UIFont.systemFont(ofSize: 13, weight: UIFontWeightRegular) {
+    var font: UIFont = UIFont.systemFont(ofSize: 13, weight: UIFont.Weight.regular) {
         didSet {
             self.textlabel.font = self.font
             
@@ -104,12 +104,11 @@ class PostMetadataGildedView: BeamView {
         return imageView
     }()
     
-    
     func text() -> String {
         return "×\(self.count)"
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         let labelSize = self.textlabel.intrinsicContentSize
         let iconSize = self.iconImageView.intrinsicContentSize
         
@@ -117,7 +116,7 @@ class PostMetadataGildedView: BeamView {
         if labelSize.height > height {
             height = labelSize.height
         }
-        let width = iconSize.width+self.spacing+labelSize.width
+        let width = iconSize.width + self.spacing + labelSize.width
         return CGSize(width: ceil(width), height: ceil(height))
     }
     
@@ -128,13 +127,13 @@ class PostMetadataGildedView: BeamView {
         
         var xPosition: CGFloat = 0
         
-        let iconFrame = CGRect(origin: CGPoint(x: xPosition, y: self.bounds.midY-(iconSize.height/2)), size: iconSize)
+        let iconFrame = CGRect(origin: CGPoint(x: xPosition, y: self.bounds.midY - (iconSize.height / 2)), size: iconSize)
         self.iconImageView.frame = iconFrame
         
         xPosition += iconSize.width
         xPosition += self.spacing
         
-        let labelFrame = CGRect(origin: CGPoint(x: xPosition, y: self.bounds.midY-(labelSize.height/2)), size: labelSize)
+        let labelFrame = CGRect(origin: CGPoint(x: xPosition, y: self.bounds.midY - (labelSize.height / 2)), size: labelSize)
         self.textlabel.frame = labelFrame
     }
     
@@ -241,7 +240,7 @@ class PostMetadataView: BeamView {
         
         self.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
         
-        let font = UIFont.systemFont(ofSize: 12, weight: UIFontWeightRegular)
+        let font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.regular)
         
         self.dateLabel.font = font
         self.subredditButton.titleLabel?.font = font
@@ -283,7 +282,7 @@ class PostMetadataView: BeamView {
         
         self.updateButtonTitleColorsAndState()
         
-        if let post = self.post, let gildCount = post.gildCount?.intValue , gildCount > 0 {
+        if let post = self.post, let gildCount = post.gildCount?.intValue, gildCount > 0 {
             self.gildedView.count = gildCount
         } else {
             self.gildedView.count = 0
@@ -301,19 +300,19 @@ class PostMetadataView: BeamView {
         
         self.userButton.isHidden = !self.shouldShowUsername
         
-        if let post = self.post, let gildCount = post.gildCount?.intValue , gildCount > 0 {
+        if let post = self.post, let gildCount = post.gildCount?.intValue, gildCount > 0 {
             self.gildedView.isHidden = !self.shouldShowGilded
         } else {
             self.gildedView.isHidden = true
         }
         
-        if let urlString = self.post?.urlString, let URL = URL(string: urlString) , self.post?.mediaObjects?.count == 0 && !URL.isYouTubeURL && self.post?.isSelfText == false {
+        if let urlString = self.post?.urlString, let URL = URL(string: urlString), self.post?.mediaObjects?.count == 0 && !URL.isYouTubeURL && self.post?.isSelfText == false {
             self.domainLabel.isHidden = !self.shouldShowDomain
         } else {
             self.domainLabel.isHidden = true
         }
         
-        if let stickied = self.post?.stickied.boolValue , self.shouldShowStickied {
+        if let stickied = self.post?.stickied.boolValue, self.shouldShowStickied {
             self.stickiedLabel.isHidden = !stickied
         } else {
             self.stickiedLabel.isHidden = true
@@ -321,9 +320,9 @@ class PostMetadataView: BeamView {
         
         if !self.shouldShowLocked {
             self.lockedIconImageView.isHidden = true
-        } else if let locked = self.post?.locked.boolValue , locked == true {
+        } else if let locked = self.post?.locked.boolValue, locked == true {
             self.lockedIconImageView.isHidden = false
-        } else if let archived = self.post?.archived.boolValue , archived == true {
+        } else if let archived = self.post?.archived.boolValue, archived == true {
             self.lockedIconImageView.isHidden = false
         } else {
             self.lockedIconImageView.isHidden = true
@@ -333,11 +332,11 @@ class PostMetadataView: BeamView {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        self.dateLabel.textColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
-        self.domainLabel.textColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
-        self.stickiedLabel.textColor = DisplayModeValue(UIColor(red: 68/255, green: 156/255, blue: 57/255, alpha: 1), darkValue: UIColor(red: 90/255, green: 156/255, blue: 81/255, alpha: 1))
+        self.dateLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        self.domainLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        self.stickiedLabel.textColor = DisplayModeValue(UIColor(red: 68 / 255, green: 156 / 255, blue: 57 / 255, alpha: 1), darkValue: UIColor(red: 90 / 255, green: 156 / 255, blue: 81 / 255, alpha: 1))
         
-        let lockedTintColor = DisplayModeValue(UIColor(red: 127/225, green: 127/225, blue: 127/225, alpha: 1.0), darkValue: UIColor(red: 153/225, green: 153/225, blue: 153/225, alpha: 1.0))
+        let lockedTintColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         if self.lockedIconImageView.tintColor != lockedTintColor {
             self.lockedIconImageView.tintColor = lockedTintColor
         }
@@ -349,7 +348,6 @@ class PostMetadataView: BeamView {
         
         self.updateButtonTitleColorsAndState()
         
-
         //Update opaque views
         let opaqueViews: [UIView] = [self.dateLabel, self.subredditButton, self.userButton, self.gildedView, self.domainLabel, self.stickiedLabel, self.lockedIconImageView] + self.seperatorViews
         
@@ -381,22 +379,22 @@ class PostMetadataView: BeamView {
         self.subredditButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight(), for: UIControlState())
     }
     
-    //MARK: - Sizing
+    // MARK: - Sizing
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: UIViewNoIntrinsicMetric, height: 30)
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
-    @objc fileprivate func didTapUsername(_ sender:UIButton?) {
+    @objc fileprivate func didTapUsername(_ sender: UIButton?) {
         if let post = self.post {
             self.delegate?.postMetdataView(self, didTapUsernameOnPost: post)
         }
         
     }
     
-    @objc fileprivate func didTapSubreddit(_ sender:UIButton?) {
+    @objc fileprivate func didTapSubreddit(_ sender: UIButton?) {
         if let post = self.post {
             self.delegate?.postMetdataView(self, didTapSubredditOnPost: post)
         }
@@ -434,20 +432,20 @@ class PostMetadataView: BeamView {
                 size.height = self.bounds.height
             }
             
-            let maxWidth: CGFloat = self.bounds.width-self.layoutMargins.right-self.layoutMargins.left
+            let maxWidth: CGFloat = self.bounds.width - self.layoutMargins.right - self.layoutMargins.left
             
-            if xPosition+size.width > maxWidth  {
-                let width: CGFloat = maxWidth-xPosition
+            if xPosition + size.width > maxWidth {
+                let width: CGFloat = maxWidth - xPosition
                 size.width = width
             }
             var frame: CGRect = CGRect.zero
-            let yPosition: CGFloat =  (self.bounds.height-size.height)/2.0
-            frame.origin = CGPoint(x: xPosition , y: yPosition)
+            let yPosition: CGFloat = (self.bounds.height - size.height) / 2.0
+            frame.origin = CGPoint(x: xPosition, y: yPosition)
             frame.size = size
             
             view.frame = frame
             
-            xPosition = xPosition + size.width + spacing
+            xPosition += size.width + spacing
 
             let nextIndex: Int = index + 1
             let nextView: UIView? = viewsToDisplay.count > nextIndex ? viewsToDisplay[nextIndex] : nil
@@ -458,19 +456,19 @@ class PostMetadataView: BeamView {
                 seperatorView.isHidden = false
                 let seperatorSize: CGSize = seperatorView.intrinsicContentSize
                 
-                var seperatorFrame: CGRect =  CGRect.zero
-                let yPosition: CGFloat = (self.bounds.height-seperatorSize.height)/2.0
+                var seperatorFrame: CGRect = CGRect.zero
+                let yPosition: CGFloat = (self.bounds.height - seperatorSize.height) / 2.0
                 seperatorFrame.origin = CGPoint(x: xPosition, y: yPosition)
                 seperatorFrame.size = seperatorSize
                 
                 seperatorView.frame = seperatorFrame
                 
-                xPosition += seperatorSize.width+spacing
+                xPosition += seperatorSize.width + spacing
                 
-                seperatorIndex = seperatorIndex + 1
+                seperatorIndex += 1
             }
             
-            index = index + 1
+            index += 1
 
         }
         
@@ -494,7 +492,7 @@ extension PostMetadataViewDelegate where Self: UIViewController {
     }
     
     func postMetdataView(_ metadataView: PostMetadataView, didTapUsernameOnPost post: Post) {
-        if let username = post.author , username != "[deleted]" {
+        if let username = post.author, username != "[deleted]" {
             let navigationController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! BeamColorizedNavigationController
             let profileViewController = navigationController.viewControllers.first as! ProfileViewController
             profileViewController.username = username

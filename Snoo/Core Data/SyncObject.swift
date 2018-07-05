@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public enum SyncObjectType : String {
+public enum SyncObjectType: String {
     case CommentType = "t1"
     case AccountType = "t2"
     case LinkType = "t3"
@@ -152,17 +152,23 @@ open class SyncObject: NSManagedObject {
     /// The Reddit object type of this object. We use this separate object because the Reddit API can be inconsistent. It can for example return a "load more" placeholder as a subreddit. This object type can be trusted.
     var objectType: SyncObjectType? {
         switch self {
-            case is Comment:    return .CommentType
-            case is User:       return .AccountType
-            case is Post:       return .LinkType
-            case is Subreddit:  return .SubredditType
-            case is Message:    return .MessageType
-            default:            return nil
+        case is Comment:
+            return .CommentType
+        case is User:
+            return .AccountType
+        case is Post:
+            return .LinkType
+        case is Subreddit:
+            return .SubredditType
+        case is Message:
+            return .MessageType
+        default:
+            return nil
         }
     }
     
     /// The full name of the object. This is defined by Reddit as <type identifier>_<object identifier>. It can be used in ObjectNamesQuery.
-    open var objectName: String? {
+    @objc open var objectName: String? {
         if let objectType = self.objectType, let identifier = self.identifier {
             return "\(objectType.rawValue)_\(identifier)"
         } else {
@@ -175,14 +181,14 @@ open class SyncObject: NSManagedObject {
      
      - returns: A dictionary containing all possible keys following the reddit API naming
      */
-    open func redditDictionaryRepresentation() -> [String : Any] {
-        var dictionary = [String : Any]()
+    open func redditDictionaryRepresentation() -> [String: Any] {
+        var dictionary = [String: Any]()
         dictionary["name"] = self.objectName
         dictionary["identifier"] = self.identifier
         return dictionary
     }
     
-    /** 
+    /**
     Parses the given Reddit API dictionary into the receiver.
     - parameter json: The Reddit API dictionary
     - parameter cache: A cache to prevent double work. For parsing, this will be used for setting relationships.
@@ -199,9 +205,9 @@ open class SyncObject: NSManagedObject {
     */
     open class func identifierAndTypeWithObjectName(_ name: String) throws -> (identifier: String, type: SyncObjectType)? {
         let regex: NSRegularExpression = try NSRegularExpression(pattern: "(.*)_(.*)", options: [])
-        if let match: NSTextCheckingResult = regex.firstMatch(in: name, options: [], range: NSMakeRange(0, name.count)) , match.numberOfRanges == 3 {
-            let identifier: NSString = (name as NSString).substring(with: match.rangeAt(2)) as NSString
-            let kind: NSString = (name as NSString).substring(with: match.rangeAt(1)) as NSString
+        if let match: NSTextCheckingResult = regex.firstMatch(in: name, options: [], range: NSRange(location: 0, length: name.count)), match.numberOfRanges == 3 {
+            let identifier: NSString = (name as NSString).substring(with: match.range(at: 2)) as NSString
+            let kind: NSString = (name as NSString).substring(with: match.range(at: 1)) as NSString
             if let type: SyncObjectType = SyncObjectType(rawValue: kind as String) {
                 return (identifier: identifier as String, type: type)
             }

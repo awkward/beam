@@ -17,7 +17,7 @@ class CommentsNavigationController: BeamNavigationController {
         self.useInteractiveDismissal = true
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
+    override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.topViewController?.preferredStatusBarStyle ?? .default
     }
     

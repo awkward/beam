@@ -25,8 +25,7 @@ class ViewController: UIViewController {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-
-
+    
     @IBAction func showImagePickerTapped(sender: AnyObject) {
         let assetsPickerController = AssetsPickerController()
         assetsPickerController.delegate = self
@@ -84,4 +83,3 @@ extension ViewController: AssetsPickerControllerDelegate {
     }
     
 }
-

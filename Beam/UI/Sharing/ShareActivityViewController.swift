@@ -13,8 +13,13 @@ class ShareActivityViewController: UIActivityViewController {
 
     var shareItemProvider: URLShareItemProvider
     
-    override func loadView() {
-        super.loadView()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        self.setupView()
+    }
+    
+    private func setupView() {
         //Set the share tintColor on iOS 9 (UIAppearance doesn't always work)
         self.view.tintColor = UIColor.beamColor()
     }
@@ -27,7 +32,7 @@ class ShareActivityViewController: UIActivityViewController {
         if object is Post {
             applicationActivities.append(contentsOf: [ReportPostActivity(), HidePostActivity(), UnhidePostActivity(), DeletePostActivity(), EditPostActivity(), SavePostActivity(), UnsavePostActivity()])
         } else if object is Comment {
-            applicationActivities.append(contentsOf: [CopyLinkActivity(),EditCommentActivity(),CopyCommentActivity(), SaveCommentActivity(), UnsaveCommentActivity(), DeleteCommentActivity()])
+            applicationActivities.append(contentsOf: [CopyLinkActivity(), EditCommentActivity(), CopyCommentActivity(), SaveCommentActivity(), UnsaveCommentActivity(), DeleteCommentActivity()])
         }
         
         super.init(activityItems: [urlProvider, object], applicationActivities: applicationActivities)

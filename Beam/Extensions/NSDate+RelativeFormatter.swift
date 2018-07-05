@@ -23,7 +23,7 @@ extension Date {
         let calendarComponents: [Calendar.Component] = [Calendar.Component.second, Calendar.Component.minute, Calendar.Component.hour, Calendar.Component.day]
         
         let components: DateComponents = Calendar.current.dateComponents(Set(calendarComponents), from: self, to: Date())
-        var timeText: String = "";
+        var timeText: String = ""
         
         if components.day! > 9 {
             //We continue using text
@@ -46,4 +46,3 @@ extension Date {
     }
     
 }
-

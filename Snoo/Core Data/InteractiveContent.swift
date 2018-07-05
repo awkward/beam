@@ -61,14 +61,12 @@ open class InteractiveContent: Content {
         }
     }
     
-    open override func redditDictionaryRepresentation() -> [String : Any] {
+    open override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["parent_id"] = self.parent?.objectName as AnyObject?
         
         return dictionary
     }
-    
-
 
 }

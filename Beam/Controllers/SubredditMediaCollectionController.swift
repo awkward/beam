@@ -115,7 +115,7 @@ class SubredditMediaCollectionController: NSObject {
         self.reloadMedia()
     }
 
-    func statusDidChange(_ notification: Notification) {
+    @objc func statusDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             self.delegate?.mediaCollectionController(self, statusDidChange: self.collectionController.status)
         }
@@ -132,14 +132,12 @@ class SubredditMediaCollectionController: NSObject {
     }
     
     func indexPathForCollectionItem(_ item: Post) -> IndexPath? {
-        if let collection = self.collection {
-            for (index, object) in collection.enumerated() {
-                if item == object {
-                    return IndexPath(item: index, section: 0)
-                }
-            }
+        guard let index = self.collection?.index(where: { (post) -> Bool in
+            post == item
+        }) else {
+            return nil
         }
-        return nil
+        return IndexPath(item: index, section: 0)
     }
     
     func cancelFetching() {
@@ -154,7 +152,7 @@ class SubredditMediaCollectionController: NSObject {
     }
     
     func fetchInitialContent() {
-        self.collectionController.startInitialFetching { (collectionID: NSManagedObjectID?, error: Error?) -> Void in
+        self.collectionController.startInitialFetching { (_, _) -> Void in
             let context: NSManagedObjectContext! = AppDelegate.shared.managedObjectContext
             context.perform {
                 self.reloadMedia()
@@ -163,7 +161,7 @@ class SubredditMediaCollectionController: NSObject {
     }
     
     func fetchMoreContent() {
-        self.collectionController.startFetchingMore({ (collectionID: NSManagedObjectID?, error: Error?) -> Void in
+        self.collectionController.startFetchingMore({ (_, _) -> Void in
             let context: NSManagedObjectContext! = AppDelegate.shared.managedObjectContext
             context.perform {
                 self.reloadMedia()

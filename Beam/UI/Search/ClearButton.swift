@@ -35,16 +35,16 @@ private class ClearIconView: UIView {
         xPath.addLine(to: CGPoint(x: rect.minX + 0.63864 * rect.width, y: rect.minY + 0.50606 * rect.height))
         xPath.addLine(to: CGPoint(x: rect.minX + 0.63864 * rect.width, y: rect.minY + 0.50606 * rect.height))
         xPath.close()
-        xPath.miterLimit = 4;
+        xPath.miterLimit = 4
         
-        xPath.usesEvenOddFillRule = true;
+        xPath.usesEvenOddFillRule = true
         
         foregroundColor.setFill()
         xPath.fill()
         
     }
     
-    fileprivate override var intrinsicContentSize : CGSize {
+    fileprivate override var intrinsicContentSize: CGSize {
         return CGSize(width: 8, height: 8)
     }
     
@@ -92,8 +92,8 @@ class ClearButton: UIControl {
         clearLabel.lineBreakMode = NSLineBreakMode.byCharWrapping
         clearLabel.textColor = UIColor.white
         clearLabel.alpha = 0
-        clearLabel.setContentHuggingPriority(0, for: UILayoutConstraintAxis.horizontal)
-        clearLabel.setContentHuggingPriority(0, for: UILayoutConstraintAxis.vertical)
+        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: UILayoutConstraintAxis.horizontal)
+        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: UILayoutConstraintAxis.vertical)
         
         addSubview(clearLabel)
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label]|", options: [], metrics: nil, views: ["label": clearLabel]))
@@ -115,7 +115,7 @@ class ClearButton: UIControl {
         layer.cornerRadius = 0.5 * frame.height
     }
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 16, height: 16)
     }
     
@@ -127,10 +127,10 @@ class ClearButton: UIControl {
             super.isSelected = newValue
             
             UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: [], animations: { () -> Void in
-                self.xView.transform = CGAffineTransform(rotationAngle: newValue ? -0.5 * CGFloat.pi : 0)
-                self.xView.alpha = newValue ? 0 : 1
-                self.clearLabel.alpha = newValue ? 1 : 0
-                self.widthConstraint.constant = newValue ? self.clearLabel.intrinsicContentSize.width + 10 : 16
+                self.xView.transform = CGAffineTransform(rotationAngle: newValue ? -0.5 * CGFloat.pi: 0)
+                self.xView.alpha = newValue ? 0: 1
+                self.clearLabel.alpha = newValue ? 1: 0
+                self.widthConstraint.constant = newValue ? self.clearLabel.intrinsicContentSize.width + 10: 16
                 self.layoutIfNeeded()
             }, completion: nil)
         }

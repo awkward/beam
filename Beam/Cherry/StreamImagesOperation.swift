@@ -47,7 +47,7 @@ class StreamImagesOperation: CherryPostParsingOperation {
                             self.finishOperation()
                             return
                         }
-                        if let result = result as? ImageMetadataTaskResult , result.metadata.count > 0 {
+                        if let result = result as? ImageMetadataTaskResult, result.metadata.count > 0 {
                             self.parsingOperation?.objectContext.performAndWait {
                                 self.insertMediaObjectsArray(result.metadata, posts: posts)
                             }
@@ -94,11 +94,10 @@ class StreamImagesOperation: CherryPostParsingOperation {
                     return false
                 }
                 
-                
                 for pattern in patterns {
                     do {
                         let regex = try NSRegularExpression(pattern: pattern, options: [NSRegularExpression.Options.caseInsensitive])
-                        if let match = regex.firstMatch(in: post.urlString!, options: [], range: NSMakeRange(0, (post.urlString! as NSString).length)) {
+                        if let match = regex.firstMatch(in: post.urlString!, options: [], range: NSRange(location: 0, length: (post.urlString! as NSString).length)) {
                             if match.numberOfRanges > 0 {
                                 return true
                             }
@@ -118,15 +117,13 @@ class StreamImagesOperation: CherryPostParsingOperation {
     
     fileprivate func insertMediaObjectsArray(_ responses: [ImageResponse], posts: [Post]) {
         for postImageResponse in responses {
-            if let post = posts.filter({ (post: Post) -> Bool in
+            if let post = posts.first(where: { (post) -> Bool in
                 return post.identifier == postImageResponse.request.postID
-            }).first {
+            }) {
                 post.insertMediaObjects(with: postImageResponse)
                 
             }
         }
     }
-    
-
 
 }

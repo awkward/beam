@@ -110,6 +110,7 @@
 		0C09F7E11CD252D300E89B1A /* ImgurImage+Size.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09F7E01CD252D300E89B1A /* ImgurImage+Size.swift */; };
 		0C09F7E31CD2594D00E89B1A /* ImgurImageRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C09F7E21CD2594D00E89B1A /* ImgurImageRequest.swift */; };
 		0C0B1B641F6198B300E74436 /* Trekker.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C6A10101F59653500695758 /* Trekker.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		0C0C496A20D2436400980880 /* CustomObjectActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0C496920D2436400980880 /* CustomObjectActivity.swift */; };
 		0C0F4D3D1BE7894F00D1BB89 /* BasicViewControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F4D3B1BE7894F00D1BB89 /* BasicViewControllerTransition.swift */; };
 		0C0F4D3E1BE7894F00D1BB89 /* BlurredDimmingPresentationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F4D3C1BE7894F00D1BB89 /* BlurredDimmingPresentationController.swift */; };
 		0C0F4D401BE79E6400D1BB89 /* FavoritesExplanationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0F4D3F1BE79E6400D1BB89 /* FavoritesExplanationView.swift */; };
@@ -122,7 +123,6 @@
 		0C1265F41E4E0CFA006964A7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1265F31E4E0CFA006964A7 /* AboutViewController.swift */; };
 		0C1362D81C070FE6002C7529 /* UISearchBar+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1362D71C070FE6002C7529 /* UISearchBar+Background.swift */; };
 		0C1362E81C07425E002C7529 /* UIAlertController+Unauthenticated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1362E71C07425E002C7529 /* UIAlertController+Unauthenticated.swift */; };
-		0C144D3D1CEDB91900186C16 /* SaveCommentActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C144D3C1CEDB91900186C16 /* SaveCommentActivity.swift */; };
 		0C145E391BDE2FD700C74100 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C145E381BDE2FD700C74100 /* Report.storyboard */; };
 		0C145E491BDE642100C74100 /* String+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C145E481BDE642100C74100 /* String+Trimming.swift */; };
 		0C14D9251CADB1030031AD43 /* ImgurError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C14D9241CADB1030031AD43 /* ImgurError.swift */; };
@@ -943,6 +943,7 @@
 		0C09F7DE1CD247AC00E89B1A /* ImgurGalleryAlbumContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurGalleryAlbumContentViewController.swift; sourceTree = "<group>"; };
 		0C09F7E01CD252D300E89B1A /* ImgurImage+Size.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "ImgurImage+Size.swift"; sourceTree = "<group>"; };
 		0C09F7E21CD2594D00E89B1A /* ImgurImageRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurImageRequest.swift; sourceTree = "<group>"; };
+		0C0C496920D2436400980880 /* CustomObjectActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomObjectActivity.swift; sourceTree = "<group>"; };
 		0C0F4D3B1BE7894F00D1BB89 /* BasicViewControllerTransition.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BasicViewControllerTransition.swift; path = "Beam/Transitions and Presentation/BasicViewControllerTransition.swift"; sourceTree = SOURCE_ROOT; };
 		0C0F4D3C1BE7894F00D1BB89 /* BlurredDimmingPresentationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = BlurredDimmingPresentationController.swift; path = "Beam/Transitions and Presentation/BlurredDimmingPresentationController.swift"; sourceTree = SOURCE_ROOT; };
 		0C0F4D3F1BE79E6400D1BB89 /* FavoritesExplanationView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FavoritesExplanationView.swift; path = Beam/UI/Subscriptions/FavoritesExplanationView.swift; sourceTree = SOURCE_ROOT; };
@@ -955,7 +956,6 @@
 		0C1265F31E4E0CFA006964A7 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
 		0C1362D71C070FE6002C7529 /* UISearchBar+Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISearchBar+Background.swift"; path = "beam/Extensions/UISearchBar+Background.swift"; sourceTree = SOURCE_ROOT; };
 		0C1362E71C07425E002C7529 /* UIAlertController+Unauthenticated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+Unauthenticated.swift"; path = "beam/Extensions/UIAlertController+Unauthenticated.swift"; sourceTree = SOURCE_ROOT; };
-		0C144D3C1CEDB91900186C16 /* SaveCommentActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SaveCommentActivity.swift; sourceTree = "<group>"; };
 		0C145E381BDE2FD700C74100 /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
 		0C145E481BDE642100C74100 /* String+Trimming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Trimming.swift"; sourceTree = "<group>"; };
 		0C14D9241CADB1030031AD43 /* ImgurError.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImgurError.swift; sourceTree = "<group>"; };
@@ -2108,8 +2108,8 @@
 				0C7BAE231CD36A5D0088CF28 /* EditPostActivity.swift */,
 				0CB24DE91C88A2B0006D34C1 /* CopyCommentActivity.swift */,
 				0C9FE0431CB2D930007109DE /* DeleteContentActivity.swift */,
-				0C144D3C1CEDB91900186C16 /* SaveCommentActivity.swift */,
 				0C35CAAA1D462BB0008B4591 /* CopyLinkActivity.swift */,
+				0C0C496920D2436400980880 /* CustomObjectActivity.swift */,
 			);
 			path = UIActivities;
 			sourceTree = "<group>";
@@ -2925,7 +2925,7 @@
 				766074101B38073100F4C777 /* Frameworks */,
 				766074111B38073100F4C777 /* Resources */,
 				76CBB3281B4E80610060440B /* Embed Frameworks */,
-				0C1B91BB1C21A6B00005F5D8 /* ShellScript */,
+				0CF61A4B20D6EBF90054D4F3 /* Swiftlint */,
 			);
 			buildRules = (
 			);
@@ -2979,32 +2979,32 @@
 					0C24FE851D82B7BD00CCBF93 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0820;
+						LastSwiftMigration = 0940;
 					};
 					0C24FE8E1D82B7BE00CCBF93 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0940;
 						TestTargetID = 766074121B38073100F4C777;
 					};
 					0C2605591CAD74280078ABF6 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0940;
 					};
 					0C3091F11D82CBCD00E0BECC = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0940;
 					};
 					0C3091FA1D82CBCD00E0BECC = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0830;
+						LastSwiftMigration = 0940;
 						TestTargetID = 766074121B38073100F4C777;
 					};
 					766074121B38073100F4C777 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0940;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3023,7 +3023,7 @@
 					7668266A1B84808000647A30 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0800;
+						LastSwiftMigration = 0940;
 					};
 				};
 			};
@@ -3371,19 +3371,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		0C1B91BB1C21A6B00005F5D8 /* ShellScript */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "TAGS=\"TODO:|FIXME:\"\nfind \"${SRCROOT}\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($TAGS).*\\$\" | perl -p -e \"s/($TAGS)/ warning: \\$1/\"";
-		};
 		0C980CFB1F62D94F006E3920 /* Confirm Config.swift */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -3397,6 +3384,20 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "#!/usr/bin/env bash\nFILE=\"${SRCROOT}\"/Config.swift\nif [ ! -f $FILE ]\nthen\necho \"Didn't find Config.swift. Rename ${SRCROOT}/SampleConfig.swift to Config.swift and edit it to add your own keys!\"\nexit 1\nfi";
+		};
+		0CF61A4B20D6EBF90054D4F3 /* Swiftlint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = Swiftlint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    if [ -z \"$CI\" ]; then\n        if which swiftlint >/dev/null; then\n            swiftlint --config \"${SRCROOT}/.swiftlint.yml\"\n        else\n            echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n        fi\n    fi\nelse\n    echo \"Info: As we're not building for Debug, no SwiftLint is running.\"\nfi\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -3593,8 +3594,8 @@
 				0C2D7CCF1DEF2DE10049763B /* MessagesSplitViewController.swift in Sources */,
 				0CE2785D1CB7E802005F55D1 /* RoundPasscodeButton.swift in Sources */,
 				0C09F7B91CD2258A00E89B1A /* ImgurMediaCollectionViewCell.swift in Sources */,
+				0C0C496A20D2436400980880 /* CustomObjectActivity.swift in Sources */,
 				0C7BAE241CD36A5D0088CF28 /* EditPostActivity.swift in Sources */,
-				0C144D3D1CEDB91900186C16 /* SaveCommentActivity.swift in Sources */,
 				0C1D2D171D40D1A100C05822 /* FontSizeOptionsViewController.swift in Sources */,
 				0CD71D531BD13F230003658D /* Subreddit+Settings.swift in Sources */,
 				0CE6236F1E3A262800C609ED /* CommentLinkPreviewView.swift in Sources */,
@@ -4008,7 +4009,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4035,7 +4036,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.Snoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4053,7 +4054,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Debug;
@@ -4068,7 +4069,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Release;
@@ -4094,7 +4095,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4121,7 +4122,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.ImgurKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4148,7 +4149,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4174,7 +4175,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4192,7 +4193,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Debug;
@@ -4207,7 +4208,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Release;
@@ -4355,8 +4356,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.beam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "beam/beam-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "Beam/beam-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -4391,8 +4392,8 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.beam;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
-				SWIFT_OBJC_BRIDGING_HEADER = "beam/beam-Bridging-Header.h";
-				SWIFT_VERSION = 3.0;
+				SWIFT_OBJC_BRIDGING_HEADER = "Beam/beam-Bridging-Header.h";
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -4417,7 +4418,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4443,7 +4444,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_VERSION = 3.0;
+				SWIFT_VERSION = 4.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";

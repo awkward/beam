@@ -37,21 +37,21 @@ public enum ReachabilityError: Error {
 
 public let ReachabilityChangedNotification = NSNotification.Name("ReachabilityChangedNotification")
 
-func callback(reachability:SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) {
+func callback(reachability: SCNetworkReachability, flags: SCNetworkReachabilityFlags, info: UnsafeMutableRawPointer?) {
 
     guard let info = info else { return }
     
     let reachability = Unmanaged<Reachability>.fromOpaque(info).takeUnretainedValue()
 
-    DispatchQueue.main.async { 
+    DispatchQueue.main.async {
         reachability.reachabilityChanged()
     }
 }
 
 public class Reachability {
 
-    public typealias NetworkReachable = (Reachability) -> ()
-    public typealias NetworkUnreachable = (Reachability) -> ()
+    public typealias NetworkReachable = (Reachability) -> Void
+    public typealias NetworkUnreachable = (Reachability) -> Void
 
     public enum NetworkStatus: CustomStringConvertible {
 
@@ -59,9 +59,12 @@ public class Reachability {
 
         public var description: String {
             switch self {
-            case .reachableViaWWAN: return "Cellular"
-            case .reachableViaWiFi: return "WiFi"
-            case .notReachable: return "No Connection"
+            case .reachableViaWWAN:
+                return "Cellular"
+            case .reachableViaWiFi:
+                return "WiFi"
+            case .notReachable:
+                return "No Connection"
             }
         }
     }
@@ -93,7 +96,7 @@ public class Reachability {
     fileprivate var previousFlags: SCNetworkReachabilityFlags?
     
     fileprivate var isRunningOnDevice: Bool = {
-        #if (arch(i386) || arch(x86_64)) && os(iOS)
+        #if targetEnvironment(simulator) && os(iOS)
             return false
         #else
             return true
@@ -147,7 +150,7 @@ public extension Reachability {
         guard let reachabilityRef = reachabilityRef, !notifierRunning else { return }
         
         var context = SCNetworkReachabilityContext(version: 0, info: nil, retain: nil, release: nil, copyDescription: nil)
-        context.info = UnsafeMutableRawPointer(Unmanaged<Reachability>.passUnretained(self).toOpaque())        
+        context.info = UnsafeMutableRawPointer(Unmanaged<Reachability>.passUnretained(self).toOpaque())
         if !SCNetworkReachabilitySetCallback(reachabilityRef, callback, &context) {
             stopNotifier()
             throw ReachabilityError.UnableToSetCallback
@@ -234,10 +237,10 @@ fileprivate extension Reachability {
         
         guard previousFlags != flags else { return }
         
-        let block = isReachable ? whenReachable : whenUnreachable
+        let block = isReachable ? whenReachable: whenUnreachable
         block?(self)
         
-        self.notificationCenter.post(name: ReachabilityChangedNotification, object:self)
+        self.notificationCenter.post(name: ReachabilityChangedNotification, object: self)
         
         previousFlags = flags
     }

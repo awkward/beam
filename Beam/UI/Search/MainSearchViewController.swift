@@ -38,16 +38,16 @@ class MainSearchViewController: BeamTableViewController {
     
     var searchDisplayMode = MainSearchDisplayMode.recentVisited {
         didSet {
-            let topOffset: CGFloat = self.searchDisplayMode == .resultSuggestions ? -1 * (MainSearchViewControllerHeaderHeight-10) : 0
+            let topOffset: CGFloat = self.searchDisplayMode == .resultSuggestions ? -1 * (MainSearchViewControllerHeaderHeight - 10) : 0
             self.tableView.contentInset = UIEdgeInsets(top: topOffset, left: 0, bottom: 0, right: 0)
-            self.tableView.rowHeight = self.searchDisplayMode == .recentVisited ? 60 : 44
+            self.tableView.rowHeight = self.searchDisplayMode == .recentVisited ? 60: 44
             self.tableView.reloadData()
         }
     }
     
     var recentSearchSections: [MainSearchTableViewSectionType] {
         var sections = [MainSearchTableViewSectionType]()
-        if RedditActivityController.recentlySearchedSubredditKeywords.count > 0  {
+        if RedditActivityController.recentlySearchedSubredditKeywords.count > 0 {
             sections.append(MainSearchTableViewSectionType.searchedSubreddits)
         }
         if RedditActivityController.recentlySearchedPostKeywords.count > 0 {
@@ -124,7 +124,7 @@ class MainSearchViewController: BeamTableViewController {
     }
     
     func openSubredditName(_ displayName: String) {
-        SubredditQuery.fetchSubreddit(displayName) { (subreddit, error) -> () in
+        SubredditQuery.fetchSubreddit(displayName) { (subreddit, error) -> Void in
             DispatchQueue.main.async(execute: {
                 self.searchBar.endEditing(true)
                 if let subreddit = subreddit {
@@ -140,7 +140,7 @@ class MainSearchViewController: BeamTableViewController {
                 if let selectedIndexPath = self.tableView.indexPathForSelectedRow {
                     self.tableView.deselectRow(at: selectedIndexPath, animated: true)
                 }
-            });
+            })
         }
         
     }
@@ -157,7 +157,7 @@ class MainSearchViewController: BeamTableViewController {
             
             self.tableView.beginUpdates()
             let clearSubredditHistoryOperation = Subreddit.clearAllVisitedDatesOperation(AppDelegate.shared.managedObjectContext)
-            DataController.shared.executeAndSaveOperations([clearSubredditHistoryOperation], context: AppDelegate.shared.managedObjectContext) { (error: Error?) -> Void in
+            DataController.shared.executeAndSaveOperations([clearSubredditHistoryOperation], context: AppDelegate.shared.managedObjectContext) { (_) -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in
                     if self.tableView.numberOfSections > 0 {
                         self.tableView.deleteSections(NSIndexSet(index: 0) as IndexSet, with: .fade)
@@ -166,7 +166,7 @@ class MainSearchViewController: BeamTableViewController {
                 })
             }
 
-        } else if let sectionType = sectionType , self.searchDisplayMode == MainSearchDisplayMode.recentSearched{
+        } else if let sectionType = sectionType, self.searchDisplayMode == MainSearchDisplayMode.recentSearched {
             self.tableView.beginUpdates()
             
             if let section = self.recentSearchSections.index(of: sectionType) {
@@ -180,8 +180,6 @@ class MainSearchViewController: BeamTableViewController {
             case .searchedSubreddits:
                 RedditActivityController.clearSearchedSubredditKeywords()
             }
-        
-            
             
             self.tableView.endUpdates()
         }
@@ -189,8 +187,6 @@ class MainSearchViewController: BeamTableViewController {
     
     override func displayModeDidChange() {
         super.displayModeDidChange()
-        
-        
         
         switch displayMode {
         case .dark:
@@ -201,7 +197,7 @@ class MainSearchViewController: BeamTableViewController {
         searchBar.applyBeamNavigationBarStyle()
     }
     
-    func handleTapGesture(_ gesture: UITapGestureRecognizer) {
+    @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
             self.searchBar.endEditing(false)
         }
@@ -317,7 +313,7 @@ extension MainSearchViewController {
             let headerView = ClearableTableSectionHeaderView(reuseIdentifier: "header")
             headerView.titleLabel.text = title.uppercased(with: Locale.current)
             headerView.clearButton.clearHandler = { [weak self] () -> Void in
-                if let sectionType = sectionType , self?.searchDisplayMode == MainSearchDisplayMode.recentSearched {
+                if let sectionType = sectionType, self?.searchDisplayMode == MainSearchDisplayMode.recentSearched {
                     self?.clearTableSection(sectionType)
                 } else {
                     self?.clearTableSection()
@@ -377,12 +373,11 @@ extension MainSearchViewController {
         //Insert a new row if the oldNumberOfRows is lower or the same as the new number of rows. And if no section was removed
         
         if let newNumberOfRows = newNumberOfRows, oldNumberOfRows <= newNumberOfRows {
-            tableView.insertRows(at: [IndexPath(row: newNumberOfRows-1, section: indexPath.section)], with: UITableViewRowAnimation.bottom)
+            tableView.insertRows(at: [IndexPath(row: newNumberOfRows - 1, section: indexPath.section)], with: UITableViewRowAnimation.bottom)
         }
         
         tableView.endUpdates()
     }
-    
     
     func subredditNameFromSearchText(_ searchText: String?) -> String {
         if searchText == nil {
@@ -414,7 +409,7 @@ extension MainSearchViewController {
                 let searchText = RedditActivityController.recentlySearchedPostKeywords[(indexPath as IndexPath).row]
                 self.searchPosts(searchText)
             }
-        } else if let searchText = self.searchBar.text , self.searchDisplayMode == MainSearchDisplayMode.resultSuggestions {
+        } else if let searchText = self.searchBar.text, self.searchDisplayMode == MainSearchDisplayMode.resultSuggestions {
             if (indexPath as IndexPath).row == 0 {
                 self.searchSubreddits(searchText)
             } else if (indexPath as IndexPath).row == 1 {
@@ -439,12 +434,12 @@ extension MainSearchViewController {
 extension MainSearchViewController: UISearchBarDelegate {
     
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        searchDisplayMode = searchBar.text?.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions : MainSearchDisplayMode.recentSearched
+        searchDisplayMode = searchBar.text?.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions: MainSearchDisplayMode.recentSearched
     }
     
     func searchBarShouldBeginEditing(_ searchBar: UISearchBar) -> Bool {
         searchBar.setShowsCancelButton(true, animated: true)
-        searchDisplayMode = searchBar.text?.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions : MainSearchDisplayMode.recentSearched
+        searchDisplayMode = searchBar.text?.count ?? 0 > 0 ? MainSearchDisplayMode.resultSuggestions: MainSearchDisplayMode.recentSearched
         return true
     }
     
@@ -458,10 +453,9 @@ extension MainSearchViewController: UISearchBarDelegate {
         }
     }
     
-    
     func searchBarTextDidEndEditing(_ searchBar: UISearchBar) {
         searchBar.setShowsCancelButton(false, animated: true)
-        searchDisplayMode = searchBar.text?.count == 0 ? MainSearchDisplayMode.recentVisited : MainSearchDisplayMode.resultSuggestions
+        searchDisplayMode = searchBar.text?.count == 0 ? MainSearchDisplayMode.recentVisited: MainSearchDisplayMode.resultSuggestions
     }
     
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

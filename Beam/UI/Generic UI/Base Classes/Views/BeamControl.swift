@@ -25,6 +25,7 @@ class BeamControl: UIControl, DynamicDisplayModeView {
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.displayModeDidChange()
         self.registerForDisplayModeChangeNotifications()
     }

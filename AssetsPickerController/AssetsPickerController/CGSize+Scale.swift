@@ -11,6 +11,6 @@ import UIKit
 extension CGSize {
 
     func sizeWithScale(_ scale: CGFloat) -> CGSize {
-        return CGSize(width: self.width*scale, height: self.height*scale)
+        return CGSize(width: self.width * scale, height: self.height * scale)
     }
 }

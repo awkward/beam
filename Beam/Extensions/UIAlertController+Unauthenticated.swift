@@ -28,7 +28,7 @@ extension UIAlertController {
         let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
         alertController.addCancelAction()
         
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("login"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("login"), style: .default, handler: { (_) -> Void in
             AppDelegate.shared.presentAuthenticationViewController()
         }))
         

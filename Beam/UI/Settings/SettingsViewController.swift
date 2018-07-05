@@ -39,7 +39,6 @@ enum SettingsRowKey: String {
     case ClearCache = "clear-cache"
     case ClearSearchHistory = "clear-search"
 
-    
     case AboutBeam = "about-beam"
     case Donate = "donate"
     case PrivacyPolicy = "privacy-policy"
@@ -87,7 +86,7 @@ enum SettingsRowKey: String {
         case .PrivacyOverlay, .SpoilerOverlay, .PostMarking, .Sounds, .PrivateBrowsing:
             return false
         default:
-            return true;
+            return true
         }
     }
 }
@@ -111,7 +110,7 @@ class SettingsRow: NSObject {
     }
     
     var accessoryType: UITableViewCellAccessoryType {
-        return self.showsDisclosureIndicator ? UITableViewCellAccessoryType.disclosureIndicator : UITableViewCellAccessoryType.none
+        return self.showsDisclosureIndicator ? UITableViewCellAccessoryType.disclosureIndicator: UITableViewCellAccessoryType.none
     }
     
     init(key: SettingsRowKey) {
@@ -193,7 +192,7 @@ class SettingsViewController: BeamTableViewController {
         self.updateCellDetails()
         self.reloadSections()
         self.tableView.reloadData()
-        if self.presentedViewController == nil  {
+        if self.presentedViewController == nil {
             Trekker.default.track(event: TrekkerEvent(event: "View settings"))
         }
         
@@ -386,7 +385,7 @@ class SettingsViewController: BeamTableViewController {
         self.privateBrowsingSwitch.isEnabled = true
     }
     
-    //MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         return self.sections.count
@@ -407,11 +406,11 @@ class SettingsViewController: BeamTableViewController {
         cell.accessoryView = row.accessoryView
         cell.accessoryType = row.accessoryType
         cell.textColorType = row.textColorType
-        cell.selectionStyle = row.key.selectable ? UITableViewCellSelectionStyle.default : UITableViewCellSelectionStyle.none
+        cell.selectionStyle = row.key.selectable ? UITableViewCellSelectionStyle.default: UITableViewCellSelectionStyle.none
         return cell
     }
     
-    //MARK: - UITableViewDelegate
+    // MARK: - UITableViewDelegate
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
@@ -423,7 +422,7 @@ class SettingsViewController: BeamTableViewController {
         
         let key = row.key
         
-        if key.requiresPasscode == true && AppDelegate.shared.passcodeController.passcodeEnabled == true  {
+        if key.requiresPasscode == true && AppDelegate.shared.passcodeController.passcodeEnabled == true {
             let storyboard = UIStoryboard(name: "Passcode", bundle: nil)
             if let navigationController = storyboard.instantiateViewController(withIdentifier: "enter-passcode") as? UINavigationController, let passcodeViewController = navigationController.topViewController as? EnterPasscodeViewController {
                 passcodeViewController.delegate = self
@@ -446,7 +445,7 @@ class SettingsViewController: BeamTableViewController {
         return section.footerTitle
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     fileprivate func performAction(at indexPath: IndexPath) {
         guard let selectedRow = self.selectedRow else {
@@ -498,7 +497,7 @@ class SettingsViewController: BeamTableViewController {
         }
     }
     
-    //MARK: - Passcode
+    // MARK: - Passcode
     
     fileprivate func showPasscodeOptions() {
         if AppDelegate.shared.passcodeController.passcodeEnabled == true {
@@ -519,8 +518,7 @@ class SettingsViewController: BeamTableViewController {
         }
     }
     
-    
-    //MARK: - Clear methods
+    // MARK: - Clear methods
     
     fileprivate func clearCaches() {
         SDImageCache.shared().clearDisk()
@@ -532,15 +530,15 @@ class SettingsViewController: BeamTableViewController {
         self.present(alertController, animated: true, completion: nil)
     }
     
-    fileprivate func clearSearchHistory(_ completionHandler: (() -> ())? = nil) {
+    fileprivate func clearSearchHistory(_ completionHandler: (() -> Void)? = nil) {
         RedditActivityController.clearSearchedPostKeywords()
         RedditActivityController.clearSearchedSubredditKeywords()
-        CSSearchableIndex.default().deleteAllSearchableItems { (error) in
+        CSSearchableIndex.default().deleteAllSearchableItems { (_) in
             NSLog("Core spotlight search results cleared")
         }
         
         let clearSubredditHistoryOperation = Subreddit.clearAllVisitedDatesOperation(AppDelegate.shared.managedObjectContext)
-        DataController.shared.executeAndSaveOperations([clearSubredditHistoryOperation], context: AppDelegate.shared.managedObjectContext) { (error: Error?) -> Void in
+        DataController.shared.executeAndSaveOperations([clearSubredditHistoryOperation], context: AppDelegate.shared.managedObjectContext) { (_) -> Void in
             
             DispatchQueue.main.async(execute: { () -> Void in
                 completionHandler?()
@@ -554,7 +552,7 @@ class SettingsViewController: BeamTableViewController {
         if AppDelegate.shared.authenticationController.fetchAllAuthenticationSessions().count > 0 && !UserSettings[.hasBeenShownTheAddAccountWarning] {
             UserSettings[.hasBeenShownTheAddAccountWarning] = true
             let alertController = BeamAlertController(title: AWKLocalizedString("add-additional-account-warning-title"), message: AWKLocalizedString("add-additional-account-warning-message"), preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("login-button"), style: UIAlertActionStyle.cancel, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("login-button"), style: UIAlertActionStyle.cancel, handler: { (_) in
                  AppDelegate.shared.presentAuthenticationViewController()
             }))
             self.present(alertController, animated: true, completion: nil)
@@ -564,7 +562,7 @@ class SettingsViewController: BeamTableViewController {
         
     }
     
-    func openWebsiteWithURL(_ URL:Foundation.URL) {
+    func openWebsiteWithURL(_ URL: Foundation.URL) {
         let webViewController = WebViewController(nibName: "WebViewController", bundle: nil)
         webViewController.initialUrl = URL
         self.navigationController?.pushViewController(webViewController, animated: true)
@@ -572,7 +570,7 @@ class SettingsViewController: BeamTableViewController {
     
     func logout() {
         let alertController = BeamAlertController(title: AWKLocalizedString("logout-sure-title"), message: AWKLocalizedString("logout-sure-message"), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("logout-sure-button"), style: .destructive, handler: { (action: UIAlertAction) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("logout-sure-button"), style: .destructive, handler: { (_) -> Void in
             if let session = AppDelegate.shared.authenticationController.activeUserSession {
                 AppDelegate.shared.authenticationController.removeUserSession(session, handler: { [weak self] () -> Void in
                     DispatchQueue.main.async {
@@ -588,7 +586,7 @@ class SettingsViewController: BeamTableViewController {
     
     func logoutAll() {
         let alertController = BeamAlertController(title: AWKLocalizedString("logout-all-sure-title"), message: AWKLocalizedString("logout-all-sure-message"), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("logout-sure-button"), style: .destructive, handler: { (action: UIAlertAction) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("logout-sure-button"), style: .destructive, handler: { (_) -> Void in
             AppDelegate.shared.authenticationController.removeAllUserAccounts()
             DispatchQueue.main.async {
                 self.reloadSections()
@@ -620,7 +618,6 @@ class SettingsViewController: BeamTableViewController {
         let appRelease = Bundle.main.infoDictionary!["CFBundleVersion"] as! String
         let appVersion = Bundle.main.infoDictionary!["CFBundleShortVersionString"] as! String
         
-        
         var string = "\n\nSome information to help us with the problem:\n\n"
         string += "App Information:\n"
         string += "Installed App Version: \(appVersion) (\(appRelease)\n"
@@ -633,13 +630,13 @@ class SettingsViewController: BeamTableViewController {
         return string
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @IBAction func closeButtonTapped(_ sender: AnyObject) {
         self.dismissViewController(sender)
     }
     
-    func switchChanged(_ sender:UISwitch?) {
+    @objc func switchChanged(_ sender: UISwitch?) {
         if let sender = sender {
             var key: SettingsKey<Bool>?
             if sender == self.privacyOverlaySwitch {
@@ -661,7 +658,7 @@ class SettingsViewController: BeamTableViewController {
                     self.clearSearchHistory()
                 }
             } else {
-                assert(false,"Unimplemented switch change")
+                assert(false, "Unimplemented switch change")
             }
             if let key = key {
                 UserSettings[key] = sender.isOn

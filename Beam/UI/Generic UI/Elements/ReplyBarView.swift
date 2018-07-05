@@ -13,7 +13,6 @@ protocol ReplyBarViewDelegate: class {
     func replyBar(_ replyBarView: ReplyBarView, didTapSendMessage content: String)
 }
 
-
 class ReplyBarView: BeamView {
     
     fileprivate weak var delegate: ReplyBarViewDelegate?
@@ -43,7 +42,7 @@ class ReplyBarView: BeamView {
         didSet {
             self.isEnabled = !self.sending
             self.sendButton.isHidden = self.sending
-            self.activitiyIndicatorView.isHidden = !self.sending;
+            self.activitiyIndicatorView.isHidden = !self.sending
         }
     }
     
@@ -167,14 +166,14 @@ class ReplyBarView: BeamView {
         super.displayModeDidChange()
         
         self.isOpaque = true
-        self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor(red:0.14, green:0.14, blue:0.14, alpha:1))
+        self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor(red: 0.14, green: 0.14, blue: 0.14, alpha: 1))
         self.textView.backgroundColor = self.backgroundColor
         self.placeholderLabel.backgroundColor = UIColor.clear
 
         self.textView.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         self.sendButton.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
         self.textView.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        self.placeholderLabel.textColor = DisplayModeValue(UIColor(red: 110/255, green: 106/255, blue: 122/255, alpha: 1.0), darkValue: UIColor.white).withAlphaComponent(0.7)
+        self.placeholderLabel.textColor = DisplayModeValue(UIColor(red: 110 / 255, green: 106 / 255, blue: 122 / 255, alpha: 1.0), darkValue: UIColor.white).withAlphaComponent(0.7)
         
         self.textView.keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.light, darkValue: UIKeyboardAppearance.dark)
         if self.textView.isFirstResponder {
@@ -191,7 +190,7 @@ class ReplyBarView: BeamView {
         self.text = nil
     }
     
-    //MARK: - First Responder 
+    // MARK: - First Responder
     
     override func becomeFirstResponder() -> Bool {
         return self.textView.becomeFirstResponder()

@@ -42,9 +42,8 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
     fileprivate func startLoadingAlbums() {
         var albums = [Album.allPhotosAlbum]
         
-        
         let smartAlbumResults = PHAssetCollection.fetchAssetCollections(with: PHAssetCollectionType.smartAlbum, subtype: PHAssetCollectionSubtype.albumRegular, options: nil)
-        smartAlbumResults.enumerateObjects({ (collection, index, stop) in
+        smartAlbumResults.enumerateObjects({ (collection, _, _) in
             
             if self.smartAlbumAllowed(collection) && ((self.assetsPickerController?.hideEmptyAlbums == true && collection.estimatedAssetCount > 0 && collection.estimatedAssetCount != NSNotFound) || self.assetsPickerController?.hideEmptyAlbums == false) {
                     albums.append(Album(collection: collection))
@@ -52,8 +51,8 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
         })
         
         let albumResults = PHCollectionList.fetchTopLevelUserCollections(with: nil)
-        albumResults.enumerateObjects({ (collection, index, stop) in
-            if let collection = collection as? PHAssetCollection , (self.assetsPickerController?.hideEmptyAlbums == true && collection.estimatedAssetCount > 0 && collection.estimatedAssetCount != NSNotFound) || self.assetsPickerController?.hideEmptyAlbums == false{
+        albumResults.enumerateObjects({ (collection, _, _) in
+            if let collection = collection as? PHAssetCollection, (self.assetsPickerController?.hideEmptyAlbums == true && collection.estimatedAssetCount > 0 && collection.estimatedAssetCount != NSNotFound) || self.assetsPickerController?.hideEmptyAlbums == false {
                     albums.append(Album(collection: collection))
             }
         })
@@ -72,10 +71,9 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
         if self.assetsPickerController?.hideHiddenSmartAlbum == true {
             bannedAlbumNames.append(contentsOf: self.recentlyDeletedAlbumLocalizedNames)
         }
-        if let title = collection.localizedTitle?.lowercased() , bannedAlbumNames.contains(title) {
+        if let title = collection.localizedTitle?.lowercased(), bannedAlbumNames.contains(title) {
             return false
         }
-        
         
         var bannedAlbumSubtypes = [PHAssetCollectionSubtype.smartAlbumAllHidden]
         if !self.assetsPickerController!.mediaTypes.contains(PHAssetMediaType.video) {
@@ -95,7 +93,7 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
         return !bannedAlbumSubtypes.contains(collection.assetCollectionSubtype)
     }
     
-    fileprivate var recentlyDeletedAlbumLocalizedNames = ["recently deleted", "eliminado", "zuletzt gelöscht", "supprimés récemment", "onlangs verwijderd" , "eliminati di recente"]
+    fileprivate var recentlyDeletedAlbumLocalizedNames = ["recently deleted", "eliminado", "zuletzt gelöscht", "supprimés récemment", "onlangs verwijderd", "eliminati di recente"]
 
     fileprivate var hiddenAlbumLocalizedNames = ["hidden", "oculto", "ausgeblendet", "masqués", "verborgen", "nascosti"]
     
@@ -105,7 +103,6 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
         return self.albums?.count ?? 0
     }
 
-    
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: AlbumTableViewCell.reuseIdentifier, for: indexPath) as! AlbumTableViewCell
         cell.assetsPickerController = self.assetsPickerController
@@ -113,7 +110,6 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
         cell.reloadContents(withFetchOptions: self.assetsPickerController!.fetchOptions)
         return cell
     }
-
     
     // MARK: - Navigation
 
@@ -123,16 +119,15 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
         // Pass the selected object to the new view controller.
         if let cell = sender as? UITableViewCell, let indexPath = self.tableView.indexPath(for: cell), let gridViewController = segue.destination as? AssetsGridViewController {
             gridViewController.assetsPickerController = self.assetsPickerController
-            gridViewController.album = self.albums?[(indexPath as NSIndexPath).row];
+            gridViewController.album = self.albums?[(indexPath as NSIndexPath).row]
         }
     }
  
-    
     @objc fileprivate func cancel(_ sender: AnyObject) {
         self.cancelImagePicking()
     }
     
-    //MARK: Color palette support
+    // MARK: Color palette support
     
     func colorPaletteDidChange() {
         self.view.backgroundColor = self.colorPalette.backgroundColor

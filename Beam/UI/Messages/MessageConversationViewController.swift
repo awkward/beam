@@ -46,8 +46,6 @@ class MessageConversationViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-
-        
         self.tableView.rowHeight = UITableViewAutomaticDimension
         self.tableView.estimatedRowHeight = 119
 
@@ -110,7 +108,7 @@ class MessageConversationViewController: BeamViewController {
         let maxTextSize = UIEdgeInsetsInsetRect(self.view.bounds, self.headerView.layoutMargins).size
         self.headerView.titleLabel.preferredMaxLayoutWidth = maxTextSize.width
         self.headerView.dateLabel.preferredMaxLayoutWidth = maxTextSize.width
-        let size = self.headerView.systemLayoutSizeFitting(CGSize(width: self.tableView.bounds.width, height: self.view.bounds.height), withHorizontalFittingPriority: UILayoutPriorityFittingSizeLevel, verticalFittingPriority: UILayoutPriorityFittingSizeLevel)
+        let size = self.headerView.systemLayoutSizeFitting(CGSize(width: self.tableView.bounds.width, height: self.view.bounds.height), withHorizontalFittingPriority: UILayoutPriority.fittingSizeLevel, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
         self.headerView.frame = CGRect(origin: CGPoint(), size: size)
         
         self.tableView.tableHeaderView = nil
@@ -130,13 +128,13 @@ class MessageConversationViewController: BeamViewController {
         }
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @objc fileprivate func moreTapped(_ sender: UIBarButtonItem) {
         let alertController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("delete-message-action-title", comment: "The action to delete a message on the message detail view"), style: UIAlertActionStyle.destructive, handler: { (action: UIAlertAction) in
-            guard let message: Message = self.message , message.identifier != nil else {
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("delete-message-action-title", comment: "The action to delete a message on the message detail view"), style: UIAlertActionStyle.destructive, handler: { (_) in
+            guard let message: Message = self.message, message.identifier != nil else {
                 return
             }
             let operation: Operation = message.deleteOperation(AppDelegate.shared.authenticationController, managedObjectContext: AppDelegate.shared.managedObjectContext)
@@ -184,7 +182,7 @@ extension MessageConversationViewController: UITableViewDataSource {
 extension MessageConversationViewController: MessageObjectCellDelegate {
 
     func messageObjectCell(_ cell: MessageObjectCell, didTapUsernameOnMessage message: Message) {
-        if let username = self.sentMessage ? message.destination : message.author , username != "[deleted]" {
+        if let username = self.sentMessage ? message.destination: message.author, username != "[deleted]" {
             let navigationController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! BeamColorizedNavigationController
             let profileViewController = navigationController.viewControllers.first as! ProfileViewController
             profileViewController.username = username
@@ -212,7 +210,7 @@ extension MessageConversationViewController: ReplyBarViewDelegate {
     func replyBar(_ replyBarView: ReplyBarView, didTapSendMessage content: String) {
         replyBarView.clear()
         _ = replyBarView.resignFirstResponder()
-        if let message = self.message , content.count > 0 {
+        if let message = self.message, content.count > 0 {
             self.replyBar.sending = true
             let operations = message.replyOperations(content, authenticationcontroller: AppDelegate.shared.authenticationController)
             DataController.shared.executeAndSaveOperations(operations, context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in

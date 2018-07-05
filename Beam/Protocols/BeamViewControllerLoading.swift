@@ -19,7 +19,7 @@ enum BeamViewControllerLoadingState {
 }
 
 /**
- This protocol (extension) reduces the amount of code needed to present a collection of data to the user. The required methods or properties to implement this loading protocol are: 
+ This protocol (extension) reduces the amount of code needed to present a collection of data to the user. The required methods or properties to implement this loading protocol are:
  
  - CollectionItem type alias
  - content
@@ -41,7 +41,7 @@ protocol BeamViewControllerLoading: class {
     var content: [CollectionItem]? { get set }
     
     /// If the content should be reloaded when a request for content is started by a view controller, but is not granted because the expire date hasn't been reached yet.
-    /// This can be used to make sure `content` isn't set when it's not wanted. This is used for instance in the subreddits view to make sure the 
+    /// This can be used to make sure `content` isn't set when it's not wanted. This is used for instance in the subreddits view to make sure the
     /// Content is not being reparsed into the sections because doing so takes a bit of time and can cause animations to slow down
     /// Especially when this is called in viewWillAppear.
     var shouldReloadContentOnStartFetching: Bool { get }
@@ -86,7 +86,7 @@ protocol BeamViewControllerLoading: class {
 
 // MARK: -
 
-extension BeamViewControllerLoading where Self : UIViewController {
+extension BeamViewControllerLoading where Self: UIViewController {
     
     /// If the content should be reloaded when a request for content is started by a view controller, but is not granted because the expire date hasn't been reached yet.
     /// This can be used to make sure `content` isn't set when it's not wanted. This is used for instance in the subreddits view to make sure the
@@ -134,14 +134,13 @@ extension BeamViewControllerLoading where Self : UIViewController {
             }
             
             self.updateLoadingState()
-
         })
     }
     
     func handleCollectionControllerFetching() {
         guard AppDelegate.shared.cherryController.searchTermAllowed(term: self.collectionController.query?.searchKeywords) else {
             self.loadingState = BeamViewControllerLoadingState.empty
-                
+            
             self.updateEmptyView()
             return
         }
@@ -166,18 +165,17 @@ extension BeamViewControllerLoading where Self : UIViewController {
                 self.loadingState = BeamViewControllerLoadingState.empty
                 
                 self.updateEmptyView()
-                return 
+                return
         }
 
-        
         guard query.requiresAuthentication == false || (query.requiresAuthentication == true && AppDelegate.shared.authenticationController.isAuthenticated == true) else {
             self.loadingState = .noAccess
             self.updateEmptyView()
             return
         }
-       
+        
         if self.shouldFetchCollection(respectingExpirationDate: respectExpirationDate) && self.collectionController.status != .fetching {
-            self.collectionController.startInitialFetching(overwrite) { [weak self] (collectionID: NSManagedObjectID?, error: Error?) -> Void in
+            self.collectionController.startInitialFetching(overwrite) { [weak self] (_, error) -> Void in
                 self?.handleCollectionControllerResponse(error)
             }
             self.handleCollectionControllerFetching()
@@ -187,7 +185,6 @@ extension BeamViewControllerLoading where Self : UIViewController {
                 self.updateContent()
             }
         }
-        
     }
     
     /**
@@ -256,7 +253,7 @@ extension BeamViewControllerLoading where Self : UIViewController {
                     collection = object
                 }
             } catch {
-                AWKDebugLog("Error getting ObjectCollection: %@",(error as NSError))
+                AWKDebugLog("Error getting ObjectCollection: %@", (error as NSError))
             }
         }
         
@@ -275,7 +272,7 @@ extension BeamViewControllerLoading where Self : UIViewController {
                     content += self.contentFromList(nil)
                 }
             } catch {
-                    AWKDebugLog("Error getting content: %@",(error as NSError))
+                    AWKDebugLog("Error getting content: %@", (error as NSError))
             }
             
         }
@@ -318,14 +315,17 @@ extension BeamViewControllerLoading where Self : UIViewController {
     
     func emptyViewTypeForState(_ state: BeamViewControllerLoadingState) -> BeamEmptyViewType {
         switch state {
-            case .loading: return BeamEmptyViewType.Loading
-            case .noInternetConnection: return BeamEmptyViewType.Error 
-            case .noAccess: return BeamEmptyViewType.MultiredditNoAccess
-            default:
-                if let characters = self.collectionController.query?.searchKeywords, characters.count > 0 {
-                    return BeamEmptyViewType.SearchNoResults
-                }
-                return self.defaultEmptyViewType
+        case .loading:
+            return BeamEmptyViewType.Loading
+        case .noInternetConnection:
+            return BeamEmptyViewType.Error
+        case .noAccess:
+            return BeamEmptyViewType.MultiredditNoAccess
+        default:
+            if let characters = self.collectionController.query?.searchKeywords, characters.count > 0 {
+                return BeamEmptyViewType.SearchNoResults
+            }
+            return self.defaultEmptyViewType
         }
     }
     

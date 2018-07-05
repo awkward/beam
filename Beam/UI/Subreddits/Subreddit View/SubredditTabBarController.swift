@@ -12,7 +12,6 @@ import Trekker
 import CoreData
 import StoreKit
 
-
 let ManageMultiredditSubsSegueIdentifier = "manageMultireddit"
 let AddToMultiredditSegueIdentifier = "addtomultireddit"
 
@@ -43,7 +42,6 @@ class SubredditTabBarController: SmallTabBarController {
                 DataController.shared.executeAndSaveOperations([visitOperation], context: AppDelegate.shared.managedObjectContext, handler: nil)
             }
             
-            
             if self.subreddit != oldValue {
                 //Make sure the view controllers have the newest subreddit
                 self.configureSubViewControllers()
@@ -64,7 +62,7 @@ class SubredditTabBarController: SmallTabBarController {
         return navigationController?.topViewController as? SubredditStreamViewController
     }
     
-    //MARK: - Transition
+    // MARK: - Transition
     
     lazy fileprivate var transitionHandler: NewBeamViewControllerTransitionHandler = {
         return NewBeamViewControllerTransitionHandler(delegate: self)
@@ -85,7 +83,6 @@ class SubredditTabBarController: SmallTabBarController {
     
     // MARK: - View Lifecycle
 
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -135,20 +132,19 @@ class SubredditTabBarController: SmallTabBarController {
     // MARK: - View Controllers
     
     fileprivate func configureSubViewControllers() {
-        guard let viewControllers = self.viewControllers , viewControllers.count > 0 else {
+        guard let viewControllers = self.viewControllers, viewControllers.count > 0 else {
             return
         }
         
         //Update the subreddit on the view controllers
         for viewController in viewControllers {
             if let navigationController = viewController as? BeamNavigationController,
-                var subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController
-                , subredditTabItemViewController.subreddit?.identifier != self.subreddit?.identifier {
+                var subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController, subredditTabItemViewController.subreddit?.identifier != self.subreddit?.identifier {
                 subredditTabItemViewController.subreddit = self.subreddit
             }
         }
         
-        if let navigationController = self.selectedViewController as? UINavigationController , navigationController.topViewController is SubredditMediaOverviewViewController {
+        if let navigationController = self.selectedViewController as? UINavigationController, navigationController.topViewController is SubredditMediaOverviewViewController {
             //Do not continue with updating the media view!
             return
         }
@@ -167,7 +163,13 @@ class SubredditTabBarController: SmallTabBarController {
         }) as! [UINavigationController]
         
         //Check if a the media view is already in the tabbar
-        let mediaViewController: SubredditMediaOverviewViewController? = mediaNavigationControllers.filter({ let navigationController: UINavigationController = $0; guard let topViewController = navigationController.topViewController else { return false }; return topViewController is SubredditMediaOverviewViewController }).first?.topViewController as? SubredditMediaOverviewViewController
+        let mediaViewController = mediaNavigationControllers.first(where: {
+            let navigationController: UINavigationController = $0
+            guard let topViewController = navigationController.topViewController else {
+                return false
+            }
+            return topViewController is SubredditMediaOverviewViewController
+        })?.topViewController as? SubredditMediaOverviewViewController
         
         //Only configure the media view controller if it's not already in there
         if mediaViewController == nil {
@@ -221,29 +223,27 @@ class SubredditTabBarController: SmallTabBarController {
         navigationController.navigationBar.addGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
     }
     
-    //MARK: - Subreddit updates
+    // MARK: - Subreddit updates
     
     fileprivate func updateSubredditTitles() {
         
         //Update the title of the view for accessability
         self.title = self.subreddit?.displayName
         
-        
-        guard let viewControllers = self.viewControllers , viewControllers.count > 0 else {
+        guard let viewControllers = self.viewControllers, viewControllers.count > 0 else {
             return
         }
         
         //Update the subreddit on the view controllers
         for viewController in viewControllers {
-            if let navigationController = viewController as? UINavigationController,
-                var subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController
-                , subredditTabItemViewController.subreddit?.identifier != self.subreddit?.identifier {
+            if let navigationController = viewController as? UINavigationController, var subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController,
+                subredditTabItemViewController.subreddit?.identifier != self.subreddit?.identifier {
                 subredditTabItemViewController.updateNavigationItem()
             }
         }
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func contextObjectsDidChange(_ notification: Notification?) {
         DispatchQueue.main.async { () -> Void in
@@ -262,28 +262,28 @@ class SubredditTabBarController: SmallTabBarController {
         }
     }
     
-    //MARK: - General actions
+    // MARK: - General actions
     
-    func closeTapped(_ sender: UIBarButtonItem) {
+    @objc func closeTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
     }
     
-    func composeTapped(_ sender: UIBarButtonItem) {
+    @objc func composeTapped(_ sender: UIBarButtonItem) {
         guard AppDelegate.shared.authenticationController.isAuthenticated else {
             self.present(UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.CreatePost), animated: true, completion: nil)
             return
         }
         let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         if self.subreddit?.submissionType.canPostSelfText == true {
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-text-post-button"), style: UIAlertActionStyle.default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-text-post-button"), style: UIAlertActionStyle.default, handler: { (_) in
                 self.showCreatePost("create-text-post")
             }))
         }
         if self.subreddit?.submissionType.canPostLink == true {
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-link-post-button"), style: UIAlertActionStyle.default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-link-post-button"), style: UIAlertActionStyle.default, handler: { (_) in
                 self.showCreatePost("create-link-post")
             }))
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-image-post-button"), style: UIAlertActionStyle.default, handler: { (action) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-image-post-button"), style: UIAlertActionStyle.default, handler: { (_) in
                 self.showCreatePost("create-image-post")
             }))
         }
@@ -293,16 +293,16 @@ class SubredditTabBarController: SmallTabBarController {
         
     }
     
-    func copyMultireddit(_ sender: AnyObject) {
+    @objc func copyMultireddit(_ sender: Any) {
         guard AppDelegate.shared.authenticationController.isAuthenticated else {
             self.present(UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.Subscribe), animated: true, completion: nil)
             return
         }
-        Trekker.default.track(event: TrekkerEvent(event: "Copy Multireddit", properties: ["View":"Navigation Bar"]))
+        Trekker.default.track(event: TrekkerEvent(event: "Copy Multireddit", properties: ["View": "Navigation Bar"]))
         self.showCopyMultireddit()
     }
     
-    //MARK: - Create Post
+    // MARK: - Create Post
     
     fileprivate func showCreatePost(_ identifier: String) {
         let storyBoard = UIStoryboard(name: "CreatePost", bundle: nil)
@@ -312,23 +312,23 @@ class SubredditTabBarController: SmallTabBarController {
         }
     }
     
-    //MARK: - Multireddit actions
+    // MARK: - Multireddit actions
     
     func showManageSubreddits() {
-        if let multireddit = self.subreddit as? Multireddit , multireddit.canEdit?.boolValue == true {
+        if let multireddit = self.subreddit as? Multireddit, multireddit.canEdit?.boolValue == true {
             self.performSegue(withIdentifier: ManageMultiredditSubsSegueIdentifier, sender: nil)
         }
     }
     
     func showAddToMultireddit() {
-        if let subreddit = self.subreddit , !(subreddit is Multireddit) {
+        if let subreddit = self.subreddit, !(subreddit is Multireddit) {
             self.performSegue(withIdentifier: AddToMultiredditSegueIdentifier, sender: nil)
         }
     }
     
     func showEditMultireddit() {
         let storyboard = UIStoryboard(name: "EditMultireddit", bundle: nil)
-        if let multireddit = self.subreddit as? Multireddit, let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController, let editMultiredditViewController = navigationController.viewControllers.first as? EditMultiredditViewController , multireddit.canEdit?.boolValue == true {
+        if let multireddit = self.subreddit as? Multireddit, let navigationController = storyboard.instantiateInitialViewController() as? UINavigationController, let editMultiredditViewController = navigationController.viewControllers.first as? EditMultiredditViewController, multireddit.canEdit?.boolValue == true {
             editMultiredditViewController.multireddit = multireddit
             self.present(navigationController, animated: true, completion: nil)
         }
@@ -343,10 +343,10 @@ class SubredditTabBarController: SmallTabBarController {
         }
     }
     
-    //MARK: - Requests
+    // MARK: - Requests
     
     func cancelAllRequests() {
-        guard let viewControllers = self.viewControllers , viewControllers.count > 0 else {
+        guard let viewControllers = self.viewControllers, viewControllers.count > 0 else {
             return
         }
         
@@ -363,7 +363,7 @@ class SubredditTabBarController: SmallTabBarController {
         }
     }
 
-    //MARK: - Segues
+    // MARK: - Segues
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == ManageMultiredditSubsSegueIdentifier {
@@ -381,6 +381,11 @@ class SubredditTabBarController: SmallTabBarController {
         if identifier == ManageMultiredditSubsSegueIdentifier && !(self.subreddit is Multireddit) {
             return false
         }
+        return true
+    }
+    
+    override func accessibilityPerformEscape() -> Bool {
+        self.dismiss(animated: true, completion: nil)
         return true
     }
 

@@ -22,7 +22,7 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
         }
     }
 
-    internal override var preferredStatusBarStyle : UIStatusBarStyle {
+    internal override var preferredStatusBarStyle: UIStatusBarStyle {
         return self.colorPalette.statusBarStyle
     }
     
@@ -35,7 +35,6 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
     override internal func viewDidLoad() {
         super.viewDidLoad()
 
-        
         self.startColorPaletteSupport()
         
         self.updateRootViewControllers()
@@ -50,8 +49,8 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
         NotificationCenter.default.removeObserver(self)
     }
     
-    internal override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
-        return UIInterfaceOrientationMask.portrait
+    internal override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
+        return .portrait
     }
     
     override internal func viewWillAppear(_ animated: Bool) {
@@ -83,7 +82,7 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
                 if let albumsViewController = storyboard.instantiateViewController(withIdentifier: "albums-view") as? AlbumsViewController {
                     albumsViewController.assetsPickerController = self.assetsPickerController
                     var viewControllers: [UIViewController] = [albumsViewController]
-                    if let gridViewController = storyboard.instantiateViewController(withIdentifier: "assets-grid") as? AssetsGridViewController , self.pickerController.defaultAlbum == AssetsPickerControllerAlbumType.allPhotos {
+                    if let gridViewController = storyboard.instantiateViewController(withIdentifier: "assets-grid") as? AssetsGridViewController, self.pickerController.defaultAlbum == AssetsPickerControllerAlbumType.allPhotos {
                         gridViewController.assetsPickerController = self.assetsPickerController
                         gridViewController.album = Album.allPhotosAlbum
                         viewControllers.append(gridViewController)
@@ -97,7 +96,6 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
     @objc fileprivate func applicationDidBecomeActive(_ notification: Notification) {
         self.updateRootViewControllers()
     }
-    
     
     fileprivate func authorizationStatusDidChange(_ status: PHAuthorizationStatus) {
         self.updateRootViewControllers()

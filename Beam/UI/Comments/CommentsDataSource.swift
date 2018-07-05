@@ -46,7 +46,7 @@ class CommentsDataSource: NSObject {
     //Used to determine the loading indicator for the Load More Comments cells
     fileprivate var loadingMoreComment: MoreComment?
     
-    //MARK: - Data
+    // MARK: - Data
     
     func fetchComments(_ completionHandler: @escaping (_ collectionID: NSManagedObjectID?, _ error: Error?) -> Void) {
         self.collectionController.cancelFetching()
@@ -70,7 +70,7 @@ class CommentsDataSource: NSObject {
      - returns: An array of comments in the thread, this is the flattened array
      */
     func commentsAtIndex(_ index: Int) -> [Comment]? {
-        guard let threads = self.threads,  index < threads.count else {
+        guard let threads = self.threads, index < threads.count else {
             return nil
         }
         return threads[index]
@@ -108,7 +108,7 @@ class CommentsDataSource: NSObject {
                 let indexPath = IndexPath(row: index, section: section)
                 return indexPath
             }
-            section = section + 1;
+            section += 1
         }
         return nil
     }
@@ -126,7 +126,7 @@ class CommentsDataSource: NSObject {
                     section.append(contentsOf: self.commentReplies(comment, currentLevel: 1))
                     threads.append(section)
                 }
-                self.threads =  threads
+                self.threads = threads
             }
         }
     }
@@ -157,7 +157,7 @@ class CommentsDataSource: NSObject {
                     parent.replies = replies
                 }
                 if index + 1 < thread.count {
-                    thread.insert(comment, at: index+1)
+                    thread.insert(comment, at: index + 1)
                 } else {
                     thread.append(comment)
                 }
@@ -172,7 +172,7 @@ class CommentsDataSource: NSObject {
     /**
      Load the children of a MoreComment. This will also recreate the threads
      
-     - parameter comment:           The MoreComment to load the children of
+     - parameter comment: The MoreComment to load the children of
      - parameter completionHandler: A completion handler, called when the operation has completed or an error occured
      */
     func loadMoreCommentChildren(_ comment: MoreComment, completionHandler: @escaping (_ error: Error?) -> Void) {
@@ -199,7 +199,7 @@ class CommentsDataSource: NSObject {
             for comment in replies {
                 if !self.isCommentFullyCollapsed(comment) {
                     comments.append(comment)
-                    let level = currentLevel+1
+                    let level = currentLevel + 1
                     if level < CommentsDataSource.maxCommentsDepth {
                         comments.append(contentsOf: self.commentReplies(comment, currentLevel: level))
                     } else {
@@ -215,7 +215,7 @@ class CommentsDataSource: NSObject {
         return comments
     }
     
-    //MARK: - Comment properties
+    // MARK: - Comment properties
     
     /**
      Returns the relative indentation level for the comment. The parentComment of the qeuery is taken as the begin level if available
@@ -293,7 +293,7 @@ class CommentsDataSource: NSObject {
      */
     func isCommentFullyCollapsed(_ comment: Comment) -> Bool {
         if self.collapsedComments.contains(comment) {
-            if let parentComment = comment.parent as? Comment , self.isCommentCollapsed(parentComment) {
+            if let parentComment = comment.parent as? Comment, self.isCommentCollapsed(parentComment) {
                 return true
             }
             return false
@@ -313,7 +313,7 @@ class CommentsDataSource: NSObject {
         return indentation >= CommentsDataSource.maxCommentsDepth
     }
 
-    //MARK: - UITableView methods
+    // MARK: - UITableView methods
     
     /**
     Register the needed cells for the tableView
@@ -327,7 +327,7 @@ class CommentsDataSource: NSObject {
     }
     
     func commentCell(forTableView tableView: UITableView, atIndexPath indexPath: IndexPath) -> BaseCommentCell? {
-        let newIndexPath = IndexPath(row: (indexPath as IndexPath).row, section: (indexPath as IndexPath).section-self.indexPathSectionOffset)
+        let newIndexPath = IndexPath(row: (indexPath as IndexPath).row, section: (indexPath as IndexPath).section - self.indexPathSectionOffset)
         if let comment = self.commentAtIndexPath(newIndexPath) {
             var cell: BaseCommentCell!
             if self.isCommentOutsideOfDepthLimit(comment) {
@@ -383,7 +383,7 @@ class CommentsDataSource: NSObject {
             return 44
         } else {
             if self.collapsedComments.contains(comment) {
-                if let parentComment = comment.parent as? Comment , self.isCommentCollapsed(parentComment) {
+                if let parentComment = comment.parent as? Comment, self.isCommentCollapsed(parentComment) {
                     return 0
                 }
                 return 40

@@ -26,8 +26,6 @@ protocol MediaImageLoader: class {
     func startImageLoading()
     func stopImageLoading()
     func mediaURLString() -> String?
-   
-    
 }
 
 extension MediaImageLoader {
@@ -50,33 +48,32 @@ extension MediaImageLoader {
     }
     
     func startImageLoading() {
-        DispatchQueue.global(qos: .userInitiated).async { () -> Void in
-            let URLString = self.mediaURLString()
+        DispatchQueue.global(qos: .userInitiated).async { [weak self] () -> Void in
+            let URLString = self?.mediaURLString()
             if let URLString = URLString, let url = URL(string: URLString) {
                 if let cachedImage = SDImageCache.shared().imageFromDiskCache(forKey: URLString) {
                     DispatchQueue.main.async(execute: { () -> Void in
-                        self.mediaImageView.image = cachedImage
-                        self.imageLoadingCompleted()
+                        self?.mediaImageView.image = cachedImage
+                        self?.imageLoadingCompleted()
                     })
                 } else {
-                    self.imageOperation = AppDelegate.shared.imageLoader.startDownloadingImageWithURL(url, progressHandler: { (totalBytesWritten, totalBytesExpectedToWrite) -> () in
+                    self?.imageOperation = AppDelegate.shared.imageLoader.startDownloadingImageWithURL(url, progressHandler: { [weak self] (totalBytesWritten, totalBytesExpectedToWrite) in
                         let progress = CGFloat(totalBytesWritten) / CGFloat(totalBytesExpectedToWrite)
-                        self.progressDidChange(progress)
-                        }, completionHandler: { (image) -> () in
+                        self?.progressDidChange(progress)
+                        }, completionHandler: { [weak self] (image) in
                             DispatchQueue.main.async(execute: { () -> Void in
-                                self.mediaImageView.image = image
-                                self.imageLoadingCompleted()
+                                self?.mediaImageView.image = image
+                                self?.imageLoadingCompleted()
                             })
                     })
                 }
                 
             } else {
-                self.stopImageLoading()
+                self?.stopImageLoading()
             }
         }
         
     }
-    
     
     func stopImageLoading() {
         self.imageOperation?.cancel()

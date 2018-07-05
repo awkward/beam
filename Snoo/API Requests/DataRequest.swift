@@ -32,7 +32,7 @@ open class DataRequest: SnooOperation {
     open var HTTPResponse: HTTPURLResponse?
     
     /// A completion handler to be completed in the operation thread. The operation will wait for the completion handler before changing to the finished state.
-    open var requestCompletionHandler: ((Error?) -> ())?
+    open var requestCompletionHandler: ((Error?) -> Void)?
     
     open var result: NSDictionary? {
         didSet {
@@ -74,14 +74,14 @@ open class DataRequest: SnooOperation {
                 self.HTTPResponse = urlResponse as? HTTPURLResponse
                 
                 /*
-                Reddit often responds with a 200 status code, however in some cases a 201 might be sent upon creation. 
+                Reddit often responds with a 200 status code, however in some cases a 201 might be sent upon creation.
                 However some requests on reddit come with a 202 status code (for example, mark all messages as read), this means the request is still fullfilled, but the body will not be json (even if the header says so).
                 These requests almost never have any useful body anyway.
                 */
                 
-                if let httpResponse: HTTPURLResponse = urlResponse as? HTTPURLResponse , httpResponse.statusCode >= 300 {
+                if let httpResponse: HTTPURLResponse = urlResponse as? HTTPURLResponse, httpResponse.statusCode >= 300 {
                     self.error = NSError.snooError(httpResponse.statusCode, localizedDescription: HTTPURLResponse.localizedString(forStatusCode: httpResponse.statusCode))
-                } else if let httpResponse: HTTPURLResponse = urlResponse as? HTTPURLResponse , httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 && (data?.count == 0 || httpResponse.statusCode == 202) {
+                } else if let httpResponse: HTTPURLResponse = urlResponse as? HTTPURLResponse, httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 && (data?.count == 0 || httpResponse.statusCode == 202) {
                     self.result = [String: AnyObject]() as NSDictionary?
                 } else if let data: Data = data {
                     do {
@@ -93,7 +93,7 @@ open class DataRequest: SnooOperation {
                                 return
                             }
                             if let json: NSDictionary = responseData?["json"] as? NSDictionary, json.count == 1 {
-                                guard let httpResponse: HTTPURLResponse = urlResponse as? HTTPURLResponse , httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 else {
+                                guard let httpResponse: HTTPURLResponse = urlResponse as? HTTPURLResponse, httpResponse.statusCode >= 200 && httpResponse.statusCode < 300 else {
                                     self.error = NSError.redditError(errorsArray: responseErrors)
                                     self.finishOperation()
                                     return
@@ -147,7 +147,7 @@ open class DataRequest: SnooOperation {
         }
     }
     
-    func stringFromQueryParameters(_ queryParameters : Dictionary<String, String>) -> String {
+    func stringFromQueryParameters(_ queryParameters: [String: String]) -> String {
         var parts: [String] = []
         for (name, value) in queryParameters {
             let part = NSString(format: "%@=%@",
@@ -155,7 +155,7 @@ open class DataRequest: SnooOperation {
                 URL.stringByAddingUrlPercentagesToString(value)!)
             parts.append(part as String)
         }
-        return parts.joined(separator: "&");
+        return parts.joined(separator: "&")
     }
     
     open class func formPOSTDataWithParameters(_ parameters: [String: String]) -> Data? {

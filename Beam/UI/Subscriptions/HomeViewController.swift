@@ -51,9 +51,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
     
     // MARK: - UIViewController
     
-    override func loadView() {
-        super.loadView()
-        
+    private func setupView() {
         self.view.insertSubview(self.multiredditsViewController.view, belowSubview: self.toolbar)
         self.addChildViewController(self.multiredditsViewController)
         self.multiredditsViewController.didMove(toParentViewController: self)
@@ -75,9 +73,11 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.setupView()
+        
         self.buttonBar.items = [ButtonBarButton(title: AWKLocalizedString("subreddits-title")), ButtonBarButton(title: AWKLocalizedString("multireddits-title"))]
         self.buttonBar.addTarget(self, action: #selector(HomeViewController.buttonBarChanged(_:)), for: UIControlEvents.valueChanged)
-        self.buttonBar.selectedItemIndex = UserSettings[.subscriptionsListType] == "multireddits" ? 1 : 0
+        self.buttonBar.selectedItemIndex = UserSettings[.subscriptionsListType] == "multireddits" ? 1: 0
         
         self.configureContentInsets()
         
@@ -101,7 +101,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
         let widthConstraint = NSLayoutConstraint(item: viewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
-        widthConstraint.priority = UILayoutPriorityDefaultHigh
+        widthConstraint.priority = UILayoutPriority.defaultHigh
         viewController.view.addConstraint(widthConstraint)
         
         containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": viewController.view]))
@@ -115,7 +115,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.currentViewController = self.buttonBar.selectedItemIndex == 1 ? self.multiredditsViewController : self.subredditsViewController
+        self.currentViewController = self.buttonBar.selectedItemIndex == 1 ? self.multiredditsViewController: self.subredditsViewController
     }
     
     override func viewDidLayoutSubviews() {
@@ -161,7 +161,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
 
 extension HomeViewController: NavigationBarNotificationDisplayingDelegate {
 
-    func topViewForDisplayOfnotificationView<NotificationView : UIView>(_ view: NotificationView) -> UIView? where NotificationView : NavigationBarNotification {
+    func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
         return self.buttonBar.superview
     }
     

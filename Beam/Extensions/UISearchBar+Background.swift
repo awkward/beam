@@ -21,10 +21,10 @@ extension UISearchBar {
             placeholderText = searchTextField?.attributedPlaceholder?.string ?? "Search"
         }
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        searchTextField?.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSForegroundColorAttributeName: placeholderColor])
+        searchTextField?.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         
         self.setImage(UISearchBar.searchIconWithColor(placeholderColor), for: .search, state: UIControlState())
-        self.searchTextPositionAdjustment = UIOffsetMake(8, 0)
+        self.searchTextPositionAdjustment = UIOffset(horizontal: 8, vertical: 0)
         
         self.keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
     }
@@ -37,7 +37,7 @@ extension UISearchBar {
         let searchFieldBackgroundImage = UISearchBar.searchFieldBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.white.withAlphaComponent(0.1)))
         self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControlState())
         
-        let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor()), seperatorColor: DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1)))
+        let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor()), seperatorColor: DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1)))
         self.setBackgroundImage(searchBarBackgroundImage, for: .any, barMetrics: .default)
     }
     
@@ -47,10 +47,9 @@ extension UISearchBar {
         let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor()), seperatorColor: nil)
         self.setBackgroundImage(searchBarBackgroundImage, for: .any, barMetrics: .default)
         
-        let scopeBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor()), seperatorColor: DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1)))
+        let scopeBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor()), seperatorColor: DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1)))
         self.scopeBarBackgroundImage = scopeBarBackgroundImage
     }
-    
     
     func applyBeamGrayBarStyle() {
         self.applyBeamStyle()
@@ -61,7 +60,7 @@ extension UISearchBar {
             let searchFieldBackgroundImage = UISearchBar.searchFieldBackgroundImageWithBackgroundColor(UIColor.white.withAlphaComponent(0.1))
             self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControlState())
             
-            let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(UIColor.beamDarkContentBackgroundColor(), seperatorColor: UIColor(red:0.24, green:0.24, blue:0.24, alpha:1))
+            let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(UIColor.beamDarkContentBackgroundColor(), seperatorColor: UIColor(red: 0.24, green: 0.24, blue: 0.24, alpha: 1))
             self.setBackgroundImage(searchBarBackgroundImage, for: .any, barMetrics: .default)
             self.scopeBarBackgroundImage = searchBarBackgroundImage
         } else {
@@ -79,7 +78,7 @@ extension UISearchBar {
     
     class func searchFieldBackgroundImageWithBackgroundColor(_ backgroundColor: UIColor = UIColor.white) -> UIImage? {
         let cornerRadius: CGFloat = 5
-        let width: CGFloat = (cornerRadius*2)+1
+        let width: CGFloat = (cornerRadius * 2) + 1
         let rect = CGRect(x: 0, y: 0, width: width, height: 30)
         let path = UIBezierPath(roundedRect: rect, cornerRadius: cornerRadius)
         
@@ -87,13 +86,13 @@ extension UISearchBar {
         backgroundColor.setFill()
         path.fill()
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: UIEdgeInsetsMake(0, cornerRadius, 0, cornerRadius), resizingMode: .tile)
+        let image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: UIEdgeInsets(top: 0, left: cornerRadius, bottom: 0, right: cornerRadius), resizingMode: .tile)
         UIGraphicsEndImageContext()
         
         return image
     }
     
-    class func searchBarBackgroundImageWithBackgroundColor(_ backgroundColor: UIColor = UIColor.white,seperatorColor: UIColor? = nil) -> UIImage? {
+    class func searchBarBackgroundImageWithBackgroundColor(_ backgroundColor: UIColor = UIColor.white, seperatorColor: UIColor? = nil) -> UIImage? {
         let rect = CGRect(x: 0, y: 0, width: 3, height: 3)
         let path = UIBezierPath(rect: rect)
         
@@ -102,14 +101,14 @@ extension UISearchBar {
         path.fill()
         
         if let seperatorColor = seperatorColor {
-            let seperatorHeight = 1/UIScreen.main.scale
-            let seperatorRect = CGRect(x: 0, y: rect.height-seperatorHeight, width: rect.width, height: seperatorHeight)
+            let seperatorHeight = 1 / UIScreen.main.scale
+            let seperatorRect = CGRect(x: 0, y: rect.height - seperatorHeight, width: rect.width, height: seperatorHeight)
             let seperatorPath = UIBezierPath(rect: seperatorRect)
             seperatorColor.setFill()
             seperatorPath.fill()
         }
         
-        let image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: UIEdgeInsetsMake(1, 1, 1, 1), resizingMode: .tile)
+        let image = UIGraphicsGetImageFromCurrentImageContext()?.resizableImage(withCapInsets: UIEdgeInsets(top: 1, left: 1, bottom: 1, right: 1), resizingMode: .tile)
         UIGraphicsEndImageContext()
         
         return image

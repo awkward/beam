@@ -11,7 +11,6 @@ import XCTest
 @testable import Snoo
 import CoreData
 
-
 class Subreddits: XCTestCase {
     
     var testController: TestController {
@@ -20,12 +19,6 @@ class Subreddits: XCTestCase {
     
     var authenticationController: AuthenticationController {
         return self.testController.authenticationController
-    }
-
-    override func setUp() {
-        super.setUp()
-        
-        
     }
     
     override func tearDown() {
@@ -38,21 +31,20 @@ class Subreddits: XCTestCase {
         self.resetAuthentication()
         self.addUserAccount()
         
-        XCTAssert(self.authenticationController.userSession != nil, "No available user accounts");
+        XCTAssert(self.authenticationController.userSession != nil, "No available user accounts")
         
         let collectionController = CollectionController(authentication: self.testController.authenticationController, context: testController.managedObjectContext)
-        collectionController.delegate = self
         let collectionQuery = SubredditsCollectionQuery()
-        collectionController.query = collectionQuery;
-       
+        collectionController.query = collectionQuery
+        
         let expectation = self.expectation(description: "User subreddits")
         collectionController.startInitialFetching { (collectionObjectID, error) in
-            XCTAssert(error == nil, "Error getting subreddits: \(error)");
+            XCTAssert(error == nil, "Error getting subreddits: \(error)")
             if let collectionObjectID = collectionObjectID, let collection = self.testController.managedObjectContext.object(with: collectionObjectID) as? SubredditCollection, let subreddits = collection.objects?.array as? [Subreddit] {
                 expectation.fulfill()
             } else {
-                XCTAssert(collectionObjectID != nil, "No collection object ID");
-                XCTAssert(false, "Invalid collection");
+                XCTAssert(collectionObjectID != nil, "No collection object ID")
+                XCTAssert(false, "Invalid collection")
             }
         }
         
@@ -63,9 +55,9 @@ class Subreddits: XCTestCase {
         self.resetAuthentication()
         self.addUserAccount()
         
-        XCTAssert(self.authenticationController.userSession != nil, "No available user accounts");
+        XCTAssert(self.authenticationController.userSession != nil, "No available user accounts")
         
-        self.measureMetrics(XCTestCase.defaultPerformanceMetrics(), automaticallyStartMeasuring: false) {
+        self.measure {
             if let URL = Bundle(for: Subreddits.self).url(forResource: "SubredditsResponse", withExtension: "json") {
                 
                 let responseData = try! Data(contentsOf: URL)
@@ -74,7 +66,7 @@ class Subreddits: XCTestCase {
                 let query = SubredditsCollectionQuery()
                 let parsingOperation = CollectionParsingOperation(query: query)
                 parsingOperation.data = responseJSON as? NSDictionary
-                let queue = OperationQueue();
+                let queue = OperationQueue()
                 queue.addOperations([parsingOperation], waitUntilFinished: true)
                 self.stopMeasuring()
                 
@@ -84,7 +76,6 @@ class Subreddits: XCTestCase {
                 XCTAssert(false, "Could not find reponse file")
             }
         }
-        
         
     }
     
@@ -109,9 +100,4 @@ class Subreddits: XCTestCase {
         XCTAssertFalse(self.authenticationController.isAuthenticated)
     }
     
-}
-
-extension Subreddits: CollectionControllerDelegate {
-
-
 }

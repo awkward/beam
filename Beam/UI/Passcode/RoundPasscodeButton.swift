@@ -31,8 +31,6 @@ class RoundPasscodeButton: PasscodeButton {
     fileprivate var normalImage: UIImage?
     fileprivate var highlightedImage: UIImage?
     
-
-    
     override func tintColorDidChange() {
         super.tintColorDidChange()
         self.updateImages()
@@ -51,7 +49,7 @@ class RoundPasscodeButton: PasscodeButton {
         let textColor: UIColor = self.tintColor ?? UIColor.white
         
         let strokeWidth: CGFloat = 2
-        let path = UIBezierPath(ovalIn: rect.insetBy(dx: strokeWidth/2, dy: strokeWidth/2))
+        let path = UIBezierPath(ovalIn: rect.insetBy(dx: strokeWidth / 2, dy: strokeWidth / 2))
         path.lineWidth = strokeWidth
         strokeColor?.setStroke()
         path.stroke()
@@ -61,16 +59,16 @@ class RoundPasscodeButton: PasscodeButton {
             path.fill()
         }
         
-        let numbersFont = UIFont.systemFont(ofSize: 36, weight: UIFontWeightThin)
-        let lettersFont = UIFont.systemFont(ofSize: 9, weight: UIFontWeightLight)
+        let numbersFont = UIFont.systemFont(ofSize: 36, weight: UIFont.Weight.thin)
+        let lettersFont = UIFont.systemFont(ofSize: 9, weight: UIFont.Weight.light)
         let numbersToLettersSpacing: CGFloat = -5
-        let numbersAndLettersHeight = numbersFont.lineHeight+lettersFont.lineHeight+numbersToLettersSpacing
+        let numbersAndLettersHeight = numbersFont.lineHeight + lettersFont.lineHeight + numbersToLettersSpacing
         
-        var yPosition = ((rect.height-numbersAndLettersHeight)/2)-3
+        var yPosition = ((rect.height - numbersAndLettersHeight) / 2) - 3
         
-        let numberTextAttributes: [String : Any] = [NSForegroundColorAttributeName: textColor, NSFontAttributeName: numbersFont]
+        let numberTextAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: numbersFont]
         let numberTextSize = self.numberString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: numberTextAttributes, context: nil).size
-        var numberTextRect = CGRect(origin: CGPoint(x: (rect.width-numberTextSize.width)/2, y: yPosition), size: numberTextSize)
+        var numberTextRect = CGRect(origin: CGPoint(x: (rect.width - numberTextSize.width) / 2, y: yPosition), size: numberTextSize)
         
         numberTextRect.origin.x = round(numberTextRect.origin.x)
         numberTextRect.origin.y = round(numberTextRect.origin.y)
@@ -86,9 +84,9 @@ class RoundPasscodeButton: PasscodeButton {
         self.numberString.draw(in: numberTextRect, withAttributes: numberTextAttributes)
     
         if let lettersString = self.lettersString?.uppercased {
-            let lettersTextAttributes: [String : Any] = [NSForegroundColorAttributeName: textColor, NSFontAttributeName: lettersFont]
+            let lettersTextAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: lettersFont]
             let lettersTextSize = lettersString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: lettersTextAttributes, context: nil).size
-            let lettersTextRect = CGRect(origin: CGPoint(x: (rect.width-lettersTextSize.width)/2, y: yPosition), size: lettersTextSize)
+            let lettersTextRect = CGRect(origin: CGPoint(x: (rect.width - lettersTextSize.width) / 2, y: yPosition), size: lettersTextSize)
             
             if inverted == true {
                 context.setBlendMode(CGBlendMode.sourceOut)
@@ -120,7 +118,7 @@ class RoundPasscodeButton: PasscodeButton {
         }
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)
-        self.layer.contents = self.isHighlighted ? self.highlightedImage?.cgImage : self.normalImage?.cgImage
+        self.layer.contents = self.isHighlighted ? self.highlightedImage?.cgImage: self.normalImage?.cgImage
         CATransaction.commit()
     }
     
@@ -131,8 +129,7 @@ class RoundPasscodeButton: PasscodeButton {
         return super.action(for: layer, forKey: event)
     }
     
-    
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 74, height: 74)
     }
 

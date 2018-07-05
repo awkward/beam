@@ -35,7 +35,7 @@ protocol MessageObjectCellDelegate: class {
 
 protocol MessageObjectCell {
     var message: Message? { get set }
-    weak var delegate: MessageObjectCellDelegate? { get set }
+    var delegate: MessageObjectCellDelegate? { get set }
     
 }
 
@@ -60,10 +60,10 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
         didSet {
             if self.viewType != oldValue || self.content == nil {
                 self.collectionController.cancelFetching()
-                self.defaultEmptyViewType = self.viewType == MessagesViewType.notifications ? BeamEmptyViewType.NoInboxNotifications : BeamEmptyViewType.NoInboxMessages
+                self.defaultEmptyViewType = self.viewType == MessagesViewType.notifications ? BeamEmptyViewType.NoInboxNotifications: BeamEmptyViewType.NoInboxMessages
                 self.content = nil
                 let query = MessageCollectionQuery()
-                query.messageBox = self.viewType == MessagesViewType.sent ? MessageBox.sent : MessageBox.inbox
+                query.messageBox = self.viewType == MessagesViewType.sent ? MessageBox.sent: MessageBox.inbox
                 if self.viewType == .messages || self.viewType == .sent {
                     query.contentPredicate = NSPredicate(format: "reference == nil")
                 } else {
@@ -79,11 +79,11 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
     
     var content: [Content]? {
         didSet {
-            UIView.animate(withDuration: 0.32, animations: { 
+            UIView.animate(withDuration: 0.32, animations: {
                 self.tableView.tableFooterView?.frame = CGRect(origin: self.tableView.tableFooterView!.frame.origin, size: CGSize(width: self.tableView.bounds.width, height: 0))
-                }, completion: { (finished) in
+                }, completion: { (_) in
                     self.tableView.tableFooterView = nil
-            }) 
+            })
             self.tableView.reloadData()
 
             self.delegate?.messagesViewController(self, didChangeContent: self.content)
@@ -94,7 +94,7 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
         didSet {
             self.tableView.backgroundView = emptyView
             self.tableView.separatorStyle = (emptyView == nil) ? .singleLine : .none
-            self.refreshControl?.alpha = (self.emptyView?.emptyType == BeamEmptyViewType.Loading) ? 0 : 1
+            self.refreshControl?.alpha = (self.emptyView?.emptyType == BeamEmptyViewType.Loading) ? 0: 1
             self.tableView.isScrollEnabled = self.emptyView == nil
             self.emptyView?.layoutMargins = self.tableView.contentInset
         }
@@ -108,10 +108,14 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
         }
         
         switch state {
-        case .loading: return BeamEmptyViewType.Loading
-        case .noInternetConnection: return BeamEmptyViewType.Error
-        case .noAccess: return BeamEmptyViewType.MessagesNotLoggedIn
-        default: return self.defaultEmptyViewType
+        case .loading:
+            return BeamEmptyViewType.Loading
+        case .noInternetConnection:
+            return BeamEmptyViewType.Error
+        case .noAccess:
+            return BeamEmptyViewType.MessagesNotLoggedIn
+        default:
+            return self.defaultEmptyViewType
         }
     }
     
@@ -153,12 +157,11 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        
         let objectContext: NSManagedObjectContext = AppDelegate.shared.managedObjectContext
         let unreadMessages = self.content?.filter({ (content) -> Bool in
             return (content as? Message)?.unread?.boolValue == true
         })
-        if AppDelegate.shared.authenticationController.activeUser(objectContext)?.hasMail.boolValue == true && unreadMessages?.count  == 0 {
+        if AppDelegate.shared.authenticationController.activeUser(objectContext)?.hasMail.boolValue == true && unreadMessages?.count == 0 {
             self.startCollectionControllerFetching(respectingExpirationDate: false)
         } else if self.collectionController.isCollectionExpired == true || self.content?.count == 0 {
             self.startCollectionControllerFetching(respectingExpirationDate: true)
@@ -173,7 +176,7 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
     
     // MARK: - Data
     
-    func refresh(_ sender:AnyObject?) {
+    @objc func refresh(_ sender: AnyObject?) {
         self.startCollectionControllerFetching()
     }
  
@@ -198,7 +201,7 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
         return true
     }
     
-    //MARK: - Notifications
+    // MARK: - Notifications
     
     @objc fileprivate func userDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
@@ -223,7 +226,7 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
             }
         }
         if objectInContentWasDeleted {
-            DispatchQueue.main.async { 
+            DispatchQueue.main.async {
                 self.content = nil
                 self.tableView.reloadData()
                 self.startCollectionControllerFetching()
@@ -240,7 +243,7 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
         }
     }
     
-    //MARK: - Layout
+    // MARK: - Layout
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
@@ -292,7 +295,6 @@ extension MessagesViewController {
         
         self.markMessageAsRead(message)
         tableView.deselectRow(at: indexPath, animated: true)
-        
         
         if self.splitViewController?.displayMode == .primaryOverlay {
             //Changing the display mode directly after showViewController will cause a weird layout animation
@@ -359,7 +361,7 @@ extension MessagesViewController {
         
     }
     
-    class func fetchComment(_ objectName: String, handler: @escaping ((_ comment: Comment?, _ error: Error?) -> ())) {
+    class func fetchComment(_ objectName: String, handler: @escaping ((_ comment: Comment?, _ error: Error?) -> Void)) {
         let collectionController = CollectionController(authentication: AppDelegate.shared.authenticationController, context: AppDelegate.shared.managedObjectContext)
         let query = InfoQuery(fullName: objectName)
         collectionController.query = query
@@ -368,7 +370,7 @@ extension MessagesViewController {
                 if error != nil {
                     handler(nil, error)
                 }
-                if let collectionID = collectionController.collectionID, let collection = AppDelegate.shared.managedObjectContext.object(with: collectionID) as? ObjectCollection,let comment = collection.objects?.firstObject as? Comment {
+                if let collectionID = collectionController.collectionID, let collection = AppDelegate.shared.managedObjectContext.object(with: collectionID) as? ObjectCollection, let comment = collection.objects?.firstObject as? Comment {
                     handler(comment, nil)
                 } else {
                     handler(nil, NSError.beamError(404, localizedDescription: "Comment '\(objectName)' not found"))
@@ -390,7 +392,7 @@ extension MessagesViewController {
 extension MessagesViewController: MessageObjectCellDelegate {
 
     func messageObjectCell(_ cell: MessageObjectCell, didTapUsernameOnMessage message: Message) {
-        if let username = self.viewType == MessagesViewType.sent ? message.destination : message.author , username != "[deleted]" {
+        if let username = self.viewType == MessagesViewType.sent ? message.destination: message.author, username != "[deleted]" {
             let navigationController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! BeamColorizedNavigationController
             let profileViewController = navigationController.viewControllers.first as! ProfileViewController
             profileViewController.username = username
@@ -399,7 +401,7 @@ extension MessagesViewController: MessageObjectCellDelegate {
     }
 }
 
-//MARK: - UIScrollViewDelegate
+// MARK: - UIScrollViewDelegate
 extension MessagesViewController {
     
     override func scrollViewDidScroll(_ scrollView: UIScrollView) {
@@ -407,7 +409,7 @@ extension MessagesViewController {
             return
         }
         
-        if scrollView.contentOffset.y > scrollView.contentSize.height-600 && self.collectionController.moreContentAvailable {
+        if scrollView.contentOffset.y > scrollView.contentSize.height - 600 && self.collectionController.moreContentAvailable {
             self.collectionController.startFetchingMore({ [weak self] (collectionID: NSManagedObjectID?, error: Error?) -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in
                     self?.content = self?.contentWithCollectionID(self?.collectionController.collectionID)
@@ -435,8 +437,8 @@ extension MessagesViewController: UIViewControllerPreviewingDelegate {
         if let indexPath = self.tableView.indexPathForRow(at: location),
             let cell = self.tableView.cellForRow(at: indexPath),
             let messageConverstation = self.storyboard?.instantiateViewController(withIdentifier: "messageConversation") as? MessageConversationViewController,
-            let message = self.content?[indexPath.row] as? Message
-            , self.viewType == .messages || self.viewType == .sent {
+            let message = self.content?[indexPath.row] as? Message,
+            self.viewType == .messages || self.viewType == .sent {
             
                 //Make viewcontroller
                 messageConverstation.message = message
@@ -454,5 +456,3 @@ extension MessagesViewController: UIViewControllerPreviewingDelegate {
         self.show(viewControllerToCommit, sender: previewingContext)
     }
 }
-
-

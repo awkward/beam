@@ -9,11 +9,9 @@
 import UIKit
 import Snoo
 
-class EditCommentActivity: UIActivity {
+final class EditCommentActivity: CustomObjectActivity<Comment> {
 
-    fileprivate var comment: Comment?
-    
-    override var activityType:  UIActivityType? {
+    override var activityType: UIActivityType? {
         return UIActivityType(rawValue: "com.madeawkward.beam.edit-comment")
     }
     
@@ -25,36 +23,21 @@ class EditCommentActivity: UIActivity {
         return UIImage(named: "edit_comment_activity_icon")
     }
     
-    override var activityViewController : UIViewController? {
+    override var activityViewController: UIViewController? {
         let storyBoard = UIStoryboard(name: "Comments", bundle: nil)
         let navigationController = storyBoard.instantiateViewController(withIdentifier: "compose") as! CommentsNavigationController
         navigationController.useInteractiveDismissal = false
         let composeViewController = navigationController.topViewController as! CommentComposeViewController
-        composeViewController.comment = comment
+        composeViewController.comment = self.object
         composeViewController.editCommentActivity = self
         return navigationController
     }
     
     override func canPerform(withActivityItems activityItems: [Any]) -> Bool {
-        guard AppDelegate.shared.authenticationController.isAuthenticated == true else {
+        guard AppDelegate.shared.authenticationController.isAuthenticated, let username = AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.username, let comment = self.firstObject(in: activityItems) else {
             return false
         }
-        if let username = AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.username {
-            for item in activityItems {
-                if let comment = item as? Comment , comment.author == username && comment.hasBeenDeleted == false  {
-                    return true
-                }
-            }
-        }
-        return false
-    }
-    
-    override func prepare(withActivityItems activityItems: [Any]) {
-        for item in activityItems {
-            if item is Comment {
-                self.comment = item as? Comment
-            }
-        }
+        return comment.author == username && !comment.hasBeenDeleted
     }
     
 }

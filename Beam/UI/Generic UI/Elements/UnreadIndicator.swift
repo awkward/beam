@@ -8,10 +8,9 @@
 
 import UIKit
 
-
 @IBDesignable class UnreadIndicator: UIView {
     
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 10, height: 10)
     }
 

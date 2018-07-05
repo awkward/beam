@@ -15,14 +15,11 @@ extension Notification.Name {
     
 }
 
-
 @objc(Post)
 public final class Post: Content {
 
     @NSManaged open var commentCount: NSNumber?
 
-
-    
     @NSManaged open var thumbnailUrlString: String?
     @NSManaged open var title: String?
     @NSManaged open var type: NSNumber?
@@ -38,7 +35,6 @@ public final class Post: Content {
     @NSManaged open var isContentSpoiler: NSNumber //Default: No
     @NSManaged open var isSelfText: NSNumber //Default: No
     @NSManaged open var isHidden: NSNumber //Default: No
-    
     
     open class override func entityName() -> String {
         return "Post"
@@ -63,7 +59,7 @@ public final class Post: Content {
                     
                     // If the linked subreddit is just new in this context
                     if self.managedObjectContext?.insertedObjects.contains(subreddit) == true {
-                        if let displayName = json["subreddit"] as? String , self.subreddit?.displayName == nil {
+                        if let displayName = json["subreddit"] as? String, self.subreddit?.displayName == nil {
                             self.subreddit?.displayName = displayName
                             self.subreddit?.sectionName = displayName.substring(to: displayName.index(after: displayName.startIndex))
                         }
@@ -86,13 +82,13 @@ public final class Post: Content {
         self.flairText = json["link_flair_text"] as? String ?? self.flairText
         
         //Mark the post visited if the API knows this post has been visited
-        if let visited = json["visited"] as? NSNumber, visited.boolValue == true  {
+        if let visited = json["visited"] as? NSNumber, visited.boolValue == true {
             //Mark the post, but don't save the context, this will already be done after parsing
             self.markVisited(save: false)
         }
         
         //Thumbnail can contain reddit icon strings, we should ignore those
-        if let thumbnail = json["thumbnail"] as? String , thumbnail.contains("http") {
+        if let thumbnail = json["thumbnail"] as? String, thumbnail.contains("http") {
               self.thumbnailUrlString = thumbnail.stringByUnescapeHTMLEntities()
         }
         if let previewJSON = json["preview"] as? NSDictionary, let images = previewJSON["images"] as? NSArray, let firstImage = images.firstObject as? NSDictionary, let resolutions = firstImage["resolutions"] as? NSArray {
@@ -110,11 +106,11 @@ public final class Post: Content {
         //Parse media info
         self.parseMediaInformation(json)
         
-        //Mark the post as spoiler if the title contains a spoiler tag. 
+        //Mark the post as spoiler if the title contains a spoiler tag.
         //This is legacy for some old posts that have not been marked spoiler yet
         //Reddit change: https://www.reddit.com/r/announcements/comments/5or86n/spoilers_tags_for_posts/
         if let title = self.title?.lowercased() {
-            let nonSpoilerWords = ["no spoiler","not spoiler","non spoiler","no-spoiler","not-spoiler","non-spoiler"]
+            let nonSpoilerWords = ["no spoiler", "not spoiler", "non spoiler", "no-spoiler", "not-spoiler", "non-spoiler"]
             let spoilerWords = ["spoiler"]
             if self.isContentSpoiler == false {
                 for word in spoilerWords {
@@ -131,7 +127,7 @@ public final class Post: Content {
         }
     }
     
-    /// Returns if a post has been visited or not. 
+    /// Returns if a post has been visited or not.
     /// See `markVisited(save:)` on marking a post as visited
     open var isVisited: Bool {
         guard let metadata = self.postMetadata else {
@@ -140,7 +136,7 @@ public final class Post: Content {
         return metadata.visited?.boolValue ?? false
     }
     
-    /// Marks the post as visited and sends this to the reddit API if needed. 
+    /// Marks the post as visited and sends this to the reddit API if needed.
     /// This can not be undone
     ///
     /// - Parameter save: If the object context should be saved and the state change should be sent to the reddit server. Defaults to true
@@ -186,7 +182,7 @@ public final class Post: Content {
             return
         }
         
-        let redditUploadURLHosts: [String] = ["i.reddituploads.com", "i.reddit.com", "g.redditmedia.com","i.redditmedia.com","i.redd.it"]
+        let redditUploadURLHosts: [String] = ["i.reddituploads.com", "i.reddit.com", "g.redditmedia.com", "i.redditmedia.com", "i.redd.it"]
         if redditUploadURLHosts.contains(urlHost) {
             guard let objectContext: NSManagedObjectContext = self.managedObjectContext else {
                 return
@@ -197,7 +193,7 @@ public final class Post: Content {
         }
      }
     
-    open override func redditDictionaryRepresentation() -> [String : Any] {
+    open override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["subreddit_id"] = self.subreddit?.objectName as AnyObject?

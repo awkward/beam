@@ -11,7 +11,7 @@ import UIKit
 class SmallTabBarController: BeamTabBarController {
     
     var tabBarHeight: CGFloat = 44
-    var verticalImageOffset: CGFloat = 5;
+    var verticalImageOffset: CGFloat = 5
     
     func adjustTabBarItems() {
         
@@ -34,9 +34,9 @@ class SmallTabBarController: BeamTabBarController {
             return
         }
         
-        var tabbarFrame = self.tabBar.frame;
+        var tabbarFrame = self.tabBar.frame
         tabbarFrame.origin.y = self.view.bounds.height - (self.tabBarHeight + view.safeAreaInsets.bottom)
         tabbarFrame.size.height = (self.tabBarHeight + view.safeAreaInsets.bottom)
-        self.tabBar.frame = tabbarFrame;
+        self.tabBar.frame = tabbarFrame
     }
 }

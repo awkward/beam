@@ -67,6 +67,6 @@ public struct SubredditMetadata {
 
 extension SubredditMetadata: Equatable {}
 
-public func ==(lhs: SubredditMetadata, rhs: SubredditMetadata) -> Bool {
+public func == (lhs: SubredditMetadata, rhs: SubredditMetadata) -> Bool {
     return lhs.ID == rhs.ID
 }

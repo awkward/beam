@@ -43,9 +43,9 @@ open class ImageMetadataTask: Task {
             let JSON = try JSONSerialization.jsonObject(with: data, options: [])
             if let JSON = JSON as? NSDictionary {
                 let metadatas = JSON.map({ (postID, payload) -> ImageResponse? in
-                    let imageRequest = self.imageRequests.filter({ (imageRequest: ImageRequest) -> Bool in
+                    let imageRequest = self.imageRequests.first(where: { (imageRequest) -> Bool in
                         return imageRequest.postID == postID as! String
-                    }).first
+                    })
                     if let imageRequest = imageRequest, let payload = payload as? NSDictionary {
                         return ImageResponse(request: imageRequest, JSON: payload)
                     } else {

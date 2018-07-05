@@ -33,7 +33,7 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
     }
     
     var contentIsVideo: Bool {
-        if let URLString = self.post?.urlString, let URL = URL(string: URLString) , URL.estimatedURLType == URLType.video {
+        if let URLString = self.post?.urlString, let URL = URL(string: URLString), URL.estimatedURLType == URLType.video {
             return true
         }
         return false
@@ -66,7 +66,6 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
         }
     }
     
-    
     var shouldShowNSFWOverlay: Bool = true {
         didSet {
             self.reloadSpoilerOverlay()
@@ -92,7 +91,7 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
     
     func reloadSpoilerOverlay() {
         if (self.contentIsNSFW && self.shouldShowNSFWOverlay) || (self.contentIsSpoiler && self.shouldShowSpoilerOverlay) {
-            if self.spoilerOverlay == nil && (self.contentIsNSFW || self.contentIsSpoiler)  {
+            if self.spoilerOverlay == nil && (self.contentIsNSFW || self.contentIsSpoiler) {
                 self.spoilerOverlay = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
                 self.spoilerOverlay!.layer.cornerRadius = self.layer.cornerRadius
                 self.spoilerOverlay!.clipsToBounds = true
@@ -151,7 +150,7 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
     }
     
     class func shouldShowThumbnailForPost(_ post: Post?) -> Bool {
-        if let URLString = post?.urlString, let URL = URL(string: URLString) , URL.estimatedURLType == URLType.video {
+        if let URLString = post?.urlString, let URL = URL(string: URLString), URL.estimatedURLType == URLType.video {
             return true
         }
         if let mediaObjects = post?.mediaObjects, mediaObjects.count > 0 {
@@ -162,25 +161,24 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
     
     override func draw(_ rect: CGRect) {
         if let mediaObjects = self.post?.mediaObjects, mediaObjects.count > 1 {
-            let backgroundAlbumStackPath = UIBezierPath(roundedRect: CGRect(x: 10, y: 0, width: self.bounds.width-20, height: 2), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize(width: 1, height: 1))
+            let backgroundAlbumStackPath = UIBezierPath(roundedRect: CGRect(x: 10, y: 0, width: self.bounds.width - 20, height: 2), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize(width: 1, height: 1))
             DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.4).setFill()
             backgroundAlbumStackPath.fill()
             
-            let middleAlbumStackPath = UIBezierPath(roundedRect: CGRect(x: 5, y: 3, width: self.bounds.width-10, height: 2), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize(width: 1, height: 1))
+            let middleAlbumStackPath = UIBezierPath(roundedRect: CGRect(x: 5, y: 3, width: self.bounds.width - 10, height: 2), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize(width: 1, height: 1))
             DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.6).setFill()
             middleAlbumStackPath.fill()
         }
     }
     
-    
-    //MARK: Layout
+    // MARK: Layout
     
     override func layoutSubviews() {
         super.layoutSubviews()
         if let mediaObjects = self.post?.mediaObjects, mediaObjects.count > 1 {
             //Adjust the layoutMargins for the media labels
-            self.layoutMargins = UIEdgeInsets(top: 6+5, left: 5, bottom: 5, right: 5)
-            self.mediaImageView.frame = CGRect(x: 0, y: 6, width: self.bounds.width, height: self.bounds.height-6)
+            self.layoutMargins = UIEdgeInsets(top: 6 + 5, left: 5, bottom: 5, right: 5)
+            self.mediaImageView.frame = CGRect(x: 0, y: 6, width: self.bounds.width, height: self.bounds.height - 6)
         } else {
             self.mediaImageView.frame = self.bounds
             self.layoutMargins = UIEdgeInsets(top: 5, left: 5, bottom: 5, right: 5)
@@ -196,14 +194,14 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
         super.displayModeDidChange()
         
         self.mediaImageView.isOpaque = true
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red:0.96, green:0.96, blue:0.96, alpha:1), darkValue: UIColor(red:0.17, green:0.17, blue:0.17, alpha:1))
+        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1), darkValue: UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1))
         
         self.setNeedsDisplay()
     }
     
-    //MARK: Sizing
+    // MARK: Sizing
 
-    override var intrinsicContentSize : CGSize {
+    override var intrinsicContentSize: CGSize {
         return CGSize(width: 70, height: 70)
     }
 }

@@ -14,7 +14,7 @@ class GalleryAlbumContentItemCell: PostImageCollectionPartItemCell {
         super.displayModeDidChange()
         
         self.progressView.color = UIColor.white
-        self.mediaImageView.backgroundColor = UIColor(red: 56/255, green: 56/255, blue: 56/255, alpha: 1.0)
+        self.mediaImageView.backgroundColor = UIColor(red: 56 / 255, green: 56 / 255, blue: 56 / 255, alpha: 1.0)
     }
 
 }

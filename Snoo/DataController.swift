@@ -20,7 +20,7 @@ extension Notification.Name {
 
 public final class DataController: NSObject {
     
-    //MARK: - Static
+    // MARK: - Static
     
     static let ExpirationTimeOut: TimeInterval = 60.0 * 60.0 // 1 hour
     static let SubredditTimeOut: TimeInterval = 365 * 24 * 60 * 60 // 1 year
@@ -103,10 +103,10 @@ public final class DataController: NSObject {
                 //Do the migration of the persistent store
                 let options = [NSPersistentStoreFileProtectionKey: FileProtectionType.completeUntilFirstUserAuthentication,
                                NSInferMappingModelAutomaticallyOption: NSNumber(value: true as Bool),
-                               NSMigratePersistentStoresAutomaticallyOption: NSNumber(value: true as Bool)] as [String : Any]
+                               NSMigratePersistentStoresAutomaticallyOption: NSNumber(value: true as Bool)] as [String: Any]
                 
-                let newStoreURL  = self.databaseURLForName(self.databaseNameForUserIdentifier(userIdentifier))
-                try storeCoordinator.migratePersistentStore(storeCoordinator.persistentStores[0], to:newStoreURL, options: options, withType: NSSQLiteStoreType)
+                let newStoreURL = self.databaseURLForName(self.databaseNameForUserIdentifier(userIdentifier))
+                try storeCoordinator.migratePersistentStore(storeCoordinator.persistentStores[0], to: newStoreURL, options: options, withType: NSSQLiteStoreType)
             } catch {
                 print("Error adding persitent store for migration")
             }
@@ -171,7 +171,7 @@ public final class DataController: NSObject {
     
     fileprivate func clearDeleteRequests() -> [NSFetchRequest<NSFetchRequestResult>] {
         let entities = [Thumbnail.entityName(), MediaObject.entityName(), Content.entityName(), ContentCollection.entityName(), MessageCollection.entityName()]
-        let requests = entities.map( { (entityName) -> NSFetchRequest<NSFetchRequestResult> in
+        let requests = entities.map({ (entityName) -> NSFetchRequest<NSFetchRequestResult> in
             return NSFetchRequest<NSFetchRequestResult>(entityName: entityName)
         })
         return requests
@@ -282,7 +282,7 @@ public final class DataController: NSObject {
         let anonymousIdentifier: String = self.databaseNameForUserIdentifier(nil)
         let currentIdentifier: String = self.databaseNameForUserIdentifier(self.authenticationController?.activeUserIdentifier)
         
-        if self.authenticationController?.fetchAllAuthenticationSessions().count == 1 && storeIdentifiers.count == 1 && storeCoordinator.persistentStores.first!.identifier == anonymousIdentifier  {
+        if self.authenticationController?.fetchAllAuthenticationSessions().count == 1 && storeIdentifiers.count == 1 && storeCoordinator.persistentStores.first!.identifier == anonymousIdentifier {
              //We have a new account and we only have the anonymous persistent store. We should just change the URL of the existing persitent store
             let anonymousDatabaseURL = self.databaseURLForName(anonymousIdentifier)
             if let anonymousPersistentStore = storeCoordinator.persistentStore(for: anonymousDatabaseURL) {
@@ -305,31 +305,35 @@ public final class DataController: NSObject {
             }
             
             // Remove all other persistent stores.
-            for identifier: String in storeIdentifiers {
-                if identifier != currentIdentifier {
-                    do {
-                        try self.removePersistentStore(identifier)
-                    } catch {
-                        NSLog("Could not remove persistent store: \(error)")
-                    }
+            storeIdentifiers.forEach({ (identifier) in
+                guard identifier != currentIdentifier else {
+                    return
                 }
-            }
+                do {
+                    try self.removePersistentStore(identifier)
+                } catch {
+                    NSLog("Could not remove persistent store: \(error)")
+                }
+            })
         }
         
         NotificationCenter.default.post(name: .DataControllerPersistentStoreDidChange, object: self)
     }
     
     fileprivate func removePersistentStore(_ databaseName: String) throws {
-        if let store = self.storeCoordinator?.persistentStores.filter({ $0.identifier == databaseName }).first {
-            try self.storeCoordinator?.remove(store)
+        guard let store = self.storeCoordinator?.persistentStores.first(where: { (store) -> Bool in
+            return store.identifier == databaseName
+        }) else {
+            return
         }
+        try self.storeCoordinator?.remove(store)
     }
     
     fileprivate func addPersistentStore(_ databaseName: String) throws {
         let databaseURL = self.databaseURLForName(databaseName)
         let options = [NSPersistentStoreFileProtectionKey: FileProtectionType.completeUntilFirstUserAuthentication,
                        NSInferMappingModelAutomaticallyOption: NSNumber(value: true as Bool),
-                       NSMigratePersistentStoresAutomaticallyOption: NSNumber(value: true as Bool)] as [String : Any]
+                       NSMigratePersistentStoresAutomaticallyOption: NSNumber(value: true as Bool)] as [String: Any]
         
         do {
             let persistentStore = try self.storeCoordinator?.addPersistentStore(ofType: NSSQLiteStoreType, configurationName: nil, at: databaseURL, options: options)
@@ -438,17 +442,16 @@ public final class DataController: NSObject {
         })
     }
     
-    
     fileprivate func addOperations(_ operations: [Operation], toQueue queue: OperationQueue, handler: ((Error?) -> Void)?) {
         self.operationExecutionHandlerQueue.async { () -> Void in
            queue.addOperations(operations, waitUntilFinished: true)
             
             var error: Error?
             for operation in operations {
-                if let dataOperation = operation as? DataOperation , error == nil {
+                if let dataOperation = operation as? DataOperation, error == nil {
                     error = dataOperation.error
                 }
-                if let requestOperation = operation as? DataRequest , error == nil {
+                if let requestOperation = operation as? DataRequest, error == nil {
                     error = requestOperation.error
                 }
             }
@@ -464,11 +467,10 @@ public final class DataController: NSObject {
         executeOperations(operations + saveOperations, handler: handler)
     }
     
-    
     /// Cancels all the current operations, waits for them to complete and then calls the completion handler
     ///
     /// - Parameter completionHandler: The handler being called when all cancelled operations have finished
-    open func cancelAllOperations(completionHandler: (() -> ())?) {
+    open func cancelAllOperations(completionHandler: (() -> Void)?) {
         self.networkingQueue.cancelAllOperations()
         self.operationQueue.cancelAllOperations()
         DispatchQueue.global(qos: .userInitiated).async {
@@ -498,7 +500,7 @@ public final class DataController: NSObject {
             if context.hasChanges {
                 do {
                     try context.save()
-                } catch let error as NSError {                    
+                } catch let error as NSError {
                     NSLog("Could not resolve conflicts while saving: %@", error)
                     if error.code == 1555 || error.code == -1555 {
                         NotificationCenter.default.post(name: .DataControllerFoundDatabaseConflict, object: error)

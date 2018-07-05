@@ -32,7 +32,7 @@ public class ImgurImageUploadRequest: ImgurUploadRequest {
         if let description = self.imageDescription {
             parameters["description"] = description
         }
-        self.parameters = parameters as [String : NSObject]?
+        self.parameters = parameters as [String: NSObject]?
     }
     
     override func parseResponse(_ json: NSDictionary, response: HTTPURLResponse) throws -> AnyObject {

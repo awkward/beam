@@ -18,8 +18,6 @@ class BeamCollectionReusableView: UICollectionReusableView, DynamicDisplayModeVi
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        
-        
     }
     
     deinit {
@@ -27,6 +25,7 @@ class BeamCollectionReusableView: UICollectionReusableView, DynamicDisplayModeVi
     }
     
     override func awakeFromNib() {
+        super.awakeFromNib()
         self.displayModeDidChange()
         self.registerForDisplayModeChangeNotifications()
     }

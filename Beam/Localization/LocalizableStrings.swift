@@ -9,6 +9,6 @@
 import Foundation
 
 func AWKLocalizedString(_ key: String) -> String {
-    assert(!key.contains(" "),"A key for a localized string is not allowed to contain spaces")
+    assert(!key.contains(" "), "A key for a localized string is not allowed to contain spaces")
     return NSLocalizedString(key, comment: "")
 }

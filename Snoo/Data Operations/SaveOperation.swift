@@ -14,15 +14,10 @@ public final class SaveOperation: DataOperation {
     internal var objectContext: NSManagedObjectContext! = DataController.shared.privateContext
     
     fileprivate func objectContextFromDependency() -> NSManagedObjectContext? {
-        let parseCollection = self.dependencies.filter { (operation: Operation) -> Bool in
+        let parseOperation = self.dependencies.first(where: { (operation) -> Bool in
             return operation is CollectionParsingOperation
-            }.first
-        
-        if let parseCollection = parseCollection as? CollectionParsingOperation {
-            return parseCollection.objectContext
-        }
-        
-        return nil
+        }) as? CollectionParsingOperation
+        return parseOperation?.objectContext
     }
     
     override open func start() {

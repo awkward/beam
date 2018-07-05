@@ -13,11 +13,18 @@ class DarkerBeamToolbar: BeamToolbar {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.isTranslucent = false
+        self.setupView()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
+        
+        self.setupView()
+    }
+    
+    private func setupView() {
+        self.preservesSuperviewLayoutMargins = false
+        self.layoutMargins = UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
         
         self.isTranslucent = false
     }

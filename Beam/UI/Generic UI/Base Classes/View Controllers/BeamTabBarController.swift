@@ -58,28 +58,28 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
         }
     }
     
-    override var supportedInterfaceOrientations : UIInterfaceOrientationMask {
+    override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
         if UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
             return .all
         }
-        return .portrait;
+        return .portrait
     }
     
-    override var preferredStatusBarStyle : UIStatusBarStyle {
-        return self.selectedViewController?.preferredStatusBarStyle ?? (self.displayMode == .dark ? UIStatusBarStyle.lightContent : UIStatusBarStyle.default)
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        return self.selectedViewController?.preferredStatusBarStyle ?? (self.displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default)
     }
     
-    override var shouldAutorotate : Bool {
+    override var shouldAutorotate: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
     }
     
-    //MARK: - Notifications 
+    // MARK: - Notifications
     
     @objc internal func displayModeDidChangeNotification(_ notification: Notification) {
         self.displayModeDidChangeAnimated(true)
     }
     
-    //MARK: - Actions
+    // MARK: - Actions
     
     @objc private func handleLongPressGesture(gestureRecognizer: UILongPressGestureRecognizer) {
         guard let selectedViewController = self.selectedViewController else {
@@ -90,7 +90,7 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
             actionable = navigationController.viewControllers.first as? TabBarItemLongPressActionable
         }
         
-        if gestureRecognizer.state == .began , let actionable =  actionable {
+        if gestureRecognizer.state == .began, let actionable = actionable {
             actionable.tabBarItemDidRecognizeLongPress(selectedViewController.tabBarItem)
         }
     }
@@ -111,7 +111,7 @@ extension BeamTabBarController: UITabBarControllerDelegate {
      If you have to use a custom delegate for the BeamTabBarController you can call this method yourself if the `viewController` in `tabBarController(tabBarController: UITabBarController, shouldSelectViewController viewController: UIViewController)` is the same as the selectedViewController. By default the tabBarControllerDelegate is set to BeamTabBarController.
      */
     func scrollViewControllerToTop(_ viewController: UIViewController) {
-        var scrollViewViewController = viewController;
+        var scrollViewViewController = viewController
         //If the scrollViewController is a UINavigationController, we need to get the topViewController because that is actually where the scrollview will be
         if let navigationController = scrollViewViewController as? UINavigationController, let topViewController = navigationController.topViewController {
             scrollViewViewController = topViewController
@@ -135,27 +135,27 @@ extension BeamTabBarController: UITabBarControllerDelegate {
         }
         
         var validScrollView: UIScrollView?
-        if let scrollView = view as? UIScrollView , isValidScrollView(scrollView) {
-            validScrollView = scrollView;
+        if let scrollView = view as? UIScrollView, isValidScrollView(scrollView) {
+            validScrollView = scrollView
         }
         if validScrollView == nil {
             for subview in view.subviews {
-                if let scrollView = subview as? UIScrollView , isValidScrollView(scrollView) {
-                    validScrollView = scrollView;
-                    break;
+                if let scrollView = subview as? UIScrollView, isValidScrollView(scrollView) {
+                    validScrollView = scrollView
+                    break
                 }
             }
         }
         if validScrollView == nil {
             for firstSubview in view.subviews {
                 for subview in firstSubview.subviews {
-                    if let scrollView = subview as? UIScrollView , isValidScrollView(scrollView) {
-                        validScrollView = scrollView;
-                        break;
+                    if let scrollView = subview as? UIScrollView, isValidScrollView(scrollView) {
+                        validScrollView = scrollView
+                        break
                     }
                     //We found a scrollview, break out of the second loop
                     if validScrollView != nil {
-                        break;
+                        break
                     }
                 }
             }

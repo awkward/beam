@@ -35,7 +35,7 @@ class BeamTabBar: UITabBar, DynamicDisplayModeView {
     func displayModeDidChange() {
         self.barTintColor = self.displayMode == .dark ? UIColor.beamDarkBackgroundColor() : UIColor.beamBarColor()
         
-        let borderColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        let borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         self.topBorderOverlay.backgroundColor = borderColor
     }
     
@@ -45,7 +45,7 @@ class BeamTabBar: UITabBar, DynamicDisplayModeView {
             self.addSubview(self.topBorderOverlay)
         }
         
-        let borderHeight: CGFloat = 1.0/UIScreen.main.scale
+        let borderHeight: CGFloat = 1.0 / UIScreen.main.scale
         
         self.layer.shadowColor = UIColor.black.cgColor
         self.layer.shadowOffset = CGSize(width: 0, height: -borderHeight)

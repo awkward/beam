@@ -33,7 +33,7 @@ class CommentsFooterView: BeamView {
         didSet {
             if let height = self.height {
                 self.heightConstraint.isActive = true
-                self.heightConstraint.constant = height-self.layoutMargins.top-self.layoutMargins.bottom
+                self.heightConstraint.constant = height - self.layoutMargins.top - self.layoutMargins.bottom
             } else {
                 self.heightConstraint.isActive = false
             }
@@ -81,7 +81,7 @@ class CommentsFooterView: BeamView {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         self.backgroundColor = UIColor.clear
-        self.activityIndicatorView.color = self.displayMode == DisplayMode.dark ? UIColor.white : nil
+        self.activityIndicatorView.color = self.displayMode == DisplayMode.dark ? UIColor.white: nil
         self.textlabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
     }
     
@@ -89,7 +89,7 @@ class CommentsFooterView: BeamView {
         var frame = self.frame
         var maxSize = UILayoutFittingCompressedSize
         maxSize.width = width
-        frame.size = self.systemLayoutSizeFitting(maxSize, withHorizontalFittingPriority: UILayoutPriorityRequired, verticalFittingPriority: UILayoutPriorityDefaultLow)
+        frame.size = self.systemLayoutSizeFitting(maxSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         self.frame = frame
     }
 

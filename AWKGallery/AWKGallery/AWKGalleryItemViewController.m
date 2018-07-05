@@ -70,9 +70,7 @@
 
 #pragma mark - View Lifecycle
 
-- (void)loadView {
-    [super loadView];
-    
+- (void)setupView {
     self.view.accessibilityIgnoresInvertColors = true;
     
     self.progressView = ({
@@ -101,6 +99,8 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
+    [self setupView];
     
     [self prepareContent];
 }

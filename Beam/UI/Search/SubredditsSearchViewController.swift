@@ -113,7 +113,7 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
     
     @objc fileprivate func typeTimerFired() {
         self.typeTimer = nil
-        if let keywords = self.searchKeywords , keywords.count > 1 {
+        if let keywords = self.searchKeywords, keywords.count > 1 {
             self.performRemoteSearch(keywords)
         } else {
             self.collectionController.query?.searchKeywords = nil
@@ -124,7 +124,7 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
     fileprivate func performRemoteSearch(_ keywords: String) {
         self.collectionController.query?.searchKeywords = searchKeywords
         UIApplication.startNetworkActivityIndicator(for: self)
-        self.collectionController.startInitialFetching(false) { [weak self] (newCollectionID: NSManagedObjectID?, error: Error?) -> Void in
+        self.collectionController.startInitialFetching(false) { [weak self] (newCollectionID, _) -> Void in
             self?.collectionController.managedObjectContext.perform {
                 if self?.localSearch == false {
                     if let newCollectionID = newCollectionID, let newCollection = AppDelegate.shared.managedObjectContext.object(with: newCollectionID) as? ObjectCollection {

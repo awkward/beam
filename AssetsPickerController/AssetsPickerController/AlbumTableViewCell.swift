@@ -23,7 +23,6 @@ class AlbumTableViewCell: UITableViewCell, ColorPaletteSupport {
         return formatter
     }()
 
-    
     class var reuseIdentifier: String {
         return "album-cell"
     }
@@ -31,7 +30,6 @@ class AlbumTableViewCell: UITableViewCell, ColorPaletteSupport {
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var countLabel: UILabel!
     @IBOutlet var albumView: AlbumImageView!
-    
     
     var album: Album? {
         didSet {

@@ -9,7 +9,6 @@
 import UIKit
 import Snoo
 
-
 class CreateTextPostViewController: CreatePostViewController {
 
     @IBOutlet var titleTextField: UITextField!
@@ -28,8 +27,6 @@ class CreateTextPostViewController: CreatePostViewController {
         return UIScreen.main.bounds.height >= 568
     }
     
-
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -39,7 +36,7 @@ class CreateTextPostViewController: CreatePostViewController {
             self.navigationItem.title = AWKLocalizedString("text-post-title")
         }
         
-        self.seperatorViewHeightConstaint.constant = 1/UIScreen.main.scale
+        self.seperatorViewHeightConstaint.constant = 1 / UIScreen.main.scale
         
         self.textViewPlaceholder.text = AWKLocalizedString("your-text-post-placeholder")
         
@@ -88,7 +85,7 @@ class CreateTextPostViewController: CreatePostViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSForegroundColorAttributeName: placeholderColor])
+        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
         self.textViewPlaceholder.textColor = placeholderColor
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
@@ -99,7 +96,7 @@ class CreateTextPostViewController: CreatePostViewController {
         self.titleTextField.keyboardAppearance = keyboardAppearance
         self.textView.keyboardAppearance = keyboardAppearance
         
-        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216/255, green: 216/255, blue: 216/255, alpha:1), darkValue: UIColor(red: 61/255, green: 61/255, blue: 61/255, alpha:1))
+        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
     }
     
     func sizeTextView() {
@@ -122,32 +119,30 @@ class CreateTextPostViewController: CreatePostViewController {
         self.sizeTextView()
     }
     
-    //MARK: Notifications
+    // MARK: Notifications
     
     override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIViewAnimationOptions) {
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
             //ANIMATE
-            let bottomInset: CGFloat = max(self.view.bounds.height-frame.minY, 0)
+            let bottomInset: CGFloat = max(self.view.bounds.height - frame.minY, 0)
             var contentInset = self.scrollView.contentInset
-            contentInset.bottom = bottomInset+40
+            contentInset.bottom = bottomInset + 40
             self.scrollView.contentInset = contentInset
             self.scrollView.scrollIndicatorInsets = contentInset
             self.actionBarBottomConstraint?.constant = bottomInset
-            UIView.performWithoutAnimation({ 
+            UIView.performWithoutAnimation({
                 self.sizeTextView()
                 self.view.layoutIfNeeded()
             })
             
-        }) { (finished) in
-            //Complete
-        }
+        }, completion: nil)
     }
 
     override func textfieldDidChange(_ textField: UITextField) {
         
     }
     
-    //MARK: CreatePostViewController properties and functions
+    // MARK: CreatePostViewController properties and functions
     
     override var canSubmit: Bool {
         guard isViewLoaded else {
@@ -182,7 +177,7 @@ class CreateTextPostViewController: CreatePostViewController {
         self.titleTextField?.text = self.post?.title
         let hasPost = self.post != nil
         self.titleTextField?.isEnabled = !hasPost
-        self.titleTextField?.alpha = !hasPost ? 1 : 0.5
+        self.titleTextField?.alpha = !hasPost ? 1: 0.5
         
         if let text = self.textView?.text {
             self.textViewPlaceholder?.isHidden = !text.isEmpty
@@ -195,9 +190,9 @@ class CreateTextPostViewController: CreatePostViewController {
     
     override func lockView(_ locked: Bool) {
         super.lockView(locked)
-        let alpha: CGFloat = locked ? 0.5 : 1.0
+        let alpha: CGFloat = locked ? 0.5: 1.0
         self.titleTextField.isEnabled = !locked && self.post == nil
-        self.titleTextField.alpha = self.post != nil ? 0.5 : alpha
+        self.titleTextField.alpha = self.post != nil ? 0.5: alpha
         self.textView.isEditable = !locked
         self.textView.alpha = alpha
         if locked {
@@ -234,7 +229,7 @@ extension CreateTextPostViewController: UITextFieldDelegate {
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
         if textField == self.titleTextField {
             let currentCharacterCount = textField.text?.count ?? 0
-            if (range.length + range.location > currentCharacterCount){
+            if range.length + range.location > currentCharacterCount {
                 return false
             }
             let newLength = currentCharacterCount + string.count - range.length

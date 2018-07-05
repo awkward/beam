@@ -41,7 +41,7 @@ final class SubredditPreviewView: BeamView {
     
     lazy private var label: UILabel = {
         let label = UILabel()
-        label.font = UIFont.systemFont(ofSize: 22, weight: UIFontWeightLight)
+        label.font = UIFont.systemFont(ofSize: 22, weight: UIFont.Weight.light)
         label.translatesAutoresizingMaskIntoConstraints = false
         return label
     }()
@@ -75,7 +75,7 @@ final class SubredditPreviewView: BeamView {
             self.rightAnchor.constraint(equalTo: self.imageView.rightAnchor),
             
             self.label.centerXAnchor.constraint(equalTo: self.centerXAnchor),
-            self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor),
+            self.label.centerYAnchor.constraint(equalTo: self.centerYAnchor)
         ]
         
         NSLayoutConstraint.activate(constraints)

@@ -20,8 +20,10 @@ public enum VoteStatus: Int {
         }
         
         switch likes! {
-            case true: return .up
-            case false: return .down
+        case true:
+            return .up
+        case false:
+            return .down
         }
     }
     
@@ -76,12 +78,12 @@ open class Content: SyncObject {
             self.voteStatus = NSNumber(value: VoteStatus.statusFromBool(likes.boolValue).rawValue)
         }
      
-        if let creationEpoch = json["created_utc"] as? NSNumber , self.creationDate == nil {
+        if let creationEpoch = json["created_utc"] as? NSNumber, self.creationDate == nil {
             self.creationDate = Date(timeIntervalSince1970: creationEpoch.doubleValue)
         }
     }
     
-    override open func redditDictionaryRepresentation() -> [String : Any] {
+    override open func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["permalink"] = self.permalink as AnyObject?
@@ -97,7 +99,7 @@ open class Content: SyncObject {
         dictionary["archived"] = self.archived
         dictionary["locked"] = self.locked
         
-        dictionary["likes"] = self.voteStatus?.intValue == 0 ? nil : self.voteStatus?.intValue
+        dictionary["likes"] = self.voteStatus?.intValue == 0 ? nil: self.voteStatus?.intValue
         
         dictionary["created_utc"] = self.creationDate?.timeIntervalSince1970 as AnyObject?
         
@@ -110,11 +112,12 @@ open class Content: SyncObject {
             // Insertion
             if let context = self.managedObjectContext,
                 let entity = NSEntityDescription.entity(forEntityName: MediaObject.entityName(), in: context) {
+                //swiftlint:disable explicit_init
                 insertedObject = MediaObject.init(entity: entity, insertInto: context)
             }
             
             // Assignment
-            if let object = insertedObject , (self.mediaObjects == nil || self.mediaObjects?.count == 0) {
+            if let object = insertedObject, (self.mediaObjects == nil || self.mediaObjects?.count == 0) {
                 self.mediaObjects = NSOrderedSet(object: object)
             } else if let object = insertedObject {
                 let newSet = NSMutableOrderedSet(orderedSet: self.mediaObjects!)
@@ -157,7 +160,7 @@ open class Content: SyncObject {
         } else if previousVoteStatus == VoteStatus.neutral {
             addSubstract = newVoteStatus.rawValue
         } else if newVoteStatus == VoteStatus.neutral {
-            addSubstract = (-1*previousVoteStatus.rawValue)
+            addSubstract = -1 * previousVoteStatus.rawValue
         }
         self.score = NSNumber(value: (self.score?.intValue ?? 0) + addSubstract)
     }

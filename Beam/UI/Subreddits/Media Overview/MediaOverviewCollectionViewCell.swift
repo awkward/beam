@@ -72,7 +72,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
         self.spoilerOverlay?.isHidden = !(self.contentIsNSFW && self.shouldShowNSFWOverlay) && !(self.contentIsSpoiler && self.shouldShowSpoilerOverlay)
     }
     
-    //MARK: -  Lifecycle
+    // MARK: - Lifecycle
     
     override func awakeFromNib() {
         super.awakeFromNib()
@@ -140,9 +140,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
         
         self.mediaImageView.isOpaque = self.isOpaque
         
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 209/255, green: 208/255, blue: 212/255, alpha: 1.0), darkValue: UIColor(red: 56/255, green: 56/255, blue: 56/255, alpha: 1.0))
-        
-        
+        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 209 / 255, green: 208 / 255, blue: 212 / 255, alpha: 1.0), darkValue: UIColor(red: 56 / 255, green: 56 / 255, blue: 56 / 255, alpha: 1.0))
     }
     
     // MARK: - Content
@@ -189,15 +187,13 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
     }
     
     class func attributedContentForMediaObject(_ mediaObject: Snoo.MediaObject?) -> NSAttributedString? {
-        
-        
         var contentStrings = [NSAttributedString]()
         if let captionTitle = mediaObject?.captionTitle {
             let paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
             paragraphStyle.minimumLineHeight = 21
             paragraphStyle.maximumLineHeight = 21
             
-            let string = NSAttributedString(string: captionTitle, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 17, weight: UIFontWeightSemibold), NSForegroundColorAttributeName: DisplayModeValue(UIColor.black, darkValue: UIColor.white), NSParagraphStyleAttributeName: paragraphStyle])
+            let string = NSAttributedString(string: captionTitle, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold), NSAttributedStringKey.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white), NSAttributedStringKey.paragraphStyle: paragraphStyle])
             contentStrings.append(string)
         }
         if let captionDescription = mediaObject?.captionDescription {
@@ -205,7 +201,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
             paragraphStyle.minimumLineHeight = 26
             paragraphStyle.maximumLineHeight = 26
             
-            let string = NSAttributedString(string: captionDescription, attributes: [NSFontAttributeName: UIFont.systemFont(ofSize: 16), NSForegroundColorAttributeName: DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8), NSParagraphStyleAttributeName: paragraphStyle])
+            let string = NSAttributedString(string: captionDescription, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8), NSAttributedStringKey.paragraphStyle: paragraphStyle])
             contentStrings.append(string)
         }
         

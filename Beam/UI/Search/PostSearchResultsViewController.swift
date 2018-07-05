@@ -34,7 +34,9 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     }
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.filter( { $0 is StreamViewController } ).first as? StreamViewController
+        return self.childViewControllers.first(where: { (viewController) -> Bool in
+            viewController is StreamViewController
+        }) as? StreamViewController
     }
     
     weak var query: PostCollectionQuery? {
@@ -50,9 +52,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
         }
     }
     
-    override func loadView() {
-        super.loadView()
-        
+    private func setupView() {
         let storyboard = UIStoryboard(name: "Stream", bundle: nil)
         if let streamViewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamViewController.useCompactViewMode = true
@@ -74,7 +74,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
             
             //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
             let widthConstraint = NSLayoutConstraint(item: streamViewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
-            widthConstraint.priority = UILayoutPriorityDefaultHigh
+            widthConstraint.priority = UILayoutPriority.defaultHigh
             streamViewController.view.addConstraint(widthConstraint)
             
             self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": streamViewController.view]))
@@ -94,6 +94,8 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.setupView()
         
         self.streamViewController?.additionalSafeAreaInsets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
         
@@ -135,7 +137,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     
     func startFetching(_ searchText: String? = nil) {
         self.streamViewController?.cancelCollectionControllerFetching()
-        if let searchText = searchText , searchText.count > 0 {
+        if let searchText = searchText, searchText.count > 0 {
             self.query?.searchKeywords = searchText
         }
         self.streamViewController?.startCollectionControllerFetching()
@@ -158,25 +160,25 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     fileprivate func showTimeFrameActionSheet(_ sortType: CollectionSortType, sortingBar: ScrollableButtonBar) {
         let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: CollectionTimeFrame.thisHour)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-24-hours"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: CollectionTimeFrame.today)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-week"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: CollectionTimeFrame.thisWeek)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-month"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisMonth)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-year"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: CollectionTimeFrame.thisYear)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (action) -> Void in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("all-time"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: CollectionTimeFrame.allTime)
         }))
-        alertController.addCancelAction { (action) in
+        alertController.addCancelAction { (_) in
             self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.streamViewController?.query?.sortType ?? CollectionSortType.relevance)
         }
         
@@ -245,7 +247,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
 
 extension PostSearchResultsViewController: NavigationBarNotificationDisplayingDelegate {
     
-    func topViewForDisplayOfnotificationView<NotificationView : UIView>(_ view: NotificationView) -> UIView? where NotificationView : NavigationBarNotification {
-        return self.sortingBar.superview;
+    func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
+        return self.sortingBar.superview
     }
 }

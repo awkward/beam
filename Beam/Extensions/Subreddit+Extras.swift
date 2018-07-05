@@ -40,10 +40,10 @@ extension Subreddit {
                 let specificKeywords: [String] = ["subreddit", "frontpage", "alien", "blue", "alien blue"]
                 keywords.append(contentsOf: specificKeywords)
             } else if self is Multireddit {
-                let specificKeywords: [String] = ["/m/\(displayName)","m/\(displayName)","multireddit"]
+                let specificKeywords: [String] = ["/m/\(displayName)", "m/\(displayName)", "multireddit"]
                 keywords.append(contentsOf: specificKeywords)
             } else {
-                let specificKeywords: [String] = ["/r/\(displayName)","r/\(displayName)","subreddit"]
+                let specificKeywords: [String] = ["/r/\(displayName)", "r/\(displayName)", "subreddit"]
                 keywords.append(contentsOf: specificKeywords)
             }
             return keywords
@@ -55,7 +55,7 @@ extension Subreddit {
     fileprivate func coreSpotlightAttributeSet() -> CSSearchableItemAttributeSet? {
         var returnAttributeSet: CSSearchableItemAttributeSet?
         self.managedObjectContext?.performAndWait {
-            if let displayName = self.displayName , self.webpageURL() != nil {
+            if let displayName = self.displayName, self.webpageURL() != nil {
                 let attributeSet = CSSearchableItemAttributeSet(itemContentType: kUTTypeData as String)
                 // Add metadata that supplies details about the item.
                 attributeSet.title = displayName
@@ -73,13 +73,13 @@ extension Subreddit {
     }
     
     func createUserActivity() -> NSUserActivity? {
-        if let displayName = self.displayName , self.webpageURL() != nil {
+        if let displayName = self.displayName, self.webpageURL() != nil {
             let activity = NSUserActivity(activityType: "com.madeawkward.beam.subreddit")
             let url = self.webpageURL()
             activity.webpageURL = url
             activity.userInfo = self.userInfoForUserActivity()
             activity.title = displayName
-            activity.requiredUserInfoKeys = Set(["id","identifier", "display_name", "permalink", "object_name", "is_multireddit"])
+            activity.requiredUserInfoKeys = Set(["id", "identifier", "display_name", "permalink", "object_name", "is_multireddit"])
             activity.isEligibleForHandoff = true
             activity.isEligibleForSearch = true
             if let keywords = self.searchKeywords() {
@@ -92,7 +92,7 @@ extension Subreddit {
     }
     
     func createSearchableItem() -> CSSearchableItem? {
-        if let attributeSet = self.coreSpotlightAttributeSet(), let searchIdentifier = self.searchIdentifier()  {
+        if let attributeSet = self.coreSpotlightAttributeSet(), let searchIdentifier = self.searchIdentifier() {
             return CSSearchableItem(uniqueIdentifier: searchIdentifier, domainIdentifier: nil, attributeSet: attributeSet)
         }
         return nil
@@ -100,13 +100,13 @@ extension Subreddit {
     
     func userInfoForUserActivity() -> [String: NSSecureCoding]? {
         if let permalink = self.permalink, let displayName = self.displayName, let identifier = self.identifier {
-            return ["is_multireddit": NSNumber(value: (self is Multireddit)), "permalink": permalink as NSSecureCoding, "display_name": displayName as NSSecureCoding, "id": identifier as NSSecureCoding,"identifier": identifier as NSSecureCoding, "object_name": self.objectName! as NSSecureCoding]
+            return ["is_multireddit": NSNumber(value: (self is Multireddit)), "permalink": permalink as NSSecureCoding, "display_name": displayName as NSSecureCoding, "id": identifier as NSSecureCoding, "identifier": identifier as NSSecureCoding, "object_name": self.objectName! as NSSecureCoding]
         }
         return nil
     }
     
     func createApplicationShortcutItem() -> UIApplicationShortcutItem? {
-        if let displayName = self.displayName{
+        if let displayName = self.displayName {
             let item = UIMutableApplicationShortcutItem(type: "com.madeawkward.beam.shortcut.subreddit", localizedTitle: displayName)
             if self.identifier == Subreddit.frontpageIdentifier {
                 if #available(iOS 9.1, *) {
@@ -122,8 +122,7 @@ extension Subreddit {
                     item.icon = nil
                 }
             }
-        
-        
+            
             item.userInfo = self.userInfoForUserActivity()
             return item
         }

@@ -9,7 +9,7 @@
 import UIKit
 import ImgurKit
 
-protocol ImgurGalleryToolbarDelegate {
+protocol ImgurGalleryToolbarDelegate: class {
 
     func toolbar(_ toolbar: ImgurGalleryToolbar, didTapDeleteOnImgurObject object: ImgurObject)
 }
@@ -19,7 +19,7 @@ class ImgurGalleryToolbar: BeamView {
     @IBOutlet var linkLabel: UILabel!
     @IBOutlet var deleteButton: UIButton!
     
-    var delegate: ImgurGalleryToolbarDelegate?
+    weak var delegate: ImgurGalleryToolbarDelegate?
     
     var imgurObject: ImgurObject? {
         didSet {
@@ -36,7 +36,7 @@ class ImgurGalleryToolbar: BeamView {
     }
     
     @IBAction func deleteTapped(_ sender: UIButton) {
-        guard let imgurObject = self.imgurObject else{
+        guard let imgurObject = self.imgurObject else {
             return
         }
         self.delegate?.toolbar(self, didTapDeleteOnImgurObject: imgurObject)

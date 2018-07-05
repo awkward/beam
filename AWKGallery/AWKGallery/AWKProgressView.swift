@@ -25,7 +25,7 @@ open class AWKProgressView: UIView {
         }
     }
     
-    open var progress: CGFloat = 0.0 {
+    @objc open var progress: CGFloat = 0.0 {
         didSet {
             self.updateWithProgress(self.progress)
         }

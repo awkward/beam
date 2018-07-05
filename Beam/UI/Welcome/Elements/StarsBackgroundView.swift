@@ -47,7 +47,7 @@ class StarsBackgroundView: UIView {
         self.spriteView.presentScene(self.spriteScene, transition: SKTransition())
         self.addSubview(self.spriteView)
         
-        let starsLevel0Path:String = Bundle.main.path(forResource: "stars_level_0", ofType: "sks")!
+        let starsLevel0Path: String = Bundle.main.path(forResource: "stars_level_0", ofType: "sks")!
             if let stars = NSKeyedUnarchiver.unarchiveObject(withFile: starsLevel0Path) as? SKEmitterNode {
             stars.position = CGPoint(x: 0, y: -150)
             self.spriteScene.addChild(stars)
@@ -64,7 +64,7 @@ class StarsBackgroundView: UIView {
     }
     
     fileprivate func setupGradient() {
-        let gradientColor = UIColor(red:0.49, green:0.36, blue:0.9, alpha:0.8)
+        let gradientColor = UIColor(red: 0.49, green: 0.36, blue: 0.9, alpha: 0.8)
         self.backgroundColor = gradientColor
     }
     

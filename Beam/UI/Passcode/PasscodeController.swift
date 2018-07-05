@@ -29,7 +29,7 @@ class PasscodeController: NSObject {
     var currentDelayOption: PasscodeDelayOption? {
         get {
             let time = UserDefaults.standard.double(forKey: PasscodeDelaySettingKey)
-            return self.delayOptions.filter( { $0.time == time } ).first
+            return self.delayOptions.first(where: { $0.time == time })
         }
         set {
             if newValue == nil {
@@ -173,7 +173,7 @@ class PasscodeController: NSObject {
         }
         self.createPasscodeWindow()
         //Bring the window in front of all windows, including the status bar
-        self.passcodeWindow?.windowLevel = UIWindowLevelAlert+300
+        self.passcodeWindow?.windowLevel = UIWindowLevelAlert + 300
         //Reset this before the view is shown
         let storyboard = UIStoryboard(name: "Passcode", bundle: nil)
         let passcodeViewController = storyboard.instantiateViewController(withIdentifier: "start-enter-passcode") as! StartEnterPasscodeViewController
@@ -199,7 +199,7 @@ class PasscodeController: NSObject {
         UIView.animate(withDuration: duration, animations: {
             self.passcodeWindow!.alpha = 0
             AppDelegate.topViewController()?.setNeedsStatusBarAppearanceUpdate()
-            }, completion: { (completed) in
+            }, completion: { (_) in
                 self.passcodeWindow!.resignKey()
                 if AppDelegate.shared.galleryWindow != nil {
                     AppDelegate.shared.galleryWindow?.makeKeyAndVisible()
@@ -217,7 +217,7 @@ class PasscodeController: NSObject {
                 self.createPasscodeWindow()
                 self.unlocked = true
                 AppDelegate.shared.isWindowUsable = true
-        }) 
+        })
     }
     
     var passcodeViewController: StartEnterPasscodeViewController? {

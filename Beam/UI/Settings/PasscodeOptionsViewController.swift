@@ -38,7 +38,7 @@ class PasscodeOptionsViewController: BeamTableViewController {
         self.reloadView()
     }
     
-    //MARK: - Switches
+    // MARK: - Switches
     
     fileprivate func updateSwitchState() {
         //Touch ID
@@ -59,8 +59,7 @@ class PasscodeOptionsViewController: BeamTableViewController {
         }
     }
 
-    
-    //MARK: - UITableViewDataSource
+    // MARK: - UITableViewDataSource
     
     override func numberOfSections(in tableView: UITableView) -> Int {
         if self.passcodeController.touchIDAvailable(self.authenticationContext) {

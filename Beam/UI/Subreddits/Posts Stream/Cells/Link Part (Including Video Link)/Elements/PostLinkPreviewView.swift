@@ -12,7 +12,7 @@ import Snoo
 import Ocarina
 
 @IBDesignable
-class PostLinkPreviewView: BeamControl {
+final class PostLinkPreviewView: BeamControl {
 
     @IBInspectable var isVideoPreview: Bool = false {
         didSet {

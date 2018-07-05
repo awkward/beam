@@ -260,7 +260,7 @@ class PostToolbarView: BeamView {
     
     fileprivate func setupView() {
         self.isOpaque = true
-        self.layoutMargins = UIEdgeInsets(top: 0, left: 12, bottom: 0, right: 12)
+        self.layoutMargins = UIEdgeInsets(top: 0, left: 20, bottom: 0, right: 12)
         
         self.configureLabeledButton(self.commentsButton)
         self.configureLabeledButton(self.pointsButton)

@@ -951,6 +951,7 @@
 		0C0F4D8D1BE7B72600D1BB89 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		0C0F4D911BE7B85900D1BB89 /* stars_level_0.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars_level_0.sks; sourceTree = "<group>"; };
 		0C0F4D931BE7BAEB00D1BB89 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		0C0FB70220EEA3CB00B1DAED /* Snoo 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Snoo 15.xcdatamodel"; sourceTree = "<group>"; };
 		0C12654B1E4C7824006964A7 /* PostLinkPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLinkPreviewView.swift; sourceTree = "<group>"; };
 		0C1265BF1E4E0771006964A7 /* biem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = biem.mp3; sourceTree = "<group>"; };
 		0C1265F31E4E0CFA006964A7 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -4532,6 +4533,7 @@
 		0C056FAC1D82BD6800E32FB3 /* Snoo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0C0FB70220EEA3CB00B1DAED /* Snoo 15.xcdatamodel */,
 				0C6F7A401E36636D00D0F2FC /* Snoo 14.xcdatamodel */,
 				0C5D3E071E2FBFA000021C32 /* Snoo 13.xcdatamodel */,
 				0C056FAD1D82BD6800E32FB3 /* Snoo 10.xcdatamodel */,
@@ -4547,7 +4549,7 @@
 				0C056FB71D82BD6800E32FB3 /* Snoo 9.xcdatamodel */,
 				0C056FB81D82BD6800E32FB3 /* Snoo.xcdatamodel */,
 			);
-			currentVersion = 0C6F7A401E36636D00D0F2FC /* Snoo 14.xcdatamodel */;
+			currentVersion = 0C0FB70220EEA3CB00B1DAED /* Snoo 15.xcdatamodel */;
 			name = Snoo.xcdatamodeld;
 			path = "Core Data/Snoo.xcdatamodeld";
 			sourceTree = "<group>";

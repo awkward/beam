@@ -439,8 +439,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
         let content = self.content?[indexPath.section]
         if let post = content as? Post {
-            let nsfw = post.isContentNSFW.boolValue == true || (post.mediaObjects?.firstObject as? MediaObject)?.galleryItem.nsfw == true
-            return nsfw
+            return post.isContentNSFW.boolValue == true || (post.mediaObjects?.firstObject as? MediaObject)?.isNSFW == true
         } else {
             return false
         }
@@ -1092,7 +1091,7 @@ extension StreamViewController: AWKGalleryDataSource {
     
     func gallery(_ galleryViewController: AWKGalleryViewController, indexOf item: AWKGalleryItem) -> Int {
         return (self.galleryMediaObjects?.index(where: { (mediaObject: MediaObject) -> Bool in
-            return mediaObject.contentURLString == item.contentURL?.absoluteString
+            return mediaObject.contentURL == item.contentURL
         })) ?? 0
     }
     

@@ -15,22 +15,20 @@ extension Snoo.MediaObject {
         let pattern = "^https?://.*imgur.com/"
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
-            if let string = self.contentURLString, let url = NSURL(string: string), regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: string.count)) != nil {
+            if let url = self.contentURL, regex.firstMatch(in: url.absoluteString, options: [], range: NSRange(location: 0, length: url.absoluteString.count)) != nil {
                 
-                var pathExtension = url.pathExtension ?? ""
+                var pathExtension = url.pathExtension
                 
-                let pathWithoutExtension = pathExtension.count > 0 ? url.path?.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path
+                let pathWithoutExtension = pathExtension.count > 0 ? url.path.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path
                 //Imgur always responds with an image if the extension is .png
                 pathExtension = "png"
                 
-                if let pathWithoutExtension = pathWithoutExtension {
-                    let imgurProportion = (key: "m", side: 320)
-                    
-                    let thumbnailPath = "\(pathWithoutExtension)\(imgurProportion.key).\(pathExtension)"
-                    var urlComponents = URLComponents(string: string)
-                    urlComponents?.path = thumbnailPath
-                    return urlComponents?.url
-                }
+                let imgurProportion = (key: "m", side: 320)
+                
+                let thumbnailPath = "\(pathWithoutExtension)\(imgurProportion.key).\(pathExtension)"
+                var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
+                urlComponents?.path = thumbnailPath
+                return urlComponents?.url
             }
         } catch {
             AWKDebugLog("Small thumbnail regex failed: \(error)")

@@ -11,7 +11,7 @@ import CoreData
 
 public final class ObjectNamesQuery: CollectionQuery {
     
-    open let fullNames: [String]
+    public let fullNames: [String]
     
     public init(fullNames: [String]) {
         self.fullNames = fullNames
@@ -23,7 +23,7 @@ public final class ObjectNamesQuery: CollectionQuery {
         return "by_id/\(joinedFullNames).json"
     }
 
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    public override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         return nil
     }
     

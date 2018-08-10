@@ -157,7 +157,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
     fileprivate func fetchImage() {
         
         let thumbnail = self.mediaObject?.thumbnailWithSize(self.bounds.size)
-        let urlString = thumbnail?.urlString ?? self.mediaObject?.contentURLString
+        let urlString = thumbnail?.url?.absoluteString ?? self.mediaObject?.contentURL?.absoluteString
         if let urlString = urlString, let url = URL(string: urlString) {
             
             if let cachedImage = SDImageCache.shared().imageFromDiskCache(forKey: urlString) {

@@ -12,7 +12,7 @@ import Snoo
 extension MediaObject {
 
     func aspectRatioSizeWithMaxWidth(_ maxWidth: CGFloat, maxHeight: CGFloat? = nil) -> CGSize? {
-        if let imageHeight = self.height?.floatValue, let imageWidth = self.width?.floatValue, imageHeight > 0 && imageWidth > 0 {
+        if let imageHeight = self.pixelHeight?.floatValue, let imageWidth = self.pixelWidth?.floatValue, imageHeight > 0 && imageWidth > 0 {
             let aspectRatioImageHeight = CGFloat(imageHeight) * maxWidth / CGFloat(imageWidth)
             var newHeight = aspectRatioImageHeight
             if let maxHeight = maxHeight {

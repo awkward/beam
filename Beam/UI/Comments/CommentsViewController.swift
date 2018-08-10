@@ -441,7 +441,7 @@ extension CommentsEmbeddedViewController: AWKGalleryDataSource {
     
     func gallery(_ galleryViewController: AWKGalleryViewController, indexOf item: AWKGalleryItem) -> Int {
         return (self.galleryMediaObjects?.index(where: { (mediaObject: MediaObject) -> Bool in
-            return mediaObject.contentURLString == item.contentURL?.absoluteString
+            return mediaObject.contentURL == item.contentURL
         })) ?? 0
     }
     

@@ -30,17 +30,23 @@
         <relationship name="parent" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="InteractiveContent" inverseName="replies" inverseEntity="InteractiveContent" syncable="YES"/>
         <relationship name="replies" optional="YES" toMany="YES" deletionRule="Nullify" ordered="YES" destinationEntity="InteractiveContent" inverseName="parent" inverseEntity="InteractiveContent" syncable="YES"/>
     </entity>
+    <entity name="MediaAnimatedGIF" representedClassName="MediaAnimatedGIF" parentEntity="MediaObject" syncable="YES">
+        <attribute name="videoURL" optional="YES" attributeType="URI" syncable="YES"/>
+    </entity>
+    <entity name="MediaDirectVideo" representedClassName="MediaDirectVideo" parentEntity="MediaObject" syncable="YES">
+        <attribute name="videoURL" optional="YES" attributeType="URI" syncable="YES"/>
+    </entity>
+    <entity name="MediaImage" representedClassName="MediaImage" parentEntity="MediaObject" syncable="YES"/>
     <entity name="MediaObject" representedClassName=".MediaObject" syncable="YES">
         <attribute name="captionDescription" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="captionTitle" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="contentURLString" optional="YES" attributeType="String" syncable="YES"/>
+        <attribute name="contentURL" optional="YES" attributeType="URI" syncable="YES"/>
         <attribute name="expirationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="metadata" optional="YES" attributeType="Transformable" valueTransformerName="MetadataValueTransformer" syncable="YES"/>
-        <attribute name="width" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="isNSFWNumber" optional="YES" attributeType="Boolean" usesScalarValueType="YES" syncable="YES"/>
+        <attribute name="pixelHeight" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pixelWidth" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="content" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Content" inverseName="mediaObjects" inverseEntity="Content" syncable="YES"/>
-        <relationship name="headerForSubreddit" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Subreddit" inverseName="headerImage" inverseEntity="Subreddit" syncable="YES"/>
         <relationship name="thumbnails" optional="YES" toMany="YES" deletionRule="Cascade" destinationEntity="Thumbnail" inverseName="mediaObject" inverseEntity="Thumbnail" syncable="YES"/>
     </entity>
     <entity name="Message" representedClassName=".Message" parentEntity="InteractiveContent" syncable="YES">
@@ -112,7 +118,6 @@
         <attribute name="subscribers" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="title" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="visibilityString" optional="YES" attributeType="String" syncable="YES"/>
-        <relationship name="headerImage" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaObject" inverseName="headerForSubreddit" inverseEntity="MediaObject" syncable="YES"/>
         <relationship name="multireddits" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Multireddit" inverseName="subreddits" inverseEntity="Multireddit" syncable="YES"/>
         <relationship name="postCollections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="PostCollection" inverseName="subreddit" inverseEntity="PostCollection" syncable="YES"/>
         <relationship name="posts" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="Post" inverseName="subreddit" inverseEntity="Post" syncable="YES"/>
@@ -135,9 +140,9 @@
     </entity>
     <entity name="Thumbnail" representedClassName=".Thumbnail" syncable="YES">
         <attribute name="expirationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="height" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="urlString" optional="YES" attributeType="String" syncable="YES"/>
-        <attribute name="width" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pixelHeight" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="pixelWidth" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
+        <attribute name="url" optional="YES" attributeType="URI" syncable="YES"/>
         <relationship name="mediaObject" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="MediaObject" inverseName="thumbnails" inverseEntity="MediaObject" syncable="YES"/>
     </entity>
     <entity name="User" representedClassName="User" parentEntity="SyncObject" syncable="YES">
@@ -165,7 +170,7 @@
         <element name="Content" positionX="-90" positionY="-531" width="128" height="300"/>
         <element name="ContentCollection" positionX="-90" positionY="-531" width="128" height="75"/>
         <element name="InteractiveContent" positionX="-90" positionY="-531" width="128" height="73"/>
-        <element name="MediaObject" positionX="-90" positionY="-558" width="128" height="210"/>
+        <element name="MediaObject" positionX="-90" positionY="-558" width="128" height="195"/>
         <element name="Message" positionX="-90" positionY="-531" width="128" height="135"/>
         <element name="MessageCollection" positionX="-81" positionY="-522" width="128" height="60"/>
         <element name="MoreComment" positionX="-90" positionY="-531" width="128" height="75"/>
@@ -174,11 +179,14 @@
         <element name="Post" positionX="-299" positionY="-54" width="128" height="240"/>
         <element name="PostCollection" positionX="18" positionY="-45" width="128" height="60"/>
         <element name="PostMetadata" positionX="-90" positionY="-531" width="128" height="90"/>
-        <element name="Subreddit" positionX="358" positionY="54" width="128" height="330"/>
+        <element name="Subreddit" positionX="358" positionY="54" width="128" height="315"/>
         <element name="SubredditCollection" positionX="-90" positionY="-531" width="128" height="60"/>
         <element name="SyncObject" positionX="-38" positionY="-684" width="128" height="165"/>
         <element name="Thumbnail" positionX="-90" positionY="-531" width="128" height="120"/>
         <element name="User" positionX="-65" positionY="-252" width="128" height="210"/>
         <element name="UserContentCollection" positionX="-90" positionY="-531" width="128" height="75"/>
+        <element name="MediaDirectVideo" positionX="-81" positionY="-522" width="128" height="60"/>
+        <element name="MediaAnimatedGIF" positionX="-72" positionY="-513" width="128" height="60"/>
+        <element name="MediaImage" positionX="-63" positionY="-504" width="128" height="45"/>
     </elements>
 </model>

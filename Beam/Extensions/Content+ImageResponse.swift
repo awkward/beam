@@ -29,7 +29,7 @@ extension Content {
         
         // Old mediaobject content strings
         let urlStrings = self.mediaObjects?.array.map({ (obj) -> String in
-            return (obj as? MediaObject)?.contentURLString ?? ""
+            return (obj as? MediaObject)?.contentURL?.absoluteString ?? ""
         })
         let oldUrlStrings = Set<String>(urlStrings ?? [String]())
         
@@ -48,30 +48,42 @@ extension Content {
                 //If an MP4 URL is availble, use it instead!
                 contentURL = MP4URL
             }
+            
+            if let host = contentURL.host, host.contains("imgur.com") == true, contentURL.pathExtension == "gifv" {
+                //Change imgur .gifv urls to .mp4
+                contentURL = contentURL.deletingPathExtension().appendingPathExtension("mp4")
+            }
+            
             // Don't add regular gifs, they are data hogs!
             if contentURL.pathExtension == "gif" {
                 //Do add gifs from imgur, they can be easily translated to mp4
-                if let host = contentURL.host, host.contains("imgur.com") == true {
-                    let newURL = contentURL.deletingPathExtension().appendingPathExtension("mp4")
-                    contentURL = newURL
-                } else {
+                guard let host = contentURL.host, host.contains("imgur.com") == true else {
                     continue
                 }
+                contentURL = contentURL.deletingPathExtension().appendingPathExtension("mp4")
             }
             
-            // Don't readd when already existing
+            // Don't re-add when already existing
             let contentURLString: String = contentURL.absoluteString
             if oldUrlStrings.contains(contentURLString) {
                 continue
             }
             
-            let mediaObject = self.insertNewMediaObject()
+            var type: MediaObject.Type = MediaImage.self
+            if spec.animated == true {
+                type = MediaAnimatedGIF.self
+            }
+            
+            let mediaObject = self.insertNewMediaObject(of: type)
+            mediaObject.pixelSize = spec.size
             mediaObject.galleryItem.size = spec.size
-            mediaObject.galleryItem.animated = spec.animated
-            mediaObject.galleryItem.nsfw = spec.nsfw
+            mediaObject.isNSFW = spec.nsfw ?? false
             mediaObject.captionTitle = spec.title
             mediaObject.captionDescription = spec.imageDescription
-            mediaObject.contentURLString = contentURL.absoluteString
+            mediaObject.contentURL = contentURL
+            if let animatedGIF = mediaObject as? MediaAnimatedGIF {
+                animatedGIF.videoURL = contentURL
+            }
             mediaObject.identifier = spec.identifier
             
             Content.insertImgurThumbnailsToMediaObject(mediaObject)
@@ -87,6 +99,9 @@ extension Content {
     }
     
     fileprivate class func parseGiphyURL(spec: ImageSpec, content: Content) -> MediaObject? {
+        guard let context = content.managedObjectContext else {
+            return nil
+        }
         var urlString = spec.originalURL.absoluteString
         do {
             var giphyID: String?
@@ -120,18 +135,23 @@ extension Content {
                 return nil
             }
             
-            let mediaObject = content.insertNewMediaObject()
-            mediaObject.galleryItem.size = spec.size
-            mediaObject.galleryItem.animated = true
-            mediaObject.galleryItem.nsfw = spec.nsfw
-            mediaObject.contentURLString = "https://media.giphy.com/media/\(identifier)/giphy.mp4"
+            guard let context = content.managedObjectContext else {
+                return nil
+            }
+            
+            let mediaObject = MediaAnimatedGIF(context: context)
+            mediaObject.pixelSize = spec.size
+            mediaObject.isNSFW = spec.nsfw ?? false
+            mediaObject.contentURL = URL(string: "https://media.giphy.com/media/\(identifier)/giphy.mp4")
+            mediaObject.videoURL = URL(string: "https://media.giphy.com/media/\(identifier)/giphy.mp4")
             mediaObject.identifier = spec.identifier
             
-            let thumbnail = NSEntityDescription.insertNewObject(forEntityName: Thumbnail.entityName(), into: mediaObject.managedObjectContext!) as! Thumbnail
-            thumbnail.mediaObject = mediaObject
-            thumbnail.urlString = "https://media.giphy.com/media/\(identifier)/giphy_s.gif"
-            thumbnail.width = NSNumber(value: Float(spec.size.width))
-            thumbnail.height = NSNumber(value: Float(spec.size.height))
+            let thumbnail = Thumbnail(context: context)
+            thumbnail.url = URL(string: "https://media.giphy.com/media/\(identifier)/giphy_s.gif")
+            thumbnail.pixelWidth = NSNumber(value: Float(spec.size.width))
+            thumbnail.pixelHeight = NSNumber(value: Float(spec.size.height))
+            
+            mediaObject.thumbnails = Set([thumbnail])
             
             return mediaObject
             
@@ -140,13 +160,20 @@ extension Content {
         }
         
     }
+}
+
+// MARK: - Thumbnails
+
+extension Content {
     
     fileprivate class func insertImgurThumbnailsToMediaObject(_ object: MediaObject) {
+        guard let context = object.managedObjectContext else {
+            return
+        }
         let pattern = "^https?://.*imgur.com/"
         do {
             let regex = try NSRegularExpression(pattern: pattern, options: NSRegularExpression.Options.caseInsensitive)
-            if let string = object.contentURLString,
-                let url = URL(string: string), regex.firstMatch(in: string, options: [], range: NSRange(location: 0, length: (string as NSString).length)) != nil {
+            if let url = object.contentURL, regex.firstMatch(in: url.absoluteString, options: [], range: NSRange(location: 0, length: (url.absoluteString as NSString).length)) != nil {
                 var pathExtension = url.pathExtension
                 
                 let pathWithoutExtension = (pathExtension as NSString).length > 0 ? url.path.replacingOccurrences(of: ".\(pathExtension)", with: "") : url.path
@@ -159,19 +186,19 @@ extension Content {
                 }
                 
                 let imgurProportions = ["t": 160, "m": 320, "l": 640, "h": 1024]
-                object.thumbnails = NSSet(array: imgurProportions.map({ (key: String, side: Int) -> Thumbnail in
+                let thumbnails = imgurProportions.map({ (key: String, side: Int) -> Thumbnail in
                     let thumbnailPath = "\(pathWithoutExtension)\(key).\(pathExtension)"
-                    let thumbnail = NSEntityDescription.insertNewObject(forEntityName: Thumbnail.entityName(), into: object.managedObjectContext!) as! Thumbnail
-                    var urlComponents = URLComponents(string: string)
+                    let thumbnail = Thumbnail(context: context)
+                    var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false)
                     urlComponents?.scheme = "https"
                     urlComponents?.path = thumbnailPath
                     
-                    thumbnail.urlString = urlComponents?.string
-                    thumbnail.width = NSNumber(value: side)
-                    thumbnail.height = NSNumber(value: side)
+                    thumbnail.url = urlComponents?.url
+                    thumbnail.pixelSize = CGSize(width: side, height: side)
                     
                     return thumbnail
-                }))
+                })
+                object.thumbnails = Set(thumbnails)
                 
             }
         } catch {
@@ -180,28 +207,29 @@ extension Content {
     }
     
     fileprivate class func insertGfycatThumbnailsToMediaObject(_ object: MediaObject) {
-        if let urlString = object.contentURLString, let url = URL(string: urlString), var urlComponents = URLComponents(string: urlString), urlString.contains("gfycat.com") {
-            urlComponents.host = "thumbs.gfycat.com"
-            urlComponents.scheme = "https"
-            
-            let path = urlComponents.path
-            let pathExtension = url.pathExtension
-            var identifier = path
-            let extensionRange = path.index(path.endIndex, offsetBy: -1 * pathExtension.count - 1)..<path.endIndex
-            identifier.removeSubrange(extensionRange)
-            
-            urlComponents.path = "\(identifier)-poster.jpg"
-            if let thumbnailURL = urlComponents.url {
-                
-                let thumbnail = NSEntityDescription.insertNewObject(forEntityName: Thumbnail.entityName(), into: object.managedObjectContext!) as! Thumbnail
-                thumbnail.mediaObject = object
-                thumbnail.urlString = thumbnailURL.absoluteString
-                thumbnail.width = NSNumber(value: 0)
-                thumbnail.height = NSNumber(value: 0)
-                
-            }
-            
+        guard let context = object.managedObjectContext else {
+            return
         }
+        guard let url = object.contentURL, var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), url.absoluteString.contains("gfycat.com") else {
+            return
+        }
+        urlComponents.host = "thumbs.gfycat.com"
+        urlComponents.scheme = "https"
+        
+        let path = urlComponents.path
+        let pathExtension = url.pathExtension
+        var identifier = path
+        let extensionRange = path.index(path.endIndex, offsetBy: -1 * pathExtension.count - 1)..<path.endIndex
+        identifier.removeSubrange(extensionRange)
+        
+        urlComponents.path = "\(identifier)-poster.jpg"
+        guard let thumbnailURL = urlComponents.url else {
+            return
+        }
+        let thumbnail = Thumbnail(context: context)
+        thumbnail.mediaObject = object
+        thumbnail.url = thumbnailURL
+        thumbnail.pixelSize = .zero
     }
     
 }

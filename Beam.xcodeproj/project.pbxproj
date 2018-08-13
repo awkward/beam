@@ -2231,7 +2231,6 @@
 				0CF0E3021FD0993B001D12A9 /* Messages */,
 				0CF0E2FF1FD09896001D12A9 /* Passcode */,
 				0C3255701FD09DAA00AD0E47 /* Profile */,
-				76D2AA331B43DBB80089C845 /* Profile */,
 				0CF0E3061FD099A1001D12A9 /* Search */,
 				0CF0E3071FD099B4001D12A9 /* Settings */,
 				0C3255721FD09DC500AD0E47 /* Sharing */,
@@ -2813,14 +2812,6 @@
 				00D470B41BCFF14F001125B0 /* External */,
 			);
 			name = Frameworks;
-			sourceTree = "<group>";
-		};
-		76D2AA331B43DBB80089C845 /* Profile */ = {
-			isa = PBXGroup;
-			children = (
-			);
-			name = Profile;
-			path = ..;
 			sourceTree = "<group>";
 		};
 		76E7CB931B5E72D500D87D29 /* Products */ = {

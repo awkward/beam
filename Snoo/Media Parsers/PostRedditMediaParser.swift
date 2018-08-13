@@ -84,7 +84,7 @@ extension MediaImage {
             return
         }
         
-        if let urlString = source["url"] as? String, let url = URL(string: urlString) {
+        if let urlString = (source["url"] as? String)?.stringByUnescapeHTMLEntities(), let url = URL(string: urlString) {
             self.contentURL = url
         }
         self.pixelWidth = source["width"] as? NSNumber
@@ -118,10 +118,10 @@ extension MediaDirectVideo {
         }
         self.pixelHeight = redditVideo["height"] as? NSNumber
         self.pixelWidth = redditVideo["width"] as? NSNumber
-        if let fallbackURLString = redditVideo["fallback_url"] as? String, let url = URL(string: fallbackURLString) {
+        if let fallbackURLString = (redditVideo["fallback_url"] as? String)?.stringByUnescapeHTMLEntities(), let url = URL(string: fallbackURLString) {
             self.contentURL = url
         }
-        if let hlsURLString = redditVideo["hls_url"] as? String, let url = URL(string: hlsURLString) {
+        if let hlsURLString = (redditVideo["hls_url"] as? String)?.stringByUnescapeHTMLEntities(), let url = URL(string: hlsURLString) {
             self.videoURL = url
         }
         
@@ -166,10 +166,10 @@ extension MediaAnimatedGIF {
         }
         self.pixelHeight = redditVideo["height"] as? NSNumber
         self.pixelWidth = redditVideo["width"] as? NSNumber
-        if let fallbackURLString = redditVideo["fallback_url"] as? String, let url = URL(string: fallbackURLString) {
+        if let fallbackURLString = (redditVideo["fallback_url"] as? String)?.stringByUnescapeHTMLEntities(), let url = URL(string: fallbackURLString) {
             self.contentURL = url
         }
-        if let hlsURLString = redditVideo["hls_url"] as? String, let url = URL(string: hlsURLString) {
+        if let hlsURLString = (redditVideo["hls_url"] as? String)?.stringByUnescapeHTMLEntities(), let url = URL(string: hlsURLString) {
             self.videoURL = url
         }
         
@@ -187,14 +187,14 @@ extension MediaAnimatedGIF {
         }
         
         if let resolutions = mp4Variant["resolutions"] as? [[String: Any]], let bestResolution = resolutions.last {
-            if let urlString = bestResolution["url"] as? String, let url = URL(string: urlString) {
+            if let urlString = (bestResolution["url"] as? String)?.stringByUnescapeHTMLEntities(), let url = URL(string: urlString) {
                 self.videoURL = url
                 self.contentURL = url
             }
             self.pixelWidth = bestResolution["width"] as? NSNumber
             self.pixelHeight = bestResolution["height"] as? NSNumber
         } else if let source = mp4Variant["source"] as? [String: Any] {
-            if let urlString = source["url"] as? String, let url = URL(string: urlString) {
+            if let urlString = (source["url"] as? String)?.stringByUnescapeHTMLEntities(), let url = URL(string: urlString) {
                 self.videoURL = url
                 self.contentURL = url
             }

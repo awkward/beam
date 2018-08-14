@@ -13,14 +13,14 @@ class BeamTableViewController: UITableViewController, DynamicDisplayModeView, No
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(BeamTableViewController.displayModeDidChangeNotification(_:)), name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(BeamTableViewController.displayModeDidChangeNotification(_:)), name: .DisplayModeDidChange, object: nil)
         displayModeDidChangeAnimated(false)
     }
     
     override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
+        NotificationCenter.default.removeObserver(self, name: .DisplayModeDidChange, object: nil)
     }
     
     @objc func displayModeDidChangeNotification(_ notification: Notification) {

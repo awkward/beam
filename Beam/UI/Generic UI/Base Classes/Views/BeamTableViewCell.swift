@@ -40,7 +40,7 @@ class BeamTableViewCell: UITableViewCell, DynamicDisplayModeView {
         self.unregisterForDisplayModeChangeNotifications()
     }
     
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         self.displayModeDidChangeAnimated(true)
     }
     

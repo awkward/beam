@@ -141,7 +141,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: self.authenticationController)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.messageDidChangeUnreadState(_:)), name: .RedditMessageDidChangeUnreadState, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.applicationWindowDidBecomeVisible(_:)), name: .UIWindowDidBecomeVisible, object: self.window)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.displayModeDidChangeNotification(_:)), name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.displayModeDidChangeNotification(_:)), name: .DisplayModeDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contentSizeCategoryDidChange(_:)), name: .UIContentSizeCategoryDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userSettingDidChange(_:)), name: .SettingsDidChangeSetting, object: nil)
         

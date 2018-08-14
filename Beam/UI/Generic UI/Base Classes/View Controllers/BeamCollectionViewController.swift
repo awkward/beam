@@ -22,7 +22,7 @@ class BeamCollectionViewController: UICollectionViewController, DynamicDisplayMo
         unregisterForDisplayModeChangeNotifications()
     }
 
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         displayModeDidChangeAnimated(true)
     }
     

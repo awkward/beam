@@ -10,7 +10,7 @@ import UIKit
 
 /** Protocol to implement to support different display modes like dark mode. This has been implemented by default by all beam base views/viewcontrollers.
 
-    To implement this protocol, you need to listen for DisplayModeDidChangeNotificationName notifications. When the notification fires, call displayModeDidChange(newMode: animated:). Implement displayModeDidChange to update UI elements according to the display mode. This method will be called within an animation block whenever appropiate.
+    To implement this protocol, you need to listen for Notification.Name.DisplayModeDidChange notifications. When the notification fires, call displayModeDidChange(newMode: animated:). Implement displayModeDidChange to update UI elements according to the display mode. This method will be called within an animation block whenever appropiate.
 */
 protocol DynamicDisplayModeView: class {
     
@@ -32,12 +32,12 @@ protocol DynamicDisplayModeView: class {
 extension DynamicDisplayModeView {
     
     func registerForDisplayModeChangeNotifications() {
-        NotificationCenter.default.addObserver(self, selector: Selector("displayModeDidChangeNotification:"), name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
+        NotificationCenter.default.addObserver(self, selector: Selector("displayModeDidChangeNotification:"), name: .DisplayModeDidChange, object: nil)
         displayModeDidChangeAnimated(false)
     }
     
     func unregisterForDisplayModeChangeNotifications() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: DisplayModeDidChangeNotificationName), object: nil)
+        NotificationCenter.default.removeObserver(self, name: .DisplayModeDidChange, object: nil)
     }
     
     func displayModeDidChangeAnimated(_ animated: Bool) {

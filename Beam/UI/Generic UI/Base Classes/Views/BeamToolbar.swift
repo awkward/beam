@@ -33,7 +33,7 @@ class BeamToolbar: UIToolbar, DynamicDisplayModeView {
         self.registerForDisplayModeChangeNotifications()
     }
     
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         self.displayModeDidChangeAnimated(true)
     }
     

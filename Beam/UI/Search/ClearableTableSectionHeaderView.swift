@@ -59,7 +59,7 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
         return super.hitTest(point, with: event)
     }
     
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         displayModeDidChangeAnimated(true)
     }
     

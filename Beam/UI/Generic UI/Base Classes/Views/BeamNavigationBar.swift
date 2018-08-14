@@ -55,7 +55,7 @@ class BeamNavigationBar: UINavigationBar, DynamicDisplayModeView {
         self.addSubview(self.progressView)
     }
     
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         self.displayModeDidChangeAnimated(true)
     }
     

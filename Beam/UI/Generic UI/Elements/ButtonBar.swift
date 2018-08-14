@@ -168,7 +168,7 @@ class ButtonBar: UIControl {
 
 extension ButtonBar: DynamicDisplayModeView {
     
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         displayModeDidChangeAnimated(true)
     }
     

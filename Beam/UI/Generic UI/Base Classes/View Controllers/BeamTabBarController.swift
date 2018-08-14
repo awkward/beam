@@ -75,7 +75,7 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
     
     // MARK: - Notifications
     
-    @objc internal func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         self.displayModeDidChangeAnimated(true)
     }
     

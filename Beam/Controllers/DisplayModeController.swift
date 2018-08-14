@@ -13,7 +13,11 @@ enum DisplayMode {
     case dark
 }
 
-let DisplayModeDidChangeNotificationName = "DisplayModeDidChangeNotification"
+extension Notification.Name {
+    
+    static let DisplayModeDidChange = Notification.Name(rawValue: "DisplayModeDidChangeNotification")
+    
+}
 
 func DisplayModeValue<T>(_ defaultValue: T, darkValue: T) -> T {
     #if TARGET_INTERFACE_BUILDER
@@ -31,9 +35,10 @@ class DisplayModeController: NSObject {
     
     var currentMode = DisplayMode.default {
         didSet {
-            if oldValue != self.currentMode {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: DisplayModeDidChangeNotificationName), object: self)
+            guard oldValue != currentMode else {
+                return
             }
+            NotificationCenter.default.post(name: .DisplayModeDidChange, object: nil)
         }
     }
     

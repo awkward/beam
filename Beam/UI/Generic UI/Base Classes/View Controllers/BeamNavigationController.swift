@@ -120,7 +120,7 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         }
     }
     
-    func displayModeDidChangeNotification(_ notification: Notification) {
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
         self.displayModeDidChangeAnimated(true)
     }
     

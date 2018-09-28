@@ -125,7 +125,7 @@ extension MediaDirectVideo {
             self.videoURL = url
         }
         
-        guard let image = (json["preview.images"] as? [[String: Any]])?.first else {
+        guard let image = (json.value(forKeyPath: "preview.images") as? [[String: Any]])?.first else {
             return
         }
         
@@ -173,7 +173,7 @@ extension MediaAnimatedGIF {
             self.videoURL = url
         }
         
-        guard let image = (json["preview.images"] as? [[String: Any]])?.first else {
+        guard let image = (json.value(forKeyPath: "preview.images") as? [[String: Any]])?.first else {
             return
         }
         

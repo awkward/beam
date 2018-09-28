@@ -119,6 +119,6 @@ extension MediaCellMediaLabels {
     }
     
     var contentIsVideo: Bool {
-        return false
+        return (self.mediaObject is MediaDirectVideo)
     }
 }

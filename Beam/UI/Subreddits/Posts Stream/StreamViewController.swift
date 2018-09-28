@@ -60,6 +60,7 @@ private enum StreamCellTypeIdentifier: String {
     case Album = "album"
     case Link = "link"
     case Video = "video"
+    case VideoLink = "video_link"
     case Comment = "comment"
 }
 
@@ -232,7 +233,8 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         self.tableView.register(UINib(nibName: "PostCommentPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Comment.rawValue)
         self.tableView.register(UINib(nibName: "PostMetaDataPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Metadata.rawValue)
         self.tableView.register(UINib(nibName: "PostURLPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Link.rawValue)
-        self.tableView.register(UINib(nibName: "PostVideoURLPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Video.rawValue)
+        self.tableView.register(UINib(nibName: "PostVideoURLPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.VideoLink.rawValue)
+        self.tableView.register(PostVideoPartCell.self, forCellReuseIdentifier: StreamCellTypeIdentifier.Video.rawValue)
         self.tableView.register(UINib(nibName: "PostImageCollectionPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Album.rawValue)
         self.tableView.register(UINib(nibName: "PostImagePartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Image.rawValue)
         
@@ -741,8 +743,14 @@ extension StreamViewController {
                 self.configureMetadataView(metadataView, atIndexPath: indexPath)
             }
             return cell
-        case .Link, .Video:
+        case .Link, .VideoLink:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostURLPartCell
+            cell.shouldShowSpoilerOverlay = self.showSpoilerOverlayAtIndexPath(indexPath)
+            cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
+            self.configureCell(cell, atIndexPath: indexPath)
+            return cell
+        case .Video:
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostVideoPartCell
             cell.shouldShowSpoilerOverlay = self.showSpoilerOverlayAtIndexPath(indexPath)
             cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
             self.configureCell(cell, atIndexPath: indexPath)
@@ -801,9 +809,13 @@ extension StreamViewController {
                 } else if let mediaObjects = post.mediaObjects, mediaObjects.count > 1 {
                     identifiers = [.Title, .Metadata, .Album, .Toolbar]
                 } else if post.mediaObjects?.count == 1 {
-                    identifiers = [.Title, .Metadata, .Image, .Toolbar]
+                    if post.mediaObjects?.firstObject is MediaDirectVideo {
+                        identifiers = [.Title, .Metadata, .Video, .Toolbar]
+                    } else {
+                        identifiers = [.Title, .Metadata, .Image, .Toolbar]
+                    }
                 } else if let urlString = post.urlString, let url = URL(string: urlString), url.estimatedURLType == URLType.video {
-                    identifiers = [.Title, .Metadata, .Video, .Toolbar]
+                    identifiers = [.Title, .Metadata, .VideoLink, .Toolbar]
                 }
             } else if content is Comment {
                 if showTitleWithThumbnail {
@@ -977,8 +989,10 @@ extension StreamViewController {
                 return 44
             case StreamCellTypeIdentifier.Link:
                 return PostURLPartCell.heightForLink(isVideo: false, forWidth: tableView.frame.width)
-            case StreamCellTypeIdentifier.Video:
+            case StreamCellTypeIdentifier.VideoLink:
                 return PostURLPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+            case StreamCellTypeIdentifier.Video:
+                return PostVideoPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
             case StreamCellTypeIdentifier.Image:
                 return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: tableView.frame.width)
             case StreamCellTypeIdentifier.Album:
@@ -1001,8 +1015,10 @@ extension StreamViewController {
                 return 44
             case StreamCellTypeIdentifier.Link:
                 return PostURLPartCell.heightForLink(isVideo: false, forWidth: tableView.frame.width)
-            case StreamCellTypeIdentifier.Video:
+            case StreamCellTypeIdentifier.VideoLink:
                 return PostURLPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+            case StreamCellTypeIdentifier.Video:
+                return PostVideoPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
             case StreamCellTypeIdentifier.Image:
                 return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: tableView.frame.width)
             case StreamCellTypeIdentifier.Album:

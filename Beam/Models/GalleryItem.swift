@@ -41,6 +41,10 @@ class GalleryItem: NSObject {
         return mediaObject?.isNSFW ?? false
     }
     
+    var isDirectVideo: Bool {
+        return mediaObject is MediaDirectVideo
+    }
+    
     var animatedURL: URL? {
         guard let animatedGIF = mediaObject as? MediaAnimatedGIF else {
             return nil
@@ -72,6 +76,8 @@ extension GalleryItem: AWKGalleryItem {
     @objc var contentURL: URL? {
         if self.isAnimated {
             return self.animatedURL
+        } else if let videoObject = self.mediaObject as? MediaDirectVideo, let url = videoObject.videoURL {
+            return url
         } else if let url = self.mediaObject?.contentURL {
             return url
         } else {
@@ -84,6 +90,9 @@ extension GalleryItem: AWKGalleryItem {
         get {
             if let cachedContentType: AWKGalleryItemContentType = self.cachedContentType {
                 return cachedContentType
+            }
+            if self.isDirectVideo {
+                return .movie
             }
             guard self.isAnimated else {
                 return .image

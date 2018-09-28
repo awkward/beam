@@ -389,6 +389,7 @@
 		0CDC51591BE24C2000DBB605 /* BeamEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CDC51571BE24C2000DBB605 /* BeamEmptyView.xib */; };
 		0CDC76B21C99591B009DE945 /* PostMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDC76B11C99591B009DE945 /* PostMetadataView.swift */; };
 		0CDC7BA41BE8DC6900938012 /* stars_level_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0CDC7BA31BE8DC6900938012 /* stars_level_1.sks */; };
+		0CDE0385212335880055A0FD /* PostVideoPartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE0384212335880055A0FD /* PostVideoPartCell.swift */; };
 		0CDF94ED1CBB9D0200B23996 /* PasscodeIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDF94EC1CBB9D0200B23996 /* PasscodeIndicatorView.swift */; };
 		0CDF951D1CBBBDE900B23996 /* PasscodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDF951C1CBBBDE900B23996 /* PasscodeController.swift */; };
 		0CDFD7FA1C3EB042003504DD /* SubredditNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDFD7F91C3EB042003504DD /* SubredditNavigationController.swift */; };
@@ -1232,6 +1233,7 @@
 		0CDC51571BE24C2000DBB605 /* BeamEmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BeamEmptyView.xib; path = "Beam/UI/Generic UI/Elements/BeamEmptyView.xib"; sourceTree = SOURCE_ROOT; };
 		0CDC76B11C99591B009DE945 /* PostMetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMetadataView.swift; sourceTree = "<group>"; };
 		0CDC7BA31BE8DC6900938012 /* stars_level_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = stars_level_1.sks; path = "Beam/Resources/Stars (Welcome View)/stars_level_1.sks"; sourceTree = SOURCE_ROOT; };
+		0CDE0384212335880055A0FD /* PostVideoPartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVideoPartCell.swift; sourceTree = "<group>"; };
 		0CDF94EC1CBB9D0200B23996 /* PasscodeIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeIndicatorView.swift; sourceTree = "<group>"; };
 		0CDF951C1CBBBDE900B23996 /* PasscodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeController.swift; sourceTree = "<group>"; };
 		0CDFD7F91C3EB042003504DD /* SubredditNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubredditNavigationController.swift; sourceTree = "<group>"; };
@@ -2126,6 +2128,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0CDE03722123357B0055A0FD /* Video Part */ = {
+			isa = PBXGroup;
+			children = (
+				0CDE0384212335880055A0FD /* PostVideoPartCell.swift */,
+			);
+			path = "Video Part";
+			sourceTree = "<group>";
+		};
 		0CF0E2E81FD096A0001D12A9 /* In-App Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2496,6 +2506,7 @@
 		0CF0E3111FD09A7C001D12A9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0CDE03722123357B0055A0FD /* Video Part */,
 				0C32556D1FD09D3B00AD0E47 /* Self Text Part */,
 				0C32556C1FD09D3200AD0E47 /* Image Part */,
 				0C32556B1FD09D2400AD0E47 /* Album Part */,
@@ -3805,6 +3816,7 @@
 				0CDC51581BE24C2000DBB605 /* BeamEmptyView.swift in Sources */,
 				0C165F281C747B8A0062EEC4 /* BeamPlainButton.swift in Sources */,
 				0C8B204B1CBFE7C800CF8E2A /* AssetsPickerControllerAuthorizationEmptyView.swift in Sources */,
+				0CDE0385212335880055A0FD /* PostVideoPartCell.swift in Sources */,
 				76B57F5A1B5FC00A00FB04BD /* MediaImageLoader.swift in Sources */,
 				0C6B65E91F9A49DF005538C2 /* Reusable.swift in Sources */,
 				0C30B3E11C281201008D59FE /* BeamCopyableLabel.swift in Sources */,

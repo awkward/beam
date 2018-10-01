@@ -7,25 +7,50 @@
 //
 
 import UIKit
+import SDWebImage
 import Snoo
 
-final class PostVideoPartCell: UITableViewCell, PostCell {
+final class PostVideoPartCell: UITableViewCell, PostCell, MediaImageLoader {
     
-    @IBOutlet fileprivate var linkPreviewView: PostLinkPreviewView?
+    lazy var mediaImageView: UIImageView! = {
+        let imageView = UIImageView()
+        imageView.contentMode = .scaleAspectFill
+        imageView.clipsToBounds = true
+        imageView.accessibilityIgnoresInvertColors = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
     
-    var linkContainerViewFrame: CGRect {
-        return self.linkPreviewView?.frame ?? .zero
-    }
+    lazy private var playIconImageView: UIImageView = {
+        let imageView = UIImageView()
+        imageView.contentMode = UIViewContentMode.center
+        imageView.isOpaque = false
+        imageView.clipsToBounds = true
+        imageView.image = #imageLiteral(resourceName: "video_play_external")
+        imageView.accessibilityIgnoresInvertColors = true
+        imageView.translatesAutoresizingMaskIntoConstraints = false
+        return imageView
+    }()
+    
+    lazy private(set) var spoilerView: ImageSpoilerView = {
+        let spoilerView = ImageSpoilerView()
+        spoilerView.translatesAutoresizingMaskIntoConstraints = false
+        return spoilerView
+    }()
     
     weak var post: Post? {
         didSet {
-            if let urlString = self.post?.urlString, let link = URL(string: urlString) {
-                self.linkPreviewView?.changeLink(link: link, post: self.post, allowNSFW: !self.shouldShowNSFWOverlay, allowSpoiler: !self.shouldShowSpoilerOverlay)
-            } else {
-                self.linkPreviewView?.changeLink(link: nil, post: self.post, allowNSFW: !self.shouldShowNSFWOverlay, allowSpoiler: !self.shouldShowSpoilerOverlay)
-            }
-            
+            mediaObject = post?.mediaObjects?.firstObject as? MediaDirectVideo
+            startImageLoading()
         }
+    }
+    
+    var mediaObject: MediaObject?
+    
+    var imageOperation: SDWebImageOperation?
+    
+    var preferredThumbnailSize: CGSize {
+        return UIScreen.main.bounds.size
     }
     
     var onDetailView: Bool = false
@@ -39,11 +64,35 @@ final class PostVideoPartCell: UITableViewCell, PostCell {
         self.setupView()
     }
     
+    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+        super.init(style: style, reuseIdentifier: reuseIdentifier)
+        
+        setupView()
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        setupView()
+    }
+    
     private func setupView() {
         self.preservesSuperviewLayoutMargins = false
         self.contentView.layoutMargins = UIEdgeInsets(top: 10, left: 12, bottom: 10, right: 12)
         
-        self.linkPreviewView?.isEnabled = false
+        self.contentView.addSubview(self.mediaImageView)
+        self.contentView.addSubview(self.playIconImageView)
+        
+        let constraints = [
+            self.mediaImageView.topAnchor.constraint(equalTo: self.contentView.topAnchor),
+            self.mediaImageView.leftAnchor.constraint(equalTo: self.contentView.leftAnchor),
+            self.contentView.bottomAnchor.constraint(equalTo: self.mediaImageView.bottomAnchor),
+            self.contentView.rightAnchor.constraint(equalTo: self.mediaImageView.rightAnchor),
+            
+            self.playIconImageView.centerXAnchor.constraint(equalTo: self.mediaImageView.centerXAnchor),
+            self.playIconImageView.centerYAnchor.constraint(equalTo: self.mediaImageView.centerYAnchor)
+        ]
+        NSLayoutConstraint.activate(constraints)
     }
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
@@ -54,8 +103,21 @@ final class PostVideoPartCell: UITableViewCell, PostCell {
         super.setSelected(selected, animated: animated)
     }
     
-    class func heightForLink(isVideo: Bool, forWidth width: CGFloat) -> CGFloat {
-        return 200
+    class func height(for video: MediaDirectVideo?, width: CGFloat) -> CGFloat {
+        guard let video = video else {
+            return (width * 0.5625).rounded(.down)
+        }
+        let scale = width / video.pixelSize.width
+        let height = video.pixelSize.height * scale
+        return height.rounded(.down)
+    }
+    
+    func imageLoadingCompleted() {
+        
+    }
+    
+    func progressDidChange(_ progress: CGFloat) {
+        
     }
     
 }

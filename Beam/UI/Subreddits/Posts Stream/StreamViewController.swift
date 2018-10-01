@@ -941,6 +941,11 @@ extension StreamViewController {
             if (isNSFWOrSpoiler && (cell.spoilerView.opened || cell.spoilerView.isHidden)) || !isNSFWOrSpoiler {
                 presentGalleryFromIndexPath(indexPath, mediaAtIndex: 0)
             }
+        } else if let cell = cell as? PostVideoPartCell {
+            let isNSFWOrSpoiler = self.showNSFWOverlayAtIndexPath(indexPath) || self.showSpoilerOverlayAtIndexPath(indexPath)
+            if (isNSFWOrSpoiler && (cell.spoilerView.opened || cell.spoilerView.isHidden)) || !isNSFWOrSpoiler {
+                presentGalleryFromIndexPath(indexPath, mediaAtIndex: 0)
+            }
         } else if cell is PostSelfTextPartCell && !isDetailView {
             self.showPostDetailViewForContent( self.content?[indexPath.section])
         } else if cell is PostCommentPartCell && !isDetailView {
@@ -980,6 +985,7 @@ extension StreamViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let width = tableView.frame.width
         if let content = self.content(forSection: indexPath.section) {
             let cellIndentifiers = self.cellIdentifiersForContent(content)
             switch cellIndentifiers[indexPath.row] {
@@ -988,15 +994,15 @@ extension StreamViewController {
             case StreamCellTypeIdentifier.Toolbar:
                 return 44
             case StreamCellTypeIdentifier.Link:
-                return PostURLPartCell.heightForLink(isVideo: false, forWidth: tableView.frame.width)
+                return PostURLPartCell.heightForLink(isVideo: false, forWidth: width)
             case StreamCellTypeIdentifier.VideoLink:
-                return PostURLPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+                return PostURLPartCell.heightForLink(isVideo: true, forWidth: width)
             case StreamCellTypeIdentifier.Video:
-                return PostVideoPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+                return PostVideoPartCell.height(for: content.mediaObjects?.firstObject as? MediaDirectVideo, width: width)
             case StreamCellTypeIdentifier.Image:
-                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: tableView.frame.width)
+                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: width)
             case StreamCellTypeIdentifier.Album:
-                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: tableView.bounds.width).height
+                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: width).height
             default:
                 
                 return UITableViewAutomaticDimension
@@ -1006,6 +1012,7 @@ extension StreamViewController {
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let width = tableView.frame.width
         if let content = self.content(forSection: indexPath.section) {
             let cellIndentifiers = self.cellIdentifiersForContent(content)
             switch cellIndentifiers[indexPath.row] {
@@ -1014,15 +1021,15 @@ extension StreamViewController {
             case StreamCellTypeIdentifier.Toolbar:
                 return 44
             case StreamCellTypeIdentifier.Link:
-                return PostURLPartCell.heightForLink(isVideo: false, forWidth: tableView.frame.width)
+                return PostURLPartCell.heightForLink(isVideo: false, forWidth: width)
             case StreamCellTypeIdentifier.VideoLink:
-                return PostURLPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+                return PostURLPartCell.heightForLink(isVideo: true, forWidth: width)
             case StreamCellTypeIdentifier.Video:
-                return PostVideoPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+                return PostVideoPartCell.height(for: content.mediaObjects?.firstObject as? MediaDirectVideo, width: width)
             case StreamCellTypeIdentifier.Image:
-                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: tableView.frame.width)
+                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: width)
             case StreamCellTypeIdentifier.Album:
-                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: tableView.bounds.width).height
+                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: width).height
             default:
                 return tableView.estimatedRowHeight
             }

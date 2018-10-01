@@ -122,7 +122,7 @@ static void * AWKGalleryMovieContentViewKVOContext = &AWKGalleryMovieContentView
 }
 
 - (void)hidePlaceholderIfReady {
-    if (self.playerController.readyForDisplay) {
+    if (self.playerController.isReadyForDisplay) {
         self.readyTimer = nil;
         self.placeholderView.hidden = YES;
     }

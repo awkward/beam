@@ -40,6 +40,9 @@ final class PostVideoPartCell: UITableViewCell, PostCell, MediaImageLoader {
     
     weak var post: Post? {
         didSet {
+            guard self.post != oldValue else {
+                return
+            }
             mediaObject = post?.mediaObjects?.firstObject as? MediaDirectVideo
             startImageLoading()
         }

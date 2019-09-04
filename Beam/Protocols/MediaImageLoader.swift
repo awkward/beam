@@ -49,6 +49,7 @@ extension MediaImageLoader {
     
     func startImageLoading() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] () -> Void in
+            self?.mediaImageView.image = nil
             let URLString = self?.mediaURLString()
             if let URLString = URLString, let url = URL(string: URLString) {
                 if let cachedImage = SDImageCache.shared().imageFromDiskCache(forKey: URLString) {

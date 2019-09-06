@@ -128,7 +128,7 @@ public class Subreddit: SyncObject {
         if self.isBookmarked.boolValue {
             self.sectionName = ""
         } else if let title = self.displayName {
-            let firstChar = title.substring(to: title.index(title.startIndex, offsetBy: 1)).uppercased()
+            let firstChar = title[..<title.index(title.startIndex, offsetBy: 1)].uppercased()
             if Int(firstChar) != nil {
                 self.sectionName = "#"
             } else {
@@ -169,7 +169,7 @@ public class Subreddit: SyncObject {
         if isBookmark {
             self.sectionName = ""
         } else if let title = self.displayName {
-            self.sectionName = title.substring(to: title.index(title.startIndex, offsetBy: 1)).uppercased()
+            self.sectionName = title[..<title.index(title.startIndex, offsetBy: 1)].uppercased()
         } else {
             self.sectionName = nil
         }

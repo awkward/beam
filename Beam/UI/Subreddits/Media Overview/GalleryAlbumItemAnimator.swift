@@ -80,7 +80,7 @@ class GalleryAlbumItemAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         if let gallery = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? AWKGalleryViewController {
 
             let duration = self.transitionDuration(using: transitionContext)
-            let contentViewController = gallery.currentContentViewController as? AWKGalleryItemContent
+            let contentViewController = gallery.currentContentViewController
             if let contentView = contentViewController?.contentView {
                 
                 let contentFakeView: UIView? = contentView.snapshotView(afterScreenUpdates: false)

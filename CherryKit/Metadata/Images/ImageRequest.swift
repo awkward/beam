@@ -25,9 +25,10 @@ public struct ImageRequest {
 }
 
 extension ImageRequest: Hashable {
-    
-    public var hashValue: Int {
-        return postID.hashValue ^ imageURL.hashValue
+
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.postID)
+        hasher.combine(self.imageURL)
     }
     
 }

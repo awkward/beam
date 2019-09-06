@@ -154,7 +154,7 @@ public enum ExternalLinkOpenOption: String {
         }
         
         //Bugfix for NSDataDetector links, they might detect just host links because they were parsed incorrectly
-        if urlComponents.scheme == nil && urlComponents.host == nil && urlComponents.path.substring(to: urlComponents.path.characters.index(urlComponents.path.startIndex, offsetBy: 1)) != "/" {
+        if urlComponents.scheme == nil && urlComponents.host == nil && urlComponents.path.substring(to: urlComponents.path.index(urlComponents.path.startIndex, offsetBy: 1)) != "/" {
             urlComponents.host = urlComponents.path
             urlComponents.path = ""
             urlComponents.scheme = "http"

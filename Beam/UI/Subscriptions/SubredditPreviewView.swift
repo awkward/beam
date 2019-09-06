@@ -27,7 +27,7 @@ final class SubredditPreviewView: BeamView {
                 self.imageView.image = nil
             }
             self.label.isHidden = self.imageView.image != nil
-            self.label.text = displayName.substring(to: displayName.index(displayName.startIndex, offsetBy: 1)).uppercased()
+            self.label.text = displayName[..<displayName.index(displayName.startIndex, offsetBy: 1)].uppercased()
         }
     }
     

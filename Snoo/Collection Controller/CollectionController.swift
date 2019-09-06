@@ -62,16 +62,16 @@ public final class CollectionController: NSObject {
     open static let StatusChangedNotificationName = NSNotification.Name(rawValue: "collection-controller-status-changed")
     
     // MARK: - Public properties
-    open var managedObjectContext: NSManagedObjectContext
+    public var managedObjectContext: NSManagedObjectContext
     
     /// The authentication controller used for requests to the Reddit API. This is required and asked in the required initializer.
-    open var authenticationController: AuthenticationController
+    public var authenticationController: AuthenticationController
     
     /// The delegate to inform about data changes and that is asked about whether to continue fetching date.
     open weak var delegate: CollectionControllerDelegate?
     
     /// The query to execute on the Reddit API. This will define what subreddit you fetch, what sorting you will get, etc. If you set this query, the local cache will directly be retreived. Up-to-date content need to be fetched manually.
-    open var query: CollectionQuery? {
+    public var query: CollectionQuery? {
         didSet {
             query?.collectionController = self
             do {
@@ -90,7 +90,7 @@ public final class CollectionController: NSObject {
     }
     
     /// The status of what the controller is doing.
-    open var status = CollectionControllerStatus.idle {
+    public var status = CollectionControllerStatus.idle {
         didSet {
             self.delegate?.collectionController(self, didUpdateStatus: status)
             NotificationCenter.default.post(name: CollectionController.StatusChangedNotificationName, object: self)
@@ -98,19 +98,19 @@ public final class CollectionController: NSObject {
     }
     
     /// If the status if the controller is .Error, this error property has been set by the controller. This way you can communicate the reason of the failure to the user.
-    open var error: Error?
+    public var error: Error?
     
     /// The collection that is controlled by this controller.
-    open var collectionID: NSManagedObjectID? {
+    public var collectionID: NSManagedObjectID? {
         didSet {
             self.delegate?.collectionController(self, collectionDidUpdateWithID: collectionID)
         }
     }
     
-    open var filteredObjectIDs: [NSManagedObjectID]?
+    public var filteredObjectIDs: [NSManagedObjectID]?
     
     /// Whether or not the collection is expired. If so, the content should be reloaded. If this property is nil if there is no collection or the collection has no expiration date.
-    open var isCollectionExpired: Bool? {
+    public var isCollectionExpired: Bool? {
         var expirationDate: Date?
         if let collectionID = self.collectionID {
             self.managedObjectContext.performAndWait { () -> Void in
@@ -276,7 +276,7 @@ public final class CollectionController: NSObject {
     }
     
     /// This property can be used to add some post-parsing operations that will be executed before saving the private context. The value should be a block that returns an array of operations and will be called before executing all the fetch operations. The dependency of the first operation in this array will be set to a CollectionParsingOperation, which contains the resulting object collection.
-    open var postProcessOperations: (() -> [Operation])?
+    public var postProcessOperations: (() -> [Operation])?
     
     fileprivate func startFetching(_ after: String?, handler: CollectionControllerHandler?) {
         
@@ -397,7 +397,7 @@ public final class CollectionController: NSObject {
         }
     }
     
-    open var moreContentAvailable: Bool {
+    public var moreContentAvailable: Bool {
         return self.after != nil && self.status != .fetching && self.status != .idle
     }
     

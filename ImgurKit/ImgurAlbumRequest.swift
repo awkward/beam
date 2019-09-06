@@ -12,8 +12,8 @@ public class ImgurAlbumRequest: ImgurRequest {
     
     var albumTitle: String?
     var albumDescription: String?
-    open var imageIdentifiers: [String]?
-    open var imageDeleteHashes: [String]?
+    public var imageIdentifiers: [String]?
+    public var imageDeleteHashes: [String]?
     
     public init(createRequestWithTitle title: String?, description: String?) {
         super.init()

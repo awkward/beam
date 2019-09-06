@@ -22,8 +22,8 @@ public enum UserContentType: String {
 
 public final class UserContentCollectionQuery: ContentCollectionQuery {
 
-    open var userIdentifier: String
-    open var userContentType: UserContentType = .submitted
+    public var userIdentifier: String
+    public var userContentType: UserContentType = .submitted
     
     public init(userIdentifier: String) {
         self.userIdentifier = userIdentifier

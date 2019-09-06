@@ -8,11 +8,11 @@
 
 import UIKit
 
-open class RedditRequest: DataRequest {
+public class RedditRequest: DataRequest {
     
-    open let authenticationController: AuthenticationController
+    public let authenticationController: AuthenticationController
     
-    override open var error: Error? {
+    override public var error: Error? {
         didSet {
             // If the user was unauthorized, try to refresh with the next request.
             if let error = error as NSError?, error.code == 401 {

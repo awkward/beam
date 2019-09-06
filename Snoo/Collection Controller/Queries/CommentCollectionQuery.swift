@@ -11,16 +11,16 @@ import CoreData
 
 public final class CommentCollectionQuery: ContentCollectionQuery {
     
-    open var post: Post?
-    open var parentComment: Comment?
-    open var depth: Int = 0
+    public var post: Post?
+    public var parentComment: Comment?
+    public var depth: Int = 0
     
     public override init() {
         super.init()
         self.sortType = CollectionSortType.best
     }
 
-    override open var apiPath: String {
+    override public var apiPath: String {
         let context = DataController.shared.privateContext
         
         if let postID = self.post?.objectID,
@@ -57,15 +57,15 @@ public final class CommentCollectionQuery: ContentCollectionQuery {
         }
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         return nil
     }
     
-    open override func collectionType() -> ObjectCollection.Type {
+    override public func collectionType() -> ObjectCollection.Type {
         return ContentCollection.self
     }
     
-    open override var sortType: CollectionSortType {
+    override public var sortType: CollectionSortType {
         didSet {
             if !self.sortType.isSupported(CollectionSortContext.comments) {
                 print("The sortType \(self.sortType) might not be supported for comments and lead to unwanted behavior")

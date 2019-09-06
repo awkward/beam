@@ -11,9 +11,9 @@ import CoreData
 
 public final class MessageCollectionQuery: CollectionQuery {
     
-    open var messageBox = MessageBox.inbox
+    public var messageBox = MessageBox.inbox
     
-    override open var requiresAuthentication: Bool {
+    override public var requiresAuthentication: Bool {
         return true
     }
     

@@ -31,18 +31,18 @@ public enum RedditMultiRequestAction {
     }
 }
 
-open class RedditMultiRequest: RedditRequest {
+public class RedditMultiRequest: RedditRequest {
     
-    open var multireddit: Multireddit
-    open var action: RedditMultiRequestAction = .update
-    open var copyFromPermalink: String?
+    public var multireddit: Multireddit
+    public var action: RedditMultiRequestAction = .update
+    public var copyFromPermalink: String?
     
     public init(multireddit: Multireddit, authenticationController: AuthenticationController) {
         self.multireddit = multireddit
         super.init(authenticationController: authenticationController)
     }
     
-    override open var urlRequest: URLRequest? {
+    override public var urlRequest: URLRequest? {
         get {
             if self.action == RedditMultiRequestAction.rename {
                 if let url = URL(string: "api/multi/rename", relativeTo: self.oauthBaseURL as URL) {

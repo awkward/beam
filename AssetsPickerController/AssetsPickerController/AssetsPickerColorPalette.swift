@@ -10,24 +10,24 @@ import UIKit
 
 open class AssetsPickerColorPalette: NSObject {
     
-    open var statusBarStyle = UIStatusBarStyle.default
+    public var statusBarStyle = UIStatusBarStyle.default
     
-    open var tintColor: UIColor?
-    open var barTintColor: UIColor?
+    public var tintColor: UIColor?
+    public var barTintColor: UIColor?
     
-    open var backgroundColor = UIColor.white
-    open var albumCellBackgroundColor = UIColor.white
-    open var albumCellSelectedBackgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00)
-    open var assetCellBackgroundColor = UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0)
-    open var albumImageBackgroundColor = UIColor(red: 226 / 255, green: 225 / 255, blue: 230 / 255, alpha: 1)
+    public var backgroundColor = UIColor.white
+    public var albumCellBackgroundColor = UIColor.white
+    public var albumCellSelectedBackgroundColor = UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00)
+    public var assetCellBackgroundColor = UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0)
+    public var albumImageBackgroundColor = UIColor(red: 226 / 255, green: 225 / 255, blue: 230 / 255, alpha: 1)
 
-    open var titleColor = UIColor.black
-    open var albumTitleColor = UIColor.black
-    open var albumCountColor = UIColor.black
+    public var titleColor = UIColor.black
+    public var albumTitleColor = UIColor.black
+    public var albumCountColor = UIColor.black
     
-    open var albumLinesColor = UIColor(red: 226 / 255, green: 225 / 255, blue: 230 / 255, alpha: 1)
+    public var albumLinesColor = UIColor(red: 226 / 255, green: 225 / 255, blue: 230 / 255, alpha: 1)
     
-    open var cameraIconColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
+    public var cameraIconColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
     
     internal var titleTextAttributes: [NSAttributedStringKey: Any] {
         return [NSAttributedStringKey.foregroundColor: self.titleColor]

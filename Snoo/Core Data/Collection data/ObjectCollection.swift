@@ -80,7 +80,7 @@ public enum CollectionTimeFrame: String {
 }
 
 @objc(ObjectCollection)
-open class ObjectCollection: NSManagedObject {
+public class ObjectCollection: NSManagedObject {
 
     func configureQuery(_ query: CollectionQuery) {
         self.sortType = query.sortType.rawValue

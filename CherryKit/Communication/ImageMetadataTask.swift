@@ -9,7 +9,7 @@
 import UIKit
 
 open class ImageMetadataTaskResult: TaskResult {
-    open let metadata: [ImageResponse]
+    final public let metadata: [ImageResponse]
     
     init(metadata: [ImageResponse]) {
         self.metadata = metadata
@@ -19,7 +19,7 @@ open class ImageMetadataTaskResult: TaskResult {
 
 open class ImageMetadataTask: Task {
     
-    open let imageRequests: [ImageRequest]
+    final let imageRequests: [ImageRequest]
     
     override var request: URLRequest {
         var request = cherryRequest("metadata/images", method: RequestMethod.Post)

@@ -10,8 +10,8 @@ import Foundation
 
 open class ReportTask: Task {
     
-    open let objectName: String
-    open let reason: String
+    public let objectName: String
+    public let reason: String
     
     public init(token: String, reason: String, objectName: String) {
         

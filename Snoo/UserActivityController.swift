@@ -20,7 +20,7 @@ public final class UserActivityController: NSObject {
         return _sharedUserActivityControllerInstance
     }
     
-    open var authenticationController: AuthenticationController? {
+    public var authenticationController: AuthenticationController? {
         didSet {
             //Flush visits in case there are any
             self.flushVisits()

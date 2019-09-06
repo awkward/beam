@@ -9,10 +9,10 @@
 import Foundation
 import CoreData
 
-open class InteractiveContent: Content {
+public class InteractiveContent: Content {
     
     /// Enumerates all (child)replies en return them all as a Set.
-    open var allReplies: [InteractiveContent]? {
+    public var allReplies: [InteractiveContent]? {
         
         if let replies = self.replies?.array as? [InteractiveContent] {
             var allReplies = [InteractiveContent]()
@@ -30,7 +30,7 @@ open class InteractiveContent: Content {
     }
     
     /// The most recent reply
-    open var latestReply: InteractiveContent? {
+    public var latestReply: InteractiveContent? {
         
         let sortedReplies = allReplies?.sorted(by: { (obj0: InteractiveContent, obj1: InteractiveContent) -> Bool in
             let date0 = obj0.creationDate?.timeIntervalSince1970 ?? 0
@@ -43,7 +43,7 @@ open class InteractiveContent: Content {
     
     // MARK: - Parsing
     
-    override open class func entityName() -> String {
+    override public class func entityName() -> String {
         return "InteractiveContent"
     }
 

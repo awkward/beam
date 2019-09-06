@@ -14,8 +14,8 @@ public let CherryKitNetworkingErrorCode = 10002
 
 open class Cherry {
 
-    static open var signatureForRequest: ((URLRequest) -> String?)?
-    static open var appVersion: String?
+    static public var signatureForRequest: ((URLRequest) -> String?)?
+    static public var appVersion: String?
     
     static internal var urlSessionConfiguration: URLSessionConfiguration {
         let configuration = URLSessionConfiguration.default
@@ -34,6 +34,6 @@ open class Cherry {
         return configuration
     }
     
-    static open var urlSession: URLSession = URLSession(configuration: Cherry.urlSessionConfiguration)
+    static public var urlSession: URLSession = URLSession(configuration: Cherry.urlSessionConfiguration)
 
 }

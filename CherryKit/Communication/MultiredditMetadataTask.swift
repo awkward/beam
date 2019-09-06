@@ -10,7 +10,7 @@ import UIKit
 
 open class MultiredditMetadataTaskResult: TaskResult {
     
-    open let metadata: MultiredditMetadata
+    public let metadata: MultiredditMetadata
     
     init(metadata: MultiredditMetadata) {
         self.metadata = metadata
@@ -21,7 +21,7 @@ open class MultiredditMetadataTaskResult: TaskResult {
 
 open class MultiredditMetadataTask: Task {
     
-    open let subredditIDs: [String]
+    public let subredditIDs: [String]
     
     public init(token: String, subredditIDs: [String]) {
         self.subredditIDs = subredditIDs

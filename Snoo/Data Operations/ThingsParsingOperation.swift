@@ -9,12 +9,12 @@
 import UIKit
 import CoreData
 
-open class ThingsParsingOperation: DataOperation {
+public class ThingsParsingOperation: DataOperation {
     
     fileprivate var requestOperation: RedditRequest
-    open var managedObjectContext: NSManagedObjectContext
+    public var managedObjectContext: NSManagedObjectContext
     
-    open var things: [SyncObject]?
+    public var things: [SyncObject]?
     
     init(request: RedditRequest, context: NSManagedObjectContext) {
         self.requestOperation = request

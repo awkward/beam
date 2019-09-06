@@ -12,7 +12,7 @@ import CoreData
 
 public class Thumbnail: NSManagedObject {
 
-    open class func entityName() -> String {
+    public class func entityName() -> String {
         return "Thumbnail"
     }
     

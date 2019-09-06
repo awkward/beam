@@ -9,7 +9,7 @@
 import UIKit
 
 open class AuthorizationTaskResult: TaskResult {
-    open let accessToken: String
+    public let accessToken: String
     
     init(accessToken: String) {
         self.accessToken = accessToken

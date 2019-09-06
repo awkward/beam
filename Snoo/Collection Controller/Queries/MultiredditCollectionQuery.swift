@@ -11,7 +11,7 @@ import CoreData
 
 public final class MultiredditCollectionQuery: CollectionQuery {
 
-    override open var apiPath: String {
+    override public var apiPath: String {
         return "api/multi/mine.json"
     }
     

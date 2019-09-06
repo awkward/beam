@@ -12,7 +12,7 @@ import CoreData
 @objc(User)
 public final class User: SyncObject {
 
-    override open class func entityName() -> String {
+    override public class func entityName() -> String {
         return "User"
     }
     

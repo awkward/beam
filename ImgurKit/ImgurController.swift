@@ -10,10 +10,10 @@ import UIKit
 
 public class ImgurController: NSObject {
     
-    open var clientID: String!
+    public var clientID: String!
     
-    open var useMashapeAPI: Bool = false
-    open var mashapeKey: String?
+    public var useMashapeAPI: Bool = false
+    public var mashapeKey: String?
     
     fileprivate var requestsQeue: OperationQueue = {
         let queue = OperationQueue()

@@ -47,13 +47,13 @@ public final class AuthenticationController: NSObject {
     public static let UserIdentifierKey = "userIdentifier"
     
     // MARK: Properties
-    open var configuration: AuthenticationConfiguration
+    public var configuration: AuthenticationConfiguration
 
-    open var isAuthenticated: Bool {
+    public var isAuthenticated: Bool {
         return self.userSession?.refreshToken != nil
     }
     
-    open var isApplicationAuthenticated: Bool {
+    public var isApplicationAuthenticated: Bool {
         return self.activeSession?.accessToken != nil
     }
     
@@ -80,11 +80,11 @@ public final class AuthenticationController: NSObject {
     }
     
     internal static let CurrentUserSessionKey = "authentication-current-user-session"
-    open var userSessionAvailable: Bool {
+    public var userSessionAvailable: Bool {
         return UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) != nil
     }
     
-    open var activeUserSession: AuthenticationSession? {
+    public var activeUserSession: AuthenticationSession? {
         return self.userSession
     }
     
@@ -137,7 +137,7 @@ public final class AuthenticationController: NSObject {
         }
     }
     
-    open var activeUserIdentifier: String? {
+    public var activeUserIdentifier: String? {
         return self.userSession?.userIdentifier
     }
     
@@ -220,7 +220,7 @@ public final class AuthenticationController: NSObject {
     /**
      Use this NSURLSession to make requests to reddit. This session will contain the "Autherization" token related to the user
      */
-    open var userURLSession: URLSession {
+    public var userURLSession: URLSession {
         if self.privateUserURLSession == nil {
             let configuration = self.basicURLSessionConfiguration
             
@@ -322,7 +322,7 @@ public final class AuthenticationController: NSObject {
     /**
     If the user is not authenticated and he wants to login, you can present a web view to trigger the OAuth authentication process. Use this URL.
     */
-    open var authorizationURL: URL? {
+    public var authorizationURL: URL? {
         self.authorizationState = UUID().uuidString
 
         if let redirectString = URL.stringByAddingUrlPercentagesToString(self.configuration.redirectUri), let scopeString = URL.stringByAddingUrlPercentagesToString(self.configuration.scope), let state = authorizationState {

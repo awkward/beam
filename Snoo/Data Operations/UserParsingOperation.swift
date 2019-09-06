@@ -15,12 +15,12 @@ final public class UserParsingOperation: DataOperation {
     // Input
     public var objectContext: NSManagedObjectContext! = DataController.shared.privateContext
     
-    open var userParsingCompletionHandler: (() -> Void)?
+    public var userParsingCompletionHandler: (() -> Void)?
     
     // Output
-    open var userID: NSManagedObjectID?
-    open var userIdentifier: String?
-    open var username: String?
+    public var userID: NSManagedObjectID?
+    public var userIdentifier: String?
+    public var username: String?
 
     override open func start() {
         super.start()

@@ -26,7 +26,7 @@ public final class DataController: NSObject {
     static let SubredditTimeOut: TimeInterval = 365 * 24 * 60 * 60 // 1 year
     static let PostMetadataExpirationTimeOut: TimeInterval = 30 * 24 * 60 * 60 // 30 days
     
-    open class var shared: DataController {
+    public class var shared: DataController {
         return _sharedDataControllerInstance
     }
     
@@ -65,7 +65,7 @@ public final class DataController: NSObject {
         NotificationCenter.default.removeObserver(self)
     }
     
-    open var authenticationController: AuthenticationController? {
+    public var authenticationController: AuthenticationController? {
         didSet {
             self.updatePersistentStores()
         }
@@ -519,14 +519,14 @@ public final class DataController: NSObject {
     
     // MARK: - Clearing
     
-    open class func clearAllObjectsOperation(_ context: NSManagedObjectContext = DataController.shared.privateContext) -> Operation {
+    public class func clearAllObjectsOperation(_ context: NSManagedObjectContext = DataController.shared.privateContext) -> Operation {
         let deleteOperation = BatchDeleteOperation()
         deleteOperation.onlyClearExpiredContent = false
         deleteOperation.objectContext = context
         return deleteOperation
     }
     
-    open class func clearExpiredContentOperation(_ context: NSManagedObjectContext = DataController.shared.privateContext) -> Operation {
+    public class func clearExpiredContentOperation(_ context: NSManagedObjectContext = DataController.shared.privateContext) -> Operation {
         let deleteOperation = BatchDeleteOperation()
         // Only clear objects with an expiration date, and don't clear user objects.
         deleteOperation.onlyClearExpiredContent = true

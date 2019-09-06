@@ -90,19 +90,19 @@ public class ImgurRequest: Operation {
         self.cancelOperation()
     }
     
-    override open var isAsynchronous: Bool {
+    override public var isAsynchronous: Bool {
         return true
     }
     
-    override open var isExecuting: Bool {
+    override public var isExecuting: Bool {
         return self.operationIsExecuting
     }
     
-    override open var isFinished: Bool {
+    override public var isFinished: Bool {
         return self.operationIsFinished
     }
     
-    override open var isCancelled: Bool {
+    override public var isCancelled: Bool {
         return self.operationIsCancelled
     }
     
@@ -112,17 +112,17 @@ public class ImgurRequest: Operation {
     
     // MARK: - Request methods and properties
     
-    open var endpoint: String!
-    open var parameters: [String: Any]?
-    open var HTTPMethod: ImgurHTTPMethod = ImgurHTTPMethod.Get
+    public var endpoint: String!
+    public var parameters: [String: Any]?
+    public var HTTPMethod: ImgurHTTPMethod = ImgurHTTPMethod.Get
     
-    open var deleteHash: String?
+    public var deleteHash: String?
     
-    open var uploadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> Void)?
-    open var downloadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> Void)?
+    public var uploadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> Void)?
+    public var downloadProgressHandler: ((_ request: ImgurRequest, _ progress: CGFloat) -> Void)?
     
-    open var uploadProgress: CGFloat = 0
-    open var downloadProgress: CGFloat = 0
+    public var uploadProgress: CGFloat = 0
+    public var downloadProgress: CGFloat = 0
     
     internal var currentTask: URLSessionTask?
     
@@ -222,8 +222,8 @@ public class ImgurRequest: Operation {
     
     // MARK: - Response methods and properties
     
-    open var error: NSError?
-    open var resultObject: AnyObject?
+    public var error: NSError?
+    public var resultObject: AnyObject?
     
     internal func parseResponse(_ json: NSDictionary, response: HTTPURLResponse) throws -> AnyObject {
         return json

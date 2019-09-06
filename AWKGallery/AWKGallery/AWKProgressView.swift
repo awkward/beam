@@ -9,7 +9,7 @@
 import UIKit
 
 @IBDesignable
-open class AWKProgressView: UIView {
+public class AWKProgressView: UIView {
     
     fileprivate var animatingLayer = CAShapeLayer()
     fileprivate var lastSourceAngle: CGFloat = 0.0
@@ -25,13 +25,13 @@ open class AWKProgressView: UIView {
         }
     }
     
-    @objc open var progress: CGFloat = 0.0 {
+    @objc public var progress: CGFloat = 0.0 {
         didSet {
             self.updateWithProgress(self.progress)
         }
     }
     
-    open var borderWidth: CGFloat = 2.0 {
+    public var borderWidth: CGFloat = 2.0 {
         didSet {
             self.configureIndicator()
             self.setNeedsDisplay()
@@ -129,7 +129,7 @@ open class AWKProgressView: UIView {
         animatingLayer.add(pathAnimation, forKey: "path")
     }
     
-    override open var intrinsicContentSize : CGSize {
+    override public var intrinsicContentSize : CGSize {
         return CGSize(width: 20, height: 20)
     }
 }

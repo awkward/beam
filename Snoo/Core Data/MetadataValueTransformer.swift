@@ -11,7 +11,7 @@ import UIKit
 @objc(MetadataValueTransformer)
 final class MetadataValueTransformer: ValueTransformer {
    
-    override open class func transformedValueClass() -> Swift.AnyClass {
+    override public class func transformedValueClass() -> Swift.AnyClass {
         return Data.self as! AnyClass
     }
     

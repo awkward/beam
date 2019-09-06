@@ -8,14 +8,14 @@
 
 import UIKit
 
-open class ImgurAlbum: ImgurObject {
+public class ImgurAlbum: ImgurObject {
     
-    override open var URL: Foundation.URL {
+    override public var URL: Foundation.URL {
         return Foundation.URL(string: "https://imgur.com/a/\(self.identifier)")!
     }
     
-    open var uploadDate: Date?
-    open var images: [ImgurImage]?
+    public var uploadDate: Date?
+    public var images: [ImgurImage]?
     
     public override init(dictionary: NSDictionary) {
         if let images = dictionary["images"] as? [NSDictionary] {

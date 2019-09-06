@@ -16,8 +16,8 @@ enum RequestMethod: String {
 }
 
 open class TaskResult: NSObject {
-    open let error: Error?
-    open var response: HTTPURLResponse?
+    public let error: Error?
+    public var response: HTTPURLResponse?
     
     init(error: Error?) {
         self.error = error

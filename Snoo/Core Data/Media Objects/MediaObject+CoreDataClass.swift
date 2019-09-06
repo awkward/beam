@@ -35,7 +35,7 @@ public class MediaObject: NSManagedObject {
         super.init(entity: entity, insertInto: context)
     }
     
-    open class func entityName() -> String {
+    public class func entityName() -> String {
         return "MediaObject"
     }
     

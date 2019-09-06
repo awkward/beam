@@ -10,7 +10,7 @@ import UIKit
 
 @objc public class AWKGradientView: UIView {
     
-    override open class var layerClass : AnyClass {
+    override public class var layerClass : AnyClass {
         return CAGradientLayer.self
     }
     
@@ -22,21 +22,21 @@ import UIKit
         }
     }
     
-    @objc open var fromColor = UIColor.clear {
+    @objc public var fromColor = UIColor.clear {
         didSet {
             self.gradientLayer.colors = [self.fromColor.cgColor, self.toColor.cgColor]
             self.gradientLayer.setNeedsDisplay()
         }
     }
     
-    @objc open var toColor = UIColor.galleryBackgroundColor().withAlphaComponent(0.5) {
+    @objc public var toColor = UIColor.galleryBackgroundColor().withAlphaComponent(0.5) {
         didSet {
             self.gradientLayer.colors = [self.fromColor.cgColor, self.toColor.cgColor]
             self.gradientLayer.setNeedsDisplay()
         }
     }
     
-    @objc open var direction = UILayoutConstraintAxis.vertical {
+    @objc public var direction = UILayoutConstraintAxis.vertical {
         didSet {
             if self.direction == .vertical {
                 self.gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

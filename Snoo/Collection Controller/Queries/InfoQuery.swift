@@ -11,7 +11,7 @@ import CoreData
 
 public final class InfoQuery: CollectionQuery {
     
-    open let fullName: String
+    public let fullName: String
     
     public init(fullName: String) {
         self.fullName = fullName

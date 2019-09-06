@@ -41,7 +41,7 @@ public enum SyncObjectType: String {
 }
 
 @objc(SyncObject)
-open class SyncObject: NSManagedObject {
+public class SyncObject: NSManagedObject {
     
     /**
     This method always returns a SyncObject with the given Reddit API dictionary. It either fetches the existing one using the identifier property or inserts a new one if it doesn't exist yet.
@@ -53,7 +53,7 @@ open class SyncObject: NSManagedObject {
      
     - returns: The existing or new SyncObject. It only contains the identifier property, other properties still need to be parsed using the parseObject() method.
     */
-    open class func objectWithDictionary(_ dictionary: NSDictionary, cache: NSCache<NSString, NSManagedObjectID>?, context: NSManagedObjectContext, checkForExisting: Bool = true) throws -> SyncObject {
+    public class func objectWithDictionary(_ dictionary: NSDictionary, cache: NSCache<NSString, NSManagedObjectID>?, context: NSManagedObjectContext, checkForExisting: Bool = true) throws -> SyncObject {
         
         var identifier: String?
         if let dictId = dictionary["id"] as? String {
@@ -81,7 +81,7 @@ open class SyncObject: NSManagedObject {
     
     - returns: The existing or new SyncObject. It only contains the identifier property, other properties still need to be parsed using the parseObject() method.
     */
-    open class func objectWithIdentifier(_ identifier: String, cache: NSCache<NSString, NSManagedObjectID>?, context: NSManagedObjectContext, checkForExisting: Bool = true) throws -> SyncObject {
+    public class func objectWithIdentifier(_ identifier: String, cache: NSCache<NSString, NSManagedObjectID>?, context: NSManagedObjectContext, checkForExisting: Bool = true) throws -> SyncObject {
         guard identifier.count > 0 else {
             throw NSError(domain: "nl.madeawkward.snoo", code: 500, userInfo: [NSLocalizedDescriptionKey: "SyncObject must have an identifier"])
         }
@@ -122,7 +122,7 @@ open class SyncObject: NSManagedObject {
     - parameter identifier: The identifier of the object to fetch.
     - returns: The object or nil if it does not exist.
     */
-    open class func fetchObjectWithIdentifier(_ identifier: String, context: NSManagedObjectContext) throws -> SyncObject? {
+    public class func fetchObjectWithIdentifier(_ identifier: String, context: NSManagedObjectContext) throws -> SyncObject? {
         let fetchRequest = NSFetchRequest<SyncObject>(entityName: self.entityName())
         fetchRequest.predicate = NSPredicate(format: "identifier = %@", identifier)
         fetchRequest.fetchLimit = 1
@@ -145,7 +145,7 @@ open class SyncObject: NSManagedObject {
     }
     
     /// The name of the entity in the Core Data model.
-    open class func entityName() -> String {
+    public class func entityName() -> String {
         return "SyncObject"
     }
     
@@ -168,7 +168,7 @@ open class SyncObject: NSManagedObject {
     }
     
     /// The full name of the object. This is defined by Reddit as <type identifier>_<object identifier>. It can be used in ObjectNamesQuery.
-    @objc open var objectName: String? {
+    @objc public var objectName: String? {
         if let objectType = self.objectType, let identifier = self.identifier {
             return "\(objectType.rawValue)_\(identifier)"
         } else {
@@ -203,7 +203,7 @@ open class SyncObject: NSManagedObject {
     /**
     Parses an object type and identifier from a Reddit 'fullname'.
     */
-    open class func identifierAndTypeWithObjectName(_ name: String) throws -> (identifier: String, type: SyncObjectType)? {
+    public class func identifierAndTypeWithObjectName(_ name: String) throws -> (identifier: String, type: SyncObjectType)? {
         let regex: NSRegularExpression = try NSRegularExpression(pattern: "(.*)_(.*)", options: [])
         if let match: NSTextCheckingResult = regex.firstMatch(in: name, options: [], range: NSRange(location: 0, length: name.count)), match.numberOfRanges == 3 {
             let identifier: NSString = (name as NSString).substring(with: match.range(at: 2)) as NSString
@@ -217,7 +217,7 @@ open class SyncObject: NSManagedObject {
     }
     
     /// Parses the identifier for an object given the objects 'fullname'.
-    open class func identifierWithObjectName(_ name: String) -> String? {
+    public class func identifierWithObjectName(_ name: String) -> String? {
         do {
             let object = try identifierAndTypeWithObjectName(name)
             return object?.identifier

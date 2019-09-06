@@ -17,7 +17,7 @@ public enum MessageBox: String {
 
 public final class Message: InteractiveContent {
 
-    override open class func entityName() -> String {
+    override public class func entityName() -> String {
         return "Message"
     }
     

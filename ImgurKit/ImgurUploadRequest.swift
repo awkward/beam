@@ -12,8 +12,8 @@ import MobileCoreServices
 
 public class ImgurUploadRequest: ImgurRequest {
 
-    open var image: UIImage?
-    open var asset: PHAsset?
+    public var image: UIImage?
+    public var asset: PHAsset?
     
     public init(image: UIImage) {
         super.init()

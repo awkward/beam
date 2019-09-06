@@ -9,13 +9,13 @@
 import UIKit
 import CoreData
 
-open class CollectionQuery {
+public class CollectionQuery {
     
     weak var collectionController: CollectionController?
     /// Should be non-nil if this is a search query, otherwise it should be left nil.
-    open var searchKeywords: String?
-    open var contentPredicate: NSPredicate?
-    open var sortType = CollectionSortType.none
+    public var searchKeywords: String?
+    public var contentPredicate: NSPredicate?
+    public var sortType = CollectionSortType.none
     
     var apiPath: String {
         return ".json"
@@ -25,7 +25,7 @@ open class CollectionQuery {
         return nil
     }
     
-    open var requiresAuthentication: Bool {
+    public var requiresAuthentication: Bool {
         return false
     }
     

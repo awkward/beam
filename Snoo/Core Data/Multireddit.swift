@@ -12,7 +12,7 @@ import CoreData
 @objc(Multireddit)
 public final class Multireddit: Subreddit {
 
-    open class override func entityName() -> String {
+    public class override func entityName() -> String {
         return "Multireddit"
     }
     

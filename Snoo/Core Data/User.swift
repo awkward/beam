@@ -33,7 +33,7 @@ public final class User: SyncObject {
         
     }
     
-    open override func redditDictionaryRepresentation() -> [String: Any] {
+    override public func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["name"] = self.username as AnyObject?

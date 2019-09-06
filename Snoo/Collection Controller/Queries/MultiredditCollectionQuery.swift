@@ -23,15 +23,15 @@ public final class MultiredditCollectionQuery: CollectionQuery {
         return [URLQueryItem(name: "expand_srs", value: "true"), URLQueryItem(name: "limit", value: "\(self.limit)")]
     }
     
-    open override var requiresAuthentication: Bool {
+    override public var requiresAuthentication: Bool {
         return true
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         return nil
     }
     
-    open override func collectionType() -> ObjectCollection.Type {
+    override public func collectionType() -> ObjectCollection.Type {
         return ObjectCollection.self
     }
     

@@ -26,7 +26,7 @@ public final class InfoQuery: CollectionQuery {
         return [URLQueryItem(name: "id", value: self.fullName)]
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         return nil
     }
     

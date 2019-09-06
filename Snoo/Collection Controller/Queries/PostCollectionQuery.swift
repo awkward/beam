@@ -79,7 +79,7 @@ public final class PostCollectionQuery: ContentCollectionQuery {
         super.init()
     }
     
-    override open func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         let superFetchRequest = super.fetchRequest()
         
         var predicates = [NSPredicate]()
@@ -90,11 +90,11 @@ public final class PostCollectionQuery: ContentCollectionQuery {
         return superFetchRequest
     }
     
-    override open func collectionType() -> ObjectCollection.Type {
+    override public func collectionType() -> ObjectCollection.Type {
         return PostCollection.self
     }
     
-    override open var sortType: CollectionSortType {
+    override public var sortType: CollectionSortType {
         didSet {
             let sortContext = self.searchKeywords != nil ? CollectionSortContext.postsSearch: CollectionSortContext.posts
             

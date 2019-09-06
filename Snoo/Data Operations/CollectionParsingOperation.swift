@@ -53,7 +53,7 @@ public final class CollectionParsingOperation: DataOperation {
         super.init()
     }
     
-    override open func start() {
+    override public func start() {
         super.start()
         
         if self.data != nil {

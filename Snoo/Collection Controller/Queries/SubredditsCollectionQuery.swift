@@ -43,7 +43,7 @@ public final class SubredditsCollectionQuery: CollectionQuery {
         }
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         let superFetchRequest = super.fetchRequest()
         
         var predicates = [NSPredicate]()
@@ -59,7 +59,7 @@ public final class SubredditsCollectionQuery: CollectionQuery {
         return superFetchRequest
     }
     
-    open override func collectionType() -> ObjectCollection.Type {
+    override public func collectionType() -> ObjectCollection.Type {
         return SubredditCollection.self
     }
     

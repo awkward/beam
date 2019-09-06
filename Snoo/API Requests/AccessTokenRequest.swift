@@ -61,7 +61,8 @@ class AccessTokenRequest: DataRequest {
             } else {
                 fatalError()
             }
-        } set {
+        }
+        set {
             
         }
     }

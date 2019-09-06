@@ -62,11 +62,11 @@ public class Subreddit: SyncObject {
         return Subreddit(entity: entityDescription, insertInto: context)
     }
     
-    open static var frontpageIdentifier: String {
+    public static var frontpageIdentifier: String {
         return "snoo-frontpage"
     }
     
-    open static var allIdentifier: String {
+    public static var allIdentifier: String {
         return "snoo-all"
     }
     

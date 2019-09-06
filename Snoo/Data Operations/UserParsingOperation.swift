@@ -22,7 +22,7 @@ final public class UserParsingOperation: DataOperation {
     public var userIdentifier: String?
     public var username: String?
 
-    override open func start() {
+    override public func start() {
         super.start()
         
         let userRequest = self.dependencies.first(where: { (operation) -> Bool in

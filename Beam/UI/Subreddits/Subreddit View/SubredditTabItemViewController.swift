@@ -34,7 +34,7 @@ protocol SubredditTabItemViewController {
 
 extension SubredditTabItemViewController where Self: UIViewController {
     
-    weak var subredditTabBarController: SubredditTabBarController? {
+    var subredditTabBarController: SubredditTabBarController? {
         return self.tabBarController as? SubredditTabBarController
     }
     

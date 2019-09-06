@@ -28,7 +28,7 @@ public final class MultiredditQuery: CollectionQuery {
         return [URLQueryItem(name: "expand_srs", value: "true")]
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         return nil
     }
 

@@ -53,7 +53,7 @@ public final class Message: InteractiveContent {
         }
     }
     
-    open override func redditDictionaryRepresentation() -> [String: Any] {
+    override public func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["body"] = self.content as AnyObject?

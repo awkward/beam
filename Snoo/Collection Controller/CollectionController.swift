@@ -59,7 +59,7 @@ The CollectionController fetches objects from either the local database and the 
 public final class CollectionController: NSObject {
     
     /// The notification name for the notification that is being sent whenever the status for the collection controller changes.
-    open static let StatusChangedNotificationName = NSNotification.Name(rawValue: "collection-controller-status-changed")
+    public static let StatusChangedNotificationName = NSNotification.Name(rawValue: "collection-controller-status-changed")
     
     // MARK: - Public properties
     public var managedObjectContext: NSManagedObjectContext
@@ -68,7 +68,7 @@ public final class CollectionController: NSObject {
     public var authenticationController: AuthenticationController
     
     /// The delegate to inform about data changes and that is asked about whether to continue fetching date.
-    open weak var delegate: CollectionControllerDelegate?
+    public weak var delegate: CollectionControllerDelegate?
     
     /// The query to execute on the Reddit API. This will define what subreddit you fetch, what sorting you will get, etc. If you set this query, the local cache will directly be retreived. Up-to-date content need to be fetched manually.
     public var query: CollectionQuery? {
@@ -217,7 +217,7 @@ public final class CollectionController: NSObject {
     - parameter overwrite: Whether to delete the existing collection for this CollectionController
     - parameter handler: The completion handler to be executed when the initial fetching of the object collection is done. The handler will be called on the object context queue.
     */
-    open func startInitialFetching(_ overwrite: Bool = false, handler: CollectionControllerHandler?) {
+    public func startInitialFetching(_ overwrite: Bool = false, handler: CollectionControllerHandler?) {
         // Delete the old collection when overwriting. The content can be totally different.
         if let collectionID = self.collectionID, overwrite == true {
             let deleteOperation = BlockOperation(block: { () -> Void in
@@ -254,7 +254,7 @@ public final class CollectionController: NSObject {
         }
     }
     
-    open func startFetchingMore(_ handler: CollectionControllerHandler?) {
+    public func startFetchingMore(_ handler: CollectionControllerHandler?) {
         if let after = self.after {
             self.startFetching(after, handler: handler)
         } else {
@@ -262,7 +262,7 @@ public final class CollectionController: NSObject {
         }
     }
     
-    open func cancelFetching() {
+    public func cancelFetching() {
         for request in self.requests {
             if let request = request as? RedditCollectionRequest {
                 request.cancel()
@@ -401,7 +401,7 @@ public final class CollectionController: NSObject {
         return self.after != nil && self.status != .fetching && self.status != .idle
     }
     
-    open func clear() {
+    public func clear() {
         collectionID = nil
     }
     

@@ -13,7 +13,7 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
     
     var pickerController: AssetsPickerController!
     
-    weak var assetsPickerController: AssetsPickerController? {
+    var assetsPickerController: AssetsPickerController? {
         get {
             return self.pickerController
         }

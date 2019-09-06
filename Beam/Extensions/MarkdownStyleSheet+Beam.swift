@@ -50,7 +50,7 @@ extension MarkdownStylesheet {
             
             if lineHeight != nil {
                 //Adjust the paragraph style
-                var paragraphStyle: NSMutableParagraphStyle!
+                let paragraphStyle: NSMutableParagraphStyle
                 if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
@@ -97,7 +97,7 @@ extension MarkdownStylesheet {
         
             if lineHeight != nil {
                 //Adjust the paragraph style
-                var paragraphStyle: NSMutableParagraphStyle!
+                let paragraphStyle: NSMutableParagraphStyle
                 if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
@@ -144,7 +144,7 @@ extension MarkdownStylesheet {
             
             if lineHeight != nil {
                 //Adjust the paragraph style
-                var paragraphStyle: NSMutableParagraphStyle!
+                let paragraphStyle: NSMutableParagraphStyle
                 if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {

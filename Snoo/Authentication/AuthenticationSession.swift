@@ -107,7 +107,7 @@ public final class AuthenticationSession: NSObject, NSCoding {
 
     }
     
-    open func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.expirationDate, forKey: ExpirationDateKey)
         aCoder.encode(self.tokenType, forKey: TokenTypeKey)
         aCoder.encode(self.scope, forKey: ScopeKey)

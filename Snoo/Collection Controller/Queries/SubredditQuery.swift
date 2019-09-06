@@ -22,7 +22,7 @@ public final class SubredditQuery: CollectionQuery {
         return "r/\(displayName.lowercased().trimmingCharacters(in: CharacterSet.whitespacesAndNewlines))/about.json"
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         return nil
     }
     

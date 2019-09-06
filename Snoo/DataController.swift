@@ -182,7 +182,7 @@ public final class DataController: NSObject {
     public var privateContext: NSManagedObjectContext!
     
     /// The context for presenting or editing data from the UI. The parent context is a private context, which is connected to the persistent store coordinator.
-    open func createMainContext() -> NSManagedObjectContext {
+    public func createMainContext() -> NSManagedObjectContext {
         let mainContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.mainQueueConcurrencyType)
         mainContext.parent = self.privateContext
         return mainContext
@@ -383,7 +383,7 @@ public final class DataController: NSObject {
     }()
     
     /// Returns the operations in the queue that return true for the given predicate handler. The order is undefined, because Snoo uses different queues internally.
-    open func filterQueue(_ predicate: (Operation) -> Bool) -> [Operation] {
+    public func filterQueue(_ predicate: (Operation) -> Bool) -> [Operation] {
         return (self.networkingQueue.operations + self.operationQueue.operations).filter(predicate)
     }
     
@@ -403,7 +403,7 @@ public final class DataController: NSObject {
         return operationsToAdd
     }
     
-    open func executeOperations(_ operations: [Operation], handler: ((Error?) -> Void)?) {
+    public func executeOperations(_ operations: [Operation], handler: ((Error?) -> Void)?) {
         
         let allOperations = self.operationsByAddingAuthentication(operations)
         let networkOperations = allOperations.filter({ $0 is DataRequest })
@@ -459,7 +459,7 @@ public final class DataController: NSObject {
         }
     }
     
-    open func executeAndSaveOperations(_ operations: [Operation], context: NSManagedObjectContext = DataController.shared.privateContext, handler: ((Error?) -> Void)?) {
+    public func executeAndSaveOperations(_ operations: [Operation], context: NSManagedObjectContext = DataController.shared.privateContext, handler: ((Error?) -> Void)?) {
         let saveOperations = persistentSaveOperations(context)
         if let lastOperation = operations.last {
             saveOperations.first?.addDependency(lastOperation)
@@ -470,7 +470,7 @@ public final class DataController: NSObject {
     /// Cancels all the current operations, waits for them to complete and then calls the completion handler
     ///
     /// - Parameter completionHandler: The handler being called when all cancelled operations have finished
-    open func cancelAllOperations(completionHandler: (() -> Void)?) {
+    public func cancelAllOperations(completionHandler: (() -> Void)?) {
         self.networkingQueue.cancelAllOperations()
         self.operationQueue.cancelAllOperations()
         DispatchQueue.global(qos: .userInitiated).async {
@@ -480,7 +480,7 @@ public final class DataController: NSObject {
         }
     }
     
-    open func persistentSaveOperations(_ context: NSManagedObjectContext) -> [SaveOperation] {
+    public func persistentSaveOperations(_ context: NSManagedObjectContext) -> [SaveOperation] {
         let saveOperation = SaveOperation()
         saveOperation.objectContext = context
         

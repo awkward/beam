@@ -39,7 +39,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
         }) as? StreamViewController
     }
     
-    weak var query: PostCollectionQuery? {
+    var query: PostCollectionQuery? {
         return self.streamViewController?.query as? PostCollectionQuery
     }
     

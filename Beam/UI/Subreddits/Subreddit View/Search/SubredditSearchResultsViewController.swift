@@ -40,7 +40,7 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
         }
     }
     
-    weak var query: PostCollectionQuery? {
+    var query: PostCollectionQuery? {
         return self.streamViewController?.query as? PostCollectionQuery
     }
     

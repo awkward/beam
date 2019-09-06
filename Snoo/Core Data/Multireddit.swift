@@ -70,7 +70,7 @@ public final class Multireddit: Subreddit {
         return NSString(data: try JSONSerialization.data(withJSONObject: dictionary, options: []), encoding: String.Encoding.utf8.rawValue) as String?
     }
     
-    override open func redditDictionaryRepresentation() -> [String: Any] {
+    override public func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["description_md"] = self.descriptionText as AnyObject?

@@ -141,8 +141,8 @@ public final class AuthenticationController: NSObject {
         return self.userSession?.userIdentifier
     }
     
-    open func activeUser(_ context: NSManagedObjectContext) -> User? {
-        var user: User? = nil
+    public func activeUser(_ context: NSManagedObjectContext) -> User? {
+        var user: User?
         if let userIdentifier = self.activeUserIdentifier {
             context.performAndWait({ () -> Void in
                 do {

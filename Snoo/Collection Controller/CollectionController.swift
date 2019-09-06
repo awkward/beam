@@ -313,7 +313,7 @@ public final class CollectionController: NSObject {
         operations.append(parseOperation)
         
         if let postProcessOperations = self.postProcessOperations?() {
-            var previousPostOperation: Operation? = nil
+            var previousPostOperation: Operation?
             for postOperation in postProcessOperations {
                 postOperation.addDependency(parseOperation)
                 if let previousPostOperation = previousPostOperation {

@@ -253,7 +253,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
     }
     
     func reloadLoadingState() {
-        var view: CommentsFooterView? = nil
+        var view: CommentsFooterView?
         
         let isFetching: Bool = self.dataSource.status == .fetching
         

@@ -200,7 +200,7 @@ class ReplyBarView: BeamView {
         return self.textView.resignFirstResponder()
     }
     
-    @objc @IBAction func sendText(_ sender: AnyObject) {
+    @IBAction func sendText(_ sender: AnyObject) {
         if let delegate = self.delegate {
             delegate.replyBar(self, didTapSendMessage: self.textView.text)
         }

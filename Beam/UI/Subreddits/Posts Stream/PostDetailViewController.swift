@@ -300,7 +300,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
     }
     
     fileprivate func reloadCommentsLoadingState() {
-        var view: CommentsFooterView? = nil
+        var view: CommentsFooterView?
         
         let isFetching: Bool = self.commentsDataSource.status == .fetching
         

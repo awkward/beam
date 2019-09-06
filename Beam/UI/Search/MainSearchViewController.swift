@@ -335,7 +335,7 @@ extension MainSearchViewController {
         //The number of rows in the section before deletion
         let oldNumberOfRows = tableView.numberOfRows(inSection: indexPath.section)
         //The new number of rows, can not be used with tableView.numberOfRows(inSection: indexPath.section)!
-        var newNumberOfRows: Int? = nil
+        var newNumberOfRows: Int?
         
         if self.searchDisplayMode == .recentVisited {
             let shouldDeleteSection = tableView.numberOfRows(inSection: indexPath.section) <= 1

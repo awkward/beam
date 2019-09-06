@@ -115,7 +115,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
             content.append(SubredditsViewControllerSection("★", bookmarkedSubreddits))
             subredditList.removeObjects(in: bookmarkedSubreddits)
             
-            var currentSection: SubredditsViewControllerSection? = nil
+            var currentSection: SubredditsViewControllerSection?
             for enumerationObject in subredditList {
                 if let subreddit: Subreddit = enumerationObject as? Subreddit, let name: String = subreddit.sectionName {
                     

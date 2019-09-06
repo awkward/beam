@@ -928,7 +928,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         //The tabBarItem for messages needs special treatment. The other items are configured in Main.storyboard
         let currentUser = self.authenticationController.activeUser(self.managedObjectContext)
         var image = UIImage(named: "tabbar_inbox")
-        var selectedImage: UIImage? = nil
+        var selectedImage: UIImage?
         if currentUser?.hasMail == true && self.authenticationController.isAuthenticated {
             var extraString = ""
             if self.displayModeController.currentMode == DisplayMode.dark {

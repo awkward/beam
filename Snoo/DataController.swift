@@ -94,7 +94,7 @@ public final class DataController: NSObject {
                 try objectContext.save()
                 
                 //Get the userIdentifier for the new URL
-                var userIdentifier: String? = nil
+                var userIdentifier: String?
                 
                 if let currentUserSessionData = UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) as? Data, let currenUserSession = NSKeyedUnarchiver.unarchiveObject(with: currentUserSessionData) as? AuthenticationSession {
                     userIdentifier = currenUserSession.userIdentifier
@@ -124,7 +124,7 @@ public final class DataController: NSObject {
             print("Performing clear because of version")
             
             //Get the userIdentifier for the new URL
-            var userIdentifier: String? = nil
+            var userIdentifier: String?
             
             if let currentUserSessionData = UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) as? Data, let currenUserSession = NSKeyedUnarchiver.unarchiveObject(with: currentUserSessionData) as? AuthenticationSession {
                 userIdentifier = currenUserSession.userIdentifier

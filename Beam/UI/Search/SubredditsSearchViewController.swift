@@ -186,7 +186,7 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
         if let dequeuedCell = tableView.dequeueReusableCell(withIdentifier: SubredditSearchCellIdentifier) {
             cell = dequeuedCell
         } else {
-            cell = UITableViewCell(style: UITableViewCellStyle.default, reuseIdentifier: SubredditSearchCellIdentifier)
+            cell = UITableViewCell(style: UITableViewCell.CellStyle.default, reuseIdentifier: SubredditSearchCellIdentifier)
         }
         
         let subreddit = self.objects?[indexPath.row]

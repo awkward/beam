@@ -63,7 +63,7 @@ final class UserNotificationsHandler: NSObject {
         let content = UNMutableNotificationContent()
         content.body = AWKLocalizedString("notif-message-failed-message")
         content.title = AWKLocalizedString("notif-message-failed")
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
         
         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: nil)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
@@ -97,7 +97,7 @@ final class UserNotificationsHandler: NSObject {
         switch action {
         case UserNotificationActionKey.DirectToURL:
             if let openURL = notificationURL {
-                UIApplication.shared.open(openURL, options: [:], completionHandler: nil)
+                UIApplication.shared.open(openURL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
         case UserNotificationActionKey.ShowAlert:
             self.handleShowAlert(content, customInfo: customInfo, detailURL: notificationURL)
@@ -144,13 +144,13 @@ final class UserNotificationsHandler: NSObject {
             alertDetailButton = nil
         }
         
-        let alertController = BeamAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = BeamAlertController(title: alertTitle, message: alertMessage, preferredStyle: UIAlertController.Style.alert)
         
-        alertController.addAction(UIAlertAction(title: alertCancelButton, style: UIAlertActionStyle.cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: alertCancelButton, style: UIAlertAction.Style.cancel, handler: nil))
         
         if let detailURL = detailURL, alertDetailButton != nil {
-            let detailAction = UIAlertAction(title: alertDetailButton, style: UIAlertActionStyle.default, handler: { (_) -> Void in
-                UIApplication.shared.open(detailURL, options: [:], completionHandler: nil)
+            let detailAction = UIAlertAction(title: alertDetailButton, style: UIAlertAction.Style.default, handler: { (_) -> Void in
+                UIApplication.shared.open(detailURL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             })
             alertController.addAction(detailAction)
         }
@@ -392,4 +392,9 @@ extension UserNotificationsHandler: UNUserNotificationCenterDelegate {
         
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

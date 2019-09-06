@@ -58,8 +58,8 @@ class SubredditDisplayOptionsViewController: BeamTableViewController {
         }
         
         cell.textColorType = BeamTableViewCellTextColorType.default
-        cell.accessoryType = showsCheckmark ? UITableViewCellAccessoryType.checkmark: UITableViewCellAccessoryType.none
-        cell.selectionStyle = UITableViewCellSelectionStyle.default
+        cell.accessoryType = showsCheckmark ? UITableViewCell.AccessoryType.checkmark: UITableViewCell.AccessoryType.none
+        cell.selectionStyle = UITableViewCell.SelectionStyle.default
 
         return cell
     }

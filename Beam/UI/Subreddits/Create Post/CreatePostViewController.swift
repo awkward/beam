@@ -48,9 +48,9 @@ class CreatePostViewController: BeamViewController {
     /// Call this method when "canSubmit" has changed
     internal func updateSubmitStatus() {
         if self.post != nil {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("update-button"), style: UIBarButtonItemStyle.done, target: self, action: #selector(CreatePostViewController.submitTapped(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("update-button"), style: UIBarButtonItem.Style.done, target: self, action: #selector(CreatePostViewController.submitTapped(_:)))
         } else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("post-button"), style: UIBarButtonItemStyle.done, target: self, action: #selector(CreatePostViewController.submitTapped(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("post-button"), style: UIBarButtonItem.Style.done, target: self, action: #selector(CreatePostViewController.submitTapped(_:)))
         }
         self.navigationItem.rightBarButtonItem?.isEnabled = self.canSubmit && self.isPosting == false
     }
@@ -121,7 +121,7 @@ class CreatePostViewController: BeamViewController {
                 case .BadCaptcha:
                     alertController.title = AWKLocalizedString("incorrect-captcha-error-title")
                     alertController.message = AWKLocalizedString("incorrect-captcha-error-message")
-                    alertController.addAction(UIAlertAction(title: AWKLocalizedString("retry-button"), style: UIAlertActionStyle.default, handler: { (_) in
+                    alertController.addAction(UIAlertAction(title: AWKLocalizedString("retry-button"), style: UIAlertAction.Style.default, handler: { (_) in
                         self.startSubmit()
                     }))
                 case .AlreadySubmitted:
@@ -131,7 +131,7 @@ class CreatePostViewController: BeamViewController {
                     } else {
                         alertController.title = AWKLocalizedString("already-submitted-error-title")
                         alertController.message = AWKLocalizedString("already-submitted-error-message")
-                        alertController.addAction(UIAlertAction(title: AWKLocalizedString("resubmit-button"), style: UIAlertActionStyle.default, handler: { (_) in
+                        alertController.addAction(UIAlertAction(title: AWKLocalizedString("resubmit-button"), style: UIAlertAction.Style.default, handler: { (_) in
                             self.resubmit = true
                             self.startSubmit()
                         }))
@@ -162,13 +162,13 @@ class CreatePostViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CreatePostViewController.cancelTapped(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(CreatePostViewController.cancelTapped(_:)))
         
         self.updateSubmitStatus()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(CreatePostViewController.internalTextFieldDidChange(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CreatePostViewController.internalKeyboardDidChangeFrame(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(CreatePostViewController.internalKeyboardDidChangeFrame(_:)), name: NSNotification.Name.UIKeyboardDidChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreatePostViewController.internalTextFieldDidChange(_:)), name: UITextField.textDidChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreatePostViewController.internalKeyboardDidChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CreatePostViewController.internalKeyboardDidChangeFrame(_:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         
         if let navigationController = self.navigationController as? BeamNavigationController {
             navigationController.useInteractiveDismissal = false
@@ -189,11 +189,11 @@ class CreatePostViewController: BeamViewController {
                 title = AWKLocalizedString("discard-edit-alert-title")
                 message = AWKLocalizedString("discard-edit-alert-message")
             }
-            let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
+            let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-button"), style: UIAlertAction.Style.destructive, handler: { (_) in
                 self.dismiss(animated: true, completion: nil)
             }))
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("keep-button"), style: UIAlertActionStyle.cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("keep-button"), style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         } else {
             self.dismiss(animated: true, completion: nil)
@@ -208,11 +208,11 @@ class CreatePostViewController: BeamViewController {
     // MARK: Notifications
     
     @objc fileprivate func internalKeyboardDidChangeFrame(_ notification: Notification) {
-        let frame = ((notification as NSNotification).userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let animationDuration = ((notification as NSNotification).userInfo![UIKeyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
-        var animationCurve: UIViewAnimationOptions = UIViewAnimationOptions()
-        if (notification as NSNotification).userInfo?[UIKeyboardAnimationCurveUserInfoKey] != nil {
-            ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurve)
+        let frame = ((notification as NSNotification).userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let animationDuration = ((notification as NSNotification).userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
+        var animationCurve: UIView.AnimationOptions = UIView.AnimationOptions()
+        if (notification as NSNotification).userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] != nil {
+            ((notification as NSNotification).userInfo![UIResponder.keyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurve)
         }
         let keyboardFrame = self.view.convert(frame, from: nil)
         //Forward the notification in an easier format to the subclasses of this class
@@ -241,7 +241,7 @@ class CreatePostViewController: BeamViewController {
     ///   - frame: The frame of the keyboard in the UIScreen screenspace
     ///   - animationDuration: The duration of the keyboard animation
     ///   - animationCurveOption: The curve of the keyboard animation
-    internal func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIViewAnimationOptions) {
+    internal func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIView.AnimationOptions) {
         
     }
     

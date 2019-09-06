@@ -65,7 +65,7 @@ final class MultiredditsViewController: BeamTableViewController, NSFetchedResult
         self.tableView.register(SubredditTableViewCell.self)
         
         self.title = "My Multireddits"
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(MultiredditsViewController.createMultireddit(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(MultiredditsViewController.createMultireddit(_:)))
         
         NotificationCenter.default.addObserver(self, selector: #selector(MultiredditsViewController.authenticatedUserDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(MultiredditsViewController.expiredContentDeleted(_:)), name: .DataControllerExpiredContentDeletedFromContext, object: nil)

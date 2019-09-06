@@ -173,7 +173,7 @@ final class StreamAlbumView: UIView {
     // MARK: - Interaction
     
     @objc func handleTapGestureRecognizer(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        if tapGestureRecognizer.state == UIGestureRecognizerState.ended {
+        if tapGestureRecognizer.state == UIGestureRecognizer.State.ended {
             let location = tapGestureRecognizer.location(in: self)
             if let itemView = self.albumItemViewForLocation(location) {
                 self.delegate?.albumView(self, didTapItemView: itemView, atIndex: self.indexOfItemView(itemView))

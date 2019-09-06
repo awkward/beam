@@ -55,9 +55,9 @@ class FontSizeOptionsViewController: BeamTableViewController {
             cell.textLabel?.font = UIFont.systemFont(ofSize: fontSize)
             
             if currentCategory == nil {
-                cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                cell.accessoryType = UITableViewCell.AccessoryType.checkmark
             } else {
-                cell.accessoryType = UITableViewCellAccessoryType.none
+                cell.accessoryType = UITableViewCell.AccessoryType.none
             }
         } else {
             let category: String = self.categories[(indexPath as IndexPath).row]
@@ -68,9 +68,9 @@ class FontSizeOptionsViewController: BeamTableViewController {
             cell.textLabel?.font = UIFont.systemFont(ofSize: fontSize)
             
             if currentCategory == category {
-                cell.accessoryType = UITableViewCellAccessoryType.checkmark
+                cell.accessoryType = UITableViewCell.AccessoryType.checkmark
             } else {
-                cell.accessoryType = UITableViewCellAccessoryType.none
+                cell.accessoryType = UITableViewCell.AccessoryType.none
             }
         }
         

@@ -17,7 +17,7 @@ private let destSeemOverlap: CGFloat = 2.0
 
 extension UIImage {
 
-    fileprivate class func destinationImageSizeWithOriginalSize(_ size: CGSize, constrainingSize: CGSize, contentMode: UIViewContentMode) -> CGSize {
+    fileprivate class func destinationImageSizeWithOriginalSize(_ size: CGSize, constrainingSize: CGSize, contentMode: UIView.ContentMode) -> CGSize {
         let sourceRatio: CGFloat = size.width / size.height;
         let boundsRatio: CGFloat = constrainingSize.width / constrainingSize.height;
         
@@ -36,7 +36,7 @@ extension UIImage {
         }
     }
     
-    @objc public class func downscaledImageWithFileURL(_ fileURL: URL, constrainingSize: CGSize, contentMode: UIViewContentMode) -> UIImage? {
+    @objc public class func downscaledImageWithFileURL(_ fileURL: URL, constrainingSize: CGSize, contentMode: UIView.ContentMode) -> UIImage? {
         
         let path = fileURL.path
         

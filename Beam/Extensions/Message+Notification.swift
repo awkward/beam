@@ -13,7 +13,7 @@ extension Message {
 
     func notificationContent() -> UNMutableNotificationContent {
         let content = UNMutableNotificationContent()
-        content.sound = UNNotificationSound.default()
+        content.sound = UNNotificationSound.default
         
         var userInfo = [String: Any]()
         var messageInfo = [String: Any]()

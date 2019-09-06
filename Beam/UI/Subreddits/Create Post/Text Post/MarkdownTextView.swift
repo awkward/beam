@@ -147,7 +147,7 @@ class MarkdownTextView: UITextView {
     }
     
     fileprivate func showLinkAlert(_ viewController: UIViewController?, title: String?, link: String?, selectedTextRange: UITextRange?) {
-        let alertController = BeamAlertController(title: AWKLocalizedString("add-link"), message: AWKLocalizedString("add-link-message"), preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = BeamAlertController(title: AWKLocalizedString("add-link"), message: AWKLocalizedString("add-link-message"), preferredStyle: UIAlertController.Style.alert)
         alertController.addTextField { (textField) in
             textField.text = title
             textField.placeholder = AWKLocalizedString("link-title-placeholder")
@@ -157,7 +157,7 @@ class MarkdownTextView: UITextView {
             textField.placeholder = AWKLocalizedString("link-url-placeholder")
             textField.keyboardType = UIKeyboardType.URL
         }
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("add-link"), style: UIAlertActionStyle.default, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("add-link"), style: UIAlertAction.Style.default, handler: { (_) in
             self.applyLink(alertController.textFields![0].text, link: alertController.textFields![1].text, selectedTextRange: selectedTextRange)
         }))
         alertController.addCancelAction()

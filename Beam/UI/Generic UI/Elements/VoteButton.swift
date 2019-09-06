@@ -187,7 +187,7 @@ class VoteButton: UIControl {
             
             CATransaction.begin()
             
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
                 votedFace.arrowView.transform = CGAffineTransform.identity
                 votedFace.arrowView.alpha = 1
                 }, completion: nil)
@@ -207,7 +207,7 @@ class VoteButton: UIControl {
         }
         
         self.face.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
-        UIView.animate(withDuration: 0.15, delay: 0, options: [UIViewAnimationOptions.curveEaseOut], animations: { () -> Void in
+        UIView.animate(withDuration: 0.15, delay: 0, options: [UIView.AnimationOptions.curveEaseOut], animations: { () -> Void in
             self.face.transform = CGAffineTransform(scaleX: 0.3, y: 0.3)
             self.face.alpha = 0
             }, completion: { (_) in
@@ -227,7 +227,7 @@ class VoteButton: UIControl {
         
         func animateDefaultFace() {
             newFace.isHidden = false
-            UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: {
+            UIView.animate(withDuration: 0.2, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
                 newFace.transform = CGAffineTransform.identity
                 newFace.alpha = 1
             }, completion: { (completed) in
@@ -243,12 +243,12 @@ class VoteButton: UIControl {
         self.face.center = CGPoint(x: self.bounds.midX, y: self.bounds.midY)
         CATransaction.begin()
         
-        UIView.animate(withDuration: 0.2, delay: 0, options: UIViewAnimationOptions.curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.face.arrowView.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             self.face.arrowView.alpha = 0
         }, completion: nil)
         
-        UIView.animate(withDuration: 0.2, delay: 0.075, options: UIViewAnimationOptions.curveEaseIn, animations: {
+        UIView.animate(withDuration: 0.2, delay: 0.075, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.face.transform = CGAffineTransform(scaleX: 0.1, y: 0.1)
             self.face.alpha = 0
         }, completion: { (completed) in
@@ -405,7 +405,7 @@ private class VoteButtonArrowLayer: CAShapeLayer {
         
         let arrowPath = self.direction == .up ? self.createUpArrowPath() : self.createDownArrowPath()
         self.path = arrowPath.cgPath
-        self.lineJoin = kCALineJoinRound
+        self.lineJoin = CAShapeLayerLineJoin.round
     }
     
     fileprivate func createUpArrowPath() -> UIBezierPath {

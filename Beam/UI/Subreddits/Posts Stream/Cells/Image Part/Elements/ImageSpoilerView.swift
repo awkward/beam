@@ -63,8 +63,8 @@ final class ImageSpoilerView: BeamView {
         self.backgroundMaskLayer?.frame = self.backgroundLayer.bounds
         
         self.addSubview(self.buttonLabel)
-        let labelX = NSLayoutConstraint(item: self.buttonLabel, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0)
-        let labelY = NSLayoutConstraint(item: self.buttonLabel, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0)
+        let labelX = NSLayoutConstraint(item: self.buttonLabel, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0)
+        let labelY = NSLayoutConstraint(item: self.buttonLabel, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0)
         self.addConstraints([labelX, labelY])
     }
     
@@ -152,7 +152,7 @@ final class ImageSpoilerView: BeamView {
         self.backgroundMaskLayer = CAShapeLayer()
         
         self.backgroundMaskLayer!.frame = self.backgroundLayer.bounds
-        self.backgroundMaskLayer!.fillRule = kCAFillRuleEvenOdd
+        self.backgroundMaskLayer!.fillRule = CAShapeLayerFillRule.evenOdd
         
         let startSize: CGFloat = 5
         let startRect = CGRect(x: self.backgroundMaskLayer!.bounds.midX - 0.5 * startSize, y: self.backgroundMaskLayer!.bounds.midY - 0.5 * startSize, width: startSize, height: startSize)
@@ -165,7 +165,7 @@ final class ImageSpoilerView: BeamView {
         
         CATransaction.begin()
         CATransaction.setAnimationDuration(duration)
-        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseIn))
+        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeIn))
         CATransaction.setCompletionBlock { () -> Void in
             self.animationCompleted = true
         }
@@ -191,7 +191,7 @@ final class ImageSpoilerView: BeamView {
         
         CATransaction.begin()
         CATransaction.setAnimationDuration(0.3)
-        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut))
+        CATransaction.setAnimationTimingFunction(CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut))
         CATransaction.setCompletionBlock { () -> Void in
             self.reset()
         }

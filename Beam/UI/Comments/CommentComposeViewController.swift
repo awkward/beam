@@ -57,12 +57,12 @@ class CommentComposeViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        NotificationCenter.default.addObserver(self, selector: #selector(CommentComposeViewController.keyboardFrameWillChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(CommentComposeViewController.keyboardFrameWillChange(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
         //Configure the tableView
         self.tableView.register(UINib(nibName: "CommentCell", bundle: nil), forCellReuseIdentifier: "comment")
         self.tableView.register(UINib(nibName: "PostTitleWithThumbnailPartCell", bundle: nil), forCellReuseIdentifier: "titlethumbnail")
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         
         //Configure the textView
         self.textView.textContainerInset = UIEdgeInsets.zero
@@ -112,12 +112,12 @@ class CommentComposeViewController: BeamViewController {
         let labelText = NSLocalizedString("in-reply-to-compose-comment-label", comment: "The \"In reply to\" label on the comment compose view, followed by the user's username")
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         let font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
-        var attributedText: NSMutableAttributedString = NSMutableAttributedString(string: labelText, attributes: [NSAttributedStringKey.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedStringKey.font: font])
+        var attributedText: NSMutableAttributedString = NSMutableAttributedString(string: labelText, attributes: [NSAttributedString.Key.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedString.Key.font: font])
         if let username = username {
-            let usernameAttributedString = NSAttributedString(string: " \(username)", attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: font])
+            let usernameAttributedString = NSAttributedString(string: " \(username)", attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: font])
             attributedText.append(usernameAttributedString)
         } else {
-            attributedText = NSMutableAttributedString(string: NSLocalizedString("reply-compose-comment-label", comment: "A simple reply label"), attributes: [NSAttributedStringKey.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedStringKey.font: font])
+            attributedText = NSMutableAttributedString(string: NSLocalizedString("reply-compose-comment-label", comment: "A simple reply label"), attributes: [NSAttributedString.Key.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedString.Key.font: font])
         }
         self.replyLabel.attributedText = attributedText
     }
@@ -140,7 +140,7 @@ class CommentComposeViewController: BeamViewController {
     // MARK: - Notifications
     
     @objc fileprivate func keyboardFrameWillChange(_ notification: Notification) {
-        let endFrame = ((notification as NSNotification).userInfo?[UIKeyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? CGRect.zero
+        let endFrame = ((notification as NSNotification).userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue)?.cgRectValue ?? CGRect.zero
         self.keyboardFrame = endFrame
         self.updateInset()
     }
@@ -150,8 +150,8 @@ class CommentComposeViewController: BeamViewController {
     @objc fileprivate func close(_ sender: UIBarButtonItem) {
         self.textView.resignFirstResponder()
         if let text = self.textView?.text, text.count > 0 {
-            let alertController = BeamAlertController(title: nil, message: AWKLocalizedString("are-you-sure-discard-comment"), preferredStyle: UIAlertControllerStyle.actionSheet)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-comment"), style: UIAlertActionStyle.destructive, handler: { (_) -> Void in
+            let alertController = BeamAlertController(title: nil, message: AWKLocalizedString("are-you-sure-discard-comment"), preferredStyle: UIAlertController.Style.actionSheet)
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("discard-comment"), style: UIAlertAction.Style.destructive, handler: { (_) -> Void in
                 self.dismissView()
             }))
             alertController.addCancelAction()
@@ -180,7 +180,7 @@ class CommentComposeViewController: BeamViewController {
         guard let text = self.textView?.text, text.count > 0 else {
             let message = AWKLocalizedString("comment-too-short-message")
             let title = AWKLocalizedString("comment-too-short")
-            let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+            let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
             alertController.addCloseAction()
             self.present(alertController, animated: true, completion: nil)
             return
@@ -209,7 +209,7 @@ class CommentComposeViewController: BeamViewController {
             self.comment!.markdownString = nil
             self.executeOperations(operations)
         } catch let error as NSError {
-            let alertView = BeamAlertController(title: AWKLocalizedString("could-not-update-comment"), message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+            let alertView = BeamAlertController(title: AWKLocalizedString("could-not-update-comment"), message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
             alertView.addCancelAction()
             self.present(alertView, animated: true, completion: nil)
         }
@@ -240,11 +240,11 @@ class CommentComposeViewController: BeamViewController {
             DispatchQueue.main.async {
                 if let error = error {
                     if self.comment != nil {
-                        let alertView = BeamAlertController(title: AWKLocalizedString("could-not-update-comment"), message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                        let alertView = BeamAlertController(title: AWKLocalizedString("could-not-update-comment"), message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                         alertView.addCancelAction()
                         self.present(alertView, animated: true, completion: nil)
                     } else {
-                        let alertView = BeamAlertController(title: AWKLocalizedString("could-not-post-comment"), message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                        let alertView = BeamAlertController(title: AWKLocalizedString("could-not-post-comment"), message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                         alertView.addCancelAction()
                         self.present(alertView, animated: true, completion: nil)
                     }
@@ -370,7 +370,7 @@ extension CommentComposeViewController: UITableViewDataSource {
 extension CommentComposeViewController: UITableViewDelegate {
 
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

@@ -55,12 +55,12 @@ class CreateLinkPostViewController: CreatePostViewController {
     fileprivate func configureRecentLink() {
         if let URL = UIPasteboard.general.url {
             self.linkTextField?.rightView = self.inlineRecentLinkView
-            self.linkTextField?.rightViewMode = UITextFieldViewMode.always
+            self.linkTextField?.rightViewMode = UITextField.ViewMode.always
             
             self.recentLinkControl.isHidden = false
             self.linkToRecentLinkConstraint.isActive = true
             
-            self.recentLinkControl.addTarget(self, action: #selector(CreateLinkPostViewController.hideRecentLink(_:)), for: UIControlEvents.editingDidEnd)
+            self.recentLinkControl.addTarget(self, action: #selector(CreateLinkPostViewController.hideRecentLink(_:)), for: UIControl.Event.editingDidEnd)
             self.recentLinkControl.link = URL.absoluteString
         } else {
             self.hideRecentLink(nil)
@@ -109,7 +109,7 @@ class CreateLinkPostViewController: CreatePostViewController {
     
     // MARK: Notifications
     
-    override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIViewAnimationOptions) {
+    override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIView.AnimationOptions) {
         let bottomInset: CGFloat = max(self.view.bounds.height - frame.minY, 0)
         
         if self.animateKeyboardAppearance == false {
@@ -148,8 +148,8 @@ class CreateLinkPostViewController: CreatePostViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
-        self.linkTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-link-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
+        self.linkTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-link-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         self.titleTextField?.textColor = textColor

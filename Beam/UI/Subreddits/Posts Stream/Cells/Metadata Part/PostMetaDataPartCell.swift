@@ -34,6 +34,6 @@ final class PostMetaDataPartCell: BeamTableViewCell, PostCell {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 22)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 22)
     }
 }

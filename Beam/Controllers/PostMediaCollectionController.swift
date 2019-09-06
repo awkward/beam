@@ -30,7 +30,7 @@ class PostMediaCollectionController: NSObject {
     }
     
     func indexPathForCollectionItem(_ item: MediaCollectionItem) -> IndexPath? {
-        guard let index = collection?.index(where: { (object) -> Bool in
+        guard let index = collection?.firstIndex(where: { (object) -> Bool in
             return object == item
         }) else {
             return nil

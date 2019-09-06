@@ -35,7 +35,7 @@ public final class UserActivityController: NSObject {
         super.init()
         
         NotificationCenter.default.addObserver(self, selector: #selector(UserActivityController.userSessionWillChange(_:)), name: AuthenticationController.UserSessionWillChangeNotificationName, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(UserActivityController.applicationDidEnterBackground(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(UserActivityController.applicationDidEnterBackground(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
         self.flushTimer = Timer.scheduledTimer(timeInterval: UserActivityController.VisitsFlushInterval, target: self, selector: #selector(UserActivityController.flushTimerFired(_:)), userInfo: nil, repeats: true)
         self.flushTimer!.tolerance = 30 //30 seconds of tolerance
     }

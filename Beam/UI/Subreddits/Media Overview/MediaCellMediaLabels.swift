@@ -71,7 +71,7 @@ extension MediaCellMediaLabels {
                 if imageView.superview != superView {
                     superView.addSubview(imageView)
                 } else {
-                    superView.bringSubview(toFront: imageView)
+                    superView.bringSubviewToFront(imageView)
                 }
                 
             }

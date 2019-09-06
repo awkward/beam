@@ -102,7 +102,7 @@ extension PostToolbarViewDelegate where Self: UIViewController {
                 let message = post.locked.boolValue == true ? AWKLocalizedString("locked-error-message") : AWKLocalizedString("archived-error-message")
                 let title = post.locked.boolValue == true ? AWKLocalizedString("locked") : AWKLocalizedString("archived")
                 if self.shownInGallery() {
-                    let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
                     alertController.addCloseAction()
                     self.modallyPresentToolBarActionViewController(alertController, toolbarView: toolbarView)
                 } else {
@@ -216,21 +216,21 @@ class PostToolbarView: BeamView {
     
     fileprivate let commentsButton: BeamPlainButton = {
         let button = BeamPlainButton(frame: CGRect())
-        button.setImage(UIImage(named: "actionbar_comments"), for: UIControlState())
-        button.setTitle("comments", for: UIControlState())
+        button.setImage(UIImage(named: "actionbar_comments"), for: UIControl.State())
+        button.setTitle("comments", for: UIControl.State())
         return button
     }()
     
     fileprivate let pointsButton: BeamPlainButton = {
         let button = BeamPlainButton(frame: CGRect())
-        button.setImage(UIImage(named: "actionbar_points"), for: UIControlState())
-        button.setTitle("points", for: UIControlState())
+        button.setImage(UIImage(named: "actionbar_points"), for: UIControl.State())
+        button.setTitle("points", for: UIControl.State())
         return button
     }()
     
     fileprivate let moreButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "actionbar_more"), for: UIControlState())
+        button.setImage(UIImage(named: "actionbar_more"), for: UIControl.State())
         return button
     }()
     
@@ -287,8 +287,8 @@ class PostToolbarView: BeamView {
     }
     
     fileprivate func updateContent() {
-        self.commentsButton.setTitle("\(self.post?.commentCount?.intValue ?? 0)", for: UIControlState.normal)
-        self.pointsButton.setTitle(self.pointsTitle(), for: UIControlState.normal)
+        self.commentsButton.setTitle("\(self.post?.commentCount?.intValue ?? 0)", for: UIControl.State.normal)
+        self.pointsButton.setTitle(self.pointsTitle(), for: UIControl.State.normal)
             
         self.upvoteButton.voted = self.post?.voteStatus?.intValue == VoteStatus.up.rawValue
         self.downvoteButton.voted = self.post?.voteStatus?.intValue == VoteStatus.down.rawValue
@@ -383,8 +383,8 @@ class PostToolbarView: BeamView {
         }
         self.upvoteButton.color = tintColor
         self.downvoteButton.color = tintColor
-        if self.tintAdjustmentMode != UIViewTintAdjustmentMode.normal {
-        	self.tintAdjustmentMode = UIViewTintAdjustmentMode.normal
+        if self.tintAdjustmentMode != UIView.TintAdjustmentMode.normal {
+        	self.tintAdjustmentMode = UIView.TintAdjustmentMode.normal
         }
 
         UIView.performWithoutAnimation { () -> Void in
@@ -392,8 +392,8 @@ class PostToolbarView: BeamView {
                 if button.tintColor != tintColor {
                     button.tintColor = tintColor
                 }
-                button.setTitleColor(tintColor, for: UIControlState())
-                button.setTitleColor(tintColor, for: UIControlState.highlighted)
+                button.setTitleColor(tintColor, for: UIControl.State())
+                button.setTitleColor(tintColor, for: UIControl.State.highlighted)
             }
             
             //Update opaque views

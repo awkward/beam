@@ -76,7 +76,7 @@ class InternalLinkRoutingController: JLRoutes {
                     if let errorViewController = self.currentViewController as? NoticeHandling {
                         errorViewController.presentErrorMessage(AWKLocalizedString("subreddit-not-found"))
                     } else {
-                        let alertController = BeamAlertController(title: AWKLocalizedString("subreddit-not-found"), message: nil, preferredStyle: UIAlertControllerStyle.alert)
+                        let alertController = BeamAlertController(title: AWKLocalizedString("subreddit-not-found"), message: nil, preferredStyle: UIAlertController.Style.alert)
                         alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: .cancel, handler: nil))
                         self.currentViewController!.present(alertController, animated: true, completion: nil)
                     }
@@ -117,7 +117,7 @@ class InternalLinkRoutingController: JLRoutes {
                     if let errorViewController = self.currentViewController as? NoticeHandling {
                         errorViewController.presentErrorMessage(AWKLocalizedString("multireddit-not-found"))
                     } else {
-                        let alertController = BeamAlertController(title: AWKLocalizedString("multireddit-not-found"), message: nil, preferredStyle: UIAlertControllerStyle.alert)
+                        let alertController = BeamAlertController(title: AWKLocalizedString("multireddit-not-found"), message: nil, preferredStyle: UIAlertController.Style.alert)
                         alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: .cancel, handler: nil))
                         self.currentViewController!.present(alertController, animated: true, completion: nil)
                     }

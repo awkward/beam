@@ -11,8 +11,8 @@ import UIKit
 extension UIAlertController {
     
     convenience init(alertWithCloseButtonAndTitle title: String, message: String) {
-        self.init(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-        self.addAction(UIAlertAction(title: AWKLocalizedString("close-button"), style: UIAlertActionStyle.cancel, handler: nil))
+        self.init(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+        self.addAction(UIAlertAction(title: AWKLocalizedString("close-button"), style: UIAlertAction.Style.cancel, handler: nil))
     }
     
 }

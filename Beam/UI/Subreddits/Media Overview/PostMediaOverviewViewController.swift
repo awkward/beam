@@ -103,7 +103,7 @@ class PostMediaOverviewViewController: BeamCollectionViewController, PostMetadat
         })
     
         if self.mediaCollectionController.count > 0 {
-            collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: UICollectionViewScrollPosition.top, animated: false)
+            collectionView?.scrollToItem(at: IndexPath(item: 0, section: 0), at: UICollectionView.ScrollPosition.top, animated: false)
         }
     }
     
@@ -115,7 +115,7 @@ class PostMediaOverviewViewController: BeamCollectionViewController, PostMetadat
         
         gallery.currentItem = mediaItem.galleryItem
 
-        gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItemStyle.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
+        gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItem.Style.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
         
         let postToolbarXib = UINib(nibName: "GalleryPostBottomView", bundle: nil)
         let toolbar = postToolbarXib.instantiate(withOwner: nil, options: nil).first as? GalleryPostBottomView

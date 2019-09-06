@@ -168,7 +168,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
                 
                 var options = DownscaledImageOptions()
                 options.constrainingSize = self.mediaImageView.bounds.size
-                options.contentMode = UIViewContentMode.scaleAspectFill
+                options.contentMode = .scaleAspectFill
                 
                 self.imageOperation = AppDelegate.shared.imageLoader.startDownloadingImageWithURL(url, downscalingOptions: options, progressHandler: nil, completionHandler: { (image) in
                     if image != nil {
@@ -193,7 +193,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
             paragraphStyle.minimumLineHeight = 21
             paragraphStyle.maximumLineHeight = 21
             
-            let string = NSAttributedString(string: captionTitle, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold), NSAttributedStringKey.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white), NSAttributedStringKey.paragraphStyle: paragraphStyle])
+            let string = NSAttributedString(string: captionTitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white), NSAttributedString.Key.paragraphStyle: paragraphStyle])
             contentStrings.append(string)
         }
         if let captionDescription = mediaObject?.captionDescription {
@@ -201,7 +201,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
             paragraphStyle.minimumLineHeight = 26
             paragraphStyle.maximumLineHeight = 26
             
-            let string = NSAttributedString(string: captionDescription, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 16), NSAttributedStringKey.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8), NSAttributedStringKey.paragraphStyle: paragraphStyle])
+            let string = NSAttributedString(string: captionDescription, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8), NSAttributedString.Key.paragraphStyle: paragraphStyle])
             contentStrings.append(string)
         }
         
@@ -222,7 +222,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
     }
     
     class func heightForMetaData(_ metadata: NSAttributedString, constrainingSize: CGSize) -> CGFloat {
-        let contentConstrainingRect = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint.zero, size: constrainingSize), MediaOverviewCollectionViewCellEdgeInsets)
+        let contentConstrainingRect = CGRect(origin: CGPoint.zero, size: constrainingSize).inset(by: MediaOverviewCollectionViewCellEdgeInsets)
         let contentSize = metadata.boundingRect(with: contentConstrainingRect.size, options: [NSStringDrawingOptions.usesFontLeading, NSStringDrawingOptions.usesLineFragmentOrigin], context: nil).size
         return contentSize.height
     }

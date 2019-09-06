@@ -107,10 +107,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - UIApplicationDelegate
 
-    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         //Register for background app refresh
-        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplicationBackgroundFetchIntervalMinimum)
+        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
         
         //Setup application features
         self.setupStyle()
@@ -140,12 +140,12 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.cherryAccessTokenDidChange(_:)), name: .CherryAccessTokenDidChange, object: self.cherryController)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: self.authenticationController)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.messageDidChangeUnreadState(_:)), name: .RedditMessageDidChangeUnreadState, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.applicationWindowDidBecomeVisible(_:)), name: .UIWindowDidBecomeVisible, object: self.window)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.applicationWindowDidBecomeVisible(_:)), name: UIWindow.didBecomeVisibleNotification, object: self.window)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.displayModeDidChangeNotification(_:)), name: .DisplayModeDidChange, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contentSizeCategoryDidChange(_:)), name: .UIContentSizeCategoryDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contentSizeCategoryDidChange(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userSettingDidChange(_:)), name: .SettingsDidChangeSetting, object: nil)
         
-        if let launchOptions = launchOptions, let launchUrl = launchOptions[UIApplicationLaunchOptionsKey.url] as? URL {
+        if let launchOptions = launchOptions, let launchUrl = launchOptions[UIApplication.LaunchOptionsKey.url] as? URL {
             do {
                 try openApplicationUrl(launchUrl)
             } catch {
@@ -221,7 +221,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
     
-    func application(_ app: UIApplication, open url: URL, options: [UIApplicationOpenURLOptionsKey: Any]) -> Bool {
+    func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey: Any]) -> Bool {
         do {
             try openApplicationUrl(url)
         } catch {
@@ -248,7 +248,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - NSUserActivity
     
-    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([Any]?) -> Void) -> Bool {
+    func application(_ application: UIApplication, continue userActivity: NSUserActivity, restorationHandler: @escaping ([UIUserActivityRestoring]?) -> Void) -> Bool {
         if userActivity.activityType == "com.madeawkward.beam.subreddit" {
             if let identifier = userActivity.userInfo?["id"] as? String {
                 do {
@@ -642,7 +642,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     @objc private func userDidChange(_ notification: Notification?) {
         DispatchQueue.main.async { () -> Void in
             if (notification as NSNotification?)?.userInfo?["error"] is NSError {
-                let alertController = BeamAlertController(title: AWKLocalizedString("logged-out-problem"), message: "logged-out-problem-message", preferredStyle: UIAlertControllerStyle.alert)
+                let alertController = BeamAlertController(title: AWKLocalizedString("logged-out-problem"), message: "logged-out-problem-message", preferredStyle: UIAlertController.Style.alert)
                 alertController.addCloseAction()
                 AppDelegate.topViewController()?.present(alertController, animated: true, completion: nil)
             }
@@ -755,7 +755,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             return
         }
         
-        let alertController = BeamAlertController(title: AWKLocalizedString("switch-account-title"), message: AWKLocalizedString("switch-account-message"), preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = BeamAlertController(title: AWKLocalizedString("switch-account-title"), message: AWKLocalizedString("switch-account-message"), preferredStyle: UIAlertController.Style.actionSheet)
         
         for session in sessions {
             let action = UIAlertAction(title: session.username ?? "Unknown", style: .default, handler: { (_) -> Void in
@@ -934,8 +934,8 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             if self.displayModeController.currentMode == DisplayMode.dark {
                 extraString = "_dark"
             }
-            image = UIImage(named: "tabbar_inbox\(extraString)_badge")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
-            selectedImage = UIImage(named: "tabbar_inbox\(extraString)_badge_selected")?.withRenderingMode(UIImageRenderingMode.alwaysOriginal)
+            image = UIImage(named: "tabbar_inbox\(extraString)_badge")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
+            selectedImage = UIImage(named: "tabbar_inbox\(extraString)_badge_selected")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
         }
         let tabBarItem = UITabBarItem(title: AWKLocalizedString("messages-title"), image: image, selectedImage: selectedImage)
         tabBarItem.imageInsets = UIEdgeInsets(top: -2, left: 0, bottom: 2, right: 0)

@@ -146,7 +146,7 @@ final class SubredditTableViewCell: BeamTableViewCell {
     
     // MARK: - Initialization
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         self.setupView()
@@ -236,8 +236,8 @@ final class SubredditTableViewCell: BeamTableViewCell {
         self.configureStarButton()
     }
     
-    override func willTransition(to state: UITableViewCellStateMask) {
-        self.showStar = state.contains(.showingEditControlMask)
+    override func willTransition(to state: UITableViewCell.StateMask) {
+        self.showStar = state.contains(UITableViewCell.StateMask.showingEditControl)
 
         super.willTransition(to: state)
     }

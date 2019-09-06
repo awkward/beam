@@ -15,8 +15,8 @@ class BeamColorizedNavigationController: BeamNavigationController {
         
         self.navigationBar.isTranslucent = false
         
-        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedStringKey: Any]()
-        titleAttributes[NSAttributedStringKey.foregroundColor] = UIColor.white
+        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedString.Key: Any]()
+        titleAttributes[NSAttributedString.Key.foregroundColor] = UIColor.white
         self.navigationBar.titleTextAttributes = titleAttributes
         
         switch displayMode {

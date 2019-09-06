@@ -29,7 +29,7 @@ class BlurredDimmingPresentationController: UIPresentationController {
         
         let transitionCoordinator = self.presentingViewController.transitionCoordinator
         transitionCoordinator?.animate(alongsideTransition: { (_) -> Void in
-            self.blurView.effect = UIBlurEffect(style: UIBlurEffectStyle.light)
+            self.blurView.effect = UIBlurEffect(style: UIBlurEffect.Style.light)
             }, completion: nil)
     }
     

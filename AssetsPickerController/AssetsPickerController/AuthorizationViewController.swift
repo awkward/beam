@@ -21,7 +21,7 @@ class AuthorizationViewController: UIViewController, ColorPaletteSupport, Assets
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(AuthorizationViewController.cancel(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(AuthorizationViewController.cancel(_:)))
         
         self.updateContents()
     }
@@ -34,10 +34,10 @@ class AuthorizationViewController: UIViewController, ColorPaletteSupport, Assets
             view.translatesAutoresizingMaskIntoConstraints = false
             view.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length + 20, left: 20, bottom: self.bottomLayoutGuide.length + 20, right: 20)
             self.view.addSubview(view)
-            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutRelation.equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: .top, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: .bottom, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: .leading, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: view, attribute: .trailing, multiplier: 1.0, constant: 0))
             
         }
         self.view.setNeedsLayout()

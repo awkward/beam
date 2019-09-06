@@ -72,9 +72,9 @@ class SubredditFilteringViewController: BeamViewController {
             self.buttonBar.items = [ButtonBarButton(title: NSLocalizedString("keywords-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false)]
         }
         
-        self.buttonBar.addTarget(self, action: #selector(SubredditFilteringViewController.buttonBarChanged(_:)), for: UIControlEvents.valueChanged)
+        self.buttonBar.addTarget(self, action: #selector(SubredditFilteringViewController.buttonBarChanged(_:)), for: UIControl.Event.valueChanged)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(SubredditFilteringViewController.keyboardWillChangeFrame(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(SubredditFilteringViewController.keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
         
     }
     
@@ -124,21 +124,21 @@ class SubredditFilteringViewController: BeamViewController {
     
     @objc fileprivate func keyboardWillChangeFrame(_ notification: Notification) {
         //We can only change the frame if we own the keyboard and the user info is available
-        guard let userInfo = (notification as NSNotification).userInfo, let isLocalKeyboard = userInfo[UIKeyboardIsLocalUserInfoKey] as? NSNumber, isLocalKeyboard == true else {
+        guard let userInfo = (notification as NSNotification).userInfo, let isLocalKeyboard = userInfo[UIResponder.keyboardIsLocalUserInfoKey] as? NSNumber, isLocalKeyboard == true else {
             return
         }
         //We can only animate if the frame value is available
-        guard let keyboardFrameValue = userInfo[UIKeyboardFrameEndUserInfoKey] as? NSValue else {
+        guard let keyboardFrameValue = userInfo[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else {
             return
         }
         //Cet the CGRect of the keyboard frame NSValue
         let keyboardFrame = keyboardFrameValue.cgRectValue
         //Get the keyboard animation duration
-        let keyboardAnimationDuration: TimeInterval = (userInfo[UIKeyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0
+        let keyboardAnimationDuration: TimeInterval = (userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as? TimeInterval) ?? 0
         //Get the keyboard animation curve
-        var keyboardAnimationOptions: UIViewAnimationOptions = UIViewAnimationOptions()
-        if userInfo[UIKeyboardAnimationCurveUserInfoKey] != nil {
-            (userInfo[UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&keyboardAnimationOptions)
+        var keyboardAnimationOptions: UIView.AnimationOptions = UIView.AnimationOptions()
+        if userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] != nil {
+            (userInfo[UIResponder.keyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&keyboardAnimationOptions)
         }
         
         //Calculate the height the keyboard is covering
@@ -177,12 +177,12 @@ extension SubredditFilteringViewController: UITableViewDataSource {
             
             let keyword: String = self.filterKeywords[(indexPath as IndexPath).row]
             cell.textLabel!.text = keyword
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
             return cell
         } else {
             let cell: SubredditFilteringTextFieldTableViewCell = tableView.dequeueReusableCell(withIdentifier: "textfield", for: indexPath) as! SubredditFilteringTextFieldTableViewCell
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             if self.filteringType == SubredditFilteringType.subreddits {
                 cell.placeholder = NSLocalizedString("add-subreddit-placeholder", comment: "The placeholder in the textfield for content filtering")
             } else {
@@ -192,16 +192,16 @@ extension SubredditFilteringViewController: UITableViewDataSource {
         }
     }
     
-    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        guard editingStyle == UITableViewCellEditingStyle.delete && (indexPath as IndexPath).row < self.filterKeywords.count else {
+    func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
+        guard editingStyle == UITableViewCell.EditingStyle.delete && (indexPath as IndexPath).row < self.filterKeywords.count else {
             return
         }
         let keyword: String = self.filterKeywords[(indexPath as IndexPath).row]
         var keywords: [String] = self.filterKeywords
-        if let index: Int = keywords.index(of: keyword) {
+        if let index: Int = keywords.firstIndex(of: keyword) {
             keywords.remove(at: index)
             self.filterKeywords = keywords
-            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableViewRowAnimation.automatic)
+            tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: UITableView.RowAnimation.automatic)
         }
     }
     
@@ -238,7 +238,7 @@ extension SubredditFilteringViewController: UITextFieldDelegate {
                 textField.text = ""
                 keywords.append(keyword)
                 self.filterKeywords = keywords
-                self.tableView.insertRows(at: [IndexPath(row: self.filterKeywords.count - 1, section: 0)], with: UITableViewRowAnimation.automatic)
+                self.tableView.insertRows(at: [IndexPath(row: self.filterKeywords.count - 1, section: 0)], with: UITableView.RowAnimation.automatic)
             }
         }
         return false

@@ -29,9 +29,9 @@ class MainSearchViewController: BeamTableViewController {
     
     let searchBar: UISearchBar = {
         let bar = UISearchBar(frame: CGRect())
-        bar.searchBarStyle = UISearchBarStyle.default
+        bar.searchBarStyle = UISearchBar.Style.default
         bar.placeholder = AWKLocalizedString("search-placeholder")
-        bar.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+        bar.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
         bar.autocapitalizationType = .none
         return bar
     }()
@@ -72,7 +72,7 @@ class MainSearchViewController: BeamTableViewController {
         self.registerForPreviewing(with: self, sourceView: self.tableView)
         
         if self.isModallyPresentedRootViewController() && self.tabBarController == nil {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MainSearchViewController.cancelTapped(_:)))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(MainSearchViewController.cancelTapped(_:)))
         }
     }
     
@@ -169,7 +169,7 @@ class MainSearchViewController: BeamTableViewController {
         } else if let sectionType = sectionType, self.searchDisplayMode == MainSearchDisplayMode.recentSearched {
             self.tableView.beginUpdates()
             
-            if let section = self.recentSearchSections.index(of: sectionType) {
+            if let section = self.recentSearchSections.firstIndex(of: sectionType) {
                 if self.tableView.numberOfSections > section {
                     self.tableView.deleteSections(IndexSet(integer: section), with: .fade)
                 }
@@ -329,7 +329,7 @@ extension MainSearchViewController {
         return self.searchDisplayMode == .recentVisited || self.searchDisplayMode == .recentSearched
     }
     
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
+    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCell.EditingStyle, forRowAt indexPath: IndexPath) {
         tableView.beginUpdates()
         
         //The number of rows in the section before deletion
@@ -373,7 +373,7 @@ extension MainSearchViewController {
         //Insert a new row if the oldNumberOfRows is lower or the same as the new number of rows. And if no section was removed
         
         if let newNumberOfRows = newNumberOfRows, oldNumberOfRows <= newNumberOfRows {
-            tableView.insertRows(at: [IndexPath(row: newNumberOfRows - 1, section: indexPath.section)], with: UITableViewRowAnimation.bottom)
+            tableView.insertRows(at: [IndexPath(row: newNumberOfRows - 1, section: indexPath.section)], with: UITableView.RowAnimation.bottom)
         }
         
         tableView.endUpdates()

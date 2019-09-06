@@ -71,7 +71,7 @@ class ImgurManagerViewController: BeamCollectionViewController {
         
         gallery.currentItem = item.galleryItem
         
-        gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItemStyle.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
+        gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItem.Style.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
         
         return gallery
     }
@@ -90,9 +90,9 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
     
     func toolbar(_ toolbar: ImgurGalleryToolbar, didTapDeleteOnImgurObject object: ImgurObject) {
         
-        let alertController = BeamAlertController(title: nil, message: AWKLocalizedString("are-you-sure-delete-imgur-\(object is ImgurAlbum ? "album" : "image")"), preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = BeamAlertController(title: nil, message: AWKLocalizedString("are-you-sure-delete-imgur-\(object is ImgurAlbum ? "album" : "image")"), preferredStyle: UIAlertController.Style.actionSheet)
         alertController.addCancelAction()
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertAction.Style.destructive, handler: { (_) in
             if let album = object as? ImgurAlbum {
                 guard let images = album.images, !images.isEmpty else {
                     self.deleteAlbum(album)
@@ -109,10 +109,10 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
     
     fileprivate func showDeleteAlbumImages(_ album: ImgurAlbum) {
         let alertController = BeamAlertController(title: AWKLocalizedString("delete-imgur-album-images-title"), message: AWKLocalizedString("delete-imgur-album-images-message"), preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("keep-images-button"), style: UIAlertActionStyle.cancel, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("keep-images-button"), style: UIAlertAction.Style.cancel, handler: { (_) in
             self.deleteAlbum(album, withImages: false)
         }))
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-images-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-images-button"), style: UIAlertAction.Style.destructive, handler: { (_) in
             self.deleteAlbum(album, withImages: true)
         }))
         self.showViewControllerOnGallery(alertController)
@@ -182,13 +182,13 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
                 //Remove the images from albums
                 if let albums = self.items?.filter({ $0 is ImgurAlbum }) as? [ImgurAlbum] {
                     for album in albums {
-                        if let index = album.images?.index(of: image) {
+                        if let index = album.images?.firstIndex(of: image) {
                             album.images?.remove(at: index)
                         }
                     }
                 }
             }
-            if let index = self.items?.index(of: item) {
+            if let index = self.items?.firstIndex(of: item) {
                 self.items?.remove(at: index)
             }
         }
@@ -228,7 +228,7 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
             var sourceView: UIView?
             if let item = galleryViewController.currentItem as? ImgurGalleryItem,
             let object = item.imgurObject,
-            let index = self.items?.index(of: object),
+            let index = self.items?.firstIndex(of: object),
             let cell = self.collectionView?.cellForItem(at: IndexPath(item: index, section: 0)) as? ImgurMediaCollectionViewCell {
                 sourceView = cell.mediaImageView
             }
@@ -287,7 +287,7 @@ extension ImgurManagerViewController: UICollectionViewDelegateFlowLayout {
 extension ImgurManagerViewController: AWKGalleryDelegate {
 
     func gallery(_ galleryViewController: AWKGalleryViewController, presentationAnimationSourceViewFor item: AWKGalleryItem) -> UIView? {
-        if let galleryItem = item as? ImgurGalleryItem, let item = galleryItem.imgurObject, let index = self.items?.index(of: item) {
+        if let galleryItem = item as? ImgurGalleryItem, let item = galleryItem.imgurObject, let index = self.items?.firstIndex(of: item) {
             let indexPath = IndexPath(item: index, section: 0)
             let cell = collectionView?.cellForItem(at: indexPath) as? ImgurMediaCollectionViewCell
             return cell?.mediaImageView
@@ -377,7 +377,7 @@ extension ImgurManagerViewController: AWKGalleryDataSource {
     }
     
     func gallery(_ galleryViewController: AWKGalleryViewController, indexOf item: AWKGalleryItem) -> Int {
-        if let galleryItem = item as? ImgurGalleryItem, let item = galleryItem.imgurObject, let index = self.items?.index(of: item) {
+        if let galleryItem = item as? ImgurGalleryItem, let item = galleryItem.imgurObject, let index = self.items?.firstIndex(of: item) {
             return index
         }
         return 0
@@ -420,7 +420,7 @@ extension ImgurManagerViewController: UIViewControllerTransitioningDelegate {
     func animationControllerForGallery(_ gallery: AWKGalleryViewController, dismissal: Bool = false) -> GalleryAlbumItemAnimator? {
         if let currentItem = gallery.currentItem as? ImgurGalleryItem,
             let album = currentItem.imgurObject as? ImgurAlbum,
-            let index = self.items?.index(of: album) {
+            let index = self.items?.firstIndex(of: album) {
             if let cell = self.collectionView?.cellForItem(at: IndexPath(item: index, section: 0)) as? ImgurMediaCollectionViewCell {
                 let animator = GalleryAlbumItemAnimator()
                 animator.sourceView = cell.mediaImageView

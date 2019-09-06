@@ -143,7 +143,7 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
         
         self.collectionController.query = MessageCollectionQuery()
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
         
         self.refreshControl = UIRefreshControl()

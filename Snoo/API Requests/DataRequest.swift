@@ -113,7 +113,7 @@ public class DataRequest: SnooOperation {
                         }
                         self.error = error
                     }
-                } else if UIApplication.shared.applicationState != UIApplicationState.active || (startDate as NSDate).laterDate(Date(timeIntervalSinceNow: -1 * urlRequest.timeoutInterval)) != startDate {
+                } else if UIApplication.shared.applicationState != UIApplication.State.active || (startDate as NSDate).laterDate(Date(timeIntervalSinceNow: -1 * urlRequest.timeoutInterval)) != startDate {
                     self.cancelOperation()
                 } else if let responseError: NSError = responseError as NSError? {
                     self.error = responseError

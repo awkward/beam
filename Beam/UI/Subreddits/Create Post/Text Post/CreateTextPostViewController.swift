@@ -51,9 +51,9 @@ class CreateTextPostViewController: CreatePostViewController {
             actionBar.viewController = self
             self.view.addSubview(actionBar)
             actionBar.translatesAutoresizingMaskIntoConstraints = false
-            self.view.addConstraint(NSLayoutConstraint(item: actionBar, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: actionBar, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: NSLayoutAttribute.trailing, multiplier: 1.0, constant: 0))
-            self.actionBarBottomConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: actionBar, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0)
+            self.view.addConstraint(NSLayoutConstraint(item: actionBar, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: actionBar, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1.0, constant: 0))
+            self.actionBarBottomConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: actionBar, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0)
             self.view.addConstraint(self.actionBarBottomConstraint!)
             self.actionBar = actionBar
             //actionBar.isHidden = true
@@ -85,7 +85,7 @@ class CreateTextPostViewController: CreatePostViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         self.textViewPlaceholder.textColor = placeholderColor
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
@@ -121,7 +121,7 @@ class CreateTextPostViewController: CreatePostViewController {
     
     // MARK: Notifications
     
-    override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIViewAnimationOptions) {
+    override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIView.AnimationOptions) {
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
             //ANIMATE
             let bottomInset: CGFloat = max(self.view.bounds.height - frame.minY, 0)

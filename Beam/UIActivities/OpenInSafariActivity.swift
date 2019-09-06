@@ -37,8 +37,8 @@ final class OpenInSafariActivity: UIActivity {
     
     fileprivate var foundURL: URL?
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.open-in-safari")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.open-in-safari")
     }
     
     override var activityTitle: String? {
@@ -77,8 +77,13 @@ final class OpenInSafariActivity: UIActivity {
     
     override func perform() {
         if let url = self.url {
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

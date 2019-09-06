@@ -19,7 +19,7 @@ extension ManualViewControllerInsets where Self: UIViewController {
     
     func configureInsetsForChildViewControllers() {
         
-        for childViewController in self.childViewControllers {
+        for childViewController in self.children {
             if let child = childViewController as? UITableViewController {
                 configureContentInsetForScrollView(child.tableView)
             } else if let child = childViewController as? UICollectionViewController, let collectionView = child.collectionView {

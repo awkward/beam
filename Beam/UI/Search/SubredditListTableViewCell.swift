@@ -36,7 +36,7 @@ class SubredditListTableViewCell: BeamTableViewCell {
         
         if let titleString = self.subreddit?.displayName {
             let titleColor = self.displayMode == .dark ? UIColor.white: UIColor.black
-            title.append(NSAttributedString(string: titleString, attributes: [NSAttributedStringKey.foregroundColor: titleColor]))
+            title.append(NSAttributedString(string: titleString, attributes: [NSAttributedString.Key.foregroundColor: titleColor]))
         }
         
         let subtitleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8)
@@ -52,7 +52,7 @@ class SubredditListTableViewCell: BeamTableViewCell {
             subtitle = "\n\(self.subscribersCountNumberFormatter.string(from: subscribers) ?? "0") \(AWKLocalizedString("subscribers"))"
         }
         if let subtitle = subtitle {
-            title.append(NSAttributedString(string: subtitle, attributes: [NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13), NSAttributedStringKey.foregroundColor: subtitleColor]))
+            title.append(NSAttributedString(string: subtitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13), NSAttributedString.Key.foregroundColor: subtitleColor]))
         }
         
         return title

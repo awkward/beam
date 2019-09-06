@@ -29,7 +29,7 @@ extension CommentThreadSkipping {
             return nil
         }
         //Get the visible indexPaths of a tableView in the actually visible rect, excluding the 'extended' parts
-        var rect = UIEdgeInsetsInsetRect(tableView.frame, tableView.contentInset)
+        var rect = tableView.frame.inset(by: tableView.contentInset)
         rect = tableView.convert(rect, from: superview)
         guard let visibleIndexPaths = tableView.indexPathsForRows(in: rect) else {
             return nil
@@ -53,7 +53,7 @@ extension CommentThreadSkipping {
         }
         let nextSection: Int = currentThread + 1
         if nextSection < tableView.numberOfSections && tableView.numberOfRows(inSection: nextSection) > 0 {
-            tableView.scrollToRow(at: IndexPath(row: 0, section: nextSection), at: UITableViewScrollPosition.top, animated: true)
+            tableView.scrollToRow(at: IndexPath(row: 0, section: nextSection), at: UITableView.ScrollPosition.top, animated: true)
         }
     }
     

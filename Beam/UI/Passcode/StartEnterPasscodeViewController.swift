@@ -24,16 +24,16 @@ class StartEnterPasscodeViewController: EnterPasscodeViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(StartEnterPasscodeViewController.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(StartEnterPasscodeViewController.applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.setNeedsStatusBarAppearanceUpdate()
         if self.passcodeController.touchIDEnabled(LAContext()) {
-            self.touchIDButton.setImage(UIImage(named: "touch-id-icon"), for: UIControlState())
+            self.touchIDButton.setImage(UIImage(named: "touch-id-icon"), for: UIControl.State())
         } else {
-            self.touchIDButton.setImage(nil, for: UIControlState())
+            self.touchIDButton.setImage(nil, for: UIControl.State())
         }
     }
     
@@ -49,9 +49,9 @@ class StartEnterPasscodeViewController: EnterPasscodeViewController {
     @objc fileprivate func applicationDidBecomeActive(_ notification: Notification) {
         self.createAuthenticationContext()
         if self.passcodeController.touchIDEnabled(LAContext()) {
-            self.touchIDButton.setImage(UIImage(named: "touch-id-icon"), for: UIControlState())
+            self.touchIDButton.setImage(UIImage(named: "touch-id-icon"), for: UIControl.State())
         } else {
-            self.touchIDButton.setImage(nil, for: UIControlState())
+            self.touchIDButton.setImage(nil, for: UIControl.State())
         }
         self.startTouchID()
         self.setNeedsStatusBarAppearanceUpdate()

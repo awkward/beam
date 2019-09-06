@@ -23,7 +23,7 @@ class CurrentUserProfileViewController: ProfileViewController {
     
     lazy var profileTitleButton: ProfileSwitchButton = {
         var button = ProfileSwitchButton()
-        button.addTarget(self, action: #selector(CurrentUserProfileViewController.tappedProfileTitle(_:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(CurrentUserProfileViewController.tappedProfileTitle(_:)), for: UIControl.Event.touchUpInside)
         return button
     }()
     

@@ -217,16 +217,16 @@ public enum ExternalLinkOpenOption: String {
     ///   - originalURL: The original URL, this url should have an HTTP or HTTPS url scheme
     private func openCustomUrl(_ url: URL, originalURL: URL) {
         if #available(iOS 10, *) {
-            UIApplication.shared.open(url, options: [:], completionHandler: { (success) in
+            UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: { (success) in
                 if !success {
                     //If we can't open the custom URL, we fall back to the original URL.
-                    UIApplication.shared.open(originalURL, options: [:], completionHandler: nil)
+                    UIApplication.shared.open(originalURL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
                 }
             })
         } else {
             if !UIApplication.shared.canOpenURL(url) {
                 //If opening the custom URL fails, fallback to the original URL
-                UIApplication.shared.open(originalURL, options: [:], completionHandler: nil)
+                UIApplication.shared.open(originalURL, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
         }
     }
@@ -254,7 +254,7 @@ public enum ExternalLinkOpenOption: String {
         }
         let message = AWKLocalizedString("privacy-mode-warning-message").replacingOccurrences(of: "[SERVICE]", with: service)
         let alertController = BeamAlertController(title: AWKLocalizedString("privacy-mode-warning"), message: message, preferredStyle: .alert)
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("continue-button"), style: UIAlertActionStyle.default, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("continue-button"), style: UIAlertAction.Style.default, handler: { (_) in
             if let webViewController = UserSettings[.browser].handleURL(url) {
                 viewController.present(webViewController, animated: true, completion: nil)
             }
@@ -262,4 +262,9 @@ public enum ExternalLinkOpenOption: String {
         alertController.addCancelAction()
         viewController.present(alertController, animated: true, completion: nil)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

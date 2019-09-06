@@ -53,8 +53,8 @@ class GIFPlayerView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationDidBecomeActive(notification:)), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationWillResignActive(notification:)), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationWillResignActive(notification:)), name: UIApplication.willResignActiveNotification, object: nil)
         
         self.videoPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
@@ -134,7 +134,7 @@ class GIFPlayerView: UIView {
     
     //This notification is only called on iOS 9 for AVPlayer to begin the loop again. On iOS 10+ AVQueuePlayer and AVPlayerLooper take care of the looping
     @objc fileprivate func avPlayerItemDidFinishPlaying(notification: Notification) {
-        if let playerItem = notification.object as? AVPlayerItem, playerItem == self.videoPlayer?.currentItem && self.window != nil && UIApplication.shared.applicationState == UIApplicationState.active {
+        if let playerItem = notification.object as? AVPlayerItem, playerItem == self.videoPlayer?.currentItem && self.window != nil && UIApplication.shared.applicationState == UIApplication.State.active {
             self.videoPlayer?.rewind()
             self.videoPlayer?.play()
         }

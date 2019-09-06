@@ -95,14 +95,14 @@ class DonateViewController: BeamViewController {
     
     func reloadDonateButtons() {
         for identifier in self.productStoreController.donationProductIdentifiers {
-            if let index = self.productStoreController.donationProductIdentifiers.index(of: identifier) {
+            if let index = self.productStoreController.donationProductIdentifiers.firstIndex(of: identifier) {
                 let button = self.donationButtons[index]
                 let product = self.donationProductForProductIdentifier(identifier)
                 button.isHidden = (product == nil)
                 if let product = product {
                     self.priceFormatter.locale = product.priceLocale
                     let string = self.priceFormatter.string(from: product.price)
-                    button.setTitle(string, for: UIControlState())
+                    button.setTitle(string, for: UIControl.State())
                 }
                 button.isEnabled = self.purchasingEnabled
                 button.alpha = (self.purchasingEnabled ? 1: 0.5)
@@ -117,7 +117,7 @@ class DonateViewController: BeamViewController {
     }
     
     @IBAction func donationButtonTapped(_ button: UIButton) {
-        if let index = self.donationButtons.index(of: button), let product = self.donationProductForProductIdentifier(self.productStoreController.donationProductIdentifiers[index]) {
+        if let index = self.donationButtons.firstIndex(of: button), let product = self.donationProductForProductIdentifier(self.productStoreController.donationProductIdentifiers[index]) {
             AppDelegate.shared.productStoreController.purchaseProduct(product)
         }
     }

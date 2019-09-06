@@ -11,8 +11,8 @@ import Snoo
 
 final class EditCommentActivity: CustomObjectActivity<Comment> {
 
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.edit-comment")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.edit-comment")
     }
     
     override var activityTitle: String? {

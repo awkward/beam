@@ -75,11 +75,11 @@ class AssetCollectionViewCell: UICollectionViewCell, ColorPaletteSupport {
             let requestOptions = PHImageRequestOptions()
             requestOptions.resizeMode = PHImageRequestOptionsResizeMode.exact
             
-            self.imageView.contentMode = UIViewContentMode.center
+            self.imageView.contentMode = UIView.ContentMode.center
             self.imageView.image = AssetsPickerControllerStyleKit.imageOfAssetThumbnailPlaceholder
             self.currentRequest = imageManager.requestImage(for: asset, targetSize: self.imageSize.sizeWithScale(UIScreen.main.scale), contentMode: PHImageContentMode.aspectFill, options: requestOptions) { (image, _) in
                 if let image = image {
-                    self.imageView.contentMode = UIViewContentMode.scaleAspectFill
+                    self.imageView.contentMode = UIView.ContentMode.scaleAspectFill
                     self.imageView.image = image
                 }
                 

@@ -15,8 +15,8 @@ class HidePostActivity: CustomObjectActivity<Post> {
         return true
     }
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.hide-post")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.hide-post")
     }
     
     override var activityTitle: String? {
@@ -61,8 +61,8 @@ final class UnhidePostActivity: HidePostActivity {
         return false
     }
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.unhide-post")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.unhide-post")
     }
     
     override var activityTitle: String? {

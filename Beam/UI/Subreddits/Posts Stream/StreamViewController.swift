@@ -247,12 +247,12 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         
         //Adjust table view
         self.tableView.estimatedRowHeight = 60
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.tableView.rowHeight = UITableView.automaticDimension
         
         //Add refresh control
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(StreamViewController.refreshContent(_:)), for: UIControlEvents.valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(StreamViewController.refreshContent(_:)), for: UIControl.Event.valueChanged)
         
         self.registerForPreviewing(with: self, sourceView: self.tableView)
     }
@@ -271,7 +271,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         
         //Set the audio category for the autoplaying gifs
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)))
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             NSLog("Failed to change audio session. Gifs might pause audio.")
@@ -329,10 +329,10 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     @objc func postDidChangeHiddenFlag(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             if let post = notification.object as? Post, post.isHidden.boolValue == true {
-                if let index = self.content?.index(of: post) {
+                if let index = self.content?.firstIndex(of: post) {
                     self.tableView.beginUpdates()
                     self.content?.remove(at: index)
-                    self.tableView.deleteSections(IndexSet(integer: index), with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteSections(IndexSet(integer: index), with: UITableView.RowAnimation.fade)
                     self.tableView.endUpdates()
                 }
             }
@@ -391,7 +391,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     @objc func contentDidDelete(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            guard let post = notification.object as? Post, let index = self.content?.index(of: post) else {
+            guard let post = notification.object as? Post, let index = self.content?.firstIndex(of: post) else {
                 return
             }
             if self is PostDetailEmbeddedViewController {
@@ -403,7 +403,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             } else {
                 self.tableView.beginUpdates()
                 self.content?.remove(at: index)
-                self.tableView.deleteSections(IndexSet(integer: index), with: UITableViewRowAnimation.fade)
+                self.tableView.deleteSections(IndexSet(integer: index), with: UITableView.RowAnimation.fade)
                 self.tableView.endUpdates()
             }
         }
@@ -521,7 +521,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             let timer = Timer(fireAt: newFireDate, interval: 0, target: self, selector: #selector(StreamViewController.refreshNotificationTimerFired(_:)), userInfo: nil, repeats: false)
             timer.tolerance = 120
             self.refreshNotificationTimer = timer
-            RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+            RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
         }
     }
     
@@ -828,7 +828,7 @@ extension StreamViewController {
         }
 
         if !UserSettings[.showPostMetadata] && !isDetailView {
-            if let index = identifiers.index(of: .Metadata) {
+            if let index = identifiers.firstIndex(of: .Metadata) {
                 identifiers.remove(at: index)
             }
         }
@@ -882,7 +882,7 @@ extension StreamViewController {
          We do this using intersects instead of constains. In case the visble rect height/width is negative the cell rect will still intersect, while the rect doesn't contain the cell rect.
         */
         
-        let visibleRect = UIEdgeInsetsInsetRect(self.tableView.frame, StreamViewController.visibleContentInset)
+        let visibleRect = self.tableView.frame.inset(by: StreamViewController.visibleContentInset)
         
         for cell in self.tableView.visibleCells {
             guard let indexPath = self.tableView.indexPath(for: cell), let imagePartCell = cell as? PostImagePartCell else {
@@ -1005,7 +1005,7 @@ extension StreamViewController {
                 return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: width).height
             default:
                 
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             }
         }
         return 1.0
@@ -1113,7 +1113,7 @@ extension StreamViewController: AWKGalleryDataSource {
     }
     
     func gallery(_ galleryViewController: AWKGalleryViewController, indexOf item: AWKGalleryItem) -> Int {
-        return (self.galleryMediaObjects?.index(where: { (mediaObject: MediaObject) -> Bool in
+        return (self.galleryMediaObjects?.firstIndex(where: { (mediaObject: MediaObject) -> Bool in
             return mediaObject.contentURL == item.contentURL
         })) ?? 0
     }
@@ -1307,4 +1307,9 @@ extension StreamViewController: UIViewControllerPreviewingDelegate {
             self.navigationController?.show(viewControllerToCommit, sender: previewingContext)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

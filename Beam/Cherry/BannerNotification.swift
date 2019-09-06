@@ -188,7 +188,7 @@ class BannerNotification: NSObject {
             if self.hasBeenShown() {
                 //We know for sure the banners exist otherwise this method would return false
                 var shownBanners = UserSettings[.shownBanners]!
-                if let index = shownBanners.index(of: self.identifier) {
+                if let index = shownBanners.firstIndex(of: self.identifier) {
                     shownBanners.remove(at: index)
                 }
                 UserSettings[.shownBanners] = shownBanners

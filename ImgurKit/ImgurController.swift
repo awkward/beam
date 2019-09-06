@@ -42,7 +42,7 @@ public class ImgurController: NSObject {
                 if uploadProgressHandler != nil {
                     request.uploadProgressHandler = { (request: ImgurRequest, progress: CGFloat) in
                         var requestNumber = 0
-                        if let index = requests.index(of: request) {
+                        if let index = requests.firstIndex(of: request) {
                             requestNumber = index + 1
                         }
                         var totalProgress: CGFloat = 0

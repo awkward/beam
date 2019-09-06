@@ -32,7 +32,7 @@ class BeamNavigationBar: UINavigationBar, DynamicDisplayModeView {
         let view = UIProgressView()
         view.trackTintColor = UIColor.clear
         view.progress = 0
-        view.progressViewStyle = UIProgressViewStyle.bar
+        view.progressViewStyle = UIProgressView.Style.bar
         view.isHidden = !self.showProgressView
         return view
     }()

@@ -11,8 +11,8 @@ import Snoo
 
 final class ReportPostActivity: CustomObjectActivity<Post> {
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.report-post")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.report-post")
     }
     
     override var activityTitle: String? {

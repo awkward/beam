@@ -63,7 +63,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
         let paragrapthStyle = NSParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
         paragrapthStyle.minimumLineHeight = 21
         paragrapthStyle.maximumLineHeight = 21
-        let attributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.paragraphStyle: paragrapthStyle]
+        let attributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.paragraphStyle: paragrapthStyle]
         return NSAttributedString(string: title, attributes: attributes)
     }
 
@@ -120,7 +120,7 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
         
         self.reloadFont()
         
-        self.thumbnailView?.addTarget(self, action: #selector(PostTitlePartCell.thumbnailTapped(_:)), for: UIControlEvents.touchUpInside)
+        self.thumbnailView?.addTarget(self, action: #selector(PostTitlePartCell.thumbnailTapped(_:)), for: UIControl.Event.touchUpInside)
     }
     
     deinit {

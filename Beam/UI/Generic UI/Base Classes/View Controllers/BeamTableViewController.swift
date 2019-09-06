@@ -30,12 +30,12 @@ class BeamTableViewController: UITableViewController, DynamicDisplayModeView, No
     func displayModeDidChange() {
         switch displayMode {
         case .default:
-            view.backgroundColor = self.tableView.style == UITableViewStyle.grouped ? UIColor.groupTableViewBackground: UIColor.white
+            view.backgroundColor = self.tableView.style == UITableView.Style.grouped ? UIColor.groupTableViewBackground: UIColor.white
             tableView.separatorColor = UIColor.beamTableViewSeperatorColor()
             tableView.sectionIndexBackgroundColor = UIColor.beamBarColor()
             tableView.sectionIndexColor = UIColor.beamColor()
         case .dark:
-            view.backgroundColor = self.tableView.style == UITableViewStyle.grouped ? UIColor.beamDarkBackgroundColor() : UIColor.beamDarkContentBackgroundColor()
+            view.backgroundColor = self.tableView.style == UITableView.Style.grouped ? UIColor.beamDarkBackgroundColor() : UIColor.beamDarkContentBackgroundColor()
             tableView.separatorColor = UIColor.beamDarkTableViewSeperatorColor()
             tableView.sectionIndexBackgroundColor = UIColor.beamDarkContentBackgroundColor()
             tableView.sectionIndexColor = UIColor.beamPurpleLight()

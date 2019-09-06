@@ -34,7 +34,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     }
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.first(where: { (viewController) -> Bool in
+        return self.children.first(where: { (viewController) -> Bool in
             viewController is StreamViewController
         }) as? StreamViewController
     }
@@ -57,23 +57,23 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
         if let streamViewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamViewController.useCompactViewMode = true
             streamViewController.refreshControl = nil
-            streamViewController.tableView.keyboardDismissMode = UIScrollViewKeyboardDismissMode.onDrag
+            streamViewController.tableView.keyboardDismissMode = UIScrollView.KeyboardDismissMode.onDrag
             
             self.view.insertSubview(streamViewController.view, belowSubview: self.toolbar)
             
             streamViewController.tableView.expandScrollArea()
             
-            self.addChildViewController(streamViewController)
+            self.addChild(streamViewController)
             
             streamViewController.view.translatesAutoresizingMaskIntoConstraints = false
             //Add horizontal constraints to make the view center with a max width
-            self.view.addConstraint(NSLayoutConstraint(item: streamViewController.view, attribute: .leading, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: streamViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: streamViewController.view, attribute: .centerX, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
-            streamViewController.view.addConstraint(NSLayoutConstraint(item: streamViewController.view, attribute: .width, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
+            self.view.addConstraint(NSLayoutConstraint(item: streamViewController.view, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: streamViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: streamViewController.view, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
+            streamViewController.view.addConstraint(NSLayoutConstraint(item: streamViewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
             
             //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-            let widthConstraint = NSLayoutConstraint(item: streamViewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+            let widthConstraint = NSLayoutConstraint(item: streamViewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
             widthConstraint.priority = UILayoutPriority.defaultHigh
             streamViewController.view.addConstraint(widthConstraint)
             
@@ -84,7 +84,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
                 tableView.showsVerticalScrollIndicator = false
             }
             
-            streamViewController.didMove(toParentViewController: self)
+            streamViewController.didMove(toParent: self)
             
             self.updateStreamQuery()
         } else {
@@ -110,7 +110,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
         
         self.sortingBar.items = [AWKLocalizedString("relevance"), AWKLocalizedString("top"), AWKLocalizedString("new"), AWKLocalizedString("comments")]
         self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(CollectionSortType.defaultSortType(.postsSearch))
-        self.sortingBar.addTarget(self, action: #selector(PostSearchResultsViewController.sortingBarItemTapped(_:)), for: UIControlEvents.valueChanged)
+        self.sortingBar.addTarget(self, action: #selector(PostSearchResultsViewController.sortingBarItemTapped(_:)), for: UIControl.Event.valueChanged)
     }
     
     deinit {
@@ -158,7 +158,7 @@ class PostSearchResultsViewController: BeamViewController, HidingButtonBarDelega
     }
     
     fileprivate func showTimeFrameActionSheet(_ sortType: CollectionSortType, sortingBar: ScrollableButtonBar) {
-        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: CollectionTimeFrame.thisHour)

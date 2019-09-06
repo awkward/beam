@@ -46,7 +46,7 @@ class MessageConversationViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 119
 
         self.title = NSLocalizedString("message", comment: "Message title")
@@ -57,7 +57,7 @@ class MessageConversationViewController: BeamViewController {
         }
         
         if let username = AppDelegate.shared.authenticationController.activeUser(AppDelegate.shared.managedObjectContext)?.username, let author = self.message?.author, author != username {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "message_action_more"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(MessageConversationViewController.moreTapped(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "message_action_more"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(MessageConversationViewController.moreTapped(_:)))
         }
     }
     
@@ -105,7 +105,7 @@ class MessageConversationViewController: BeamViewController {
         super.viewDidLayoutSubviews()
         
         // Calculate headerview size
-        let maxTextSize = UIEdgeInsetsInsetRect(self.view.bounds, self.headerView.layoutMargins).size
+        let maxTextSize = self.view.bounds.inset(by: self.headerView.layoutMargins).size
         self.headerView.titleLabel.preferredMaxLayoutWidth = maxTextSize.width
         self.headerView.dateLabel.preferredMaxLayoutWidth = maxTextSize.width
         let size = self.headerView.systemLayoutSizeFitting(CGSize(width: self.tableView.bounds.width, height: self.view.bounds.height), withHorizontalFittingPriority: UILayoutPriority.fittingSizeLevel, verticalFittingPriority: UILayoutPriority.fittingSizeLevel)
@@ -131,9 +131,9 @@ class MessageConversationViewController: BeamViewController {
     // MARK: - Actions
     
     @objc fileprivate func moreTapped(_ sender: UIBarButtonItem) {
-        let alertController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController: UIAlertController = UIAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("delete-message-action-title", comment: "The action to delete a message on the message detail view"), style: UIAlertActionStyle.destructive, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("delete-message-action-title", comment: "The action to delete a message on the message detail view"), style: UIAlertAction.Style.destructive, handler: { (_) in
             guard let message: Message = self.message, message.identifier != nil else {
                 return
             }
@@ -153,7 +153,7 @@ class MessageConversationViewController: BeamViewController {
             })
         }))
         
-        alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel-action-title", comment: "The action cancel a alert or actionsheet"), style: UIAlertActionStyle.cancel, handler: nil))
+        alertController.addAction(UIAlertAction(title: NSLocalizedString("cancel-action-title", comment: "The action cancel a alert or actionsheet"), style: UIAlertAction.Style.cancel, handler: nil))
         
         alertController.popoverPresentationController?.barButtonItem = sender
         

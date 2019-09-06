@@ -89,7 +89,7 @@ class PasscodeButton: UIControl {
         
         var yPosition = ((rect.height - numbersAndLettersHeight) / 2)
         
-        let numberTextAttributes = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: numbersFont]
+        let numberTextAttributes = [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: numbersFont]
         let numberTextSize = self.numberString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: numberTextAttributes, context: nil).size
         var numberTextRect = CGRect(origin: CGPoint(x: (rect.width - numberTextSize.width) / 2, y: yPosition), size: numberTextSize)
         if self.number == 0 {
@@ -102,7 +102,7 @@ class PasscodeButton: UIControl {
         self.numberString.draw(in: numberTextRect, withAttributes: numberTextAttributes)
         
         if let lettersString = self.lettersString?.replacingOccurrences(of: " ", with: "").uppercased() {
-            let lettersTextAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: lettersFont, NSAttributedStringKey.kern: 1.1]
+            let lettersTextAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: lettersFont, NSAttributedString.Key.kern: 1.1]
             let lettersTextSize = lettersString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: lettersTextAttributes, context: nil).size
             let lettersTextRect = CGRect(origin: CGPoint(x: (rect.width - lettersTextSize.width) / 2, y: yPosition), size: lettersTextSize)
             

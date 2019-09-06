@@ -75,7 +75,7 @@ class RedditActivityController: NSObject {
     fileprivate static func addValue(_ value: String, toStringArray key: String) {
         var newResult = UserDefaults.standard.object(forKey: key) as? [String]
         if newResult != nil {
-            if let currentIndex = newResult!.index(of: value) {
+            if let currentIndex = newResult!.firstIndex(of: value) {
                 newResult!.remove(at: currentIndex)
             }
         } else {
@@ -90,7 +90,7 @@ class RedditActivityController: NSObject {
     
     fileprivate static func removeValue(_ value: String, ofStringArray key: String) {
         var newResult = UserDefaults.standard.object(forKey: key) as? [String]
-        if let index = newResult?.index(of: value) {
+        if let index = newResult?.firstIndex(of: value) {
             newResult?.remove(at: index)
         }
         UserDefaults.standard.set(newResult, forKey: key)

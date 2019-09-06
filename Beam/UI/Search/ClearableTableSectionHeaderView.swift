@@ -34,17 +34,17 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
     fileprivate func setupView() {
         self.titleLabel.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.titleLabel)
-        self.titleLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.horizontal)
-        self.titleLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: UILayoutConstraintAxis.horizontal)
+        self.titleLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
+        self.titleLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
         self.titleLabel.font = UIFont.systemFont(ofSize: 11)
         self.titleLabel.textColor = UIColor.beamGreyDark()
         
         self.clearButton.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.clearButton)
         
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.clearButton, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self.titleLabel, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.clearButton, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.titleLabel, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0))
         
-        self.contentView.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self.contentView, attribute: NSLayoutAttribute.bottomMargin, multiplier: 1, constant: 0))
+        self.contentView.addConstraint(NSLayoutConstraint(item: self.titleLabel, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.contentView, attribute: NSLayoutConstraint.Attribute.bottomMargin, multiplier: 1, constant: 0))
         self.contentView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|-[title]-[clear]-|", options: [], metrics: nil, views: ["title": self.titleLabel, "clear": self.clearButton]))
     }
     

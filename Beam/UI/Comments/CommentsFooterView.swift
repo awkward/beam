@@ -87,7 +87,7 @@ class CommentsFooterView: BeamView {
     
     func sizeToFitWidth(_ width: CGFloat) {
         var frame = self.frame
-        var maxSize = UILayoutFittingCompressedSize
+        var maxSize = UIView.layoutFittingCompressedSize
         maxSize.width = width
         frame.size = self.systemLayoutSizeFitting(maxSize, withHorizontalFittingPriority: UILayoutPriority.required, verticalFittingPriority: UILayoutPriority.defaultLow)
         self.frame = frame

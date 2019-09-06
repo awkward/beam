@@ -65,7 +65,7 @@ extension SubredditTabItemViewController where Self: UIViewController {
         guard let subredditTabBarController = self.subredditTabBarController else {
             return
         }
-        let closeItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItemStyle.plain, target: subredditTabBarController, action: #selector(SubredditTabBarController.closeTapped(_:)))
+        let closeItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItem.Style.plain, target: subredditTabBarController, action: #selector(SubredditTabBarController.closeTapped(_:)))
         self.navigationItem.leftBarButtonItem = closeItem
     }
     
@@ -78,9 +78,9 @@ extension SubredditTabItemViewController where Self: UIViewController {
             return
         }
         if self.subreddit is Multireddit {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "copy_multireddit"), style: UIBarButtonItemStyle.plain, target: subredditTabBarController, action: #selector(SubredditTabBarController.copyMultireddit))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "copy_multireddit"), style: UIBarButtonItem.Style.plain, target: subredditTabBarController, action: #selector(SubredditTabBarController.copyMultireddit))
             return
         }
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItemStyle.plain, target: subredditTabBarController, action: #selector(SubredditTabBarController.composeTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItem.Style.plain, target: subredditTabBarController, action: #selector(SubredditTabBarController.composeTapped(_:)))
     }
 }

@@ -97,7 +97,7 @@ public class MarkdownString: NSObject, NSSecureCoding {
         for element in self.elements {
             var attributes = stylesheet.attributes[element.type]
             if let url = element.url {
-                attributes?[NSAttributedStringKey.link] = url
+                attributes?[.link] = url
             }
             
             if stylesheet.elementTypeExclusions?.contains(element.type) != true {
@@ -461,7 +461,7 @@ public class MarkdownString: NSObject, NSSecureCoding {
             let range = self.baseString.range(of: line)
             let lineElements = self.elements.filter({ $0.range.location == range.location })
             for lineElement in lineElements {
-                if let index = self.elements.index(of: lineElement), lineElement.range.length > lineString.length {
+                if let index = self.elements.firstIndex(of: lineElement), lineElement.range.length > lineString.length {
                     var newElement = MarkdownElement(range: NSRange(location: lineElement.range.location, length: lineString.length), startIndexOffset: 0, type: lineElement.type)
                     newElement.isLineElement = lineElement.isLineElement
                     newElement.url = lineElement.url

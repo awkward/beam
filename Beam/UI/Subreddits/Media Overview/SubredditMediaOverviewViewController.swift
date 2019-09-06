@@ -130,7 +130,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         
         self.sortingBar.items = [AWKLocalizedString("hot"), AWKLocalizedString("new"), AWKLocalizedString("rising"), AWKLocalizedString("controversial"), AWKLocalizedString("top")]
         self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.subreddit?.mediaSortType ?? .hot)
-        self.sortingBar.addTarget(self, action: #selector(SubredditMediaOverviewViewController.sortingBarItemTapped(_:)), for: UIControlEvents.valueChanged)
+        self.sortingBar.addTarget(self, action: #selector(SubredditMediaOverviewViewController.sortingBarItemTapped(_:)), for: UIControl.Event.valueChanged)
         
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.settingDidChange(_:)), name: .SubredditNSFWOverlaySettingDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditMediaOverviewViewController.settingDidChange(_:)), name: .SubredditSpoilerOverlaySettingDidChange, object: nil)
@@ -270,7 +270,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
     }
     
     fileprivate func showTimeFrameActionSheet(_ sortType: CollectionSortType, sortingBar: ScrollableButtonBar) {
-        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisHour)
@@ -381,7 +381,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         
         gallery.currentItem = mediaItem.galleryItem
         
-        gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItemStyle.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
+        gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItem.Style.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
         
         return gallery
     }
@@ -410,7 +410,7 @@ extension SubredditMediaOverviewViewController: UICollectionViewDataSource {
     }
     
     func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        if kind == UICollectionElementKindSectionFooter {
+        if kind == UICollectionView.elementKindSectionFooter {
             let view = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: "loader", for: indexPath) as! CollectionViewLoaderFooterView
             return view
         }

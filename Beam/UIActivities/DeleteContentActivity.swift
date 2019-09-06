@@ -15,8 +15,8 @@ internal class DeleteContentActivity<T: Content>: CustomObjectActivity<T> {
         return "content"
     }
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.delete-\(self.contentType)")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.delete-\(self.contentType)")
     }
     
     override var activityTitle: String? {
@@ -38,9 +38,9 @@ internal class DeleteContentActivity<T: Content>: CustomObjectActivity<T> {
         guard AppDelegate.shared.authenticationController.isAuthenticated, let content = self.object else {
             return nil
         }
-        let alertController = BeamAlertController(title: AWKLocalizedString("delete-\(self.contentType)-title"), message: AWKLocalizedString("delete-\(self.contentType)-message"), preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = BeamAlertController(title: AWKLocalizedString("delete-\(self.contentType)-title"), message: AWKLocalizedString("delete-\(self.contentType)-message"), preferredStyle: UIAlertController.Style.alert)
         alertController.addCancelAction()
-        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
+        alertController.addAction(UIAlertAction(title: AWKLocalizedString("delete-button"), style: UIAlertAction.Style.destructive, handler: { (_) in
             let operations = content.deleteOperations(AppDelegate.shared.authenticationController)
             DataController.shared.executeAndSaveOperations(operations, context: AppDelegate.shared.managedObjectContext, handler: { (error: Error?) -> Void in
                 DispatchQueue.main.async(execute: { () -> Void in

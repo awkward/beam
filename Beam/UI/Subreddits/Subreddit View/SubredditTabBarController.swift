@@ -175,7 +175,7 @@ class SubredditTabBarController: SmallTabBarController {
         if mediaViewController == nil {
             // Remove the media view controllers
             for mediaView in mediaNavigationControllers {
-                if let index = viewControllers.index(of: mediaView) {
+                if let index = viewControllers.firstIndex(of: mediaView) {
                     self.viewControllers?.remove(at: index)
                     shouldSelectMediaView = self.selectedIndex == mediaViewIndex
                 }
@@ -273,17 +273,17 @@ class SubredditTabBarController: SmallTabBarController {
             self.present(UIAlertController.unauthenticatedAlertController(UnauthenticatedAlertType.CreatePost), animated: true, completion: nil)
             return
         }
-        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         if self.subreddit?.submissionType.canPostSelfText == true {
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-text-post-button"), style: UIAlertActionStyle.default, handler: { (_) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-text-post-button"), style: UIAlertAction.Style.default, handler: { (_) in
                 self.showCreatePost("create-text-post")
             }))
         }
         if self.subreddit?.submissionType.canPostLink == true {
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-link-post-button"), style: UIAlertActionStyle.default, handler: { (_) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-link-post-button"), style: UIAlertAction.Style.default, handler: { (_) in
                 self.showCreatePost("create-link-post")
             }))
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-image-post-button"), style: UIAlertActionStyle.default, handler: { (_) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("create-image-post-button"), style: UIAlertAction.Style.default, handler: { (_) in
                 self.showCreatePost("create-image-post")
             }))
         }

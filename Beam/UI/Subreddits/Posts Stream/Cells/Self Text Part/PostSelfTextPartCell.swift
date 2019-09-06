@@ -17,7 +17,7 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
         if !self.showsSummary {
             return MarkdownStylesheet.beamSelfPostStyleSheet(self.displayMode == .dark)
         }
-        return MarkdownStylesheet.beamStyleSheet(UIFontTextStyle.footnote, darkmode: self.displayMode == .dark)
+        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.footnote, darkmode: self.displayMode == .dark)
     }
     
     var onDetailView: Bool = false {

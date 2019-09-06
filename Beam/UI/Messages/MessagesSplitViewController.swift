@@ -107,8 +107,8 @@ extension MessagesSplitViewController: UISplitViewControllerDelegate {
         return navigationController
     }
     
-    func targetDisplayModeForAction(in svc: UISplitViewController) -> UISplitViewControllerDisplayMode {
-        return UISplitViewControllerDisplayMode.automatic
+    func targetDisplayModeForAction(in svc: UISplitViewController) -> UISplitViewController.DisplayMode {
+        return UISplitViewController.DisplayMode.automatic
     }
     
     func splitViewControllerSupportedInterfaceOrientations(_ splitViewController: UISplitViewController) -> UIInterfaceOrientationMask {

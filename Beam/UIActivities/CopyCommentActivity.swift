@@ -14,8 +14,8 @@ final class CopyCommentActivity: CustomObjectActivity<Comment> {
 
     fileprivate var comment: Comment?
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.copy-comment")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.copy-comment")
     }
     
     override var activityTitle: String? {

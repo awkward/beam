@@ -28,7 +28,7 @@ class BeamTableViewCell: UITableViewCell, DynamicDisplayModeView {
         
         if self.window != nil {
             self.selectedBackgroundView = UIView(frame: bounds)
-            self.selectedBackgroundView?.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+            self.selectedBackgroundView?.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
             self.registerForDisplayModeChangeNotifications()
         } else {
             self.selectedBackgroundView = nil

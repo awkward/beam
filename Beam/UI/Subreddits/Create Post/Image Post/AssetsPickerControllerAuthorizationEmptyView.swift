@@ -22,7 +22,7 @@ class AssetsPickerControllerAuthorizationEmptyView: BeamView {
     fileprivate func reloadContents() {
         self.titleLabel.text = AWKLocalizedString("assets-picker-no-access-title")
         self.descriptionLabel.text = AWKLocalizedString("assets-picker-no-access-message")
-        self.settingsButton.setTitle(AWKLocalizedString("go-to-settings-button"), for: UIControlState())
+        self.settingsButton.setTitle(AWKLocalizedString("go-to-settings-button"), for: UIControl.State())
     }
     
     override func displayModeDidChange() {
@@ -33,7 +33,12 @@ class AssetsPickerControllerAuthorizationEmptyView: BeamView {
     }
     
     @IBAction func openSettingsTapped(_ sender: AnyObject) {
-        UIApplication.shared.open(URL(string: UIApplicationOpenSettingsURLString)!, options: [:], completionHandler: nil)
+        UIApplication.shared.open(URL(string: UIApplication.openSettingsURLString)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
     }
 
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

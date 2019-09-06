@@ -206,7 +206,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
             return nil
         }
         for (sectionIdx, section) in content.enumerated() {
-            if let rowIndex = section.subreddits.index(where: { (object) -> Bool in
+            if let rowIndex = section.subreddits.firstIndex(where: { (object) -> Bool in
                 return object == subreddit
             }) {
                 return IndexPath(row: rowIndex, section: sectionIdx)
@@ -217,7 +217,7 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
     
     // MARK: - Lifecycle
     
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style)
         
         self.setupViewController()
@@ -471,7 +471,7 @@ extension SubredditsViewController {
     
     override func tableView(_ tableView: UITableView, sectionForSectionIndexTitle title: String, at index: Int) -> Int {
         let sectionIndexTitles = self.sectionIndexTitles(for: tableView)
-        return sectionIndexTitles?.index(of: title) ?? 0
+        return sectionIndexTitles?.firstIndex(of: title) ?? 0
     }
     
 }
@@ -587,11 +587,11 @@ extension SubredditsViewController {
         return false
     }
     
-    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    override func tableView(_ tableView: UITableView, editingStyleForRowAt indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if tableView.isEditing {
             return .none
         }
-        return UITableViewCellEditingStyle.delete
+        return UITableViewCell.EditingStyle.delete
     }
     
     override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
@@ -654,23 +654,23 @@ extension SubredditsViewController {
             if let newIndexPath: IndexPath = self.indexPathForSubreddit(subreddit) {
                 let newSection: SubredditsViewControllerSection = newContent[(newIndexPath as IndexPath).section]
                 if previousSection.subreddits.count == 1 && newSection.subreddits.count == 1 {
-                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
-                    self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
+                    self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
                 } else if previousSection.subreddits.count == 1 && newSection.subreddits.count > 1 {
-                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
-                    self.tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
+                    self.tableView.insertRows(at: [newIndexPath], with: UITableView.RowAnimation.fade)
                 } else if previousSection.subreddits.count > 1 && newSection.subreddits.count == 1 {
-                    self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-                    self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+                    self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
                 } else {
-                    self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-                    self.tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+                    self.tableView.insertRows(at: [newIndexPath], with: UITableView.RowAnimation.fade)
                 }
             } else {
                 if previousSection.subreddits.count == 1 {
-                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
                 } else {
-                    self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
                 }
             }
             
@@ -695,7 +695,7 @@ extension SubredditsViewController {
         
         if !subreddit.isPrepopulated {
             let unsubscribeAction = UIContextualAction(style: .destructive, title: AWKLocalizedString("unsubscribe-button"), handler: { (_, _, callback) in
-                guard let subreddits = self.content?[indexPath.section].subreddits, let index = subreddits.index(of: subreddit), !subreddit.isPrepopulated else {
+                guard let subreddits = self.content?[indexPath.section].subreddits, let index = subreddits.firstIndex(of: subreddit), !subreddit.isPrepopulated else {
                     callback(false)
                     return
                 }
@@ -778,23 +778,23 @@ extension SubredditsViewController: SubredditTableViewCellDelegate {
         if let newIndexPath: IndexPath = self.indexPathForSubreddit(subreddit) {
             let newSection: SubredditsViewControllerSection = newContent[(newIndexPath as IndexPath).section]
             if previousSection.subreddits.count == 1 && newSection.subreddits.count == 1 {
-                self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
-                self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
+                self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
             } else if previousSection.subreddits.count == 1 && newSection.subreddits.count > 1 {
-                self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
-                self.tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
+                self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
+                self.tableView.insertRows(at: [newIndexPath], with: UITableView.RowAnimation.fade)
             } else if previousSection.subreddits.count > 1 && newSection.subreddits.count == 1 {
-                self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-                self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+                self.tableView.insertSections(IndexSet(integer: (newIndexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
             } else {
-                self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
-                self.tableView.insertRows(at: [newIndexPath], with: UITableViewRowAnimation.fade)
+                self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
+                self.tableView.insertRows(at: [newIndexPath], with: UITableView.RowAnimation.fade)
             }
         } else {
             if previousSection.subreddits.count == 1 {
-                self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableViewRowAnimation.fade)
+                self.tableView.deleteSections(IndexSet(integer: (indexPath as IndexPath).section), with: UITableView.RowAnimation.fade)
             } else {
-                self.tableView.deleteRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                self.tableView.deleteRows(at: [indexPath], with: UITableView.RowAnimation.fade)
             }
         }
         

@@ -167,7 +167,7 @@ public final class Post: Content {
         
         if visitedChanged && save {
             //We don't care if there was an error, since isVisited is just an extra feature and not important
-            try? self.managedObjectContext?.save()
+            ((try? self.managedObjectContext?.save()) as ()??)
             
             NotificationCenter.default.post(name: .PostDidChangeVisitedState, object: self)
             //Send the visit of to the server queue for goldmembers

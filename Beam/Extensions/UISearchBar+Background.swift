@@ -21,9 +21,9 @@ extension UISearchBar {
             placeholderText = searchTextField?.attributedPlaceholder?.string ?? "Search"
         }
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        searchTextField?.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        searchTextField?.attributedPlaceholder = NSAttributedString(string: placeholderText, attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         
-        self.setImage(UISearchBar.searchIconWithColor(placeholderColor), for: .search, state: UIControlState())
+        self.setImage(UISearchBar.searchIconWithColor(placeholderColor), for: .search, state: UIControl.State())
         self.searchTextPositionAdjustment = UIOffset(horizontal: 8, vertical: 0)
         
         self.keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
@@ -35,7 +35,7 @@ extension UISearchBar {
         self.tintColor = DisplayModeValue(UIColor.beamPurple(), darkValue: UIColor.beamPurpleLight())
         
         let searchFieldBackgroundImage = UISearchBar.searchFieldBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.white.withAlphaComponent(0.1)))
-        self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControlState())
+        self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControl.State())
         
         let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor()), seperatorColor: DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1)))
         self.setBackgroundImage(searchBarBackgroundImage, for: .any, barMetrics: .default)
@@ -58,13 +58,13 @@ extension UISearchBar {
         
         if AppDelegate.shared.displayModeController.currentMode == .dark {
             let searchFieldBackgroundImage = UISearchBar.searchFieldBackgroundImageWithBackgroundColor(UIColor.white.withAlphaComponent(0.1))
-            self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControlState())
+            self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControl.State())
             
             let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(UIColor.beamDarkContentBackgroundColor(), seperatorColor: UIColor(red: 0.24, green: 0.24, blue: 0.24, alpha: 1))
             self.setBackgroundImage(searchBarBackgroundImage, for: .any, barMetrics: .default)
             self.scopeBarBackgroundImage = searchBarBackgroundImage
         } else {
-            self.setSearchFieldBackgroundImage(nil, for: UIControlState())
+            self.setSearchFieldBackgroundImage(nil, for: UIControl.State())
             self.setBackgroundImage(nil, for: .any, barMetrics: .default)
         }
         
@@ -73,7 +73,7 @@ extension UISearchBar {
     func applyBeamNavigationBarStyle() {
         self.applyBeamStyle()
         let searchFieldBackgroundImage = UISearchBar.searchFieldBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.white.withAlphaComponent(0.1)))
-        self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControlState())
+        self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControl.State())
     }
     
     class func searchFieldBackgroundImageWithBackgroundColor(_ backgroundColor: UIColor = UIColor.white) -> UIImage? {

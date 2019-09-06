@@ -21,7 +21,7 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
     weak var delegate: MessageObjectCellDelegate?
 
     fileprivate var contentStylesheet: MarkdownStylesheet {
-        return MarkdownStylesheet.beamStyleSheet(UIFontTextStyle.footnote, darkmode: self.displayMode == .dark)
+        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.footnote, darkmode: self.displayMode == .dark)
     }
     
     var message: Message? {
@@ -42,10 +42,10 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
         let typeTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
         
         if let author = self.message?.author {
-            let authorAttributedString = NSMutableAttributedString(string: author, attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: textFont])
+            let authorAttributedString = NSMutableAttributedString(string: author, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: textFont])
             if let typeString = self.message?.subject {
                 let string = " · \(typeString)"
-                authorAttributedString.append(NSAttributedString(string: string, attributes: [NSAttributedStringKey.foregroundColor: typeTextColor, NSAttributedStringKey.font: typeTextFont]))
+                authorAttributedString.append(NSAttributedString(string: string, attributes: [NSAttributedString.Key.foregroundColor: typeTextColor, NSAttributedString.Key.font: typeTextFont]))
             }
             return authorAttributedString
         }
@@ -69,7 +69,7 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.authorButton.addTarget(self, action: #selector(NotificationCell.authorTapped(_:)), for: UIControlEvents.touchUpInside)
+        self.authorButton.addTarget(self, action: #selector(NotificationCell.authorTapped(_:)), for: UIControl.Event.touchUpInside)
     }
     
     @objc fileprivate func authorTapped(_ sender: AnyObject) {
@@ -85,7 +85,7 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
         self.unreadIndicator.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
         self.metadataLabel.textColor = DisplayModeValue(UIColor.black.withAlphaComponent(0.5), darkValue: UIColor.white.withAlphaComponent(0.5))
 
-        self.authorButton.setAttributedTitle(self.authorText, for: UIControlState())
+        self.authorButton.setAttributedTitle(self.authorText, for: UIControl.State())
         
         self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
         self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)

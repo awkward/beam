@@ -212,8 +212,8 @@ class CreateImagePostViewController: CreatePostViewController {
     
     func updatePlaceholders() {
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: self.images.count > 1 ? AWKLocalizedString("album-title-placeholder") : AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
-        self.descriptionTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.titleTextField?.attributedPlaceholder = NSAttributedString(string: self.images.count > 1 ? AWKLocalizedString("album-title-placeholder") : AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
+        self.descriptionTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
     }
     
     // MARK: - Layout
@@ -468,7 +468,7 @@ class CreateImagePostViewController: CreatePostViewController {
     
     // MARK: Notifications
     
-    override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIViewAnimationOptions) {
+    override func keyboardDidChangeFrame(_ frame: CGRect, animationDuration: TimeInterval, animationCurveOption: UIView.AnimationOptions) {
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
             //ANIMATE
             
@@ -558,7 +558,7 @@ extension CreateImagePostViewController: UICollectionViewDelegateFlowLayout {
     }
     
     @objc(collectionView: moveItemAtIndexPath:toIndexPath:) func collectionView(_ collectionView: UICollectionView, moveItemAt sourceIndexPath: IndexPath, to destinationIndexPath: IndexPath) {
-        if let image = self.imageForIndexPath(sourceIndexPath), let sourceIndex = self.images.index(of: image) {
+        if let image = self.imageForIndexPath(sourceIndexPath), let sourceIndex = self.images.firstIndex(of: image) {
             let destinationIndex = (destinationIndexPath as IndexPath).item
             self.images.remove(at: sourceIndex)
             self.images.insert(image, at: destinationIndex)
@@ -616,7 +616,7 @@ extension CreateImagePostViewController: UICollectionViewDataSource {
 extension CreateImagePostViewController: ImageAssetCollectionViewCellDelegate {
     
     func imageAssetCell(didTapRemoveOnCell cell: ImageAssetCollectionViewCell, image: ImageAsset) {
-        if let index = self.images.index(of: image) {
+        if let index = self.images.firstIndex(of: image) {
             self.images.remove(at: index)
             self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])
@@ -641,7 +641,7 @@ extension CreateImagePostViewController: AssetsPickerControllerDelegate {
         
         var newIndexes = [IndexPath]()
         for image in newImages {
-            if let index = self.images.index(of: image) {
+            if let index = self.images.firstIndex(of: image) {
                 newIndexes.append(IndexPath(item: index, section: 0))
             }
         }
@@ -678,7 +678,7 @@ extension CreateImagePostViewController: AssetsPickerControllerDelegate {
 extension CreateImagePostViewController: ImageEditViewControllerDelegate {
     
     func editViewController(_ editViewController: ImageEditViewController, didTapRemoveOnImage image: ImageAsset) {
-        if let index = self.images.index(of: image) {
+        if let index = self.images.firstIndex(of: image) {
             self.images.remove(at: index)
             self.collectionView.performBatchUpdates({
                 self.collectionView.deleteItems(at: [IndexPath(item: index, section: 0)])

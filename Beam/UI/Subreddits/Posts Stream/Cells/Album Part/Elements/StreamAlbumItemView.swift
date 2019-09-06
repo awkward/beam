@@ -86,7 +86,7 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
         self.mediaImageView.clipsToBounds = true
         self.mediaImageView.isOpaque = true
         self.mediaImageView.backgroundColor = UIColor.white
-        self.mediaImageView.contentMode = UIViewContentMode.scaleAspectFill
+        self.mediaImageView.contentMode = UIView.ContentMode.scaleAspectFill
         self.addSubview(self.mediaImageView)
         self.addSubview(self.progressView)
     }
@@ -142,7 +142,7 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
     
     fileprivate func createEffectView() {
         if self.blurEffectView == nil {
-            let effect = UIBlurEffect(style: UIBlurEffectStyle.dark)
+            let effect = UIBlurEffect(style: UIBlurEffect.Style.dark)
             let effectView = UIVisualEffectView(effect: effect)
             self.addSubview(effectView)
             self.blurEffectView = effectView

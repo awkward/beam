@@ -112,7 +112,7 @@ class CommentLinkPreviewView: BeamControl {
     lazy fileprivate var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.isOpaque = true
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -311,7 +311,7 @@ class CommentLinkPreviewView: BeamControl {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 50)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 50)
     }
     
 }

@@ -25,7 +25,7 @@ extension UIAlertController {
         let key = type.rawValue
         let title = AWKLocalizedString("\(key)-login-required")
         let message = AWKLocalizedString("\(key)-login-required-message")
-        let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
+        let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
         alertController.addCancelAction()
         
         alertController.addAction(UIAlertAction(title: AWKLocalizedString("login"), style: .default, handler: { (_) -> Void in

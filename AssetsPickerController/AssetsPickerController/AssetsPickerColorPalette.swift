@@ -29,8 +29,8 @@ open class AssetsPickerColorPalette: NSObject {
     
     public var cameraIconColor = UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00)
     
-    internal var titleTextAttributes: [NSAttributedStringKey: Any] {
-        return [NSAttributedStringKey.foregroundColor: self.titleColor]
+    internal var titleTextAttributes: [NSAttributedString.Key: Any] {
+        return [NSAttributedString.Key.foregroundColor: self.titleColor]
     }
 }
 

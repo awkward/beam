@@ -36,7 +36,7 @@ import UIKit
         }
     }
     
-    @objc public var direction = UILayoutConstraintAxis.vertical {
+    @objc public var direction = NSLayoutConstraint.Axis.vertical {
         didSet {
             if self.direction == .vertical {
                 self.gradientLayer.startPoint = CGPoint(x: 0.5, y: 0)

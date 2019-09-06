@@ -45,7 +45,7 @@ public class ImgurUploadRequest: ImgurRequest {
                 }
             })
         } else if let image = self.image {
-            self.startUpload(UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpeg", completionHandler: completionHandler)
+            self.startUpload(image.jpegData(compressionQuality: 1.0)!, mimeType: "image/jpeg", completionHandler: completionHandler)
         } else {
             fatalError("Image missing!")
         }

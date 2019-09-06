@@ -23,7 +23,7 @@ final class PostVideoPartCell: UITableViewCell, PostCell, MediaImageLoader {
     
     lazy private var playIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = UIViewContentMode.center
+        imageView.contentMode = UIView.ContentMode.center
         imageView.isOpaque = false
         imageView.clipsToBounds = true
         imageView.image = #imageLiteral(resourceName: "video_play_external")
@@ -67,7 +67,7 @@ final class PostVideoPartCell: UITableViewCell, PostCell, MediaImageLoader {
         self.setupView()
     }
     
-    override init(style: UITableViewCellStyle, reuseIdentifier: String?) {
+    override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
         setupView()

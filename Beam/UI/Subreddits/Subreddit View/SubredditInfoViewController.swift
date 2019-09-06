@@ -82,12 +82,12 @@ enum SubredditInfoRowType {
         }
     }
     
-    var accessoryType: UITableViewCellAccessoryType {
+    var accessoryType: UITableViewCell.AccessoryType {
         switch self {
         case SubredditInfoRowType.displayOptions, SubredditInfoRowType.contentFiltering:
-            return UITableViewCellAccessoryType.disclosureIndicator
+            return UITableViewCell.AccessoryType.disclosureIndicator
         default:
-            return UITableViewCellAccessoryType.none
+            return UITableViewCell.AccessoryType.none
         }
     }
     
@@ -197,12 +197,12 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
         
         self.updateNavigationItem()
 
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 44
         
-        self.privacyOverlaySwitch.addTarget(self, action: #selector(SubredditInfoViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
-        self.spoilerOverlaySwitch.addTarget(self, action: #selector(SubredditInfoViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
-        self.privateSwitch.addTarget(self, action: #selector(SubredditInfoViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
+        self.privacyOverlaySwitch.addTarget(self, action: #selector(SubredditInfoViewController.switchChanged(_:)), for: UIControl.Event.valueChanged)
+        self.spoilerOverlaySwitch.addTarget(self, action: #selector(SubredditInfoViewController.switchChanged(_:)), for: UIControl.Event.valueChanged)
+        self.privateSwitch.addTarget(self, action: #selector(SubredditInfoViewController.switchChanged(_:)), for: UIControl.Event.valueChanged)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -403,7 +403,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
         case SubredditInfoRowType.openInSafari:
             if let subredditPermalink = self.subreddit?.permalink {
                 let urlString = "https://\((AppDelegate.shared.authenticationController.configuration.regularHost as NSString).appendingPathComponent(subredditPermalink))"
-                UIApplication.shared.open(URL(string: urlString as String)!, options: [:], completionHandler: nil)
+                UIApplication.shared.open(URL(string: urlString as String)!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             }
         default:
             break
@@ -451,7 +451,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
                 
                 DispatchQueue.main.async(execute: { () -> Void in
                     if let error = error {
-                        let alertController = BeamAlertController(title: AWKLocalizedString("multireddit-change-visibility-failed"), message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                        let alertController = BeamAlertController(title: AWKLocalizedString("multireddit-change-visibility-failed"), message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                         alertController.addCancelAction()
                     }
                 })
@@ -500,8 +500,8 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
     func confirmUnsubscribe(at indexPath: IndexPath) {
         let name = self.subreddit?.displayName ?? AWKLocalizedString("subreddit")
         let title = AWKLocalizedString("unsubscribe_subreddit_confirm").replacingOccurrences(of: "[SUBREDDIT]", with: name)
-        let confirmSheet = BeamAlertController(title: title as String, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
-        confirmSheet.addAction(UIAlertAction(title: AWKLocalizedString("unsubscribe-button"), style: UIAlertActionStyle.destructive, handler: { (_) -> Void in
+        let confirmSheet = BeamAlertController(title: title as String, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
+        confirmSheet.addAction(UIAlertAction(title: AWKLocalizedString("unsubscribe-button"), style: UIAlertAction.Style.destructive, handler: { (_) -> Void in
             self.unsubscribe()
         }))
         confirmSheet.addCancelAction()
@@ -550,7 +550,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
                     AWKDebugLog("Could not delete multireddit: \(error)")
                     let name = multireddit.displayName ?? AWKLocalizedString("multireddit")
                     let alertTitle = AWKLocalizedString("multireddit-delete-failure").replacingOccurrences(of: "[MULTIREDDIT]", with: name)
-                    let alert = BeamAlertController(title: alertTitle as String, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                    let alert = BeamAlertController(title: alertTitle as String, message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                     alert.addCancelAction()
                     alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: .default, handler: { (_) -> Void in
                         self.deleteMultireddit(multireddit)
@@ -568,9 +568,9 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
         if let multireddit = self.subreddit as? Multireddit {
             let name = multireddit.displayName ?? AWKLocalizedString("multireddit")
             let alertMessage = AWKLocalizedString("multireddit-delete-sure-message").replacingOccurrences(of: "[MULTIREDDIT]", with: name)
-            let alert = BeamAlertController(title: nil, message: alertMessage as String, preferredStyle: UIAlertControllerStyle.actionSheet)
+            let alert = BeamAlertController(title: nil, message: alertMessage as String, preferredStyle: UIAlertController.Style.actionSheet)
             alert.addCancelAction()
-            alert.addAction(UIAlertAction(title: AWKLocalizedString("delete"), style: UIAlertActionStyle.destructive, handler: { (_) -> Void in
+            alert.addAction(UIAlertAction(title: AWKLocalizedString("delete"), style: UIAlertAction.Style.destructive, handler: { (_) -> Void in
                 SubredditInfoViewController.deleteMultireddit(multireddit)
                 self.navigationController?.dismiss(animated: true, completion: nil)
             }))
@@ -669,4 +669,9 @@ extension SubredditInfoViewController: SubredditInfoDescriptionCellDelegate {
         self.tableView.endUpdates()
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

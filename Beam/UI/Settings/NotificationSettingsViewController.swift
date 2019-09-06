@@ -19,19 +19,19 @@ class NotificationSettingsViewController: BeamTableViewController {
     
     lazy var messagesSwitch: UISwitch = {
         let switchControl = UISwitch()
-        switchControl.addTarget(self, action: #selector(NotificationSettingsViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
+        switchControl.addTarget(self, action: #selector(NotificationSettingsViewController.switchChanged(_:)), for: UIControl.Event.valueChanged)
         return switchControl
     }()
     
     lazy var shopSwitch: UISwitch = {
         let switchControl = UISwitch()
-        switchControl.addTarget(self, action: #selector(NotificationSettingsViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
+        switchControl.addTarget(self, action: #selector(NotificationSettingsViewController.switchChanged(_:)), for: UIControl.Event.valueChanged)
         return switchControl
     }()
     
     lazy var announcementsSwitch: UISwitch = {
         let switchControl = UISwitch()
-        switchControl.addTarget(self, action: #selector(NotificationSettingsViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
+        switchControl.addTarget(self, action: #selector(NotificationSettingsViewController.switchChanged(_:)), for: UIControl.Event.valueChanged)
         return switchControl
     }()
 

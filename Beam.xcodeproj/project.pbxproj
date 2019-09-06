@@ -427,7 +427,6 @@
 		0CF9B76F1CB2612A00B0431C /* ImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF9B76E1CB2612A00B0431C /* ImageEditViewController.swift */; };
 		0CFAA84E1E01925100CB9154 /* User+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAA84D1E01925100CB9154 /* User+Operations.swift */; };
 		0CFAA8681E019BD600CB9154 /* RedditMessageComposeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAA8671E019BD600CB9154 /* RedditMessageComposeRequest.swift */; };
-		0CFD00211F1F6748008B805D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C87F9D81E4A00540091378B /* Settings.swift */; };
 		0CFD4AD6211D969100CD1C59 /* PostMediaParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD4AD5211D969100CD1C59 /* PostMediaParser.swift */; };
 		0CFD4AEA211D975500CD1C59 /* PostRedditMediaParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD4AE9211D975500CD1C59 /* PostRedditMediaParser.swift */; };
 		0CFE5AEB1C08A43A009DF1CE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CFE5AEA1C08A43A009DF1CE /* AudioToolbox.framework */; };
@@ -3084,6 +3083,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				fr,
@@ -3581,7 +3581,6 @@
 				0C056FE31D82BE6100E32FB3 /* Authentication.swift in Sources */,
 				0C056FE61D82BE6100E32FB3 /* Subreddits.swift in Sources */,
 				0C056FE81D82BE6100E32FB3 /* TestController.swift in Sources */,
-				0CFD00211F1F6748008B805D /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4110,6 +4109,7 @@
 		0C24FE9F1D82B7BE00CCBF93 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;
@@ -4126,6 +4126,7 @@
 		0C24FEA01D82B7BE00CCBF93 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;

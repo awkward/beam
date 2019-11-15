@@ -415,6 +415,8 @@
 
 "stickied-post" = "stickied post";
 
+"stickied-comment" = "stickied comment";
+
 "archived-error-message" = "This post has been archived and can no longer be up or downvoted";
 
 "locked-error-message" = "This post has been locked and can no longer be up or downvoted";

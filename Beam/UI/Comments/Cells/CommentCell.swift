@@ -88,6 +88,7 @@ class CommentCell: BaseCommentCell {
     @IBOutlet fileprivate weak var authorButton: BeamPlainButton!
     @IBOutlet weak var contentLabel: TTTAttributedLabel!
     @IBOutlet fileprivate weak var metadataLabel: UILabel!
+    @IBOutlet fileprivate weak var stickiedLabel: UILabel!
     @IBOutlet fileprivate weak var flairLabel: UILabel!
     
     @IBOutlet fileprivate weak var gildCountSeperatorView: PostMetdataSeperatorView!
@@ -215,6 +216,7 @@ class CommentCell: BaseCommentCell {
         self.gildCountView.alpha = alphaValue
         self.authorButton.alpha = alphaValue
         self.metadataLabel.alpha = alphaValue
+        self.stickiedLabel.alpha = alphaValue
         self.flairLabel.alpha = alphaValue
         self.gildCountSeperatorView.alpha = alphaValue
         self.flairLabelSeperatorView.alpha = alphaValue
@@ -235,14 +237,24 @@ class CommentCell: BaseCommentCell {
         
         self.metadataLabel.backgroundColor = self.contentView.backgroundColor
         self.metadataLabel.isOpaque = true
-        
+
+        self.stickiedLabel.textColor = DisplayModeValue(UIColor(red: 68 / 255, green: 156 / 255, blue: 57 / 255, alpha: 1), darkValue: UIColor(red: 90 / 255, green: 156 / 255, blue: 81 / 255, alpha: 1))
+        self.stickiedLabel.text = "- " + AWKLocalizedString("stickied-comment")
+        self.stickiedLabel.backgroundColor = self.contentView.backgroundColor
+        self.stickiedLabel.isOpaque = true
+        self.stickiedLabel.isHidden = true
+
+        if let stickied = self.comment?.stickied as? Bool, stickied {
+            self.stickiedLabel.isHidden = false
+        }
+
         self.flairLabel.textColor = UIColor(red: 0.52941, green: 0.62745, blue: 1.00000, alpha: 1.00000)
         self.flairLabel.backgroundColor = self.contentView.backgroundColor
         self.flairLabel.isOpaque = true
         
         self.reloadAuthorTextColor()
         self.reloadMetaData()
-        
+
         if self.isCollapsed == false {
             self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
             self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)

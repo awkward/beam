@@ -340,6 +340,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 var subreddits = try objectContext.fetch(fetchRequest)
                 subreddits.append(try Subreddit.frontpageSubreddit())
+                subreddits.append(try Subreddit.popularSubreddit())
                 subreddits.append(try Subreddit.allSubreddit())
                 
                 let searchableItems = subreddits.compactMap({ (subreddit) -> CSSearchableItem? in
@@ -449,7 +450,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             do {
                 let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName())
                 fetchRequest.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true), NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))), NSSortDescriptor(key: "identifier", ascending: true)]
-                fetchRequest.predicate = NSPredicate(format: "isBookmarked == YES && NOT (identifier IN %@)", [Subreddit.frontpageIdentifier, Subreddit.allIdentifier])
+                fetchRequest.predicate = NSPredicate(format: "isBookmarked == YES && NOT (identifier IN %@)", [Subreddit.frontpageIdentifier, Subreddit.popularIdentifier, Subreddit.allIdentifier])
                 fetchRequest.fetchLimit = 3
                 subreddits = try objectContext.fetch(fetchRequest)
                 let frontpage = try Subreddit.frontpageSubreddit()
@@ -478,12 +479,14 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
             self.changeActiveTabContent(AppTabContent.MessagesNavigation)
         case AppLaunchView.Profile:
             self.changeActiveTabContent(AppTabContent.ProfileNavigation)
-        case AppLaunchView.Frontpage, AppLaunchView.All, AppLaunchView.LastVisitedSubreddit:
+        case AppLaunchView.Frontpage, AppLaunchView.Popular, AppLaunchView.All, AppLaunchView.LastVisitedSubreddit:
             self.changeActiveTabContent(AppTabContent.SubscriptionsNavigation)
             var subreddit: Subreddit?
             do {
                 if appOpenView == AppLaunchView.Frontpage {
                     subreddit = try Subreddit.frontpageSubreddit()
+                } else if appOpenView == AppLaunchView.Popular {
+                    subreddit = try Subreddit.popularSubreddit()
                 } else if appOpenView == AppLaunchView.All {
                     subreddit = try Subreddit.allSubreddit()
                 } else if appOpenView == AppLaunchView.LastVisitedSubreddit {

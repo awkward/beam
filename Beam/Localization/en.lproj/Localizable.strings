@@ -345,6 +345,8 @@
 
 "frontpage-description" = "All subscriptions combined";
 
+"popular-description" = "Most popular posts on Reddit";
+
 "all-description" = "Everything on reddit";
 
 "random-description" = "Gives a random subreddit";
@@ -859,6 +861,9 @@
 /* The name for the subreddit "Frontpage" on reddit. PLEASE USE THE REDDIT TERM FOR THIS! */
 "subreddit-frontpage" = "Frontpage";
 
+/* The name for the subreddit "Popular" on reddit. PLEASE USE THE REDDIT TERM FOR THIS! */
+"subreddit-popular" = "Popular";
+
 /* Multireddits
  The following strings have a relation to multiredditsA message displayed when the app couldn't download your list of multireddits */
 "could-not-fetch-multireddits" = "Could not fetch multireddits";
@@ -1316,6 +1321,8 @@
 "app-open-option-last-visited-subreddit" = "Last visited subreddit";
 
 "app-open-option-frontpage" = "Frontpage";
+
+"app-open-option-popular" = "Popular";
 
 "app-open-option-all" = "All";
 

@@ -44,6 +44,8 @@ class SubredditListTableViewCell: BeamTableViewCell {
         var subtitle: String?
         if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
             subtitle = "\n\(AWKLocalizedString("frontpage-description"))"
+        } else if self.subreddit?.identifier == Subreddit.popularIdentifier {
+            subtitle = "\n\(AWKLocalizedString("popular-description"))"
         } else if self.subreddit?.identifier == Subreddit.allIdentifier {
             subtitle = "\n\(AWKLocalizedString("all-description"))"
         } else if self.subreddit?.isUserAuthorized != true {

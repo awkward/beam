@@ -55,6 +55,8 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
                 subredditName = "Frontpage"
             } else if self.subreddit?.identifier == Subreddit.allIdentifier {
                 subredditName = "All"
+            } else if self.subreddit?.identifier == Subreddit.popularIdentifier {
+                subredditName = "Popular"
             } else {
                 
             }

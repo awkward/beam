@@ -374,7 +374,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         toolbar?.toolbarView.delegate = self
         toolbar?.metadataView.delegate = self
         
-        let shouldShowSubreddit = (self.subreddit is Multireddit || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier) && UserSettings[.showPostMetadataSubreddit] && UserSettings[.showPostMetadata]
+        let shouldShowSubreddit = (self.subreddit is Multireddit || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier || self.subreddit?.identifier == Subreddit.popularIdentifier) && UserSettings[.showPostMetadataSubreddit] && UserSettings[.showPostMetadata]
         toolbar?.shouldShowSubreddit = shouldShowSubreddit
         
         gallery.bottomView = toolbar

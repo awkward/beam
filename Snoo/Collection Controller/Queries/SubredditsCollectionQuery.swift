@@ -69,10 +69,10 @@ public final class SubredditsCollectionQuery: CollectionQuery {
         }
         
         let frontpage = try Subreddit.frontpageSubreddit()
-        
+        let popular = try Subreddit.popularSubreddit()
         let all = try Subreddit.allSubreddit()
         
-        return try super.prepopulate(context) + [frontpage, all]
+        return try super.prepopulate(context) + [frontpage, popular, all]
     }
     
     override func contentPredicates() -> [NSPredicate] {

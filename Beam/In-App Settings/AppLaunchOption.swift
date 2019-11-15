@@ -15,6 +15,7 @@ public enum AppLaunchView: String {
     case Messages = "messages"
     case Profile = "profile"
     case Frontpage = "frontpage"
+    case Popular = "popular"
     case All = "All"
     case LastVisitedSubreddit = "last_visited_subreddit"
 }
@@ -49,6 +50,7 @@ public struct AppLaunchOption: Equatable {
             "subreddit": [
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-last-visited-subreddit"), view: AppLaunchView.LastVisitedSubreddit),
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-frontpage"), view: AppLaunchView.Frontpage),
+                AppLaunchOption(title: AWKLocalizedString("app-open-option-popular"), view: AppLaunchView.Popular),
                 AppLaunchOption(title: AWKLocalizedString("app-open-option-all"), view: AppLaunchView.All)
             ]
         ]

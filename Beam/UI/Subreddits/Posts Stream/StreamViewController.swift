@@ -350,7 +350,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         guard let content: [Content] = list?.array as? [Content] else {
             return [Content]()
         }
-        let shouldFilterSubreddits: Bool = subreddit.identifier == Subreddit.allIdentifier || subreddit.identifier == Subreddit.frontpageIdentifier
+        let shouldFilterSubreddits: Bool = subreddit.identifier == Subreddit.allIdentifier || subreddit.identifier == Subreddit.frontpageIdentifier || subreddit.identifier == Subreddit.popularIdentifier
         let filteredContent: [Content] = content.filter { (content: Content) -> Bool in
             var postTitle: String?
             var subredditName: String?
@@ -531,9 +531,9 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             return false
         }
         if let subreddit = self.visibleSubreddit {
-            return subreddit is Multireddit || subreddit.identifier == Subreddit.frontpageIdentifier || subreddit.identifier == Subreddit.allIdentifier
+            return subreddit is Multireddit || subreddit.identifier == Subreddit.frontpageIdentifier || subreddit.identifier == Subreddit.allIdentifier || subreddit.identifier == Subreddit.popularIdentifier
         } else if let collection = self.collection as? PostCollection {
-            return collection.subreddit is Multireddit || collection.subreddit?.identifier == Subreddit.frontpageIdentifier || collection.subreddit?.identifier == Subreddit.allIdentifier || self.subreddit == nil
+            return collection.subreddit is Multireddit || collection.subreddit?.identifier == Subreddit.frontpageIdentifier || collection.subreddit?.identifier == Subreddit.allIdentifier || collection.subreddit?.identifier == Subreddit.popularIdentifier || self.subreddit == nil
         }
         return UserSettings[.showPostMetadataSubreddit]
     }

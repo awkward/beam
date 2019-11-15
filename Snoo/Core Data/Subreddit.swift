@@ -65,6 +65,10 @@ open class Subreddit: SyncObject {
     open static var frontpageIdentifier: String {
         return "snoo-frontpage"
     }
+
+    open static var popularIdentifier: String {
+        return "snoo-popular"
+    }
     
     open static var allIdentifier: String {
         return "snoo-all"
@@ -72,7 +76,7 @@ open class Subreddit: SyncObject {
     
     open var isPrepopulated: Bool {
         if let identifier = self.identifier {
-            return [Subreddit.frontpageIdentifier, Subreddit.allIdentifier].contains(identifier)
+            return [Subreddit.frontpageIdentifier, Subreddit.allIdentifier, Subreddit.popularIdentifier].contains(identifier)
         }
         return false
     }
@@ -95,7 +99,7 @@ open class Subreddit: SyncObject {
             if let submissionTypeString = self.submissionTypeString, let submissionType = SubredditSubmissionType(rawValue: submissionTypeString) {
                 return submissionType
             }
-            if self.identifier == Subreddit.frontpageIdentifier || self.identifier == Subreddit.allIdentifier || self is Multireddit {
+            if self.identifier == Subreddit.frontpageIdentifier || self.identifier == Subreddit.allIdentifier || self.identifier == Subreddit.popularIdentifier || self is Multireddit {
                 return SubredditSubmissionType.none
             }
             //In general subreddits you visit will allow both
@@ -206,10 +210,46 @@ open class Subreddit: SyncObject {
         if let thrownError = thrownError {
             throw thrownError
         }
-        subreddit.title = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage secction on reddit. This is a collection of your subbreddits when logged in")
-        subreddit.displayName = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage secction on reddit. This is a collection of your subbreddits when logged in")
+        subreddit.title = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage section on reddit. This is a collection of your subbreddits when logged in")
+        subreddit.displayName = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage section on reddit. This is a collection of your subbreddits when logged in")
         subreddit.isBookmarked = NSNumber(value: true as Bool)
         
+        return subreddit
+    }
+
+    //Returns the popular subreddit. If it doesn't already exist in the context it will be created. This method is always done on the DataController's private context!
+    open class func popularSubreddit() throws -> Subreddit {
+        let context: NSManagedObjectContext! = DataController.shared.privateContext
+        var subreddit: Subreddit!
+        var thrownError: Error?
+        context.performAndWait {
+            do {
+                if let existingSubreddit = try Subreddit.fetchObjectWithIdentifier(Subreddit.popularIdentifier, context: context) as? Subreddit {
+                    //We already have a all subreddit, update it below
+                    subreddit = existingSubreddit
+                } else {
+                    //We don't already have a all subreddit, create it and update it below
+                    subreddit = try Subreddit.objectWithIdentifier(Subreddit.popularIdentifier, cache: nil, context: context) as! Subreddit
+                    subreddit.permalink = "/r/popular"
+                    subreddit.sectionName = ""
+                    if subreddit.objectID.isTemporaryID {
+                        subreddit.order = NSNumber(value: 1 as Int)
+                    }
+
+                    try context?.obtainPermanentIDs(for: [subreddit])
+                }
+            } catch {
+                thrownError = error
+            }
+
+        }
+        if let thrownError = thrownError {
+            throw thrownError
+        }
+        subreddit.title = NSLocalizedString("subreddit-popular", comment: "The title used for the popular section on reddit. This is a collection of popular subbreddits")
+        subreddit.displayName = NSLocalizedString("subreddit-popular", comment: "The title used for the popular section on reddit. This is a collection of popular subbreddits")
+        subreddit.isBookmarked = NSNumber(value: true as Bool)
+
         return subreddit
     }
     
@@ -229,7 +269,7 @@ open class Subreddit: SyncObject {
                     subreddit.permalink = "/r/all"
                     subreddit.sectionName = ""
                     if subreddit.objectID.isTemporaryID {
-                        subreddit.order = NSNumber(value: 1 as Int)
+                        subreddit.order = NSNumber(value: 2 as Int)
                     }
                     
                     try context?.obtainPermanentIDs(for: [subreddit])
@@ -243,7 +283,7 @@ open class Subreddit: SyncObject {
             throw thrownError
         }
         subreddit.title = NSLocalizedString("subreddit-all", comment: "The title used for the all section on reddit. This is a collection of all subbreddits")
-        subreddit.displayName = NSLocalizedString("subreddit-all", comment: "The title used for the all scction on reddit. This is a collection of all subbreddits")
+        subreddit.displayName = NSLocalizedString("subreddit-all", comment: "The title used for the all section on reddit. This is a collection of all subbreddits")
         subreddit.isBookmarked = NSNumber(value: true as Bool)
         
         return subreddit

@@ -260,7 +260,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
         if let threads: [[Comment]] = self.dataSource.threads {
             if threads.count == 0 && isFetching == true {
                 self.footerView.state = CommentsFooterViewState.loading
-                let height: CGFloat = self.view.frame.height - self.topLayoutGuide.length
+                let height: CGFloat = self.view.frame.height - self.view.safeAreaInsets.top
                 self.footerView.height = height
                 view = self.footerView
             }

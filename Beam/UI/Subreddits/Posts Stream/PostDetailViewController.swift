@@ -307,7 +307,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
         if let content: [Content] = self.content, let threads: [[Comment]] = self.commentsDataSource.threads {
             if threads.count == 0 && content.count > 0 && isFetching == true {
                 self.commentsFooterView.state = CommentsFooterViewState.loading
-                let height: CGFloat = self.view.frame.height - self.commentsHeaderView.frame.height - self.topLayoutGuide.length
+                let height: CGFloat = self.view.frame.height - self.commentsHeaderView.frame.height - self.view.safeAreaInsets.top
                 self.commentsFooterView.height = height
                 view = self.commentsFooterView
             }

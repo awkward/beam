@@ -43,7 +43,9 @@ class CurrentUserProfileViewController: ProfileViewController {
         self.loginEmptyState.isHidden = loginHidden
         //Content inset is not usable in the current profile view, use your own constraints
         
-        self.loginEmptyState.layoutMargins = UIEdgeInsets(top: self.topLayoutGuide.length + 44, left: 0, bottom: self.bottomLayoutGuide.length, right: 0)
+        var layoutMargins = self.view.safeAreaInsets
+        layoutMargins.top += 44
+        self.loginEmptyState.layoutMargins = layoutMargins
         self.toolbar.isHidden = !loginHidden
         self.headerView.isHidden = !loginHidden
     }

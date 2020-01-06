@@ -32,7 +32,7 @@ extension ManualViewControllerInsets where Self: UIViewController {
     fileprivate func configureContentInsetForScrollView(_ scrollView: UIScrollView) {
         let topOffset: CGFloat = self is UIBarPositioningDelegate ? 44.0: 0
         
-        scrollView.contentInset = UIEdgeInsets(top: self.topLayoutGuide.length + topOffset, left: 0, bottom: self.bottomLayoutGuide.length, right: 0)
+        scrollView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + topOffset, left: self.view.safeAreaInsets.left, bottom: self.view.safeAreaInsets.bottom, right: self.view.safeAreaInsets.right)
         if scrollView.contentOffset.y <= 0 && !scrollView.isDecelerating && !scrollView.isDragging {
             scrollView.contentOffset = CGPoint(x: 0, y: -1 * scrollView.contentInset.top)
         }

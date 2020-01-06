@@ -54,7 +54,7 @@ class ImgurGalleryAlbumContentViewController: UIViewController, AWKGalleryItemCo
     func configureCollectionViewSize() {
         self.collectionViewHeightConstraint.constant = self.view.bounds.height
         
-        self.collectionView.contentInset = UIEdgeInsets(top: self.topLayoutGuide.length + 44, left: CGFloat(0), bottom: self.galleryViewController?.galleryBottomLayoutGuide.length ?? 0.0, right: CGFloat(0))
+        self.collectionView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 44, left: CGFloat(0), bottom: self.galleryViewController?.galleryBottomLayoutGuide.length ?? 0.0, right: CGFloat(0))
     }
     
     override func viewDidLoad() {

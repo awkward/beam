@@ -63,7 +63,7 @@ public final class Post: Content {
                     if self.managedObjectContext?.insertedObjects.contains(subreddit) == true {
                         if let displayName = json["subreddit"] as? String, self.subreddit?.displayName == nil {
                             self.subreddit?.displayName = displayName
-                            self.subreddit?.sectionName = displayName.substring(to: displayName.index(after: displayName.startIndex))
+                            self.subreddit?.sectionName = String(displayName[...displayName.startIndex])
                         }
                     }
                     

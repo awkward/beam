@@ -36,7 +36,7 @@ class Keychain {
             kSecClass as String: kSecClassGenericPassword as String,
             kSecAttrAccount as String: key,
             kSecValueData as String: data,
-            kSecAttrIsInvisible as String: kCFBooleanTrue,
+            kSecAttrIsInvisible as String: kCFBooleanTrue!,
             kSecAttrService as String: self.serviceName,
             kSecAttrAccessible as String: kSecAttrAccessibleAlways
         ] as [String: Any]
@@ -57,7 +57,7 @@ class Keychain {
         let query = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
-            kSecReturnData as String: kCFBooleanTrue,
+            kSecReturnData as String: kCFBooleanTrue!,
             kSecMatchLimit as String: kSecMatchLimitOne,
             kSecAttrService as String: self.serviceName] as [String: Any]
         

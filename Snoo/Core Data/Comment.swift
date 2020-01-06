@@ -42,7 +42,7 @@ public class Comment: InteractiveContent {
         if (json["context"] != nil || json["link_id"] != nil) && (self.post?.subreddit == nil || self.post?.permalink == nil) {
             var postID: String?
             var permalink: String?
-            if let context: String = json["context"] as? String, var components = URLComponents(string: context) {
+            if let context: String = json["context"] as? String, let components = URLComponents(string: context) {
                 let path = components.path
                 let pathComponents: [String] = path.components(separatedBy: "/")
                 permalink = path

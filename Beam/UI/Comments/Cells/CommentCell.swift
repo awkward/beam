@@ -143,7 +143,7 @@ class CommentCell: BaseCommentCell {
         
         self.collapseIconImageView.isHidden = !self.isCollapsed
         if self.commentDidChange || self.comment?.hasBeenDeleted == true {
-            self.authorButton.setTitle(self.comment?.author, for: UIControlState.normal)
+            self.authorButton.setTitle(self.comment?.author, for: UIControl.State.normal)
         }
         
         if self.commentDidChange || self.comment?.hasBeenDeleted == true {
@@ -289,18 +289,18 @@ class CommentCell: BaseCommentCell {
         var metadata = [NSAttributedString]()
         if let comment = comment {
             if comment.scoreHidden == true {
-                metadata.append(NSAttributedString(string: AWKLocalizedString("score-hidden-block"), attributes: [NSAttributedStringKey.foregroundColor: pointsTextColor]))
+                metadata.append(NSAttributedString(string: AWKLocalizedString("score-hidden-block"), attributes: [NSAttributedString.Key.foregroundColor: pointsTextColor]))
             } else if let score = self.comment?.score {
                 var localizedPoints = NSLocalizedString("points-inline", comment: "")
                 if score.intValue == 1 || score.intValue == -1 {
                     localizedPoints = NSLocalizedString("point-inline", comment: "")
                 }
                     
-                metadata.append(NSAttributedString(string: "\(score.intValue) \(localizedPoints)", attributes: [NSAttributedStringKey.foregroundColor: pointsTextColor]))
+                metadata.append(NSAttributedString(string: "\(score.intValue) \(localizedPoints)", attributes: [NSAttributedString.Key.foregroundColor: pointsTextColor]))
             }
             
             if let timeString = comment.creationDate?.localizedRelativeTimeString {
-                metadata.append(NSAttributedString(string: timeString, attributes: [NSAttributedStringKey.foregroundColor: textColor]))
+                metadata.append(NSAttributedString(string: timeString, attributes: [NSAttributedString.Key.foregroundColor: textColor]))
             }
             
             //Add the gilded status to the comment
@@ -315,8 +315,8 @@ class CommentCell: BaseCommentCell {
         let attributedString = NSMutableAttributedString()
         for meta in metadata {
             attributedString.append(meta)
-            if let index = metadata.index(of: meta), index < metadata.count - 1 {
-                attributedString.append(NSAttributedString(string: NSLocalizedString("list-separator", comment: "separated items by a comma: ', '"), attributes: [NSAttributedStringKey.foregroundColor: textColor]))
+            if let index = metadata.firstIndex(of: meta), index < metadata.count - 1 {
+                attributedString.append(NSAttributedString(string: NSLocalizedString("list-separator", comment: "separated items by a comma: ', '"), attributes: [NSAttributedString.Key.foregroundColor: textColor]))
             }
         }
         self.metadataLabel.attributedText = attributedString
@@ -328,7 +328,7 @@ class CommentCell: BaseCommentCell {
         if authorIsOriginalPoster && !self.isCollapsed {
             titleColor = UIColor(red: 0.18823, green: 0.56471, blue: 0.97647, alpha: 1.00000)
         }
-        self.authorButton.setTitleColor(titleColor, for: UIControlState())
+        self.authorButton.setTitleColor(titleColor, for: UIControl.State())
     }
     
     @IBAction fileprivate func usernameButtonTapped(_ sender: AnyObject) {
@@ -410,7 +410,7 @@ class CommentCell: BaseCommentCell {
     }
     
     @objc func handleTapGesture(_ tapGestureRecognizer: UITapGestureRecognizer) {
-        if tapGestureRecognizer.state == UIGestureRecognizerState.ended {
+        if tapGestureRecognizer.state == UIGestureRecognizer.State.ended {
             if let comment = self.comment {
                 self.delegate?.commentCell(self, didTapComment: comment)
             }
@@ -419,7 +419,7 @@ class CommentCell: BaseCommentCell {
     }
     
     @objc func handleLongPressGesture(_ longPressGestureRecognizer: UILongPressGestureRecognizer) {
-        if longPressGestureRecognizer.state == UIGestureRecognizerState.began {
+        if longPressGestureRecognizer.state == UIGestureRecognizer.State.began {
             if let comment = self.comment {
                 self.delegate?.commentCell(self, didHoldOnComment: comment)
             }

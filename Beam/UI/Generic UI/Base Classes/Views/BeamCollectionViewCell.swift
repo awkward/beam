@@ -15,7 +15,7 @@ class BeamCollectionViewCell: UICollectionViewCell, DynamicDisplayModeView {
         
         if window != nil {
             selectedBackgroundView = UIView(frame: bounds)
-            selectedBackgroundView?.autoresizingMask = [UIViewAutoresizing.flexibleWidth, UIViewAutoresizing.flexibleHeight]
+            selectedBackgroundView?.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
             registerForDisplayModeChangeNotifications()
         } else {
             selectedBackgroundView = nil

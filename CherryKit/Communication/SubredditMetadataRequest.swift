@@ -10,7 +10,7 @@ import UIKit
 
 open class SubredditMetadataTaskResult: TaskResult {
     
-    open let metadata: SubredditMetadata
+    public let metadata: SubredditMetadata
     
     init(metadata: SubredditMetadata) {
         self.metadata = metadata
@@ -21,7 +21,7 @@ open class SubredditMetadataTaskResult: TaskResult {
 
 open class SubredditMetadataTask: Task {
     
-    open let subredditID: String
+    public let subredditID: String
     
     public init(token: String, subredditID: String) {
         self.subredditID = subredditID

@@ -53,14 +53,14 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
     
     private func setupView() {
         self.view.insertSubview(self.multiredditsViewController.view, belowSubview: self.toolbar)
-        self.addChildViewController(self.multiredditsViewController)
-        self.multiredditsViewController.didMove(toParentViewController: self)
+        self.addChild(self.multiredditsViewController)
+        self.multiredditsViewController.didMove(toParent: self)
         
         self.addContainerViewConstraints(viewController: self.multiredditsViewController, containerView: self.view)
         
         self.view.insertSubview(self.subredditsViewController.view, belowSubview: self.toolbar)
-        self.addChildViewController(self.subredditsViewController)
-        self.subredditsViewController.didMove(toParentViewController: self)
+        self.addChild(self.subredditsViewController)
+        self.subredditsViewController.didMove(toParent: self)
         
         self.addContainerViewConstraints(viewController: self.subredditsViewController, containerView: self.view)
         
@@ -76,7 +76,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
         self.setupView()
         
         self.buttonBar.items = [ButtonBarButton(title: AWKLocalizedString("subreddits-title")), ButtonBarButton(title: AWKLocalizedString("multireddits-title"))]
-        self.buttonBar.addTarget(self, action: #selector(HomeViewController.buttonBarChanged(_:)), for: UIControlEvents.valueChanged)
+        self.buttonBar.addTarget(self, action: #selector(HomeViewController.buttonBarChanged(_:)), for: UIControl.Event.valueChanged)
         self.buttonBar.selectedItemIndex = UserSettings[.subscriptionsListType] == "multireddits" ? 1: 0
         
         self.configureContentInsets()
@@ -100,7 +100,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
         NSLayoutConstraint.activate(constraints)
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-        let widthConstraint = NSLayoutConstraint(item: viewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+        let widthConstraint = NSLayoutConstraint(item: viewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
         widthConstraint.priority = UILayoutPriority.defaultHigh
         viewController.view.addConstraint(widthConstraint)
         

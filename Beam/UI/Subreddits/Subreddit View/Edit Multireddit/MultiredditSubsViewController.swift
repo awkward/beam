@@ -43,7 +43,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let multiredditSubsSearch = MultiredditSubsSearchViewController(style: UITableViewStyle.plain)
+        let multiredditSubsSearch = MultiredditSubsSearchViewController(style: UITableView.Style.plain)
         multiredditSubsSearch.multireddit = self.multireddit
         multiredditSubsSearch.delegate = self
         self.searchController = MultiredditSubsSearchController(searchResultsController: multiredditSubsSearch)
@@ -53,12 +53,12 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         self.tableView.tableHeaderView = self.searchController.searchBar
         self.definesPresentationContext = true
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 44
         self.tableView.register(UINib(nibName: "MultiredditSubTableViewCell", bundle: nil), forCellReuseIdentifier: "subreddit-edit")
         self.tableView.register(BeamPlainTableViewHeaderFooterView.self, forHeaderFooterViewReuseIdentifier: "header")
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(MultiredditSubsViewController.doneButtonTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(MultiredditSubsViewController.doneButtonTapped(_:)))
         
         NotificationCenter.default.addObserver(self, selector: #selector(MultiredditSubsViewController.userDidUpdate(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: AppDelegate.shared.authenticationController)
         NotificationCenter.default.addObserver(self, selector: #selector(MultiredditSubsViewController.userDidUpdate(_:)), name: AuthenticationController.UserDidUpdateNotificationName, object: AppDelegate.shared.authenticationController)
@@ -118,7 +118,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
     }
     
     fileprivate func presentSubredditLimitAlert() {
-        let alert = BeamAlertController(title: AWKLocalizedString("manage-subreddits-limit-error"), message: nil, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = BeamAlertController(title: AWKLocalizedString("manage-subreddits-limit-error"), message: nil, preferredStyle: UIAlertController.Style.alert)
         alert.addCancelAction()
         AppDelegate.topViewController(self)?.present(alert, animated: true, completion: nil)
     }
@@ -136,7 +136,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
                     DispatchQueue.main.async {
                         let name = operation.multireddit.displayName ?? AWKLocalizedString("multireddit")
                         let titleString = AWKLocalizedString("multireddit-update-failure").replacingOccurrences(of: "[MULTIREDDIT]", with: name)
-                        let alert = BeamAlertController(title: titleString as String, message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                        let alert = BeamAlertController(title: titleString as String, message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                         alert.addCancelAction()
                         alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: .default, handler: { (_) -> Void in
                             updateMultireddit(operation.multireddit)
@@ -183,9 +183,9 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         newSubreddits.append(subreddit)
         newSubreddits = (newSubreddits as NSArray).sortedArray(using: self.subredditSortDescriptors) as! [Subreddit]
         
-        let newIndexPath = IndexPath(row: newSubreddits.index(of: subreddit)!, section: 0)
+        let newIndexPath = IndexPath(row: newSubreddits.firstIndex(of: subreddit)!, section: 0)
         
-        if let oldIndex = self.suggestions?.index(of: subreddit) {
+        if let oldIndex = self.suggestions?.firstIndex(of: subreddit) {
             if self.suggestions?.count == 1 {
                 self.tableView.deleteSections(IndexSet(integer: self.hasSubredditsSection ? 1: 0), with: .automatic)
                 self.tableView.insertRows(at: [newIndexPath], with: .automatic)
@@ -229,7 +229,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         self.subreddits?.remove(at: index)
         let newSuggestions = self.filteredSuggestions(self.collectionController.collectionID)
         
-        if let destinationIndex = newSuggestions?.index(of: subreddit), self.hasSubredditsSection && self.hasSuggestionsSection {
+        if let destinationIndex = newSuggestions?.firstIndex(of: subreddit), self.hasSubredditsSection && self.hasSuggestionsSection {
             
             let indexPath = IndexPath(row: index, section: 0)
             let newIndexPath = IndexPath(row: destinationIndex, section: 1)
@@ -243,7 +243,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
                 self.tableView.deleteRows(at: [IndexPath(row: index, section: 0)], with: .automatic)
             }
             
-            let destinationIndex = newSuggestions?.index(of: subreddit)
+            let destinationIndex = newSuggestions?.firstIndex(of: subreddit)
             if let destinationIndex = destinationIndex, self.hasSuggestionsSection {
                 self.tableView.insertRows(at: [IndexPath(row: destinationIndex, section: 0)], with: .automatic)
             } else if destinationIndex != nil {
@@ -289,13 +289,13 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         
         if self.hasSubredditsSection && (indexPath as IndexPath).section == 0 {
             subreddit = self.subreddits?[indexPath.row]
-            cell.editButton.setImage(UIImage(named: "delete_control"), for: UIControlState())
+            cell.editButton.setImage(UIImage(named: "delete_control"), for: UIControl.State())
             cell.editButtonTappedHandler = { [weak self] () -> Void in
                 self?.removeSubredditAtIndex((indexPath as IndexPath).row)
             }
         } else {
             subreddit = self.suggestions?[indexPath.row]
-            cell.editButton.setImage(UIImage(named: "subscribe"), for: UIControlState())
+            cell.editButton.setImage(UIImage(named: "subscribe"), for: UIControl.State())
             cell.editButtonTappedHandler = { [weak self] () -> Void in
                 if let subreddit = subreddit {
                     self?.addSubreddit(subreddit)
@@ -344,13 +344,13 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         }
     }
     
-    func searchViewController(_ viewController: SubredditsSearchViewController, commitEditingStyle editingStyle: UITableViewCellEditingStyle, subreddit: Subreddit) {
+    func searchViewController(_ viewController: SubredditsSearchViewController, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, subreddit: Subreddit) {
         
         if editingStyle == .delete {
-            if let index = self.subreddits?.index(of: subreddit) {
+            if let index = self.subreddits?.firstIndex(of: subreddit) {
                 self.removeSubredditAtIndex(index)
             }
-        } else if editingStyle == UITableViewCellEditingStyle.insert {
+        } else if editingStyle == UITableViewCell.EditingStyle.insert {
             self.addSubreddit(subreddit)
         }
     }

@@ -20,7 +20,7 @@ public final class SaveOperation: DataOperation {
         return parseOperation?.objectContext
     }
     
-    override open func start() {
+    override public func start() {
         super.start()
         
         if let dependentContext = objectContextFromDependency() {

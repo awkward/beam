@@ -143,7 +143,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
                     if let location: URL = location {
                         var options: DownscaledImageOptions = DownscaledImageOptions()
                         options.constrainingSize = self.mediaImageView.bounds.size
-                        options.contentMode = UIViewContentMode.scaleAspectFill
+                        options.contentMode = UIView.ContentMode.scaleAspectFill
                         let image: UIImage? = UIImage.downscaledImageWithFileURL(location, options: options)
                         if image != nil {
                             SDImageCache.shared().store(image, forKey: thumbnailURLString, toDisk: true)

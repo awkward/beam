@@ -11,7 +11,7 @@ import CoreData
 
 public final class InfoQuery: CollectionQuery {
     
-    open let fullName: String
+    public let fullName: String
     
     public init(fullName: String) {
         self.fullName = fullName
@@ -26,7 +26,7 @@ public final class InfoQuery: CollectionQuery {
         return [URLQueryItem(name: "id", value: self.fullName)]
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         return nil
     }
     

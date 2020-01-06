@@ -66,13 +66,13 @@ final class EditMultiredditViewController: BeamTableViewController {
         self.tableView.allowsSelection = false
         
         self.nameTextField.delegate = self
-        NotificationCenter.default.addObserver(self, selector: #selector(EditMultiredditViewController.nameFieldValueChanged(_:)), name: NSNotification.Name.UITextFieldTextDidChange, object: self.nameTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(EditMultiredditViewController.nameFieldValueChanged(_:)), name: UITextField.textDidChangeNotification, object: self.nameTextField)
         
         self.descriptionTextView.textContainerInset = UIEdgeInsets()
         self.descriptionTextView.textContainer.lineFragmentPadding = 0
         self.descriptionTextView.delegate = self
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EditMultiredditViewController.cancel(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(EditMultiredditViewController.cancel(_:)))
         
         if self.copyingMultireddit {
             self.title = AWKLocalizedString("create-copy")
@@ -88,7 +88,7 @@ final class EditMultiredditViewController: BeamTableViewController {
         
         self.reloadSaveBarButtonItem()
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         
         self.configureContents()
         
@@ -114,17 +114,17 @@ final class EditMultiredditViewController: BeamTableViewController {
     
     fileprivate func reloadSaveBarButtonItem() {
         if self.loading {
-            let loadingIndicator = UIActivityIndicatorView(activityIndicatorStyle: UIActivityIndicatorViewStyle.gray)
+            let loadingIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
             loadingIndicator.startAnimating()
             let loadingButtonItem = UIBarButtonItem(customView: loadingIndicator)
             self.navigationItem.rightBarButtonItem = loadingButtonItem
             return
         } else if self.copyingMultireddit {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("copy-button"), style: UIBarButtonItemStyle.done, target: self, action: #selector(EditMultiredditViewController.save(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("copy-button"), style: UIBarButtonItem.Style.done, target: self, action: #selector(EditMultiredditViewController.save(_:)))
         } else if self.creatingMultireddit {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("create"), style: UIBarButtonItemStyle.done, target: self, action: #selector(EditMultiredditViewController.save(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("create"), style: UIBarButtonItem.Style.done, target: self, action: #selector(EditMultiredditViewController.save(_:)))
         } else {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("save"), style: UIBarButtonItemStyle.done, target: self, action: #selector(EditMultiredditViewController.save(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: AWKLocalizedString("save"), style: UIBarButtonItem.Style.done, target: self, action: #selector(EditMultiredditViewController.save(_:)))
         }
         self.navigationItem.rightBarButtonItem?.isEnabled = self.savePossible
     }
@@ -137,8 +137,8 @@ final class EditMultiredditViewController: BeamTableViewController {
     
     @objc fileprivate func save(_ sender: AnyObject?) {
         guard let name = self.nameTextField.text, name.rangeOfCharacter(from: self.allowedCharacters.inverted) == nil && name.count > 3 else {
-            let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-characters"), message: AWKLocalizedString("create-multireddit-characters-message"), preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: UIAlertActionStyle.cancel, handler: nil))
+            let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-characters"), message: AWKLocalizedString("create-multireddit-characters-message"), preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
             return
         }
@@ -227,7 +227,7 @@ final class EditMultiredditViewController: BeamTableViewController {
                     if error.localizedDescription == "conflict" {
                         message = AWKLocalizedString("multireddit-already-exists")
                     }
-                    let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-failure"), message: message, preferredStyle: UIAlertControllerStyle.alert)
+                    let alertController = BeamAlertController(title: AWKLocalizedString("create-multireddit-failure"), message: message, preferredStyle: UIAlertController.Style.alert)
                     alertController.addAction(UIAlertAction(title: AWKLocalizedString("OK"), style: .cancel, handler: nil))
                     self?.present(alertController, animated: true, completion: nil)
                 } else {
@@ -262,7 +262,7 @@ final class EditMultiredditViewController: BeamTableViewController {
             }
             if placeholderString != nil {
                 let textColor = textField.textColor?.withAlphaComponent(0.4)
-                return NSAttributedString(string: placeholderString!, attributes: [NSAttributedStringKey.foregroundColor: textColor!])
+                return NSAttributedString(string: placeholderString!, attributes: [NSAttributedString.Key.foregroundColor: textColor!])
             }
         }
         return nil
@@ -290,7 +290,7 @@ final class EditMultiredditViewController: BeamTableViewController {
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
         if (indexPath as IndexPath).row == 1 {
-            return UITableViewAutomaticDimension
+            return UITableView.automaticDimension
         }
         return 44
     }

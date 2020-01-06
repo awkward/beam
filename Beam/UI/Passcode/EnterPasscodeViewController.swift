@@ -72,7 +72,7 @@ class EnterPasscodeViewController: BeamViewController {
         self.updateIndicators()
         self.updateTitle()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(EnterPasscodeViewController.cancelTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(EnterPasscodeViewController.cancelTapped(_:)))
     }
     
     // MARK: - UI Updates
@@ -219,7 +219,7 @@ class EnterPasscodeViewController: BeamViewController {
         
         if let indicatorsView = self.indicatorsView {
             let animation = CAKeyframeAnimation(keyPath: "transform.translation.x")
-            animation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseInEaseOut)
+            animation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeInEaseOut)
             animation.duration = 0.6
             animation.values = [-20, 20, -20, 20, -10, 10, -5, 5, 0]
             indicatorsView.layer.add(animation, forKey: "shake")

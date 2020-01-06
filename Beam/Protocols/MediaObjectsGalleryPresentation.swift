@@ -45,7 +45,7 @@ extension MediaObjectsGalleryPresentation where Self: UIViewController {
         galleryViewController.delegate = self
         galleryViewController.displaysNavigationItemCount = (self.galleryMediaObjects?.count ?? 0) > 1
         galleryViewController.currentItem = mediaObject.galleryItem
-        galleryViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItemStyle.plain, target: galleryViewController, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
+        galleryViewController.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItem.Style.plain, target: galleryViewController, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
         
         galleryViewController.bottomView = self.bottomView(for: galleryViewController, post: post)
         

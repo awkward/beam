@@ -18,7 +18,7 @@ public class AssetsPickerController: NSObject {
     static internal let ColorPaletteDidChangeNotification = "ColorPaletteDidChange"
     
     // Configurable properties
-    weak open var delegate: AssetsPickerControllerDelegate?
+    weak public var delegate: AssetsPickerControllerDelegate?
     
     public var mediaTypes = [PHAssetMediaType.image]
     
@@ -76,7 +76,7 @@ public class AssetsPickerController: NSObject {
         self.cachedFetchOptions = fetchOptions
     }
     
-    open var colorPalette = AssetsPickerColorPalette() {
+    public var colorPalette = AssetsPickerColorPalette() {
         didSet {
             if self.colorPalette != oldValue {
                 NotificationCenter.default.post(name: Notification.Name(rawValue: AssetsPickerController.ColorPaletteDidChangeNotification), object: self.colorPalette)

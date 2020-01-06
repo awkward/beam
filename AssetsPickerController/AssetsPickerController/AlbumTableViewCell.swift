@@ -59,11 +59,11 @@ class AlbumTableViewCell: UITableViewCell, ColorPaletteSupport {
                 self.countLabel.text = "0"
             }
             
-            self.albumView.imageView.contentMode = UIViewContentMode.center
+            self.albumView.imageView.contentMode = UIView.ContentMode.center
             self.albumView.image = AssetsPickerControllerStyleKit.imageOfAlbumThumbnailPlaceholder
             self.album?.loadPreviewImage(self.albumView.preferredImageSize, fetchOptions: fetchOptions, completionHandler: { (image) in
                 if let image = image {
-                    self.albumView.imageView.contentMode = UIViewContentMode.scaleAspectFill
+                    self.albumView.imageView.contentMode = UIView.ContentMode.scaleAspectFill
                     self.albumView.image = image
                 }
                 

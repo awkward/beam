@@ -14,20 +14,20 @@ enum RedditLinkType {
 }
 
 /// A string with mapped MarkDown elements in it. This can be converted to an NSAttributedString using a MarkdownStylesheet struct. The stylesheet will contain all the visual elements like fonts, colors, etc. This makes it possible to use an analyzed markdown string in multiple places in your app without reparsing for a different layout.
-open class MarkdownString: NSObject, NSSecureCoding {
+public class MarkdownString: NSObject, NSSecureCoding {
     
     static let BeamInternalURLScheme = "beamwtf"
     
     // MARK: - Properties
     
     /// The string where MarkDown elements are mapped onto.
-    fileprivate (set) open var baseString: NSMutableString
+    fileprivate (set) public var baseString: NSMutableString
     
     /// All markdown elements that exist in the baseString.
     fileprivate var elements: [MarkdownElement]
     
     /// A boolean to decide whether to
-    open var autoDetectLinks: Bool {
+    public var autoDetectLinks: Bool {
         didSet {
             self.elements = [MarkdownElement]()
             self.parseElements()
@@ -45,7 +45,7 @@ open class MarkdownString: NSObject, NSSecureCoding {
         self.parseElements()
     }
     
-    override open var description: String {
+    override public var description: String {
         return baseString as String
     }
     
@@ -97,7 +97,7 @@ open class MarkdownString: NSObject, NSSecureCoding {
         for element in self.elements {
             var attributes = stylesheet.attributes[element.type]
             if let url = element.url {
-                attributes?[NSAttributedStringKey.link] = url
+                attributes?[.link] = url
             }
             
             if stylesheet.elementTypeExclusions?.contains(element.type) != true {
@@ -461,7 +461,7 @@ open class MarkdownString: NSObject, NSSecureCoding {
             let range = self.baseString.range(of: line)
             let lineElements = self.elements.filter({ $0.range.location == range.location })
             for lineElement in lineElements {
-                if let index = self.elements.index(of: lineElement), lineElement.range.length > lineString.length {
+                if let index = self.elements.firstIndex(of: lineElement), lineElement.range.length > lineString.length {
                     var newElement = MarkdownElement(range: NSRange(location: lineElement.range.location, length: lineString.length), startIndexOffset: 0, type: lineElement.type)
                     newElement.isLineElement = lineElement.isLineElement
                     newElement.url = lineElement.url

@@ -22,8 +22,8 @@ public enum UserContentType: String {
 
 public final class UserContentCollectionQuery: ContentCollectionQuery {
 
-    open var userIdentifier: String
-    open var userContentType: UserContentType = .submitted
+    public var userIdentifier: String
+    public var userContentType: UserContentType = .submitted
     
     public init(userIdentifier: String) {
         self.userIdentifier = userIdentifier
@@ -50,7 +50,7 @@ public final class UserContentCollectionQuery: ContentCollectionQuery {
         return "/user/\(username)/\(self.userContentType.rawValue)"
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         let superFetchRequest = super.fetchRequest()
         
         var predicates = [NSPredicate]()
@@ -62,7 +62,7 @@ public final class UserContentCollectionQuery: ContentCollectionQuery {
         return superFetchRequest
     }
     
-    open override func collectionType() -> ObjectCollection.Type {
+    override public func collectionType() -> ObjectCollection.Type {
         return UserContentCollection.self
     }
     

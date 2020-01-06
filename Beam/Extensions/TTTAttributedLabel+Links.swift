@@ -10,28 +10,28 @@ import TTTAttributedLabel
 
 extension TTTAttributedLabel {
     
-    class fileprivate func baseBeamLinkAttributes() -> [NSAttributedStringKey: Any] {
-        return [NSAttributedStringKey.underlineStyle: NSUnderlineStyle.styleNone.rawValue]
+    class fileprivate func baseBeamLinkAttributes() -> [NSAttributedString.Key: Any] {
+        return [NSAttributedString.Key.underlineStyle: []]
     }
     
-    class func beamLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedStringKey: Any] {
+    class func beamLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedString.Key: Any] {
         var linkAttributes = TTTAttributedLabel.baseBeamLinkAttributes()
         switch mode {
         case .dark:
-            linkAttributes[NSAttributedStringKey.foregroundColor] = UIColor.beamPurpleLight()
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamPurpleLight()
         case .default:
-            linkAttributes[NSAttributedStringKey.foregroundColor] = UIColor.beamColor()
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamColor()
         }
         return linkAttributes
     }
     
-    class func beamActiveLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedStringKey: Any] {
+    class func beamActiveLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedString.Key: Any] {
         var linkAttributes = TTTAttributedLabel.baseBeamLinkAttributes()
         switch mode {
         case .dark:
-            linkAttributes[NSAttributedStringKey.foregroundColor] = UIColor.beamPurpleLight().withAlphaComponent(0.8)
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamPurpleLight().withAlphaComponent(0.8)
         case .default:
-            linkAttributes[NSAttributedStringKey.foregroundColor] = UIColor.beamColor().withAlphaComponent(0.8)
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamColor().withAlphaComponent(0.8)
         }
         return linkAttributes
     }

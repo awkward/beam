@@ -51,9 +51,9 @@ public enum SubredditSubmissionType: String {
 }
 
 @objc(Subreddit)
-open class Subreddit: SyncObject {
+public class Subreddit: SyncObject {
 
-    open class override func entityName() -> String {
+    public class override func entityName() -> String {
         return "Subreddit"
     }
     
@@ -62,22 +62,22 @@ open class Subreddit: SyncObject {
         return Subreddit(entity: entityDescription, insertInto: context)
     }
     
-    open static var frontpageIdentifier: String {
+    public static var frontpageIdentifier: String {
         return "snoo-frontpage"
     }
     
-    open static var allIdentifier: String {
+    public static var allIdentifier: String {
         return "snoo-all"
     }
     
-    open var isPrepopulated: Bool {
+    public var isPrepopulated: Bool {
         if let identifier = self.identifier {
             return [Subreddit.frontpageIdentifier, Subreddit.allIdentifier].contains(identifier)
         }
         return false
     }
     
-    open var visibility: SubredditVisibility {
+    public var visibility: SubredditVisibility {
         get {
             if let visibilityString = self.visibilityString, let visibility = SubredditVisibility(rawValue: visibilityString) {
                 return visibility
@@ -90,7 +90,7 @@ open class Subreddit: SyncObject {
         }
     }
     
-    open var submissionType: SubredditSubmissionType {
+    public var submissionType: SubredditSubmissionType {
         get {
             if let submissionTypeString = self.submissionTypeString, let submissionType = SubredditSubmissionType(rawValue: submissionTypeString) {
                 return submissionType
@@ -128,7 +128,7 @@ open class Subreddit: SyncObject {
         if self.isBookmarked.boolValue {
             self.sectionName = ""
         } else if let title = self.displayName {
-            let firstChar = title.substring(to: title.index(title.startIndex, offsetBy: 1)).uppercased()
+            let firstChar = title[..<title.index(title.startIndex, offsetBy: 1)].uppercased()
             if Int(firstChar) != nil {
                 self.sectionName = "#"
             } else {
@@ -169,7 +169,7 @@ open class Subreddit: SyncObject {
         if isBookmark {
             self.sectionName = ""
         } else if let title = self.displayName {
-            self.sectionName = title.substring(to: title.index(title.startIndex, offsetBy: 1)).uppercased()
+            self.sectionName = title[..<title.index(title.startIndex, offsetBy: 1)].uppercased()
         } else {
             self.sectionName = nil
         }
@@ -177,7 +177,7 @@ open class Subreddit: SyncObject {
     }
     
     //Returns the frontpage subreddit. If it doesn't already exist in the context it will be created. This method is always done on the DataController's private context!
-    open class func frontpageSubreddit() throws -> Subreddit {
+    public class func frontpageSubreddit() throws -> Subreddit {
         let context: NSManagedObjectContext! = DataController.shared.privateContext
         var subreddit: Subreddit!
         var thrownError: Error?
@@ -214,7 +214,7 @@ open class Subreddit: SyncObject {
     }
     
     //Returns the /r/all subreddit. If it doesn't already exist in the context it will be created. This method is always done on the DataController's private context!
-    open class func allSubreddit() throws -> Subreddit {
+    public class func allSubreddit() throws -> Subreddit {
         let context: NSManagedObjectContext! = DataController.shared.privateContext
         var subreddit: Subreddit!
         var thrownError: Error?
@@ -249,7 +249,7 @@ open class Subreddit: SyncObject {
         return subreddit
     }
 
-    open var isUserAuthorized: Bool {
+    public var isUserAuthorized: Bool {
         return self.visibility == SubredditVisibility.Public || self.isContributor?.boolValue == true || self.isOwner?.boolValue == true || self.isModerator?.boolValue == true || self.isSubscriber?.boolValue == true
     }
     

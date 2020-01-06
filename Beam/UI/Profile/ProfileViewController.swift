@@ -144,9 +144,9 @@ class ProfileViewController: BeamViewController {
             return
         }
         if let previousSection = self.previousSection, previousSection.type != currentSection.type {
-            previousSection.stream.willMove(toParentViewController: nil)
+            previousSection.stream.willMove(toParent: nil)
             previousSection.stream.view.removeFromSuperview()
-            previousSection.stream.removeFromParentViewController()
+            previousSection.stream.removeFromParent()
             previousSection.stream.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 20, height: 20), animated: true)
         }
         
@@ -158,9 +158,9 @@ class ProfileViewController: BeamViewController {
 
         self.currentSection.stream.additionalSafeAreaInsets = UIEdgeInsets(top: self.headerView.frame.height + self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
         
-        self.currentSection.stream.willMove(toParentViewController: self)
+        self.currentSection.stream.willMove(toParent: self)
         self.view.addSubview(self.currentSection.stream.view)
-        self.view.sendSubview(toBack: self.currentSection.stream.view)
+        self.view.sendSubviewToBack(self.currentSection.stream.view)
         
         if self.touchForwardingView == nil {
             self.touchForwardingView = self.currentSection.stream.tableView.expandScrollArea()
@@ -170,19 +170,19 @@ class ProfileViewController: BeamViewController {
         
         //The touchforwarding view needs to be the lowest view
         if let forwardingView = self.touchForwardingView {
-            self.view.sendSubview(toBack: forwardingView)
+            self.view.sendSubviewToBack(forwardingView)
         }
 
         let streamView = self.currentSection.stream.view!
         streamView.translatesAutoresizingMaskIntoConstraints = false
         //Add horizontal constraints to make the view center with a max width
-        self.view.addConstraint(NSLayoutConstraint(item: streamView, attribute: .leading, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: streamView, attribute: .trailing, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: streamView, attribute: .centerX, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
-        streamView.addConstraint(NSLayoutConstraint(item: streamView, attribute: .width, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
+        self.view.addConstraint(NSLayoutConstraint(item: streamView, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: streamView, attribute: .trailing, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: streamView, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
+        streamView.addConstraint(NSLayoutConstraint(item: streamView, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-        let widthConstraint = NSLayoutConstraint(item: streamView, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+        let widthConstraint = NSLayoutConstraint(item: streamView, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
         widthConstraint.priority = UILayoutPriority.defaultHigh
         streamView.addConstraint(widthConstraint)
         
@@ -193,10 +193,10 @@ class ProfileViewController: BeamViewController {
             tableView.showsVerticalScrollIndicator = false
         }
         
-        self.addChildViewController(self.currentSection.stream)
+        self.addChild(self.currentSection.stream)
         self.previousSection = self.currentSection
         
-        self.currentSection.stream.didMove(toParentViewController: self)
+        self.currentSection.stream.didMove(toParent: self)
         
     }
     
@@ -279,8 +279,8 @@ class ProfileViewController: BeamViewController {
             }
         }
         
-        let numberAttributedString = NSMutableAttributedString(string: numberString, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white])
-        let paddingAttributedString = NSMutableAttributedString(string: paddingString, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
+        let numberAttributedString = NSMutableAttributedString(string: numberString, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white])
+        let paddingAttributedString = NSMutableAttributedString(string: paddingString, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.3)])
         let attributedString = NSMutableAttributedString(attributedString: paddingAttributedString)
         attributedString.append(numberAttributedString)
         
@@ -316,14 +316,14 @@ class ProfileViewController: BeamViewController {
         self.updateSectionVisibilities()
         
         if self.isModallyPresentedRootViewController() {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(UIViewController.dismissViewController(_:)))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(UIViewController.dismissViewController(_:)))
         }
         
         self.navigationController?.navigationBar.setBackgroundImage(UIImage(), for: UIBarMetrics.default)
         self.navigationController?.navigationBar.shadowImage = UIImage()
         
         self.buttonBar.items = self.sections.map({ $0.title })
-        self.buttonBar.addTarget(self, action: #selector(ProfileViewController.buttonBarChanged(_:)), for: UIControlEvents.valueChanged)
+        self.buttonBar.addTarget(self, action: #selector(ProfileViewController.buttonBarChanged(_:)), for: UIControl.Event.valueChanged)
         self.buttonBar.selectedItemIndex = 0
         
         NotificationCenter.default.addObserver(self, selector: #selector(ProfileViewController.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: AppDelegate.shared.authenticationController)

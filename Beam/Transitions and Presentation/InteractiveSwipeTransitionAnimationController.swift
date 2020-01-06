@@ -52,7 +52,7 @@ public class InteractiveSwipeTransitionAnimationController: UIPercentDrivenInter
             return animator
         }
         let containerView = transitionContext.containerView
-        containerView.backgroundColor = UIAccessibilityIsInvertColorsEnabled() ? .white : .black
+        containerView.backgroundColor = UIAccessibility.isInvertColorsEnabled ? .white : .black
         
         // Prepare the view
         // Create animator

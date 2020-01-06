@@ -13,17 +13,17 @@ public enum RedditSubscriptionRequestAction: String {
     case Unsubscribe = "unsub"
 }
 
-open class RedditSubscriptionRequest: RedditRequest {
+public class RedditSubscriptionRequest: RedditRequest {
     
-    open let subreddit: Subreddit
-    open var action = RedditSubscriptionRequestAction.Subscribe
+    public let subreddit: Subreddit
+    public var action = RedditSubscriptionRequestAction.Subscribe
     
     public init(subreddit: Subreddit, authenticationController: AuthenticationController) {
         self.subreddit = subreddit
         super.init(authenticationController: authenticationController)
     }
     
-    override open var urlRequest: URLRequest? {
+    override public var urlRequest: URLRequest? {
         get {
             if let url = URL(string: "api/subscribe", relativeTo: self.oauthBaseURL as URL) {
                 let request = NSMutableURLRequest(url: url)

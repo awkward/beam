@@ -13,7 +13,7 @@ extension AVPlayer {
     
     func rewind() {
         //Somehow AVPlayer thinks both the begining and the end are CMTimeZero. That's why it's best to use 0,001 second to make sure it starts at the first frame
-        self.seek(to: CMTimeMake(1, 1000))
+        self.seek(to: CMTimeMake(value: 1, timescale: 1000))
     }
     
 }

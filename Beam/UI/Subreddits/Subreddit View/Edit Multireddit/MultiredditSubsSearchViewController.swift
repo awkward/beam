@@ -11,7 +11,7 @@ import Snoo
 
 protocol MultiredditSubsSearchViewControllerDelegate: SubredditsSearchViewControllerDelegate {
     
-    func searchViewController(_ viewController: SubredditsSearchViewController, commitEditingStyle editingStyle: UITableViewCellEditingStyle, subreddit: Subreddit)
+    func searchViewController(_ viewController: SubredditsSearchViewController, commitEditingStyle editingStyle: UITableViewCell.EditingStyle, subreddit: Subreddit)
     func currentAddedSubredditsForSearchViewController(_ viewController: SubredditsSearchViewController) -> [Subreddit]?
     
 }
@@ -21,7 +21,7 @@ class MultiredditSubsSearchViewController: SubredditsSearchViewController {
     weak var multireddit: Multireddit?
     var addedSubreddits: [Subreddit]?
 
-    override init(style: UITableViewStyle) {
+    override init(style: UITableView.Style) {
         super.init(style: style)
         
         self.tableView.register(UINib(nibName: "MultiredditSubTableViewCell", bundle: nil), forCellReuseIdentifier: "subreddit-edit")
@@ -53,12 +53,12 @@ class MultiredditSubsSearchViewController: SubredditsSearchViewController {
         
         let editingStyle = self.editingStyleAtIndexPath(indexPath)
         if editingStyle == .delete {
-            cell.editButton.setImage(UIImage(named: "delete_control"), for: UIControlState())
+            cell.editButton.setImage(UIImage(named: "delete_control"), for: UIControl.State())
             cell.editButtonTappedHandler = { [weak self] () -> Void in
                 self?.commitSubredditAtIndexPath(indexPath)
             }
         } else {
-            cell.editButton.setImage(UIImage(named: "subscribe"), for: UIControlState())
+            cell.editButton.setImage(UIImage(named: "subscribe"), for: UIControl.State())
             cell.editButtonTappedHandler = { [weak self] () -> Void in
                 self?.commitSubredditAtIndexPath(indexPath)
             }
@@ -67,12 +67,12 @@ class MultiredditSubsSearchViewController: SubredditsSearchViewController {
         cell.titleLabel?.text = subreddit?.displayName
     }
 
-    fileprivate func editingStyleAtIndexPath(_ indexPath: IndexPath) -> UITableViewCellEditingStyle {
+    fileprivate func editingStyleAtIndexPath(_ indexPath: IndexPath) -> UITableViewCell.EditingStyle {
         if let addedSubreddits = self.addedSubreddits, let subreddit = self.objects?[indexPath.row] {
-            return addedSubreddits.index(of: subreddit) != nil ? UITableViewCellEditingStyle.delete: UITableViewCellEditingStyle.insert
+            return addedSubreddits.firstIndex(of: subreddit) != nil ? UITableViewCell.EditingStyle.delete: UITableViewCell.EditingStyle.insert
         }
         
-        return UITableViewCellEditingStyle.none
+        return UITableViewCell.EditingStyle.none
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {

@@ -60,6 +60,7 @@ private enum StreamCellTypeIdentifier: String {
     case Album = "album"
     case Link = "link"
     case Video = "video"
+    case VideoLink = "video_link"
     case Comment = "comment"
 }
 
@@ -232,7 +233,8 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         self.tableView.register(UINib(nibName: "PostCommentPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Comment.rawValue)
         self.tableView.register(UINib(nibName: "PostMetaDataPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Metadata.rawValue)
         self.tableView.register(UINib(nibName: "PostURLPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Link.rawValue)
-        self.tableView.register(UINib(nibName: "PostVideoURLPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Video.rawValue)
+        self.tableView.register(UINib(nibName: "PostVideoURLPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.VideoLink.rawValue)
+        self.tableView.register(PostVideoPartCell.self, forCellReuseIdentifier: StreamCellTypeIdentifier.Video.rawValue)
         self.tableView.register(UINib(nibName: "PostImageCollectionPartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Album.rawValue)
         self.tableView.register(UINib(nibName: "PostImagePartCell", bundle: nil), forCellReuseIdentifier: StreamCellTypeIdentifier.Image.rawValue)
         
@@ -245,12 +247,12 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         
         //Adjust table view
         self.tableView.estimatedRowHeight = 60
-        self.tableView.separatorStyle = UITableViewCellSeparatorStyle.none
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.separatorStyle = UITableViewCell.SeparatorStyle.none
+        self.tableView.rowHeight = UITableView.automaticDimension
         
         //Add refresh control
         self.refreshControl = UIRefreshControl()
-        self.refreshControl?.addTarget(self, action: #selector(StreamViewController.refreshContent(_:)), for: UIControlEvents.valueChanged)
+        self.refreshControl?.addTarget(self, action: #selector(StreamViewController.refreshContent(_:)), for: UIControl.Event.valueChanged)
         
         self.registerForPreviewing(with: self, sourceView: self.tableView)
     }
@@ -269,7 +271,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         
         //Set the audio category for the autoplaying gifs
         do {
-            try AVAudioSession.sharedInstance().setCategory(AVAudioSessionCategoryAmbient)
+            try AVAudioSession.sharedInstance().setCategory(AVAudioSession.Category(rawValue: convertFromAVAudioSessionCategory(AVAudioSession.Category.ambient)))
             try AVAudioSession.sharedInstance().setActive(true)
         } catch {
             NSLog("Failed to change audio session. Gifs might pause audio.")
@@ -327,10 +329,10 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     @objc func postDidChangeHiddenFlag(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             if let post = notification.object as? Post, post.isHidden.boolValue == true {
-                if let index = self.content?.index(of: post) {
+                if let index = self.content?.firstIndex(of: post) {
                     self.tableView.beginUpdates()
                     self.content?.remove(at: index)
-                    self.tableView.deleteSections(IndexSet(integer: index), with: UITableViewRowAnimation.fade)
+                    self.tableView.deleteSections(IndexSet(integer: index), with: UITableView.RowAnimation.fade)
                     self.tableView.endUpdates()
                 }
             }
@@ -389,7 +391,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     
     @objc func contentDidDelete(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
-            guard let post = notification.object as? Post, let index = self.content?.index(of: post) else {
+            guard let post = notification.object as? Post, let index = self.content?.firstIndex(of: post) else {
                 return
             }
             if self is PostDetailEmbeddedViewController {
@@ -401,7 +403,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             } else {
                 self.tableView.beginUpdates()
                 self.content?.remove(at: index)
-                self.tableView.deleteSections(IndexSet(integer: index), with: UITableViewRowAnimation.fade)
+                self.tableView.deleteSections(IndexSet(integer: index), with: UITableView.RowAnimation.fade)
                 self.tableView.endUpdates()
             }
         }
@@ -439,8 +441,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         }
         let content = self.content?[indexPath.section]
         if let post = content as? Post {
-            let nsfw = post.isContentNSFW.boolValue == true || (post.mediaObjects?.firstObject as? MediaObject)?.galleryItem.nsfw == true
-            return nsfw
+            return post.isContentNSFW.boolValue == true || (post.mediaObjects?.firstObject as? MediaObject)?.isNSFW == true
         } else {
             return false
         }
@@ -520,7 +521,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
             let timer = Timer(fireAt: newFireDate, interval: 0, target: self, selector: #selector(StreamViewController.refreshNotificationTimerFired(_:)), userInfo: nil, repeats: false)
             timer.tolerance = 120
             self.refreshNotificationTimer = timer
-            RunLoop.main.add(timer, forMode: RunLoopMode.commonModes)
+            RunLoop.main.add(timer, forMode: RunLoop.Mode.common)
         }
     }
     
@@ -742,8 +743,14 @@ extension StreamViewController {
                 self.configureMetadataView(metadataView, atIndexPath: indexPath)
             }
             return cell
-        case .Link, .Video:
+        case .Link, .VideoLink:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostURLPartCell
+            cell.shouldShowSpoilerOverlay = self.showSpoilerOverlayAtIndexPath(indexPath)
+            cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
+            self.configureCell(cell, atIndexPath: indexPath)
+            return cell
+        case .Video:
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostVideoPartCell
             cell.shouldShowSpoilerOverlay = self.showSpoilerOverlayAtIndexPath(indexPath)
             cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
             self.configureCell(cell, atIndexPath: indexPath)
@@ -802,9 +809,13 @@ extension StreamViewController {
                 } else if let mediaObjects = post.mediaObjects, mediaObjects.count > 1 {
                     identifiers = [.Title, .Metadata, .Album, .Toolbar]
                 } else if post.mediaObjects?.count == 1 {
-                    identifiers = [.Title, .Metadata, .Image, .Toolbar]
+                    if post.mediaObjects?.firstObject is MediaDirectVideo {
+                        identifiers = [.Title, .Metadata, .Video, .Toolbar]
+                    } else {
+                        identifiers = [.Title, .Metadata, .Image, .Toolbar]
+                    }
                 } else if let urlString = post.urlString, let url = URL(string: urlString), url.estimatedURLType == URLType.video {
-                    identifiers = [.Title, .Metadata, .Video, .Toolbar]
+                    identifiers = [.Title, .Metadata, .VideoLink, .Toolbar]
                 }
             } else if content is Comment {
                 if showTitleWithThumbnail {
@@ -817,7 +828,7 @@ extension StreamViewController {
         }
 
         if !UserSettings[.showPostMetadata] && !isDetailView {
-            if let index = identifiers.index(of: .Metadata) {
+            if let index = identifiers.firstIndex(of: .Metadata) {
                 identifiers.remove(at: index)
             }
         }
@@ -871,7 +882,7 @@ extension StreamViewController {
          We do this using intersects instead of constains. In case the visble rect height/width is negative the cell rect will still intersect, while the rect doesn't contain the cell rect.
         */
         
-        let visibleRect = UIEdgeInsetsInsetRect(self.tableView.frame, StreamViewController.visibleContentInset)
+        let visibleRect = self.tableView.frame.inset(by: StreamViewController.visibleContentInset)
         
         for cell in self.tableView.visibleCells {
             guard let indexPath = self.tableView.indexPath(for: cell), let imagePartCell = cell as? PostImagePartCell else {
@@ -930,6 +941,11 @@ extension StreamViewController {
             if (isNSFWOrSpoiler && (cell.spoilerView.opened || cell.spoilerView.isHidden)) || !isNSFWOrSpoiler {
                 presentGalleryFromIndexPath(indexPath, mediaAtIndex: 0)
             }
+        } else if let cell = cell as? PostVideoPartCell {
+            let isNSFWOrSpoiler = self.showNSFWOverlayAtIndexPath(indexPath) || self.showSpoilerOverlayAtIndexPath(indexPath)
+            if (isNSFWOrSpoiler && (cell.spoilerView.opened || cell.spoilerView.isHidden)) || !isNSFWOrSpoiler {
+                presentGalleryFromIndexPath(indexPath, mediaAtIndex: 0)
+            }
         } else if cell is PostSelfTextPartCell && !isDetailView {
             self.showPostDetailViewForContent( self.content?[indexPath.section])
         } else if cell is PostCommentPartCell && !isDetailView {
@@ -969,6 +985,7 @@ extension StreamViewController {
     }
     
     override func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
+        let width = tableView.frame.width
         if let content = self.content(forSection: indexPath.section) {
             let cellIndentifiers = self.cellIdentifiersForContent(content)
             switch cellIndentifiers[indexPath.row] {
@@ -977,22 +994,25 @@ extension StreamViewController {
             case StreamCellTypeIdentifier.Toolbar:
                 return 44
             case StreamCellTypeIdentifier.Link:
-                return PostURLPartCell.heightForLink(isVideo: false, forWidth: tableView.frame.width)
+                return PostURLPartCell.heightForLink(isVideo: false, forWidth: width)
+            case StreamCellTypeIdentifier.VideoLink:
+                return PostURLPartCell.heightForLink(isVideo: true, forWidth: width)
             case StreamCellTypeIdentifier.Video:
-                return PostURLPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+                return PostVideoPartCell.height(for: content.mediaObjects?.firstObject as? MediaDirectVideo, width: width)
             case StreamCellTypeIdentifier.Image:
-                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: tableView.frame.width)
+                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: width)
             case StreamCellTypeIdentifier.Album:
-                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: tableView.bounds.width).height
+                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: width).height
             default:
                 
-                return UITableViewAutomaticDimension
+                return UITableView.automaticDimension
             }
         }
         return 1.0
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {
+        let width = tableView.frame.width
         if let content = self.content(forSection: indexPath.section) {
             let cellIndentifiers = self.cellIdentifiersForContent(content)
             switch cellIndentifiers[indexPath.row] {
@@ -1001,13 +1021,15 @@ extension StreamViewController {
             case StreamCellTypeIdentifier.Toolbar:
                 return 44
             case StreamCellTypeIdentifier.Link:
-                return PostURLPartCell.heightForLink(isVideo: false, forWidth: tableView.frame.width)
+                return PostURLPartCell.heightForLink(isVideo: false, forWidth: width)
+            case StreamCellTypeIdentifier.VideoLink:
+                return PostURLPartCell.heightForLink(isVideo: true, forWidth: width)
             case StreamCellTypeIdentifier.Video:
-                return PostURLPartCell.heightForLink(isVideo: true, forWidth: tableView.frame.width)
+                return PostVideoPartCell.height(for: content.mediaObjects?.firstObject as? MediaDirectVideo, width: width)
             case StreamCellTypeIdentifier.Image:
-                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: tableView.frame.width)
+                return PostImagePartCell.heightForMediaObject(content.mediaObjects?.firstObject as? MediaObject, useCompactViewMode: self.useCompactViewMode, forWidth: width)
             case StreamCellTypeIdentifier.Album:
-                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: tableView.bounds.width).height
+                return StreamAlbumView.sizeWithNumberOfMediaObjects(content.mediaObjects!.count, maxWidth: width).height
             default:
                 return tableView.estimatedRowHeight
             }
@@ -1091,8 +1113,8 @@ extension StreamViewController: AWKGalleryDataSource {
     }
     
     func gallery(_ galleryViewController: AWKGalleryViewController, indexOf item: AWKGalleryItem) -> Int {
-        return (self.galleryMediaObjects?.index(where: { (mediaObject: MediaObject) -> Bool in
-            return mediaObject.contentURLString == item.contentURL?.absoluteString
+        return (self.galleryMediaObjects?.firstIndex(where: { (mediaObject: MediaObject) -> Bool in
+            return mediaObject.contentURL == item.contentURL
         })) ?? 0
     }
     
@@ -1285,4 +1307,9 @@ extension StreamViewController: UIViewControllerPreviewingDelegate {
             self.navigationController?.show(viewControllerToCommit, sender: previewingContext)
         }
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertFromAVAudioSessionCategory(_ input: AVAudioSession.Category) -> String {
+	return input.rawValue
 }

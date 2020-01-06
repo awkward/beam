@@ -12,65 +12,65 @@ import UIKit
 public struct MarkdownStylesheet {
     
     /// The text attributes grouped by markdown elements.
-    fileprivate (set) public var attributes: [MarkdownElementType: [NSAttributedStringKey: Any]]
+    fileprivate (set) public var attributes: [MarkdownElementType: [NSAttributedString.Key: Any]]
     
     /// Markdown element types that should be ignored (or handled like paragraph text).
     public var elementTypeExclusions: [MarkdownElementType]?
     
     /// Initializes a new MarkdownStylesheet from the given text attributes, grouped by Markdown element types. You could also use the systemStylesheet static method for convenience.
-    public init(attributes: [MarkdownElementType: [NSAttributedStringKey: Any]]) {
+    public init(attributes: [MarkdownElementType: [NSAttributedString.Key: Any]]) {
         self.attributes = attributes
     }
     
     /// A MarkdownStylesheet based on iOS preferred fonts
     public static func systemStylesheet() -> MarkdownStylesheet {
-        let baseFont = UIFont.preferredFont(forTextStyle: UIFontTextStyle.body)
+        let baseFont = UIFont.preferredFont(forTextStyle: UIFont.TextStyle.body)
         return MarkdownStylesheet.systemStylesheetWithBaseFont(baseFont)
     }
     
     public static func systemStylesheetWithBaseFont(_ baseFont: UIFont) -> MarkdownStylesheet {
         
         let baseFontDescriptor: UIFontDescriptor = baseFont.fontDescriptor
-        let baseFontBoldDescriptor: UIFontDescriptor? = baseFontDescriptor.withSymbolicTraits([UIFontDescriptorSymbolicTraits.traitBold])
+        let baseFontBoldDescriptor: UIFontDescriptor? = baseFontDescriptor.withSymbolicTraits([UIFontDescriptor.SymbolicTraits.traitBold])
         
-        var attributes: [MarkdownElementType: [NSAttributedStringKey: AnyObject]] = [MarkdownElementType: [NSAttributedStringKey: AnyObject]]()
-        attributes[MarkdownElementType.paragraph] = [NSAttributedStringKey.font: baseFont]
-        attributes[MarkdownElementType.unorderedListElement] = [NSAttributedStringKey.font: baseFont]
-        attributes[MarkdownElementType.boldItalic] = [NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor.withSymbolicTraits([UIFontDescriptorSymbolicTraits.traitBold, UIFontDescriptorSymbolicTraits.traitItalic])!, size: baseFont.pointSize)]
-        if let fontDescriptor = baseFontDescriptor.withSymbolicTraits([UIFontDescriptorSymbolicTraits.traitBold]) {
-            attributes[MarkdownElementType.bold] = [NSAttributedStringKey.font: UIFont(descriptor: fontDescriptor, size: baseFont.pointSize)]
+        var attributes: [MarkdownElementType: [NSAttributedString.Key: AnyObject]] = [MarkdownElementType: [NSAttributedString.Key: AnyObject]]()
+        attributes[MarkdownElementType.paragraph] = [NSAttributedString.Key.font: baseFont]
+        attributes[MarkdownElementType.unorderedListElement] = [NSAttributedString.Key.font: baseFont]
+        attributes[MarkdownElementType.boldItalic] = [NSAttributedString.Key.font: UIFont(descriptor: baseFontDescriptor.withSymbolicTraits([UIFontDescriptor.SymbolicTraits.traitBold, UIFontDescriptor.SymbolicTraits.traitItalic])!, size: baseFont.pointSize)]
+        if let fontDescriptor = baseFontDescriptor.withSymbolicTraits([UIFontDescriptor.SymbolicTraits.traitBold]) {
+            attributes[MarkdownElementType.bold] = [NSAttributedString.Key.font: UIFont(descriptor: fontDescriptor, size: baseFont.pointSize)]
         } else {
-            attributes[MarkdownElementType.bold] = [NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor, size: baseFont.pointSize)]
+            attributes[MarkdownElementType.bold] = [NSAttributedString.Key.font: UIFont(descriptor: baseFontDescriptor, size: baseFont.pointSize)]
         }
         
-        if let fontDescriptor = baseFontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits.traitItalic) {
-            attributes[MarkdownElementType.italic] = [NSAttributedStringKey.font: UIFont(descriptor: fontDescriptor, size: baseFont.pointSize)]
+        if let fontDescriptor = baseFontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits.traitItalic) {
+            attributes[MarkdownElementType.italic] = [NSAttributedString.Key.font: UIFont(descriptor: fontDescriptor, size: baseFont.pointSize)]
         } else {
-            attributes[MarkdownElementType.italic] = [NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor, size: baseFont.pointSize)]
+            attributes[MarkdownElementType.italic] = [NSAttributedString.Key.font: UIFont(descriptor: baseFontDescriptor, size: baseFont.pointSize)]
         }
-        attributes[MarkdownElementType.strikethrough] = [NSAttributedStringKey.strikethroughStyle: NSNumber(value: NSUnderlineStyle.styleSingle.rawValue as Int), NSAttributedStringKey.font: baseFont]
+        attributes[MarkdownElementType.strikethrough] = [NSAttributedString.Key.strikethroughStyle: NSNumber(value: NSUnderlineStyle.single.rawValue as Int), NSAttributedString.Key.font: baseFont]
         //attributes[MarkdownElementType.superscript] = [kCTSuperscriptAttributeName as String: NSNumber(value: 1 as Int) as CFNumber]
         //TODO: Bring back superscript!
-        attributes[MarkdownElementType.inlineCode] = [NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor.withFamily("Courier"), size: baseFont.pointSize)]
-        attributes[MarkdownElementType.code] = [NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor.withFamily("Courier"), size: baseFont.pointSize)]
+        attributes[MarkdownElementType.inlineCode] = [NSAttributedString.Key.font: UIFont(descriptor: baseFontDescriptor.withFamily("Courier"), size: baseFont.pointSize)]
+        attributes[MarkdownElementType.code] = [NSAttributedString.Key.font: UIFont(descriptor: baseFontDescriptor.withFamily("Courier"), size: baseFont.pointSize)]
         
         let headingFontDescriptor: UIFontDescriptor = baseFontBoldDescriptor ?? baseFontDescriptor
         
-        attributes[MarkdownElementType.h1] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 3)]
-        attributes[MarkdownElementType.h2] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 2)]
-        attributes[MarkdownElementType.h3] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 1)]
-        attributes[MarkdownElementType.h4] = [NSAttributedStringKey.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize)]
-        attributes[MarkdownElementType.h5] = [NSAttributedStringKey.font: baseFont]
+        attributes[MarkdownElementType.h1] = [NSAttributedString.Key.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 3)]
+        attributes[MarkdownElementType.h2] = [NSAttributedString.Key.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 2)]
+        attributes[MarkdownElementType.h3] = [NSAttributedString.Key.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize + 1)]
+        attributes[MarkdownElementType.h4] = [NSAttributedString.Key.font: UIFont(descriptor: headingFontDescriptor, size: headingFontDescriptor.pointSize)]
+        attributes[MarkdownElementType.h5] = [NSAttributedString.Key.font: baseFont]
         
         let quoteParagraphStyle = NSMutableParagraphStyle()
         quoteParagraphStyle.paragraphSpacingBefore = 15
         quoteParagraphStyle.paragraphSpacing = 15
         quoteParagraphStyle.headIndent = 15
         
-        if let fontDescriptor = baseFontDescriptor.withSymbolicTraits(UIFontDescriptorSymbolicTraits.traitItalic) {
-            attributes[MarkdownElementType.quote] = [NSAttributedStringKey.paragraphStyle: quoteParagraphStyle, NSAttributedStringKey.font: UIFont(descriptor: fontDescriptor, size: baseFont.pointSize)]
+        if let fontDescriptor = baseFontDescriptor.withSymbolicTraits(UIFontDescriptor.SymbolicTraits.traitItalic) {
+            attributes[MarkdownElementType.quote] = [NSAttributedString.Key.paragraphStyle: quoteParagraphStyle, NSAttributedString.Key.font: UIFont(descriptor: fontDescriptor, size: baseFont.pointSize)]
         } else {
-           attributes[MarkdownElementType.quote] = [NSAttributedStringKey.paragraphStyle: quoteParagraphStyle, NSAttributedStringKey.font: UIFont(descriptor: baseFontDescriptor, size: baseFont.pointSize)]
+           attributes[MarkdownElementType.quote] = [NSAttributedString.Key.paragraphStyle: quoteParagraphStyle, NSAttributedString.Key.font: UIFont(descriptor: baseFontDescriptor, size: baseFont.pointSize)]
         }
         
         return MarkdownStylesheet(attributes: attributes)
@@ -81,7 +81,7 @@ public struct MarkdownStylesheet {
         var attributes = stylesheet.attributes
         for element in attributes.keys {
             var elementAttributes = attributes[element]!
-            elementAttributes[NSAttributedStringKey.foregroundColor] = textColor
+            elementAttributes[NSAttributedString.Key.foregroundColor] = textColor
             attributes[element] = elementAttributes
         }
         return MarkdownStylesheet(attributes: attributes)

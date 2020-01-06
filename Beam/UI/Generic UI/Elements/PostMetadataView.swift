@@ -375,14 +375,14 @@ class PostMetadataView: BeamView {
     }
     
     fileprivate func updateButtonTitleColorsAndState() {
-        self.userButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight(), for: UIControlState())
-        self.subredditButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight(), for: UIControlState())
+        self.userButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight(), for: UIControl.State())
+        self.subredditButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight(), for: UIControl.State())
     }
     
     // MARK: - Sizing
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 30)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 30)
     }
     
     // MARK: - Actions

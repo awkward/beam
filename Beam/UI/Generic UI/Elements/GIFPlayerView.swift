@@ -15,11 +15,9 @@ import Snoo
 class GIFPlayerView: UIView {
     
     class var canAutoplayGifs: Bool {
-        let is64bit = MemoryLayout<Int>.size == MemoryLayout<Int64>.size
         let enabled = UserSettings[.autoPlayGifsEnabled]
-        
         let playAllowed = UserSettings[.autoPlayGifsEnabledOnCellular] || (!UserSettings[.autoPlayGifsEnabledOnCellular] && DataController.shared.redditReachability?.isReachableViaWiFi == true)
-        return is64bit && enabled && playAllowed
+        return enabled && playAllowed
     }
     
     override class var layerClass: AnyClass {
@@ -55,8 +53,8 @@ class GIFPlayerView: UIView {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationDidBecomeActive(notification:)), name: Notification.Name.UIApplicationDidBecomeActive, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationWillResignActive(notification:)), name: Notification.Name.UIApplicationWillResignActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationDidBecomeActive(notification:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.applicationWillResignActive(notification:)), name: UIApplication.willResignActiveNotification, object: nil)
         
         self.videoPlayerLayer.videoGravity = AVLayerVideoGravity.resizeAspectFill
     }
@@ -81,33 +79,19 @@ class GIFPlayerView: UIView {
                 }
                 self.currentPlayerItem = item
                 if self.videoPlayerLayer.player == nil {
+
+                    let queuePlayer = AVQueuePlayer(playerItem: item)
+                    queuePlayer.isMuted = true
                     
-                    if #available(iOS 10.0, *) {
-                        let queuePlayer = AVQueuePlayer(playerItem: item)
-                        queuePlayer.isMuted = true
-                        
-                        //Create the looper controller. We need to retain this, otherwise the looping stops
-                        self.playerLooper = AVPlayerLooper(player: queuePlayer, templateItem: item)
-                        
-                        self.videoPlayer = queuePlayer
-                    } else {
-                        //Observe when the player ends
-                        NotificationCenter.default.addObserver(self, selector: #selector(GIFPlayerView.avPlayerItemDidFinishPlaying(notification:)), name: Notification.Name.AVPlayerItemDidPlayToEndTime, object: nil)
-                        
-                        let player = AVPlayer(playerItem: item)
-                        player.isMuted = true
-                        player.actionAtItemEnd = AVPlayerActionAtItemEnd.none
-                        player.rewind()
-                        self.videoPlayer = player
-                    }
+                    //Create the looper controller. We need to retain this, otherwise the looping stops
+                    self.playerLooper = AVPlayerLooper(player: queuePlayer, templateItem: item)
+                    
+                    self.videoPlayer = queuePlayer
                 } else {
-                    if #available(iOS 10.0, *), let queuePlayer = self.videoPlayer as? AVQueuePlayer {
+                    if let queuePlayer = self.videoPlayer as? AVQueuePlayer {
                         self.stop()
                         queuePlayer.removeAllItems()
                         self.playerLooper = AVPlayerLooper(player: queuePlayer, templateItem: item)
-                    } else {
-                        self.stop()
-                        self.videoPlayer?.replaceCurrentItem(with: item)
                     }
                     
                 }
@@ -129,12 +113,10 @@ class GIFPlayerView: UIView {
         self.currentUrl = nil
         self.videoPlayer?.pause()
         self.videoPlayer?.rewind()
-        if #available(iOS 10.0, *), let queuePlayer = self.videoPlayer as? AVQueuePlayer {
+        if let queuePlayer = self.videoPlayer as? AVQueuePlayer {
             queuePlayer.removeAllItems()
             (self.playerLooper as? AVPlayerLooper)?.disableLooping()
             self.playerLooper = nil
-        } else {
-            self.videoPlayer?.replaceCurrentItem(with: nil)
         }
     }
     
@@ -152,7 +134,7 @@ class GIFPlayerView: UIView {
     
     //This notification is only called on iOS 9 for AVPlayer to begin the loop again. On iOS 10+ AVQueuePlayer and AVPlayerLooper take care of the looping
     @objc fileprivate func avPlayerItemDidFinishPlaying(notification: Notification) {
-        if let playerItem = notification.object as? AVPlayerItem, playerItem == self.videoPlayer?.currentItem && self.window != nil && UIApplication.shared.applicationState == UIApplicationState.active {
+        if let playerItem = notification.object as? AVPlayerItem, playerItem == self.videoPlayer?.currentItem && self.window != nil && UIApplication.shared.applicationState == UIApplication.State.active {
             self.videoPlayer?.rewind()
             self.videoPlayer?.play()
         }

@@ -31,7 +31,7 @@ class AlbumsViewController: UITableViewController, AssetsPickerViewController, C
         super.viewWillAppear(animated)
         
         if self.navigationController is AssetsPickerNavigationController {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(AlbumsViewController.cancel(_:)))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(AlbumsViewController.cancel(_:)))
         }
     }
 

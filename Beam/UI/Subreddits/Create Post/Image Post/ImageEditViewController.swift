@@ -69,13 +69,13 @@ class ImageEditViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        let removeItem = UIBarButtonItem(title: AWKLocalizedString("remove-button"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(ImageEditViewController.removeTapped(_:)))
+        let removeItem = UIBarButtonItem(title: AWKLocalizedString("remove-button"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(ImageEditViewController.removeTapped(_:)))
         removeItem.tintColor = DisplayModeValue(UIColor.beamRed(), darkValue: UIColor.beamRedDarker())
         self.navigationItem.leftBarButtonItem = removeItem
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(ImageEditViewController.doneTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(ImageEditViewController.doneTapped(_:)))
         self.navigationItem.title = AWKLocalizedString("edit-image-title")
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ImageEditViewController.keyboardWillChangeFrame(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ImageEditViewController.keyboardWillChangeFrame(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
 
         self.titleTextField.delegate = self
         self.descriptionTextViewPlaceholder.text = AWKLocalizedString("image-description-placeholder")
@@ -106,9 +106,9 @@ class ImageEditViewController: BeamViewController {
     @objc fileprivate func removeTapped(_ sender: UIBarButtonItem) {
         self.updateTitleOfCurrentImage()
         if let currentImage = self.currentImage, let delegate = self.delegate {
-            let alertController = BeamAlertController(title: AWKLocalizedString("remove-this-image"), message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+            let alertController = BeamAlertController(title: AWKLocalizedString("remove-this-image"), message: nil, preferredStyle: UIAlertController.Style.actionSheet)
             alertController.addCancelAction()
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("remove-button"), style: UIAlertActionStyle.destructive, handler: { (_) in
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("remove-button"), style: UIAlertAction.Style.destructive, handler: { (_) in
                 delegate.editViewController(self, didTapRemoveOnImage: currentImage)
                 self.dismiss(animated: true, completion: nil)
             }))
@@ -128,8 +128,8 @@ class ImageEditViewController: BeamViewController {
         if (self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout).itemSize != self.collectionView.frame.size {
             self.updateCollectionViewLayout()
             //Scroll to current item
-            if let currentImage = self.currentImage, let index = self.allImages?.index(of: currentImage), self.scrolledToCurrentItem == false {
-                self.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionViewScrollPosition.centeredHorizontally, animated: false)
+            if let currentImage = self.currentImage, let index = self.allImages?.firstIndex(of: currentImage), self.scrolledToCurrentItem == false {
+                self.collectionView.scrollToItem(at: IndexPath(item: index, section: 0), at: UICollectionView.ScrollPosition.centeredHorizontally, animated: false)
                 self.scrolledToCurrentItem = true
             }
         }
@@ -154,7 +154,7 @@ class ImageEditViewController: BeamViewController {
         self.descriptionTextView.keyboardAppearance = keyboardAppearance
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("image-title-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("image-title-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         self.descriptionTextViewPlaceholder.textColor = placeholderColor
     }
     
@@ -181,11 +181,11 @@ class ImageEditViewController: BeamViewController {
     }
 
     @objc fileprivate func keyboardWillChangeFrame(_ notification: Notification) {
-        let frame = ((notification as NSNotification).userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let animationDuration = ((notification as NSNotification).userInfo![UIKeyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
-        var animationCurveOption: UIViewAnimationOptions = UIViewAnimationOptions()
-        if (notification as NSNotification).userInfo?[UIKeyboardAnimationCurveUserInfoKey] != nil {
-            ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurveOption)
+        let frame = ((notification as NSNotification).userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let animationDuration = ((notification as NSNotification).userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
+        var animationCurveOption: UIView.AnimationOptions = UIView.AnimationOptions()
+        if (notification as NSNotification).userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] != nil {
+            ((notification as NSNotification).userInfo![UIResponder.keyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurveOption)
         }
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
             //ANIMATE

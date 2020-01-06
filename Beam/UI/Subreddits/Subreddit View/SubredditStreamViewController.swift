@@ -26,7 +26,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
     fileprivate var trackedVisitEvent = false
     
     var streamViewController: StreamViewController? {
-        return self.childViewControllers.first(where: { $0 is StreamViewController }) as? StreamViewController
+        return self.children.first(where: { $0 is StreamViewController }) as? StreamViewController
     }
     
     var titleView: SubredditTitleView = SubredditTitleView.titleViewWithSubreddit(nil)
@@ -77,7 +77,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
         
         self.sortingBar.items = [AWKLocalizedString("hot"), AWKLocalizedString("new"), AWKLocalizedString("rising"), AWKLocalizedString("controversial"), AWKLocalizedString("top"), AWKLocalizedString("gilded")]
         self.sortingBar.selectedItemIndex = self.sortingBarIndexForSortType(self.subreddit?.streamSortType ?? .hot)
-        self.sortingBar.addTarget(self, action: #selector(SubredditStreamViewController.sortingBarItemTapped(_:)), for: UIControlEvents.valueChanged)
+        self.sortingBar.addTarget(self, action: #selector(SubredditStreamViewController.sortingBarItemTapped(_:)), for: UIControl.Event.valueChanged)
         
         self.streamViewController?.additionalSafeAreaInsets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
     }
@@ -101,17 +101,17 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
                 self?.addMultiredditSubs(nil)
             }
             
-            self.addChildViewController(streamviewController)
+            self.addChild(streamviewController)
             
             streamviewController.view.translatesAutoresizingMaskIntoConstraints = false
             //Add horizontal constraints to make the view center with a max width
-            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .leading, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: streamviewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .centerX, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
-            streamviewController.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .width, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
+            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: streamviewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
+            streamviewController.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
             
             //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-            let widthConstraint = NSLayoutConstraint(item: streamviewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+            let widthConstraint = NSLayoutConstraint(item: streamviewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
             widthConstraint.priority = UILayoutPriority.defaultHigh
             streamviewController.view.addConstraint(widthConstraint)
             
@@ -122,7 +122,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
                 tableView.showsVerticalScrollIndicator = false
             }
             
-            streamviewController.didMove(toParentViewController: self)
+            streamviewController.didMove(toParent: self)
         } else {
             fatalError("StreamViewController should be in Stream storyboard.")
         }
@@ -191,7 +191,7 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
     }
     
     fileprivate func showTimeFrameActionSheet(_ sortType: CollectionSortType, sortingBar: ScrollableButtonBar) {
-        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertControllerStyle.actionSheet)
+        let alertController = BeamAlertController(title: nil, message: nil, preferredStyle: UIAlertController.Style.actionSheet)
         
         alertController.addAction(UIAlertAction(title: AWKLocalizedString("past-hour"), style: .default, handler: { (_) -> Void in
             self.changeSorting(sortType, timeFrame: .thisHour)

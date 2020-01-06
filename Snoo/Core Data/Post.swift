@@ -17,26 +17,28 @@ extension Notification.Name {
 
 @objc(Post)
 public final class Post: Content {
+    
+    static let mediaParsers: [PostMediaParser] = [PostRedditMediaParser()]
 
-    @NSManaged open var commentCount: NSNumber?
+    @NSManaged public var commentCount: NSNumber?
 
-    @NSManaged open var thumbnailUrlString: String?
-    @NSManaged open var title: String?
-    @NSManaged open var type: NSNumber?
-    @NSManaged open var urlString: String?
-    @NSManaged open var collection: PostCollection?
-    @NSManaged open var comments: NSSet?
-    @NSManaged open var flairText: String?
-    @NSManaged open var subreddit: Subreddit?
-    @NSManaged open var postMetadata: PostMetadata?
+    @NSManaged public var thumbnailUrlString: String?
+    @NSManaged public var title: String?
+    @NSManaged public var type: NSNumber?
+    @NSManaged public var urlString: String?
+    @NSManaged public var collection: PostCollection?
+    @NSManaged public var comments: NSSet?
+    @NSManaged public var flairText: String?
+    @NSManaged public var subreddit: Subreddit?
+    @NSManaged public var postMetadata: PostMetadata?
     
     //Required properties with default value
-    @NSManaged open var isContentNSFW: NSNumber //Default: No
-    @NSManaged open var isContentSpoiler: NSNumber //Default: No
-    @NSManaged open var isSelfText: NSNumber //Default: No
-    @NSManaged open var isHidden: NSNumber //Default: No
+    @NSManaged public var isContentNSFW: NSNumber //Default: No
+    @NSManaged public var isContentSpoiler: NSNumber //Default: No
+    @NSManaged public var isSelfText: NSNumber //Default: No
+    @NSManaged public var isHidden: NSNumber //Default: No
     
-    open class override func entityName() -> String {
+    public class override func entityName() -> String {
         return "Post"
     }
     
@@ -103,8 +105,14 @@ public final class Post: Content {
             }
         }
         
-        //Parse media info
-        self.parseMediaInformation(json)
+        for parser in Post.mediaParsers {
+            let mediaObjects = parser.parseMedia(for: self, json: json)
+            if mediaObjects.count > 0 {
+                self.mediaObjects = NSOrderedSet(array: mediaObjects)
+                // If the parser was able to parse the media we break the for loop
+                break
+            }
+        }
         
         //Mark the post as spoiler if the title contains a spoiler tag.
         //This is legacy for some old posts that have not been marked spoiler yet
@@ -129,7 +137,7 @@ public final class Post: Content {
     
     /// Returns if a post has been visited or not.
     /// See `markVisited(save:)` on marking a post as visited
-    open var isVisited: Bool {
+    public var isVisited: Bool {
         guard let metadata = self.postMetadata else {
             return false
         }
@@ -140,7 +148,7 @@ public final class Post: Content {
     /// This can not be undone
     ///
     /// - Parameter save: If the object context should be saved and the state change should be sent to the reddit server. Defaults to true
-    open func markVisited(save: Bool = true) {
+    public func markVisited(save: Bool = true) {
         var postMetadata: PostMetadata?
         if let existingMetadata = self.postMetadata {
             postMetadata = existingMetadata
@@ -159,7 +167,7 @@ public final class Post: Content {
         
         if visitedChanged && save {
             //We don't care if there was an error, since isVisited is just an extra feature and not important
-            try? self.managedObjectContext?.save()
+            ((try? self.managedObjectContext?.save()) as ()??)
             
             NotificationCenter.default.post(name: .PostDidChangeVisitedState, object: self)
             //Send the visit of to the server queue for goldmembers
@@ -167,33 +175,7 @@ public final class Post: Content {
         }
     }
     
-    fileprivate func parseMediaInformation(_ dictionary: NSDictionary) {
-        guard let URLString: String = self.urlString, let url = URL(string: URLString), let urlHost = url.host else {
-            return
-        }
-        
-        guard let preview: NSDictionary = dictionary["preview"] as? NSDictionary else {
-            return
-        }
-        guard let images: NSArray = preview["images"] as? NSArray else {
-            return
-        }
-        guard images.count != self.mediaObjects?.count else {
-            return
-        }
-        
-        let redditUploadURLHosts: [String] = ["i.reddituploads.com", "i.reddit.com", "g.redditmedia.com", "i.redditmedia.com", "i.redd.it"]
-        if redditUploadURLHosts.contains(urlHost) {
-            guard let objectContext: NSManagedObjectContext = self.managedObjectContext else {
-                return
-            }
-            if let mediaObjects: [MediaObject] = MediaObject.parseMediaPreview(preview, context: objectContext) {
-                self.mediaObjects = NSOrderedSet(array: mediaObjects)
-            }
-        }
-     }
-    
-    open override func redditDictionaryRepresentation() -> [String: Any] {
+    public override func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["subreddit_id"] = self.subreddit?.objectName as AnyObject?

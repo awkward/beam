@@ -42,11 +42,11 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
         if nsError.code == NSURLErrorCancelled { return }
         if nsError.code == 102 && nsError.domain == "WebKitErrorDomain" { return }
         
-        let alert = BeamAlertController(title: AWKLocalizedString("could-not-load-page"), message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+        let alert = BeamAlertController(title: AWKLocalizedString("could-not-load-page"), message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
         alert.addCancelAction({ (_) in
             self.dismiss(animated: true, completion: nil)
         })
-        alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: UIAlertActionStyle.default, handler: { (_) -> Void in
+        alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: UIAlertAction.Style.default, handler: { (_) -> Void in
             if let url = self.initialUrl {
                 self.webView.loadRequest(URLRequest(url: url))
             }

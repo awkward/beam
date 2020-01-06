@@ -75,9 +75,6 @@
 		0C056F821D82B88200E32FB3 /* MessageCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F551D82B88200E32FB3 /* MessageCollection.swift */; };
 		0C056F831D82B88200E32FB3 /* UserContentCollection+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F561D82B88200E32FB3 /* UserContentCollection+CoreDataProperties.swift */; };
 		0C056F841D82B88200E32FB3 /* UserContentCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F571D82B88200E32FB3 /* UserContentCollection.swift */; };
-		0C056F861D82B88200E32FB3 /* MediaObject.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F5A1D82B88200E32FB3 /* MediaObject.swift */; };
-		0C056F871D82B88200E32FB3 /* Thumbnail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F5B1D82B88200E32FB3 /* Thumbnail+CoreDataProperties.swift */; };
-		0C056F881D82B88200E32FB3 /* Thumbnail.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F5C1D82B88200E32FB3 /* Thumbnail.swift */; };
 		0C056F891D82B88200E32FB3 /* MetadataValueTransformer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F5D1D82B88200E32FB3 /* MetadataValueTransformer.swift */; };
 		0C056F971D82B89400E32FB3 /* Snoo-mapping-11-12.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F8B1D82B89400E32FB3 /* Snoo-mapping-11-12.xcmappingmodel */; };
 		0C056F981D82B89400E32FB3 /* Snoo-mapping-10-11.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0C056F8C1D82B89400E32FB3 /* Snoo-mapping-10-11.xcmappingmodel */; };
@@ -118,6 +115,18 @@
 		0C0F4D8E1BE7B72600D1BB89 /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0C0F4D8D1BE7B72600D1BB89 /* SpriteKit.framework */; };
 		0C0F4D921BE7B85900D1BB89 /* stars_level_0.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0C0F4D911BE7B85900D1BB89 /* stars_level_0.sks */; };
 		0C0F4D941BE7BAEB00D1BB89 /* spark.png in Resources */ = {isa = PBXBuildFile; fileRef = 0C0F4D931BE7BAEB00D1BB89 /* spark.png */; };
+		0C0FB72220EEA75C00B1DAED /* MediaDirectVideo+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB71B20EEA75100B1DAED /* MediaDirectVideo+CoreDataProperties.swift */; };
+		0C0FB72320EEA75C00B1DAED /* MediaImage+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB71620EEA75100B1DAED /* MediaImage+CoreDataClass.swift */; };
+		0C0FB72420EEA75C00B1DAED /* MediaImage+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB71720EEA75100B1DAED /* MediaImage+CoreDataProperties.swift */; };
+		0C0FB72520EEA75C00B1DAED /* MediaAnimatedGIF+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB71820EEA75100B1DAED /* MediaAnimatedGIF+CoreDataClass.swift */; };
+		0C0FB72620EEA75C00B1DAED /* MediaAnimatedGIF+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB71920EEA75100B1DAED /* MediaAnimatedGIF+CoreDataProperties.swift */; };
+		0C0FB72720EEA75C00B1DAED /* MediaDirectVideo+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB71A20EEA75100B1DAED /* MediaDirectVideo+CoreDataClass.swift */; };
+		0C0FB72D20EEA7BB00B1DAED /* MediaObject+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB72A20EEA7AE00B1DAED /* MediaObject+CoreDataProperties.swift */; };
+		0C0FB72E20EEA7BB00B1DAED /* MediaObject+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB72920EEA7AE00B1DAED /* MediaObject+CoreDataClass.swift */; };
+		0C0FB73020EEABFC00B1DAED /* Snoo-mapping-14-15.xcmappingmodel in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB72F20EEABFC00B1DAED /* Snoo-mapping-14-15.xcmappingmodel */; };
+		0C0FB73220EEB1FC00B1DAED /* NSDictionaryExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB73120EEB1FC00B1DAED /* NSDictionaryExtensions.swift */; };
+		0C0FB73520EEB86900B1DAED /* Thumbnail+CoreDataClass.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB73320EEB86900B1DAED /* Thumbnail+CoreDataClass.swift */; };
+		0C0FB73620EEB86900B1DAED /* Thumbnail+CoreDataProperties.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C0FB73420EEB86900B1DAED /* Thumbnail+CoreDataProperties.swift */; };
 		0C12654C1E4C7824006964A7 /* PostLinkPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C12654B1E4C7824006964A7 /* PostLinkPreviewView.swift */; };
 		0C1265C01E4E0771006964A7 /* biem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C1265BF1E4E0771006964A7 /* biem.mp3 */; };
 		0C1265F41E4E0CFA006964A7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1265F31E4E0CFA006964A7 /* AboutViewController.swift */; };
@@ -380,6 +389,7 @@
 		0CDC51591BE24C2000DBB605 /* BeamEmptyView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0CDC51571BE24C2000DBB605 /* BeamEmptyView.xib */; };
 		0CDC76B21C99591B009DE945 /* PostMetadataView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDC76B11C99591B009DE945 /* PostMetadataView.swift */; };
 		0CDC7BA41BE8DC6900938012 /* stars_level_1.sks in Resources */ = {isa = PBXBuildFile; fileRef = 0CDC7BA31BE8DC6900938012 /* stars_level_1.sks */; };
+		0CDE0385212335880055A0FD /* PostVideoPartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDE0384212335880055A0FD /* PostVideoPartCell.swift */; };
 		0CDF94ED1CBB9D0200B23996 /* PasscodeIndicatorView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDF94EC1CBB9D0200B23996 /* PasscodeIndicatorView.swift */; };
 		0CDF951D1CBBBDE900B23996 /* PasscodeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDF951C1CBBBDE900B23996 /* PasscodeController.swift */; };
 		0CDFD7FA1C3EB042003504DD /* SubredditNavigationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CDFD7F91C3EB042003504DD /* SubredditNavigationController.swift */; };
@@ -417,7 +427,8 @@
 		0CF9B76F1CB2612A00B0431C /* ImageEditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CF9B76E1CB2612A00B0431C /* ImageEditViewController.swift */; };
 		0CFAA84E1E01925100CB9154 /* User+Operations.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAA84D1E01925100CB9154 /* User+Operations.swift */; };
 		0CFAA8681E019BD600CB9154 /* RedditMessageComposeRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFAA8671E019BD600CB9154 /* RedditMessageComposeRequest.swift */; };
-		0CFD00211F1F6748008B805D /* Settings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C87F9D81E4A00540091378B /* Settings.swift */; };
+		0CFD4AD6211D969100CD1C59 /* PostMediaParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD4AD5211D969100CD1C59 /* PostMediaParser.swift */; };
+		0CFD4AEA211D975500CD1C59 /* PostRedditMediaParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0CFD4AE9211D975500CD1C59 /* PostRedditMediaParser.swift */; };
 		0CFE5AEB1C08A43A009DF1CE /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0CFE5AEA1C08A43A009DF1CE /* AudioToolbox.framework */; };
 		0CFE5AFA1C08A58A009DF1CE /* tap.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0CE06CB81C08A33D0001EDB6 /* tap.caf */; };
 		0CFE5AFB1C08A58A009DF1CE /* upvote.caf in Resources */ = {isa = PBXBuildFile; fileRef = 0CE06CB91C08A33D0001EDB6 /* upvote.caf */; };
@@ -894,9 +905,6 @@
 		0C056F551D82B88200E32FB3 /* MessageCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MessageCollection.swift; sourceTree = "<group>"; };
 		0C056F561D82B88200E32FB3 /* UserContentCollection+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UserContentCollection+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0C056F571D82B88200E32FB3 /* UserContentCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = UserContentCollection.swift; sourceTree = "<group>"; };
-		0C056F5A1D82B88200E32FB3 /* MediaObject.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MediaObject.swift; path = "Core Data/MediaObject.swift"; sourceTree = "<group>"; };
-		0C056F5B1D82B88200E32FB3 /* Thumbnail+CoreDataProperties.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Thumbnail+CoreDataProperties.swift"; path = "Core Data/Thumbnail+CoreDataProperties.swift"; sourceTree = "<group>"; };
-		0C056F5C1D82B88200E32FB3 /* Thumbnail.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = Thumbnail.swift; path = "Core Data/Thumbnail.swift"; sourceTree = "<group>"; };
 		0C056F5D1D82B88200E32FB3 /* MetadataValueTransformer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MetadataValueTransformer.swift; path = "Core Data/MetadataValueTransformer.swift"; sourceTree = "<group>"; };
 		0C056F8B1D82B89400E32FB3 /* Snoo-mapping-11-12.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = "Snoo-mapping-11-12.xcmappingmodel"; path = "Snoo/Core Data/Mappings/Snoo-mapping-11-12.xcmappingmodel"; sourceTree = SOURCE_ROOT; };
 		0C056F8C1D82B89400E32FB3 /* Snoo-mapping-10-11.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; name = "Snoo-mapping-10-11.xcmappingmodel"; path = "Snoo/Core Data/Mappings/Snoo-mapping-10-11.xcmappingmodel"; sourceTree = SOURCE_ROOT; };
@@ -951,6 +959,19 @@
 		0C0F4D8D1BE7B72600D1BB89 /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		0C0F4D911BE7B85900D1BB89 /* stars_level_0.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; path = stars_level_0.sks; sourceTree = "<group>"; };
 		0C0F4D931BE7BAEB00D1BB89 /* spark.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = spark.png; sourceTree = "<group>"; };
+		0C0FB70220EEA3CB00B1DAED /* Snoo 15.xcdatamodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcdatamodel; path = "Snoo 15.xcdatamodel"; sourceTree = "<group>"; };
+		0C0FB71620EEA75100B1DAED /* MediaImage+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaImage+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0C0FB71720EEA75100B1DAED /* MediaImage+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaImage+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0C0FB71820EEA75100B1DAED /* MediaAnimatedGIF+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaAnimatedGIF+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0C0FB71920EEA75100B1DAED /* MediaAnimatedGIF+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaAnimatedGIF+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0C0FB71A20EEA75100B1DAED /* MediaDirectVideo+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaDirectVideo+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0C0FB71B20EEA75100B1DAED /* MediaDirectVideo+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaDirectVideo+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0C0FB72920EEA7AE00B1DAED /* MediaObject+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaObject+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0C0FB72A20EEA7AE00B1DAED /* MediaObject+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MediaObject+CoreDataProperties.swift"; sourceTree = "<group>"; };
+		0C0FB72F20EEABFC00B1DAED /* Snoo-mapping-14-15.xcmappingmodel */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcmappingmodel; path = "Snoo-mapping-14-15.xcmappingmodel"; sourceTree = "<group>"; };
+		0C0FB73120EEB1FC00B1DAED /* NSDictionaryExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NSDictionaryExtensions.swift; sourceTree = "<group>"; };
+		0C0FB73320EEB86900B1DAED /* Thumbnail+CoreDataClass.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thumbnail+CoreDataClass.swift"; sourceTree = "<group>"; };
+		0C0FB73420EEB86900B1DAED /* Thumbnail+CoreDataProperties.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Thumbnail+CoreDataProperties.swift"; sourceTree = "<group>"; };
 		0C12654B1E4C7824006964A7 /* PostLinkPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLinkPreviewView.swift; sourceTree = "<group>"; };
 		0C1265BF1E4E0771006964A7 /* biem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = biem.mp3; sourceTree = "<group>"; };
 		0C1265F31E4E0CFA006964A7 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
@@ -1211,6 +1232,7 @@
 		0CDC51571BE24C2000DBB605 /* BeamEmptyView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = BeamEmptyView.xib; path = "Beam/UI/Generic UI/Elements/BeamEmptyView.xib"; sourceTree = SOURCE_ROOT; };
 		0CDC76B11C99591B009DE945 /* PostMetadataView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostMetadataView.swift; sourceTree = "<group>"; };
 		0CDC7BA31BE8DC6900938012 /* stars_level_1.sks */ = {isa = PBXFileReference; lastKnownFileType = file.sks; name = stars_level_1.sks; path = "Beam/Resources/Stars (Welcome View)/stars_level_1.sks"; sourceTree = SOURCE_ROOT; };
+		0CDE0384212335880055A0FD /* PostVideoPartCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostVideoPartCell.swift; sourceTree = "<group>"; };
 		0CDF94EC1CBB9D0200B23996 /* PasscodeIndicatorView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeIndicatorView.swift; sourceTree = "<group>"; };
 		0CDF951C1CBBBDE900B23996 /* PasscodeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PasscodeController.swift; sourceTree = "<group>"; };
 		0CDFD7F91C3EB042003504DD /* SubredditNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SubredditNavigationController.swift; sourceTree = "<group>"; };
@@ -1250,6 +1272,8 @@
 		0CF9B76E1CB2612A00B0431C /* ImageEditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageEditViewController.swift; sourceTree = "<group>"; };
 		0CFAA84D1E01925100CB9154 /* User+Operations.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "User+Operations.swift"; sourceTree = "<group>"; };
 		0CFAA8671E019BD600CB9154 /* RedditMessageComposeRequest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RedditMessageComposeRequest.swift; sourceTree = "<group>"; };
+		0CFD4AD5211D969100CD1C59 /* PostMediaParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostMediaParser.swift; sourceTree = "<group>"; };
+		0CFD4AE9211D975500CD1C59 /* PostRedditMediaParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostRedditMediaParser.swift; sourceTree = "<group>"; };
 		0CFE5AEA1C08A43A009DF1CE /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
 		0CFED2521C6C923A00116C70 /* BeamColorizedNavigationController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BeamColorizedNavigationController.swift; sourceTree = "<group>"; };
 		0CFED2641C6C988600116C70 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
@@ -1471,9 +1495,6 @@
 				0C056F8A1D82B88500E32FB3 /* Mappings */,
 				0C056F4B1D82B88200E32FB3 /* SyncObjects */,
 				0C056F581D82B88200E32FB3 /* Collection data */,
-				0C056F5A1D82B88200E32FB3 /* MediaObject.swift */,
-				0C056F5B1D82B88200E32FB3 /* Thumbnail+CoreDataProperties.swift */,
-				0C056F5C1D82B88200E32FB3 /* Thumbnail.swift */,
 				0C056F5D1D82B88200E32FB3 /* MetadataValueTransformer.swift */,
 			);
 			name = "Core Data";
@@ -1499,6 +1520,7 @@
 		0C056F4B1D82B88200E32FB3 /* SyncObjects */ = {
 			isa = PBXGroup;
 			children = (
+				0C0FB72820EEA76100B1DAED /* Media Objects */,
 				0C056F371D82B88200E32FB3 /* Model operations */,
 				0C6F7A621E3663ED00D0F2FC /* PostMetadata+CoreDataClass.swift */,
 				0C6F7A631E3663ED00D0F2FC /* PostMetadata+CoreDataProperties.swift */,
@@ -1549,6 +1571,7 @@
 		0C056F8A1D82B88500E32FB3 /* Mappings */ = {
 			isa = PBXGroup;
 			children = (
+				0C0FB72F20EEABFC00B1DAED /* Snoo-mapping-14-15.xcmappingmodel */,
 				0CE6219A1E375BCE00C609ED /* Snoo-mapping-13-14.xcmappingmodel */,
 				0C5D3E1B1E2FBFEA00021C32 /* Snoo-mapping-12-13.xcmappingmodel */,
 				0C056F8B1D82B89400E32FB3 /* Snoo-mapping-11-12.xcmappingmodel */,
@@ -1574,6 +1597,23 @@
 				0C056FA91D82B8B500E32FB3 /* Localizable.strings */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		0C0FB72820EEA76100B1DAED /* Media Objects */ = {
+			isa = PBXGroup;
+			children = (
+				0C0FB73320EEB86900B1DAED /* Thumbnail+CoreDataClass.swift */,
+				0C0FB73420EEB86900B1DAED /* Thumbnail+CoreDataProperties.swift */,
+				0C0FB72920EEA7AE00B1DAED /* MediaObject+CoreDataClass.swift */,
+				0C0FB72A20EEA7AE00B1DAED /* MediaObject+CoreDataProperties.swift */,
+				0C0FB71620EEA75100B1DAED /* MediaImage+CoreDataClass.swift */,
+				0C0FB71720EEA75100B1DAED /* MediaImage+CoreDataProperties.swift */,
+				0C0FB71820EEA75100B1DAED /* MediaAnimatedGIF+CoreDataClass.swift */,
+				0C0FB71920EEA75100B1DAED /* MediaAnimatedGIF+CoreDataProperties.swift */,
+				0C0FB71A20EEA75100B1DAED /* MediaDirectVideo+CoreDataClass.swift */,
+				0C0FB71B20EEA75100B1DAED /* MediaDirectVideo+CoreDataProperties.swift */,
+			);
+			path = "Media Objects";
 			sourceTree = "<group>";
 		};
 		0C14D9281CADB4EE0031AD43 /* Extensions */ = {
@@ -1608,6 +1648,7 @@
 		0C24FE871D82B7BE00CCBF93 /* Snoo */ = {
 			isa = PBXGroup;
 			children = (
+				0CFD4AE8211D973B00CD1C59 /* Media Parsers */,
 				0C8509C61DE32B9B0060637A /* Reachability */,
 				0C24FFA61D82B82D00CCBF93 /* SnooOperation.swift */,
 				0C24FFAC1D82B82D00CCBF93 /* Extensions */,
@@ -1647,6 +1688,7 @@
 				0C24FFA91D82B82D00CCBF93 /* String+HTMLStrings.swift */,
 				0C24FFAA1D82B82D00CCBF93 /* MetadataHandling.swift */,
 				0C24FFAB1D82B82D00CCBF93 /* RedditError.swift */,
+				0C0FB73120EEB1FC00B1DAED /* NSDictionaryExtensions.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -2085,6 +2127,14 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
+		0CDE03722123357B0055A0FD /* Video Part */ = {
+			isa = PBXGroup;
+			children = (
+				0CDE0384212335880055A0FD /* PostVideoPartCell.swift */,
+			);
+			path = "Video Part";
+			sourceTree = "<group>";
+		};
 		0CF0E2E81FD096A0001D12A9 /* In-App Settings */ = {
 			isa = PBXGroup;
 			children = (
@@ -2455,6 +2505,7 @@
 		0CF0E3111FD09A7C001D12A9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
+				0CDE03722123357B0055A0FD /* Video Part */,
 				0C32556D1FD09D3B00AD0E47 /* Self Text Part */,
 				0C32556C1FD09D3200AD0E47 /* Image Part */,
 				0C32556B1FD09D2400AD0E47 /* Album Part */,
@@ -2679,6 +2730,15 @@
 				0CFEF3901C8701A8005D7DAE /* PostTitleWithThumbnailPartCell.xib */,
 			);
 			path = "Title Part";
+			sourceTree = "<group>";
+		};
+		0CFD4AE8211D973B00CD1C59 /* Media Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				0CFD4AD5211D969100CD1C59 /* PostMediaParser.swift */,
+				0CFD4AE9211D975500CD1C59 /* PostRedditMediaParser.swift */,
+			);
+			path = "Media Parsers";
 			sourceTree = "<group>";
 		};
 		7660740A1B38073100F4C777 = {
@@ -2970,32 +3030,32 @@
 					0C24FE851D82B7BD00CCBF93 = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1030;
 					};
 					0C24FE8E1D82B7BE00CCBF93 = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1030;
 						TestTargetID = 766074121B38073100F4C777;
 					};
 					0C2605591CAD74280078ABF6 = {
 						CreatedOnToolsVersion = 7.3;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1030;
 					};
 					0C3091F11D82CBCD00E0BECC = {
 						CreatedOnToolsVersion = 7.3.1;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1030;
 					};
 					0C3091FA1D82CBCD00E0BECC = {
 						CreatedOnToolsVersion = 7.3.1;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1030;
 						TestTargetID = 766074121B38073100F4C777;
 					};
 					766074121B38073100F4C777 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1030;
 						SystemCapabilities = {
 							com.apple.BackgroundModes = {
 								enabled = 1;
@@ -3014,7 +3074,7 @@
 					7668266A1B84808000647A30 = {
 						CreatedOnToolsVersion = 7.0;
 						DevelopmentTeam = N4KR5KV52L;
-						LastSwiftMigration = 0940;
+						LastSwiftMigration = 1030;
 					};
 				};
 			};
@@ -3023,6 +3083,7 @@
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
 			knownRegions = (
+				English,
 				en,
 				Base,
 				fr,
@@ -3400,14 +3461,17 @@
 				0C24FFF81D82B84300CCBF93 /* SaveOperation.swift in Sources */,
 				0C056F7E1D82B88200E32FB3 /* ContentCollection.swift in Sources */,
 				0C056F631D82B88200E32FB3 /* SyncObject+Operations.swift in Sources */,
-				0C056F861D82B88200E32FB3 /* MediaObject.swift in Sources */,
 				0C24FFEF1D82B84300CCBF93 /* RedditSubscriptionRequest.swift in Sources */,
 				0C056F831D82B88200E32FB3 /* UserContentCollection+CoreDataProperties.swift in Sources */,
 				0C056F9B1D82B89400E32FB3 /* Snoo-mapping-7-8.xcmappingmodel in Sources */,
 				0C056F1F1D82B85F00E32FB3 /* Keychain.swift in Sources */,
+				0C0FB72320EEA75C00B1DAED /* MediaImage+CoreDataClass.swift in Sources */,
 				0C4C15411E2679B8007FEBD4 /* URLQueryItem+Initializer.swift in Sources */,
+				0C0FB72D20EEA7BB00B1DAED /* MediaObject+CoreDataProperties.swift in Sources */,
 				0C056F7A1D82B88200E32FB3 /* ObjectCollection.swift in Sources */,
 				0C056F731D82B88200E32FB3 /* Message+CoreDataProperties.swift in Sources */,
+				0C0FB73620EEB86900B1DAED /* Thumbnail+CoreDataProperties.swift in Sources */,
+				0C0FB73520EEB86900B1DAED /* Thumbnail+CoreDataClass.swift in Sources */,
 				0C056F841D82B88200E32FB3 /* UserContentCollection.swift in Sources */,
 				0C056F991D82B89400E32FB3 /* Snoo-mapping-9-10.xcmappingmodel in Sources */,
 				0C056F7D1D82B88200E32FB3 /* ContentCollection+CoreDataProperties.swift in Sources */,
@@ -3427,6 +3491,7 @@
 				0C056F681D82B88200E32FB3 /* Multireddit+CoreDataProperties.swift in Sources */,
 				0C24FFB31D82B82D00CCBF93 /* String+HTMLStrings.swift in Sources */,
 				0C24FFB41D82B82D00CCBF93 /* MetadataHandling.swift in Sources */,
+				0C0FB72E20EEA7BB00B1DAED /* MediaObject+CoreDataClass.swift in Sources */,
 				0C056FA11D82B89400E32FB3 /* Snoo-mapping-1-2.xcmappingmodel in Sources */,
 				0C24FFCE1D82B83900CCBF93 /* ObjectNamesQuery.swift in Sources */,
 				0C056F7F1D82B88200E32FB3 /* PostCollection+CoreDataProperties.swift in Sources */,
@@ -3441,6 +3506,9 @@
 				0C056F701D82B88200E32FB3 /* User+CoreDataProperties.swift in Sources */,
 				0C24FFD11D82B83900CCBF93 /* MessageCollectionQuery.swift in Sources */,
 				0C24FFDB1D82B83900CCBF93 /* UserParsingOperation.swift in Sources */,
+				0C0FB72720EEA75C00B1DAED /* MediaDirectVideo+CoreDataClass.swift in Sources */,
+				0C0FB72220EEA75C00B1DAED /* MediaDirectVideo+CoreDataProperties.swift in Sources */,
+				0C0FB72520EEA75C00B1DAED /* MediaAnimatedGIF+CoreDataClass.swift in Sources */,
 				0C5D3E1C1E2FBFEA00021C32 /* Snoo-mapping-12-13.xcmappingmodel in Sources */,
 				0C056F711D82B88200E32FB3 /* User.swift in Sources */,
 				0C056F9D1D82B89400E32FB3 /* Snoo-mapping-5-6.xcmappingmodel in Sources */,
@@ -3452,7 +3520,6 @@
 				0C24FFCF1D82B83900CCBF93 /* SubredditQuery.swift in Sources */,
 				0C056F621D82B88200E32FB3 /* Post+Operations.swift in Sources */,
 				0C24FFD61D82B83900CCBF93 /* SubredditsCollectionQuery.swift in Sources */,
-				0C056F881D82B88200E32FB3 /* Thumbnail.swift in Sources */,
 				0C24FFD71D82B83900CCBF93 /* MultiredditCollectionQuery.swift in Sources */,
 				0C056F891D82B88200E32FB3 /* MetadataValueTransformer.swift in Sources */,
 				0C24FFF51D82B84300CCBF93 /* CollectionParsingOperation.swift in Sources */,
@@ -3470,6 +3537,7 @@
 				0C6F7A641E3663ED00D0F2FC /* PostMetadata+CoreDataClass.swift in Sources */,
 				0CFAA84E1E01925100CB9154 /* User+Operations.swift in Sources */,
 				0C056F751D82B88200E32FB3 /* InteractiveContent+CoreDataProperties.swift in Sources */,
+				0C0FB72420EEA75C00B1DAED /* MediaImage+CoreDataProperties.swift in Sources */,
 				0C24FFF01D82B84300CCBF93 /* RedditUserRequest.swift in Sources */,
 				0C24FFEE1D82B84300CCBF93 /* RedditCollectionRequest.swift in Sources */,
 				0C056F811D82B88200E32FB3 /* MessageCollection+CoreDataProperties.swift in Sources */,
@@ -3483,13 +3551,15 @@
 				0C056F791D82B88200E32FB3 /* ObjectCollection+CoreDataProperties.swift in Sources */,
 				0C24FFF71D82B84300CCBF93 /* BatchDeleteOperation.swift in Sources */,
 				0C24FFB11D82B82D00CCBF93 /* NSURLExtensions.swift in Sources */,
+				0C0FB73220EEB1FC00B1DAED /* NSDictionaryExtensions.swift in Sources */,
 				0C6F7A651E3663ED00D0F2FC /* PostMetadata+CoreDataProperties.swift in Sources */,
 				0C056F741D82B88200E32FB3 /* Message.swift in Sources */,
-				0C056F871D82B88200E32FB3 /* Thumbnail+CoreDataProperties.swift in Sources */,
 				0C056F691D82B88200E32FB3 /* Multireddit.swift in Sources */,
 				0C24FFF11D82B84300CCBF93 /* RedditMultiRequest.swift in Sources */,
 				0C24FFB01D82B82D00CCBF93 /* SnooOperation.swift in Sources */,
 				0C056F771D82B88200E32FB3 /* MoreComment+CoreDataProperties.swift in Sources */,
+				0C0FB72620EEA75C00B1DAED /* MediaAnimatedGIF+CoreDataProperties.swift in Sources */,
+				0CFD4AEA211D975500CD1C59 /* PostRedditMediaParser.swift in Sources */,
 				0C24FFD21D82B83900CCBF93 /* ContentCollectionQuery.swift in Sources */,
 				0C24FFD91D82B83900CCBF93 /* AuthenticationController.swift in Sources */,
 				0C056F781D82B88200E32FB3 /* MoreComment.swift in Sources */,
@@ -3499,6 +3569,7 @@
 				0C056F6C1D82B88200E32FB3 /* SyncObject+CoreDataProperties.swift in Sources */,
 				0C24FFB81D82B82D00CCBF93 /* UserActivityController.swift in Sources */,
 				0C056F671D82B88200E32FB3 /* Subreddit.swift in Sources */,
+				0CFD4AD6211D969100CD1C59 /* PostMediaParser.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3510,7 +3581,6 @@
 				0C056FE31D82BE6100E32FB3 /* Authentication.swift in Sources */,
 				0C056FE61D82BE6100E32FB3 /* Subreddits.swift in Sources */,
 				0C056FE81D82BE6100E32FB3 /* TestController.swift in Sources */,
-				0CFD00211F1F6748008B805D /* Settings.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -3733,6 +3803,7 @@
 				0C5566EB1C170AB30020D459 /* ReplyBarView.swift in Sources */,
 				761078EA1BA6E9C9004B7887 /* Array+Limit.swift in Sources */,
 				0C31876B1BD7D105006CE2F1 /* NoticeHandling.swift in Sources */,
+				0C0FB73020EEABFC00B1DAED /* Snoo-mapping-14-15.xcmappingmodel in Sources */,
 				0C4C042E1FD32A7A001191CE /* NewBeamViewControllerTransitionHandler.swift in Sources */,
 				0C0779D81BE3792F006D1D8B /* RefreshNotificationView.swift in Sources */,
 				0C7630191BD68838007672DE /* SmallTabBarController.swift in Sources */,
@@ -3744,6 +3815,7 @@
 				0CDC51581BE24C2000DBB605 /* BeamEmptyView.swift in Sources */,
 				0C165F281C747B8A0062EEC4 /* BeamPlainButton.swift in Sources */,
 				0C8B204B1CBFE7C800CF8E2A /* AssetsPickerControllerAuthorizationEmptyView.swift in Sources */,
+				0CDE0385212335880055A0FD /* PostVideoPartCell.swift in Sources */,
 				76B57F5A1B5FC00A00FB04BD /* MediaImageLoader.swift in Sources */,
 				0C6B65E91F9A49DF005538C2 /* Reusable.swift in Sources */,
 				0C30B3E11C281201008D59FE /* BeamCopyableLabel.swift in Sources */,
@@ -4000,7 +4072,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4027,7 +4099,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.Snoo;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4037,6 +4109,7 @@
 		0C24FE9F1D82B7BE00CCBF93 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;
@@ -4045,7 +4118,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Debug;
@@ -4053,6 +4126,7 @@
 		0C24FEA01D82B7BE00CCBF93 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;
@@ -4060,7 +4134,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Release;
@@ -4086,7 +4160,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4113,7 +4187,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.ImgurKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4140,7 +4214,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4166,7 +4240,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4184,7 +4258,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Debug;
@@ -4199,7 +4273,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/beam.app/beam";
 			};
 			name = Release;
@@ -4348,7 +4422,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Beam/beam-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -4384,7 +4458,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				SWIFT_OBJC_BRIDGING_HEADER = "Beam/beam-Bridging-Header.h";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -4409,7 +4483,7 @@
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4435,7 +4509,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
 				STRIP_INSTALLED_PRODUCT = NO;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -4523,6 +4597,7 @@
 		0C056FAC1D82BD6800E32FB3 /* Snoo.xcdatamodeld */ = {
 			isa = XCVersionGroup;
 			children = (
+				0C0FB70220EEA3CB00B1DAED /* Snoo 15.xcdatamodel */,
 				0C6F7A401E36636D00D0F2FC /* Snoo 14.xcdatamodel */,
 				0C5D3E071E2FBFA000021C32 /* Snoo 13.xcdatamodel */,
 				0C056FAD1D82BD6800E32FB3 /* Snoo 10.xcdatamodel */,
@@ -4538,7 +4613,7 @@
 				0C056FB71D82BD6800E32FB3 /* Snoo 9.xcdatamodel */,
 				0C056FB81D82BD6800E32FB3 /* Snoo.xcdatamodel */,
 			);
-			currentVersion = 0C6F7A401E36636D00D0F2FC /* Snoo 14.xcdatamodel */;
+			currentVersion = 0C0FB70220EEA3CB00B1DAED /* Snoo 15.xcdatamodel */;
 			name = Snoo.xcdatamodeld;
 			path = "Core Data/Snoo.xcdatamodeld";
 			sourceTree = "<group>";

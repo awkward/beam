@@ -26,8 +26,8 @@ class TestController: NSObject {
     
     override init() {
         self.authenticationController = AuthenticationController(clientID: self.redditClientId, redirectUri: self.redditRedirectURI, clientName: self.redditClientName, loadCurrentSession: false)
-        DataController.sharedController.authenticationController = self.authenticationController
-        self.managedObjectContext = DataController.sharedController.createMainContext()
+        DataController.shared.authenticationController = self.authenticationController
+        self.managedObjectContext = DataController.shared.createMainContext()
         super.init()
     }
     

@@ -98,7 +98,7 @@ class PasscodeController: NSObject {
         }
         let window = UIWindow(frame: UIScreen.main.bounds)
         //Start the window behind the main window on level 0
-        window.windowLevel = -1
+        window.windowLevel = UIWindow.Level(rawValue: -1)
         self.passcodeWindow = window
     }
     
@@ -173,7 +173,7 @@ class PasscodeController: NSObject {
         }
         self.createPasscodeWindow()
         //Bring the window in front of all windows, including the status bar
-        self.passcodeWindow?.windowLevel = UIWindowLevelAlert + 300
+        self.passcodeWindow?.windowLevel = UIWindow.Level.alert + 300
         //Reset this before the view is shown
         let storyboard = UIStoryboard(name: "Passcode", bundle: nil)
         let passcodeViewController = storyboard.instantiateViewController(withIdentifier: "start-enter-passcode") as! StartEnterPasscodeViewController
@@ -207,7 +207,7 @@ class PasscodeController: NSObject {
                     AppDelegate.shared.window?.makeKeyAndVisible()
                 }
                 //Bring the window behind the main window at level 0, this is because the status bar listens to the top window
-                self.passcodeWindow!.windowLevel = -1
+                self.passcodeWindow!.windowLevel = UIWindow.Level(rawValue: -1)
                 self.passcodeWindow!.alpha = 1
                 AppDelegate.topViewController()?.setNeedsStatusBarAppearanceUpdate()
                 self.passcodeViewController?.reset()

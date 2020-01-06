@@ -77,7 +77,7 @@ class ImgurGalleryAlbumContentViewController: UIViewController, AWKGalleryItemCo
     fileprivate func openGalleryAtIndexPath(_ indexPath: IndexPath) {
         if let image = self.album?.images?[(indexPath as IndexPath).row] {
             let gallery = self.galleryViewControllerForImage(image)
-            gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItemStyle.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
+            gallery.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_arrow_back"), style: UIBarButtonItem.Style.plain, target: gallery, action: #selector(AWKGalleryViewController.dismissGallery(_:)))
             
             self.presentGalleryViewController(gallery, sourceView: nil)
         }
@@ -156,7 +156,7 @@ extension ImgurGalleryAlbumContentViewController: AWKGalleryDataSource {
     }
     
     func gallery(_ galleryViewController: AWKGalleryViewController, indexOf item: AWKGalleryItem) -> Int {
-        if let galleryItem = item as? ImgurGalleryItem, let image = galleryItem.imgurImage, let index = self.album?.images?.index(of: image) {
+        if let galleryItem = item as? ImgurGalleryItem, let image = galleryItem.imgurImage, let index = self.album?.images?.firstIndex(of: image) {
             return index
         }
         fatalError()

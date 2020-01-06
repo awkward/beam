@@ -69,7 +69,7 @@ class OpenLinksOptionsViewController: BeamTableViewController {
         
         var title = NSLocalizedString("unknown-link-option", comment: "If the option is unknown")
         var selected = false
-        var accesoryView: UIView? = nil
+        var accesoryView: UIView?
         switch indexPath.section {
         case 0:
             let option = self.supportedLinkOptions[(indexPath as IndexPath).row]

@@ -37,7 +37,7 @@ final class PostLinkPreviewView: BeamControl {
     
     fileprivate var previewImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.isOpaque = true
         imageView.clipsToBounds = true
         imageView.accessibilityIgnoresInvertColors = true
@@ -45,7 +45,7 @@ final class PostLinkPreviewView: BeamControl {
     }()
     fileprivate var playIconImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = UIViewContentMode.center
+        imageView.contentMode = UIView.ContentMode.center
         imageView.isOpaque = false
         imageView.clipsToBounds = true
         imageView.image = #imageLiteral(resourceName: "video_play_external")
@@ -54,7 +54,7 @@ final class PostLinkPreviewView: BeamControl {
     }()
     fileprivate var loadingPlaceholderImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = UIViewContentMode.scaleToFill
+        imageView.contentMode = UIView.ContentMode.scaleToFill
         imageView.isOpaque = true
         imageView.clipsToBounds = true
         imageView.image = #imageLiteral(resourceName: "empty_link_placeholder")
@@ -62,7 +62,7 @@ final class PostLinkPreviewView: BeamControl {
     }()
     fileprivate var spoilerBadgeImageView: UIImageView = {
         let imageView = UIImageView()
-        imageView.contentMode = UIViewContentMode.center
+        imageView.contentMode = UIView.ContentMode.center
         imageView.isOpaque = true
         imageView.clipsToBounds = true
         imageView.image = #imageLiteral(resourceName: "media-nsfw-label")
@@ -118,8 +118,8 @@ final class PostLinkPreviewView: BeamControl {
             //If the post is marked as a spoiler, we don't show the title and description
             return nil
         }
-        let titleAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.titleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.white: UIColor.beamGreyExtraDark()]
-        let descriptionAttributes = [NSAttributedStringKey.font: PostLinkPreviewView.subtitleFont, NSAttributedStringKey.foregroundColor: self.displayMode == .dark ? UIColor.beamGrey() : UIColor(red: 0.58, green: 0.58, blue: 0.58, alpha: 1)]
+        let titleAttributes = [NSAttributedString.Key.font: PostLinkPreviewView.titleFont, NSAttributedString.Key.foregroundColor: self.displayMode == .dark ? UIColor.white: UIColor.beamGreyExtraDark()]
+        let descriptionAttributes = [NSAttributedString.Key.font: PostLinkPreviewView.subtitleFont, NSAttributedString.Key.foregroundColor: self.displayMode == .dark ? UIColor.beamGrey() : UIColor(red: 0.58, green: 0.58, blue: 0.58, alpha: 1)]
         let isImgurLink = post.urlString?.contains("imgur.com") == true
         
         let string = NSMutableAttributedString()
@@ -448,7 +448,7 @@ final class PostLinkPreviewView: BeamControl {
         
         let titleToDomainSpacing: CGFloat = 4
         
-        let descriptionRect = UIEdgeInsetsInsetRect(self.bounds, insets)
+        let descriptionRect = self.bounds.inset(by: insets)
         var maxSize = descriptionRect.size
         
         var placeholderFrame = descriptionRect
@@ -509,10 +509,10 @@ final class PostLinkPreviewView: BeamControl {
         
         insets.left = xPosition
         
-        let descriptionRect = UIEdgeInsetsInsetRect(self.bounds, insets)
+        let descriptionRect = self.bounds.inset(by: insets)
         var maxSize = descriptionRect.size
         
-        var placeholderFrame = UIEdgeInsetsInsetRect(self.bounds, self.viewInsetsLink)
+        var placeholderFrame = self.bounds.inset(by: self.viewInsetsLink)
         placeholderFrame.size.height = self.loadingPlaceholderImageView.image?.size.height ?? 0
         self.loadingPlaceholderImageView.frame = placeholderFrame
         
@@ -550,7 +550,7 @@ final class PostLinkPreviewView: BeamControl {
     
     override var intrinsicContentSize: CGSize {
         guard self.isVideoPreview else {
-            return CGSize(width: UIViewNoIntrinsicMetric, height: 78)
+            return CGSize(width: UIView.noIntrinsicMetric, height: 78)
         }
         let width = UIScreen.main.bounds.width
         let height = PostLinkPreviewView.height(for: self.link, inWidth: width, isVideoPreview: self.isVideoPreview)

@@ -12,11 +12,11 @@ import Foundation
 extension UIInterpolatingMotionEffect {
     
     class func centerEffectWithEdgeOffsets(_ edgeOffsets: UIEdgeInsets) -> UIMotionEffect {
-        let xMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.tiltAlongHorizontalAxis)
+        let xMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffect.EffectType.tiltAlongHorizontalAxis)
         xMotionEffect.minimumRelativeValue = NSNumber(value: Double(edgeOffsets.left) as Double)
         xMotionEffect.maximumRelativeValue = NSNumber(value: Double(edgeOffsets.right) as Double)
         
-        let yMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffectType.tiltAlongVerticalAxis)
+        let yMotionEffect = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffect.EffectType.tiltAlongVerticalAxis)
         yMotionEffect.minimumRelativeValue = NSNumber(value: Double(edgeOffsets.top) as Double)
         yMotionEffect.maximumRelativeValue = NSNumber(value: Double(edgeOffsets.right) as Double)
 

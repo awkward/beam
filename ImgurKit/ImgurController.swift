@@ -10,10 +10,10 @@ import UIKit
 
 public class ImgurController: NSObject {
     
-    open var clientID: String!
+    public var clientID: String!
     
-    open var useMashapeAPI: Bool = false
-    open var mashapeKey: String?
+    public var useMashapeAPI: Bool = false
+    public var mashapeKey: String?
     
     fileprivate var requestsQeue: OperationQueue = {
         let queue = OperationQueue()
@@ -42,7 +42,7 @@ public class ImgurController: NSObject {
                 if uploadProgressHandler != nil {
                     request.uploadProgressHandler = { (request: ImgurRequest, progress: CGFloat) in
                         var requestNumber = 0
-                        if let index = requests.index(of: request) {
+                        if let index = requests.firstIndex(of: request) {
                             requestNumber = index + 1
                         }
                         var totalProgress: CGFloat = 0

@@ -27,7 +27,7 @@ class MarkdownActionBar: BeamView {
         super.awakeFromNib()
         self.addLinkButton.isHidden = true
         self.linkTextField.isHidden = true
-        self.addLinkButton.setTitle(AWKLocalizedString("add-button"), for: UIControlState())
+        self.addLinkButton.setTitle(AWKLocalizedString("add-button"), for: UIControl.State())
     }
     
     class func markdownActionBar(forTextView textView: MarkdownTextView) -> MarkdownActionBar {
@@ -87,7 +87,7 @@ class MarkdownActionBar: BeamView {
                 self.italicButton.alpha = 0
                 self.boldButton.isHidden = false
                 self.italicButton.isHidden = false
-                self.bringSubview(toFront: self.boldButton)
+                self.bringSubviewToFront(self.boldButton)
                 UIView.animate(withDuration: 0.30, animations: {
                     self.boldButton.alpha = 1
                     self.italicButton.alpha = 1
@@ -110,7 +110,7 @@ class MarkdownActionBar: BeamView {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 40)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 40)
     }
     
     override func draw(_ rect: CGRect) {
@@ -125,7 +125,7 @@ class MarkdownActionBar: BeamView {
         super.displayModeDidChange()
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("link-field-placeholder"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("link-field-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         
         self.linkTextField.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())

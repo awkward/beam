@@ -44,12 +44,12 @@ class GalleryAlbumItemAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         
         let sourceFakeView = UIImageView(frame: sourceView?.frame ?? CGRect())
         sourceFakeView.image = self.sourceView?.image
-        sourceFakeView.contentMode = self.sourceView?.contentMode ?? UIViewContentMode.scaleAspectFill
+        sourceFakeView.contentMode = self.sourceView?.contentMode ?? UIView.ContentMode.scaleAspectFill
         sourceFakeView.clipsToBounds = true
         sourceFakeView.frame = animatingView.convert(self.sourceView?.frame ?? CGRect(), from: self.sourceView?.superview)
         animatingView.addSubview(sourceFakeView)
     
-        UIView.animate(withDuration: duration * 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
+        UIView.animate(withDuration: duration * 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIView.AnimationOptions(), animations: { () -> Void in
             
             animatingView.alpha = 1
             sourceFakeView.frame = CGRect(origin: CGPoint(x: 0, y: 64), size: sourceFakeView.frame.size)
@@ -61,7 +61,7 @@ class GalleryAlbumItemAnimator: NSObject, UIViewControllerAnimatedTransitioning 
                 toView.alpha = 0
                 container.addSubview(toView)
                 
-                UIView.animate(withDuration: duration * 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
+                UIView.animate(withDuration: duration * 0.5, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIView.AnimationOptions(), animations: { () -> Void in
                     toView.alpha = 1
                 }, completion: { (succes: Bool) in
                     animatingView.removeFromSuperview()
@@ -80,7 +80,7 @@ class GalleryAlbumItemAnimator: NSObject, UIViewControllerAnimatedTransitioning 
         if let gallery = transitionContext.viewController(forKey: UITransitionContextViewControllerKey.from) as? AWKGalleryViewController {
 
             let duration = self.transitionDuration(using: transitionContext)
-            let contentViewController = gallery.currentContentViewController as? AWKGalleryItemContent
+            let contentViewController = gallery.currentContentViewController
             if let contentView = contentViewController?.contentView {
                 
                 let contentFakeView: UIView? = contentView.snapshotView(afterScreenUpdates: false)
@@ -93,7 +93,7 @@ class GalleryAlbumItemAnimator: NSObject, UIViewControllerAnimatedTransitioning 
                 let fromView = transitionContext.view(forKey: UITransitionContextViewKey.from)
                 fromView?.removeFromSuperview()
                 
-                UIView.animate(withDuration: duration, delay: 0, options: UIViewAnimationOptions.curveEaseOut, animations: { () -> Void in
+                UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: { () -> Void in
                     if let contentFakeView = contentFakeView {
                         contentFakeView.frame = CGRect(x: contentFakeView.frame.minX, y: container.bounds.midY - 0.5 * contentFakeView.frame.height, width: contentFakeView.frame.width, height: contentFakeView.frame.height)
                         contentFakeView.alpha = 0

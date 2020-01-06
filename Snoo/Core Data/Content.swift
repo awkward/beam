@@ -40,13 +40,13 @@ public enum VoteStatus: Int {
 }
 
 @objc(Content)
-open class Content: SyncObject {
+public class Content: SyncObject {
     
     override class func cacheIdentifier(_ identifier: String) -> NSString {
         return "\(self.entityName())-\(identifier)" as NSString
     }
     
-    override open class func entityName() -> String {
+    override public class func entityName() -> String {
         return "Content"
     }
 
@@ -106,14 +106,12 @@ open class Content: SyncObject {
         return dictionary
     }
     
-    open func insertNewMediaObject() -> MediaObject {
-        var insertedObject: MediaObject?
+    open func insertNewMediaObject<T: MediaObject>(of type: T.Type) -> T {
+        var insertedObject: T?
         self.managedObjectContext?.performAndWait({ () -> Void in
             // Insertion
-            if let context = self.managedObjectContext,
-                let entity = NSEntityDescription.entity(forEntityName: MediaObject.entityName(), in: context) {
-                //swiftlint:disable explicit_init
-                insertedObject = MediaObject.init(entity: entity, insertInto: context)
+            if let context = self.managedObjectContext {
+                insertedObject = type.init(context: context)
             }
             
             // Assignment
@@ -165,7 +163,7 @@ open class Content: SyncObject {
         self.score = NSNumber(value: (self.score?.intValue ?? 0) + addSubstract)
     }
     
-    open var hasBeenDeleted: Bool {
+    public var hasBeenDeleted: Bool {
         return (self.author == "[deleted]" || self.author == "[removed]") && (self.content == "[deleted]" || self.content == "[removed]")
     }
     

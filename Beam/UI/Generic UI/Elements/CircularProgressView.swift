@@ -132,7 +132,7 @@ class CircularProgressView: UIView {
         let pathAnimation: CAKeyframeAnimation = CAKeyframeAnimation(keyPath: "path")
         pathAnimation.values = self.currentPaths
         pathAnimation.duration = CFTimeInterval(animationDuration)
-        pathAnimation.timingFunction = CAMediaTimingFunction(name: kCAMediaTimingFunctionEaseOut)
+        pathAnimation.timingFunction = CAMediaTimingFunction(name: CAMediaTimingFunctionName.easeOut)
         pathAnimation.isRemovedOnCompletion = true
         animatingLayer.add(pathAnimation, forKey: "path")
     }

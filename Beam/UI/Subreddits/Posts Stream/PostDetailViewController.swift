@@ -36,7 +36,7 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
     lazy var skipThreadButton: UIButton = {
         let button = UIButton()
         button.alpha = 0.8
-        button.addTarget(self, action: #selector(PostDetailViewController.skipThreadTapped(sender:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(PostDetailViewController.skipThreadTapped(sender:)), for: UIControl.Event.touchUpInside)
         return button
     }()
     
@@ -64,22 +64,22 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
     
     private func setupView() {
         self.embeddedViewController.view.frame = self.view.bounds
-        self.embeddedViewController.willMove(toParentViewController: self)
-        self.addChildViewController(self.embeddedViewController)
+        self.embeddedViewController.willMove(toParent: self)
+        self.addChild(self.embeddedViewController)
         self.view.addSubview(self.embeddedViewController.view)
-        self.embeddedViewController.didMove(toParentViewController: self)
+        self.embeddedViewController.didMove(toParent: self)
         
         self.embeddedViewController.tableView.expandScrollArea()
         
         self.embeddedViewController.view.translatesAutoresizingMaskIntoConstraints = false
         //Add horizontal constraints to make the view center with a max width
-        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .leading, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutRelation.greaterThanOrEqual, toItem: self.embeddedViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .centerX, relatedBy: NSLayoutRelation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
-        self.embeddedViewController.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .width, relatedBy: NSLayoutRelation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
+        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.embeddedViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
+        self.embeddedViewController.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-        let widthConstraint = NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+        let widthConstraint = NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
         widthConstraint.priority = UILayoutPriority.defaultHigh
         self.embeddedViewController.view.addConstraint(widthConstraint)
         
@@ -98,7 +98,7 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
         
         self.setupView()
         
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItemStyle.plain, target: self.embeddedViewController, action: #selector(PostDetailEmbeddedViewController.composeTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItem.Style.plain, target: self.embeddedViewController, action: #selector(PostDetailEmbeddedViewController.composeTapped(_:)))
     
         //Disable the scrollbar on iPad, it looks weird
         if let tableView = self.tableView, UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {
@@ -106,14 +106,14 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
         }
         
         //Make sure the skip thread button is on top of everything
-        self.view.bringSubview(toFront: self.skipThreadButton)
+        self.view.bringSubviewToFront(self.skipThreadButton)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if self.isModallyPresentedRootViewController() == true {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(UIViewController.dismissViewController(_:)))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(UIViewController.dismissViewController(_:)))
         } else {
             self.navigationItem.leftBarButtonItem = nil
         }
@@ -131,7 +131,7 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        self.skipThreadButton.setImage(DisplayModeValue(UIImage(named: "next_button_icon"), darkValue: UIImage(named: "next_button_icon_dark")), for: UIControlState())
+        self.skipThreadButton.setImage(DisplayModeValue(UIImage(named: "next_button_icon"), darkValue: UIImage(named: "next_button_icon_dark")), for: UIControl.State())
     }
     
     @objc fileprivate func skipThreadTapped(sender: UIButton) {
@@ -180,14 +180,14 @@ class PostDetailEmbeddedViewController: StreamViewController {
     }
     
     init(postName: String, contextSubreddit: Subreddit?) {
-        super.init(style: UITableViewStyle.grouped)
+        super.init(style: UITableView.Style.grouped)
         self.contextSubreddit = contextSubreddit
         self.query = ObjectNamesQuery(fullNames: [postName])
         self.startCollectionControllerFetching()
     }
     
     init(post: Post, contextSubreddit: Subreddit?) {
-        super.init(style: UITableViewStyle.grouped)
+        super.init(style: UITableView.Style.grouped)
         self.contextSubreddit = contextSubreddit
         self.query = ObjectNamesQuery(fullNames: [post.objectName!])
         if self.postRequiresFetching(post: post) {
@@ -291,7 +291,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
                 if self.numberOfSections(in: self.tableView) > 1 && self.tableView(self.tableView, numberOfRowsInSection: 1) > 0 {
                     if self.scrollToCommentsOnLoad == true {
                         self.scrollToCommentsOnLoad = false
-                        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: UITableViewScrollPosition.top, animated: true)
+                        self.tableView.scrollToRow(at: IndexPath(row: 0, section: 1), at: UITableView.ScrollPosition.top, animated: true)
                     }
                 }
             })
@@ -300,7 +300,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
     }
     
     fileprivate func reloadCommentsLoadingState() {
-        var view: CommentsFooterView? = nil
+        var view: CommentsFooterView?
         
         let isFetching: Bool = self.commentsDataSource.status == .fetching
         
@@ -431,7 +431,7 @@ class PostDetailEmbeddedViewController: StreamViewController {
         } else if let comment = self.commentsDataSource.commentAtIndexPath(self.commentIndexPath(indexPath)) {
             return self.commentsDataSource.commentCellHeightForComment(comment)
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     override func tableView(_ tableView: UITableView, estimatedHeightForRowAt indexPath: IndexPath) -> CGFloat {

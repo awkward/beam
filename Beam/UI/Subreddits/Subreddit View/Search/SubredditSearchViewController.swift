@@ -55,7 +55,7 @@ class SubredditSearchViewController: BeamTableViewController, SubredditTabItemVi
         
         self.searchController.searchBar.delegate = self
         self.searchController.searchResultsUpdater = self.resultsController
-        self.searchController.searchBar.searchBarStyle = UISearchBarStyle.default
+        self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
         
         self.resultsController.customNavigationController = self.navigationController
         

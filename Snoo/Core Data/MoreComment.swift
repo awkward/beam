@@ -9,9 +9,9 @@
 import Foundation
 import CoreData
 
-open class MoreComment: Comment {
+public class MoreComment: Comment {
 
-    open class override func entityName() -> String {
+    public class override func entityName() -> String {
         return "MoreComment"
     }
     

@@ -12,11 +12,11 @@ import UIKit
 class BeamAlertController: UIAlertController {
     
     func addCloseAction(_ handler: ((_ action: UIAlertAction) -> Void)? = nil) {
-        self.addAction(UIAlertAction(title: AWKLocalizedString("close-button"), style: UIAlertActionStyle.cancel, handler: handler))
+        self.addAction(UIAlertAction(title: AWKLocalizedString("close-button"), style: UIAlertAction.Style.cancel, handler: handler))
     }
     
     func addCancelAction(_ handler: ((_ action: UIAlertAction) -> Void)? = nil) {
-        self.addAction(UIAlertAction(title: AWKLocalizedString("cancel-button"), style: UIAlertActionStyle.cancel, handler: handler))
+        self.addAction(UIAlertAction(title: AWKLocalizedString("cancel-button"), style: UIAlertAction.Style.cancel, handler: handler))
     }
     
     override func viewDidLayoutSubviews() {

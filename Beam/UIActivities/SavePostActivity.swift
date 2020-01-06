@@ -53,8 +53,8 @@ final class SavePostActivity: SaveContentActivity<Post> {
         return true
     }
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.save-post")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.save-post")
     }
     
     override var activityTitle: String? {
@@ -73,8 +73,8 @@ final class UnsavePostActivity: SaveContentActivity<Post> {
         return false
     }
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.unsave-post")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.unsave-post")
     }
     
     override var activityTitle: String? {
@@ -93,8 +93,8 @@ final class SaveCommentActivity: SaveContentActivity<Comment> {
         return true
     }
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.save-comment")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.save-comment")
     }
     
     override var activityTitle: String? {
@@ -113,8 +113,8 @@ final class UnsaveCommentActivity: SaveContentActivity<Comment> {
         return false
     }
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.unsave-comment")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.unsave-comment")
     }
     
     override var activityTitle: String? {

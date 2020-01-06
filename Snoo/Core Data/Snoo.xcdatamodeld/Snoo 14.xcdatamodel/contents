@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="11759" systemVersion="16D32" minimumToolsVersion="Xcode 7.3" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1">
+<model type="com.apple.IDECoreDataModeler.DataModel" documentVersion="1.0" lastSavedToolsVersion="14135" systemVersion="17F77" minimumToolsVersion="Xcode 9.0" sourceLanguage="Swift" userDefinedModelVersionIdentifier="1">
     <entity name="Comment" representedClassName="Comment" parentEntity="InteractiveContent" syncable="YES">
         <relationship name="post" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="Post" inverseName="comments" inverseEntity="Post" syncable="YES"/>
     </entity>
@@ -123,12 +123,15 @@
     <entity name="SyncObject" representedClassName="SyncObject" syncable="YES">
         <attribute name="expirationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="hasBeenReported" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="identifier" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="identifier" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="isBookmarked" optional="YES" attributeType="Boolean" defaultValueString="NO" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="lastRefreshDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="metadata" optional="YES" attributeType="Transformable" valueTransformerName="MetadataValueTransformer" syncable="YES"/>
         <attribute name="order" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <relationship name="collections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="ObjectCollection" inverseName="objects" inverseEntity="ObjectCollection" syncable="YES"/>
+        <fetchIndex name="byIdentifierIndex">
+            <fetchIndexElement property="identifier" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="Thumbnail" representedClassName=".Thumbnail" syncable="YES">
         <attribute name="expirationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
@@ -146,9 +149,12 @@
         <attribute name="linkKarmaCount" optional="YES" attributeType="Integer 64" defaultValueString="0" usesScalarValueType="NO" syncable="YES"/>
         <attribute name="modhash" optional="YES" attributeType="String" syncable="YES"/>
         <attribute name="registrationDate" optional="YES" attributeType="Date" usesScalarValueType="NO" syncable="YES"/>
-        <attribute name="username" optional="YES" attributeType="String" indexed="YES" syncable="YES"/>
+        <attribute name="username" optional="YES" attributeType="String" syncable="YES"/>
         <relationship name="contentCollections" optional="YES" toMany="YES" deletionRule="Nullify" destinationEntity="UserContentCollection" inverseName="user" inverseEntity="UserContentCollection" syncable="YES"/>
         <relationship name="relatedSubredditCollection" optional="YES" maxCount="1" deletionRule="Nullify" destinationEntity="SubredditCollection" inverseName="user" inverseEntity="SubredditCollection" syncable="YES"/>
+        <fetchIndex name="byUsernameIndex">
+            <fetchIndexElement property="username" type="Binary" order="ascending"/>
+        </fetchIndex>
     </entity>
     <entity name="UserContentCollection" representedClassName=".UserContentCollection" parentEntity="ContentCollection" syncable="YES">
         <attribute name="userContentType" optional="YES" attributeType="String" syncable="YES"/>

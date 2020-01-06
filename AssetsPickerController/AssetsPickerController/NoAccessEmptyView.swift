@@ -47,7 +47,7 @@ internal class NoAccessEmptyView: UIView, ColorPaletteSupport {
             self.titleLabel.text = NSLocalizedString("no-access-message-title", tableName: nil, bundle: Bundle(for: AuthorizationViewController.self), value: "No access", comment: "The title at the top of the \"no access\" message when the access to photos is denied or restricted.")
             self.descriptionLabel.text = NSLocalizedString("no-access-message", tableName: nil, bundle: Bundle(for: AuthorizationViewController.self), value: "Please allow '[APPNAME]' access to photos in the Settings app", comment: "The message shown when the access to photos is denied or restricted.").replacingOccurrences(of: "[APPNAME]", with: appName)
             let buttonTitle = NSLocalizedString("open-settings-button", tableName: nil, bundle: Bundle(for: AuthorizationViewController.self), value: "Open settings", comment: "The button shown at the bottom of the view to let the user access settings")
-            self.settingsButton.setTitle(buttonTitle, for: UIControlState())
+            self.settingsButton.setTitle(buttonTitle, for: UIControl.State())
             self.descriptionLabelToSettingsButtonConstraint.isActive = true
         }
     }
@@ -59,7 +59,7 @@ internal class NoAccessEmptyView: UIView, ColorPaletteSupport {
     }
     
     @IBAction func openSettingsTapped(_ sender: UIButton) {
-        UIApplication.shared.openURL(URL(string: UIApplicationOpenSettingsURLString)!)
+        UIApplication.shared.openURL(URL(string: UIApplication.openSettingsURLString)!)
     }
 
 }

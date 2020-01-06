@@ -33,7 +33,7 @@ public struct RemoteNotificationsPreferences {
 }
 
 open class RemoteNotificationsTaskResult: TaskResult {
-    open var preferences: RemoteNotificationsPreferences
+    public var preferences: RemoteNotificationsPreferences
     
     init(preferences: RemoteNotificationsPreferences) {
         self.preferences = preferences
@@ -44,14 +44,14 @@ open class RemoteNotificationsTaskResult: TaskResult {
 /// Fetches the current remote notification preferences.
 open class RemoteNotificationsTask: Task {
     
-    open let deviceToken: Data
+    final let deviceToken: Data
     
     public init(token: String, deviceToken: Data) {
         self.deviceToken = deviceToken
         super.init(token: token)
     }
     
-    open var deviceTokenString: String {
+    public var deviceTokenString: String {
         return self.deviceToken.description.replacingOccurrences(of: " ", with: "").replacingOccurrences(of: ">", with: "").replacingOccurrences(of: "<", with: "")
     }
     
@@ -91,7 +91,7 @@ public struct RemoteNotificationsRegistrationOptions {
 
 open class RemoteNotificationsRegistrationTask: RemoteNotificationsTask {
     
-    open let registrationOptions: RemoteNotificationsRegistrationOptions
+    final let registrationOptions: RemoteNotificationsRegistrationOptions
     
     public init(token: String, deviceToken: Data, registrationOptions options: RemoteNotificationsRegistrationOptions) {
         self.registrationOptions = options

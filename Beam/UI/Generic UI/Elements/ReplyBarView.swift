@@ -95,7 +95,7 @@ class ReplyBarView: BeamView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.sendButton.setTitle(AWKLocalizedString("send-button"), for: UIControlState())
+        self.sendButton.setTitle(AWKLocalizedString("send-button"), for: UIControl.State())
     }
     
     deinit {
@@ -104,9 +104,9 @@ class ReplyBarView: BeamView {
     
     fileprivate func setupView() {
         
-        NotificationCenter.default.addObserver(self, selector: #selector(ReplyBarView.keyboardFrameWillChange(_:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ReplyBarView.keyboardFrameWillChange(_:)), name: NSNotification.Name.UIKeyboardWillShow, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ReplyBarView.keyboardFrameWillChange(_:)), name: NSNotification.Name.UIKeyboardWillHide, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReplyBarView.keyboardFrameWillChange(_:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReplyBarView.keyboardFrameWillChange(_:)), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ReplyBarView.keyboardFrameWillChange(_:)), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc fileprivate func keyboardFrameWillChange(_ notification: Notification) {
@@ -125,12 +125,12 @@ class ReplyBarView: BeamView {
         if let bottomConstraint = self.bottomConstraint {
             let userInfo = (notification as NSNotification).userInfo!
             
-            let frameEnd = (userInfo[UIKeyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
-            let duration = userInfo[UIKeyboardAnimationDurationUserInfoKey] as! NSNumber
-            let curve = userInfo[UIKeyboardAnimationCurveUserInfoKey] as! NSNumber
+            let frameEnd = (userInfo[UIResponder.keyboardFrameEndUserInfoKey]! as AnyObject).cgRectValue
+            let duration = userInfo[UIResponder.keyboardAnimationDurationUserInfoKey] as! NSNumber
+            let curve = userInfo[UIResponder.keyboardAnimationCurveUserInfoKey] as! NSNumber
             
             var constant: CGFloat = frameEnd?.height ?? 0
-            if notification.name == NSNotification.Name.UIKeyboardDidHide || notification.name == NSNotification.Name.UIKeyboardWillHide {
+            if notification.name == UIResponder.keyboardDidHideNotification || notification.name == UIResponder.keyboardWillHideNotification {
                 constant = 0
             }
             if let layoutGuide = bottomConstraint.firstItem as? UILayoutSupport {
@@ -139,7 +139,7 @@ class ReplyBarView: BeamView {
                 }
             }
             
-            UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: UIViewAnimationOptions(rawValue: UInt(curve.intValue)), animations: { () -> Void in
+            UIView.animate(withDuration: duration.doubleValue, delay: 0.0, options: UIView.AnimationOptions(rawValue: UInt(curve.intValue)), animations: { () -> Void in
                 
                 bottomConstraint.constant = constant
                 if let superview = self.superview {
@@ -200,7 +200,7 @@ class ReplyBarView: BeamView {
         return self.textView.resignFirstResponder()
     }
     
-    @objc @IBAction func sendText(_ sender: AnyObject) {
+    @IBAction func sendText(_ sender: AnyObject) {
         if let delegate = self.delegate {
             delegate.replyBar(self, didTapSendMessage: self.textView.text)
         }

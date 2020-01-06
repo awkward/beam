@@ -25,7 +25,7 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
     lazy var skipThreadButton: UIButton = {
         let button = UIButton()
         button.alpha = 0.8
-        button.addTarget(self, action: #selector(CommentsViewController.skipThreadTapped(sender:)), for: UIControlEvents.touchUpInside)
+        button.addTarget(self, action: #selector(CommentsViewController.skipThreadTapped(sender:)), for: UIControl.Event.touchUpInside)
         return button
     }()
     
@@ -71,22 +71,22 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
         }
         
         if self.parentComment == nil {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(CommentsViewController.composeTapped(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "compose_icon"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(CommentsViewController.composeTapped(_:)))
         }
         
-        self.addChildViewController(self.embeddedViewController)
+        self.addChild(self.embeddedViewController)
         self.view.addSubview(self.embeddedViewController.view)
         self.embeddedViewController.view.translatesAutoresizingMaskIntoConstraints = false
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: [], metrics: nil, views: ["view": self.embeddedViewController.view]))
         self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: ["view": self.embeddedViewController.view]))
-        self.embeddedViewController.didMove(toParentViewController: self)
+        self.embeddedViewController.didMove(toParent: self)
         
         //Add the skip thread button, but only if we aren't looking at a parent comment
         if self.parentComment == nil {
             //Add the skip thread button
             self.skipThreadButton.translatesAutoresizingMaskIntoConstraints = false
             self.view.addSubview(self.skipThreadButton)
-            self.view.bringSubview(toFront: self.skipThreadButton)
+            self.view.bringSubviewToFront(self.skipThreadButton)
             self.view.trailingAnchor.constraint(equalTo: self.skipThreadButton.trailingAnchor, constant: 12).isActive = true
             self.view.bottomAnchor.constraint(equalTo: self.skipThreadButton.bottomAnchor, constant: 12).isActive = true
         }
@@ -97,7 +97,7 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
         
         //The navigationController might not be set earlier than viewWillAppear(:), so we update the item here
         if self.isModallyPresentedRootViewController() {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(CommentsViewController.doneButtonTapped(_:)))
+            self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(CommentsViewController.doneButtonTapped(_:)))
         }
     }
     
@@ -131,7 +131,7 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
     }
     override func displayModeDidChange() {
         super.displayModeDidChange()
-        self.skipThreadButton.setImage(DisplayModeValue(UIImage(named: "next_button_icon"), darkValue: UIImage(named: "next_button_icon_dark")), for: UIControlState())
+        self.skipThreadButton.setImage(DisplayModeValue(UIImage(named: "next_button_icon"), darkValue: UIImage(named: "next_button_icon_dark")), for: UIControl.State())
     }
 
     @objc fileprivate func skipThreadTapped(sender: UIButton) {
@@ -189,7 +189,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
         
         self.dataSource.registerCells(self.tableView)
         
-        self.tableView.rowHeight = UITableViewAutomaticDimension
+        self.tableView.rowHeight = UITableView.automaticDimension
         self.tableView.estimatedRowHeight = 60
         self.tableView.separatorStyle = .none
         
@@ -253,7 +253,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
     }
     
     func reloadLoadingState() {
-        var view: CommentsFooterView? = nil
+        var view: CommentsFooterView?
         
         let isFetching: Bool = self.dataSource.status == .fetching
         
@@ -332,7 +332,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
         if let comment = self.dataSource.commentAtIndexPath(indexPath) {
             return self.dataSource.commentCellHeightForComment(comment)
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
     // MARK: - UITableViewDelegate
@@ -371,7 +371,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
                     }
                     UIApplication.stopNetworkActivityIndicator(for: self)
                 })
-                self.tableView.reloadRows(at: [indexPath], with: UITableViewRowAnimation.fade)
+                self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.fade)
             }
             //NOTE: didSelectRowAtIndexPath does not work for "CommentCell", please see the CommentCellDelegate instead
         }
@@ -440,8 +440,8 @@ extension CommentsEmbeddedViewController: AWKGalleryDataSource {
     }
     
     func gallery(_ galleryViewController: AWKGalleryViewController, indexOf item: AWKGalleryItem) -> Int {
-        return (self.galleryMediaObjects?.index(where: { (mediaObject: MediaObject) -> Bool in
-            return mediaObject.contentURLString == item.contentURL?.absoluteString
+        return (self.galleryMediaObjects?.firstIndex(where: { (mediaObject: MediaObject) -> Bool in
+            return mediaObject.contentURL == item.contentURL
         })) ?? 0
     }
     

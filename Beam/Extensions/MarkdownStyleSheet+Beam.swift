@@ -11,7 +11,7 @@ import TTTAttributedLabel
 
 extension MarkdownStylesheet {
 
-    public static func beamStyleSheet(_ textStyle: UIFontTextStyle, darkmode: Bool = false) -> MarkdownStylesheet {
+    public static func beamStyleSheet(_ textStyle: UIFont.TextStyle, darkmode: Bool = false) -> MarkdownStylesheet {
         let textColor = darkmode ? UIColor(red: 214 / 255, green: 214 / 255, blue: 214 / 255, alpha: 1) : UIColor(red: 65 / 255, green: 65 / 255, blue: 65 / 255, alpha: 1.00000)
         let headlineColor = textColor
         let baseFont: UIFont!
@@ -26,20 +26,20 @@ extension MarkdownStylesheet {
         }
         
         let stylesheet = MarkdownStylesheet.systemStylesheetWithBaseFont(baseFont)
-        var attributes: [MarkdownElementType: [NSAttributedStringKey: Any]] = stylesheet.attributes
+        var attributes: [MarkdownElementType: [NSAttributedString.Key: Any]] = stylesheet.attributes
         
         let lineHeight: CGFloat? = ceil(baseFont.lineHeight)
         
         for element in attributes.keys {
-            var elementAttributes: [NSAttributedStringKey: Any] = attributes[element]!
+            var elementAttributes: [NSAttributedString.Key: Any] = attributes[element]!
             
             //Adjust the colors
             if element == .h1 || element == .h2 || element == .h3 {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = headlineColor
+                elementAttributes[NSAttributedString.Key.foregroundColor] = headlineColor
             } else if element == .quote {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor.withAlphaComponent(0.8)
+                elementAttributes[NSAttributedString.Key.foregroundColor] = textColor.withAlphaComponent(0.8)
             } else {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor
+                elementAttributes[NSAttributedString.Key.foregroundColor] = textColor
             }
             
             //Add the custom striketrougk
@@ -50,8 +50,8 @@ extension MarkdownStylesheet {
             
             if lineHeight != nil {
                 //Adjust the paragraph style
-                var paragraphStyle: NSMutableParagraphStyle!
-                if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
+                let paragraphStyle: NSMutableParagraphStyle
+                if let existingParagraphStyle = elementAttributes[NSAttributedString.Key.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
                     paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -59,7 +59,7 @@ extension MarkdownStylesheet {
                 paragraphStyle.minimumLineHeight = lineHeight!
                 paragraphStyle.maximumLineHeight = lineHeight!
                 
-                elementAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
+                elementAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
             }
             
             attributes[element] = elementAttributes
@@ -73,20 +73,20 @@ extension MarkdownStylesheet {
          let fontSize: CGFloat = FontSizeController.adjustedFontSize(14)
         let baseFont = UIFont.systemFont(ofSize: fontSize)
         let stylesheet = MarkdownStylesheet.systemStylesheetWithBaseFont(baseFont)
-        var attributes: [MarkdownElementType: [NSAttributedStringKey: Any]] = stylesheet.attributes
+        var attributes: [MarkdownElementType: [NSAttributedString.Key: Any]] = stylesheet.attributes
         
         let lineHeight: CGFloat? = FontSizeController.adjustedLineHeight(20)
         
         for element in attributes.keys {
-            var elementAttributes: [NSAttributedStringKey: Any] = attributes[element]!
+            var elementAttributes: [NSAttributedString.Key: Any] = attributes[element]!
             
             //Adjust the colors
             if element == .h1 || element == .h2 || element == .h3 {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = headlineColor
+                elementAttributes[NSAttributedString.Key.foregroundColor] = headlineColor
             } else if element == .quote {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor.withAlphaComponent(0.8)
+                elementAttributes[NSAttributedString.Key.foregroundColor] = textColor.withAlphaComponent(0.8)
             } else {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor
+                elementAttributes[NSAttributedString.Key.foregroundColor] = textColor
             }
             
             //Add the custom striketrougk
@@ -97,8 +97,8 @@ extension MarkdownStylesheet {
         
             if lineHeight != nil {
                 //Adjust the paragraph style
-                var paragraphStyle: NSMutableParagraphStyle!
-                if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
+                let paragraphStyle: NSMutableParagraphStyle
+                if let existingParagraphStyle = elementAttributes[NSAttributedString.Key.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
                     paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -106,7 +106,7 @@ extension MarkdownStylesheet {
                 paragraphStyle.minimumLineHeight = lineHeight!
                 paragraphStyle.maximumLineHeight = lineHeight!
                 
-                elementAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
+                elementAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
             }
             
             attributes[element] = elementAttributes
@@ -129,11 +129,11 @@ extension MarkdownStylesheet {
             
             //Adjust the colors
             if element == .h1 || element == .h2 || element == .h3 {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = headlineColor
+                elementAttributes[NSAttributedString.Key.foregroundColor] = headlineColor
             } else if element == .quote {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor.withAlphaComponent(0.8)
+                elementAttributes[NSAttributedString.Key.foregroundColor] = textColor.withAlphaComponent(0.8)
             } else {
-                elementAttributes[NSAttributedStringKey.foregroundColor] = textColor
+                elementAttributes[NSAttributedString.Key.foregroundColor] = textColor
             }
             
             //Add the custom striketrougk
@@ -144,8 +144,8 @@ extension MarkdownStylesheet {
             
             if lineHeight != nil {
                 //Adjust the paragraph style
-                var paragraphStyle: NSMutableParagraphStyle!
-                if let existingParagraphStyle = elementAttributes[NSAttributedStringKey.paragraphStyle] as? NSParagraphStyle {
+                let paragraphStyle: NSMutableParagraphStyle
+                if let existingParagraphStyle = elementAttributes[NSAttributedString.Key.paragraphStyle] as? NSParagraphStyle {
                     paragraphStyle = existingParagraphStyle.mutableCopy() as! NSMutableParagraphStyle
                 } else {
                     paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
@@ -153,7 +153,7 @@ extension MarkdownStylesheet {
                 paragraphStyle.minimumLineHeight = lineHeight!
                 paragraphStyle.maximumLineHeight = lineHeight!
                 
-                elementAttributes[NSAttributedStringKey.paragraphStyle] = paragraphStyle
+                elementAttributes[NSAttributedString.Key.paragraphStyle] = paragraphStyle
             }
             attributes[element] = elementAttributes
         }

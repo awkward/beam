@@ -33,7 +33,7 @@ extension Subreddit {
                     if unsubscribe {
                         if let subredditCollections = self.collections?.filter({ $0 is SubredditCollection }) as? [SubredditCollection] {
                             for collection in subredditCollections {
-                                if var objects = collection.objects?.array as? [Subreddit], let index = objects.index(of: self) {
+                                if var objects = collection.objects?.array as? [Subreddit], let index = objects.firstIndex(of: self) {
                                     objects.remove(at: index)
                                     collection.objects = NSOrderedSet(array: objects)
                                 }

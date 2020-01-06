@@ -22,19 +22,19 @@ class AboutViewController: BeamTableViewController {
         self.navigationItem.title = AWKLocalizedString("about-title")
         
         let appIconRelativeValue: CGFloat = 25
-        let appIconHorizontalAnimation = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.tiltAlongHorizontalAxis)
+        let appIconHorizontalAnimation = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffect.EffectType.tiltAlongHorizontalAxis)
         appIconHorizontalAnimation.maximumRelativeValue = appIconRelativeValue
         appIconHorizontalAnimation.minimumRelativeValue = -appIconRelativeValue
-        let appIconVerticalAnimation = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffectType.tiltAlongVerticalAxis)
+        let appIconVerticalAnimation = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffect.EffectType.tiltAlongVerticalAxis)
         appIconVerticalAnimation.maximumRelativeValue = appIconRelativeValue
         appIconVerticalAnimation.minimumRelativeValue = -appIconRelativeValue
         self.appIconImageView.motionEffects = [appIconHorizontalAnimation, appIconVerticalAnimation]
         
         let starsRelativeValue: CGFloat = 20
-        let starsHorizontalAnimation = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffectType.tiltAlongHorizontalAxis)
+        let starsHorizontalAnimation = UIInterpolatingMotionEffect(keyPath: "center.x", type: UIInterpolatingMotionEffect.EffectType.tiltAlongHorizontalAxis)
         starsHorizontalAnimation.maximumRelativeValue = starsRelativeValue
         starsHorizontalAnimation.minimumRelativeValue = -starsRelativeValue
-        let starsVerticalAnimation = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffectType.tiltAlongVerticalAxis)
+        let starsVerticalAnimation = UIInterpolatingMotionEffect(keyPath: "center.y", type: UIInterpolatingMotionEffect.EffectType.tiltAlongVerticalAxis)
         starsVerticalAnimation.maximumRelativeValue = starsRelativeValue
         starsVerticalAnimation.minimumRelativeValue = -starsRelativeValue
         self.starsImageView.motionEffects = [starsHorizontalAnimation, starsVerticalAnimation]
@@ -50,16 +50,16 @@ class AboutViewController: BeamTableViewController {
         tableView.deselectRow(at: indexPath, animated: true)
         if (indexPath as IndexPath).row == 0 {
             //Open /r/beamreddit
-            UIApplication.shared.open(URL(string: "beamwtf://r/beamreddit")!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string: "beamwtf://r/beamreddit")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         } else if (indexPath as IndexPath).row == 1 {
             //Like on facebook
-            UIApplication.shared.open(URL(string: "https://facebook.com/beamforreddit")!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string: "https://facebook.com/beamforreddit")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         } else if (indexPath as IndexPath).row == 2 {
             //Beamreddit twitter
-            UIApplication.shared.open(URL(string: "https://twitter.com/beamreddit")!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string: "https://twitter.com/beamreddit")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         } else if (indexPath as IndexPath).row == 3 {
             //Open /r/beamreddit
-            UIApplication.shared.open(URL(string: "http://madeawkward.com")!, options: [:], completionHandler: nil)
+            UIApplication.shared.open(URL(string: "http://madeawkward.com")!, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
         }
     }
     
@@ -108,4 +108,9 @@ class AboutViewController: BeamTableViewController {
         player.play()
         self.players.append(player)
     }
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

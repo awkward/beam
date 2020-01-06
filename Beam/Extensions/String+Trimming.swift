@@ -11,21 +11,14 @@ import Foundation
 extension String {
     
     func stringByTrimmingTrailingWhitespacesAndNewLines() -> String {
-        return self.stringByTrimmingTrailingCharactersInSet(CharacterSet.whitespacesAndNewlines)
+        return self.stringByTrimmingTrailingCharactersInSet(.whitespacesAndNewlines)
     }
     
     func stringByTrimmingTrailingCharactersInSet(_ characterSet: CharacterSet) -> String {
-        var length: Int = self.utf16.count
-        
-        while length > 0 {
-            let charIndex = self.utf16.index(self.utf16.startIndex, offsetBy: length - 1)
-            if !characterSet.contains(UnicodeScalar(self.utf16[charIndex])!) {
-                break
-            }
-            length -= 1
+        if let range = rangeOfCharacter(from: characterSet, options: [.anchored, .backwards]) {
+            return String(self[..<range.lowerBound]).stringByTrimmingTrailingCharactersInSet(characterSet)
         }
-        
-        return self.substring(with: self.startIndex..<self.characters.index(self.startIndex, offsetBy: length - 1))
+        return self
     }
     
 }

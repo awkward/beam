@@ -68,7 +68,7 @@ extension UIViewController {
         }
         if self.galleryWindow == nil {
             self.galleryWindow = UIWindow(frame: UIScreen.main.bounds)
-            self.galleryWindow!.windowLevel = UIWindowLevelNormal
+            self.galleryWindow!.windowLevel = UIWindow.Level.normal
             self.galleryWindow!.backgroundColor = UIColor.clear
             self.galleryWindow!.tintColor = self.view.window?.tintColor
             

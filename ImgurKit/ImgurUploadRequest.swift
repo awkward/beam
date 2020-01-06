@@ -12,8 +12,8 @@ import MobileCoreServices
 
 public class ImgurUploadRequest: ImgurRequest {
 
-    open var image: UIImage?
-    open var asset: PHAsset?
+    public var image: UIImage?
+    public var asset: PHAsset?
     
     public init(image: UIImage) {
         super.init()
@@ -45,7 +45,7 @@ public class ImgurUploadRequest: ImgurRequest {
                 }
             })
         } else if let image = self.image {
-            self.startUpload(UIImageJPEGRepresentation(image, 1.0)!, mimeType: "image/jpeg", completionHandler: completionHandler)
+            self.startUpload(image.jpegData(compressionQuality: 1.0)!, mimeType: "image/jpeg", completionHandler: completionHandler)
         } else {
             fatalError("Image missing!")
         }

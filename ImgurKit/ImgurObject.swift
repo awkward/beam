@@ -8,11 +8,11 @@
 
 import UIKit
 
-open class ImgurObject: NSObject, NSCoding {
+public class ImgurObject: NSObject, NSCoding {
     
-    open var identifier: String
-    open var deleteHash: String?
-    open var URL: Foundation.URL {
+    public var identifier: String
+    public var deleteHash: String?
+    public var URL: Foundation.URL {
         return Foundation.URL(string: "https://imgur.com/\(self.identifier)")!
     }
     

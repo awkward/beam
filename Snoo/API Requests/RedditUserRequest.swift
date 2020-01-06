@@ -15,12 +15,12 @@ enum RedditMeRequestType: String {
     case trophies = "trophies"
 }
 
-open class RedditUserRequest: RedditRequest {
+public class RedditUserRequest: RedditRequest {
     
     var requestType = RedditMeRequestType.overview
-    open var username: String?
+    public var username: String?
     
-    override open var urlRequest: URLRequest? {
+    override public var urlRequest: URLRequest? {
         get {
             if let usernameString = self.username {
                 var requestTypeString = requestType.rawValue

@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-open class ContentCollection: ObjectCollection {
+public class ContentCollection: ObjectCollection {
     
     override func configureQuery(_ query: CollectionQuery) {
         super.configureQuery(query)

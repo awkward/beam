@@ -36,12 +36,12 @@ extension MediaImageLoader {
         }
         var mediaURLString: String?
         AppDelegate.shared.managedObjectContext.performAndWait { () -> Void in
-            if let urlString = self.mediaObject?.thumbnailWithSize(self.preferredThumbnailSize)?.urlString {
+            if let urlString = self.mediaObject?.thumbnailWithSize(self.preferredThumbnailSize)?.url?.absoluteString {
                 mediaURLString = urlString
             } else if let url = self.mediaObject?.smallThumbnailURL {
                 mediaURLString = url.absoluteString
             } else {
-                mediaURLString = self.mediaObject?.contentURLString
+                mediaURLString = self.mediaObject?.contentURL?.absoluteString
             }
         }
         return mediaURLString
@@ -49,6 +49,7 @@ extension MediaImageLoader {
     
     func startImageLoading() {
         DispatchQueue.global(qos: .userInitiated).async { [weak self] () -> Void in
+            self?.mediaImageView.image = nil
             let URLString = self?.mediaURLString()
             if let URLString = URLString, let url = URL(string: URLString) {
                 if let cachedImage = SDImageCache.shared().imageFromDiskCache(forKey: URLString) {

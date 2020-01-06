@@ -13,7 +13,7 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
     
     var pickerController: AssetsPickerController!
     
-    weak var assetsPickerController: AssetsPickerController? {
+    var assetsPickerController: AssetsPickerController? {
         get {
             return self.pickerController
         }
@@ -41,7 +41,7 @@ internal class AssetsPickerNavigationController: UINavigationController, ColorPa
         
         self.colorPaletteDidChange()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(AssetsPickerNavigationController.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AssetsPickerNavigationController.applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     deinit {

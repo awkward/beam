@@ -18,7 +18,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
     }
     
     fileprivate var showCameraButton: Bool {
-        if !UIImagePickerController.isSourceTypeAvailable(UIImagePickerControllerSourceType.camera) {
+        if !UIImagePickerController.isSourceTypeAvailable(UIImagePickerController.SourceType.camera) {
             return false
         }
         return self.assetsPickerController!.showCameraOption
@@ -77,8 +77,8 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
                 UIView.performWithoutAnimation({
                     self.collectionView?.reloadSections(IndexSet(integer: 0))
                     for selectedAsset in self.selectedAssets {
-                        if let index = self.assets?.index(of: selectedAsset) {
-                            self.collectionView?.selectItem(at: IndexPath(item: index + (self.showCameraButton ? 1 : 0), section: 0), animated: false, scrollPosition: UICollectionViewScrollPosition())
+                        if let index = self.assets?.firstIndex(of: selectedAsset) {
+                            self.collectionView?.selectItem(at: IndexPath(item: index + (self.showCameraButton ? 1 : 0), section: 0), animated: false, scrollPosition: UICollectionView.ScrollPosition())
                         }
                     }
                 })
@@ -110,17 +110,17 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
         self.collectionView?.allowsMultipleSelection = true
 
         if self.navigationController is AssetsPickerNavigationController {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(AssetsGridViewController.doneTapped(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(AssetsGridViewController.doneTapped(_:)))
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(AssetsGridViewController.applicationDidBecomeActive(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(AssetsGridViewController.applicationDidBecomeActive(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
     }
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
         if self.navigationController is AssetsPickerNavigationController {
-            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.done, target: self, action: #selector(AssetsGridViewController.doneTapped(_:)))
+            self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(AssetsGridViewController.doneTapped(_:)))
         }
     }
     
@@ -203,7 +203,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
             }
         } else {
             let cameraController = UIImagePickerController()
-            cameraController.sourceType = UIImagePickerControllerSourceType.camera
+            cameraController.sourceType = UIImagePickerController.SourceType.camera
             cameraController.delegate = self
             self.present(cameraController, animated: true, completion: nil)
             collectionView.deselectItem(at: indexPath, animated: true)
@@ -213,7 +213,7 @@ class AssetsGridViewController: UICollectionViewController, AssetsPickerViewCont
     override func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {
         if let asset = self.assetForIndexPath(indexPath) {
             if self.selectedAssets.contains(asset) {
-                self.selectedAssets.remove(at: self.selectedAssets.index(of: asset)!)
+                self.selectedAssets.remove(at: self.selectedAssets.firstIndex(of: asset)!)
             }
         }
     }

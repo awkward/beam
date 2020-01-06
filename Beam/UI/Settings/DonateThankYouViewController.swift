@@ -35,9 +35,9 @@ class DonateThankYouViewController: BeamViewController {
         
         self.setupView()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(DonateThankYouViewController.applicationStateChanged(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     deinit {
@@ -59,9 +59,9 @@ class DonateThankYouViewController: BeamViewController {
         self.textLabel.text = AWKLocalizedString("donate-thankyou-message")
         
         //Connect button
-        self.closeButton.setTitle(AWKLocalizedString("close-button"), for: UIControlState())
+        self.closeButton.setTitle(AWKLocalizedString("close-button"), for: UIControl.State())
         self.closeButton.backgroundColor = UIColor.white
-        self.closeButton.setTitleColor(tintColor, for: UIControlState())
+        self.closeButton.setTitleColor(tintColor, for: UIControl.State())
         self.closeButton.layer.cornerRadius = cornerRadius
         self.closeButton.layer.masksToBounds = true
         

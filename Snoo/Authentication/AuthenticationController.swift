@@ -47,13 +47,13 @@ public final class AuthenticationController: NSObject {
     public static let UserIdentifierKey = "userIdentifier"
     
     // MARK: Properties
-    open var configuration: AuthenticationConfiguration
+    public var configuration: AuthenticationConfiguration
 
-    open var isAuthenticated: Bool {
+    public var isAuthenticated: Bool {
         return self.userSession?.refreshToken != nil
     }
     
-    open var isApplicationAuthenticated: Bool {
+    public var isApplicationAuthenticated: Bool {
         return self.activeSession?.accessToken != nil
     }
     
@@ -80,11 +80,11 @@ public final class AuthenticationController: NSObject {
     }
     
     internal static let CurrentUserSessionKey = "authentication-current-user-session"
-    open var userSessionAvailable: Bool {
+    public var userSessionAvailable: Bool {
         return UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) != nil
     }
     
-    open var activeUserSession: AuthenticationSession? {
+    public var activeUserSession: AuthenticationSession? {
         return self.userSession
     }
     
@@ -137,12 +137,12 @@ public final class AuthenticationController: NSObject {
         }
     }
     
-    open var activeUserIdentifier: String? {
+    public var activeUserIdentifier: String? {
         return self.userSession?.userIdentifier
     }
     
-    open func activeUser(_ context: NSManagedObjectContext) -> User? {
-        var user: User? = nil
+    public func activeUser(_ context: NSManagedObjectContext) -> User? {
+        var user: User?
         if let userIdentifier = self.activeUserIdentifier {
             context.performAndWait({ () -> Void in
                 do {
@@ -220,7 +220,7 @@ public final class AuthenticationController: NSObject {
     /**
      Use this NSURLSession to make requests to reddit. This session will contain the "Autherization" token related to the user
      */
-    open var userURLSession: URLSession {
+    public var userURLSession: URLSession {
         if self.privateUserURLSession == nil {
             let configuration = self.basicURLSessionConfiguration
             
@@ -240,7 +240,7 @@ public final class AuthenticationController: NSObject {
     /**
      Returns a NSURLSessionConfiguration without the autherization header. This configuration is used for all requests that needs custom authorization or none.
      */
-    open lazy var basicURLSessionConfiguration: URLSessionConfiguration = {
+    public lazy var basicURLSessionConfiguration: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default
         
         configuration.timeoutIntervalForRequest = 10
@@ -322,7 +322,7 @@ public final class AuthenticationController: NSObject {
     /**
     If the user is not authenticated and he wants to login, you can present a web view to trigger the OAuth authentication process. Use this URL.
     */
-    open var authorizationURL: URL? {
+    public var authorizationURL: URL? {
         self.authorizationState = UUID().uuidString
 
         if let redirectString = URL.stringByAddingUrlPercentagesToString(self.configuration.redirectUri), let scopeString = URL.stringByAddingUrlPercentagesToString(self.configuration.scope), let state = authorizationState {
@@ -337,7 +337,7 @@ public final class AuthenticationController: NSObject {
     /**
     When the webview asks you to load a certain URL that corresponds to your respond-URL from the OAuth process, call this method with the url. The controller tries to obtain access and will let you know in the handler. The handler can be called from a background thread.
     */
-    open func authenticateURL(_ url: URL, handler: ((Bool, Error?) -> Void)?) {
+    public func authenticateURL(_ url: URL, handler: ((Bool, Error?) -> Void)?) {
         if let parameters = url.queryParameters,
             let state = parameters["state"],
             let code = parameters["code"] {
@@ -412,7 +412,7 @@ public final class AuthenticationController: NSObject {
     
     // MARK: Fetching user info
     
-    open func requestActiveUser(_ handler: ((_ userID: NSManagedObjectID?, _ identifier: String?, _ error: Error?) -> Void)?) {
+    public func requestActiveUser(_ handler: ((_ userID: NSManagedObjectID?, _ identifier: String?, _ error: Error?) -> Void)?) {
         if let userSession = self.userSession, userSession.refreshToken != nil {
             self.requestUser(userSession, handler: handler)
         } else {
@@ -502,7 +502,7 @@ public final class AuthenticationController: NSObject {
         }
     }
     
-    open func removeUserSession(_ session: AuthenticationSession, handler: (() -> Void)?) {
+    public func removeUserSession(_ session: AuthenticationSession, handler: (() -> Void)?) {
         let sessions = self.authenticationSessions
         
         if let newSession = sessions.first(where: { (filterSession) -> Bool in
@@ -526,7 +526,7 @@ public final class AuthenticationController: NSObject {
         }
     }
     
-    open func removeAllUserAccounts() {
+    public func removeAllUserAccounts() {
         let sessions = self.authenticationSessions
         for session in sessions {
             session.destroy()
@@ -537,7 +537,7 @@ public final class AuthenticationController: NSObject {
         self.authenticationSessions = [AuthenticationSession]()
     }
     
-    open func switchToAuthenticationSession(_ session: AuthenticationSession?, handler: ((_ error: Error?) -> Void)?) {
+    public func switchToAuthenticationSession(_ session: AuthenticationSession?, handler: ((_ error: Error?) -> Void)?) {
         if session != nil && session?.refreshToken == nil {
             handler?(NSError.snooError(400, localizedDescription: "The given user account is invalid, this could be because the refresh token no longer exists"))
         } else {
@@ -566,7 +566,7 @@ public final class AuthenticationController: NSObject {
         }
     }
     
-    open func fetchAllAuthenticationSessions() -> [AuthenticationSession] {
+    public func fetchAllAuthenticationSessions() -> [AuthenticationSession] {
         var sessions = self.authenticationSessions.filter({ $0.refreshToken != nil })
         
         sessions.sort { (session1: AuthenticationSession, session2: AuthenticationSession) -> Bool in

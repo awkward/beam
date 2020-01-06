@@ -54,12 +54,12 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
             }
             var mediaURLString: String?
             AppDelegate.shared.managedObjectContext.performAndWait { () -> Void in
-                if let urlString = self.mediaObject?.thumbnailWithSize(self.preferredThumbnailSize)?.urlString {
+                if let urlString = self.mediaObject?.thumbnailWithSize(self.preferredThumbnailSize)?.url?.absoluteString {
                     mediaURLString = urlString
                 } else if let url = self.mediaObject?.smallThumbnailURL {
                     mediaURLString = url.absoluteString
                 } else {
-                    mediaURLString = self.mediaObject?.contentURLString
+                    mediaURLString = self.mediaObject?.contentURL?.absoluteString
                 }
             }
             return mediaURLString
@@ -92,7 +92,7 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
     func reloadSpoilerOverlay() {
         if (self.contentIsNSFW && self.shouldShowNSFWOverlay) || (self.contentIsSpoiler && self.shouldShowSpoilerOverlay) {
             if self.spoilerOverlay == nil && (self.contentIsNSFW || self.contentIsSpoiler) {
-                self.spoilerOverlay = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffectStyle.dark))
+                self.spoilerOverlay = UIVisualEffectView(effect: UIBlurEffect(style: UIBlurEffect.Style.dark))
                 self.spoilerOverlay!.layer.cornerRadius = self.layer.cornerRadius
                 self.spoilerOverlay!.clipsToBounds = true
                 self.spoilerOverlay?.isUserInteractionEnabled = false
@@ -133,7 +133,7 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
         
         self.mediaImageView = UIImageView()
         self.mediaImageView.accessibilityIgnoresInvertColors = true
-        self.mediaImageView.contentMode = UIViewContentMode.scaleAspectFill
+        self.mediaImageView.contentMode = UIView.ContentMode.scaleAspectFill
         self.addSubview(self.mediaImageView)
         
         self.mediaImageView.isOpaque = true

@@ -112,7 +112,7 @@ class CommentLinkPreviewView: BeamControl {
     lazy fileprivate var thumbnailImageView: UIImageView = {
         let imageView = UIImageView()
         imageView.isOpaque = true
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         imageView.clipsToBounds = true
         return imageView
     }()
@@ -167,9 +167,9 @@ class CommentLinkPreviewView: BeamControl {
                 }
             }
             
-            if let thumbnailUrlString = mediaObject.thumbnailWithSize(self.thumbnailImageView.bounds.size)?.urlString, let imageUrl = URL(string: thumbnailUrlString) {
+            if let imageURL = mediaObject.thumbnailWithSize(self.thumbnailImageView.bounds.size)?.url {
                 self.thumbnailImageView.isHidden = false
-                self.thumbnailImageView.sd_setImage(with: imageUrl)
+                self.thumbnailImageView.sd_setImage(with: imageURL)
             } else {
                 self.thumbnailImageView.isHidden = true
                 self.thumbnailImageView.image = nil
@@ -311,7 +311,7 @@ class CommentLinkPreviewView: BeamControl {
     }
 
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 50)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 50)
     }
     
 }

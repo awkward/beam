@@ -35,8 +35,8 @@ class OutlinedButton: BeamButton {
         super.displayModeDidChange()
         
         self.layer.borderColor = self.titleColor.cgColor
-        if self.titleColor(for: UIControlState()) != nil {
-            self.setTitleColor(self.titleColor, for: UIControlState())
+        if self.titleColor(for: UIControl.State()) != nil {
+            self.setTitleColor(self.titleColor, for: UIControl.State())
         }
         self.backgroundColor = UIColor.clear
     }

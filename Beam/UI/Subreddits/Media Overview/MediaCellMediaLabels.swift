@@ -71,7 +71,7 @@ extension MediaCellMediaLabels {
                 if imageView.superview != superView {
                     superView.addSubview(imageView)
                 } else {
-                    superView.bringSubview(toFront: imageView)
+                    superView.bringSubviewToFront(imageView)
                 }
                 
             }
@@ -102,14 +102,14 @@ extension MediaCellMediaLabels {
     
     var contentIsNSFW: Bool {
         if let galleryItem = self.mediaObject?.galleryItem {
-            return (galleryItem.nsfw == true || (self.mediaObject?.content as? Post)?.isContentNSFW == true)
+            return (galleryItem.isNSFW == true || (self.mediaObject?.content as? Post)?.isContentNSFW == true)
         }
         return false
     }
     
     var contentIsAnimated: Bool {
         if let galleryItem = self.mediaObject?.galleryItem {
-            return galleryItem.animated == true
+            return galleryItem.isAnimated == true
         }
         return false
     }
@@ -119,6 +119,6 @@ extension MediaCellMediaLabels {
     }
     
     var contentIsVideo: Bool {
-        return false
+        return (self.mediaObject is MediaDirectVideo)
     }
 }

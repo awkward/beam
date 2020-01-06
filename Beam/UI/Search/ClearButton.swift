@@ -81,7 +81,7 @@ class ClearButton: UIControl {
         
         backgroundColor = UIColor.beamGreyLighter()
         
-        widthConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: CGFloat(1.0), constant: CGFloat(16.0))
+        widthConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: CGFloat(1.0), constant: CGFloat(16.0))
         addConstraint(widthConstraint)
         
         clearLabel.backgroundColor = UIColor.clear
@@ -92,8 +92,8 @@ class ClearButton: UIControl {
         clearLabel.lineBreakMode = NSLineBreakMode.byCharWrapping
         clearLabel.textColor = UIColor.white
         clearLabel.alpha = 0
-        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: UILayoutConstraintAxis.horizontal)
-        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: UILayoutConstraintAxis.vertical)
+        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: NSLayoutConstraint.Axis.horizontal)
+        clearLabel.setContentHuggingPriority(UILayoutPriority(rawValue: 0), for: NSLayoutConstraint.Axis.vertical)
         
         addSubview(clearLabel)
         addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[label]|", options: [], metrics: nil, views: ["label": clearLabel]))
@@ -103,10 +103,10 @@ class ClearButton: UIControl {
         xView.isUserInteractionEnabled = false
         xView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(xView)
-        addConstraint(NSLayoutConstraint(item: xView, attribute: NSLayoutAttribute.centerX, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerX, multiplier: 1, constant: 0))
-        addConstraint(NSLayoutConstraint(item: xView, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerY, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: xView, attribute: NSLayoutConstraint.Attribute.centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.centerX, multiplier: 1, constant: 0))
+        addConstraint(NSLayoutConstraint(item: xView, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.centerY, multiplier: 1, constant: 0))
         
-        addTarget(self, action: #selector(ClearButton.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+        addTarget(self, action: #selector(ClearButton.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
     }
     
     override func layoutSubviews() {

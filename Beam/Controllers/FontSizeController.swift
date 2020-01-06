@@ -42,7 +42,7 @@ class FontSizeController: NSObject {
     override init() {
         super.init()
         
-        NotificationCenter.default.addObserver(self, selector: #selector(FontSizeController.contentSizeCategoryDidChange(_:)), name: NSNotification.Name.UIContentSizeCategoryDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(FontSizeController.contentSizeCategoryDidChange(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
     }
     
     deinit {

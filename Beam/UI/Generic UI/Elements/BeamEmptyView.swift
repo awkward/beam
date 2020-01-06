@@ -149,7 +149,7 @@ class BeamEmptyView: BeamView {
             
             self.textLabel.text = AWKLocalizedString(messageKey).replacingLocalizablePlaceholders(for: ["error-code-string": errorCodeString])
             
-            self.button.setTitle(AWKLocalizedString(buttonKey), for: UIControlState())
+            self.button.setTitle(AWKLocalizedString(buttonKey), for: UIControl.State())
             self.setNeedsUpdateConstraints()
             
             if showLoginButton {

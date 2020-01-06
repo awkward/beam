@@ -8,7 +8,7 @@
 
 import UIKit
 
-open class RedditMessageComposeRequest: RedditRequest {
+public class RedditMessageComposeRequest: RedditRequest {
     
     var user: User
     var subject: String
@@ -21,7 +21,7 @@ open class RedditMessageComposeRequest: RedditRequest {
         super.init(authenticationController: authenticationController)
     }
     
-    override open var urlRequest: URLRequest? {
+    override public var urlRequest: URLRequest? {
         get {
             guard let url = URL(string: "/api/compose", relativeTo: self.oauthBaseURL as URL),
                 var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: true) else {

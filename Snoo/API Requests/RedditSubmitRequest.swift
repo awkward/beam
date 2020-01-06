@@ -13,14 +13,14 @@ public enum RedditSubmitKind {
     case text(String?)
 }
 
-open class RedditSubmitRequest: RedditRequest {
+public class RedditSubmitRequest: RedditRequest {
     
     var submitKind: RedditSubmitKind
     var title: String
     var subredditName: String
     
-    open var resubmit = false
-    open var sendReplies = true
+    public var resubmit = false
+    public var sendReplies = true
     
     public init(title: String, kind: RedditSubmitKind, subredditName: String, authenticationController: AuthenticationController) {
         self.title = title
@@ -29,7 +29,7 @@ open class RedditSubmitRequest: RedditRequest {
         super.init(authenticationController: authenticationController)
     }
     
-    override open var urlRequest: URLRequest? {
+    override public var urlRequest: URLRequest? {
         get {
             let url = Foundation.URL(string: "/api/submit", relativeTo: self.oauthBaseURL as URL)
             var urlComponents = URLComponents(url: url!, resolvingAgainstBaseURL: true)

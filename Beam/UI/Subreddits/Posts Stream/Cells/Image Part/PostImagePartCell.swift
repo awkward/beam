@@ -84,9 +84,9 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
     
     /// Prepares the cell for give playback. It adds the asset to play and plays it if possible
     func prepareGIFPlayback() {
-        if let animatedUrl = self.mediaObject?.galleryItem.animatedURLString, self.mediaObject?.galleryItem.animated == true && self.mediaObject?.galleryItem.isMP4GIF == true && GIFPlayerView.canAutoplayGifs {
+        if GIFPlayerView.canAutoplayGifs, let animatedGIF = self.mediaObject as? MediaAnimatedGIF, let videoURL = animatedGIF.videoURL {
             self.gifPlayerView.isHidden = false
-            self.gifPlayerView.play(url: animatedUrl)
+            self.gifPlayerView.play(url: videoURL)
         } else {
             self.gifPlayerView.stop()
             self.gifPlayerView.isHidden = true

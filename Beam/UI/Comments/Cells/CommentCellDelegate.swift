@@ -163,7 +163,7 @@ extension CommentCellDelegate where Self: UITableViewController {
     fileprivate func showShareForComment(_ comment: Comment, cell: CommentCell) {
         if comment.hasBeenDeleted == false {
             let activityViewController = ShareActivityViewController(object: comment)
-            activityViewController.excludedActivityTypes = [UIActivityType.copyToPasteboard]
+            activityViewController.excludedActivityTypes = [UIActivity.ActivityType.copyToPasteboard]
             activityViewController.completionWithItemsHandler = { (activityType, completed, returnedItems, activityError) -> Void in
                 if completed {
                     Trekker.default.track(event: TrekkerEvent(event: "Share comment", properties: [
@@ -231,10 +231,10 @@ extension CommentCellDelegate where Self: UITableViewController {
             return
         }
         let rowRect = self.tableView.convert(self.tableView.rectForRow(at: indexPath), to: superview)
-        let visibleRect = UIEdgeInsetsInsetRect(CGRect(origin: CGPoint(), size: self.tableView.bounds.size), self.tableView.contentInset)
+        let visibleRect = CGRect(origin: CGPoint(), size: self.tableView.bounds.size).inset(by: self.tableView.contentInset)
         
         if !visibleRect.contains(rowRect) {
-            self.tableView.scrollToRow(at: indexPath, at: UITableViewScrollPosition.top, animated: true)
+            self.tableView.scrollToRow(at: indexPath, at: UITableView.ScrollPosition.top, animated: true)
         }
     }
     

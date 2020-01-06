@@ -23,11 +23,11 @@ class ButtonBar: UIControl {
     var items: [ButtonBarButton]? {
         didSet {
             self.buttons = items?.map({ (item: ButtonBarButton) -> UIButton in
-                let button = UIButton(type: UIButtonType.system)
-                button.setTitle(item.title, for: UIControlState())
-                button.setTitleColor(UIColor.beamGrey(), for: UIControlState())
+                let button = UIButton(type: UIButton.ButtonType.system)
+                button.setTitle(item.title, for: UIControl.State())
+                button.setTitleColor(UIColor.beamGrey(), for: UIControl.State())
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
-                button.addTarget(self, action: #selector(ButtonBar.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+                button.addTarget(self, action: #selector(ButtonBar.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
                 return button
             })
             if self.selectedItemIndex == nil {
@@ -46,7 +46,7 @@ class ButtonBar: UIControl {
         didSet {
             self.updateColors()
             
-            self.sendActions(for: UIControlEvents.valueChanged)
+            self.sendActions(for: UIControl.Event.valueChanged)
         }
     }
     
@@ -99,7 +99,7 @@ class ButtonBar: UIControl {
         if let buttons = buttons {
             for (index, button) in buttons.enumerated() {
                 let deselectedColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-                button.setTitleColor(self.selectedItemIndex == index ? self.tintColor: deselectedColor, for: UIControlState())
+                button.setTitleColor(self.selectedItemIndex == index ? self.tintColor: deselectedColor, for: UIControl.State())
             }
         }
     }
@@ -125,7 +125,7 @@ class ButtonBar: UIControl {
     }
     
     @objc fileprivate func buttonTapped(_ sender: UIButton) {
-        if let selectedIndex = self.buttons?.index(of: sender) {
+        if let selectedIndex = self.buttons?.firstIndex(of: sender) {
             self.selectedItemIndex = selectedIndex
         }
     }

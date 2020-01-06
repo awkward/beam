@@ -10,9 +10,9 @@ import Foundation
 import CoreData
 
 @objc(Comment)
-open class Comment: InteractiveContent {
+public class Comment: InteractiveContent {
 
-    open class override func entityName() -> String {
+    public class override func entityName() -> String {
         return "Comment"
     }
     

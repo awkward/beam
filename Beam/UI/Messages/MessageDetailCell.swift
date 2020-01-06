@@ -21,7 +21,7 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
     var sentMessage = false
     
     fileprivate var contentStylesheet: MarkdownStylesheet {
-        return MarkdownStylesheet.beamStyleSheet(UIFontTextStyle.subheadline, darkmode: self.displayMode == .dark)
+        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.subheadline, darkmode: self.displayMode == .dark)
     }
     
     var message: Message? {
@@ -39,12 +39,12 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
                 let typeTextColor = DisplayModeValue(UIColor.beamGreyExtraDark().withAlphaComponent(0.5), darkValue: UIColor.white.withAlphaComponent(0.5))
                 let typeTextFont = UIFont.systemFont(ofSize: fontSize, weight: UIFont.Weight.semibold)
                 
-                let authorAttributedString = NSAttributedString(string: author, attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: textFont])
-                let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSAttributedStringKey.foregroundColor: typeTextColor, NSAttributedStringKey.font: typeTextFont])
+                let authorAttributedString = NSAttributedString(string: author, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: textFont])
+                let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSAttributedString.Key.foregroundColor: typeTextColor, NSAttributedString.Key.font: typeTextFont])
                 typeAttributedString.append(authorAttributedString)
-                self.authorButton.setAttributedTitle(typeAttributedString, for: UIControlState())
+                self.authorButton.setAttributedTitle(typeAttributedString, for: UIControl.State())
             } else {
-                self.authorButton.setTitle(author, for: UIControlState.normal)
+                self.authorButton.setTitle(author, for: UIControl.State.normal)
             }
             
             self.displayModeDidChange()
@@ -54,7 +54,7 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.authorButton.addTarget(self, action: #selector(MessageDetailCell.authorTapped(_:)), for: UIControlEvents.touchUpInside)
+        self.authorButton.addTarget(self, action: #selector(MessageDetailCell.authorTapped(_:)), for: UIControl.Event.touchUpInside)
     }
     
     @objc fileprivate func authorTapped(_ sender: AnyObject) {
@@ -66,7 +66,7 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
     override func displayModeDidChange() {
         super.displayModeDidChange()
         
-        self.authorButton.setTitleColor(DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)), for: UIControlState())
+        self.authorButton.setTitleColor(DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)), for: UIControl.State())
         
         self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
         self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)

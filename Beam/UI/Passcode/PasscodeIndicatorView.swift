@@ -65,7 +65,7 @@ class PasscodeIndicatorView: UIView {
             self.drawPasscodeIndicator(frame: rect, color: self.tintColor)
         }
         
-        let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         
         UIGraphicsEndImageContext()
         

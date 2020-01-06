@@ -41,7 +41,7 @@ class AlbumImageView: UIView {
         imageView.clipsToBounds = true
         imageView.isOpaque = true
         imageView.backgroundColor = self.placeholderColor
-        imageView.contentMode = UIViewContentMode.scaleAspectFill
+        imageView.contentMode = UIView.ContentMode.scaleAspectFill
         return imageView
     }()
     

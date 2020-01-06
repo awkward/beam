@@ -9,12 +9,12 @@
 import Foundation
 import CoreData
 
-open class ContentCollectionQuery: CollectionQuery {
+public class ContentCollectionQuery: CollectionQuery {
     
-    open var hideReportedContent = true
-    open var hideNSFWContent = false
+    public var hideReportedContent = true
+    public var hideNSFWContent = false
 
-    open var timeFrame = CollectionTimeFrame.defaultTimeFrame
+    public var timeFrame = CollectionTimeFrame.defaultTimeFrame
     
     override var apiPath: String {
         return "\(self.sortType.rawValue).json"

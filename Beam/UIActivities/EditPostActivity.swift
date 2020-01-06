@@ -11,8 +11,8 @@ import Snoo
 
 final class EditPostActivity: CustomObjectActivity<Post> {
     
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.edit-post")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.edit-post")
     }
     
     override var activityTitle: String? {

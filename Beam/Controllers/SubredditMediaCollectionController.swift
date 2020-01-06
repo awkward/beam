@@ -132,7 +132,7 @@ class SubredditMediaCollectionController: NSObject {
     }
     
     func indexPathForCollectionItem(_ item: Post) -> IndexPath? {
-        guard let index = self.collection?.index(where: { (post) -> Bool in
+        guard let index = self.collection?.firstIndex(where: { (post) -> Bool in
             post == item
         }) else {
             return nil

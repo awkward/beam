@@ -67,7 +67,7 @@ class BeamPlainButton: UIButton, DynamicDisplayModeView {
                 return
             }
             
-            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
+            UIView.animate(withDuration: 0.3, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIView.AnimationOptions(), animations: { () -> Void in
                 self.titleLabel?.alpha = self.isHighlighted ? 0.5: 1
                 self.imageView?.alpha = self.isHighlighted ? 0.5: 1
                 }, completion: nil)

@@ -25,7 +25,7 @@ class MessageCell: BeamTableViewCell, MessageObjectCell {
     var sentMessage = false
     
     fileprivate var contentStylesheet: MarkdownStylesheet {
-        return MarkdownStylesheet.beamStyleSheet(UIFontTextStyle.footnote, darkmode: self.displayMode == .dark)
+        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.footnote, darkmode: self.displayMode == .dark)
     }
     
     var message: Message? {
@@ -47,10 +47,10 @@ class MessageCell: BeamTableViewCell, MessageObjectCell {
         if self.sentMessage {
             author = self.message?.destination ?? "reddit"
         }
-        let authorAttributedString = NSAttributedString(string: author, attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: textFont])
+        let authorAttributedString = NSAttributedString(string: author, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: textFont])
         
         if self.sentMessage {
-            let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: typeTextFont])
+            let typeAttributedString = NSMutableAttributedString(string: AWKLocalizedString("sent-to"), attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: typeTextFont])
             typeAttributedString.append(authorAttributedString)
             return typeAttributedString
         }
@@ -65,7 +65,7 @@ class MessageCell: BeamTableViewCell, MessageObjectCell {
     override func awakeFromNib() {
         super.awakeFromNib()
         
-        self.authorButton.addTarget(self, action: #selector(MessageCell.authorTapped(_:)), for: UIControlEvents.touchUpInside)
+        self.authorButton.addTarget(self, action: #selector(MessageCell.authorTapped(_:)), for: UIControl.Event.touchUpInside)
     }
     
     @objc fileprivate func authorTapped(_ sender: AnyObject) {
@@ -81,7 +81,7 @@ class MessageCell: BeamTableViewCell, MessageObjectCell {
         self.unreadIndicator.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
         self.replyIndicator.tintColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor.white.withAlphaComponent(0.65))
         
-        self.authorButton.setAttributedTitle(self.authorText, for: UIControlState())
+        self.authorButton.setAttributedTitle(self.authorText, for: UIControl.State())
         
         self.subjectLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         

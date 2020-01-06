@@ -26,8 +26,8 @@ class RecentLinkPopupButton: BeamControl {
     
     lazy fileprivate var closeButton: UIButton = {
         let button = UIButton()
-        button.setImage(UIImage(named: "close_small"), for: UIControlState())
-        button.addTarget(self, action: #selector(RecentLinkPopupButton.closeTapped(_:)), for: UIControlEvents.touchUpInside)
+        button.setImage(UIImage(named: "close_small"), for: UIControl.State())
+        button.addTarget(self, action: #selector(RecentLinkPopupButton.closeTapped(_:)), for: UIControl.Event.touchUpInside)
         return button
     }()
     
@@ -60,16 +60,16 @@ class RecentLinkPopupButton: BeamControl {
     
     fileprivate func addSubviewConstraints() {
         
-        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.topMargin, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottomMargin, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.topMargin, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.bottomMargin, multiplier: 1.0, constant: 0))
         
-        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutAttribute.centerY, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.centerYWithinMargins, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutAttribute.height, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 22))
-        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutAttribute.width, relatedBy: NSLayoutRelation.equal, toItem: nil, attribute: NSLayoutAttribute.notAnAttribute, multiplier: 1.0, constant: 22))
+        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutConstraint.Attribute.centerY, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.centerYWithinMargins, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutConstraint.Attribute.height, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: 22))
+        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: 1.0, constant: 22))
         
-        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutAttribute.leading, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.leadingMargin, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: self.closeButton, attribute: NSLayoutAttribute.leading, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutAttribute.trailing, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.trailingMargin, multiplier: 1.0, constant: 7))
+        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.leadingMargin, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.textLabel, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.closeButton, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: self.closeButton, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.trailingMargin, multiplier: 1.0, constant: 7))
         
     }
     
@@ -80,9 +80,9 @@ class RecentLinkPopupButton: BeamControl {
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
         
-        let attributedString = NSMutableAttributedString(string: "\(AWKLocalizedString("add-recent-link-to-post"))\n", attributes: [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 13)])
+        let attributedString = NSMutableAttributedString(string: "\(AWKLocalizedString("add-recent-link-to-post"))\n", attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)])
         if let link = self.link {
-            attributedString.append(NSAttributedString(string: link, attributes: [NSAttributedStringKey.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedStringKey.font: UIFont.systemFont(ofSize: 11)]))
+            attributedString.append(NSAttributedString(string: link, attributes: [NSAttributedString.Key.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedString.Key.font: UIFont.systemFont(ofSize: 11)]))
         }
         
         self.textLabel.attributedText = attributedString
@@ -93,7 +93,7 @@ class RecentLinkPopupButton: BeamControl {
     }
     
     @objc fileprivate func closeTapped(_ sender: AnyObject) {
-        self.sendActions(for: UIControlEvents.editingDidEnd)
+        self.sendActions(for: UIControl.Event.editingDidEnd)
     }
     
     override func draw(_ rect: CGRect) {

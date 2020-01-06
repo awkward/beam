@@ -96,7 +96,7 @@ extension SubredditListViewController {
                     self.present(tabBarController, animated: true, completion: nil)
                 }
             } else {
-                let alert = BeamAlertController(title: AWKLocalizedString("search_subreddit_private"), message: subreddit.publicDescription, preferredStyle: UIAlertControllerStyle.alert)
+                let alert = BeamAlertController(title: AWKLocalizedString("search_subreddit_private"), message: subreddit.publicDescription, preferredStyle: UIAlertController.Style.alert)
                 alert.addCancelAction({ (_) in
                     tableView.deselectRow(at: indexPath, animated: true)
                 })

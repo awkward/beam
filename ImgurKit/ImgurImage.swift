@@ -8,23 +8,23 @@
 
 import UIKit
 
-open class ImgurImage: ImgurObject {
+public class ImgurImage: ImgurObject {
 
     fileprivate var privateImageURL: Foundation.URL?
-    open var imageURL: Foundation.URL {
+    public var imageURL: Foundation.URL {
         if let privateImageURL = self.privateImageURL {
             return privateImageURL
         }
         return Foundation.URL(string: "https://imgur.com/\(self.identifier).jpg")!
     }
     
-    override open var URL: Foundation.URL {
+    override public var URL: Foundation.URL {
         return Foundation.URL(string: "https://imgur.com/\(self.identifier)")!
     }
     
-    open var animated: Bool
-    open var imageSize: CGSize?
-    open var uploadDate: Date?
+    public var animated: Bool
+    public var imageSize: CGSize?
+    public var uploadDate: Date?
     
     public override init(dictionary: NSDictionary) {
         self.animated = dictionary["animated"] as? Bool ?? false

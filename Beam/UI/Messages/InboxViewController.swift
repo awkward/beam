@@ -14,7 +14,7 @@ import Trekker
 class InboxViewController: BeamViewController {
     
     var messagesViewController: MessagesViewController {
-        return self.childViewControllers.first(where: { (childViewController) -> Bool in
+        return self.children.first(where: { (childViewController) -> Bool in
             return childViewController is MessagesViewController
         }) as! MessagesViewController
     }
@@ -47,7 +47,7 @@ class InboxViewController: BeamViewController {
 
         self.reloadBadgeIcons()
         
-        self.buttonBar.addTarget(self, action: #selector(InboxViewController.buttonBarChanged(_:)), for: UIControlEvents.valueChanged)
+        self.buttonBar.addTarget(self, action: #selector(InboxViewController.buttonBarChanged(_:)), for: UIControl.Event.valueChanged)
         
         NotificationCenter.default.addObserver(self, selector: #selector(InboxViewController.messageDidChangeUnreadState(_:)), name: .RedditMessageDidChangeUnreadState, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(InboxViewController.userDidUpdate(notification:)), name: AuthenticationController.UserDidUpdateNotificationName, object: nil)

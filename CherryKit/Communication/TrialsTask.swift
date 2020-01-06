@@ -9,10 +9,10 @@
 import UIKit
 
 open class ProductTrial: NSObject {
-    open let productIdentifier: String
-    open let expirationDate: Date
-    open let valid: Bool
-    open var expiredWarningShown: Bool = false
+    public let productIdentifier: String
+    public let expirationDate: Date
+    public let valid: Bool
+    public var expiredWarningShown: Bool = false
     
     public init?(dictionary: [String: AnyObject]) {
         
@@ -45,7 +45,7 @@ open class ProductTrial: NSObject {
 }
 
 open class TrialsTaskResult: TaskResult {
-    open var trials: [ProductTrial]
+    public var trials: [ProductTrial]
     
     init(trials: [ProductTrial]) {
         self.trials = trials

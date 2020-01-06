@@ -42,7 +42,7 @@ class SubredditTitleView: BeamView {
         if let title = self.subreddit?.displayName {
             let titleFont = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
             
-            let titleString = NSAttributedString(string: title, attributes: [NSAttributedStringKey.font: titleFont, NSAttributedStringKey.foregroundColor: titleColor])
+            let titleString = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: titleFont, NSAttributedString.Key.foregroundColor: titleColor])
             fullContent.append(titleString)
         }
         
@@ -57,14 +57,14 @@ class SubredditTitleView: BeamView {
             
             let subtitleFont = UIFont.systemFont(ofSize: 12)
             
-            let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedStringKey.font: subtitleFont, NSAttributedStringKey.foregroundColor: subtitleColor])
+            let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedString.Key.font: subtitleFont, NSAttributedString.Key.foregroundColor: subtitleColor])
             fullContent.append(subtitleString)
         } else if let subreddit = self.subreddit, !subreddit.isPrepopulated && subreddit.visibility == SubredditVisibility.Private {
             fullContent.append(NSAttributedString(string: "\n"))
             let subtitle = subreddit.visibility == SubredditVisibility.Public ? AWKLocalizedString("public").capitalized(with: Locale.current) : AWKLocalizedString("private").capitalized(with: Locale.current)
             
             let subtitleFont = UIFont.systemFont(ofSize: 12)
-            let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedStringKey.font: subtitleFont, NSAttributedStringKey.foregroundColor: subtitleColor])
+            let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedString.Key.font: subtitleFont, NSAttributedString.Key.foregroundColor: subtitleColor])
             fullContent.append(subtitleString)
         }
         

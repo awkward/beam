@@ -33,7 +33,7 @@ final class URLShareItemProvider: UIActivityItemProvider {
         return self.redditUrl
     }
     
-    public override func activityViewController(_ activityViewController: UIActivityViewController, dataTypeIdentifierForActivityType activityType: UIActivityType?) -> String {
+    public override func activityViewController(_ activityViewController: UIActivityViewController, dataTypeIdentifierForActivityType activityType: UIActivity.ActivityType?) -> String {
         return kUTTypeURL as String
     }
     
@@ -41,7 +41,7 @@ final class URLShareItemProvider: UIActivityItemProvider {
         return self.item
     }
     
-    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivityType?) -> Any? {
+    override func activityViewController(_ activityViewController: UIActivityViewController, itemForActivityType activityType: UIActivity.ActivityType?) -> Any? {
         return self.item
     }
     

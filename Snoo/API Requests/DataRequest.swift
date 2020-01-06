@@ -10,11 +10,11 @@ import UIKit
 
 public typealias RedditRequestHandler = (([String: AnyObject]?, Error?) -> Void)
 
-open class DataRequest: SnooOperation {
+public class DataRequest: SnooOperation {
     
     internal var privateUrlSession: URLSession?
     
-    open var urlSession: URLSession {
+    public var urlSession: URLSession {
         get {
             if self.privateUrlSession == nil {
                 self.privateUrlSession = URLSession(configuration: URLSessionConfiguration.default)
@@ -26,21 +26,21 @@ open class DataRequest: SnooOperation {
         }
     }
     
-    open var urlRequest: URLRequest?
+    public var urlRequest: URLRequest?
     
     /// The response returned from the NSURLRequest. Can be used to check status codes
-    open var HTTPResponse: HTTPURLResponse?
+    public var HTTPResponse: HTTPURLResponse?
     
     /// A completion handler to be completed in the operation thread. The operation will wait for the completion handler before changing to the finished state.
-    open var requestCompletionHandler: ((Error?) -> Void)?
+    public var requestCompletionHandler: ((Error?) -> Void)?
     
-    open var result: NSDictionary? {
+    public var result: NSDictionary? {
         didSet {
             self.requestCompletionHandler?(nil)
         }
     }
     
-    override open var error: Error? {
+    override public var error: Error? {
         didSet {
             self.requestCompletionHandler?(self.error)
         }
@@ -113,7 +113,7 @@ open class DataRequest: SnooOperation {
                         }
                         self.error = error
                     }
-                } else if UIApplication.shared.applicationState != UIApplicationState.active || (startDate as NSDate).laterDate(Date(timeIntervalSinceNow: -1 * urlRequest.timeoutInterval)) != startDate {
+                } else if UIApplication.shared.applicationState != UIApplication.State.active || (startDate as NSDate).laterDate(Date(timeIntervalSinceNow: -1 * urlRequest.timeoutInterval)) != startDate {
                     self.cancelOperation()
                 } else if let responseError: NSError = responseError as NSError? {
                     self.error = responseError
@@ -158,7 +158,7 @@ open class DataRequest: SnooOperation {
         return parts.joined(separator: "&")
     }
     
-    open class func formPOSTDataWithParameters(_ parameters: [String: String]) -> Data? {
+    public class func formPOSTDataWithParameters(_ parameters: [String: String]) -> Data? {
         var strings = [String]()
         for (key, value) in parameters {
             let encodedKey = self.formEncodedString(key)

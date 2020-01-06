@@ -104,7 +104,7 @@ class CommentsDataSource: NSObject {
             section = self.indexPathSectionOffset
         }
         for thread: [Comment] in threads {
-            if let index = thread.index(of: comment) {
+            if let index = thread.firstIndex(of: comment) {
                 let indexPath = IndexPath(row: index, section: section)
                 return indexPath
             }
@@ -145,7 +145,7 @@ class CommentsDataSource: NSObject {
         }
         var threadIndex = 0
         for var thread in threads {
-            if let index = thread.index(of: parent) {
+            if let index = thread.firstIndex(of: parent) {
                 AppDelegate.shared.managedObjectContext.performAndWait {
                     var replies = NSMutableOrderedSet()
                     if let existingReplies = parent.replies {
@@ -260,7 +260,7 @@ class CommentsDataSource: NSObject {
      */
     func toggleCollapseForComment(_ comment: Comment) {
         if self.collapsedComments.contains(comment) {
-            self.collapsedComments.remove(at: self.collapsedComments.index(of: comment)!)
+            self.collapsedComments.remove(at: self.collapsedComments.firstIndex(of: comment)!)
         } else {
             self.collapsedComments.append(comment)
         }
@@ -355,7 +355,7 @@ class CommentsDataSource: NSObject {
         }
         if cell is ContinueCommentThreadCell {
             
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
         } else if let moreCell = cell as? LoadMoreCommentsCell {
             
@@ -364,7 +364,7 @@ class CommentsDataSource: NSObject {
         
         } else if cell is CommentCell {
             
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             
         }
         cell.changeComment(comment, state: CommentCellState(isCollapsed: self.isCommentCollapsed(comment), indentation: self.indentationForComment(comment)))
@@ -392,7 +392,7 @@ class CommentsDataSource: NSObject {
                 return 0
             }
         }
-        return UITableViewAutomaticDimension
+        return UITableView.automaticDimension
     }
     
 }

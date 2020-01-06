@@ -53,7 +53,7 @@ public final class CollectionParsingOperation: DataOperation {
         super.init()
     }
     
-    override open func start() {
+    override public func start() {
         super.start()
         
         if self.data != nil {
@@ -157,7 +157,7 @@ public final class CollectionParsingOperation: DataOperation {
             
             var types = [SyncObjectType]()
             for fullName in fullNames {
-                if let identifierAndType = try? SyncObject.identifierAndTypeWithObjectName(fullName), let type = identifierAndType?.type, !types.contains(type) {
+                if let identifierAndType = ((try? SyncObject.identifierAndTypeWithObjectName(fullName)) as (identifier: String, type: SyncObjectType)??), let type = identifierAndType?.type, !types.contains(type) {
                     types.append(type)
                 }
             }

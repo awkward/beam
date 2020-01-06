@@ -44,9 +44,9 @@ class WelcomeViewController: BeamViewController {
         
         NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: AppDelegate.shared.authenticationController)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidBecomeActive, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
         
-        NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: NSNotification.Name.UIApplicationDidEnterBackground, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     deinit {
@@ -69,15 +69,15 @@ class WelcomeViewController: BeamViewController {
     
         //Connect button
         self.connectWithRedditButton.backgroundColor = UIColor.white
-        self.connectWithRedditButton.setTitleColor(tintColor, for: UIControlState())
+        self.connectWithRedditButton.setTitleColor(tintColor, for: UIControl.State())
         self.connectWithRedditButton.layer.cornerRadius = cornerRadius
         self.connectWithRedditButton.layer.masksToBounds = true
-        self.connectWithRedditButton.setTitle(AWKLocalizedString("welcome-connect-with-reddit-button"), for: UIControlState())
+        self.connectWithRedditButton.setTitle(AWKLocalizedString("welcome-connect-with-reddit-button"), for: UIControl.State())
         
         //Connect without account button
         self.connectWithoutRedditButton.backgroundColor = UIColor.clear
-        self.connectWithoutRedditButton.setTitleColor(UIColor.white, for: UIControlState())
-        self.connectWithoutRedditButton.setTitle(AWKLocalizedString("welcome-connect-without-reddit-button"), for: UIControlState())
+        self.connectWithoutRedditButton.setTitleColor(UIColor.white, for: UIControl.State())
+        self.connectWithoutRedditButton.setTitle(AWKLocalizedString("welcome-connect-without-reddit-button"), for: UIControl.State())
         
         self.appIconImageView.alpha = 0
         self.titleLabel.alpha = 0

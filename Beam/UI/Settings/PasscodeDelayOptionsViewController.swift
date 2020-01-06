@@ -34,7 +34,7 @@ class PasscodeDelayOptionsViewController: BeamTableViewController {
         let cell = tableView.dequeueReusableCell(withIdentifier: "settings-cell", for: indexPath) as! SettingsTableViewCell
         let option = self.options[(indexPath as IndexPath).row]
         cell.textLabel?.text = option.title
-        cell.accessoryType = option.time == AppDelegate.shared.passcodeController.currentDelayOption?.time ? UITableViewCellAccessoryType.checkmark: UITableViewCellAccessoryType.none
+        cell.accessoryType = option.time == AppDelegate.shared.passcodeController.currentDelayOption?.time ? UITableViewCell.AccessoryType.checkmark: UITableViewCell.AccessoryType.none
         return cell
     }
     

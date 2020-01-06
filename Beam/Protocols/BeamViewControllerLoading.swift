@@ -115,7 +115,7 @@ extension BeamViewControllerLoading where Self: UIViewController {
         if let selfNoticing = self as? NoticeHandling {
             selfNoticing.presentErrorMessage(message)
         } else {
-            let alert = BeamAlertController(title: message, message: nil, preferredStyle: UIAlertControllerStyle.alert)
+            let alert = BeamAlertController(title: message, message: nil, preferredStyle: UIAlertController.Style.alert)
             alert.addCloseAction()
             self.present(alert, animated: true, completion: nil)
         }

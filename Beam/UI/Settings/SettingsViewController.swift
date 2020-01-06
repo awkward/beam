@@ -109,8 +109,8 @@ class SettingsRow: NSObject {
         return AWKLocalizedString("\(self.key.rawValue)-setting-title")
     }
     
-    var accessoryType: UITableViewCellAccessoryType {
-        return self.showsDisclosureIndicator ? UITableViewCellAccessoryType.disclosureIndicator: UITableViewCellAccessoryType.none
+    var accessoryType: UITableViewCell.AccessoryType {
+        return self.showsDisclosureIndicator ? UITableViewCell.AccessoryType.disclosureIndicator: UITableViewCell.AccessoryType.none
     }
     
     init(key: SettingsRowKey) {
@@ -406,7 +406,7 @@ class SettingsViewController: BeamTableViewController {
         cell.accessoryView = row.accessoryView
         cell.accessoryType = row.accessoryType
         cell.textColorType = row.textColorType
-        cell.selectionStyle = row.key.selectable ? UITableViewCellSelectionStyle.default: UITableViewCellSelectionStyle.none
+        cell.selectionStyle = row.key.selectable ? UITableViewCell.SelectionStyle.default: UITableViewCell.SelectionStyle.none
         return cell
     }
     
@@ -477,7 +477,7 @@ class SettingsViewController: BeamTableViewController {
                 guard let url = URL(string: "itms-apps://itunes.apple.com/WebObjects/MZStore.woa/wa/viewContentsUserReviews?id=\(Config.appleAppID)&onlyLatestVersion=true&pageNumber=0&sortOrdering=1&type=Purple+Software") else {
                     return
                 }
-                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                UIApplication.shared.open(url, options: convertToUIApplicationOpenExternalURLOptionsKeyDictionary([:]), completionHandler: nil)
             case .TellFriends:
                 let activityViewController = UIActivityViewController(activityItems: [AWKLocalizedString("app-store-share-message"), BeamAppStoreURL!], applicationActivities: nil)
                 activityViewController.popoverPresentationController?.sourceView = self.tableView
@@ -551,8 +551,8 @@ class SettingsViewController: BeamTableViewController {
     func addAccountTapped() {
         if AppDelegate.shared.authenticationController.fetchAllAuthenticationSessions().count > 0 && !UserSettings[.hasBeenShownTheAddAccountWarning] {
             UserSettings[.hasBeenShownTheAddAccountWarning] = true
-            let alertController = BeamAlertController(title: AWKLocalizedString("add-additional-account-warning-title"), message: AWKLocalizedString("add-additional-account-warning-message"), preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: AWKLocalizedString("login-button"), style: UIAlertActionStyle.cancel, handler: { (_) in
+            let alertController = BeamAlertController(title: AWKLocalizedString("add-additional-account-warning-title"), message: AWKLocalizedString("add-additional-account-warning-message"), preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: AWKLocalizedString("login-button"), style: UIAlertAction.Style.cancel, handler: { (_) in
                  AppDelegate.shared.presentAuthenticationViewController()
             }))
             self.present(alertController, animated: true, completion: nil)
@@ -665,7 +665,7 @@ class SettingsViewController: BeamTableViewController {
             }
             if let key = key, key == SettingsKeys.privacyModeEnabled {
                 self.reloadSections()
-                self.tableView.reloadRows(at: [IndexPath(row: 1, section: 2)], with: UITableViewRowAnimation.fade)
+                self.tableView.reloadRows(at: [IndexPath(row: 1, section: 2)], with: UITableView.RowAnimation.fade)
                 if sender.isOn == false {
                     AppDelegate.shared.updateAnalyticsUser()
                 }
@@ -714,4 +714,9 @@ extension SettingsViewController: EnterPasscodeViewControllerDelegate {
         //Not used
     }
     
+}
+
+// Helper function inserted by Swift 4.2 migrator.
+fileprivate func convertToUIApplicationOpenExternalURLOptionsKeyDictionary(_ input: [String: Any]) -> [UIApplication.OpenExternalURLOptionsKey: Any] {
+	return Dictionary(uniqueKeysWithValues: input.map { key, value in (UIApplication.OpenExternalURLOptionsKey(rawValue: key), value)})
 }

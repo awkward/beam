@@ -66,7 +66,7 @@ class RoundPasscodeButton: PasscodeButton {
         
         var yPosition = ((rect.height - numbersAndLettersHeight) / 2) - 3
         
-        let numberTextAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: numbersFont]
+        let numberTextAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: numbersFont]
         let numberTextSize = self.numberString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: numberTextAttributes, context: nil).size
         var numberTextRect = CGRect(origin: CGPoint(x: (rect.width - numberTextSize.width) / 2, y: yPosition), size: numberTextSize)
         
@@ -84,7 +84,7 @@ class RoundPasscodeButton: PasscodeButton {
         self.numberString.draw(in: numberTextRect, withAttributes: numberTextAttributes)
     
         if let lettersString = self.lettersString?.uppercased {
-            let lettersTextAttributes: [NSAttributedStringKey: Any] = [NSAttributedStringKey.foregroundColor: textColor, NSAttributedStringKey.font: lettersFont]
+            let lettersTextAttributes: [NSAttributedString.Key: Any] = [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: lettersFont]
             let lettersTextSize = lettersString.boundingRect(with: rect.size, options: NSStringDrawingOptions.usesFontLeading, attributes: lettersTextAttributes, context: nil).size
             let lettersTextRect = CGRect(origin: CGPoint(x: (rect.width - lettersTextSize.width) / 2, y: yPosition), size: lettersTextSize)
             
@@ -94,7 +94,7 @@ class RoundPasscodeButton: PasscodeButton {
             lettersString.draw(in: lettersTextRect, withAttributes: lettersTextAttributes)
         }
         
-        let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImageRenderingMode.alwaysTemplate)
+        let image: UIImage? = UIGraphicsGetImageFromCurrentImageContext()?.withRenderingMode(UIImage.RenderingMode.alwaysTemplate)
         
         UIGraphicsEndImageContext()
         

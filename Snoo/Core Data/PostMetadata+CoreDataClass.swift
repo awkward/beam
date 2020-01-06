@@ -18,7 +18,7 @@ import CoreData
 @objc(PostMetadata)
 public class PostMetadata: NSManagedObject {
     
-    open class func entityName() -> String {
+    public class func entityName() -> String {
         return "PostMetadata"
     }
     

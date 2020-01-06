@@ -205,18 +205,18 @@ class PasscodeKeyboard: UIView {
                 
                 //Add the zero passcode button
                 let button: PasscodeButton = PasscodeButton(number: 0)
-                button.addTarget(self, action: #selector(PasscodeKeyboard.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+                button.addTarget(self, action: #selector(PasscodeKeyboard.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
                 views.append(button)
                 allViews.append(button)
                 
                 let deleteButton: DeleteButton = DeleteButton(frame: CGRect.zero)
-                deleteButton.addTarget(self, action: #selector(PasscodeKeyboard.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+                deleteButton.addTarget(self, action: #selector(PasscodeKeyboard.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
                 views.append(deleteButton)
                 allViews.append(deleteButton)
             } else {
                 for _ in 0...2 {
                     let button = PasscodeButton(number: number)
-                    button.addTarget(self, action: #selector(PasscodeKeyboard.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+                    button.addTarget(self, action: #selector(PasscodeKeyboard.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
                     views.append(button)
                     allViews.append(button)
                     number += 1
@@ -225,9 +225,9 @@ class PasscodeKeyboard: UIView {
             
             let stackView: UIStackView = UIStackView(arrangedSubviews: views)
             stackView.spacing = spacing
-            stackView.alignment = UIStackViewAlignment.fill
-            stackView.distribution = UIStackViewDistribution.fillEqually
-            stackView.axis = UILayoutConstraintAxis.horizontal
+            stackView.alignment = UIStackView.Alignment.fill
+            stackView.distribution = UIStackView.Distribution.fillEqually
+            stackView.axis = NSLayoutConstraint.Axis.horizontal
             stackViews.append(stackView)
         }
         
@@ -235,18 +235,18 @@ class PasscodeKeyboard: UIView {
         
         let verticalStackView: UIStackView = UIStackView(arrangedSubviews: stackViews)
         verticalStackView.spacing = spacing
-        verticalStackView.alignment = UIStackViewAlignment.fill
-        verticalStackView.distribution = UIStackViewDistribution.fillEqually
-        verticalStackView.axis = UILayoutConstraintAxis.vertical
+        verticalStackView.alignment = UIStackView.Alignment.fill
+        verticalStackView.distribution = UIStackView.Distribution.fillEqually
+        verticalStackView.axis = NSLayoutConstraint.Axis.vertical
         verticalStackView.translatesAutoresizingMaskIntoConstraints = false
         
         self.configureColors()
         
         self.addSubview(verticalStackView)
-        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutAttribute.left, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.left, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutAttribute.right, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.right, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutAttribute.top, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.top, multiplier: 1.0, constant: 0))
-        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutAttribute.bottom, relatedBy: NSLayoutRelation.equal, toItem: self, attribute: NSLayoutAttribute.bottom, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutConstraint.Attribute.left, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.left, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutConstraint.Attribute.right, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.right, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutConstraint.Attribute.top, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.top, multiplier: 1.0, constant: 0))
+        self.addConstraint(NSLayoutConstraint(item: verticalStackView, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0))
     }
     
     @objc fileprivate func buttonTapped(_ sender: UIControl) {

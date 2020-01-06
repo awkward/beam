@@ -11,7 +11,7 @@ import CoreData
 
 public final class PostCollectionQuery: ContentCollectionQuery {
 
-    open var subreddit: Subreddit? // Subreddit permalink to get posts or comments from that subreddit
+    public var subreddit: Subreddit? // Subreddit permalink to get posts or comments from that subreddit
     
     override var apiPath: String {
         assert(!Thread.isMainThread)
@@ -79,7 +79,7 @@ public final class PostCollectionQuery: ContentCollectionQuery {
         super.init()
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         let superFetchRequest = super.fetchRequest()
         
         var predicates = [NSPredicate]()
@@ -90,11 +90,11 @@ public final class PostCollectionQuery: ContentCollectionQuery {
         return superFetchRequest
     }
     
-    open override func collectionType() -> ObjectCollection.Type {
+    override public func collectionType() -> ObjectCollection.Type {
         return PostCollection.self
     }
     
-    open override var sortType: CollectionSortType {
+    override public var sortType: CollectionSortType {
         didSet {
             let sortContext = self.searchKeywords != nil ? CollectionSortContext.postsSearch: CollectionSortContext.posts
             

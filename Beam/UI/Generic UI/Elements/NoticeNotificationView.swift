@@ -36,7 +36,7 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
     }()
     fileprivate let dismissButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "close_small"), for: UIControlState())
+        button.setImage(UIImage(named: "close_small"), for: UIControl.State())
         button.translatesAutoresizingMaskIntoConstraints = false
         button.tintColor = UIColor.white
         return button
@@ -74,7 +74,7 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
         super.updateConstraints()
         if !self.constrainsAdded {
             let views = ["textLabel": self.textLabel, "dismissButton": self.dismissButton]
-            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(30)-[textLabel]-(11)-[dismissButton(==8@1000)]-(11)-|", options: NSLayoutFormatOptions.alignAllTop, metrics: nil, views: views))
+            self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "|-(30)-[textLabel]-(11)-[dismissButton(==8@1000)]-(11)-|", options: NSLayoutConstraint.FormatOptions.alignAllTop, metrics: nil, views: views))
             self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|-(8)-[textLabel]-(8)-|", options: [], metrics: nil, views: views))
             
         }

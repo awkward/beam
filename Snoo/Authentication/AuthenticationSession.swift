@@ -26,9 +26,9 @@ public final class AuthenticationSession: NSObject, NSCoding {
     var tokenType: String?
     var scope: String?
     
-    open var userIdentifier: String?
-    open var username: String?
-    open var visitedPostsQueue = Set<String>()
+    public var userIdentifier: String?
+    public var username: String?
+    public var visitedPostsQueue = Set<String>()
     
     var accessToken: String?
     
@@ -107,7 +107,7 @@ public final class AuthenticationSession: NSObject, NSCoding {
 
     }
     
-    open func encode(with aCoder: NSCoder) {
+    public func encode(with aCoder: NSCoder) {
         aCoder.encode(self.expirationDate, forKey: ExpirationDateKey)
         aCoder.encode(self.tokenType, forKey: TokenTypeKey)
         aCoder.encode(self.scope, forKey: ScopeKey)

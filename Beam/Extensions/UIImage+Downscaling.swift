@@ -17,7 +17,7 @@ private let destSeemOverlap: CGFloat = 2.0
 
 struct DownscaledImageOptions {
     var constrainingSize = UIScreen.main.bounds.size
-    var contentMode = UIViewContentMode.scaleAspectFill
+    var contentMode = UIView.ContentMode.scaleAspectFill
 }
 
 extension UIImage {

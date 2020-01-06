@@ -11,11 +11,11 @@ import CoreData
 
 public final class SubredditsCollectionQuery: CollectionQuery {
     
-    open var hideNSFWSubreddits = false
+    public var hideNSFWSubreddits = false
     
-    open var userIdentifier: String?
-    open var shouldPrepopulate = true
-    open var shouldFetchDefaults = false
+    public var userIdentifier: String?
+    public var shouldPrepopulate = true
+    public var shouldFetchDefaults = false
     
     public override init() {
         super.init()
@@ -25,7 +25,7 @@ public final class SubredditsCollectionQuery: CollectionQuery {
         return 100
     }
     
-    override open var apiPath: String {
+    override public var apiPath: String {
         if let query = self.searchKeywords, query.count > 0 {
             return "search.json"
         } else if self.collectionController?.authenticationController.isAuthenticated == true && self.shouldFetchDefaults == false {
@@ -43,7 +43,7 @@ public final class SubredditsCollectionQuery: CollectionQuery {
         }
     }
     
-    open override func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
+    override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {
         let superFetchRequest = super.fetchRequest()
         
         var predicates = [NSPredicate]()
@@ -59,7 +59,7 @@ public final class SubredditsCollectionQuery: CollectionQuery {
         return superFetchRequest
     }
     
-    open override func collectionType() -> ObjectCollection.Type {
+    override public func collectionType() -> ObjectCollection.Type {
         return SubredditCollection.self
     }
     

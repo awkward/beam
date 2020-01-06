@@ -10,8 +10,8 @@ import UIKit
 
 final class CopyLinkActivity: CustomObjectActivity<URL> {
 
-    override var activityType: UIActivityType? {
-        return UIActivityType(rawValue: "com.madeawkward.beam.copy-link")
+    override var activityType: UIActivity.ActivityType? {
+        return UIActivity.ActivityType(rawValue: "com.madeawkward.beam.copy-link")
     }
     
     override var activityTitle: String? {

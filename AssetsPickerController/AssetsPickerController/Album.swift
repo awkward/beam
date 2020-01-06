@@ -45,7 +45,7 @@ internal class Album: NSObject {
             if let previewAsset = self.previewAsset {
                 asset = previewAsset
             } else {
-                let imageFetchOptions: PHFetchOptions!
+                let imageFetchOptions: PHFetchOptions
                 if let fetchOptions = fetchOptions {
                     imageFetchOptions = fetchOptions.copy() as! PHFetchOptions
                 } else {

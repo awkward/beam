@@ -24,7 +24,7 @@ class ScrollableButtonBar: BeamControl {
     
     func updateSelectedItemIndex(_ index: Int?) {
         self.selectedItemIndex = index
-        self.sendActions(for: [UIControlEvents.valueChanged])
+        self.sendActions(for: [UIControl.Event.valueChanged])
     }
     
     fileprivate let firstLastSpacing: CGFloat = 15
@@ -82,15 +82,15 @@ class ScrollableButtonBar: BeamControl {
     fileprivate func configureContents() {
         for button in self.buttons {
             button.removeFromSuperview()
-            button.removeTarget(nil, action: nil, for: UIControlEvents.allEvents)
+            button.removeTarget(nil, action: nil, for: UIControl.Event.allEvents)
         }
         self.buttons.removeAll()
         if let items = self.items {
             for item in items {
-                let button = UIButton(type: UIButtonType.system)
-                button.setTitle(item, for: UIControlState())
+                let button = UIButton(type: UIButton.ButtonType.system)
+                button.setTitle(item, for: UIControl.State())
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
-                button.addTarget(self, action: #selector(ScrollableButtonBar.buttonTapped(_:)), for: UIControlEvents.touchUpInside)
+                button.addTarget(self, action: #selector(ScrollableButtonBar.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
                 self.scrollView.addSubview(button)
     
                 self.buttons.append(button)
@@ -106,10 +106,10 @@ class ScrollableButtonBar: BeamControl {
         var index = 0
         for button in self.buttons {
             if index == self.selectedItemIndex {
-                button.setTitleColor(self.tintColor, for: UIControlState())
+                button.setTitleColor(self.tintColor, for: UIControl.State())
             } else {
                 let titleColor = DisplayModeValue(UIColor(red: 125 / 255, green: 125 / 255, blue: 125 / 255, alpha: 1), darkValue: UIColor(red: 151 / 255, green: 151 / 255, blue: 151 / 255, alpha: 1))
-                button.setTitleColor(titleColor, for: UIControlState())
+                button.setTitleColor(titleColor, for: UIControl.State())
             }
             index += 1
         }
@@ -168,7 +168,7 @@ class ScrollableButtonBar: BeamControl {
     }
     
     @objc fileprivate func buttonTapped(_ sender: UIButton) {
-        let index = self.buttons.index(of: sender)
+        let index = self.buttons.firstIndex(of: sender)
         self.updateSelectedItemIndex(index)
     }
     
@@ -200,7 +200,7 @@ class ScrollableButtonBar: BeamControl {
     }
     
     override var intrinsicContentSize: CGSize {
-        return CGSize(width: UIViewNoIntrinsicMetric, height: 30)
+        return CGSize(width: UIView.noIntrinsicMetric, height: 30)
     }
     
     func buttonFrameForSelectedItemIndex() -> CGRect? {

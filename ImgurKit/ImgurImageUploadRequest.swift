@@ -11,8 +11,8 @@ import Photos
 
 public class ImgurImageUploadRequest: ImgurUploadRequest {
     
-    open var imageTitle: String?
-    open var imageDescription: String?
+    public var imageTitle: String?
+    public var imageDescription: String?
     
     public override init(image: UIImage) {
         super.init(image: image)

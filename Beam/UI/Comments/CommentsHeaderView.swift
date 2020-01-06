@@ -21,7 +21,7 @@ class CommentsHeaderView: BeamView {
     
     var sortType = CollectionSortType.best {
         didSet {
-            self.sortBar.selectedItemIndex = self.sortTypes.index(of: self.sortType)
+            self.sortBar.selectedItemIndex = self.sortTypes.firstIndex(of: self.sortType)
         }
     }
     
@@ -45,8 +45,8 @@ class CommentsHeaderView: BeamView {
     
     func setupView() {
         self.sortBar.items = self.sortTypes.map({ self.titleForSortType($0) })
-        self.sortBar.selectedItemIndex = self.sortTypes.index(of: self.sortType)
-        self.sortBar.addTarget(self, action: #selector(CommentsHeaderView.sortBarChanged(_:)), for: UIControlEvents.valueChanged)
+        self.sortBar.selectedItemIndex = self.sortTypes.firstIndex(of: self.sortType)
+        self.sortBar.addTarget(self, action: #selector(CommentsHeaderView.sortBarChanged(_:)), for: UIControl.Event.valueChanged)
     }
     
     func titleForSortType(_ sortType: CollectionSortType) -> String {

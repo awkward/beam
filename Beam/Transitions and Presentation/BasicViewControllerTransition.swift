@@ -72,7 +72,7 @@ class BasicViewControllerTransition: NSObject, UIViewControllerAnimatedTransitio
 
             let duration = self.transitionDuration(using: transitionContext)
             
-            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
+            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIView.AnimationOptions(), animations: { () -> Void in
                 //Dismiss is the animation in reverse
                 dismissedView.alpha = self.animationStyle.beginAlpha()
                 dismissedView.frame = self.animationStyle.beginFrameForContext(transitionContext, viewController: dismissedViewController)
@@ -95,7 +95,7 @@ class BasicViewControllerTransition: NSObject, UIViewControllerAnimatedTransitio
             
             presentedView.alpha = self.animationStyle.beginAlpha()
             
-            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIViewAnimationOptions(), animations: { () -> Void in
+            UIView.animate(withDuration: duration, delay: 0, usingSpringWithDamping: 1, initialSpringVelocity: 0, options: UIView.AnimationOptions(), animations: { () -> Void in
                 presentedView.alpha = self.animationStyle.endAlpha()
                 presentedView.frame = self.animationStyle.endFrameForContext(transitionContext, viewController: presentedViewController)
             }, completion: { (success: Bool) -> Void in

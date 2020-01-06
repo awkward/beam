@@ -124,7 +124,7 @@ open class AssetsPickerControllerStyleKit: NSObject {
     
     //// Generated Images
     
-    open class var imageOfAssetThumbnailPlaceholder: UIImage {
+    public class var imageOfAssetThumbnailPlaceholder: UIImage {
         if Cache.imageOfAssetThumbnailPlaceholder != nil {
             return Cache.imageOfAssetThumbnailPlaceholder!
         }
@@ -138,7 +138,7 @@ open class AssetsPickerControllerStyleKit: NSObject {
         return Cache.imageOfAssetThumbnailPlaceholder!
     }
     
-    open class var imageOfAlbumThumbnailPlaceholder: UIImage {
+    public class var imageOfAlbumThumbnailPlaceholder: UIImage {
         if Cache.imageOfAlbumThumbnailPlaceholder != nil {
             return Cache.imageOfAlbumThumbnailPlaceholder!
         }

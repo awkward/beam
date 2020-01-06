@@ -68,8 +68,8 @@ class AddToMultiredditViewController: BeamTableViewController, BeamViewControlle
         assert(self.subreddit?.managedObjectContext == AppDelegate.shared.managedObjectContext)
         
         self.title = AWKLocalizedString("add-to-multireddit")
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.cancel, target: self, action: #selector(UIViewController.dismissViewController(_:)))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonSystemItem.add, target: self, action: #selector(AddToMultiredditViewController.createMultireddit(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.cancel, target: self, action: #selector(UIViewController.dismissViewController(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.add, target: self, action: #selector(AddToMultiredditViewController.createMultireddit(_:)))
         
         NotificationCenter.default.addObserver(self, selector: #selector(AddToMultiredditViewController.authenticatedUserDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AddToMultiredditViewController.expiredContentDeleted(_:)), name: .DataControllerExpiredContentDeletedFromContext, object: nil)
@@ -173,7 +173,7 @@ extension AddToMultiredditViewController {
             DataController.shared.executeAndSaveOperations([request], context: context, handler: { [weak self] (error: Error?) -> Void in
                 if let error = error {
                     DispatchQueue.main.sync {
-                        let alert = BeamAlertController(title: "Could not update multireddit", message: error.localizedDescription, preferredStyle: UIAlertControllerStyle.alert)
+                        let alert = BeamAlertController(title: "Could not update multireddit", message: error.localizedDescription, preferredStyle: UIAlertController.Style.alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: nil))
                         self?.present(alert, animated: true, completion: nil)
                         

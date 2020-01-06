@@ -17,7 +17,7 @@ public enum MessageBox: String {
 
 public final class Message: InteractiveContent {
 
-    override open class func entityName() -> String {
+    override public class func entityName() -> String {
         return "Message"
     }
     
@@ -53,7 +53,7 @@ public final class Message: InteractiveContent {
         }
     }
     
-    open override func redditDictionaryRepresentation() -> [String: Any] {
+    override public func redditDictionaryRepresentation() -> [String: Any] {
         var dictionary = super.redditDictionaryRepresentation()
         
         dictionary["body"] = self.content as AnyObject?

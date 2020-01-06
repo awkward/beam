@@ -18,7 +18,7 @@ class GalleryItem: NSObject {
     
     var size: CGSize? {
         get {
-            if let width = self.mediaObject?.width?.floatValue, let height = self.mediaObject?.height?.floatValue {
+            if let width = self.mediaObject?.pixelWidth?.floatValue, let height = self.mediaObject?.pixelHeight?.floatValue {
                 return CGSize(width: CGFloat(width), height: CGFloat(height))
             }
             return nil
@@ -26,60 +26,39 @@ class GalleryItem: NSObject {
         set (newSize) {
             self.mediaObject?.managedObjectContext?.performAndWait {
                 if let width = newSize?.width, let height = newSize?.height {
-                    self.mediaObject?.width = NSNumber(value: Float(width))
-                    self.mediaObject?.height = NSNumber(value: Float(height))
+                    self.mediaObject?.pixelWidth = NSNumber(value: Float(width))
+                    self.mediaObject?.pixelHeight = NSNumber(value: Float(height))
                 }
             }
         }
     }
     
-    var animated: Bool? {
-        get {
-            if let metaAnimated = (self.mediaObject?.metadataValueForKey("animated") as? NSNumber)?.boolValue {
-                return metaAnimated
-            } else {
-                let contentURLString = self.mediaObject?.contentURLString as NSString?
-                return contentURLString?.pathExtension == "gifv" || contentURLString?.pathExtension == "mp4"
-            }
-        }
-        set {
-            if newValue == nil {
-                self.mediaObject?.removeMetadataValueForKey("animated")
-            } else {
-                self.mediaObject?.setMetadataValue(NSNumber(value: newValue!), forKey: "animated")
-            }
-        }
+    var isAnimated: Bool {
+        return mediaObject is MediaAnimatedGIF
     }
     
-    var nsfw: Bool? {
-        get {
-            if let metaAnimated = (self.mediaObject?.metadataValueForKey("nsfw") as? NSNumber)?.boolValue {
-                return metaAnimated
-            }
+    var isNSFW: Bool {
+        return mediaObject?.isNSFW ?? false
+    }
+    
+    var isDirectVideo: Bool {
+        return mediaObject is MediaDirectVideo
+    }
+    
+    var animatedURL: URL? {
+        guard let animatedGIF = mediaObject as? MediaAnimatedGIF else {
             return nil
         }
-        set {
-            if newValue == nil {
-                self.mediaObject?.removeMetadataValueForKey("nsfw")
-            } else {
-                self.mediaObject?.setMetadataValue(NSNumber(value: newValue!), forKey: "nsfw")
-            }
-        }
-    }
-    
-    var animatedURLString: URL? {
-        if self.animated == true {
-            if let urlString = self.mediaObject?.contentURLString?.replacingOccurrences(of: ".gifv", with: ".mp4") {
-                return URL(string: urlString)
-            }
-        }
-        
-        return nil
+        return animatedGIF.videoURL
     }
     
     var isMP4GIF: Bool {
-        //Check if the URL contains a mp4 extension or in case of Reddit links they will end with .gif, but contain "fm=mp4" (format is mp4) if the URL is a MP4 URL
-        return self.mediaObject?.galleryItem.animatedURLString?.pathExtension.contains("mp4") == true || self.mediaObject?.galleryItem.animatedURLString?.absoluteString.contains("fm=mp4") == true
+        guard let animatedGIF = mediaObject as? MediaAnimatedGIF else {
+            return false
+        }
+        return animatedGIF.videoURL != nil
+        //TODO: Check if the URL contains a mp4 extension or in case of Reddit links they will end with .gif, but contain "fm=mp4" (format is mp4) if the URL is a MP4 URL
+//        return self.mediaObject?.galleryItem.animatedURLString?.pathExtension.contains("mp4") == true || self.mediaObject?.galleryItem.animatedURLString?.absoluteString.contains("fm=mp4") == true
     }
     
     fileprivate var cachedContentType: AWKGalleryItemContentType?
@@ -95,12 +74,14 @@ class GalleryItem: NSObject {
 extension GalleryItem: AWKGalleryItem {
     
     @objc var contentURL: URL? {
-        if self.animated == true {
-            return self.animatedURLString
-        } else if let urlString = mediaObject?.contentURLString, let url = URL(string: urlString) {
+        if self.isAnimated {
+            return self.animatedURL
+        } else if let videoObject = self.mediaObject as? MediaDirectVideo, let url = videoObject.videoURL {
+            return url
+        } else if let url = self.mediaObject?.contentURL {
             return url
         } else {
-            NSLog("ContentURL String missing")
+            NSLog("ContentURL missing")
             return nil
         }
     }
@@ -110,41 +91,17 @@ extension GalleryItem: AWKGalleryItem {
             if let cachedContentType: AWKGalleryItemContentType = self.cachedContentType {
                 return cachedContentType
             }
-            var contentType: AWKGalleryItemContentType = AWKGalleryItemContentType.image
-            if let contentURL: URL = self.contentURL, self.animated == true {
-                //The image is animated, check if it's a gif file or MP4 file
-                let pathExtension: String? = self.animatedURLString?.pathExtension
-                if pathExtension == "mp4" {
-                    //The extension ends in MP4 so it's a MP4 for sure
-                    contentType = AWKGalleryItemContentType.repeatingMovie
-                } else if contentURL.absoluteString.contains("fm=mp4") == true {
-                    //The URL has the reddit "format" query item. This means it's a MP4 file
-                    contentType = AWKGalleryItemContentType.repeatingMovie
-                } else if pathExtension == "gif" || pathExtension == "gif.png" {
-                    //The path extenion is gif or the cherry mistake: gif.png. This means it's a gif file
-                    contentType = AWKGalleryItemContentType.animatedImage
-                }
-                if contentType == AWKGalleryItemContentType.image && self.contentURL?.pathExtension == "gif" {
-                    //if the content type is still not changed we check if the host is a reddit hosted gif. If it's reddit hosted it will have an MP4 URL
-                    var isRedditHosted: Bool = false
-                    let redditMediaHosts: [String] = ["redditmedia.com", "redd.it", "reddituploads.com"]
-                    for host: String in redditMediaHosts {
-                        if let URLHost: String = contentURL.host {
-                            if URLHost.contains(host) {
-                                isRedditHosted = true
-                                break
-                            }
-                        }
-                    }
-                    
-                    if isRedditHosted {
-                        contentType = AWKGalleryItemContentType.repeatingMovie
-                    }
-                }
+            if self.isDirectVideo {
+                return .movie
             }
-            
-            //If the type was not updated we will treat it as a regular image
-            return contentType
+            guard self.isAnimated else {
+                return .image
+            }
+            let pathExtension: String? = self.animatedURL?.pathExtension
+            //The path extenion is gif or the cherry mistake: gif.png. This means it's a gif file
+            let type: AWKGalleryItemContentType = pathExtension == "gif" || pathExtension == "gif.png" ? .animatedImage : .repeatingMovie
+            cachedContentType = type
+            return type
         }
         set {
             
@@ -152,7 +109,7 @@ extension GalleryItem: AWKGalleryItem {
     }
     
     @objc var placeholderImage: UIImage? {
-        if let urlString = self.mediaObject?.thumbnailWithSize(UIScreen.main.bounds.size)?.urlString {
+        if let urlString = self.mediaObject?.thumbnailWithSize(UIScreen.main.bounds.size)?.url?.absoluteString {
             return SDImageCache.shared().imageFromDiskCache(forKey: urlString)
         }
         return nil
@@ -172,7 +129,7 @@ extension GalleryItem: AWKGalleryItem {
     }
     
     @objc var contentSize: CGSize {
-        return CGSize(width: CGFloat(self.mediaObject?.width?.floatValue ?? 0), height: CGFloat(self.mediaObject?.height?.floatValue ?? 0))
+        return CGSize(width: CGFloat(self.mediaObject?.pixelWidth?.floatValue ?? 0), height: CGFloat(self.mediaObject?.pixelHeight?.floatValue ?? 0))
     }
     
     fileprivate var isAlbumItem: Bool {
@@ -181,11 +138,11 @@ extension GalleryItem: AWKGalleryItem {
     
     @objc var attributedTitle: NSAttributedString? {
         if let post = self.mediaObject?.content as? Post, let postTitle = post.title, !self.isAlbumItem {
-            return NSAttributedString(string: postTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17)])
+            return NSAttributedString(string: postTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17)])
         } else if let imageTitle = self.mediaObject?.captionTitle, self.isAlbumItem {
             let paragraphStyle = NSMutableParagraphStyle.default.mutableCopy() as! NSMutableParagraphStyle
             paragraphStyle.paragraphSpacing = 4
-            return NSAttributedString(string: imageTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: 17), NSAttributedStringKey.paragraphStyle: paragraphStyle])
+            return NSAttributedString(string: imageTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17), NSAttributedString.Key.paragraphStyle: paragraphStyle])
         }
         return nil
     }
@@ -199,7 +156,7 @@ extension GalleryItem: AWKGalleryItem {
                 
                 if let captionTitle = self.mediaObject?.captionTitle {
                     
-                    let titleString = NSAttributedString(string: captionTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedStringKey.foregroundColor: UIColor.white, NSAttributedStringKey.font: UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote).pointSize, weight: UIFont.Weight.medium)])
+                    let titleString = NSAttributedString(string: captionTitle.trimmingCharacters(in: CharacterSet.whitespacesAndNewlines), attributes: [NSAttributedString.Key.foregroundColor: UIColor.white, NSAttributedString.Key.font: UIFont.systemFont(ofSize: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote).pointSize, weight: UIFont.Weight.medium)])
                     content.append(titleString)
                 }
                 
@@ -211,7 +168,7 @@ extension GalleryItem: AWKGalleryItem {
             
             if let captionDescription = self.mediaObject?.captionDescription {
                 
-                let subtitleString = NSAttributedString(string: captionDescription, attributes: [NSAttributedStringKey.foregroundColor: UIColor.white.withAlphaComponent(0.8), NSAttributedStringKey.font: UIFont.preferredFont(forTextStyle: UIFontTextStyle.footnote)])
+                let subtitleString = NSAttributedString(string: captionDescription, attributes: [NSAttributedString.Key.foregroundColor: UIColor.white.withAlphaComponent(0.8), NSAttributedString.Key.font: UIFont.preferredFont(forTextStyle: UIFont.TextStyle.footnote)])
                 content.append(subtitleString)
             }
             

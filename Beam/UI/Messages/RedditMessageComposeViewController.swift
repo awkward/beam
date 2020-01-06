@@ -82,13 +82,13 @@ class RedditMessageComposeViewController: BeamViewController {
         self.textView.delegate = self
         self.subjectTextField.delegate = self
         
-        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItemStyle.plain, target: self, action: #selector(RedditMessageComposeViewController.cancelTapped(_:)))
-        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("send-button", comment: "Generic send button"), style: UIBarButtonItemStyle.done, target: self, action: #selector(RedditMessageComposeViewController.sendTapped(_:)))
+        self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(RedditMessageComposeViewController.cancelTapped(_:)))
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(title: NSLocalizedString("send-button", comment: "Generic send button"), style: UIBarButtonItem.Style.done, target: self, action: #selector(RedditMessageComposeViewController.sendTapped(_:)))
         
         //Subscribe to notifications
-        NotificationCenter.default.addObserver(self, selector: #selector(RedditMessageComposeViewController.textFieldTextDidChange(notification:)), name: Notification.Name.UITextFieldTextDidChange, object: self.subjectTextField)
-        NotificationCenter.default.addObserver(self, selector: #selector(RedditMessageComposeViewController.keyboardDidChangeFrame(notification:)), name: NSNotification.Name.UIKeyboardWillChangeFrame, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(RedditMessageComposeViewController.keyboardDidChangeFrame(notification:)), name: NSNotification.Name.UIKeyboardDidChangeFrame, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RedditMessageComposeViewController.textFieldTextDidChange(notification:)), name: UITextField.textDidChangeNotification, object: self.subjectTextField)
+        NotificationCenter.default.addObserver(self, selector: #selector(RedditMessageComposeViewController.keyboardDidChangeFrame(notification:)), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(RedditMessageComposeViewController.keyboardDidChangeFrame(notification:)), name: UIResponder.keyboardDidChangeFrameNotification, object: nil)
         
         //We don't want to be able to pan to close the view
         if let navigationController = self.navigationController as? BeamNavigationController {
@@ -104,11 +104,11 @@ class RedditMessageComposeViewController: BeamViewController {
         if self.hasContent {
             let title = NSLocalizedString("discard-message-alert-title", comment: "The message shown when the user is trying to cancel the view when creating a message")
             let message = NSLocalizedString("discard-message-alert-message", comment: "The message shown when the user is trying to cancel the view when creating a message")
-            let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertControllerStyle.alert)
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("discard-button", comment: "Generic discard button"), style: UIAlertActionStyle.destructive, handler: { (_) in
+            let alertController = BeamAlertController(title: title, message: message, preferredStyle: UIAlertController.Style.alert)
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("discard-button", comment: "Generic discard button"), style: UIAlertAction.Style.destructive, handler: { (_) in
                 self.dismiss(animated: true, completion: nil)
             }))
-            alertController.addAction(UIAlertAction(title: NSLocalizedString("keep-button", comment: "Generic keep button"), style: UIAlertActionStyle.cancel, handler: nil))
+            alertController.addAction(UIAlertAction(title: NSLocalizedString("keep-button", comment: "Generic keep button"), style: UIAlertAction.Style.cancel, handler: nil))
             self.present(alertController, animated: true, completion: nil)
         } else {
             self.dismiss(animated: true, completion: nil)
@@ -127,11 +127,11 @@ class RedditMessageComposeViewController: BeamViewController {
     }
     
     @objc fileprivate func keyboardDidChangeFrame(notification: Notification) {
-        let frame = ((notification as NSNotification).userInfo![UIKeyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
-        let animationDuration = ((notification as NSNotification).userInfo![UIKeyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
-        var animationCurveOption: UIViewAnimationOptions = UIViewAnimationOptions()
-        if (notification as NSNotification).userInfo?[UIKeyboardAnimationCurveUserInfoKey] != nil {
-            ((notification as NSNotification).userInfo![UIKeyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurveOption)
+        let frame = ((notification as NSNotification).userInfo![UIResponder.keyboardFrameEndUserInfoKey] as! NSValue).cgRectValue
+        let animationDuration = ((notification as NSNotification).userInfo![UIResponder.keyboardAnimationDurationUserInfoKey] as? NSNumber ?? NSNumber(value: 0 as Double)).doubleValue
+        var animationCurveOption: UIView.AnimationOptions = UIView.AnimationOptions()
+        if (notification as NSNotification).userInfo?[UIResponder.keyboardAnimationCurveUserInfoKey] != nil {
+            ((notification as NSNotification).userInfo![UIResponder.keyboardAnimationCurveUserInfoKey]! as AnyObject).getValue(&animationCurveOption)
         }
         let keyboardFrame = self.view.convert(frame, from: nil)
         UIView.animate(withDuration: animationDuration, delay: 0, options: animationCurveOption, animations: {
@@ -166,7 +166,7 @@ class RedditMessageComposeViewController: BeamViewController {
         self.scrollView.backgroundColor = backgroundColor
         
         let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
-        self.subjectTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("subject-placeholder", comment: "Placeholder for the subject of a message"), attributes: [NSAttributedStringKey.foregroundColor: placeholderColor])
+        self.subjectTextField.attributedPlaceholder = NSAttributedString(string: NSLocalizedString("subject-placeholder", comment: "Placeholder for the subject of a message"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         self.textViewPlaceholderLabel.textColor = placeholderColor
         
         let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
@@ -252,7 +252,7 @@ class RedditMessageComposeViewController: BeamViewController {
                 case .BadCaptcha:
                     alertController.title = NSLocalizedString("incorrect-captcha-error-title", comment: "Title of the message when the captcha was incorrect for sending a message of submitting a post")
                     alertController.message = NSLocalizedString("incorrect-captcha-error-message", comment: "Message when the captcha was incorrect for sending a message of submitting a post")
-                    alertController.addAction(UIAlertAction(title: NSLocalizedString("retry-button", comment: "Generic retry button"), style: UIAlertActionStyle.default, handler: { (_) in
+                    alertController.addAction(UIAlertAction(title: NSLocalizedString("retry-button", comment: "Generic retry button"), style: UIAlertAction.Style.default, handler: { (_) in
                         self.startSending()
                     }))
                 case .RateLimited:

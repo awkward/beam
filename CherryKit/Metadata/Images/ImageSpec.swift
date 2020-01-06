@@ -81,8 +81,10 @@ public struct ImageSpec {
 
 extension ImageSpec: Hashable {
     
-    public var hashValue: Int {
-        return URL.hashValue ^ size.width.hashValue ^ size.height.hashValue
+    public func hash(into hasher: inout Hasher) {
+        hasher.combine(self.URL)
+        hasher.combine(self.size.width)
+        hasher.combine(self.size.height)
     }
     
 }

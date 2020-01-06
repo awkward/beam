@@ -25,7 +25,7 @@ class PasscodeOptionsViewController: BeamTableViewController {
         self.title = AWKLocalizedString("passcode-view-title")
         
         //Prepare the switches
-        self.touchIDSwitch.addTarget(self, action: #selector(PasscodeOptionsViewController.switchChanged(_:)), for: UIControlEvents.valueChanged)
+        self.touchIDSwitch.addTarget(self, action: #selector(PasscodeOptionsViewController.switchChanged(_:)), for: UIControl.Event.valueChanged)
         self.updateSwitchState()
     }
     
@@ -87,9 +87,9 @@ class PasscodeOptionsViewController: BeamTableViewController {
         //Reset the cell
         cell.textLabel?.text = nil
         cell.detailTextLabel?.text = nil
-        cell.selectionStyle = UITableViewCellSelectionStyle.default
+        cell.selectionStyle = UITableViewCell.SelectionStyle.default
         cell.textColorType = .default
-        cell.accessoryType = UITableViewCellAccessoryType.none
+        cell.accessoryType = UITableViewCell.AccessoryType.none
         //Edit the cell
         if (indexPath as IndexPath).section == 0 {
             cell.textColorType = .followAppTintColor
@@ -111,14 +111,14 @@ class PasscodeOptionsViewController: BeamTableViewController {
         } else if (indexPath as IndexPath).section == 1 {
             switch (indexPath as IndexPath).row {
             case 0:
-                cell.accessoryType = UITableViewCellAccessoryType.disclosureIndicator
+                cell.accessoryType = UITableViewCell.AccessoryType.disclosureIndicator
                 cell.textLabel?.text = AWKLocalizedString("require-passcode-time-title")
                 cell.detailTextLabel?.text = self.passcodeController.currentDelayOption?.title
             default:
                 break
             }
         } else if (indexPath as IndexPath).section == 2 {
-            cell.selectionStyle = UITableViewCellSelectionStyle.none
+            cell.selectionStyle = UITableViewCell.SelectionStyle.none
             switch (indexPath as IndexPath).row {
             case 0:
                 cell.accessoryView = self.touchIDSwitch

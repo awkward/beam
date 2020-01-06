@@ -58,7 +58,7 @@ final class ClearUserRelationsOperation: DataOperation {
     
     fileprivate func predicateForEntityName(_ name: String) -> NSPredicate? {
         if name == Subreddit.entityName() {
-            return NSPredicate(format: "NOT (identifier IN %@)", [Subreddit.frontpageIdentifier, Subreddit.allIdentifier])
+            return NSPredicate(format: "NOT (identifier IN %@)", [Subreddit.frontpageIdentifier, Subreddit.allIdentifier, Subreddit.popularIdentifier])
         }
         return nil
     }

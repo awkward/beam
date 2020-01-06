@@ -35,7 +35,7 @@ class RedditActivityController: NSObject {
             return [Subreddit]()
         }
         let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName())
-        fetchRequest.predicate = NSPredicate(format: "lastVisitDate != nil && NOT(identifier IN %@)", [Subreddit.allIdentifier, Subreddit.frontpageIdentifier])
+        fetchRequest.predicate = NSPredicate(format: "lastVisitDate != nil && NOT(identifier IN %@)", [Subreddit.allIdentifier, Subreddit.popularIdentifier, Subreddit.frontpageIdentifier])
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastVisitDate", ascending: false), NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:)))]
         fetchRequest.fetchLimit = 5
         

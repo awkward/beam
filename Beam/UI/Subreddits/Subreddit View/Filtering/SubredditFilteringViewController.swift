@@ -27,7 +27,7 @@ class SubredditFilteringViewController: BeamViewController {
     fileprivate var keywordsChanged: Bool = false
     
     fileprivate var canFilterSubreddits: Bool {
-        return self.subreddit.identifier == Subreddit.allIdentifier || self.subreddit.identifier == Subreddit.frontpageIdentifier
+        return self.subreddit.identifier == Subreddit.allIdentifier || self.subreddit.identifier == Subreddit.frontpageIdentifier || self.subreddit.identifier == Subreddit.popularIdentifier
     }
     
     fileprivate var filteringType: SubredditFilteringType = SubredditFilteringType.keywords {

@@ -21,6 +21,8 @@ final class SubredditPreviewView: BeamView {
             }
             if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
                 self.imageView.image = #imageLiteral(resourceName: "subreddit_icon_frontpage")
+            } else if self.subreddit?.identifier == Subreddit.popularIdentifier {
+                self.imageView.image = #imageLiteral(resourceName: "subreddit_icon_popular")
             } else if self.subreddit?.identifier == Subreddit.allIdentifier {
                 self.imageView.image = #imageLiteral(resourceName: "subreddit_icon_all")
             } else {

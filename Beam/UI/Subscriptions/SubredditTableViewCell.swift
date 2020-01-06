@@ -88,7 +88,7 @@ final class SubredditTableViewCell: BeamTableViewCell {
         guard self.allowPromimentDisplay else {
             return false
         }
-        return self.subreddit?.isBookmarked.boolValue == true || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier || self.subreddit is Multireddit
+        return self.subreddit?.isBookmarked.boolValue == true || self.subreddit?.identifier == Subreddit.frontpageIdentifier || self.subreddit?.identifier == Subreddit.allIdentifier || self.subreddit?.identifier == Subreddit.popularIdentifier || self.subreddit is Multireddit
     }
     
     private var starButtonEnabled: Bool {
@@ -126,6 +126,8 @@ final class SubredditTableViewCell: BeamTableViewCell {
                     self.subtitleLabel.text = "\(multireddit.subreddits?.count ?? 0) subreddits"
                 } else if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
                     self.subtitleLabel.text = AWKLocalizedString("frontpage-description")
+                } else if self.subreddit?.identifier == Subreddit.popularIdentifier {
+                    self.subtitleLabel.text = AWKLocalizedString("popular-description")
                 } else if self.subreddit?.identifier == Subreddit.allIdentifier {
                     self.subtitleLabel.text = AWKLocalizedString("all-description")
                 } else {

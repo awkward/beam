@@ -14,6 +14,8 @@
 
 @implementation AWKGalleryLayoutGuide
 
+@synthesize heightAnchor;
+
 - (instancetype)initWithGalleryViewController:(AWKGalleryViewController *)gallery {
     self = [super init];
     if (self) {

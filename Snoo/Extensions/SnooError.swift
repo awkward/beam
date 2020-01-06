@@ -12,7 +12,7 @@ public let SnooErrorDomain = "nl.madeawkward.snoo"
 
 extension NSError {
     
-    static func snooError(_ code: Int, localizedDescription: String?) -> NSError {
+    static func snooError(_ code: Int = 1000, localizedDescription: String?) -> NSError {
         if let localizedDescription = localizedDescription {
             return NSError(domain: SnooErrorDomain, code: code, userInfo: [NSLocalizedDescriptionKey: localizedDescription])
         } else {

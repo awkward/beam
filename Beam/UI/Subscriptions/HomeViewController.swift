@@ -100,11 +100,11 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
         NSLayoutConstraint.activate(constraints)
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-        let widthConstraint = NSLayoutConstraint(item: viewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+        let widthConstraint = NSLayoutConstraint(item: viewController.view!, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
         widthConstraint.priority = UILayoutPriority.defaultHigh
         viewController.view.addConstraint(widthConstraint)
         
-        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": viewController.view]))
+        containerView.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": viewController.view!]))
         
         //Disable the scrollbar on iPad, it looks weird
         if let tableView = viewController.view as? UITableView, UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {

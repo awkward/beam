@@ -122,7 +122,7 @@ extension GalleryItem: AWKGalleryItem {
             }
             return nil
         } set {
-            if let url = self.contentURL, let contentData = contentData as? UIImage {
+            if let url = self.contentURL, let contentData = newValue as? UIImage {
                 SDImageCache.shared().store(contentData, forKey: url.absoluteString)
             }
         }

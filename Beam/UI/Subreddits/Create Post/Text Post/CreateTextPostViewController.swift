@@ -53,7 +53,7 @@ class CreateTextPostViewController: CreatePostViewController {
             actionBar.translatesAutoresizingMaskIntoConstraints = false
             self.view.addConstraint(NSLayoutConstraint(item: actionBar, attribute: NSLayoutConstraint.Attribute.leading, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.leading, multiplier: 1.0, constant: 0))
             self.view.addConstraint(NSLayoutConstraint(item: actionBar, attribute: NSLayoutConstraint.Attribute.trailing, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: NSLayoutConstraint.Attribute.trailing, multiplier: 1.0, constant: 0))
-            self.actionBarBottomConstraint = NSLayoutConstraint(item: self.view, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: actionBar, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0)
+            self.actionBarBottomConstraint = NSLayoutConstraint(item: self.view!, attribute: NSLayoutConstraint.Attribute.bottom, relatedBy: NSLayoutConstraint.Relation.equal, toItem: actionBar, attribute: NSLayoutConstraint.Attribute.bottom, multiplier: 1.0, constant: 0)
             self.view.addConstraint(self.actionBarBottomConstraint!)
             self.actionBar = actionBar
             //actionBar.isHidden = true

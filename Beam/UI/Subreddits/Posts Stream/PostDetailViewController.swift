@@ -73,17 +73,17 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
         
         self.embeddedViewController.view.translatesAutoresizingMaskIntoConstraints = false
         //Add horizontal constraints to make the view center with a max width
-        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.embeddedViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
-        self.embeddedViewController.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
+        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view!, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.view!, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.embeddedViewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view!, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
+        self.embeddedViewController.view.addConstraint(NSLayoutConstraint(item: self.embeddedViewController.view!, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
         
         //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-        let widthConstraint = NSLayoutConstraint(item: self.embeddedViewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+        let widthConstraint = NSLayoutConstraint(item: self.embeddedViewController.view!, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
         widthConstraint.priority = UILayoutPriority.defaultHigh
         self.embeddedViewController.view.addConstraint(widthConstraint)
         
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": self.embeddedViewController.view]))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": self.embeddedViewController.view!]))
         
         //Add the skip thread button
         self.skipThreadButton.translatesAutoresizingMaskIntoConstraints = false

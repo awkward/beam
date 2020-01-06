@@ -247,8 +247,7 @@ static const NSTimeInterval AWKGalleryViewControllerDefaultAnimationDuration = 0
     if (!constraintsAdded) {
         
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_navigationBar]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_navigationBar)]];
-        id topLayoutGuide = self.view.safeAreaLayoutGuide.topAnchor;
-        [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:[topLayoutGuide][_navigationBar]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(topLayoutGuide, _navigationBar)]];
+        [self.view addConstraint:[self.view.safeAreaLayoutGuide.topAnchor constraintEqualToAnchor:_navigationBar.topAnchor]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"V:|[_topGradientView]" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_topGradientView)]];
         [self.view addConstraints:[NSLayoutConstraint constraintsWithVisualFormat:@"H:|[_topGradientView]|" options:0 metrics:nil views:NSDictionaryOfVariableBindings(_topGradientView)]];
         [self.view addConstraint:[NSLayoutConstraint constraintWithItem:_topGradientView attribute:NSLayoutAttributeBottom relatedBy:NSLayoutRelationEqual toItem:_navigationBar attribute:NSLayoutAttributeBottom multiplier:1 constant:0]];

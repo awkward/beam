@@ -11,6 +11,8 @@ import Photos
 
 internal class NoAccessEmptyView: UIView, ColorPaletteSupport {
     
+    internal var colorPaletteChangeObservation: NSObjectProtocol?
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     @IBOutlet var settingsButton: UIButton!

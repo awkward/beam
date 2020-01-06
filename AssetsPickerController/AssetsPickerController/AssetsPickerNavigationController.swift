@@ -11,6 +11,8 @@ import Photos
 
 internal class AssetsPickerNavigationController: UINavigationController, ColorPaletteSupport {
     
+    internal var colorPaletteChangeObservation: NSObjectProtocol?
+    
     var pickerController: AssetsPickerController!
     
     var assetsPickerController: AssetsPickerController? {

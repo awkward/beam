@@ -10,7 +10,9 @@ import UIKit
 import Photos
 
 class AlbumTableViewCell: UITableViewCell, ColorPaletteSupport {
-
+    
+    internal var colorPaletteChangeObservation: NSObjectProtocol?
+    
     weak var assetsPickerController: AssetsPickerController? {
         didSet {
             self.startColorPaletteSupport()

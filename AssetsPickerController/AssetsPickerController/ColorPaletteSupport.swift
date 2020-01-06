@@ -12,6 +12,7 @@ internal protocol ColorPaletteSupport: class {
 
     var assetsPickerController: AssetsPickerController? { get set }
     var colorPalette: AssetsPickerColorPalette { get }
+    var colorPaletteChangeObservation: NSObjectProtocol? { get set }
     
     func startColorPaletteSupport()
     func stopColorPaletteSupport()
@@ -27,12 +28,16 @@ extension ColorPaletteSupport {
     }
 
     func startColorPaletteSupport() {
-        NotificationCenter.default.addObserver(self, selector: Selector("colorPaletteDidChangeNotification:"), name: NSNotification.Name(rawValue: AssetsPickerController.ColorPaletteDidChangeNotification), object: nil)
+        self.colorPaletteChangeObservation = NotificationCenter.default.addObserver(forName: AssetsPickerController.colorPaletteDidChangeNotification, object: nil, queue: nil) { notification in
+            self.colorPaletteDidChange()
+        }
         self.colorPaletteDidChange()
     }
     
     func stopColorPaletteSupport() {
-        NotificationCenter.default.removeObserver(self, name: NSNotification.Name(rawValue: AssetsPickerController.ColorPaletteDidChangeNotification), object: nil)
+        if let observer = self.colorPaletteChangeObservation {
+            NotificationCenter.default.removeObserver(observer)
+        }
     }
     
     func colorPaletteDidChangeNotification(_ notification: Notification) {

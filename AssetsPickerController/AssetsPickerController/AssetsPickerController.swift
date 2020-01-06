@@ -15,7 +15,7 @@ public enum AssetsPickerControllerAlbumType {
 
 public class AssetsPickerController: NSObject {
     
-    static internal let ColorPaletteDidChangeNotification = "ColorPaletteDidChange"
+    static internal let colorPaletteDidChangeNotification = Notification.Name(rawValue: "ColorPaletteDidChange")
     
     // Configurable properties
     weak public var delegate: AssetsPickerControllerDelegate?
@@ -78,9 +78,8 @@ public class AssetsPickerController: NSObject {
     
     public var colorPalette = AssetsPickerColorPalette() {
         didSet {
-            if self.colorPalette != oldValue {
-                NotificationCenter.default.post(name: Notification.Name(rawValue: AssetsPickerController.ColorPaletteDidChangeNotification), object: self.colorPalette)
-            }
+            guard colorPalette != oldValue else { return }
+            NotificationCenter.default.post(name: AssetsPickerController.colorPaletteDidChangeNotification, object: self)
         }
     }
     

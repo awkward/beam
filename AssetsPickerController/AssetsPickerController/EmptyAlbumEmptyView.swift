@@ -10,6 +10,8 @@ import UIKit
 
 class EmptyAlbumEmptyView: UIView, ColorPaletteSupport {
     
+    internal var colorPaletteChangeObservation: NSObjectProtocol?
+    
     @IBOutlet var titleLabel: UILabel!
     @IBOutlet var descriptionLabel: UILabel!
     

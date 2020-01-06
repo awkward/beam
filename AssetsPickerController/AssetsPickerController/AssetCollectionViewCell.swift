@@ -11,6 +11,8 @@ import Photos
 
 class AssetCollectionViewCell: UICollectionViewCell, ColorPaletteSupport {
     
+    internal var colorPaletteChangeObservation: NSObjectProtocol?
+    
     weak var assetsPickerController: AssetsPickerController? {
         didSet {
             self.startColorPaletteSupport()

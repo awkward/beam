@@ -11,6 +11,8 @@ import Photos
 
 class AssetsGridViewController: UICollectionViewController, AssetsPickerViewController, ColorPaletteSupport {
     
+    internal var colorPaletteChangeObservation: NSObjectProtocol?
+    
     weak var assetsPickerController: AssetsPickerController? {
         didSet {
             self.startColorPaletteSupport()

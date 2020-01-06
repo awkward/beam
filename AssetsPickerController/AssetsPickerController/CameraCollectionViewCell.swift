@@ -69,6 +69,8 @@ class CameraIconView: UIView {
 
 class CameraCollectionViewCell: UICollectionViewCell, ColorPaletteSupport {
     
+    internal var colorPaletteChangeObservation: NSObjectProtocol?
+    
     class var reuseIdentifier: String {
         return "camera-cell"
     }

@@ -23,6 +23,7 @@
 		008694461BECAD9F0014C9D3 /* MultiredditSubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008694451BECAD9F0014C9D3 /* MultiredditSubTableViewCell.swift */; };
 		008694541BECE25E0014C9D3 /* MultiredditSubTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 008694531BECE25E0014C9D3 /* MultiredditSubTableViewCell.xib */; };
 		00A00C601BD91FBF00212A5E /* GalleryAlbumItemAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A00C5F1BD91FBF00212A5E /* GalleryAlbumItemAnimator.swift */; };
+		00A0B04F23C3B53E00F1596B /* ManagedObjectContext+Snoo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A0B04E23C3B53E00F1596B /* ManagedObjectContext+Snoo.swift */; };
 		00A119781BC7D65300D81E64 /* GalleryAlbumContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A119771BC7D65300D81E64 /* GalleryAlbumContentViewController.swift */; };
 		00B1C4041BFE166000DDA4F8 /* NSURL+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1C4031BFE166000DDA4F8 /* NSURL+Services.swift */; };
 		00B1C4631BFF1CE300DDA4F8 /* UIImage+Downscaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1C4621BFF1CE300DDA4F8 /* UIImage+Downscaling.swift */; };
@@ -852,6 +853,7 @@
 		008694451BECAD9F0014C9D3 /* MultiredditSubTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiredditSubTableViewCell.swift; path = "Beam/UI/Subreddits/Subreddit View/Edit Multireddit/Cells/MultiredditSubTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		008694531BECE25E0014C9D3 /* MultiredditSubTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiredditSubTableViewCell.xib; sourceTree = "<group>"; };
 		00A00C5F1BD91FBF00212A5E /* GalleryAlbumItemAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryAlbumItemAnimator.swift; path = "Beam/UI/Subreddits/Media Overview/GalleryAlbumItemAnimator.swift"; sourceTree = SOURCE_ROOT; };
+		00A0B04E23C3B53E00F1596B /* ManagedObjectContext+Snoo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "ManagedObjectContext+Snoo.swift"; sourceTree = "<group>"; };
 		00A119771BC7D65300D81E64 /* GalleryAlbumContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryAlbumContentViewController.swift; path = "Beam/UI/Subreddits/Media Overview/GalleryAlbumContentViewController.swift"; sourceTree = SOURCE_ROOT; };
 		00B1C4031BFE166000DDA4F8 /* NSURL+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Services.swift"; sourceTree = "<group>"; };
 		00B1C4621BFF1CE300DDA4F8 /* UIImage+Downscaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Downscaling.swift"; path = "beam/Extensions/UIImage+Downscaling.swift"; sourceTree = SOURCE_ROOT; };
@@ -1491,6 +1493,7 @@
 		0C056F201D82B86500E32FB3 /* Core Data */ = {
 			isa = PBXGroup;
 			children = (
+				00A0B04E23C3B53E00F1596B /* ManagedObjectContext+Snoo.swift */,
 				0C056FAC1D82BD6800E32FB3 /* Snoo.xcdatamodeld */,
 				0C056F8A1D82B88500E32FB3 /* Mappings */,
 				0C056F4B1D82B88200E32FB3 /* SyncObjects */,
@@ -3459,6 +3462,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				0C24FFF81D82B84300CCBF93 /* SaveOperation.swift in Sources */,
+				00A0B04F23C3B53E00F1596B /* ManagedObjectContext+Snoo.swift in Sources */,
 				0C056F7E1D82B88200E32FB3 /* ContentCollection.swift in Sources */,
 				0C056F631D82B88200E32FB3 /* SyncObject+Operations.swift in Sources */,
 				0C24FFEF1D82B84300CCBF93 /* RedditSubscriptionRequest.swift in Sources */,

@@ -427,18 +427,19 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func updateFavoriteSubredditShortcuts() {
-        //Update the 3D Touch shortcuts
-        do {
-            if let subreddits = try self.favoriteSubreddits(), subreddits.count > 0 {
-                let shortcutItems = subreddits[0..<min(subreddits.count, 4)].compactMap { (subreddit) -> UIApplicationShortcutItem? in
-                    return subreddit.createApplicationShortcutItem()
-                }
-                UIApplication.shared.shortcutItems = shortcutItems.reversed()
-            }
-            
-        } catch {
+        guard let subreddits = try? favoriteSubreddits() else {
             AWKDebugLog("Failed to get bookmarked subredits")
+            return
         }
+    
+        // Subreddits are retrieved from our private Core Data context.
+        let shortcuts = try? DataController.shared.privateContext.performAndReturn {
+            return subreddits[0..<min(subreddits.count, 4)].compactMap { (subreddit) -> UIApplicationShortcutItem? in
+                return subreddit.createApplicationShortcutItem()
+            }
+        }
+        
+        UIApplication.shared.shortcutItems = shortcuts?.reversed()
     }
     
     private func favoriteSubreddits() throws -> [Subreddit]? {

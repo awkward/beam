@@ -178,75 +178,58 @@ public class Subreddit: SyncObject {
     
     //Returns the frontpage subreddit. If it doesn't already exist in the context it will be created. This method is always done on the DataController's private context!
     public class func frontpageSubreddit() throws -> Subreddit {
-        let context: NSManagedObjectContext! = DataController.shared.privateContext
-        var subreddit: Subreddit!
-        var thrownError: Error?
-        context.performAndWait {
-            do {
-                if let existingSubreddit = try Subreddit.fetchObjectWithIdentifier(Subreddit.frontpageIdentifier, context: context) as? Subreddit {
-                    //We already have a frontpage subreddit, update it below
-                    subreddit = existingSubreddit
-                } else {
-                    //We don't already have a frontpage subreddit, create it and update it below
-                    subreddit = try Subreddit.objectWithIdentifier(Subreddit.frontpageIdentifier, cache: nil, context: context) as! Subreddit
-                    subreddit.permalink = ""
-                    subreddit.sectionName = ""
-                    if subreddit.objectID.isTemporaryID {
-                        subreddit.order = NSNumber(value: 0 as Int)
-                    }
-                    
-                    try context?.obtainPermanentIDs(for: [subreddit])
-                    try context?.save()
-                }
-            } catch {
-                thrownError = error
-            }
-
-        }
-        if let thrownError = thrownError {
-            throw thrownError
-        }
-        subreddit.title = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage secction on reddit. This is a collection of your subbreddits when logged in")
-        subreddit.displayName = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage secction on reddit. This is a collection of your subbreddits when logged in")
-        subreddit.isBookmarked = NSNumber(value: true as Bool)
-        
-        return subreddit
+        return try prepopulatedSubreddit(identifier: Subreddit.frontpageIdentifier, customization: { subreddit in
+            subreddit.permalink = ""
+            subreddit.sectionName = ""
+            subreddit.order = NSNumber(value: 0)
+            subreddit.title = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage secction on reddit. This is a collection of your subbreddits when logged in")
+            subreddit.displayName = NSLocalizedString("subreddit-frontpage", comment: "The title used for the frontpage secction on reddit. This is a collection of your subbreddits when logged in")
+            subreddit.isBookmarked = NSNumber(value: true)
+        })
     }
     
     //Returns the /r/all subreddit. If it doesn't already exist in the context it will be created. This method is always done on the DataController's private context!
     public class func allSubreddit() throws -> Subreddit {
-        let context: NSManagedObjectContext! = DataController.shared.privateContext
+        return try prepopulatedSubreddit(identifier: Subreddit.allIdentifier) { subreddit in
+            subreddit.permalink = "/r/all"
+            subreddit.sectionName = ""
+            subreddit.order = NSNumber(value: 1)
+            subreddit.title = NSLocalizedString("subreddit-all", comment: "The title used for the all section on reddit. This is a collection of all subbreddits")
+            subreddit.displayName = NSLocalizedString("subreddit-all", comment: "The title used for the all scction on reddit. This is a collection of all subbreddits")
+            subreddit.isBookmarked = NSNumber(value: true as Bool)
+        }
+    }
+    
+    private class func prepopulatedSubreddit(identifier: String, customization block: (Subreddit) throws -> Void) throws -> Subreddit {
+        guard let context: NSManagedObjectContext = DataController.shared.privateContext else {
+            throw NSError.snooError(localizedDescription: "Unable to obtain private managed object context")
+        }
         var subreddit: Subreddit!
         var thrownError: Error?
         context.performAndWait {
             do {
-                if let existingSubreddit = try Subreddit.fetchObjectWithIdentifier(Subreddit.allIdentifier, context: context) as? Subreddit {
-                    //We already have a all subreddit, update it below
-                    subreddit = existingSubreddit
-                } else {
-                    //We don't already have a all subreddit, create it and update it below
-                    subreddit = try Subreddit.objectWithIdentifier(Subreddit.allIdentifier, cache: nil, context: context) as! Subreddit
-                    subreddit.permalink = "/r/all"
-                    subreddit.sectionName = ""
-                    if subreddit.objectID.isTemporaryID {
-                        subreddit.order = NSNumber(value: 1 as Int)
-                    }
-                    
-                    try context?.obtainPermanentIDs(for: [subreddit])
-                }
+                subreddit = try prepopulatedSubreddit(in: context, identifier: identifier)
+                try block(subreddit)
             } catch {
                 thrownError = error
             }
-            
         }
-        if let thrownError = thrownError {
-            throw thrownError
+        guard subreddit != nil, thrownError == nil else {
+            throw thrownError ?? NSError.snooError(localizedDescription: "")
         }
-        subreddit.title = NSLocalizedString("subreddit-all", comment: "The title used for the all section on reddit. This is a collection of all subbreddits")
-        subreddit.displayName = NSLocalizedString("subreddit-all", comment: "The title used for the all scction on reddit. This is a collection of all subbreddits")
-        subreddit.isBookmarked = NSNumber(value: true as Bool)
         
         return subreddit
+    }
+    
+    private class func prepopulatedSubreddit(in context: NSManagedObjectContext, identifier: String) throws -> Subreddit {
+        if let existing = try Subreddit.fetchObjectWithIdentifier(identifier, context: context) as? Subreddit {
+            return existing
+        } else if let created = try Subreddit.objectWithIdentifier(identifier, cache: nil, context: context) as? Subreddit {
+            try context.obtainPermanentIDs(for: [created])
+            return created
+        } else {
+            throw NSError.snooError(0, localizedDescription: "Unable to create prepopulated subreddit")
+        }
     }
 
     public var isUserAuthorized: Bool {

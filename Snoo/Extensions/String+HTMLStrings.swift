@@ -313,9 +313,9 @@ extension String {
         func decode(_ entity: String) -> Character? {
             
             if entity.hasPrefix("&#x") || entity.hasPrefix("&#X") {
-                return decodeNumeric(entity.substring(with: entity.index(entity.startIndex, offsetBy: 3) ..< entity.index(entity.endIndex, offsetBy: -1)), base: 16)
+                return decodeNumeric(String(entity[entity.index(entity.startIndex, offsetBy: 3) ..< entity.index(entity.endIndex, offsetBy: -1)]), base: 16)
             } else if entity.hasPrefix("&#") {
-                return decodeNumeric(entity.substring(with: entity.index(entity.startIndex, offsetBy: 2) ..< entity.index(entity.endIndex, offsetBy: -1)), base: 10)
+                return decodeNumeric(String(entity[entity.index(entity.startIndex, offsetBy: 2) ..< entity.index(entity.endIndex, offsetBy: -1)]), base: 10)
             } else {
                 return characterEntities[entity]
             }

@@ -52,7 +52,7 @@ extension MediaImageLoader {
             self?.mediaImageView.image = nil
             let URLString = self?.mediaURLString()
             if let URLString = URLString, let url = URL(string: URLString) {
-                if let cachedImage = SDImageCache.shared().imageFromDiskCache(forKey: URLString) {
+                if let cachedImage = SDImageCache.shared.imageFromDiskCache(forKey: URLString) {
                     DispatchQueue.main.async(execute: { () -> Void in
                         self?.mediaImageView.image = cachedImage
                         self?.imageLoadingCompleted()

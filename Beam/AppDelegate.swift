@@ -129,12 +129,11 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         self.displayModeController.updateSettings()
         self.displayModeController.updateCurrentMode()
         
-        let cacheConfig = SDImageCache.shared().config
-        cacheConfig.shouldDecompressImages = false
+        let cacheConfig = SDImageCache.shared.config
         //Max cache size: 400MB
-        cacheConfig.maxCacheSize = UInt(400 * 1000 * 1000)
+        cacheConfig.maxDiskSize = UInt(400 * 1000 * 1000)
         //Max cache age: 3 days
-        cacheConfig.maxCacheAge = 60 * 60 * 60 * 24 * 3
+        cacheConfig.maxDiskAge = 60 * 60 * 60 * 24 * 3
         
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contextDidSave(_:)), name: .NSManagedObjectContextDidSave, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.cherryAccessTokenDidChange(_:)), name: .CherryAccessTokenDidChange, object: self.cherryController)

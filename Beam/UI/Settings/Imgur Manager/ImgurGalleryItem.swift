@@ -91,12 +91,12 @@ extension ImgurGalleryItem: AWKGalleryItem {
     @objc var contentData: Any? {
         get {
             if let url = self.contentURL {
-                return SDImageCache.shared().imageFromDiskCache(forKey: url.absoluteString)
+                return SDImageCache.shared.imageFromDiskCache(forKey: url.absoluteString)
             }
             return nil
         } set {
             if let url = self.contentURL, let contentData = newValue as? UIImage {
-                SDImageCache.shared().store(contentData, forKey: url.absoluteString)
+                SDImageCache.shared.store(contentData, forKey: url.absoluteString)
             }
         }
     }

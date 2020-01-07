@@ -521,8 +521,8 @@ class SettingsViewController: BeamTableViewController {
     // MARK: - Clear methods
     
     fileprivate func clearCaches() {
-        SDImageCache.shared().clearDisk()
-        SDImageCache.shared().clearMemory()
+        SDImageCache.shared.clearDisk()
+        SDImageCache.shared.clearMemory()
         let operation = DataController.clearAllObjectsOperation(AppDelegate.shared.managedObjectContext)
         DataController.shared.executeOperations([operation], handler: nil)
         let alertController = BeamAlertController(title: AWKLocalizedString("cache-cleared-title"), message: AWKLocalizedString("cache-cleared-message"), preferredStyle: .alert)

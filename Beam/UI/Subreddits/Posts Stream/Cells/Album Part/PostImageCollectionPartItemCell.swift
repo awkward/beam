@@ -115,7 +115,7 @@ extension PostImageCollectionPartItemCell: URLSessionDownloadDelegate {
         
         let image = UIImage.downscaledImageWithFileURL(location, options: DownscaledImageOptions())
         if let cacheKey = downloadTask.originalRequest?.url?.absoluteString {
-            SDImageCache.shared().store(image, forKey: cacheKey, toDisk: true)
+            SDImageCache.shared.store(image, forKey: cacheKey, toDisk: true)
         }
         
         DispatchQueue.main.async(execute: { () -> Void in

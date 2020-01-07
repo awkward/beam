@@ -87,7 +87,7 @@ class InboxViewController: BeamViewController {
     }
     
     fileprivate func reloadMarkAllMessagesReadButton() {
-        let objectContext = AppDelegate.shared.managedObjectContext!
+        let objectContext = AppDelegate.shared.managedObjectContext
         if let user = AppDelegate.shared.authenticationController.activeUser(objectContext) {
             self.navigationItem.rightBarButtonItem?.isEnabled = user.hasMail.boolValue && self.isMarkingMessagesAsRead == false
         } else {
@@ -97,7 +97,7 @@ class InboxViewController: BeamViewController {
     
     fileprivate func reloadBadgeIcons() {
         do {
-            let objectContext = AppDelegate.shared.managedObjectContext!
+            let objectContext = AppDelegate.shared.managedObjectContext
             
             let messagesFetchRequest = NSFetchRequest<NSFetchRequestResult>(entityName: Message.entityName())
             messagesFetchRequest.predicate = NSPredicate(format: "unread == YES && reference == nil")

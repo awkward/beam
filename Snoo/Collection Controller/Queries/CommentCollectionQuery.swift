@@ -21,7 +21,7 @@ public final class CommentCollectionQuery: ContentCollectionQuery {
     }
 
     override public var apiPath: String {
-        let context = DataController.shared.privateContext
+        let context = post?.managedObjectContext
         
         if let postID = self.post?.objectID,
             let post = context?.object(with: postID) as? Post,
@@ -38,7 +38,7 @@ public final class CommentCollectionQuery: ContentCollectionQuery {
     }
     
     override var apiQueryItems: [URLQueryItem]? {
-        let context = DataController.shared.privateContext
+        let context = post?.managedObjectContext
         
         var queryItems = [URLQueryItem]()
         

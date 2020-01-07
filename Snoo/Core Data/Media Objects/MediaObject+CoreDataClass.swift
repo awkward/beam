@@ -10,7 +10,9 @@
 import Foundation
 import CoreData
 
-public class MediaObject: NSManagedObject {
+public class MediaObject: NSManagedObject, SyncableObject {
+    
+    public typealias SyncableRoot = MediaObject
     
     public var isNSFW: Bool {
         set {

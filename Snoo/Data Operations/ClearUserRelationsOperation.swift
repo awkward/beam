@@ -12,7 +12,7 @@ import CoreData
 /// This class performans a batch update to set all user related properties to their default value, this is useful when removing accounts or switching.
 final class ClearUserRelationsOperation: DataOperation {
     
-    var objectContext: NSManagedObjectContext! = DataController.shared.privateContext
+    private var objectContext: NSManagedObjectContext! = DataController.shared.privateContext
     
     fileprivate var entityNames: [String] {
         return [Subreddit.entityName(), Multireddit.entityName()]

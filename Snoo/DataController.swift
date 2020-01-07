@@ -55,8 +55,11 @@ public final class DataController: NSObject {
             self.clearForVersionChange()
         }
         
-        self.privateContext = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
+        self.privateContext = NSManagedObjectContext(concurrencyType: .privateQueueConcurrencyType)
         self.privateContext.persistentStoreCoordinator = self.storeCoordinator!
+        
+        self.viewContext = NSManagedObjectContext(concurrencyType: .mainQueueConcurrencyType)
+        self.viewContext.parent = self.privateContext
         
         NotificationCenter.default.addObserver(self, selector: #selector(authenticationSessionsChangedNotification(_: )), name: AuthenticationController.AuthenticationSessionsChangedNotificationName, object: nil)
     }
@@ -179,7 +182,13 @@ public final class DataController: NSObject {
     
     // MARK: - Core Data stack
     
-    public var privateContext: NSManagedObjectContext!
+    /// We use a private managedObjectContext on the background as our main context.
+    /// Because this may only be used on its own background queue, we tend to
+    /// protect it from being used outside of the Snoo framework.
+    /// If needed, the performBackgroundTaskAndWait function can be used.
+    internal var privateContext: NSManagedObjectContext!
+    
+    public var viewContext: NSManagedObjectContext!
     
     /// The context for presenting or editing data from the UI. The parent context is a private context, which is connected to the persistent store coordinator.
     public func createMainContext() -> NSManagedObjectContext {
@@ -459,8 +468,9 @@ public final class DataController: NSObject {
         }
     }
     
-    public func executeAndSaveOperations(_ operations: [Operation], context: NSManagedObjectContext = DataController.shared.privateContext, handler: ((Error?) -> Void)?) {
-        let saveOperations = persistentSaveOperations(context)
+    public func executeAndSaveOperations(_ operations: [Operation], context: NSManagedObjectContext? = nil, handler: ((Error?) -> Void)?) {
+        let objectContext = context ?? self.privateContext!
+        let saveOperations = persistentSaveOperations(objectContext)
         if let lastOperation = operations.last {
             saveOperations.first?.addDependency(lastOperation)
         }
@@ -519,22 +529,81 @@ public final class DataController: NSObject {
     
     // MARK: - Clearing
     
-    public class func clearAllObjectsOperation(_ context: NSManagedObjectContext = DataController.shared.privateContext) -> Operation {
+    public class func clearAllObjectsOperation() -> Operation {
         let deleteOperation = BatchDeleteOperation()
         deleteOperation.onlyClearExpiredContent = false
-        deleteOperation.objectContext = context
         return deleteOperation
     }
     
-    public class func clearExpiredContentOperation(_ context: NSManagedObjectContext = DataController.shared.privateContext) -> Operation {
+    public class func clearExpiredContentOperation() -> Operation {
         let deleteOperation = BatchDeleteOperation()
         // Only clear objects with an expiration date, and don't clear user objects.
         deleteOperation.onlyClearExpiredContent = true
-        deleteOperation.objectContext = context
         deleteOperation.completionBlock = { () -> Void in
-            NotificationCenter.default.post(name: .DataControllerExpiredContentDeletedFromContext, object: context)
+            NotificationCenter.default.post(name: .DataControllerExpiredContentDeletedFromContext, object: nil)
         }
         return deleteOperation
+    }
+    
+}
+
+extension DataController {
+    
+    public func performBackgroundTask(_ task: @escaping (NSManagedObjectContext) -> Void) {
+        privateContext.perform {
+            task(self.privateContext)
+        }
+    }
+    
+    public func performBackgroundTaskAndWait<R>(_ task: (NSManagedObjectContext) throws -> R) throws -> R {
+        var thrownError: Error?
+        var result: R?
+        privateContext.performAndWait {
+            do {
+                result = try task(privateContext)
+            } catch {
+                thrownError = error
+            }
+        }
+        
+        if let error = thrownError {
+            throw error
+        } else {
+            return result!
+        }
+    }
+    
+}
+
+public protocol SyncableObject {
+    associatedtype SyncableRoot: NSManagedObject
+    
+    /// Gets the value from the given keyPath, by syncing to the appropriate managedObjectContext queue.
+    func get<T>(_ keyPath: KeyPath<SyncableRoot, T>) throws -> T
+    
+    /// Sets the given value to the given keypath, by syncing to the appropriate managedObjectContext queue.
+    func set<T>(_ value: T, to keyPath: ReferenceWritableKeyPath<SyncableRoot, T>)
+    
+}
+
+public extension SyncableObject where Self : NSManagedObject {
+    
+    func get<T>(_ keyPath: KeyPath<Self, T>) throws -> T {
+        guard let context = managedObjectContext else {
+            throw NSError.snooError(localizedDescription: "Object deleted")
+        }
+        var result: T!
+        context.performAndWait {
+            result = self[keyPath: keyPath]
+        }
+        return result
+    }
+    
+    func set<T>(_ value: T, to keyPath: ReferenceWritableKeyPath<Self, T>) {
+        guard let context = managedObjectContext else { return }
+        context.performAndWait {
+            self[keyPath: keyPath] = value
+        }
     }
     
 }

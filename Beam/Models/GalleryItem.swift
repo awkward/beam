@@ -18,18 +18,10 @@ class GalleryItem: NSObject {
     
     var size: CGSize? {
         get {
-            if let width = self.mediaObject?.pixelWidth?.floatValue, let height = self.mediaObject?.pixelHeight?.floatValue {
-                return CGSize(width: CGFloat(width), height: CGFloat(height))
-            }
-            return nil
+            return try? mediaObject?.get(\.pixelSize)
         }
-        set (newSize) {
-            self.mediaObject?.managedObjectContext?.performAndWait {
-                if let width = newSize?.width, let height = newSize?.height {
-                    self.mediaObject?.pixelWidth = NSNumber(value: Float(width))
-                    self.mediaObject?.pixelHeight = NSNumber(value: Float(height))
-                }
-            }
+        set {
+            mediaObject?.set(newValue ?? .zero, to: \.pixelSize)
         }
     }
     
@@ -38,7 +30,7 @@ class GalleryItem: NSObject {
     }
     
     var isNSFW: Bool {
-        return mediaObject?.isNSFW ?? false
+        return (try? mediaObject?.get(\.isNSFW)) ?? false
     }
     
     var isDirectVideo: Bool {
@@ -49,14 +41,14 @@ class GalleryItem: NSObject {
         guard let animatedGIF = mediaObject as? MediaAnimatedGIF else {
             return nil
         }
-        return animatedGIF.videoURL
+        return try? animatedGIF.get(\.videoURL)
     }
     
     var isMP4GIF: Bool {
         guard let animatedGIF = mediaObject as? MediaAnimatedGIF else {
             return false
         }
-        return animatedGIF.videoURL != nil
+        return (try? animatedGIF.get(\.videoURL)) != nil
         //TODO: Check if the URL contains a mp4 extension or in case of Reddit links they will end with .gif, but contain "fm=mp4" (format is mp4) if the URL is a MP4 URL
 //        return self.mediaObject?.galleryItem.animatedURLString?.pathExtension.contains("mp4") == true || self.mediaObject?.galleryItem.animatedURLString?.absoluteString.contains("fm=mp4") == true
     }
@@ -76,9 +68,9 @@ extension GalleryItem: AWKGalleryItem {
     @objc var contentURL: URL? {
         if self.isAnimated {
             return self.animatedURL
-        } else if let videoObject = self.mediaObject as? MediaDirectVideo, let url = videoObject.videoURL {
+        } else if let videoObject = self.mediaObject as? MediaDirectVideo, let url = try? videoObject.get(\.videoURL) {
             return url
-        } else if let url = self.mediaObject?.contentURL {
+        } else if let url = try? self.mediaObject?.get(\.contentURL) {
             return url
         } else {
             NSLog("ContentURL missing")

@@ -3,7 +3,7 @@
 	url = git@github.com:awkward/SDWebImage.git
 [submodule "JLRoutes"]
 	path = JLRoutes
-	url = git@github.com:joeldev/JLRoutes.git
+	url = git@github.com:awkward/JLRoutes.git
 [submodule "TTTAttributedLabel"]
 	path = TTTAttributedLabel
 	url = git@github.com:TTTAttributedLabel/TTTAttributedLabel.git

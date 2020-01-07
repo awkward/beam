@@ -12,7 +12,7 @@ import SDWebImage
 class BeamImageLoader: NSObject {
     
     func startDownloadingImageWithURL(_ url: URL, downscalingOptions: DownscaledImageOptions? = nil, progressHandler: ((_ totalBytesWritten: Int, _ totalBytesExpectedToWrite: Int) -> Void)? = nil, completionHandler:  ((_ image: UIImage?) -> Void)?) -> SDWebImageOperation? {
-        let operation = SDWebImageManager.shared().loadImage(with: url, options: [], progress: { (receivedSize, expectedSize, _) in
+        let operation = SDWebImageManager.shared.loadImage(with: url, options: [], progress: { (receivedSize, expectedSize, _) in
             DispatchQueue.main.async { () -> Void in
                 progressHandler?(receivedSize, expectedSize)
             }
@@ -27,7 +27,7 @@ class BeamImageLoader: NSObject {
             let scaledImage = UIImage.downscaledImageWithImage(image, options: options)
             
             if let cacheKey = url?.absoluteString, downscalingOptions == nil {
-                SDImageCache.shared().store(scaledImage, forKey: cacheKey + "_scaled", toDisk: true)
+                SDImageCache.shared.store(scaledImage, forKey: cacheKey + "_scaled", toDisk: true)
             }
             
             DispatchQueue.main.async { () -> Void in

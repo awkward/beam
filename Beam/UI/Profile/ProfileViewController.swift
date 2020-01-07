@@ -177,7 +177,7 @@ class ProfileViewController: BeamViewController {
         streamView.translatesAutoresizingMaskIntoConstraints = false
         //Add horizontal constraints to make the view center with a max width
         self.view.addConstraint(NSLayoutConstraint(item: streamView, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
-        self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: streamView, attribute: .trailing, multiplier: 1.0, constant: 0))
+        self.view.addConstraint(NSLayoutConstraint(item: self.view!, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: streamView, attribute: .trailing, multiplier: 1.0, constant: 0))
         self.view.addConstraint(NSLayoutConstraint(item: streamView, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
         streamView.addConstraint(NSLayoutConstraint(item: streamView, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
         

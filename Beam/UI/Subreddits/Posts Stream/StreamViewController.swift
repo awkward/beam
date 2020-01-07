@@ -463,7 +463,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     var collection: ObjectCollection? {
         if let collectionID = self.collectionController.collectionID {
             do {
-                return try AppDelegate.shared.managedObjectContext!.existingObject(with: collectionID) as? ObjectCollection
+                return try AppDelegate.shared.managedObjectContext.existingObject(with: collectionID) as? ObjectCollection
             } catch {
                 return nil
             }
@@ -668,7 +668,7 @@ extension StreamViewController {
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let content: Content = self.content(forSection: indexPath.section) else {
             let cell = tableView.dequeueReusableCell(withIdentifier: StreamCellTypeIdentifier.Title.rawValue, for: indexPath) as! PostCell
-            self.configureCell(cell, atIndexPath: indexPath)
+            self.configure(cell, at: indexPath)
             return cell as! UITableViewCell
         }
         let cellIdentifiers = self.cellIdentifiersForContent(content)
@@ -683,12 +683,12 @@ extension StreamViewController {
         switch cellType {
         case .Metadata:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostMetaDataPartCell
-            self.configureCell(cell, atIndexPath: indexPath)
+            self.configure(cell, at: indexPath)
             self.configureMetadataView(cell.metadataView, atIndexPath: indexPath)
             return cell
         case .Toolbar:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostToolbarPartCell
-            configureCell(cell, atIndexPath: indexPath)
+            configure(cell, at: indexPath)
             cell.toolbarView.delegate = self
             cell.toolbarView.shouldShowSeperator = isDetailView || thumbnailViewType.showsToolbarSeperator
             return cell
@@ -722,14 +722,14 @@ extension StreamViewController {
             cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
             cell.contentLabel.delegate = self
             cell.showsSummary = !isDetailView
-            configureCell(cell, atIndexPath: indexPath)
+            configure(cell, at: indexPath)
             cell.selectionStyle = isSummary ? .default : .none
             return cell
         case .Comment:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostCommentPartCell
             cell.contentLabel.delegate = self
             cell.needsTopSpacing = !isDetailView && thumbnailViewType.needsCommentSpacing
-            self.configureCell(cell, atIndexPath: indexPath)
+            self.configure(cell, at: indexPath)
             cell.selectionStyle = isDetailView ?  .none : .default
             return cell
         case .TitleWithThumbnail:
@@ -738,7 +738,7 @@ extension StreamViewController {
             cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
             cell.delegate = self
             cell.showThumbnail = thumbnailViewType != ThumbnailsViewType.none
-            self.configureCell(cell, atIndexPath: indexPath)
+            self.configure(cell, at: indexPath)
             if let metadataView = cell.metadataView {
                 self.configureMetadataView(metadataView, atIndexPath: indexPath)
             }
@@ -747,18 +747,21 @@ extension StreamViewController {
             let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostURLPartCell
             cell.shouldShowSpoilerOverlay = self.showSpoilerOverlayAtIndexPath(indexPath)
             cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
-            self.configureCell(cell, atIndexPath: indexPath)
+            self.configure(cell, at: indexPath)
             return cell
         case .Video:
             let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostVideoPartCell
             cell.shouldShowSpoilerOverlay = self.showSpoilerOverlayAtIndexPath(indexPath)
             cell.shouldShowNSFWOverlay = self.showNSFWOverlayAtIndexPath(indexPath)
-            self.configureCell(cell, atIndexPath: indexPath)
+            self.configure(cell, at: indexPath)
             return cell
         default:
-            let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath) as! PostCell
-            self.configureCell(cell, atIndexPath: indexPath)
-            return cell as! UITableViewCell
+            let cell = tableView.dequeueReusableCell(withIdentifier: cellType.rawValue, for: indexPath)
+            assert(cell is PostCell, "Dequeued cell is not a PostCell, which indicates a cell inconsistency.")
+            if let postCell = cell as? PostCell {
+                self.configure(postCell, at: indexPath)
+            }
+            return cell
         }
     }
     
@@ -848,7 +851,7 @@ extension StreamViewController {
         metadataView.shouldShowDate = UserSettings[.showPostMetadataDate] && !(self.content?[indexPath.section] is Comment)
     }
     
-    fileprivate func configureCell(_ cell: PostCell, atIndexPath indexPath: IndexPath) {
+    fileprivate func configure(_ cell: PostCell, at indexPath: IndexPath) {
         if let object = self.content(forSection: indexPath.section) {
             cell.content = object
             cell.onDetailView = (self is PostDetailEmbeddedViewController)

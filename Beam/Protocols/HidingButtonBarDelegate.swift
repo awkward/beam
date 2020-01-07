@@ -92,7 +92,7 @@ extension HidingButtonBarDelegate where Self: UIViewController {
             let timeDifference = currentTime - lastOffsetCapture
             if timeDifference > 0.01 {
                 let distance = lastOffset.y - currentOffset.y
-                let scrollSpeed = fabs((distance / CGFloat(timeDifference)) / 1000) //Scrollspeed in pixels per milisecond
+                let scrollSpeed = abs((distance / CGFloat(timeDifference)) / 1000) //Scrollspeed in pixels per milisecond
                 return scrollSpeed
             }
         }

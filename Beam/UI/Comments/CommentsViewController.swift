@@ -77,8 +77,8 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
         self.addChild(self.embeddedViewController)
         self.view.addSubview(self.embeddedViewController.view)
         self.embeddedViewController.view.translatesAutoresizingMaskIntoConstraints = false
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: [], metrics: nil, views: ["view": self.embeddedViewController.view]))
-        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: ["view": self.embeddedViewController.view]))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "H:|[view]|", options: [], metrics: nil, views: ["view": self.embeddedViewController.view!]))
+        self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[view]|", options: [], metrics: nil, views: ["view": self.embeddedViewController.view!]))
         self.embeddedViewController.didMove(toParent: self)
         
         //Add the skip thread button, but only if we aren't looking at a parent comment
@@ -178,7 +178,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
             return self.dataSource.query.parentComment
         }
         set {
-            self.dataSource.query.parentComment = parentComment
+            self.dataSource.query.parentComment = newValue
         }
     }
     
@@ -260,7 +260,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
         if let threads: [[Comment]] = self.dataSource.threads {
             if threads.count == 0 && isFetching == true {
                 self.footerView.state = CommentsFooterViewState.loading
-                let height: CGFloat = self.view.frame.height - self.topLayoutGuide.length
+                let height: CGFloat = self.view.frame.height - self.view.safeAreaInsets.top
                 self.footerView.height = height
                 view = self.footerView
             }

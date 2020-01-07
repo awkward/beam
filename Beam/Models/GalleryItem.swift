@@ -110,7 +110,7 @@ extension GalleryItem: AWKGalleryItem {
     
     @objc var placeholderImage: UIImage? {
         if let urlString = self.mediaObject?.thumbnailWithSize(UIScreen.main.bounds.size)?.url?.absoluteString {
-            return SDImageCache.shared().imageFromDiskCache(forKey: urlString)
+            return SDImageCache.shared.imageFromDiskCache(forKey: urlString)
         }
         return nil
     }
@@ -118,12 +118,12 @@ extension GalleryItem: AWKGalleryItem {
     @objc var contentData: Any? {
         get {
             if let url = self.contentURL {
-                return SDImageCache.shared().imageFromDiskCache(forKey: url.absoluteString)
+                return SDImageCache.shared.imageFromDiskCache(forKey: url.absoluteString)
             }
             return nil
         } set {
-            if let url = self.contentURL, let contentData = contentData as? UIImage {
-                SDImageCache.shared().store(contentData, forKey: url.absoluteString)
+            if let url = self.contentURL, let contentData = newValue as? UIImage {
+                SDImageCache.shared.store(contentData, forKey: url.absoluteString)
             }
         }
     }

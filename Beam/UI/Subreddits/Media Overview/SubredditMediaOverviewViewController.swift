@@ -216,7 +216,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
     fileprivate var isFirstLayout = true
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
-        if self.isFirstLayout && self.topLayoutGuide.length > 0 {
+        if self.isFirstLayout && self.view.safeAreaInsets.top > 0 {
             self.isFirstLayout = false
             self.view.setNeedsUpdateConstraints()
         }

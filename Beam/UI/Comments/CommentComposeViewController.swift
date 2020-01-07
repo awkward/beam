@@ -313,8 +313,10 @@ class CommentComposeViewController: BeamViewController {
     }
     
     fileprivate func updateInset() {
+        let safeAreaInsets = self.view.safeAreaInsets
+        
         var bottomInset = self.scrollView.frame.height
-        bottomInset -= self.topLayoutGuide.length
+        bottomInset -= safeAreaInsets.top
         if let superview = self.textView.superview {
             bottomInset -= superview.frame.height
         }
@@ -322,10 +324,12 @@ class CommentComposeViewController: BeamViewController {
         //The bottom inset shouldn't be less than the keyboard frame. Otherwise the text will go behind the keyboard.
         bottomInset = max(bottomInset, self.keyboardFrame.height)
         
-        let inset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: bottomInset, right: 0)
+        var inset = safeAreaInsets
+        inset.bottom = bottomInset
         self.scrollView.contentInset = inset
         
-        let scrollBarInset = UIEdgeInsets(top: self.topLayoutGuide.length, left: 0, bottom: self.keyboardFrame.height, right: 0)
+        var scrollBarInset = inset
+        scrollBarInset.bottom = self.keyboardFrame.height
         self.scrollView.scrollIndicatorInsets = scrollBarInset
     }
 }
@@ -383,7 +387,7 @@ extension CommentComposeViewController: UIScrollViewDelegate {
     
     func scrollViewWillEndDragging(_ scrollView: UIScrollView, withVelocity velocity: CGPoint, targetContentOffset: UnsafeMutablePointer<CGPoint>) {
         if scrollView == self.scrollView {
-            let topOffset = self.tableView.rectForRow(at: IndexPath(row: 0, section: 0)).height + self.topLayoutGuide.length
+            let topOffset = self.tableView.rectForRow(at: IndexPath(row: 0, section: 0)).height + view.safeAreaInsets.top
             
             let snappingThreshold: CGFloat = 50
             

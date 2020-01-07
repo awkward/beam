@@ -105,17 +105,17 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
             
             streamviewController.view.translatesAutoresizingMaskIntoConstraints = false
             //Add horizontal constraints to make the view center with a max width
-            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: self.view, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: streamviewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
-            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
-            streamviewController.view.addConstraint(NSLayoutConstraint(item: streamviewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
+            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view!, attribute: .leading, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: self.view, attribute: .leading, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: self.view!, attribute: .trailing, relatedBy: NSLayoutConstraint.Relation.greaterThanOrEqual, toItem: streamviewController.view, attribute: .trailing, multiplier: 1.0, constant: 0))
+            self.view.addConstraint(NSLayoutConstraint(item: streamviewController.view!, attribute: .centerX, relatedBy: NSLayoutConstraint.Relation.equal, toItem: self.view, attribute: .centerX, multiplier: 1.0, constant: 0))
+            streamviewController.view.addConstraint(NSLayoutConstraint(item: streamviewController.view!, attribute: .width, relatedBy: NSLayoutConstraint.Relation.lessThanOrEqual, toItem: nil, attribute: .notAnAttribute, multiplier: 1.0, constant: UIView.MaximumViewportWidth))
             
             //Limit the actual width, but give it a lower priority (750) so that it can be smaller if it needs to be (on iPhone for example)
-            let widthConstraint = NSLayoutConstraint(item: streamviewController.view, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
+            let widthConstraint = NSLayoutConstraint(item: streamviewController.view!, attribute: .width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: .width, multiplier: 1.0, constant: UIView.MaximumViewportWidth)
             widthConstraint.priority = UILayoutPriority.defaultHigh
             streamviewController.view.addConstraint(widthConstraint)
             
-            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": streamviewController.view]))
+            self.view.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[viewController]|", options: [], metrics: nil, views: ["viewController": streamviewController.view!]))
             
             //Disable the scrollbar on iPad, it looks weird
             if let tableView = streamviewController.view as? UITableView, UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad {

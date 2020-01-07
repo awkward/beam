@@ -19,14 +19,11 @@ final class URLShareItemProvider: UIActivityItemProvider {
     init(object: SyncObject) {
         self.object = object
         
-        var redditUrl: URL!
-        if let objectRedditUrl = self.object.redditUrl {
-            redditUrl = objectRedditUrl
-        } else {
-            redditUrl = URL(string: "https://reddit.com")!
+        guard let URL = object.redditUrl ?? URL(string: "https://reddit.com") else {
+            fatalError()
         }
-        self.redditUrl = redditUrl
-        super.init(placeholderItem: redditUrl)
+        self.redditUrl = URL
+        super.init(placeholderItem: URL)
     }
 
     override var item: Any {

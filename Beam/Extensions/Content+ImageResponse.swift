@@ -99,9 +99,6 @@ extension Content {
     }
     
     fileprivate class func parseGiphyURL(spec: ImageSpec, content: Content) -> MediaObject? {
-        guard let context = content.managedObjectContext else {
-            return nil
-        }
         var urlString = spec.originalURL.absoluteString
         do {
             var giphyID: String?

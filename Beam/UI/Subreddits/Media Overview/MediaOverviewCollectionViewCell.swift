@@ -160,7 +160,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
         let urlString = thumbnail?.url?.absoluteString ?? self.mediaObject?.contentURL?.absoluteString
         if let urlString = urlString, let url = URL(string: urlString) {
             
-            if let cachedImage = SDImageCache.shared().imageFromDiskCache(forKey: urlString) {
+            if let cachedImage = SDImageCache.shared.imageFromDiskCache(forKey: urlString) {
                 self.mediaImageView.image = cachedImage
                 self.reloadAlbumIdicators()
             } else {
@@ -172,7 +172,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
                 
                 self.imageOperation = AppDelegate.shared.imageLoader.startDownloadingImageWithURL(url, downscalingOptions: options, progressHandler: nil, completionHandler: { (image) in
                     if image != nil {
-                        SDImageCache.shared().store(image, forKey: urlString, toDisk: true)
+                        SDImageCache.shared.store(image, forKey: urlString, toDisk: true)
                     }
                     
                     DispatchQueue.main.async {

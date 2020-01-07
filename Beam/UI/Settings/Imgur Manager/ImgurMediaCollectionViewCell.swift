@@ -133,7 +133,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
         }
         
         if let thumbnailURLString: String = thumbnailURLString, let URL: URL = URL(string: thumbnailURLString) {
-            if let cachedImage: UIImage = SDImageCache.shared().imageFromDiskCache(forKey: thumbnailURLString) {
+            if let cachedImage: UIImage = SDImageCache.shared.imageFromDiskCache(forKey: thumbnailURLString) {
                 self.mediaImageView.image = cachedImage
                 self.reloadAlbumIdicators()
             } else {
@@ -146,7 +146,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
                         options.contentMode = UIView.ContentMode.scaleAspectFill
                         let image: UIImage? = UIImage.downscaledImageWithFileURL(location, options: options)
                         if image != nil {
-                            SDImageCache.shared().store(image, forKey: thumbnailURLString, toDisk: true)
+                            SDImageCache.shared.store(image, forKey: thumbnailURLString, toDisk: true)
                         }
                         
                         DispatchQueue.main.async(execute: { () -> Void in

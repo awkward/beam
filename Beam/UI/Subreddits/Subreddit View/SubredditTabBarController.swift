@@ -236,7 +236,7 @@ class SubredditTabBarController: SmallTabBarController {
         
         //Update the subreddit on the view controllers
         for viewController in viewControllers {
-            if let navigationController = viewController as? UINavigationController, var subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController,
+            if let navigationController = viewController as? UINavigationController, let subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController,
                 subredditTabItemViewController.subreddit?.identifier != self.subreddit?.identifier {
                 subredditTabItemViewController.updateNavigationItem()
             }

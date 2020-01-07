@@ -6,7 +6,7 @@
 	url = git@github.com:awkward/JLRoutes.git
 [submodule "TTTAttributedLabel"]
 	path = TTTAttributedLabel
-	url = git@github.com:TTTAttributedLabel/TTTAttributedLabel.git
+	url = git@github.com:awkward/TTTAttributedLabel.git
 [submodule "Mixpanel"]
 	path = Mixpanel
 	url = git@github.com:mixpanel/mixpanel-iphone.git

@@ -3438,7 +3438,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#!/usr/bin/env bash\nFILE=\"${SRCROOT}\"/Config.swift\nif [ ! -f $FILE ]\nthen\necho \"Didn't find Config.swift. Rename ${SRCROOT}/SampleConfig.swift to Config.swift and edit it to add your own keys!\"\nexit 1\nfi";
+			shellScript = "#!/usr/bin/env bash\nFILE=\"${SRCROOT}\"/Config.swift\nif [ ! -f $FILE ]\nthen\necho \"Didn't find Config.swift. Rename ${SRCROOT}/SampleConfig.swift to Config.swift and edit it to add your own keys!\"\nexit 1\nfi\n";
 		};
 		0CF61A4B20D6EBF90054D4F3 /* Swiftlint */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -3452,7 +3452,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    if [ -z \"$CI\" ]; then\n        if which swiftlint >/dev/null; then\n            swiftlint --config \"${SRCROOT}/.swiftlint.yml\"\n        else\n            echo \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\n        fi\n    fi\nelse\n    echo \"Info: As we're not building for Debug, no SwiftLint is running.\"\nfi\n\n\n";
+			shellScript = "if [ \"${CONFIGURATION}\" == \"Debug\" ]; then\n    if [ -z \"$CI\" ]; then\n        if which swiftlint >/dev/null; then\n            swiftlint --config \"${SRCROOT}/.swiftlint.yml\"\n        fi\n    fi\nelse\n    echo \"Info: As we're not building for Debug, no SwiftLint is running.\"\nfi\n\n\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

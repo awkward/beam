@@ -463,7 +463,7 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
     var collection: ObjectCollection? {
         if let collectionID = self.collectionController.collectionID {
             do {
-                return try AppDelegate.shared.managedObjectContext!.existingObject(with: collectionID) as? ObjectCollection
+                return try AppDelegate.shared.managedObjectContext.existingObject(with: collectionID) as? ObjectCollection
             } catch {
                 return nil
             }

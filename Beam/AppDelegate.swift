@@ -44,7 +44,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         DataController.shared.authenticationController = self.authenticationController
         UserActivityController.shared.authenticationController = self.authenticationController
-        self.managedObjectContext = DataController.shared.createMainContext()
     }
     
     let authenticationController = AuthenticationController(clientID: Config.redditClientID, redirectUri: Config.redditRedirectURL, clientName: Config.redditClientName)
@@ -68,7 +67,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     //This is a workaround for a long standing bug since iOS 9, userInfo is removed from searchable items if there isn't a strong reference to them for some time.
     private var searchableUserActivities = [NSUserActivity]()
     
-    var managedObjectContext: NSManagedObjectContext!
+    var managedObjectContext: NSManagedObjectContext {
+        return DataController.shared.viewContext
+    }
     
     var isRunningTestFlight: Bool {
         var isRunningTestflight = false
@@ -331,11 +332,10 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         guard !UserSettings[.privacyModeEnabled] else {
             return
         }
-        let objectContext: NSManagedObjectContext! = DataController.shared.privateContext
         let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName())
         fetchRequest.sortDescriptors = [NSSortDescriptor(key: "lastVisitDate", ascending: false), NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))), NSSortDescriptor(key: "identifier", ascending: true)]
         fetchRequest.fetchLimit = 200
-        objectContext.perform {
+        DataController.shared.performBackgroundTask { objectContext in
             do {
                 var subreddits = try objectContext.fetch(fetchRequest)
                 subreddits.append(try Subreddit.frontpageSubreddit())
@@ -432,7 +432,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         }
     
         // Subreddits are retrieved from our private Core Data context.
-        let shortcuts = try? DataController.shared.privateContext.performAndReturn {
+        let shortcuts = try? DataController.shared.performBackgroundTaskAndWait { context in
             return subreddits[0..<min(subreddits.count, 4)].compactMap { (subreddit) -> UIApplicationShortcutItem? in
                 return subreddit.createApplicationShortcutItem()
             }
@@ -442,26 +442,16 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func favoriteSubreddits() throws -> [Subreddit]? {
-        let objectContext: NSManagedObjectContext! = DataController.shared.privateContext
-        var subreddits: [Subreddit]!
-        var thrownError: Error?
-        objectContext.performAndWait {
-            do {
-                let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName())
-                fetchRequest.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true), NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))), NSSortDescriptor(key: "identifier", ascending: true)]
-                fetchRequest.predicate = NSPredicate(format: "isBookmarked == YES && NOT (identifier IN %@)", [Subreddit.frontpageIdentifier, Subreddit.allIdentifier])
-                fetchRequest.fetchLimit = 3
-                subreddits = try objectContext.fetch(fetchRequest)
-                let frontpage = try Subreddit.frontpageSubreddit()
-                subreddits.insert(frontpage, at: 0)
-            } catch {
-                thrownError = error
-            }
+        var subreddits = [try Subreddit.frontpageSubreddit()]
+        
+        subreddits += try DataController.shared.performBackgroundTaskAndWait { context in
+            let fetchRequest = NSFetchRequest<Subreddit>(entityName: Subreddit.entityName())
+            fetchRequest.sortDescriptors = [NSSortDescriptor(key: "order", ascending: true), NSSortDescriptor(key: "displayName", ascending: true, selector: #selector(NSString.localizedStandardCompare(_:))), NSSortDescriptor(key: "identifier", ascending: true)]
+            fetchRequest.predicate = NSPredicate(format: "isBookmarked == YES && NOT (identifier IN %@)", [Subreddit.frontpageIdentifier, Subreddit.allIdentifier])
+            fetchRequest.fetchLimit = 3
+            return try context.fetch(fetchRequest)
         }
-        if let thrownError = thrownError {
-            throw thrownError
-        }
-       
+        
         return subreddits
     }
     

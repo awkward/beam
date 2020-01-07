@@ -50,7 +50,7 @@ public final class UserActivityController: NSObject {
         guard self.authenticationController?.isAuthenticated == true else {
             return
         }
-        guard self.authenticationController?.activeUser(DataController.shared.privateContext)?.isGold == true else {
+        guard self.authenticationController?.activeUser(DataController.shared.viewContext)?.isGold == true else {
             return
         }
         guard self.visitedPostNames.count > 0 else {

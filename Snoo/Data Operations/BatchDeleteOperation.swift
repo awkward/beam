@@ -11,7 +11,6 @@ import CoreData
 
 final class BatchDeleteOperation: DataOperation {
     
-    var objectContext: NSManagedObjectContext?
     var onlyClearExpiredContent = true
     var includesUser = false
     
@@ -26,31 +25,25 @@ final class BatchDeleteOperation: DataOperation {
     override func start() {
         super.start()
         
-        if self.objectContext == nil {
-            self.objectContext = DataController.shared.privateContext
-        }
-        
-        self.objectContext!.performAndWait { () -> Void in
-            guard self.isCancelled == false else {
-                return
-            }
-            do {
+        do {
+            try DataController.shared.performBackgroundTaskAndWait { context in
+                guard self.isCancelled == false else { return }
+
                 for fetchRequest in self.fetchRequests {
                     guard self.isCancelled == false else {
                         break
                     }
                     let deleteRequest = NSBatchDeleteRequest(fetchRequest: fetchRequest)
                     deleteRequest.resultType = .resultTypeCount
-                    if let result = try self.objectContext!.execute(deleteRequest) as? NSBatchDeleteResult, let deletedCount = result.result as? Int {
+                    if let result = try context.execute(deleteRequest) as? NSBatchDeleteResult, let deletedCount = result.result as? Int {
 #if DEBUG
-                        print("Result of expiration delete (\(fetchRequest.entityName!)): \(deletedCount)")
+                        print("Deleted \(deletedCount) (\(fetchRequest.entityName!)) objects.")
 #endif
                     }
-                    
                 }
-            } catch {
-                self.error = error
             }
+        } catch {
+            self.error = error
         }
         
         self.finishOperation()

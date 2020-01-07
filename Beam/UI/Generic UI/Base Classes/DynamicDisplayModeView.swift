@@ -32,7 +32,7 @@ protocol DynamicDisplayModeView: class {
 extension DynamicDisplayModeView {
     
     func registerForDisplayModeChangeNotifications() {
-        NotificationCenter.default.addObserver(self, selector: Selector("displayModeDidChangeNotification:"), name: .DisplayModeDidChange, object: nil)
+        NotificationCenter.default.addObserver(self, selector: Selector(("displayModeDidChangeNotification:")), name: .DisplayModeDidChange, object: nil)
         displayModeDidChangeAnimated(false)
     }
     

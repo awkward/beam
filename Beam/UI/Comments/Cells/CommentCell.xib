@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11762" systemVersion="16D32" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="15400" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15404"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <objects>
@@ -15,7 +13,7 @@
             <rect key="frame" x="0.0" y="0.0" width="600" height="360"/>
             <autoresizingMask key="autoresizingMask"/>
             <tableViewCellContentView key="contentView" opaque="NO" multipleTouchEnabled="YES" contentMode="center" tableViewCell="EFU-zq-79n" id="8lJ-e2-bRu">
-                <rect key="frame" x="0.0" y="0.0" width="600" height="359"/>
+                <rect key="frame" x="0.0" y="0.0" width="600" height="360"/>
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" showsHorizontalScrollIndicator="NO" showsVerticalScrollIndicator="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rkm-Zj-ct0" customClass="DeadZonesScrollView" customModule="beam" customModuleProvider="target">
@@ -31,7 +29,7 @@
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="360"/>
                                 <subviews>
                                     <stackView opaque="NO" contentMode="scaleToFill" misplaced="YES" distribution="equalSpacing" alignment="center" spacing="4" translatesAutoresizingMaskIntoConstraints="NO" id="XLb-wm-5xr">
-                                        <rect key="frame" x="12" y="5" width="377" height="36"/>
+                                        <rect key="frame" x="12" y="5" width="490.5" height="36"/>
                                         <subviews>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="V7f-Es-WDg" customClass="BeamPlainButton" customModule="beam" customModuleProvider="target">
                                                 <rect key="frame" x="0.0" y="0.0" width="82" height="36"/>
@@ -47,25 +45,31 @@
                                                 </connections>
                                             </button>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="123 points, 2h" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Ec0-CC-D0U">
-                                                <rect key="frame" x="86" y="11" width="80" height="15"/>
+                                                <rect key="frame" x="86" y="11" width="80" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="- stickied comment" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="rep-Yj-Aiq">
+                                                <rect key="frame" x="170" y="11" width="109.5" height="14.5"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="12"/>
+                                                <color key="textColor" red="0.13333333333333333" green="0.53333333333333333" blue="0.13333333333333333" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="ey3-ip-AxM" customClass="PostMetdataSeperatorView" customModule="beam" customModuleProvider="target">
-                                                <rect key="frame" x="170" y="0.0" width="50" height="36"/>
+                                                <rect key="frame" x="283.5" y="0.0" width="50" height="36"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" placeholderIntrinsicWidth="40" placeholderIntrinsicHeight="15" translatesAutoresizingMaskIntoConstraints="NO" id="oAo-Jg-UFO" customClass="GildCountView" customModule="beam" customModuleProvider="target">
-                                                <rect key="frame" x="224" y="11" width="40" height="15"/>
+                                                <rect key="frame" x="337.5" y="10.5" width="40" height="15"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qsB-P5-9G0" customClass="PostMetdataSeperatorView" customModule="beam" customModuleProvider="target">
-                                                <rect key="frame" x="268" y="0.0" width="50" height="36"/>
+                                                <rect key="frame" x="381.5" y="0.0" width="50" height="36"/>
                                                 <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                             </view>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" horizontalCompressionResistancePriority="500" verticalCompressionResistancePriority="500" text="seahwaks" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ZMr-bj-4Rd">
-                                                <rect key="frame" x="322" y="11" width="55" height="15"/>
+                                                <rect key="frame" x="435.5" y="11" width="55" height="14.5"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="12"/>
                                                 <color key="textColor" red="0.52941176469999995" green="0.52941176469999995" blue="0.52941176469999995" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                                 <nil key="highlightedColor"/>
@@ -100,7 +104,7 @@
                                         </variation>
                                     </stackView>
                                     <imageView opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" image="collapse_arrow" translatesAutoresizingMaskIntoConstraints="NO" id="Ops-M2-S3T">
-                                        <rect key="frame" x="576" y="19" width="12" height="7"/>
+                                        <rect key="frame" x="576" y="19.5" width="12" height="7"/>
                                     </imageView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="145" horizontalCompressionResistancePriority="1000" verticalCompressionResistancePriority="1000" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="bFP-c4-hfQ" customClass="TTTAttributedLabel">
                                         <rect key="frame" x="12" y="34" width="576" height="254"/>
@@ -182,6 +186,7 @@
                 <outlet property="rightIconImageView" destination="Pgf-yU-Gdd" id="vde-wu-nTe"/>
                 <outlet property="scrollView" destination="rkm-Zj-ct0" id="IOu-pf-asc"/>
                 <outlet property="stackViewToCollapseArrowConstraint" destination="cFF-kh-r7b" id="k0w-dR-XgQ"/>
+                <outlet property="stickiedLabel" destination="rep-Yj-Aiq" id="iVK-m3-FtL"/>
             </connections>
             <point key="canvasLocation" x="294" y="608"/>
         </tableViewCell>

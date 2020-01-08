@@ -21,40 +21,47 @@ public final class CommentCollectionQuery: ContentCollectionQuery {
     }
 
     override public var apiPath: String {
-        let context = post?.managedObjectContext
-        
-        if let postID = self.post?.objectID,
-            let post = context?.object(with: postID) as? Post,
-            let postIdentifier = post.identifier,
-            let subreddit = post.subreddit {
-                let subperma = subreddit.permalink ?? "/r/\(subreddit.displayName ?? "")/"
-                return "\(subperma)comments/\(postIdentifier).json"
+        return try! DataController.shared.performBackgroundTaskAndWait { (context) -> String in
+            
+            let defaultPath = "\(self.sortType.rawValue).json"
+            guard let postID = self.post?.objectID,
+                let post = context.object(with: postID) as? Post,
+                let postIdentifier = post.identifier else {
+                    return defaultPath
+            }
+            
+            if let subreddit = post.subreddit {
+                let perma = subreddit.permalink ?? "/r/\(subreddit.displayName ?? "")/"
+                return "\(perma)comments/\(postIdentifier).json"
+            } else if let postPermalink = post.permalink {
+                return "\(postPermalink).json"
+            } else {
+                return defaultPath
+            }
         }
-        if let postPermalink = self.post?.permalink {
-            return "\(postPermalink).json"
-        }
-        
-        return "\(self.sortType.rawValue).json"
     }
     
     override var apiQueryItems: [URLQueryItem]? {
-        let context = post?.managedObjectContext
-        
-        var queryItems = [URLQueryItem]()
-        
-        if self.post?.objectID != nil {
-                if let parentCommentID = self.parentComment?.objectID, let parentCommentIdentifier = (context?.object(with: parentCommentID) as! Comment).identifier {
-                    queryItems.append(URLQueryItem(name: "comment", value: parentCommentIdentifier))
-                }
+        return try! DataController.shared.performBackgroundTaskAndWait { (context) -> [URLQueryItem]? in
+            var queryItems = [URLQueryItem]()
             
-                queryItems.append(URLQueryItem(name: "depth", value: "\(self.depth)"))
-                queryItems.append(URLQueryItem(name: "sort", value: self.sortType.rawValue))
+            if let parentCommentObjectID = self.parentComment?.objectID,
+                let parentComment = context.object(with: parentCommentObjectID) as? Comment,
+                let commentID = parentComment.identifier {
+                queryItems.append(URLQueryItem(name: "comment", value: commentID))
+            }
+        
+            queryItems.append(URLQueryItem(name: "depth", value: "\(self.depth)"))
+            queryItems.append(URLQueryItem(name: "sort", value: self.sortType.rawValue))
+
+            if queryItems.count > 0 {
+                return queryItems
+            } else {
+                return nil
+            }
         }
-        if queryItems.count > 0 {
-            return queryItems
-        } else {
-            return nil
-        }
+        
+
     }
     
     override public func fetchRequest() -> NSFetchRequest<NSManagedObject>? {

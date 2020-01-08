@@ -63,13 +63,13 @@ class SubredditFilteringViewController: BeamViewController {
         self.title = NSLocalizedString("content-filtering-view-title", comment: "The title of the content filtering subreddit setting view")
         
         if self.canFilterSubreddits {
-            self.buttonBar.items = [ButtonBarButton(title: NSLocalizedString("keywords-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false),
-                                                           ButtonBarButton(title: NSLocalizedString("subreddits-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false)]
+            self.buttonBar.items = [ButtonBar.Button(title: NSLocalizedString("keywords-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false),
+                                                           ButtonBar.Button(title: NSLocalizedString("subreddits-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false)]
             self.toolbar.isHidden = false
             self.tableView.contentInset = UIEdgeInsets(top: 44, left: 0, bottom: 0, right: 0)
         } else {
             self.toolbar.isHidden = true
-            self.buttonBar.items = [ButtonBarButton(title: NSLocalizedString("keywords-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false)]
+            self.buttonBar.items = [ButtonBar.Button(title: NSLocalizedString("keywords-filtering-type", comment: "The button in the top bar of the subreddit filtering screen"), showsBadge: false)]
         }
         
         self.buttonBar.addTarget(self, action: #selector(SubredditFilteringViewController.buttonBarChanged(_:)), for: UIControl.Event.valueChanged)

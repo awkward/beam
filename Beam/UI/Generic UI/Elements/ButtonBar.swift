@@ -8,21 +8,33 @@
 
 import UIKit
 
-class ButtonBarButton {
-    let title: String
-    let showsBadge: Bool
-    
-    init(title: String, showsBadge: Bool = false) {
-        self.title = title
-        self.showsBadge = showsBadge
-    }
-}
-
 class ButtonBar: UIControl {
     
-    var items: [ButtonBarButton]? {
+    class Button: Equatable {
+        let title: String
+        let showsBadge: Bool
+        
+        init(title: String, showsBadge: Bool = false) {
+            self.title = title
+            self.showsBadge = showsBadge
+        }
+        
+        static func == (lhs: Button, rhs: Button) -> Bool {
+            lhs.title == rhs.title && lhs.showsBadge == rhs.showsBadge
+        }
+    }
+    
+    lazy var buttonStack: UIStackView = {
+        let view = UIStackView()
+        view.alignment = .firstBaseline
+        view.axis = .horizontal
+        return view
+    }()
+    
+    var items: [Button]? {
         didSet {
-            self.buttons = items?.map({ (item: ButtonBarButton) -> UIButton in
+
+            self.buttons = items?.map({ (item: Button) -> UIButton in
                 let button = UIButton(type: UIButton.ButtonType.system)
                 button.setTitle(item.title, for: UIControl.State())
                 button.setTitleColor(UIColor.beamGrey(), for: UIControl.State())
@@ -38,7 +50,8 @@ class ButtonBar: UIControl {
                 self.updateColors()
             }
             
-            self.setNeedsDisplay()
+            setNeedsLayout()
+            setNeedsDisplay()
         }
     }
     
@@ -69,7 +82,8 @@ class ButtonBar: UIControl {
                 }
             }
             
-            self.setNeedsDisplay()
+            setNeedsLayout()
+            setNeedsDisplay()
         }
     }
     

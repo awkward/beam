@@ -21,6 +21,7 @@ class BlurredDimmingPresentationController: UIPresentationController {
     
     override func presentationTransitionWillBegin() {
         self.blurView.frame = self.containerView?.bounds ?? CGRect()
+        self.blurView.autoresizingMask = [.flexibleWidth, .flexibleHeight]
 
         if let presentedView = self.presentedView {
             self.containerView?.addSubview(self.blurView)

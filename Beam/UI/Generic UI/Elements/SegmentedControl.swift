@@ -9,18 +9,44 @@
 import UIKit
 
 /// A beam styled segmented control
-class SegmentedControl: UISegmentedControl {
+class SegmentedControl: UISegmentedControl, DynamicDisplayModeView {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        setTitleTextAttributes([.foregroundColor: UIColor.beamColor(),
-                                .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .selected)
-        setTitleTextAttributes([.foregroundColor: UIColor.beamGrey().withAlphaComponent(0.3),
-                                .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .highlighted)
-        setTitleTextAttributes([.foregroundColor: UIColor.beamGrey(),
-                                .font: UIFont.systemFont(ofSize: 14, weight: .medium)], for: .normal)
+        registerForDisplayModeChangeNotifications()
+        updateAppearance()
+    }
+    
+    deinit {
+        unregisterForDisplayModeChangeNotifications()
+    }
+    
+    private func textColor(for state: UIControl.State) -> UIColor {
+        switch state {
+        case .selected:
+            return DisplayModeValue(.beamPurple(), darkValue: .beamPurpleLight())
+        case .highlighted:
+            return textColor(for: .normal).withAlphaComponent(0.25)
+        default:
+            return DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        }
+    }
+    
+    private var dividerColor: UIColor {
+        DisplayModeValue(.beamSeparator(), darkValue: .beamDarkTableViewSeperatorColor())
+    }
+    
+    private func updateAppearance() {
+        for state in [UIControl.State.normal, .highlighted, .selected] {
+            let font = UIFont.systemFont(ofSize: 14, weight: .medium)
+            let color = textColor(for: state)
+            setTitleTextAttributes([.foregroundColor: color,
+                                    .font: font], for: state)
+        }
+        
         setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
+        
         let size = CGSize(width: 1, height: bounds.height)
         let renderer = UIGraphicsImageRenderer(size: size, format: UIGraphicsImageRendererFormat())
         let divider = renderer.image { context in
@@ -28,11 +54,18 @@ class SegmentedControl: UISegmentedControl {
             let path = UIBezierPath()
             path.move(to: CGPoint(x: 0, y: 0.5 * bounds.midY))
             path.addLine(to: CGPoint(x: 0, y: 1.5 * bounds.midY))
-            UIColor.beamSeparator().setStroke()
+            dividerColor.setStroke()
             path.stroke()
         }
-        
         setDividerImage(divider, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
+    }
+
+    @objc func displayModeDidChangeNotification(_ notification: Notification) {
+        displayModeDidChange()
+    }
+    
+    func displayModeDidChange() {
+        updateAppearance()
     }
     
 }

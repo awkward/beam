@@ -22,6 +22,7 @@
 		006237611BC53C3300664B68 /* PostMediaOverviewViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 006237601BC53C3300664B68 /* PostMediaOverviewViewController.swift */; };
 		008694461BECAD9F0014C9D3 /* MultiredditSubTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 008694451BECAD9F0014C9D3 /* MultiredditSubTableViewCell.swift */; };
 		008694541BECE25E0014C9D3 /* MultiredditSubTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 008694531BECE25E0014C9D3 /* MultiredditSubTableViewCell.xib */; };
+		0087ECFA23C5FED8000FA53B /* SegmentedControl.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0087ECF923C5FED8000FA53B /* SegmentedControl.swift */; };
 		00A00C601BD91FBF00212A5E /* GalleryAlbumItemAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A00C5F1BD91FBF00212A5E /* GalleryAlbumItemAnimator.swift */; };
 		00A119781BC7D65300D81E64 /* GalleryAlbumContentViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00A119771BC7D65300D81E64 /* GalleryAlbumContentViewController.swift */; };
 		00B1C4041BFE166000DDA4F8 /* NSURL+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1C4031BFE166000DDA4F8 /* NSURL+Services.swift */; };
@@ -830,6 +831,7 @@
 		006237601BC53C3300664B68 /* PostMediaOverviewViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = PostMediaOverviewViewController.swift; path = "Beam/UI/Subreddits/Media Overview/PostMediaOverviewViewController.swift"; sourceTree = SOURCE_ROOT; };
 		008694451BECAD9F0014C9D3 /* MultiredditSubTableViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = MultiredditSubTableViewCell.swift; path = "Beam/UI/Subreddits/Subreddit View/Edit Multireddit/Cells/MultiredditSubTableViewCell.swift"; sourceTree = SOURCE_ROOT; };
 		008694531BECE25E0014C9D3 /* MultiredditSubTableViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = MultiredditSubTableViewCell.xib; sourceTree = "<group>"; };
+		0087ECF923C5FED8000FA53B /* SegmentedControl.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SegmentedControl.swift; sourceTree = "<group>"; };
 		00A00C5F1BD91FBF00212A5E /* GalleryAlbumItemAnimator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryAlbumItemAnimator.swift; path = "Beam/UI/Subreddits/Media Overview/GalleryAlbumItemAnimator.swift"; sourceTree = SOURCE_ROOT; };
 		00A119771BC7D65300D81E64 /* GalleryAlbumContentViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GalleryAlbumContentViewController.swift; path = "Beam/UI/Subreddits/Media Overview/GalleryAlbumContentViewController.swift"; sourceTree = SOURCE_ROOT; };
 		00B1C4031BFE166000DDA4F8 /* NSURL+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Services.swift"; sourceTree = "<group>"; };
@@ -2653,6 +2655,7 @@
 				0CDC51561BE24C2000DBB605 /* BeamEmptyView.swift */,
 				0CDC51571BE24C2000DBB605 /* BeamEmptyView.xib */,
 				0CD7875A1D75840B009297EB /* ButtonBar.swift */,
+				0087ECF923C5FED8000FA53B /* SegmentedControl.swift */,
 				0C69141F1BCD2327005AD2C6 /* CircularProgressView.swift */,
 				0C8FA81B1C0D9CFC00540441 /* CollectionViewLoaderFooterView.swift */,
 				0C8CD40D1BBAA1EA0091B1F6 /* LoaderFooterView.swift */,
@@ -3859,6 +3862,7 @@
 				76466C0F1B691A420086B183 /* ManualViewControllerInsets.swift in Sources */,
 				0CFED3221C6CD78300116C70 /* PostTitleThumbnailView.swift in Sources */,
 				0CF9B76F1CB2612A00B0431C /* ImageEditViewController.swift in Sources */,
+				0087ECFA23C5FED8000FA53B /* SegmentedControl.swift in Sources */,
 				760DCFA21B4A678D00932673 /* MultiredditsViewController.swift in Sources */,
 				0C474C4B1CB7E0410065BDA8 /* EnterPasscodeViewController.swift in Sources */,
 				0CB24D921C883A3D006D34C1 /* CommentsHeaderView.swift in Sources */,

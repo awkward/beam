@@ -20,7 +20,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
         return toolbar.items![1]
     }
     
-    @IBOutlet weak var buttonBar: ButtonBar!
+    @IBOutlet var segmentedBar: SegmentedControl!
     
     lazy private var subredditsViewController: SubredditsViewController = {
         return SubredditsViewController(style: .plain)
@@ -40,11 +40,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
                 self.subredditsViewController.view.isHidden = currentViewController != self.subredditsViewController
                 self.multiredditsViewController.view.isHidden = currentViewController != self.multiredditsViewController
                 
-                if currentViewController == self.subredditsViewController {
-                    self.buttonBar.selectedItemIndex = 0
-                } else {
-                    self.buttonBar.selectedItemIndex = 1
-                }
+                self.segmentedBar.selectedSegmentIndex = (currentViewController == subredditsViewController ? 0 : 1)
             }
         }
     }
@@ -75,9 +71,12 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
         
         self.setupView()
         
-        self.buttonBar.items = [ButtonBarButton(title: AWKLocalizedString("subreddits-title")), ButtonBarButton(title: AWKLocalizedString("multireddits-title"))]
-        self.buttonBar.addTarget(self, action: #selector(HomeViewController.buttonBarChanged(_:)), for: UIControl.Event.valueChanged)
-        self.buttonBar.selectedItemIndex = UserSettings[.subscriptionsListType] == "multireddits" ? 1: 0
+        self.segmentedBar.addTarget(self, action: #selector(HomeViewController.buttonBarChanged(_:)), for: UIControl.Event.valueChanged)
+        self.segmentedBar.selectedSegmentIndex = UserSettings[.subscriptionsListType] == "multireddits" ? 1: 0
+        NSLayoutConstraint.activate([
+            self.segmentedBar.widthAnchor.constraint(equalToConstant: 320),
+            self.segmentedBar.heightAnchor.constraint(equalToConstant: 33)
+        ])
         
         self.configureContentInsets()
         
@@ -115,7 +114,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.currentViewController = self.buttonBar.selectedItemIndex == 1 ? self.multiredditsViewController: self.subredditsViewController
+        self.currentViewController = self.segmentedBar.selectedSegmentIndex == 1 ? self.multiredditsViewController: self.subredditsViewController
     }
     
     override func viewDidLayoutSubviews() {
@@ -149,8 +148,8 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
     
     // MARK: - Actions
     
-    @objc fileprivate func buttonBarChanged(_ sender: ButtonBar) {
-        if sender.selectedItemIndex == 1 {
+    @objc fileprivate func buttonBarChanged(_ sender: SegmentedControl) {
+        if sender.selectedSegmentIndex == 1 {
             self.currentViewController = self.multiredditsViewController
         } else {
             self.currentViewController = self.subredditsViewController
@@ -162,7 +161,7 @@ final class HomeViewController: BeamViewController, UIToolbarDelegate {
 extension HomeViewController: NavigationBarNotificationDisplayingDelegate {
 
     func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
-        return self.buttonBar.superview
+        return self.segmentedBar.superview
     }
     
 }

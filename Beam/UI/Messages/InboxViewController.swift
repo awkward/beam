@@ -113,7 +113,7 @@ class InboxViewController: BeamViewController {
                 AppDelegate.shared.updateMessagesState()
             }
             
-            self.buttonBar.items = [ButtonBarButton(title: AWKLocalizedString("notifications"), showsBadge: unreadNotifications), ButtonBarButton(title: AWKLocalizedString("inbox"), showsBadge: unreadMessages), ButtonBarButton(title: AWKLocalizedString("sent"), showsBadge: false)]
+            self.buttonBar.items = [ButtonBar.Button(title: AWKLocalizedString("notifications"), showsBadge: unreadNotifications), ButtonBar.Button(title: AWKLocalizedString("inbox"), showsBadge: unreadMessages), ButtonBar.Button(title: AWKLocalizedString("sent"), showsBadge: false)]
         } catch {
             
         }

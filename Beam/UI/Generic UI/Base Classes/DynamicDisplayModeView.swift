@@ -52,7 +52,7 @@ extension DynamicDisplayModeView {
     
     var displayMode: DisplayMode {
         #if TARGET_INTERFACE_BUILDER
-            return DisplayMode.Default
+            return DisplayMode.default
         #endif
         return AppDelegate.shared.displayModeController.currentMode
     }

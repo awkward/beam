@@ -11,7 +11,8 @@ import TTTAttributedLabel
 extension TTTAttributedLabel {
     
     class fileprivate func baseBeamLinkAttributes() -> [NSAttributedString.Key: Any] {
-        return [NSAttributedString.Key.underlineStyle: []]
+        let underlineStyle: NSUnderlineStyle = []
+        return [.underlineStyle: NSNumber(value: underlineStyle.rawValue)]
     }
     
     class func beamLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedString.Key: Any] {

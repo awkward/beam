@@ -18,57 +18,19 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         }
     }
     
-    var useScalingTransition: Bool = true {
-        didSet {
-            self.transitionHandler.scaleBackground = self.useScalingTransition
-        }
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        self.configureDefaultTransitionStyle()
-    }
-    
-    override init(navigationBarClass: AnyClass?, toolbarClass: AnyClass?) {
-        super.init(navigationBarClass: navigationBarClass, toolbarClass: toolbarClass)
-        
-        self.configureDefaultTransitionStyle()
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
-        self.configureDefaultTransitionStyle()
-    }
-    
-    override init(rootViewController: UIViewController) {
-        super.init(rootViewController: rootViewController)
-    }
-    
-    // MARK: - Transition
-    
-    lazy fileprivate var transitionHandler: NewBeamViewControllerTransitionHandler = {
-        return NewBeamViewControllerTransitionHandler(delegate: self)
+    lazy var dismissalGestureRecognizer: UIScreenEdgePanGestureRecognizer = {
+        let gr = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(BeamNavigationController.panScreenEdge(_:)))
+        gr.edges = .left
+        gr.maximumNumberOfTouches = 1
+        return gr
     }()
     
-    fileprivate func configureDefaultTransitionStyle() {
-        if self.transitioningDelegate == nil {
-            self.transitioningDelegate = self.transitionHandler
-            self.modalPresentationStyle = UIModalPresentationStyle.custom
-            self.modalPresentationCapturesStatusBarAppearance = true
-        }
-    }
+    // MARK: - Transition
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if self.parent is UISplitViewController {
-            self.useInteractiveDismissal = false
-            self.transitioningDelegate = nil
-        }
-        
-        //Assign ourselves to be the delegate
+        self.presentationController?.delegate = self
         self.delegate = self
         
         self.navigationBar.backIndicatorImage = UIImage(named: "navigationbar_arrow_back")
@@ -76,26 +38,20 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
     }
     
     func refreshInteractiveDismissalState() {
-        let modalPresentationStyle = (self.topViewController as? BeamModalPresentation)?.preferredModalPresentationStyle ?? BeamModalPresentationStyle.custom
-        //The ViewController's traitCollection size class is "unspecified" during transition. Also in this case we want to know the traitCollection of the whole screen, because that predicts if it's using a formsheet or fullscreen display
-        let traitCollection = AppDelegate.shared.window?.traitCollection ?? self.traitCollection
-        
-        if self.useInteractiveDismissal && (modalPresentationStyle == .custom || traitCollection.horizontalSizeClass == .compact) && !(self.parent is UITabBarController) {
-            self.navigationBar.addGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
-            
-            if self.viewControllers.count <= 1 {
-                self.view.addGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
-            } else if self.viewControllers.count > 1 {
-                self.view.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
-            }
+        if presentingViewController != nil && useInteractiveDismissal && viewControllers.count <= 1 {
+            view.addGestureRecognizer(dismissalGestureRecognizer)
         } else {
-            self.removeDismissalGestureRecognizers()
+            view.removeGestureRecognizer(dismissalGestureRecognizer)
         }
     }
     
     func removeDismissalGestureRecognizers() {
-        self.navigationBar.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
-        self.view.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
+        view.removeGestureRecognizer(dismissalGestureRecognizer)
+    }
+    
+    @objc private func panScreenEdge(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
+        guard gestureRecognizer.state == .recognized else { return }
+        dismiss(animated: true, completion: nil)
     }
 
     override func viewWillAppear(_ animated: Bool) {
@@ -170,17 +126,15 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
     
 }
 
-extension BeamNavigationController: NewBeamViewControllerTransitionHandlerDelegate {
+extension BeamNavigationController: UIAdaptivePresentationControllerDelegate {
     
-    func transitionHandlerShouldStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) -> Bool {
-        return self.presentingViewController != nil && self.viewControllers.count <= 1
-    }
-    
-    func transitionHandlerDidStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) {
-        guard self.presentingViewController != nil else {
-            return
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            return .fullScreen
+        default:
+            return .formSheet
         }
-        self.dismiss(animated: true, completion: nil)
     }
     
 }

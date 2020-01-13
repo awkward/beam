@@ -406,11 +406,3 @@ extension CommentComposeViewController: UITextViewDelegate {
     }
     
 }
-
-extension CommentComposeViewController: BeamModalPresentation {
-    
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return BeamModalPresentationStyle.formsheet
-    }
-    
-}

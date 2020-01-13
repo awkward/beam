@@ -329,10 +329,3 @@ class CreatePostViewController: BeamViewController {
     }
     
 }
-
-extension CreatePostViewController: BeamModalPresentation {
-
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return BeamModalPresentationStyle.formsheet
-    }
-}

@@ -56,7 +56,6 @@ extension PostToolbarViewDelegate where Self: UIViewController {
             let commentsQuery = CommentCollectionQuery()
             commentsQuery.post = post
             commentsViewController.query = commentsQuery
-            commentsNavigationController.useScalingTransition = false
             
             self.modallyPresentToolBarActionViewController(commentsNavigationController, toolbarView: toolbarView)
             if UserSettings[.postMarking] {

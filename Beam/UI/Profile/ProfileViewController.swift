@@ -405,13 +405,6 @@ class ProfileViewController: BeamViewController {
     
 }
 
-extension ProfileViewController: BeamModalPresentation {
-    
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return BeamModalPresentationStyle.formsheet
-    }
-}
-
 // MARK: - HidingToolbarDelegate
 extension ProfileViewController: HidingButtonBarDelegate {
     

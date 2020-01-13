@@ -20,6 +20,12 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(gestureRecognizer:)))
         return gestureRecognizer
     }()
+    
+    lazy private var dismissalGestureRecognizer: UIScreenEdgePanGestureRecognizer = {
+        let gr = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(BeamTabBarController.panToDismiss(_:)))
+        gr.edges = .left
+        return gr
+    }()
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
@@ -77,6 +83,11 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
     
     @objc func displayModeDidChangeNotification(_ notification: Notification) {
         self.displayModeDidChangeAnimated(true)
+    }
+    
+    @objc private func panToDismiss(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
+        guard presentingViewController != nil && gestureRecognizer.state == .recognized else { return }
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Actions

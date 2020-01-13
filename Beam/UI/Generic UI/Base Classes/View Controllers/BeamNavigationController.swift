@@ -19,7 +19,7 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
     }
     
     lazy var dismissalGestureRecognizer: UIScreenEdgePanGestureRecognizer = {
-        let gr = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(BeamNavigationController.panScreenEdge(_:)))
+        let gr = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(BeamNavigationController.panScreenEdgeDismissal(_:)))
         gr.edges = .left
         gr.maximumNumberOfTouches = 1
         return gr
@@ -38,10 +38,10 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
     }
     
     func refreshInteractiveDismissalState() {
-        if presentingViewController != nil && useInteractiveDismissal && viewControllers.count <= 1 {
+        if useInteractiveDismissal && viewControllers.count <= 1 {
             view.addGestureRecognizer(dismissalGestureRecognizer)
         } else {
-            view.removeGestureRecognizer(dismissalGestureRecognizer)
+            removeDismissalGestureRecognizers()
         }
     }
     
@@ -49,8 +49,8 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         view.removeGestureRecognizer(dismissalGestureRecognizer)
     }
     
-    @objc private func panScreenEdge(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
-        guard gestureRecognizer.state == .recognized else { return }
+    @objc private func panScreenEdgeDismissal(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
+        guard presentingViewController != nil && gestureRecognizer.state == .recognized else { return }
         dismiss(animated: true, completion: nil)
     }
 

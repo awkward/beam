@@ -64,19 +64,6 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
     
     // MARK: - Transition
     
-//    lazy fileprivate var transitionHandler: NewBeamViewControllerTransitionHandler = {
-//        return NewBeamViewControllerTransitionHandler(delegate: self)
-//    }()
-    
-    fileprivate func configureDefaultTransitionStyle() {
-//        if self.transitioningDelegate == nil {
-//            self.transitioningDelegate = self.transitionHandler
-////            self.modalPresentationStyle = .pageSheet
-//        }
-        
-        self.presentationController?.delegate = self
-    }
-    
     func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
         switch traitCollection.horizontalSizeClass {
         case .regular:
@@ -97,20 +84,15 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.configureDefaultTransitionStyle()
+        presentationController?.delegate = self
+        delegate = self
     }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        
-        //Assign ourselves to be the delegate
-        self.delegate = self
-        
-        self.usesRoundedCorners = UIDevice.current.userInterfaceIdiom == .phone
-        
-        self.configureSubViewControllers()
-        
+        usesRoundedCorners = UIDevice.current.userInterfaceIdiom == .phone
+        configureSubViewControllers()
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -121,11 +103,9 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
         }
         
         //People that do not update there iOS, are not the real users we want to target with app store reviews.
-        if #available(iOS 10.3, *) {
-            if SKStoreReviewController.canRequestReview(with: self.subreddit) {
-                UserSettings[.lastAppReviewRequestDate] = Date()
-                SKStoreReviewController.requestReview()
-            }
+        if SKStoreReviewController.canRequestReview(with: self.subreddit) {
+            UserSettings[.lastAppReviewRequestDate] = Date()
+            SKStoreReviewController.requestReview()
         }
     }
     
@@ -222,21 +202,28 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
         }
         
         self.applyGestureRecognizersToSelectedViewController()
-        
     }
     
+    // MARK: - Dismissal
+    
+    private lazy var dismissalGestureRecognizer: UIScreenEdgePanGestureRecognizer = {
+        let gr = UIScreenEdgePanGestureRecognizer(target: self, action: #selector(SubredditTabBarController.dismiss))
+        gr.edges = .left
+        gr.maximumNumberOfTouches = 1
+        return gr
+    }()
+    
     fileprivate func applyGestureRecognizersToSelectedViewController() {
-//        guard let selectedViewController = self.selectedViewController else {
-//            self.transitionHandler.screenEdgePanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
-//            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
-//            return
-//        }
-//        selectedViewController.view.addGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
-//        guard let navigationController = selectedViewController as? UINavigationController else {
-//            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
-//            return
-//        }
-//        navigationController.navigationBar.addGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
+        if let view = selectedViewController?.view {
+            view.addGestureRecognizer(dismissalGestureRecognizer)
+        } else {
+            dismissalGestureRecognizer.view?.removeGestureRecognizer(dismissalGestureRecognizer)
+        }
+    }
+    
+    @objc private func panScreenEdgeDismissal(_ gestureRecognizer: UIScreenEdgePanGestureRecognizer) {
+        guard presentingViewController != nil && gestureRecognizer.state == .recognized else { return }
+        dismiss(animated: true, completion: nil)
     }
     
     // MARK: - Subreddit updates

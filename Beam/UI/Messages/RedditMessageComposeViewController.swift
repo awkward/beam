@@ -365,10 +365,3 @@ extension RedditMessageComposeViewController: UITextFieldDelegate {
     }
     
 }
-
-extension RedditMessageComposeViewController: BeamModalPresentation {
-    
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return BeamModalPresentationStyle.formsheet
-    }
-}

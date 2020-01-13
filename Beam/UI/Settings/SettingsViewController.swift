@@ -684,13 +684,6 @@ extension SettingsViewController: MFMailComposeViewControllerDelegate {
     
 }
 
-extension SettingsViewController: BeamModalPresentation {
-    
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return BeamModalPresentationStyle.formsheet
-    }
-}
-
 extension SettingsViewController: EnterPasscodeViewControllerDelegate {
     
     func passcodeViewControllerDidCancel(_ viewController: EnterPasscodeViewController) {

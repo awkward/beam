@@ -242,13 +242,6 @@ class EnterPasscodeViewController: BeamViewController {
     }
 }
 
-extension EnterPasscodeViewController: BeamModalPresentation {
-
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return (self is StartEnterPasscodeViewController) ? BeamModalPresentationStyle.custom: BeamModalPresentationStyle.formsheet
-    }
-}
-
 // MARK: - PasscodeKeyboardDelegat
 extension EnterPasscodeViewController: PasscodeKeyboardDelegate {
     

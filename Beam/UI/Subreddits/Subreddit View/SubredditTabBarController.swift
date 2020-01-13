@@ -15,7 +15,7 @@ import StoreKit
 let ManageMultiredditSubsSegueIdentifier = "manageMultireddit"
 let AddToMultiredditSegueIdentifier = "addtomultireddit"
 
-class SubredditTabBarController: SmallTabBarController {
+class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationControllerDelegate {
     
     /// The subreddit to show
     var subreddit: Subreddit? {
@@ -64,14 +64,25 @@ class SubredditTabBarController: SmallTabBarController {
     
     // MARK: - Transition
     
-    lazy fileprivate var transitionHandler: NewBeamViewControllerTransitionHandler = {
-        return NewBeamViewControllerTransitionHandler(delegate: self)
-    }()
+//    lazy fileprivate var transitionHandler: NewBeamViewControllerTransitionHandler = {
+//        return NewBeamViewControllerTransitionHandler(delegate: self)
+//    }()
     
     fileprivate func configureDefaultTransitionStyle() {
-        if self.transitioningDelegate == nil {
-            self.transitioningDelegate = self.transitionHandler
-            self.modalPresentationStyle = UIModalPresentationStyle.custom
+//        if self.transitioningDelegate == nil {
+//            self.transitioningDelegate = self.transitionHandler
+////            self.modalPresentationStyle = .pageSheet
+//        }
+        
+        self.presentationController?.delegate = self
+    }
+    
+    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
+        switch traitCollection.horizontalSizeClass {
+        case .regular:
+            return .fullScreen
+        default:
+            return .formSheet
         }
     }
     
@@ -82,11 +93,16 @@ class SubredditTabBarController: SmallTabBarController {
     }
     
     // MARK: - View Lifecycle
+    
+    required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
+        
+        self.configureDefaultTransitionStyle()
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.configureDefaultTransitionStyle()
         
         //Assign ourselves to be the delegate
         self.delegate = self
@@ -210,17 +226,17 @@ class SubredditTabBarController: SmallTabBarController {
     }
     
     fileprivate func applyGestureRecognizersToSelectedViewController() {
-        guard let selectedViewController = self.selectedViewController else {
-            self.transitionHandler.screenEdgePanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
-            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
-            return
-        }
-        selectedViewController.view.addGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
-        guard let navigationController = selectedViewController as? UINavigationController else {
-            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
-            return
-        }
-        navigationController.navigationBar.addGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
+//        guard let selectedViewController = self.selectedViewController else {
+//            self.transitionHandler.screenEdgePanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
+//            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
+//            return
+//        }
+//        selectedViewController.view.addGestureRecognizer(self.transitionHandler.screenEdgePanGestureRecognizer)
+//        guard let navigationController = selectedViewController as? UINavigationController else {
+//            self.transitionHandler.topPanGestureRecognizer.view?.removeGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
+//            return
+//        }
+//        navigationController.navigationBar.addGestureRecognizer(self.transitionHandler.topPanGestureRecognizer)
     }
     
     // MARK: - Subreddit updates
@@ -395,24 +411,6 @@ extension SubredditTabBarController {
     
     func tabBarController(_ tabBarController: UITabBarController, didSelect viewController: UIViewController) {
         self.applyGestureRecognizersToSelectedViewController()
-    }
-    
-}
-
-extension SubredditTabBarController: NewBeamViewControllerTransitionHandlerDelegate {
-    
-    func transitionHandlerShouldStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) -> Bool {
-        if let delegate = self.selectedViewController as? NewBeamViewControllerTransitionHandlerDelegate {
-            return delegate.transitionHandlerShouldStartInteractiveTransition(handler) && self.presentingViewController != nil
-        }
-        return self.presentingViewController != nil
-    }
-    
-    func transitionHandlerDidStartInteractiveTransition(_ handler: NewBeamViewControllerTransitionHandler) {
-        guard self.presentingViewController != nil else {
-            return
-        }
-        self.dismiss(animated: true, completion: nil)
     }
     
 }

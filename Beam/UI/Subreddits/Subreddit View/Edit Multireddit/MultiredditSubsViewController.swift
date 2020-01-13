@@ -382,14 +382,6 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
     
 }
 
-extension MultiredditSubsViewController: BeamModalPresentation {
-
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return BeamModalPresentationStyle.formsheet
-    }
-}
-
-@available(iOS 9, *)
 extension MultiredditSubsViewController: UIViewControllerPreviewingDelegate {
     
     func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {

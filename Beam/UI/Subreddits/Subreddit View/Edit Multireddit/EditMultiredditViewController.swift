@@ -359,10 +359,3 @@ extension EditMultiredditViewController: UITextFieldDelegate {
     }
     
 }
-
-extension EditMultiredditViewController: BeamModalPresentation {
-
-    var preferredModalPresentationStyle: BeamModalPresentationStyle {
-        return BeamModalPresentationStyle.formsheet
-    }
-}

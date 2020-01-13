@@ -24,7 +24,6 @@ class WelcomeViewController: BeamViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        self.transitioningDelegate = self
         self.modalPresentationStyle = UIModalPresentationStyle.custom
         self.modalPresentationCapturesStatusBarAppearance = true
     }
@@ -32,7 +31,6 @@ class WelcomeViewController: BeamViewController {
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
-        self.transitioningDelegate = self
         self.modalPresentationStyle = UIModalPresentationStyle.custom
         self.modalPresentationCapturesStatusBarAppearance = true
     }
@@ -148,38 +146,4 @@ class WelcomeViewController: BeamViewController {
             
         }
     }
-}
-
-extension WelcomeViewController: UIViewControllerTransitioningDelegate {
-    
-    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if presented == self {
-            let animator = BasicViewControllerTransition()
-            animator.animationStyle = .fade
-            return animator
-        }
-        return nil
-    }
-    
-    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
-        if dismissed == self {
-            let animator = BasicViewControllerTransition()
-            animator.animationStyle = .fade
-            animator.isDismissal = true
-            return animator
-        }
-        return nil
-    }
-    
-    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
-        if presented == self {
-            if let presenting = presenting {
-                return BlurredDimmingPresentationController(presentedViewController: presented, presenting: presenting)
-            } else {
-                return BlurredDimmingPresentationController(presentedViewController: presented, presenting: source)
-            }
-        }
-        return nil
-    }
-    
 }

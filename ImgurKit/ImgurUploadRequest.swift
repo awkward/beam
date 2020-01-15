@@ -33,7 +33,7 @@ public class ImgurUploadRequest: ImgurRequest {
         if let asset = self.asset {
             let requestOptions = PHImageRequestOptions()
             requestOptions.isNetworkAccessAllowed = true
-            PHImageManager.default().requestImageData(for: asset, options: requestOptions, resultHandler: { (imageData, dataUTI, _, userInfo) in
+            PHImageManager.default().requestImageDataAndOrientation(for: asset, options: requestOptions) { (imageData, dataUTI, _, userInfo) in
                 if let imageData = imageData, let dataUTI = dataUTI {
                     var mimeType: String = "image/jpeg"
                     if let dataMimeType = self.convertCFTypeToString(UTTypeCopyPreferredTagWithClass(dataUTI as CFString, kUTTagClassMIMEType)) {
@@ -43,7 +43,7 @@ public class ImgurUploadRequest: ImgurRequest {
                 } else {
                     completionHandler(nil, userInfo![PHImageErrorKey] as? NSError)
                 }
-            })
+            }
         } else if let image = self.image {
             self.startUpload(image.jpegData(compressionQuality: 1.0)!, mimeType: "image/jpeg", completionHandler: completionHandler)
         } else {

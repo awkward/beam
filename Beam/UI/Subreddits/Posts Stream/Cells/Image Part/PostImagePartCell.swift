@@ -44,7 +44,6 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
                 
                 self.mediaImageView.image = nil
                 
-                UIApplication.startNetworkActivityIndicator(for: self)
                 self.startImageLoading()
                 
                 let isLoading = self.imageOperation != nil
@@ -95,7 +94,6 @@ final class PostImagePartCell: BeamTableViewCell, MediaImageLoader, MediaCellMed
     
     func imageLoadingCompleted() {
         self.progressView.isHidden = true
-        UIApplication.stopNetworkActivityIndicator(for: self)
     }
     
     func progressDidChange(_ progress: CGFloat) {

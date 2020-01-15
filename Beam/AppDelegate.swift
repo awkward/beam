@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import BackgroundTasks
 import Snoo
 import SafariServices
 import CoreData
@@ -19,6 +20,7 @@ import CoreSpotlight
 import ImgurKit
 import Mixpanel
 import UserNotifications
+import os.log
 
 enum AppTabContent: String {
     case SubscriptionsNavigation = "subscriptions-navigation"
@@ -110,8 +112,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
-        //Register for background app refresh
-        UIApplication.shared.setMinimumBackgroundFetchInterval(UIApplication.backgroundFetchIntervalMinimum)
+        registerBackgroundRefresh()
         
         //Setup application features
         self.setupStyle()
@@ -496,36 +497,58 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     
     // MARK: - Background App Refresh
     
-    func application(_ application: UIApplication, performFetchWithCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
-        guard self.authenticationController.userSessionAvailable else {
-            completionHandler(UIBackgroundFetchResult.noData)
-            exit(0)
+    private static let refreshIdentifier = "co.awkward.beam.refresh"
+    
+    private func registerBackgroundRefresh() {
+        BGTaskScheduler.shared.register(forTaskWithIdentifier: AppDelegate.refreshIdentifier, using: nil) { task in
+            guard let refreshTask = task as? BGAppRefreshTask else { return }
+            self.performBackgroundRefresh(refreshTask)
         }
-        guard UserSettings[.redditMessageNotificationsEnabled] && self.authenticationController.isAuthenticated == true else {
-            completionHandler(UIBackgroundFetchResult.noData)
-            exit(0)
+    }
+    
+    private func scheduleBackgroundRefresh() {
+        let request = BGAppRefreshTaskRequest(identifier: AppDelegate.refreshIdentifier)
+        // Refresh no earlier than 30 minutes from now
+        request.earliestBeginDate = Date(timeIntervalSinceNow: 1800)
+        
+        do {
+            try BGTaskScheduler.shared.submit(request)
+        } catch {
+            print("Could not schedule background app refresh: \(error)")
         }
-        MessageCollectionQuery.fetchUnreadMessages { (messages, _) -> Void in
-            guard let messages = messages else {
-                completionHandler(UIBackgroundFetchResult.failed)
+    }
+    
+    private func performBackgroundRefresh(_ task: BGAppRefreshTask) {
+        guard authenticationController.userSessionAvailable,
+            UserSettings[.redditMessageNotificationsEnabled],
+            authenticationController.isAuthenticated else {
+                task.setTaskCompleted(success: false)
+                return
+        }
+        
+        // Now we satisfy local prerequisities for app refresh,
+        // schedule the next app refresh before it's too late.
+        scheduleBackgroundRefresh()
+        
+        MessageCollectionQuery.fetchUnreadMessages { result, _ in
+            guard let messages = result else {
+                task.setTaskCompleted(success: false)
                 return
             }
-            let filteredMessages = self.unnotifiedMessages(messages)
+            
+            let newMessages = self.unnotifiedMessages(messages)
             var badgeCount = UserSettings[.notificationsBadgeCount]
-            filteredMessages.forEach({ (message) in
+            newMessages.forEach { message in
                 badgeCount += 1
                 
                 let content = message.notificationContent()
                 content.badge = NSNumber(value: badgeCount)
                 let request = UNNotificationRequest(identifier: message.objectName ?? UUID().uuidString, content: content, trigger: nil)
                 UNUserNotificationCenter.current().add(request, withCompletionHandler: nil)
-            })
-            if filteredMessages.count > 0 {
-                completionHandler(UIBackgroundFetchResult.newData)
-            } else {
-                completionHandler(UIBackgroundFetchResult.noData)
             }
+            
             UserSettings[.notificationsBadgeCount] = badgeCount
+            task.setTaskCompleted(success: true)
         }
     }
     

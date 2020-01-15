@@ -355,7 +355,6 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
                 
                 self.navigationController?.pushViewController(viewController, animated: true)
             } else if comment is MoreComment {
-                UIApplication.startNetworkActivityIndicator(for: self)
                 self.dataSource.loadMoreCommentChildren(comment as! MoreComment, completionHandler: { (error) -> Void in
                     DispatchQueue.main.async {
                         if let error = error as NSError? {
@@ -369,7 +368,6 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
                         
                         self.tableView.reloadData()
                     }
-                    UIApplication.stopNetworkActivityIndicator(for: self)
                 })
                 self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.fade)
             }
@@ -383,7 +381,7 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
         super.displayModeDidChange()
         switch displayMode {
         case .default:
-            self.tableView.backgroundColor = UIColor.groupTableViewBackground
+            self.tableView.backgroundColor = UIColor.systemGroupedBackground
             self.tableView.separatorColor = UIColor.beamTableViewSeperatorColor()
             
         case .dark:

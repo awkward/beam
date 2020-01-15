@@ -123,8 +123,6 @@ extension BeamViewControllerLoading where Self: UIViewController {
     }
     
     func handleCollectionControllerResponse(_ error: Error?) {
-        UIApplication.stopNetworkActivityIndicator(for: self)
-        
         DispatchQueue.main.async(execute: { () -> Void in
             
             self.content = self.contentWithCollectionID(self.collectionController.collectionID)
@@ -144,8 +142,6 @@ extension BeamViewControllerLoading where Self: UIViewController {
             self.updateEmptyView()
             return
         }
-        
-        UIApplication.startNetworkActivityIndicator(for: self)
         
         self.loadingState = .loading
         if self.shouldReloadContentOnStartFetching {
@@ -191,13 +187,11 @@ extension BeamViewControllerLoading where Self: UIViewController {
      Cancel the requests made by the view controller and show an empty state if the content is not loaded.
      */
     func cancelCollectionControllerFetching() {
-        UIApplication.stopNetworkActivityIndicator(for: self)
         self.collectionController.cancelFetching()
         if self.content?.count == 0 {
             self.loadingState = .empty
             self.updateEmptyView()
         }
-        
     }
     
     func shouldFetchCollection(respectingExpirationDate respectExpirationDate: Bool) -> Bool {

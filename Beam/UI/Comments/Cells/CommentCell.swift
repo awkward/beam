@@ -53,7 +53,7 @@ enum CommentCellAction {
     func backgroundColor() -> UIColor {
         switch self {
         case CommentCellAction.none:
-            return DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.beamDarkBackgroundColor())
+            return DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
         case CommentCellAction.reply:
             return UIColor.beamYellow()
         case CommentCellAction.more:
@@ -495,7 +495,7 @@ extension CommentCell: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.scrollView.backgroundColor = DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.beamDarkBackgroundColor())
+        self.scrollView.backgroundColor = DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
         self.leftIconImageView.alpha = 0
         self.rightIconImageView.alpha = 0
     }

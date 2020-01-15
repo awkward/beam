@@ -42,9 +42,8 @@ class ImgurManagerViewController: BeamCollectionViewController {
         let directories: [String] = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)
         let documentsPath: String = directories[0]
         let filePath: String = documentsPath + "/imgur-uploads.plist"
-        if let data: Data = try? Data(contentsOf: URL(fileURLWithPath: filePath)), let objects: Set<ImgurObject> = NSKeyedUnarchiver.unarchiveObject(with: data) as? Set<ImgurObject> {
-            self.items = Array(objects).reversed()
-        } else if let data: Data = try? Data(contentsOf: URL(fileURLWithPath: filePath)), let objects: [ImgurObject] = NSKeyedUnarchiver.unarchiveObject(with: data) as? [ImgurObject] {
+        if let data: Data = try? Data(contentsOf: URL(fileURLWithPath: filePath)),
+            let objects = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSSet.self, NSArray.self, ImgurObject.self], from: data) as? [ImgurObject] {
             self.items = objects.reversed()
         }
         if let items = self.items, items.count > 0 {
@@ -202,17 +201,20 @@ extension ImgurManagerViewController: ImgurGalleryToolbarDelegate {
     }
     
     func saveUploadedObjects() {
-        guard let items = self.items else {
-            return
+        guard let items = self.items,
+            let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true).first else {
+                assertionFailure()
+                return
         }
-        let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
-        let filePath = documentsPath + "/imgur-uploads.plist"
-        if NSKeyedArchiver.archiveRootObject(items.reversed(), toFile: filePath) {
+        let documentsURL = URL(fileURLWithPath: documentsPath)
+        let fileURL = documentsURL.appendingPathComponent("imgur-uploads.plist")
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: items, requiringSecureCoding: false)
+            try data.write(to: fileURL)
             print("Saved uploads")
-        } else {
-            print("Failed to save uploads")
+        } catch {
+            print("Failed to save uploads: \(error)")
         }
-
     }
     
     fileprivate func dismissGallery() {

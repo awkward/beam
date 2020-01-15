@@ -355,7 +355,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
             switch displayMode {
             case .default:
                 toolbar.barTintColor = UIColor.beamBarColor()
-                backgroundView.backgroundColor = UIColor.groupTableViewBackground
+                backgroundView.backgroundColor = UIColor.systemGroupedBackground
             case .dark:
                 backgroundView.backgroundColor = UIColor.beamDarkBackgroundColor()
                 toolbar.barTintColor = UIColor.beamDarkContentBackgroundColor()

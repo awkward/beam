@@ -497,7 +497,6 @@ class PostDetailEmbeddedViewController: StreamViewController {
                     
                     self.navigationController?.pushViewController(viewController, animated: true)
                 } else if comment is MoreComment {
-                    UIApplication.startNetworkActivityIndicator(for: self)
                     self.commentsDataSource.loadMoreCommentChildren(comment as! MoreComment, completionHandler: { (error) -> Void in
                         DispatchQueue.main.async {
                             if let error = error as NSError? {
@@ -511,7 +510,6 @@ class PostDetailEmbeddedViewController: StreamViewController {
                             
                             self.tableView.reloadData()
                         }
-                        UIApplication.stopNetworkActivityIndicator(for: self)
                     })
                     if let cell = tableView.cellForRow(at: indexPath) as? LoadMoreCommentsCell {
                         cell.loading = true

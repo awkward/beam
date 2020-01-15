@@ -106,8 +106,8 @@ class SubredditFilteringViewController: BeamViewController {
         
         switch self.displayMode {
         case .default:
-            self.view.backgroundColor = UIColor.groupTableViewBackground
-            self.tableView.backgroundColor = UIColor.groupTableViewBackground
+            self.view.backgroundColor = UIColor.systemGroupedBackground
+            self.tableView.backgroundColor = UIColor.systemGroupedBackground
             self.tableView.separatorColor = UIColor.beamTableViewSeperatorColor()
             self.tableView.sectionIndexBackgroundColor = UIColor.beamBarColor()
             self.tableView.sectionIndexColor = UIColor.beamColor()
@@ -147,13 +147,13 @@ class SubredditFilteringViewController: BeamViewController {
         var insets: UIEdgeInsets = self.tableView.contentInset
         insets.bottom = keyboardHeight
         
-        var scrollBarInsets: UIEdgeInsets = self.tableView.scrollIndicatorInsets
-        scrollBarInsets.bottom = keyboardHeight
+        var vScrollBarInsets: UIEdgeInsets = self.tableView.verticalScrollIndicatorInsets
+        vScrollBarInsets.bottom = keyboardHeight
         
         //Animate the doing the frame calculation of the view
         UIView.animate(withDuration: keyboardAnimationDuration, delay: 0, options: keyboardAnimationOptions, animations: {
             self.tableView.contentInset = insets
-            self.tableView.scrollIndicatorInsets = scrollBarInsets
+            self.tableView.verticalScrollIndicatorInsets = vScrollBarInsets
             self.view.layoutIfNeeded()
             }, completion: nil)
         

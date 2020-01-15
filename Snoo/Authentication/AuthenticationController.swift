@@ -61,15 +61,14 @@ public final class AuthenticationController: NSObject {
     var applicationSession: AuthenticationSession? {
         get {
             if let sessionData = UserDefaults.standard.object(forKey: AuthenticationController.ApplicationSessionKey) as? Data {
-                let session = NSKeyedUnarchiver.unarchiveObject(with: sessionData)
-                return session as? AuthenticationSession
+                return try? NSKeyedUnarchiver.unarchivedObject(ofClass: AuthenticationSession.self, from: sessionData)
             } else {
                 return nil
             }
         }
         set {
-            if let newValue = newValue {
-                let sessionData = NSKeyedArchiver.archivedData(withRootObject: newValue)
+            if let newValue = newValue,
+                let sessionData = try? NSKeyedArchiver.archivedData(withRootObject: newValue, requiringSecureCoding: true) {
                 UserDefaults.standard.set(sessionData, forKey: AuthenticationController.ApplicationSessionKey)
             } else {
                 UserDefaults.standard.removeObject(forKey: AuthenticationController.ApplicationSessionKey)
@@ -97,8 +96,8 @@ public final class AuthenticationController: NSObject {
     }
     
     fileprivate func saveCurrentUserSession() {
-        if let session = self.userSession {
-            let sessionData = NSKeyedArchiver.archivedData(withRootObject: session)
+        if let session = self.userSession,
+            let sessionData = try? NSKeyedArchiver.archivedData(withRootObject: session, requiringSecureCoding: true) {
             UserDefaults.standard.set(sessionData, forKey: AuthenticationController.CurrentUserSessionKey)
         } else {
             UserDefaults.standard.removeObject(forKey: AuthenticationController.CurrentUserSessionKey)
@@ -167,7 +166,7 @@ public final class AuthenticationController: NSObject {
         if loadCurrentSession {
             let oldUserSessionKey = "authentication-user-session"
             if let sessionData = UserDefaults.standard.object(forKey: oldUserSessionKey) as? Data,
-                let session = NSKeyedUnarchiver.unarchiveObject(with: sessionData) as? AuthenticationSession {
+                let session = try? NSKeyedUnarchiver.unarchivedObject(ofClass: AuthenticationSession.self, from: sessionData) {
                 do {
                     if let tokenData = try Keychain.load(AuthenticationSession.OldKeychainUsernameKey) {
                         let refreshToken = String(data: tokenData, encoding: .utf8)
@@ -190,7 +189,7 @@ public final class AuthenticationController: NSObject {
                 self.saveCurrentUserSession()
                 UserDefaults.standard.removeObject(forKey: oldUserSessionKey)
             } else if let sessionData = UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) as? Data,
-                let session = NSKeyedUnarchiver.unarchiveObject(with: sessionData) as? AuthenticationSession {
+                let session = try? NSKeyedUnarchiver.unarchivedObject(ofClass: AuthenticationSession.self, from: sessionData) as AuthenticationSession? {
                 self.userSession = session
             }
             
@@ -461,7 +460,7 @@ public final class AuthenticationController: NSObject {
             let data = UserDefaults.standard.object(forKey: "all-authentication-user-sessions") as? [Data] ?? [Data]()
             var sessions = [AuthenticationSession]()
             for dataItem in data {
-                if let item = NSKeyedUnarchiver.unarchiveObject(with: dataItem) as? AuthenticationSession {
+                if let item = try? NSKeyedUnarchiver.unarchivedObject(ofClass: AuthenticationSession.self, from: dataItem) {
                     sessions.append(item)
                 } else {
                     print("Corrupted account info. Make sure to always use Beam to alter the account info. Session is removed")
@@ -470,8 +469,8 @@ public final class AuthenticationController: NSObject {
             return sessions
         }
         set {
-            let dataArray = newValue.map { (session) -> Data in
-                return NSKeyedArchiver.archivedData(withRootObject: session)
+            let dataArray = newValue.map { session in
+                try? NSKeyedArchiver.archivedData(withRootObject: session, requiringSecureCoding: true)
             }
             UserDefaults.standard.set(dataArray, forKey: "all-authentication-user-sessions")
             NotificationCenter.default.post(name: AuthenticationController.AuthenticationSessionsChangedNotificationName, object: self)

@@ -249,7 +249,6 @@
 		0C35CAAB1D462BB0008B4591 /* CopyLinkActivity.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C35CAAA1D462BB0008B4591 /* CopyLinkActivity.swift */; };
 		0C37A2DA1E409FB600301F66 /* PostSelfTextPartCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C37A2D91E409FB600301F66 /* PostSelfTextPartCell.swift */; };
 		0C37A2E81E40C2BC00301F66 /* CGSize+AspectRatio.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C37A2E71E40C2BC00301F66 /* CGSize+AspectRatio.swift */; };
-		0C37D4951FB5957700C78C0D /* UIApplicationExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C37D4941FB5957700C78C0D /* UIApplicationExtensions.swift */; };
 		0C3B93EA1BC6608E00852897 /* JLRoutes.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 0C71A3BF1BC2AE0200114057 /* JLRoutes.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0C3BFB891BC520C5003430F6 /* ContinueCommentThreadCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0C3BFB881BC520C5003430F6 /* ContinueCommentThreadCell.xib */; };
 		0C3BFBAE1BC559D5003430F6 /* FontSizeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C3BFBAD1BC559D5003430F6 /* FontSizeController.swift */; };
@@ -1071,7 +1070,6 @@
 		0C35CAAA1D462BB0008B4591 /* CopyLinkActivity.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CopyLinkActivity.swift; sourceTree = "<group>"; };
 		0C37A2D91E409FB600301F66 /* PostSelfTextPartCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostSelfTextPartCell.swift; sourceTree = "<group>"; };
 		0C37A2E71E40C2BC00301F66 /* CGSize+AspectRatio.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "CGSize+AspectRatio.swift"; sourceTree = "<group>"; };
-		0C37D4941FB5957700C78C0D /* UIApplicationExtensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIApplicationExtensions.swift; sourceTree = "<group>"; };
 		0C3BFB881BC520C5003430F6 /* ContinueCommentThreadCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ContinueCommentThreadCell.xib; sourceTree = "<group>"; };
 		0C3BFBAD1BC559D5003430F6 /* FontSizeController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FontSizeController.swift; path = Beam/Controllers/FontSizeController.swift; sourceTree = SOURCE_ROOT; };
 		0C3D7DAA1DF97176003CD8CF /* UIScrollView+ScrollArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIScrollView+ScrollArea.swift"; sourceTree = "<group>"; };
@@ -2016,7 +2014,6 @@
 				0C76303B1BD6940E007672DE /* TTTAttributedLabel+Links.swift */,
 				0CF93CFB1C89922E006257A2 /* UIAlertController+Convience.swift */,
 				0C1362E71C07425E002C7529 /* UIAlertController+Unauthenticated.swift */,
-				0C37D4941FB5957700C78C0D /* UIApplicationExtensions.swift */,
 				764E74681B3819BF003FD2F9 /* UIColor+Beam.swift */,
 				0CECDB851C494A6B0055DAB7 /* UIDevice+ModelName.swift */,
 				00B1C4621BFF1CE300DDA4F8 /* UIImage+Downscaling.swift */,
@@ -3665,7 +3662,6 @@
 				0032E0581BCBB4E700B2F847 /* GalleryPostBottomView.swift in Sources */,
 				0CA73B871DAD2256000CB712 /* SyncObject+RedditURL.swift in Sources */,
 				006237611BC53C3300664B68 /* PostMediaOverviewViewController.swift in Sources */,
-				0C37D4951FB5957700C78C0D /* UIApplicationExtensions.swift in Sources */,
 				00A00C601BD91FBF00212A5E /* GalleryAlbumItemAnimator.swift in Sources */,
 				0C35CAAB1D462BB0008B4591 /* CopyLinkActivity.swift in Sources */,
 				0C5E59F11C85D11700CA9121 /* EditCommentActivity.swift in Sources */,
@@ -4007,7 +4003,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Snoo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "-D DEBUG -Xfrontend -debug-time-function-bodies";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.Snoo;
@@ -4035,7 +4030,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = Snoo/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_SWIFT_FLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.Snoo;
@@ -4055,7 +4049,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4072,7 +4065,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = SnooTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.SnooTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4096,7 +4088,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ImgurKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.ImgurKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4124,7 +4115,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = ImgurKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.ImgurKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4150,7 +4140,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CherryKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4177,7 +4166,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = CherryKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4195,7 +4183,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CherryKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4211,7 +4198,6 @@
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = CherryKitTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.CherryKitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4267,7 +4253,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "";
@@ -4318,7 +4304,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_LDFLAGS = "";
 				SDKROOT = iphoneos;
@@ -4349,12 +4335,12 @@
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = beam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/beam",
 				);
+				MARKETING_VERSION = 2.7;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lsqlite3.0",
@@ -4385,12 +4371,12 @@
 				);
 				HEADER_SEARCH_PATHS = "$(SDKROOT)/usr/include/libxml2";
 				INFOPLIST_FILE = beam/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/beam",
 				);
+				MARKETING_VERSION = 2.7;
 				OTHER_LDFLAGS = (
 					"-lxml2",
 					"-lsqlite3.0",
@@ -4418,7 +4404,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = RedditMarkdownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.RedditMarkdownKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -4445,7 +4430,6 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = RedditMarkdownKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.madeawkward.RedditMarkdownKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";

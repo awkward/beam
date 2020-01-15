@@ -34,7 +34,7 @@ extension UISearchBar {
         
         self.tintColor = DisplayModeValue(UIColor.beamPurple(), darkValue: UIColor.beamPurpleLight())
         
-        let searchFieldBackgroundImage = UISearchBar.searchFieldBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.white.withAlphaComponent(0.1)))
+        let searchFieldBackgroundImage = UISearchBar.searchFieldBackgroundImageWithBackgroundColor(DisplayModeValue(.systemGroupedBackground, darkValue: UIColor.white.withAlphaComponent(0.1)))
         self.setSearchFieldBackgroundImage(searchFieldBackgroundImage, for: UIControl.State())
         
         let searchBarBackgroundImage = UISearchBar.searchBarBackgroundImageWithBackgroundColor(DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor()), seperatorColor: DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1)))

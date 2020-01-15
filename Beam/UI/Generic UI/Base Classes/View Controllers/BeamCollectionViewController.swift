@@ -29,7 +29,7 @@ class BeamCollectionViewController: UICollectionViewController, DynamicDisplayMo
     func displayModeDidChange() {
         switch displayMode {
         case .default:
-            collectionView?.backgroundColor = UIColor.groupTableViewBackground
+            collectionView?.backgroundColor = .systemGroupedBackground
         case .dark:
             collectionView?.backgroundColor = UIColor.beamDarkBackgroundColor()
         }

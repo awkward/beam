@@ -395,9 +395,10 @@ class CreateImagePostViewController: CreatePostViewController {
         
         let documentsPath = NSSearchPathForDirectoriesInDomains(.documentDirectory, .userDomainMask, true)[0]
         let filePath = documentsPath + "/imgur-uploads.plist"
-        if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)), let objects = NSKeyedUnarchiver.unarchiveObject(with: data) as? Set<ImgurObject> {
-            savedImgurObjects.append(contentsOf: objects)
-        } else if let data = try? Data(contentsOf: URL(fileURLWithPath: filePath)), let objects = NSKeyedUnarchiver.unarchiveObject(with: data) as? [ImgurObject] {
+        let fileURL = URL(fileURLWithPath: filePath)
+        
+        if let data = try? Data(contentsOf: fileURL),
+            let objects = try? NSKeyedUnarchiver.unarchivedObject(ofClasses: [NSArray.self, NSSet.self, ImgurObject.self], from: data) as? [ImgurObject] {
             savedImgurObjects.append(contentsOf: objects)
         }
         for uploadedObject in objects {
@@ -406,10 +407,12 @@ class CreateImagePostViewController: CreatePostViewController {
             }
         }
         
-        if NSKeyedArchiver.archiveRootObject(savedImgurObjects, toFile: filePath) {
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: savedImgurObjects as NSArray, requiringSecureCoding: false)
+            try data.write(to: fileURL)
             print("Saved uploads")
-        } else {
-            print("Failed to save uploads")
+        } catch {
+            print("Failed to save uploads: \(error)")
         }
     }
     

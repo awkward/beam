@@ -90,7 +90,6 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
         self.contentView.isHidden = false
         self.mediaImageView.isHidden = false
         
-        UIApplication.stopNetworkActivityIndicator(for: self)
         if self.mediaObject != nil {
             self.mediaObject = nil
         }
@@ -98,7 +97,6 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
     }
     
     deinit {
-        UIApplication.stopNetworkActivityIndicator(for: self)
         self.imageOperation?.cancel()
     }
     
@@ -164,8 +162,6 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
                 self.mediaImageView.image = cachedImage
                 self.reloadAlbumIdicators()
             } else {
-                UIApplication.startNetworkActivityIndicator(for: self)
-                
                 var options = DownscaledImageOptions()
                 options.constrainingSize = self.mediaImageView.bounds.size
                 options.contentMode = .scaleAspectFill
@@ -180,7 +176,6 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
                         self.imageOperation = nil
                         self.reloadAlbumIdicators()
                     }
-                    UIApplication.stopNetworkActivityIndicator(for: self)
                 })
             }
         }

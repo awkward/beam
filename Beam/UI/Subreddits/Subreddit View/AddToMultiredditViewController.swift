@@ -183,10 +183,6 @@ extension AddToMultiredditViewController {
                 } else {
                     self?.navigationController?.dismiss(animated: true, completion: nil)
                 }
-                
-                if let weakSelf = self {
-                    UIApplication.stopNetworkActivityIndicator(for: weakSelf)
-                }
             })
             
         }

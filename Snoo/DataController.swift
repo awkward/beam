@@ -74,6 +74,11 @@ public final class DataController: NSObject {
         }
     }
     
+    private var currentUserIdentifier: String? {
+        guard let userData = UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) as? Data else { return nil }
+        return try? NSKeyedUnarchiver.unarchivedObject(ofClass: AuthenticationSession.self, from: userData)?.userIdentifier
+    }
+    
     fileprivate func migrateOldDatabase() {
         let oldStoreURL = self.applicationDocumentsDirectory.appendingPathComponent("Snoo.sqlite")
         let oldStorePath: String = oldStoreURL.path
@@ -96,19 +101,12 @@ public final class DataController: NSObject {
                 self.performClear(objectContext)
                 try objectContext.save()
                 
-                //Get the userIdentifier for the new URL
-                var userIdentifier: String?
-                
-                if let currentUserSessionData = UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) as? Data, let currenUserSession = NSKeyedUnarchiver.unarchiveObject(with: currentUserSessionData) as? AuthenticationSession {
-                    userIdentifier = currenUserSession.userIdentifier
-                }
-                
                 //Do the migration of the persistent store
                 let options = [NSPersistentStoreFileProtectionKey: FileProtectionType.completeUntilFirstUserAuthentication,
                                NSInferMappingModelAutomaticallyOption: NSNumber(value: true as Bool),
                                NSMigratePersistentStoresAutomaticallyOption: NSNumber(value: true as Bool)] as [String: Any]
                 
-                let newStoreURL = self.databaseURLForName(self.databaseNameForUserIdentifier(userIdentifier))
+                let newStoreURL = self.databaseURLForName(self.databaseNameForUserIdentifier(currentUserIdentifier))
                 try storeCoordinator.migratePersistentStore(storeCoordinator.persistentStores[0], to: newStoreURL, options: options, withType: NSSQLiteStoreType)
             } catch {
                 print("Error adding persitent store for migration")
@@ -126,14 +124,7 @@ public final class DataController: NSObject {
             
             print("Performing clear because of version")
             
-            //Get the userIdentifier for the new URL
-            var userIdentifier: String?
-            
-            if let currentUserSessionData = UserDefaults.standard.object(forKey: AuthenticationController.CurrentUserSessionKey) as? Data, let currenUserSession = NSKeyedUnarchiver.unarchiveObject(with: currentUserSessionData) as? AuthenticationSession {
-                userIdentifier = currenUserSession.userIdentifier
-            }
-            
-            let storeURL = self.databaseURLForName(self.databaseNameForUserIdentifier(userIdentifier))
+            let storeURL = self.databaseURLForName(self.databaseNameForUserIdentifier(currentUserIdentifier))
             if FileManager.default.fileExists(atPath: storeURL.path) {
                 let storeMetadata = try? NSPersistentStoreCoordinator.metadataForPersistentStore(ofType: NSSQLiteStoreType, at: storeURL, options: self.persitentStoreOptions)
                 var objectModel = self.objectModel

@@ -27,7 +27,7 @@ class BeamViewController: UIViewController, DynamicDisplayModeView, NoticeHandli
     func displayModeDidChange() {
         switch displayMode {
         case .default:
-            self.view.backgroundColor = UIColor.groupTableViewBackground
+            self.view.backgroundColor = UIColor.systemGroupedBackground
         case .dark:
             self.view.backgroundColor = UIColor.beamDarkBackgroundColor()
         }
@@ -45,5 +45,7 @@ class BeamViewController: UIViewController, DynamicDisplayModeView, NoticeHandli
         }
         return .portrait
     }
+    
+    
 
 }

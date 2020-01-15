@@ -27,15 +27,12 @@ class PostImageCollectionPartItemCell: BeamCollectionViewCell, MediaImageLoader,
     
     var mediaObject: MediaObject? {
         didSet {
-            if self.mediaObject != nil {
-                self.progressView.isHidden = false
-                UIApplication.startNetworkActivityIndicator(for: self)
-                self.startImageLoading()
-                
-                self.reloadEffectView()
-                
-                self.reloadMediaLabels()
-            }
+            guard self.mediaObject != nil else { return }
+            
+            self.progressView.isHidden = false
+            self.startImageLoading()
+            self.reloadEffectView()
+            self.reloadMediaLabels()
         }
     }
     
@@ -65,7 +62,6 @@ class PostImageCollectionPartItemCell: BeamCollectionViewCell, MediaImageLoader,
     
     func imageLoadingCompleted() {
         self.progressView.isHidden = true
-        UIApplication.stopNetworkActivityIndicator(for: self)
     }
     
     func progressDidChange(_ progress: CGFloat) {
@@ -92,7 +88,6 @@ class PostImageCollectionPartItemCell: BeamCollectionViewCell, MediaImageLoader,
         self.mediaImageView.image = nil
         self.progressView.isHidden = true
         self.progressView.progress = 0
-        UIApplication.stopNetworkActivityIndicator(for: self)
     }
     
     deinit {

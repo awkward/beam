@@ -7,22 +7,30 @@
 //
 
 import UIKit
+import WebKit
 
-class WebViewController: BeamViewController, UIWebViewDelegate {
+class WebViewController: BeamViewController, WKNavigationDelegate {
     
     var initialUrl: URL?
 
-    @IBOutlet weak var webView: UIWebView!
+    @IBOutlet var webView: WKWebView!
+    
+    private weak var titleObserver: NSKeyValueObservation?
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        if self.navigationController?.viewControllers[0] == self {
+        if self.navigationController?.viewControllers.first == self {
             self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: .done, target: self, action: #selector(WebViewController.doneButtonTapped(_:)))
         }
         
+        webView.navigationDelegate = self
+        titleObserver = webView.observe(\WKWebView.title) { (webView, change) in
+            self.title = webView.title
+        }
+        
         if let url = self.initialUrl {
-            self.webView.loadRequest(URLRequest(url: url))
+            webView.load(URLRequest(url: url))
         }
     }
     
@@ -30,14 +38,9 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
         self.navigationController?.dismiss(animated: true, completion: nil)
     }
 
-    // MARK: - UIWebViewDelegate
+    // MARK: - WKWebViewDelegate
     
-    func webViewDidStartLoad(_ webView: UIWebView) {
-        UIApplication.startNetworkActivityIndicator(for: self)
-    }
-    
-    func webView(_ webView: UIWebView, didFailLoadWithError error: Error) {
-        UIApplication.stopNetworkActivityIndicator(for: self)
+    func webView(_ webView: WKWebView, didFail navigation: WKNavigation!, withError error: Error) {
         let nsError = error as NSError
         if nsError.code == NSURLErrorCancelled { return }
         if nsError.code == 102 && nsError.domain == "WebKitErrorDomain" { return }
@@ -48,24 +51,9 @@ class WebViewController: BeamViewController, UIWebViewDelegate {
         })
         alert.addAction(UIAlertAction(title: AWKLocalizedString("retry"), style: UIAlertAction.Style.default, handler: { (_) -> Void in
             if let url = self.initialUrl {
-                self.webView.loadRequest(URLRequest(url: url))
+                self.webView.load(URLRequest(url: url))
             }
         }))
     }
     
-    func webViewDidFinishLoad(_ webView: UIWebView) {
-        UIApplication.stopNetworkActivityIndicator(for: self)
-        
-        self.title = webView.stringByEvaluatingJavaScript(from: "document.title")
-    }
-    /*
-    // MARK: - Navigation
-
-    // In a storyboard-based application, you will often want to do a little preparation before navigation
-    override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        // Get the new view controller using segue.destinationViewController.
-        // Pass the selected object to the new view controller.
-    }
-    */
-
 }

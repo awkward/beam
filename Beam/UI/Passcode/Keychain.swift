@@ -38,7 +38,7 @@ class Keychain {
             kSecValueData as String: data,
             kSecAttrIsInvisible as String: kCFBooleanTrue!,
             kSecAttrService as String: self.serviceName,
-            kSecAttrAccessible as String: kSecAttrAccessibleAlways
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
         ] as [String: Any]
         
         SecItemDelete(query as CFDictionary)

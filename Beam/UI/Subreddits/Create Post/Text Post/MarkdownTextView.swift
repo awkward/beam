@@ -40,9 +40,9 @@ class MarkdownTextView: UITextView {
     override var keyCommands: [UIKeyCommand]? {
         let keyCommands = super.keyCommands ?? [UIKeyCommand]()
         return keyCommands + [
-            UIKeyCommand(input: "b", modifierFlags: [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate], action: #selector(MarkdownTextView.keyCommandUsed(_:)), discoverabilityTitle: "Make text bold"),
-            UIKeyCommand(input: "l", modifierFlags: [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate], action: #selector(MarkdownTextView.keyCommandUsed(_:)), discoverabilityTitle: "Add a link"),
-            UIKeyCommand(input: "i", modifierFlags: [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate], action: #selector(MarkdownTextView.keyCommandUsed(_:)), discoverabilityTitle: "Make text italic")
+            UIKeyCommand(title: AWKLocalizedString("Bold"), action: #selector(MarkdownTextView.keyCommandUsed(_:)), input: "b", modifierFlags: [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate], discoverabilityTitle: "Make text bold"),
+            UIKeyCommand(title: AWKLocalizedString("Link"), action: #selector(MarkdownTextView.keyCommandUsed(_:)), input: "l", modifierFlags: [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate], discoverabilityTitle: "Add a link"),
+            UIKeyCommand(title: AWKLocalizedString("Italic"), action: #selector(MarkdownTextView.keyCommandUsed(_:)), input: "i", modifierFlags: [UIKeyModifierFlags.command, UIKeyModifierFlags.alternate], discoverabilityTitle: "Make text italic")
         ]
     }
     

@@ -9,7 +9,7 @@
 import Foundation
 import CoreData
 
-public final class AuthenticationSession: NSObject, NSCoding {
+public final class AuthenticationSession: NSObject, NSSecureCoding {
     
     fileprivate let ExpirationDateKey = "expires_in"
     fileprivate let TokenTypeKey = "token_type"
@@ -73,38 +73,33 @@ public final class AuthenticationSession: NSObject, NSCoding {
     
     // MARK: - NSCoding
     
+    public static var supportsSecureCoding: Bool { true }
+    
     required public init?(coder aDecoder: NSCoder) {
         super.init()
         
-        if let expirationDate = aDecoder.decodeObject(forKey: ExpirationDateKey) as? Date, let tokenType = aDecoder.decodeObject(forKey: TokenTypeKey) as? String {
+        if let expirationDate = aDecoder.decodeObject(of: NSDate.self, forKey: ExpirationDateKey) as Date?,
+            let tokenType = aDecoder.decodeObject(of: NSString.self, forKey: TokenTypeKey) as String? {
             self.expirationDate = expirationDate
             self.tokenType = tokenType
-            self.scope = aDecoder.decodeObject(forKey: ScopeKey) as? String
-            self.userIdentifier = aDecoder.decodeObject(forKey: UserIDKey) as? String
-            self.username = aDecoder.decodeObject(forKey: UsernameKey) as? String
-            self.accessToken = aDecoder.decodeObject(forKey: AccessTokenKey) as? String
+            self.scope = aDecoder.decodeObject(of: NSString.self, forKey: ScopeKey) as String?
+            self.userIdentifier = aDecoder.decodeObject(of: NSString.self, forKey: UserIDKey) as String?
+            self.username = aDecoder.decodeObject(of: NSString.self, forKey: UsernameKey) as String?
+            self.accessToken = aDecoder.decodeObject(of: NSString.self, forKey: AccessTokenKey) as String?
             
             var refreshToken: String?
-            if let username = self.username {
-                do {
-                    if let data = try Keychain.load(username), let token = String(data: data, encoding: .utf8) {
-                        refreshToken = token
-                    }
-                } catch {
-                    
-                }
-            }
-            if refreshToken == nil {
-                if let token = aDecoder.decodeObject(forKey: RefreshTokenKey) as? String,
-                    let decryptedToken = self.encryptDecryptToken(token) {
-                    refreshToken = decryptedToken
-                }
+            if let username = self.username,
+                let data = try? Keychain.load(username),
+                let token = String(data: data, encoding: .utf8) {
+                refreshToken = token
+            } else if let token = aDecoder.decodeObject(of: NSString.self, forKey: RefreshTokenKey) as String?,
+                let decryptedToken = self.encryptDecryptToken(token) {
+                refreshToken = decryptedToken
             }
             self.refreshToken = refreshToken
         } else {
             return nil
         }
-
     }
     
     public func encode(with aCoder: NSCoder) {

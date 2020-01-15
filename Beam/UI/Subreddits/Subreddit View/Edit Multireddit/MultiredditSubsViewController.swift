@@ -127,10 +127,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         if let context = multireddit.managedObjectContext {
             
             let operation = multireddit.updateOperation(AppDelegate.shared.authenticationController)
-            UIApplication.startNetworkActivityIndicator(for: operation)
             DataController.shared.executeAndSaveOperations([operation], context: context, handler: { (error) -> Void in
-                
-                UIApplication.stopNetworkActivityIndicator(for: operation)
                 
                 if let error = error, operation.multireddit.managedObjectContext != nil {
                     DispatchQueue.main.async {

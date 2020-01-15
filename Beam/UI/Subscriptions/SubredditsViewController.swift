@@ -408,8 +408,8 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
         super.displayModeDidChange()
         
         if self.traitCollection.userInterfaceIdiom == .pad {
-            self.tableView.backgroundColor = DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.beamDarkBackgroundColor())
-            self.tableView.sectionIndexBackgroundColor = DisplayModeValue(UIColor.groupTableViewBackground, darkValue: UIColor.beamDarkBackgroundColor())
+            self.tableView.backgroundColor = DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
+            self.tableView.sectionIndexBackgroundColor = DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
         }
     }
     

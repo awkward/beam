@@ -166,66 +166,63 @@ public class Settings {
     
     public subscript(key: SettingsKey<AppLaunchOption>) -> AppLaunchOption {
         get {
-            guard let dictionary = self.unarchive(key: key) as? [String: String] else {
-                return AppLaunchOption.defaultAppLaunchOption
+            if let dictionary = unarchive(key) as NSDictionary? as? [String: String] {
+                return AppLaunchOption(dictionary: dictionary)
+            } else {
+                return .defaultAppLaunchOption
             }
-            return AppLaunchOption(dictionary: dictionary)
         }
-        set { self.archive(object: newValue.dictionaryRepresentation(), key: key) }
+        set {
+            archive(newValue.dictionaryRepresentation() as NSDictionary, for: key)
+        }
     }
     
     // MARK: - Array types
     
-    public subscript(key: SettingsKey<[String]>) -> [String] {
-        get { return self.unarchive(key: key) as? [String] ?? [String]() }
-        set { self.archive(object: newValue, key: key) }
+    public subscript<T>(key: SettingsKey<[T]>) -> [T] {
+        get { unarchive(key) as NSArray? as? [T] ?? [] }
+        set { archive(newValue as NSArray, for: key) }
     }
     
-    public subscript(key: SettingsKey<[String]?>) -> [String]? {
-        get { return self.unarchive(key: key) as? [String] }
-        set { self.archive(object: newValue, key: key) }
+    public subscript<T>(key: SettingsKey<[T]?>) -> [T]? {
+        get { unarchive(key) as NSArray? as? [T] ?? [] }
+        set { archive(newValue as NSArray?, for: key) }
     }
     
     // MARK: - Dictionary types
     
-    public subscript(key: SettingsKey<[String: NSNumber]>) -> [String: NSNumber] {
-        get { return self.unarchive(key: key) as? [String: NSNumber] ?? [String: NSNumber]() }
-        set { self.archive(object: newValue, key: key) }
+    public subscript<K: Hashable, V>(key: SettingsKey<[K: V]>) -> [K: V] {
+        get { unarchive(key) as NSDictionary? as? [K: V] ?? [:] }
+        set { archive(newValue as NSDictionary, for: key) }
     }
     
-    public subscript(key: SettingsKey<[String: NSNumber]?>) -> [String: NSNumber]? {
-        get { return self.unarchive(key: key) as? [String: NSNumber] }
-        set { self.archive(object: newValue, key: key) }
-    }
-    
-    public subscript(key: SettingsKey<[String: String]>) -> [String: String] {
-        get { return self.unarchive(key: key) as? [String: String] ?? [String: String]() }
-        set { self.archive(object: newValue, key: key) }
-    }
-    
-    public subscript(key: SettingsKey<[String: String]?>) -> [String: String]? {
-        get { return self.unarchive(key: key) as? [String: String] }
-        set { self.archive(object: newValue, key: key) }
+    public subscript<K: Hashable, V>(key: SettingsKey<[K: V]?>) -> [K: V]? {
+        get { unarchive(key) as NSDictionary? as? [K: V] }
+        set { archive(newValue as NSDictionary?, for: key) }
     }
     
     // MARK: - Archiving
     
-    private func archive(object: Any?, key: SettingKeyProtocol) {
-        guard let object = object else {
-            self.userDefaults.set(nil, forKey: key._key)
-            return
+    private func archive(_ object: NSCoding?, for key: SettingKeyProtocol) {
+        if let root = object, let data = try? NSKeyedArchiver.archivedData(withRootObject: root, requiringSecureCoding: false) {
+            userDefaults.set(data, forKey: key._key)
+        } else {
+            userDefaults.removeObject(forKey: key._key)
         }
-        let data = NSKeyedArchiver.archivedData(withRootObject: object)
-        self.userDefaults.set(data, forKey: key._key)
-        self.settingDidChange(key: key, newValue: data)
+        self.settingDidChange(key: key, newValue: object)
     }
     
-    private func unarchive(key: SettingKeyProtocol) -> Any? {
-        guard let data = self.userDefaults.data(forKey: key._key) else {
+    private func unarchive<T: NSCoding>(_ key: SettingKeyProtocol) -> T? {
+        guard let data = userDefaults.data(forKey: key._key) else {
             return nil
         }
-        let object = NSKeyedUnarchiver.unarchiveObject(with: data)
-        return object
+        do {
+            let value: T? = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? T
+            return value
+        } catch {
+            print("Unable to unarchive setting `\(key._key)`")
+            return nil
+        }
     }
     
     // MARK: - Change notifications

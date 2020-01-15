@@ -72,7 +72,7 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
         case .default:
             titleLabel.textColor = UIColor.beamGreyDark()
             clearButton.backgroundColor = UIColor.beamGreyLighter()
-            clearButton.foregroundColor = UIColor.groupTableViewBackground
+            clearButton.foregroundColor = UIColor.systemGroupedBackground
         }
     }
 

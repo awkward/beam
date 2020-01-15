@@ -106,11 +106,8 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
     func prepareForShow() {
         if self.mediaObject != nil {
             self.progressView.isHidden = false
-            UIApplication.startNetworkActivityIndicator(for: self)
-                self.startImageLoading()
-        
+            self.startImageLoading()
             self.reloadOverlayAndMoreCount()
-            
             self.reloadMediaLabels()
             self.setNeedsLayout()
         } else {
@@ -169,7 +166,6 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
     
     internal func imageLoadingCompleted() {
         self.progressView.isHidden = true
-        UIApplication.stopNetworkActivityIndicator(for: self)
     }
     
     internal func progressDidChange(_ progress: CGFloat) {

@@ -114,7 +114,7 @@ final class EditMultiredditViewController: BeamTableViewController {
     
     fileprivate func reloadSaveBarButtonItem() {
         if self.loading {
-            let loadingIndicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.gray)
+            let loadingIndicator = UIActivityIndicatorView(style: .medium)
             loadingIndicator.startAnimating()
             let loadingButtonItem = UIBarButtonItem(customView: loadingIndicator)
             self.navigationItem.rightBarButtonItem = loadingButtonItem

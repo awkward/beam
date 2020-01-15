@@ -36,8 +36,7 @@ class BeamCopyableAttributedLabel: TTTAttributedLabel {
         self.becomeFirstResponder()
         let menuController = UIMenuController.shared
         if let superView = self.superview, !menuController.isMenuVisible {
-            menuController.setTargetRect(self.frame, in: superView)
-            menuController.setMenuVisible(true, animated: true)
+            menuController.showMenu(from: superView, rect: frame)
         }
     }
     

@@ -86,7 +86,7 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         
         switch displayMode {
         case .default:
-            view.backgroundColor = UIColor.groupTableViewBackground
+            view.backgroundColor = .systemGroupedBackground
             
             titleAttributes[NSAttributedString.Key.foregroundColor] = UIColor.black
             

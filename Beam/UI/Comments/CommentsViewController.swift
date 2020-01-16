@@ -199,8 +199,6 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
         self.fetchComments()
         
         NotificationCenter.default.addObserver(self, selector: #selector(CommentsEmbeddedViewController.contentDidDelete(_:)), name: .ContentDidDelete, object: nil)
-        
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
     }
     
     deinit {
@@ -473,47 +471,4 @@ extension CommentsEmbeddedViewController: CommentCellDelegate {
         self.presentGallery(with: mediaObjects)
     }
     
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-extension CommentsEmbeddedViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location),
-            let commentCell = self.tableView.cellForRow(at: indexPath) as? CommentCell else {
-                return nil
-        }
-        //Note on the URL scheme check: some URLs in comments might be a custom URL scheme. However SFSafariViewController only supports http/https links
-        let contentViewPoint = self.tableView.convert(location, to: commentCell.contentView)
-         if let link = commentCell.link(at: contentViewPoint), link.scheme?.contains("http") == true {
-            commentCell.cancelLongPress()
-            return BeamSafariViewController(url: link)
-        } else if commentCell.commentLinkPreview.frame.contains(contentViewPoint) && !commentCell.commentLinkPreview.isHidden {
-            commentCell.cancelLongPress()
-            previewingContext.sourceRect = self.tableView.convert(commentCell.commentLinkPreview.frame, from: commentCell.contentView)
-            
-            if let mediaObjects = commentCell.comment?.mediaObjects?.array as? [MediaObject], let mediaObject = mediaObjects.first {
-                self.galleryMediaObjects = mediaObjects
-                let galleryViewController = self.galleryViewController(for: mediaObject, post: nil)
-                galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
-                galleryViewController.preferredContentSize = mediaObject.viewControllerPreviewingSize()
-                return galleryViewController
-            } else if let link = commentCell.commentLinkPreview.link, link.scheme?.contains("http") == true {
-                return BeamSafariViewController(url: link)
-            }
-            
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        if viewControllerToCommit is BeamSafariViewController || viewControllerToCommit is UINavigationController {
-            self.present(viewControllerToCommit, animated: true, completion: nil)
-        } else if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
-            self.presentGalleryViewController(galleryViewController, sourceView: nil)
-        } else {
-            self.navigationController?.show(viewControllerToCommit, sender: previewingContext)
-        }
-    }
 }

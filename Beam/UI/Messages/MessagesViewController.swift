@@ -150,8 +150,6 @@ class MessagesViewController: BeamTableViewController, BeamViewControllerLoading
         self.refreshControl!.addTarget(self, action: #selector(MessagesViewController.refresh(_:)), for: .valueChanged)
         
         self.viewType = MessagesViewType.messages
-    
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -427,32 +425,5 @@ extension MessagesViewController {
             self.tableView.tableFooterView = self.loadingFooterView
             self.loadingFooterView.startAnimating()
         }
-    }
-}
-
-@available(iOS 9, *)
-extension MessagesViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = self.tableView.indexPathForRow(at: location),
-            let cell = self.tableView.cellForRow(at: indexPath),
-            let messageConverstation = self.storyboard?.instantiateViewController(withIdentifier: "messageConversation") as? MessageConversationViewController,
-            let message = self.content?[indexPath.row] as? Message,
-            self.viewType == .messages || self.viewType == .sent {
-            
-                //Make viewcontroller
-                messageConverstation.message = message
-            
-                //Set the frame to animate the peek from
-                previewingContext.sourceRect = cell.frame
-            
-                //Pass the view controller to display
-                return messageConverstation
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        self.show(viewControllerToCommit, sender: previewingContext)
     }
 }

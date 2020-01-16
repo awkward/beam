@@ -49,12 +49,6 @@ class SubredditListViewController: BeamTableViewController, BeamViewControllerLo
         return numberFormatter
     }()
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
-    }
-
 }
 
 // MARK: - UITableViewDataSource
@@ -116,37 +110,4 @@ extension SubredditListViewController {
         
     }
     
-}
-
-@available(iOS 9, *)
-extension SubredditListViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        //Cell selection
-        guard let indexPath = self.tableView.indexPathForRow(at: location), let cell = self.tableView.cellForRow(at: indexPath) else {
-            return nil
-        }
-        guard let subreddit = self.content?[indexPath.row] else {
-            return nil
-        }
-        
-        //Make the subreddit previewing view controller
-        let storyboard = UIStoryboard(name: "Subreddit", bundle: nil)
-        if let tabBarController = storyboard.instantiateInitialViewController() as? SubredditTabBarController {
-            
-            tabBarController.subreddit = subreddit
-            
-            //Set the frame to animate the peek from
-            previewingContext.sourceRect = cell.frame
-            
-            //Pass the view controller to display
-            return tabBarController
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        //We only show subreddit view controller in this view, which is always presented modally
-        self.present(viewControllerToCommit, animated: true, completion: nil)
-    }
 }

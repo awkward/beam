@@ -64,8 +64,6 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         NotificationCenter.default.addObserver(self, selector: #selector(MultiredditSubsViewController.userDidUpdate(_:)), name: AuthenticationController.UserDidUpdateNotificationName, object: AppDelegate.shared.authenticationController)
         
         configureData()
-        
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
     }
     
     @objc fileprivate func userDidUpdate(_ notification: Notification?) {
@@ -377,46 +375,4 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         }
     }
     
-}
-
-extension MultiredditSubsViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        //Cell selection
-        guard let indexPath = self.tableView.indexPathForRow(at: location), let cell = self.tableView.cellForRow(at: indexPath) else {
-            return nil
-        }
-        
-        var subreddit: Subreddit?
-        if self.hasSubredditsSection && (indexPath as IndexPath).section == 0 {
-            subreddit = self.subreddits?[indexPath.row]
-        } else {
-            subreddit = self.suggestions?[indexPath.row]
-        }
-        
-        guard subreddit != nil else {
-            return nil
-        }
-        
-        //Make the subreddit previewing view controller
-        let storyboard = UIStoryboard(name: "Subreddit", bundle: nil)
-        if let tabBarController = storyboard.instantiateInitialViewController() as? SubredditTabBarController {
-            
-            tabBarController.subreddit = subreddit
-            
-            //Set the frame to animate the peek from
-            previewingContext.sourceRect = cell.frame
-            
-            //Pass the view controller to display
-            return tabBarController
-        }
-
-        return nil
-        
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        //We only show subreddit view controller in this view, which is always presented modally
-        self.present(viewControllerToCommit, animated: true, completion: nil)
-    }
 }

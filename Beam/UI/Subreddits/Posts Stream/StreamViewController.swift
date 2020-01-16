@@ -253,8 +253,6 @@ class StreamViewController: BeamTableViewController, PostMetadataViewDelegate, B
         //Add refresh control
         self.refreshControl = UIRefreshControl()
         self.refreshControl?.addTarget(self, action: #selector(StreamViewController.refreshContent(_:)), for: UIControl.Event.valueChanged)
-        
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
     }
     
     deinit {
@@ -1202,112 +1200,6 @@ extension StreamViewController: CollectionControllerDelegate {
             self.startRefreshNotificationTimer(expirationDate)
         } else if self.collection?.expirationDate == nil {
             self.startRefreshNotificationTimer(nil)
-        }
-    }
-}
-
-// MARK: - UIViewControllerPreviewingDelegate
-@available(iOS 9, *)
-extension StreamViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location),
-            let cell = self.tableView.cellForRow(at: indexPath) else {
-                return nil
-        }
-        if self is PostDetailEmbeddedViewController {
-            //Note on the URL scheme check: some URLs in comments might be a custom URL scheme. However SFSafariViewController only supports http/https links
-            let contentViewPoint = self.tableView.convert(location, to: cell.contentView)
-            if let selfTextCell = cell as? PostSelfTextPartCell, let link = selfTextCell.link(at: contentViewPoint), link.scheme?.contains("http") == true {
-                return BeamSafariViewController(url: link)
-            } else if let commentCell = cell as? CommentCell, let link = commentCell.link(at: contentViewPoint), link.scheme?.contains("http") == true {
-                commentCell.cancelLongPress()
-                return BeamSafariViewController(url: link)
-            } else if let commentCell = cell as? CommentCell, commentCell.commentLinkPreview.frame.contains(contentViewPoint) && !commentCell.commentLinkPreview.isHidden {
-                commentCell.cancelLongPress()
-                previewingContext.sourceRect = self.tableView.convert(commentCell.commentLinkPreview.frame, from: cell.contentView)
-                
-                if let mediaObjects = commentCell.comment?.mediaObjects?.array as? [MediaObject], let mediaObject = mediaObjects.first {
-                    self.galleryMediaObjects = mediaObjects
-                    let galleryViewController = self.galleryViewController(for: mediaObject, post: nil)
-                    galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
-                    galleryViewController.preferredContentSize = mediaObject.viewControllerPreviewingSize()
-                    return galleryViewController
-                } else if let link = commentCell.commentLinkPreview.link, link.scheme?.contains("http") == true {
-                    return BeamSafariViewController(url: link)
-                }
-                
-            }
-            return nil
-        } else {
-            if let postCell = cell as? PostCell, UserSettings[.postMarking] {
-                postCell.post?.markVisited()
-            } else if let mediaCell = cell as? MediaImageLoader, UserSettings[.postMarking] {
-                (mediaCell.mediaObject?.content as? Post)?.markVisited()
-            }
-            
-            var viewController: UIViewController?
-            var sourceRect: CGRect?
-            if let URLPartCell = cell as? PostURLPartCell, let URLString = URLPartCell.post?.urlString, let URL = URL(string: URLString)?.mobileURL {
-                sourceRect = self.tableView.convert(URLPartCell.linkContainerViewFrame, from: cell.contentView)
-                viewController = BeamSafariViewController(url: URL)
-            } else if let selfTextPartCell = cell as? PostSelfTextPartCell, let post = selfTextPartCell.post {
-                
-                viewController = self.detailViewControllerForContent(post)
-            } else if let commentPartCell = cell as? PostCommentPartCell, let comment = commentPartCell.comment {
-                viewController = self.detailViewControllerForContent(comment)
-            } else if let titlePartCell = cell as? PostTitlePartCell, let post = titlePartCell.post {
-                let convertedPoint = self.tableView.convert(location, to: titlePartCell.contentView)
-                if let mediaItem = post.mediaObjects?.firstObject as? MediaObject, titlePartCell.pointInsideThumbnail(convertedPoint) == true {
-                    let galleryViewController = self.galleryViewController(for: mediaItem, post: post)
-                    galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
-                    viewController = galleryViewController
-                    viewController?.preferredContentSize = mediaItem.viewControllerPreviewingSize()
-                    sourceRect = self.tableView.convert(titlePartCell.thumbnailView!.frame, from: titlePartCell.contentView)
-                } else {
-                    viewController = PostDetailViewController(post: post, contextSubreddit: self.subreddit)
-                }
-            } else if let toolbarPartCell = cell as? PostToolbarPartCell, let post = toolbarPartCell.post {
-                viewController = PostDetailViewController(post: post, contextSubreddit: self.subreddit)
-            } else if cell is PostImagePartCell || cell is PostImageCollectionPartCell {
-                self.gallerySourceIndexPath = indexPath
-                
-                let post = self.content?[indexPath.section]
-                self.galleryMediaObjects = post?.mediaObjects?.array as? [MediaObject]
-                
-                var mediaItem = self.galleryMediaObjects?[0]
-                if let imageCollectionPartCell = cell as? PostImageCollectionPartCell,
-                    let cellMediaItem = imageCollectionPartCell.mediaItemAtLocation(cell.contentView.convert(location, from: self.tableView)),
-                    let albumItemView = imageCollectionPartCell.albumItemViewAtLocation(cell.contentView.convert(location, from: self.tableView)) {
-                        
-                        sourceRect = self.tableView.convert(albumItemView.frame, from: cell.contentView)
-                        mediaItem = cellMediaItem
-                }
-                
-                if let post = post as? Post, let mediaItem = mediaItem {
-                    let galleryViewController = self.galleryViewController(for: mediaItem, post: post)
-                    galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
-                    viewController = galleryViewController
-                    viewController?.preferredContentSize = mediaItem.viewControllerPreviewingSize()
-                }
-            }
-
-            //Set the frame to animate the peek from
-            previewingContext.sourceRect = sourceRect ?? cell.frame
-            
-            //Pass the view controller to display
-            return viewController
-        }
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        if viewControllerToCommit is SFSafariViewController || viewControllerToCommit is UINavigationController {
-            self.present(viewControllerToCommit, animated: true, completion: nil)
-        } else if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
-            self.presentGalleryViewController(galleryViewController, sourceView: nil)
-        } else {
-            self.navigationController?.show(viewControllerToCommit, sender: previewingContext)
         }
     }
 }

@@ -57,12 +57,6 @@ class ImgurGalleryAlbumContentViewController: UIViewController, AWKGalleryItemCo
         self.collectionView.contentInset = UIEdgeInsets(top: self.view.safeAreaInsets.top + 44, left: CGFloat(0), bottom: self.galleryViewController?.galleryBottomLayoutGuide.length ?? 0.0, right: CGFloat(0))
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.registerForPreviewing(with: self, sourceView: self.collectionView)
-    }
-    
     override func updateViewConstraints() {
         self.configureCollectionViewSize()
         super.updateViewConstraints()
@@ -207,38 +201,4 @@ extension ImgurGalleryAlbumContentViewController: AWKGalleryDelegate {
         
     }
     
-}
-
-@available(iOS 9, *)
-extension ImgurGalleryAlbumContentViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = self.collectionView.indexPathForItem(at: location),
-            let cell = self.collectionView.cellForItem(at: indexPath),
-            let image = self.album?.images?[(indexPath as IndexPath).item] {
-            
-            var viewController: UIViewController?
-            if cell is PostImageCollectionPartItemCell {
-                
-                let galleryViewController = self.galleryViewControllerForImage(image)
-                galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
-                viewController = galleryViewController
-                viewController?.preferredContentSize = image.viewControllerPreviewingSize()
-            }
-            
-            //Set the frame to animate the peek from
-            previewingContext.sourceRect = cell.frame
-            
-            //Pass the view controller to display
-            return viewController
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
-            self.presentGalleryViewController(galleryViewController, sourceView: nil)
-        }
-    }
 }

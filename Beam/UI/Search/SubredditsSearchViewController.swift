@@ -76,13 +76,6 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
         }
     }
     
-    override func viewDidLoad() {
-        super.viewDidLoad()
-        
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
-        
-    }
-    
     func searchBar(_ searchBar: UISearchBar, selectedScopeButtonIndexDidChange selectedScope: Int) {
         let isLocal = (selectedScope == 0)
         if isLocal != self.localSearch {
@@ -196,36 +189,4 @@ class SubredditsSearchViewController: BeamTableViewController, UISearchResultsUp
         }
     }
     
-}
-
-@available(iOS 9, *)
-extension SubredditsSearchViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location), let cell = self.tableView.cellForRow(at: indexPath) else {
-            return nil
-        }
-        guard let subreddit = self.objects?[indexPath.row] else {
-            return nil
-        }
-        
-        //Open the subreddit
-        let storyboard = UIStoryboard(name: "Subreddit", bundle: nil)
-        if let tabBarController = storyboard.instantiateInitialViewController() as? SubredditTabBarController {
-            tabBarController.subreddit = subreddit
-            
-            //Set the frame to animate the peek from
-            previewingContext.sourceRect = cell.frame
-            
-            //Pass the view controller to display
-            return tabBarController
-        }
-        
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        //We only show subreddit view controller in this view, which is always presented modally
-        self.present(viewControllerToCommit, animated: true, completion: nil)
-    }
 }

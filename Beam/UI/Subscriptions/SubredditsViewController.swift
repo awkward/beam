@@ -260,8 +260,6 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
     
         self.updateTitle()
         
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
-        
         //Add a refresh control
         let refreshControl = UIRefreshControl()
         refreshControl.addTarget(self, action: #selector(refreshContent(sender:)), for: .valueChanged)
@@ -833,36 +831,4 @@ extension SubredditsViewController: CollectionControllerDelegate {
         }
     }
     
-}
-
-@available(iOS 9, *)
-extension SubredditsViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location), let cell = self.tableView.cellForRow(at: indexPath) else {
-            return nil
-        }
-        guard let subreddit = self.content?[(indexPath as IndexPath).section].subreddits[indexPath.row] else {
-            return nil
-        }
-        
-        //Make the subreddit view controller
-        let storyboard = UIStoryboard(name: "Subreddit", bundle: nil)
-        if let tabBarController = storyboard.instantiateInitialViewController() as? SubredditTabBarController {
-                
-                tabBarController.subreddit = subreddit
-                
-                //Set the frame to animate the peek from
-                previewingContext.sourceRect = cell.frame
-                
-                //Pass the view controller to display
-                return tabBarController
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        //We only show subreddit view controller in this view, which is always presented modally
-        self.present(viewControllerToCommit, animated: true, completion: nil)
-    }
 }

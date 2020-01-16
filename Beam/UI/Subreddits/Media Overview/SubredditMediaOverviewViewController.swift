@@ -139,8 +139,6 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         let insets = UIEdgeInsets(top: self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
         self.collectionView?.contentInset = insets
         self.collectionView?.scrollIndicatorInsets = insets
-        
-        self.registerForPreviewing(with: self, sourceView: self.collectionView)
     }
     
     deinit {
@@ -738,45 +736,5 @@ extension SubredditMediaOverviewViewController: NavigationBarNotificationDisplay
     
     func topViewForDisplayOfnotificationView<NotificationView: UIView>(_ view: NotificationView) -> UIView? where NotificationView: NavigationBarNotification {
         return self.sortingBar.superview
-    }
-}
-
-@available(iOS 9, *)
-extension SubredditMediaOverviewViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = self.collectionView.indexPathForItem(at: location),
-            let cell = self.collectionView.cellForItem(at: indexPath),
-            let post = self.mediaCollectionController?.itemAtIndexPath(indexPath),
-            let mediaObject = post.mediaObjects?.firstObject as? Snoo.MediaObject {
-                
-                var viewController: UIViewController?
-                if cell is MediaOverviewCollectionViewCell {
-                    
-                    let galleryViewController = self.galleryViewControllerForPost(post, mediaItem: mediaObject)
-                    self.galleryViewController = galleryViewController
-                    galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
-                    viewController = galleryViewController
-                    if let mediaObjects = post.mediaObjects, mediaObjects.count > 1 {
-                        viewController?.preferredContentSize = UIScreen.main.bounds.size
-                    } else {
-                        viewController?.preferredContentSize = mediaObject.viewControllerPreviewingSize()
-                    }
-                }
-                
-                //Set the frame to animate the peek from
-                previewingContext.sourceRect = cell.frame
-                
-                //Pass the view controller to display
-                return viewController
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
-            self.presentGalleryViewController(galleryViewController, sourceView: nil)
-        }
     }
 }

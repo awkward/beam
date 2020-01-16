@@ -52,11 +52,6 @@ class PostMediaOverviewViewController: BeamCollectionViewController, PostMetadat
         super.viewDidLoad()
 
         reloadCollectionViewLayoutAnimated(false)
-        
-        if let collectioNView = self.collectionView {
-            self.registerForPreviewing(with: self, sourceView: collectioNView)
-        }
-        
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -252,39 +247,4 @@ extension PostMediaOverviewViewController: AWKGalleryDelegate {
         
     }
     
-}
-
-@available(iOS 9, *)
-extension PostMediaOverviewViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        if let indexPath = self.collectionView?.indexPathForItem(at: location),
-            let cell = self.collectionView?.cellForItem(at: indexPath),
-            let mediaObject = self.mediaCollectionController.itemAtIndexPath(indexPath),
-            let post = self.post {
-                
-                var viewController: UIViewController?
-                if cell is MediaOverviewCollectionViewCell {
-                    
-                    let galleryViewController = self.galleryViewControllerForPost(post, mediaItem: mediaObject)
-                    galleryViewController.shouldAutomaticallyDisplaySecondaryViews = false
-                    viewController = galleryViewController
-                    viewController?.preferredContentSize = mediaObject.viewControllerPreviewingSize()
-                }
-                
-                //Set the frame to animate the peek from
-                previewingContext.sourceRect = cell.frame
-                
-                //Pass the view controller to display
-                return viewController
-        }
-        return nil
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        if let galleryViewController = viewControllerToCommit as? AWKGalleryViewController {
-            galleryViewController.shouldAutomaticallyDisplaySecondaryViews = true
-            self.presentGalleryViewController(galleryViewController, sourceView: nil)
-        }
-    }
 }

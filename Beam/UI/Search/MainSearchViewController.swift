@@ -69,8 +69,6 @@ class MainSearchViewController: BeamTableViewController {
         tapGestureRecognizer.cancelsTouchesInView = false
         self.tableView.addGestureRecognizer(tapGestureRecognizer)
         
-        self.registerForPreviewing(with: self, sourceView: self.tableView)
-        
         if self.isModallyPresentedRootViewController() && self.tabBarController == nil {
             self.navigationItem.leftBarButtonItem = UIBarButtonItem(image: UIImage(named: "navigationbar_close"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(MainSearchViewController.cancelTapped(_:)))
         }
@@ -472,39 +470,5 @@ extension MainSearchViewController: UIGestureRecognizerDelegate {
     
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return touch.view == self.tableView
-    }
-}
-
-@available(iOS 9, *)
-extension MainSearchViewController: UIViewControllerPreviewingDelegate {
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, viewControllerForLocation location: CGPoint) -> UIViewController? {
-        guard let indexPath = self.tableView.indexPathForRow(at: location),
-        let cell = self.tableView.cellForRow(at: indexPath) else {
-            return nil
-        }
-        guard self.searchDisplayMode == MainSearchDisplayMode.recentVisited else {
-            return nil
-        }
-        
-        let subreddit = RedditActivityController.recentlyVisitedSubreddits[indexPath.row]
-        //Open the subreddit
-        let storyboard = UIStoryboard(name: "Subreddit", bundle: nil)
-        if let tabBarController = storyboard.instantiateInitialViewController() as? SubredditTabBarController {
-            tabBarController.subreddit = subreddit
-            
-            //Set the frame to animate the peek from
-            previewingContext.sourceRect = cell.frame
-            
-            return tabBarController
-        }
-
-        return nil
-    
-    }
-    
-    func previewingContext(_ previewingContext: UIViewControllerPreviewing, commit viewControllerToCommit: UIViewController) {
-        //We only show subreddit view controller in this view, which is always presented modally
-        self.present(viewControllerToCommit, animated: true, completion: nil)
     }
 }

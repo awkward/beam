@@ -22,4 +22,8 @@ class BeamColorizedNavigationController: BeamNavigationController {
         navigationBar.titleTextAttributes = titleAttributes
     }
 
+    override var preferredStatusBarStyle: UIStatusBarStyle {
+        .lightContent
+    }
+    
 }

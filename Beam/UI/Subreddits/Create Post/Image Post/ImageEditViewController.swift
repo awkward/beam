@@ -11,13 +11,13 @@ import Photos
 
 final class ImageEditBottomview: BeamView {
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
-        let seperatorColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        let seperatorColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         let topSeperatorPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: 1 / UIScreen.main.scale))
         seperatorColor.setFill()
         topSeperatorPath.fill()
@@ -70,7 +70,7 @@ class ImageEditViewController: BeamViewController {
         super.viewDidLoad()
         
         let removeItem = UIBarButtonItem(title: AWKLocalizedString("remove-button"), style: UIBarButtonItem.Style.plain, target: self, action: #selector(ImageEditViewController.removeTapped(_:)))
-        removeItem.tintColor = DisplayModeValue(UIColor.beamRed(), darkValue: UIColor.beamRedDarker())
+        removeItem.tintColor = AppearanceValue(light: UIColor.beamRed, dark: UIColor.beamRedDarker)
         self.navigationItem.leftBarButtonItem = removeItem
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.done, target: self, action: #selector(ImageEditViewController.doneTapped(_:)))
         self.navigationItem.title = AWKLocalizedString("edit-image-title")
@@ -136,24 +136,24 @@ class ImageEditViewController: BeamViewController {
         
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        let backgroundColor = DisplayModeValue(UIColor.beamBackground(), darkValue: UIColor.beamDarkBackgroundColor())
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        let backgroundColor = AppearanceValue(light: UIColor.beamBackground, dark: UIColor.beamDarkBackground)
         self.view.backgroundColor = backgroundColor
         self.collectionView.backgroundColor = backgroundColor
         
         self.descriptionTextView.backgroundColor = UIColor.clear
         self.descriptionTextView.isOpaque = false
         
-        let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        let textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         self.titleTextField.textColor = textColor
         self.descriptionTextView.textColor = textColor
         
-        let keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
+        let keyboardAppearance = AppearanceValue(light: UIKeyboardAppearance.default, dark: UIKeyboardAppearance.dark)
         self.titleTextField.keyboardAppearance = keyboardAppearance
         self.descriptionTextView.keyboardAppearance = keyboardAppearance
         
-        let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        let placeholderColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("image-title-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         self.descriptionTextViewPlaceholder.textColor = placeholderColor
     }

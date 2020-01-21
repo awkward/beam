@@ -15,10 +15,6 @@ final class BeamSafariViewController: SFSafariViewController {
         let configuration = SFSafariViewController.Configuration()
         configuration.entersReaderIfAvailable = UserSettings[.prefersSafariViewControllerReaderMode]
         super.init(url: url, configuration: configuration)
-        if AppDelegate.shared.displayModeController.currentMode == .dark {
-            self.preferredBarTintColor = UIColor.black
-            self.preferredControlTintColor = UIColor.white
-        }
     }
 
 }

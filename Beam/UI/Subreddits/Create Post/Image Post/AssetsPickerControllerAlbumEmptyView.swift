@@ -24,10 +24,10 @@ class AssetsPickerControllerAlbumEmptyView: BeamView {
        
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.backgroundColor = DisplayModeValue(UIColor.beamBackground(), darkValue: UIColor.beamDarkContentBackgroundColor())
-        self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        self.descriptionLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.backgroundColor = AppearanceValue(light: UIColor.beamBackground, dark: UIColor.beamDarkContentBackground)
+        self.titleLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
+        self.descriptionLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
     }
 }

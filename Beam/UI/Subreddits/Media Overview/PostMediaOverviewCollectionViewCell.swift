@@ -10,11 +10,11 @@ import UIKit
 
 class PostMediaOverviewCollectionViewCell: MediaOverviewCollectionViewCell {
 
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.mediaImageView.isOpaque = true
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1), darkValue: UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1))
-        //self.progressView.color = displayMode == .Dark ?  UIColor.white: UIColor.beamGreyExtraLight()
+        self.mediaImageView.backgroundColor = AppearanceValue(light: UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1), dark: UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1))
+        //self.progressView.color = displayMode == .Dark ?  UIColor.white: UIColor.beamGreyExtraLight
     }
 }

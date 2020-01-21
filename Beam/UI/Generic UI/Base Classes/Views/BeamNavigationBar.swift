@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BeamNavigationBar: UINavigationBar, DynamicDisplayModeView {
+class BeamNavigationBar: UINavigationBar, BeamAppearance {
     
     var showProgressView = false {
         didSet {
@@ -40,14 +40,12 @@ class BeamNavigationBar: UINavigationBar, DynamicDisplayModeView {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
-        self.registerForDisplayModeChangeNotifications()
         self.setupView()
     }
     
     override init(frame: CGRect) {
         super.init(frame: frame)
         
-        self.registerForDisplayModeChangeNotifications()
         self.setupView()
     }
     
@@ -55,17 +53,13 @@ class BeamNavigationBar: UINavigationBar, DynamicDisplayModeView {
         self.addSubview(self.progressView)
     }
     
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        self.barTintColor = self.displayMode == .dark ? UIColor.beamDarkBackgroundColor() : UIColor.beamBarColor()
+    func appearanceDidChange() {
+        self.barTintColor = self.userInterfaceStyle == .dark ? UIColor.beamDarkBackground : UIColor.beamBar
         
-        let borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        let borderColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         self.bottomBorderOverlay.backgroundColor = borderColor
         
-        self.progressView.progressTintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+        self.progressView.progressTintColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
     }
     
     override func layoutSubviews() {

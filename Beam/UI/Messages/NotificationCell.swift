@@ -21,7 +21,7 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
     weak var delegate: MessageObjectCellDelegate?
 
     fileprivate var contentStylesheet: MarkdownStylesheet {
-        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.footnote, darkmode: self.displayMode == .dark)
+        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.footnote, darkmode: self.userInterfaceStyle == .dark)
     }
     
     var message: Message? {
@@ -29,16 +29,16 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
             self.unreadIndicator.isHidden = self.message?.unread?.boolValue == false
             self.metadataLabel.text = self.metadataText
             
-            self.displayModeDidChange()
+            self.appearanceDidChange()
             
         }
     }
     
     var authorText: NSAttributedString? {
-        let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        let textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         let textFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.semibold)
         
-        let typeTextColor = DisplayModeValue(UIColor.black.withAlphaComponent(0.5), darkValue: UIColor.white.withAlphaComponent(0.5))
+        let typeTextColor = AppearanceValue(light: UIColor.black.withAlphaComponent(0.5), dark: UIColor.white.withAlphaComponent(0.5))
         let typeTextFont = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.regular)
         
         if let author = self.message?.author {
@@ -78,17 +78,17 @@ class NotificationCell: BeamTableViewCell, MessageObjectCell {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.unreadIndicator.backgroundColor = self.contentView.backgroundColor
-        self.unreadIndicator.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        self.metadataLabel.textColor = DisplayModeValue(UIColor.black.withAlphaComponent(0.5), darkValue: UIColor.white.withAlphaComponent(0.5))
+        self.unreadIndicator.tintColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
+        self.metadataLabel.textColor = AppearanceValue(light: UIColor.black.withAlphaComponent(0.5), dark: UIColor.white.withAlphaComponent(0.5))
 
         self.authorButton.setAttributedTitle(self.authorText, for: UIControl.State())
         
-        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
-        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)
+        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesWithStyle(userInterfaceStyle)
+        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesWithStyle(userInterfaceStyle)
         self.contentLabel.setText(self.message?.markdownString?.attributedStringWithStylesheet(self.contentStylesheet))
     }
 

@@ -43,13 +43,13 @@ class SubredditInfoDescriptionCell: BeamTableViewCell {
     }
     
     fileprivate var contentStylesheet: MarkdownStylesheet {
-        return MarkdownStylesheet.beamSelfPostStyleSheet(self.displayMode == .dark)
+        return MarkdownStylesheet.beamSelfPostStyleSheet(self.userInterfaceStyle == .dark)
     }
     
     fileprivate func reloadData() {
-        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
-        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)
-        self.contentLabel.setText(self.subreddit?.descriptionTextMarkdownString?.attributedStringWithStylesheet(self.contentStylesheet))
+        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesWithStyle(userInterfaceStyle)
+        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesWithStyle(userInterfaceStyle)
+        self.contentLabel.setText(self.subreddit?.descriptionTextMarkdownString?.attributedStringWithStylesheet(contentStylesheet))
     }
     
     override func updateConstraints() {
@@ -60,8 +60,8 @@ class SubredditInfoDescriptionCell: BeamTableViewCell {
         self.contentLabelReadMoreSpaceConstraint.isActive = !self.isExpanded
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.reloadData()
     }

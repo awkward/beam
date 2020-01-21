@@ -23,15 +23,15 @@ class GalleryWindowRootViewController: BeamViewController {
         self.view.backgroundColor = UIColor.clear
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.view.isOpaque = false
         self.view.backgroundColor = UIColor.clear
         self.setNeedsStatusBarAppearanceUpdate()
     }
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
+        return AppearanceValue(light: UIStatusBarStyle.default, dark: UIStatusBarStyle.lightContent)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

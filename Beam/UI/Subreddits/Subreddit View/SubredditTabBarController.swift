@@ -91,7 +91,6 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        usesRoundedCorners = UIDevice.current.userInterfaceIdiom == .phone
         configureSubViewControllers()
     }
     
@@ -189,7 +188,7 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
                         tabBarItemViewController.subreddit = self.subreddit
                     }
                     
-                    let navigationController = SubredditNavigationController(navigationBarClass: BeamNavigationBar.self, toolbarClass: nil)
+                    let navigationController = BeamNavigationController(navigationBarClass: BeamNavigationBar.self, toolbarClass: nil)
                     navigationController.setViewControllers([viewController], animated: false)
                     
                     navigationController.tabBarItem = tabBarItem

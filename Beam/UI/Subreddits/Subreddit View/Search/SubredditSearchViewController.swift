@@ -12,7 +12,7 @@ import Snoo
 class SubredditSearchViewSearchController: UISearchController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
+        return AppearanceValue(light: UIStatusBarStyle.default, dark: UIStatusBarStyle.lightContent)
     }
 }
 
@@ -66,8 +66,8 @@ class SubredditSearchViewController: BeamTableViewController, SubredditTabItemVi
         
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         let searchBar = self.searchController.searchBar
         searchBar.applyBeamBarStyle()

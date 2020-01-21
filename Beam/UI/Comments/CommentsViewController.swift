@@ -62,6 +62,9 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        tableView?.backgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
+        tableView?.separatorColor = .beamTableViewSeperator
+        
         self.hidesBottomBarWhenPushed = true
         
         if self.parentComment == nil {
@@ -129,9 +132,9 @@ class CommentsViewController: BeamViewController, CommentThreadSkipping {
         composeViewController.post = self.query.post
         self.present(navigationController, animated: true, completion: nil)
     }
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.skipThreadButton.setImage(DisplayModeValue(UIImage(named: "next_button_icon"), darkValue: UIImage(named: "next_button_icon_dark")), for: UIControl.State())
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.skipThreadButton.setImage(AppearanceValue(light: UIImage(named: "next_button_icon"), dark: UIImage(named: "next_button_icon_dark")), for: UIControl.State())
     }
 
     @objc fileprivate func skipThreadTapped(sender: UIButton) {
@@ -370,21 +373,6 @@ private class CommentsEmbeddedViewController: BeamTableViewController, MediaObje
                 self.tableView.reloadRows(at: [indexPath], with: UITableView.RowAnimation.fade)
             }
             //NOTE: didSelectRowAtIndexPath does not work for "CommentCell", please see the CommentCellDelegate instead
-        }
-    }
-    
-    // MARK: Display Mode
-    
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        switch displayMode {
-        case .default:
-            self.tableView.backgroundColor = UIColor.systemGroupedBackground
-            self.tableView.separatorColor = UIColor.beamTableViewSeperatorColor()
-            
-        case .dark:
-            self.tableView.backgroundColor = UIColor.beamDarkBackgroundColor()
-            self.tableView.separatorColor = UIColor.beamDarkTableViewSeperatorColor()
         }
     }
     

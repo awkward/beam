@@ -128,10 +128,10 @@ class PostDetailViewController: BeamViewController, CommentThreadSkipping {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.skipThreadButton.setImage(DisplayModeValue(UIImage(named: "next_button_icon"), darkValue: UIImage(named: "next_button_icon_dark")), for: UIControl.State())
+        self.skipThreadButton.setImage(AppearanceValue(light: UIImage(named: "next_button_icon"), dark: UIImage(named: "next_button_icon_dark")), for: UIControl.State())
     }
     
     @objc fileprivate func skipThreadTapped(sender: UIButton) {

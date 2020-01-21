@@ -8,34 +8,11 @@
 
 import UIKit
 
-class BeamCollectionReusableView: UICollectionReusableView, DynamicDisplayModeView {
-
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.registerForDisplayModeChangeNotifications()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    deinit {
-        self.unregisterForDisplayModeChangeNotifications()
-    }
+class BeamCollectionReusableView: UICollectionReusableView, BeamAppearance {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.displayModeDidChange()
-        self.registerForDisplayModeChangeNotifications()
-    }
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        
+        self.appearanceDidChange()
     }
     
 }

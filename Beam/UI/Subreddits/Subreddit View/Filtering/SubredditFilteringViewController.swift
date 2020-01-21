@@ -101,22 +101,22 @@ class SubredditFilteringViewController: BeamViewController {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        switch self.displayMode {
-        case .default:
+        switch self.userInterfaceStyle {
+        case .dark:
+            self.view.backgroundColor = UIColor.beamDarkBackground
+            self.tableView.backgroundColor = UIColor.beamDarkBackground
+            self.tableView.separatorColor = UIColor.beamDarkTableViewSeperator
+            self.tableView.sectionIndexBackgroundColor = UIColor.beamDarkContentBackground
+            self.tableView.sectionIndexColor = UIColor.beamPurpleLight
+        default:
             self.view.backgroundColor = UIColor.systemGroupedBackground
             self.tableView.backgroundColor = UIColor.systemGroupedBackground
-            self.tableView.separatorColor = UIColor.beamTableViewSeperatorColor()
-            self.tableView.sectionIndexBackgroundColor = UIColor.beamBarColor()
-            self.tableView.sectionIndexColor = UIColor.beamColor()
-        case .dark:
-            self.view.backgroundColor = UIColor.beamDarkBackgroundColor()
-            self.tableView.backgroundColor = UIColor.beamDarkBackgroundColor()
-            self.tableView.separatorColor = UIColor.beamDarkTableViewSeperatorColor()
-            self.tableView.sectionIndexBackgroundColor = UIColor.beamDarkContentBackgroundColor()
-            self.tableView.sectionIndexColor = UIColor.beamPurpleLight()
+            self.tableView.separatorColor = UIColor.beamTableViewSeperator
+            self.tableView.sectionIndexBackgroundColor = UIColor.beamBar
+            self.tableView.sectionIndexColor = UIColor.beam
         }
         
         self.setNeedsStatusBarAppearanceUpdate()

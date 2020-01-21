@@ -78,11 +78,11 @@ class CommentsFooterView: BeamView {
         self.textLabelTopToActivityIndicatorViewConstraint.isActive = self.state == CommentsFooterViewState.loading
     }
 
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.backgroundColor = UIColor.clear
-        self.activityIndicatorView.color = self.displayMode == DisplayMode.dark ? UIColor.white: nil
-        self.textlabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        self.activityIndicatorView.color = AppearanceValue(light: nil, dark: UIColor.white)
+        self.textlabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
     }
     
     func sizeToFitWidth(_ width: CGFloat) {

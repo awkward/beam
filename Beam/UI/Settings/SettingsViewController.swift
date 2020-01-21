@@ -198,10 +198,6 @@ class SettingsViewController: BeamTableViewController {
         
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-    }
-    
     @objc fileprivate func userDidChange(_ notification: Notification) {
         DispatchQueue.main.async { () -> Void in
             self.reloadSections()

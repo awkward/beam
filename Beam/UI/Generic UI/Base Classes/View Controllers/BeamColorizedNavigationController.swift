@@ -10,29 +10,16 @@ import UIKit
 
 class BeamColorizedNavigationController: BeamNavigationController {
 
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        self.navigationBar.isTranslucent = false
+        navigationBar.isTranslucent = false
+        navigationBar.tintColor = AppearanceValue(light: .white, dark: .beamPurpleLight)
+        navigationBar.barTintColor = UIColor(named: "colorized_bar")
         
         var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedString.Key: Any]()
         titleAttributes[NSAttributedString.Key.foregroundColor] = UIColor.white
-        self.navigationBar.titleTextAttributes = titleAttributes
-        
-        switch displayMode {
-        case .default:
-            self.navigationBar.barTintColor = UIColor.beamPurple()
-            self.navigationBar.tintColor = UIColor.white
-        case .dark:
-            self.navigationBar.barTintColor = UIColor.beamDarkContentBackgroundColor()
-            self.navigationBar.tintColor = UIColor.beamPurpleLight()
-        }
-        
-        self.setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return .lightContent
+        navigationBar.titleTextAttributes = titleAttributes
     }
 
 }

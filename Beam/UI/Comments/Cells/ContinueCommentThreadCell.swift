@@ -21,10 +21,10 @@ class ContinueCommentThreadCell: BaseCommentCell {
         self.titleLabel.text = AWKLocalizedString("continue-comment-thread")
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+        let tintColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
         self.titleLabel.textColor = tintColor
         if self.iconImageView.tintColor != tintColor {
             self.iconImageView.tintColor = tintColor

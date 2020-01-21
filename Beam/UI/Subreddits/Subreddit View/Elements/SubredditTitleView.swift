@@ -36,8 +36,8 @@ class SubredditTitleView: BeamView {
     var attributedContent: NSAttributedString? {
         let fullContent = NSMutableAttributedString()
         
-        let titleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        let subtitleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        let titleColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
+        let subtitleColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         
         if let title = self.subreddit?.displayName {
             let titleFont = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
@@ -80,8 +80,8 @@ class SubredditTitleView: BeamView {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.backgroundColor = UIColor.clear
         self.contentLabel.attributedText = self.attributedContent

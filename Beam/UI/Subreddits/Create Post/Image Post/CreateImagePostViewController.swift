@@ -158,16 +158,16 @@ class CreateImagePostViewController: CreatePostViewController {
         self.descriptionTextField?.resignFirstResponder()
         
         let colorPalette = AssetsPickerColorPalette()
-        colorPalette.statusBarStyle = DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
-        colorPalette.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        colorPalette.titleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        colorPalette.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkBackgroundColor())
-        colorPalette.albumTitleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        colorPalette.statusBarStyle = AppearanceValue(light: UIStatusBarStyle.default, dark: UIStatusBarStyle.lightContent)
+        colorPalette.tintColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
+        colorPalette.titleColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
+        colorPalette.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkBackground)
+        colorPalette.albumTitleColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         colorPalette.albumCountColor = colorPalette.albumTitleColor
         colorPalette.albumLinesColor = colorPalette.albumTitleColor
-        colorPalette.cameraIconColor = DisplayModeValue(UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00), darkValue: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1))
-        colorPalette.albumCellBackgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-        colorPalette.albumCellSelectedBackgroundColor = DisplayModeValue(UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00), darkValue: UIColor.white)
+        colorPalette.cameraIconColor = AppearanceValue(light: UIColor(red: 0.56, green: 0.56, blue: 0.56, alpha: 1.00), dark: UIColor(red: 0.6, green: 0.6, blue: 0.6, alpha: 1))
+        colorPalette.albumCellBackgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+        colorPalette.albumCellSelectedBackgroundColor = AppearanceValue(light: UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.00), dark: UIColor.white)
         
         let pickerController = AssetsPickerController()
         pickerController.mediaTypes = [PHAssetMediaType.image]
@@ -190,20 +190,20 @@ class CreateImagePostViewController: CreatePostViewController {
         return self.images[(indexPath as IndexPath).item]
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+        let backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
         self.collectionView.backgroundColor = backgroundColor
         
         self.imagesNoticeView.backgroundColor = backgroundColor
-        self.imagesNoticeLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        self.imagesNoticeLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         
-        let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        let textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         self.titleTextField?.textColor = textColor
         self.descriptionTextField?.textColor = textColor
         
-        let keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
+        let keyboardAppearance = AppearanceValue(light: UIKeyboardAppearance.default, dark: UIKeyboardAppearance.dark)
         self.titleTextField?.keyboardAppearance = keyboardAppearance
         self.descriptionTextField?.keyboardAppearance = keyboardAppearance
         
@@ -211,7 +211,7 @@ class CreateImagePostViewController: CreatePostViewController {
     }
     
     func updatePlaceholders() {
-        let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        let placeholderColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         self.titleTextField?.attributedPlaceholder = NSAttributedString(string: self.images.count > 1 ? AWKLocalizedString("album-title-placeholder") : AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         self.descriptionTextField?.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("album-description-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
     }

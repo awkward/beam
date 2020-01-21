@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BeamNavigationController: UINavigationController, DynamicDisplayModeView, UIViewControllerTransitioningDelegate {
+class BeamNavigationController: UINavigationController, BeamAppearance, UIViewControllerTransitioningDelegate {
     
     var useInteractiveDismissal = true {
         didSet {
@@ -35,6 +35,16 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         
         self.navigationBar.backIndicatorImage = UIImage(named: "navigationbar_arrow_back")
         self.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "navigationbar_arrow_back_mask")
+        
+        view.backgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
+
+        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedString.Key: Any]()
+        titleAttributes[NSAttributedString.Key.foregroundColor] = AppearanceValue(light: .black, dark: UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 247 / 255.0, alpha: 1))
+        
+        self.navigationBar.barTintColor = .beamBar
+        self.navigationBar.titleTextAttributes = titleAttributes
+        
+        appearanceDidChange()
     }
     
     func refreshInteractiveDismissalState() {
@@ -53,16 +63,6 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         guard presentingViewController != nil && gestureRecognizer.state == .recognized else { return }
         dismiss(animated: true, completion: nil)
     }
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        self.registerForDisplayModeChangeNotifications()
-    }
-    
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        self.unregisterForDisplayModeChangeNotifications()
-    }
     
     fileprivate var previousViewFrame: CGRect = CGRect()
     
@@ -76,37 +76,12 @@ class BeamNavigationController: UINavigationController, DynamicDisplayModeView, 
         }
     }
     
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         
-        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedString.Key: Any]()
-        
-        switch displayMode {
-        case .default:
-            view.backgroundColor = .systemGroupedBackground
-            
-            titleAttributes[NSAttributedString.Key.foregroundColor] = UIColor.black
-            
-        case .dark:
-            view.backgroundColor = UIColor.beamDarkBackgroundColor()
-            
-            titleAttributes[NSAttributedString.Key.foregroundColor] = UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 247 / 255.0, alpha: 1)
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appearanceDidChange()
         }
-        
-        self.navigationBar.barTintColor = DisplayModeValue(UIColor.beamBarColor(), darkValue: UIColor.beamDarkContentBackgroundColor())
-        self.navigationBar.titleTextAttributes = titleAttributes
-        
-        let newTintColor = (displayMode == .dark) ? UIColor.beamPurpleLight() : UIColor.beamColor()
-        self.navigationBar.tintColor = newTintColor
-        
-        setNeedsStatusBarAppearanceUpdate()
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -133,7 +108,7 @@ extension BeamNavigationController: UIAdaptivePresentationControllerDelegate {
         case .regular:
             return .fullScreen
         default:
-            return .formSheet
+            return .automatic
         }
     }
     

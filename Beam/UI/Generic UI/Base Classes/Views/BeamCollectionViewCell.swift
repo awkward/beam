@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BeamCollectionViewCell: UICollectionViewCell, DynamicDisplayModeView {
+class BeamCollectionViewCell: UICollectionViewCell, BeamAppearance {
     
     override func didMoveToWindow() {
         super.didMoveToWindow()
@@ -16,29 +16,20 @@ class BeamCollectionViewCell: UICollectionViewCell, DynamicDisplayModeView {
         if window != nil {
             selectedBackgroundView = UIView(frame: bounds)
             selectedBackgroundView?.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
-            registerForDisplayModeChangeNotifications()
         } else {
             selectedBackgroundView = nil
-            unregisterForDisplayModeChangeNotifications()
         }
     }
     
-    deinit {
-        unregisterForDisplayModeChangeNotifications()
-    }
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        switch displayMode {
-        case .default:
-            backgroundColor = UIColor.white
-            selectedBackgroundView?.backgroundColor = UIColor.beamGreyExtraExtraLight()
+    func appearanceDidChange() {
+        switch userInterfaceStyle {
         case .dark:
-            backgroundColor = UIColor.beamDarkContentBackgroundColor()
-            selectedBackgroundView?.backgroundColor = UIColor.beamGreyDark()
+            backgroundColor = UIColor.beamDarkContentBackground
+            selectedBackgroundView?.backgroundColor = UIColor.beamGreyDark
+        default:
+            backgroundColor = UIColor.white
+            selectedBackgroundView?.backgroundColor = UIColor.beamGreyExtraExtraLight
+        
         }
         
         contentView.backgroundColor = backgroundColor

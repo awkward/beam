@@ -35,11 +35,11 @@ class SubredditListTableViewCell: BeamTableViewCell {
         let title = NSMutableAttributedString()
         
         if let titleString = self.subreddit?.displayName {
-            let titleColor = self.displayMode == .dark ? UIColor.white: UIColor.black
+            let titleColor = self.userInterfaceStyle == .dark ? UIColor.white: UIColor.black
             title.append(NSAttributedString(string: titleString, attributes: [NSAttributedString.Key.foregroundColor: titleColor]))
         }
         
-        let subtitleColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8)
+        let subtitleColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.8)
         
         var subtitle: String?
         if self.subreddit?.identifier == Subreddit.frontpageIdentifier {
@@ -58,8 +58,8 @@ class SubredditListTableViewCell: BeamTableViewCell {
         return title
     }
 
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.textLabel?.attributedText = self.attributedTitle
     }
 

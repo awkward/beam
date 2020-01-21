@@ -76,27 +76,27 @@ class CreateTextPostViewController: CreatePostViewController {
         self.textView.resignFirstResponder()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+        let backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
         self.view.backgroundColor = backgroundColor
         self.scrollViewContentView.backgroundColor = backgroundColor
         self.scrollView.backgroundColor = backgroundColor
         
-        let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        let placeholderColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         self.titleTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("post-title-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         self.textViewPlaceholder.textColor = placeholderColor
         
-        let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        let textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         self.titleTextField.textColor = textColor
         self.textView.textColor = textColor
         
-        let keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
+        let keyboardAppearance = AppearanceValue(light: UIKeyboardAppearance.default, dark: UIKeyboardAppearance.dark)
         self.titleTextField.keyboardAppearance = keyboardAppearance
         self.textView.keyboardAppearance = keyboardAppearance
         
-        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        self.seperatorView.backgroundColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
     }
     
     func sizeTextView() {

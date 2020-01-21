@@ -33,11 +33,11 @@ class LoadMoreCommentsCell: BaseCommentCell {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.titleLabel.textColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        self.activityIndicatorView.tintColor = DisplayModeValue(UIColor.lightGray, darkValue: UIColor.white)
+        self.titleLabel.textColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
+        self.activityIndicatorView.tintColor = AppearanceValue(light: UIColor.lightGray, dark: UIColor.white)
     }
 
 }

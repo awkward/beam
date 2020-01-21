@@ -18,7 +18,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
             self.mediaImageView.image = nil
             self.fetchImage()
             self.setNeedsUpdateConstraints()
-            self.displayModeDidChange()
+            self.appearanceDidChange()
             self.reloadAlbumIdicators()
         }
     }
@@ -39,7 +39,7 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
     override var isOpaque: Bool {
         didSet {
             if self.mediaImageView != nil {
-                self.displayModeDidChange()
+                self.appearanceDidChange()
             }
         }
     }
@@ -80,15 +80,15 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
         super.updateConstraints()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         if self.albumStackBottomView != nil {
-            switch self.displayMode {
+            switch self.userInterfaceStyle {
             case .dark:
                 self.albumStackUpperView?.backgroundColor = UIColor.white
                 self.albumStackBottomView?.backgroundColor = UIColor.white
-            case .default:
+            default:
                 self.albumStackUpperView?.backgroundColor = UIColor.black
                 self.albumStackUpperView?.backgroundColor = UIColor.black
             }
@@ -98,8 +98,8 @@ class ImgurMediaCollectionViewCell: BeamCollectionViewCell {
             self.contentView.backgroundColor = UIColor.clear
             self.backgroundColor = UIColor.clear
         } else {
-            self.contentView.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-            self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+            self.contentView.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+            self.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
         }
         
         self.mediaImageView.isOpaque = self.isOpaque

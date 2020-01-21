@@ -8,36 +8,25 @@
 
 import UIKit
 
-class BeamPlainButton: UIButton, DynamicDisplayModeView {
+class BeamPlainButton: UIButton, BeamAppearance {
     
     override init(frame: CGRect) {
         super.init(frame: frame)
-        self.registerForDisplayModeChangeNotifications()
         self.setupButton()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.registerForDisplayModeChangeNotifications()
         self.setupButton()
     }
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.displayModeDidChange()
-        self.registerForDisplayModeChangeNotifications()
+        self.appearanceDidChange()
         self.setupButton()
     }
     
-    deinit {
-        self.unregisterForDisplayModeChangeNotifications()
-    }
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
+    func appearanceDidChange() {
         if self.buttonType == .system {
             self.tintColor = UIColor.white
         }

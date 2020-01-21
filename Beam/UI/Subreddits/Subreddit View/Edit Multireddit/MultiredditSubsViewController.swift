@@ -16,7 +16,7 @@ let MultiredditMaxSubredditsCount = 50
 class MultiredditSubsSearchController: UISearchController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
-        return DisplayModeValue(UIStatusBarStyle.default, darkValue: UIStatusBarStyle.lightContent)
+        return AppearanceValue(light: UIStatusBarStyle.default, dark: UIStatusBarStyle.lightContent)
     }
 }
 
@@ -146,10 +146,11 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
     
     // MARK: - Display Mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.searchController.searchBar.applyBeamBarStyleWithoutBorder()
-
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            searchController.searchBar.applyBeamBarStyleWithoutBorder()
+        }
     }
 
     // MARK: - Data
@@ -363,7 +364,7 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         We have to do this everytime because sometimes the view is removed and created again or changes color
         */
         
-        if self.tableView.contentOffset.y < -60 && self.displayMode == DisplayMode.dark {
+        if self.tableView.contentOffset.y < -60 && traitCollection.userInterfaceStyle == .dark {
             for view in self.tableView.subviews {
                 var redColor: CGFloat = 0
                 view.backgroundColor?.getRed(&redColor, green: nil, blue: nil, alpha: nil)

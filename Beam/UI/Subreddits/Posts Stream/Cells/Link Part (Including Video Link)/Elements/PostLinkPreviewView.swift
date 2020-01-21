@@ -30,7 +30,7 @@ final class PostLinkPreviewView: BeamControl {
     }
     @IBInspectable var showsURLDescription: Bool = true {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
             self.setNeedsLayout()
         }
     }
@@ -102,7 +102,7 @@ final class PostLinkPreviewView: BeamControl {
     fileprivate var information: URLInformation? {
         didSet {
             self.reloadContents()
-            self.displayModeDidChange()
+            self.appearanceDidChange()
             self.setNeedsLayout()
         }
     }
@@ -118,8 +118,8 @@ final class PostLinkPreviewView: BeamControl {
             //If the post is marked as a spoiler, we don't show the title and description
             return nil
         }
-        let titleAttributes = [NSAttributedString.Key.font: PostLinkPreviewView.titleFont, NSAttributedString.Key.foregroundColor: self.displayMode == .dark ? UIColor.white: UIColor.beamGreyExtraDark()]
-        let descriptionAttributes = [NSAttributedString.Key.font: PostLinkPreviewView.subtitleFont, NSAttributedString.Key.foregroundColor: self.displayMode == .dark ? UIColor.beamGrey() : UIColor(red: 0.58, green: 0.58, blue: 0.58, alpha: 1)]
+        let titleAttributes = [NSAttributedString.Key.font: PostLinkPreviewView.titleFont, NSAttributedString.Key.foregroundColor: self.userInterfaceStyle == .dark ? UIColor.white: UIColor.beamGreyExtraDark]
+        let descriptionAttributes = [NSAttributedString.Key.font: PostLinkPreviewView.subtitleFont, NSAttributedString.Key.foregroundColor: self.userInterfaceStyle == .dark ? UIColor.beamGrey : UIColor(red: 0.58, green: 0.58, blue: 0.58, alpha: 1)]
         let isImgurLink = post.urlString?.contains("imgur.com") == true
         
         let string = NSMutableAttributedString()
@@ -248,7 +248,7 @@ final class PostLinkPreviewView: BeamControl {
         self.reloadDomainName()
         self.reloadSpoilerBadge()
         
-        self.displayModeDidChange()
+        self.appearanceDidChange()
         
         self.setNeedsLayout()
         
@@ -360,24 +360,24 @@ final class PostLinkPreviewView: BeamControl {
     
     override var isHighlighted: Bool {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.titleLabel.attributedText = self.attributedTitle
         
-        var backgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
+        var backgroundColor = AppearanceValue(light: UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), dark: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         if self.isHighlighted || self.isSelected {
-            backgroundColor = DisplayModeValue(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), darkValue: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
+            backgroundColor = AppearanceValue(light: UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), dark: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
         }
         self.backgroundColor = backgroundColor
         self.titleLabel.backgroundColor = backgroundColor
@@ -385,7 +385,7 @@ final class PostLinkPreviewView: BeamControl {
         self.loadingPlaceholderImageView.backgroundColor = backgroundColor
         
         //The color used for the border, loading placeholder and empty imageView
-        let secondColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        let secondColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         self.previewImageView.backgroundColor = secondColor
         self.layer.borderColor = secondColor.cgColor
         //Setting the tintColor when it's already the correct tintColor causes the image to be tinted again, this leads to high CPU usage
@@ -393,13 +393,13 @@ final class PostLinkPreviewView: BeamControl {
             self.loadingPlaceholderImageView.tintColor = secondColor
         }
         
-        self.domainLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        self.domainLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         //Setting the tintColor when it's already the correct tintColor causes the image to be tinted again, this leads to high CPU usage
         if self.playIconImageView.tintColor != UIColor.white {
             self.playIconImageView.tintColor = UIColor.white
         }
         
-        let badgeTintColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        let badgeTintColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         if self.spoilerBadgeImageView.tintColor != badgeTintColor {
             self.spoilerBadgeImageView.tintColor = badgeTintColor
         }

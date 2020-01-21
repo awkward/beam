@@ -156,26 +156,26 @@ class ReplyBarView: BeamView {
     }
     
     override func draw(_ rect: CGRect) {
-        let seperatorColor = DisplayModeValue(UIColor.beamSeperatorColor(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
+        let seperatorColor = AppearanceValue(light: UIColor.beamSeparator, dark: UIColor.beamDarkTableViewSeperator)
         let seperatorPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: 0.5))
         seperatorColor.setFill()
         seperatorPath.fill()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.isOpaque = true
-        self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor(red: 0.14, green: 0.14, blue: 0.14, alpha: 1))
+        self.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor(red: 0.14, green: 0.14, blue: 0.14, alpha: 1))
         self.textView.backgroundColor = self.backgroundColor
         self.placeholderLabel.backgroundColor = UIColor.clear
 
-        self.textView.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        self.sendButton.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        self.textView.tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        self.placeholderLabel.textColor = DisplayModeValue(UIColor(red: 110 / 255, green: 106 / 255, blue: 122 / 255, alpha: 1.0), darkValue: UIColor.white).withAlphaComponent(0.7)
+        self.textView.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
+        self.sendButton.tintColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
+        self.textView.tintColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
+        self.placeholderLabel.textColor = AppearanceValue(light: UIColor(red: 110 / 255, green: 106 / 255, blue: 122 / 255, alpha: 1.0), dark: UIColor.white).withAlphaComponent(0.7)
         
-        self.textView.keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.light, darkValue: UIKeyboardAppearance.dark)
+        self.textView.keyboardAppearance = AppearanceValue(light: UIKeyboardAppearance.light, dark: UIKeyboardAppearance.dark)
         if self.textView.isFirstResponder {
             self.textView.resignFirstResponder()
             self.textView.becomeFirstResponder()

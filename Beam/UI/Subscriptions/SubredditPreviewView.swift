@@ -64,7 +64,7 @@ final class SubredditPreviewView: BeamView {
         self.addSubview(self.label)
         
         self.setupConstraints()
-        self.displayModeDidChange()
+        self.appearanceDidChange()
     }
     
     private func setupConstraints() {
@@ -82,11 +82,11 @@ final class SubredditPreviewView: BeamView {
         
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
     
-        self.imageView.backgroundColor = DisplayModeValue(UIColor.beamGreyExtraExtraLight(), darkValue: UIColor.beamGreyDark())
-        self.label.textColor = UIColor.beamGreyLight()
+        self.imageView.backgroundColor = AppearanceValue(light: UIColor.beamGreyExtraExtraLight, dark: UIColor.beamGreyDark)
+        self.label.textColor = UIColor.beamGreyLight
     }
     
     override func layoutSubviews() {

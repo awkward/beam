@@ -14,21 +14,21 @@ class SubredditFilteringTextFieldTableViewCell: BeamTableViewCell {
     
     var placeholder: String? {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         if let placeholder: String = self.placeholder {
-            let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+            let placeholderColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
             self.textField.attributedPlaceholder = NSAttributedString(string: placeholder, attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         } else {
             self.textField.attributedPlaceholder = nil
         }
         
-        self.textField.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        self.textField.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
     }
 
 }

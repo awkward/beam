@@ -58,11 +58,11 @@ enum SubredditInfoRowType {
     var textColor: UIColor {
         if self.isAction {
             if self == SubredditInfoRowType.delete {
-                return DisplayModeValue(UIColor(red: 214 / 255.0, green: 64 / 255.0, blue: 64 / 255.0, alpha: 1), darkValue: UIColor(red: 214 / 255.0, green: 86 / 255.0, blue: 86 / 255.0, alpha: 1))
+                return AppearanceValue(light: UIColor(red: 214 / 255.0, green: 64 / 255.0, blue: 64 / 255.0, alpha: 1), dark: UIColor(red: 214 / 255.0, green: 86 / 255.0, blue: 86 / 255.0, alpha: 1))
             }
-            return DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+            return AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
         }
-        return DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        return AppearanceValue(light: UIColor.black, dark: UIColor.white)
     }
     
     var isAction: Bool {

@@ -79,7 +79,7 @@ class ClearButton: UIControl {
     
     fileprivate func setupView() {
         
-        backgroundColor = UIColor.beamGreyLighter()
+        backgroundColor = UIColor.beamGreyLighter
         
         widthConstraint = NSLayoutConstraint(item: self, attribute: NSLayoutConstraint.Attribute.width, relatedBy: NSLayoutConstraint.Relation.equal, toItem: nil, attribute: NSLayoutConstraint.Attribute.notAnAttribute, multiplier: CGFloat(1.0), constant: CGFloat(16.0))
         addConstraint(widthConstraint)

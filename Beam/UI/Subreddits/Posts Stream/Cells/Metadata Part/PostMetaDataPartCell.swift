@@ -28,11 +28,6 @@ final class PostMetaDataPartCell: BeamTableViewCell, PostCell {
         self.selectionStyle = .none
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-
-    }
-    
     override var intrinsicContentSize: CGSize {
         return CGSize(width: UIView.noIntrinsicMetric, height: 22)
     }

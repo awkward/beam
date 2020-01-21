@@ -1,11 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11762" systemVersion="16C67" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fKJ-qF-Se6">
-    <device id="retina4_7" orientation="portrait">
-        <adaptation id="fullscreen"/>
-    </device>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="fKJ-qF-Se6">
+    <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11757"/>
-        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -14,8 +12,9 @@
             <objects>
                 <navigationController storyboardIdentifier="compose" useStoryboardIdentifierAsRestorationIdentifier="YES" id="RlH-84-ao5" customClass="CommentsNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="aal-Y2-0Hc">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="bar"/>
                     </navigationBar>
                     <connections>
                         <segue destination="LtJ-Y0-e9o" kind="relationship" relationship="rootViewController" id="2GT-LN-rV8"/>
@@ -30,7 +29,7 @@
             <objects>
                 <navigationController id="fKJ-qF-Se6" customClass="CommentsNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yYZ-lp-HFT" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
-                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
@@ -86,16 +85,16 @@
                                             <outlet property="delegate" destination="LtJ-Y0-e9o" id="jda-Yk-1bv"/>
                                         </connections>
                                     </tableView>
-                                    <view contentMode="scaleToFill" misplaced="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Yg0-ED-mbv">
-                                        <rect key="frame" x="0.0" y="170" width="375" height="433"/>
+                                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Yg0-ED-mbv">
+                                        <rect key="frame" x="0.0" y="170" width="375" height="252"/>
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" usesAttributedText="YES" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Jnj-Il-gY2">
-                                                <rect key="frame" x="12" y="12" width="123.5" height="18"/>
+                                                <rect key="frame" x="12" y="12" width="130" height="18"/>
                                                 <attributedString key="attributedText">
                                                     <fragment content="In reply to ">
                                                         <attributes>
                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="0.49665999999999999" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="13" name="SFUIText-Semibold"/>
+                                                            <font key="NSFont" metaFont="system"/>
                                                             <real key="NSKern" value="-0.10000000000000001"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="18" maximumLineHeight="18" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                         </attributes>
@@ -103,7 +102,7 @@
                                                     <fragment content="shanegraaf">
                                                         <attributes>
                                                             <color key="NSColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="calibratedRGB"/>
-                                                            <font key="NSFont" size="13" name="SFUIText-Semibold"/>
+                                                            <font key="NSFont" metaFont="system"/>
                                                             <real key="NSKern" value="-0.10000000000000001"/>
                                                             <paragraphStyle key="NSParagraphStyle" alignment="left" lineBreakMode="wordWrapping" baseWritingDirection="natural" minimumLineHeight="18" maximumLineHeight="18" tighteningFactorForTruncation="0.0" allowsDefaultTighteningForTruncation="NO"/>
                                                         </attributes>
@@ -111,13 +110,14 @@
                                                 </attributedString>
                                                 <nil key="highlightedColor"/>
                                             </label>
-                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" misplaced="YES" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="233-sf-NSD">
-                                                <rect key="frame" x="8" y="34" width="351" height="387"/>
+                                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" scrollEnabled="NO" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="233-sf-NSD">
+                                                <rect key="frame" x="12" y="40" width="351" height="200"/>
                                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="60" id="NNv-e8-OD5"/>
                                                 </constraints>
                                                 <string key="text">Lorem ipsum dolor sit er elit lamet, consectetaur cillium adipisicing pecu, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum. Nam liber te conscient to factor tum poen legum odioque civiuda.</string>
+                                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
                                                 <connections>
@@ -125,7 +125,7 @@
                                                 </connections>
                                             </textView>
                                         </subviews>
-                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                         <constraints>
                                             <constraint firstItem="233-sf-NSD" firstAttribute="leading" secondItem="Yg0-ED-mbv" secondAttribute="leadingMargin" id="2zs-2G-bQt"/>
                                             <constraint firstAttribute="trailingMargin" relation="greaterThanOrEqual" secondItem="Jnj-Il-gY2" secondAttribute="trailing" id="E1C-xX-izw"/>
@@ -138,6 +138,7 @@
                                         <edgeInsets key="layoutMargins" top="12" left="12" bottom="12" right="12"/>
                                     </view>
                                 </subviews>
+                                <color key="backgroundColor" name="background"/>
                                 <constraints>
                                     <constraint firstAttribute="trailing" secondItem="Yg0-ED-mbv" secondAttribute="trailing" id="9hR-qf-pm1"/>
                                     <constraint firstItem="Yg0-ED-mbv" firstAttribute="top" secondItem="58l-9q-ZWW" secondAttribute="bottom" id="AAD-PX-bfL"/>
@@ -152,7 +153,7 @@
                                 </connections>
                             </scrollView>
                         </subviews>
-                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <color key="backgroundColor" name="background"/>
                         <constraints>
                             <constraint firstItem="kV2-ja-R1g" firstAttribute="leading" secondItem="9Ae-4u-7XE" secondAttribute="leading" id="1iR-oP-wkd"/>
                             <constraint firstItem="o1u-b9-GNd" firstAttribute="top" secondItem="kV2-ja-R1g" secondAttribute="bottom" id="3mp-Qy-z04"/>
@@ -176,5 +177,13 @@
             <point key="canvasLocation" x="872.79999999999995" y="-218.1409295352324"/>
         </scene>
     </scenes>
-    <color key="tintColor" red="0.41176470590000003" green="0.2784313725" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <resources>
+        <namedColor name="background">
+            <color red="0.92549019607843142" green="0.92549019607843142" blue="0.93725490196078431" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="bar">
+            <color red="0.9882352941176471" green="0.9882352941176471" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+    </resources>
+    <color key="tintColor" name="beam"/>
 </document>

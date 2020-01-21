@@ -29,9 +29,9 @@ class DarkerBeamToolbar: BeamToolbar {
         self.isTranslucent = false
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.barTintColor = self.displayMode == .dark ? UIColor.beamDarkContentBackgroundColor() : UIColor.beamBarColor()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.barTintColor = self.userInterfaceStyle == .dark ? UIColor.beamDarkContentBackground : UIColor.beamBar
     }
 
 }

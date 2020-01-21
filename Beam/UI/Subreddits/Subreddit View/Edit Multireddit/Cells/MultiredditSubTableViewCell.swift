@@ -40,10 +40,10 @@ class MultiredditSubTableViewCell: BeamTableViewCell {
         self.editButtonTappedHandler?()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.titleLabel.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor.white)
+        self.titleLabel.textColor = AppearanceValue(light: UIColor.beamGreyExtraDark, dark: UIColor.white)
     }
 
 }

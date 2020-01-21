@@ -202,7 +202,7 @@ class PostToolbarView: BeamView {
     override var isOpaque: Bool {
         didSet {
             if self.isOpaque != oldValue {
-                self.displayModeDidChange()
+                self.appearanceDidChange()
             }
         }
     }
@@ -362,9 +362,9 @@ class PostToolbarView: BeamView {
     override func draw(_ rect: CGRect) {
         if self.shouldShowSeperator {
             let seperatorPath = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: 0.5))
-            var seperatorColor = UIColor.beamGreyExtraExtraLight()
-            if self.displayMode == .dark {
-                seperatorColor = UIColor.beamDarkTableViewSeperatorColor()
+            var seperatorColor = UIColor.beamGreyExtraExtraLight
+            if self.userInterfaceStyle == .dark {
+                seperatorColor = UIColor.beamDarkTableViewSeperator
             }
             seperatorColor.setFill()
             seperatorPath.fill()
@@ -373,10 +373,10 @@ class PostToolbarView: BeamView {
     
     // MARK: - Display mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let tintColor = DisplayModeValue(UIColor(red: 170 / 255.0, green: 168 / 255.0, blue: 179 / 255.0, alpha: 1), darkValue: UIColor(red: 153 / 255.0, green: 153 / 255.0, blue: 153 / 255.0, alpha: 1))
+        let tintColor = AppearanceValue(light: UIColor(red: 170 / 255.0, green: 168 / 255.0, blue: 179 / 255.0, alpha: 1), dark: UIColor(red: 153 / 255.0, green: 153 / 255.0, blue: 153 / 255.0, alpha: 1))
         if self.tintColor != tintColor {
             self.tintColor = tintColor
         }
@@ -399,8 +399,8 @@ class PostToolbarView: BeamView {
             let opaqueViews = [self.commentsButton, self.pointsButton, self.moreButton, self.downvoteButton, self.upvoteButton]
             
             var backgroundColor = UIColor.white
-            if self.displayMode == .dark {
-                backgroundColor = UIColor.beamDarkContentBackgroundColor()
+            if self.userInterfaceStyle == .dark {
+                backgroundColor = UIColor.beamDarkContentBackground
             }
             if !self.isOpaque {
                 backgroundColor = UIColor.clear

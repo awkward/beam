@@ -232,14 +232,15 @@ class SubredditSearchResultsViewController: BeamViewController, HidingButtonBarD
         self.startFetching()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        switch displayMode {
-        case .default:
-            self.toolbar.barTintColor = UIColor.beamBarColor()
+        switch userInterfaceStyle {
         case .dark:
-            self.toolbar.barTintColor = UIColor.beamDarkContentBackgroundColor()
+            self.toolbar.barTintColor = UIColor.beamDarkContentBackground
+        default:
+            self.toolbar.barTintColor = UIColor.beamBar
+        
         }
     }
     

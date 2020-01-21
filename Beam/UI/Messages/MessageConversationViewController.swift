@@ -79,14 +79,14 @@ class MessageConversationViewController: BeamViewController {
     
     // MARK: - Content
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        switch self.displayMode {
-        case .default:
-            self.tableView.backgroundColor = UIColor.white
+        switch self.userInterfaceStyle {
         case .dark:
-            self.tableView.backgroundColor = UIColor.beamDarkContentBackgroundColor()
+            self.tableView.backgroundColor = UIColor.beamDarkContentBackground
+        default:
+            self.tableView.backgroundColor = UIColor.white
         }
     }
     
@@ -126,6 +126,8 @@ class MessageConversationViewController: BeamViewController {
         } else {
             self.navigationItem.leftBarButtonItem = nil
         }
+        
+        appearanceDidChange()
     }
     
     // MARK: - Actions

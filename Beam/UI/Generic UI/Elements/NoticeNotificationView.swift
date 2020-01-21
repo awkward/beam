@@ -88,7 +88,7 @@ class NoticeNotificationView: UIControl, NavigationBarNotification {
         case .information:
             return (UIColor(red: 96 / 255.0, green: 94 / 255.0, blue: 102 / 255.0, alpha: alpha), UIColor.white)
         case .success:
-            return (DisplayModeValue(UIColor(red: 0.26, green: 0.19, blue: 0.48, alpha: alpha), darkValue: UIColor(red: 0.46, green: 0.43, blue: 0.6, alpha: alpha)), UIColor.white)
+            return (AppearanceValue(light: UIColor(red: 0.26, green: 0.19, blue: 0.48, alpha: alpha), dark: UIColor(red: 0.46, green: 0.43, blue: 0.6, alpha: alpha)), UIColor.white)
         }
     }
     

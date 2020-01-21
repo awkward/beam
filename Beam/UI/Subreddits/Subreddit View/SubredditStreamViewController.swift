@@ -83,6 +83,8 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
     }
     
     private func setupView() {
+        toolbar.barTintColor = .beamBar
+        
         let storyboard = UIStoryboard(name: "Stream", bundle: nil)
         if let streamviewController = storyboard.instantiateInitialViewController() as? StreamViewController {
             streamviewController.streamDelegate = self
@@ -263,17 +265,6 @@ class SubredditStreamViewController: BeamViewController, SubredditTabItemViewCon
         self.subreddit?.streamTimeFrame = timeFrame
         
         self.updateStreamQuery(sorting, timeFrame: timeFrame)
-    }
-    
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-
-        switch displayMode {
-        case .default:
-            self.toolbar.barTintColor = UIColor.beamBarColor()
-        case .dark:
-            self.toolbar.barTintColor = UIColor.beamDarkContentBackgroundColor()
-        }
     }
     
     fileprivate func reloadEmptyState() {

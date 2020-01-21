@@ -8,35 +8,23 @@
 
 import UIKit
 
-class BeamViewController: UIViewController, DynamicDisplayModeView, NoticeHandling {
+class BeamViewController: UIViewController, BeamAppearance, NoticeHandling {
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerForDisplayModeChangeNotifications()
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        appearanceDidChange()
     }
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        unregisterForDisplayModeChangeNotifications()
-    }
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        switch displayMode {
-        case .default:
-            self.view.backgroundColor = UIColor.systemGroupedBackground
-        case .dark:
-            self.view.backgroundColor = UIColor.beamDarkBackgroundColor()
-        }
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
         
-        setNeedsStatusBarAppearanceUpdate()
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appearanceDidChange()
+        }
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default
+    func appearanceDidChange() {
+        view.backgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {
@@ -46,6 +34,4 @@ class BeamViewController: UIViewController, DynamicDisplayModeView, NoticeHandli
         return .portrait
     }
     
-    
-
 }

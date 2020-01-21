@@ -15,7 +15,6 @@ class DisplayOptionsViewController: BeamTableViewController {
     
     @IBOutlet private var darkModeAutomaticallyCell: UITableViewCell!
     private let darkModeAutomaticallySwitch = UISwitch()
-    @IBOutlet private var darkModeAutomaticThresholdSlider: UISlider!
     
     @IBOutlet private var largeThumbnailsCell: UITableViewCell!
     @IBOutlet private var mediumThumbnailsCell: UITableViewCell!
@@ -54,7 +53,7 @@ class DisplayOptionsViewController: BeamTableViewController {
     private let showMetadataLockedSwitch = UISwitch()
     
     @IBOutlet private var cells: [UITableViewCell]!
-    @IBOutlet private var controls: [UIControl]!
+    private var controls = [UIControl]()
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,22 +70,19 @@ class DisplayOptionsViewController: BeamTableViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.updateSwitchStatuses()
-        
-        self.darkModeAutomaticThresholdSlider.value = UserSettings[.nightModeAutomaticThreshold]
         self.updateThumbnailCells()
-        
     }
     
     func setupCells() {
-        //Dark Mode active
-        self.darkModeActiveSwitch.addTarget(self, action: #selector(DisplayOptionsViewController.switchChanged(_:)), for: .valueChanged)
-        self.darkModeActiveCell.accessoryView = self.darkModeActiveSwitch
-        self.darkModeActiveCell.textLabel?.text = AWKLocalizedString("display-options-cell-night-mode-manual")
+        // System dark mode
+        darkModeAutomaticallySwitch.addTarget(self, action: #selector(DisplayOptionsViewController.switchChanged(_:)), for: .valueChanged)
+        darkModeAutomaticallyCell.accessoryView = darkModeAutomaticallySwitch
+        darkModeAutomaticallyCell.textLabel?.text = AWKLocalizedString("display-options-cell-night-mode-automatic")
         
-        //Automatic dark mode
-        self.darkModeAutomaticallySwitch.addTarget(self, action: #selector(DisplayOptionsViewController.switchChanged(_:)), for: .valueChanged)
-        self.darkModeAutomaticallyCell.accessoryView = self.darkModeAutomaticallySwitch
-        self.darkModeAutomaticallyCell.textLabel?.text = AWKLocalizedString("display-options-cell-night-mode-automatic")
+        // Override system dark mode
+        darkModeActiveSwitch.addTarget(self, action: #selector(DisplayOptionsViewController.switchChanged(_:)), for: .valueChanged)
+        darkModeActiveCell.accessoryView = darkModeActiveSwitch
+        darkModeActiveCell.textLabel?.text = AWKLocalizedString("display-options-cell-night-mode-manual")
         
         //METADATA: Show metedata
         self.showMetadataSwitch.addTarget(self, action: #selector(DisplayOptionsViewController.switchChanged(_:)), for: .valueChanged)
@@ -152,20 +148,11 @@ class DisplayOptionsViewController: BeamTableViewController {
         self.updateSwitchStatuses()
     }
     
-    @IBAction func darkMoreThresholdChanged(_ slider: UISlider) {
-        UserSettings[.nightModeAutomaticThreshold] = slider.value
-    }
-    
     func updateSwitchStatuses() {
         //Dark Mode
-        self.darkModeActiveSwitch.isOn = UserSettings[.nightModeEnabled]
-        //Switch dark mode automaticly
         self.darkModeAutomaticallySwitch.isOn = UserSettings[.nightModeAutomaticEnabled]
-        
-        //Last switch dark mode automaticly
-        self.darkModeAutomaticallySwitch.isEnabled = !UserSettings[.nightModeEnabled]
-        //Last switch dark mode automaticly
-        self.darkModeAutomaticThresholdSlider.isEnabled = !UserSettings[.nightModeEnabled]
+        self.darkModeActiveSwitch.isOn = UserSettings[.nightModeEnabled]
+        self.darkModeActiveSwitch.isEnabled = !UserSettings[.nightModeAutomaticEnabled]
         
         //Show metadata
         self.showMetadataSwitch.isOn = UserSettings[.showPostMetadata]
@@ -207,47 +194,51 @@ class DisplayOptionsViewController: BeamTableViewController {
     }
     
     @objc func switchChanged(_ sender: UISwitch?) {
-        if let sender = sender {
-            var callUpdateSwitches = false
-            var key: SettingsKey<Bool>?
-             if sender == self.darkModeActiveSwitch {
-                key = .nightModeEnabled
-                callUpdateSwitches = true
-            } else if sender == self.darkModeAutomaticallySwitch {
-                key = .nightModeAutomaticEnabled
-            } else if sender == self.showMetadataSwitch {
-                key = .showPostMetadata
-                callUpdateSwitches = true
-            } else if sender == self.showMetadataDateSwitch {
-                key = .showPostMetadataDate
-            } else if sender == self.showMetadataSubredditSwitch {
-                key = .showPostMetadataSubreddit
-            } else if sender == self.showMetadataUsernameSwitch {
-                key = .showPostMetadataUsername
-             } else if sender == self.showMetadataGildedSwitch {
-                key = .showPostMetadataGilded
-             } else if sender == self.showMetadataDomainSwitch {
-                key = .showPostMetadataDomain
-             } else if sender == self.showMetadataStickiedSwitch {
-                key = .showPostMetadataStickied
-             } else if sender == self.showMetadataLockedSwitch {
-                key = .showPostMetadataLocked
-             } else if sender == self.autoPlayGifsSwitch {
-                callUpdateSwitches = true
-                key = .autoPlayGifsEnabled
-             } else if sender == self.autoPlayGifsOnCellularSwitch {
-                key = .autoPlayGifsEnabledOnCellular
-             } else {
-                assert(false, "Unimplemented switch change")
-            }
-            if let key = key {
-                UserSettings[key] = sender.isOn
-            }
-            if callUpdateSwitches {
-                self.updateSwitchStatuses()
-            }
-            self.tableView.reloadData()
+        guard let sender = sender else { return }
+        
+        var callUpdateSwitches = false
+        var key: SettingsKey<Bool>?
+        
+        switch sender {
+        case darkModeAutomaticallySwitch:
+            key = .nightModeAutomaticEnabled
+            callUpdateSwitches = true
+        case darkModeActiveSwitch:
+            key = .nightModeEnabled
+            callUpdateSwitches = true
+        case showMetadataSwitch:
+            key = .showPostMetadata
+            callUpdateSwitches = true
+        case showMetadataDateSwitch:
+            key = .showPostMetadataDate
+        case showMetadataSubredditSwitch:
+            key = .showPostMetadataSubreddit
+        case showMetadataUsernameSwitch:
+            key = .showPostMetadataUsername
+        case showMetadataGildedSwitch:
+            key = .showPostMetadataGilded
+        case showMetadataDomainSwitch:
+            key = .showPostMetadataDomain
+        case showMetadataStickiedSwitch:
+            key = .showPostMetadataStickied
+        case showMetadataLockedSwitch:
+            key = .showPostMetadataLocked
+        case autoPlayGifsSwitch:
+            callUpdateSwitches = true
+            key = .autoPlayGifsEnabled
+        case autoPlayGifsOnCellularSwitch:
+            key = .autoPlayGifsEnabledOnCellular
+        default:
+            assertionFailure("Unimplemented settings switch change")
         }
+        
+        if let key = key {
+            UserSettings[key] = sender.isOn
+        }
+        if callUpdateSwitches {
+            self.updateSwitchStatuses()
+        }
+        self.tableView.reloadData()
     }
     
     func updateThumbnailCells() {
@@ -325,25 +316,4 @@ class DisplayOptionsViewController: BeamTableViewController {
         }
     }
     
-    override func tableView(_ tableView: UITableView, titleForFooterInSection section: Int) -> String? {
-        switch section {
-        case 0:
-            return NSLocalizedString("display-options-footer-night-mode", comment: "The footer discribing automatic dark mode")
-        default:
-            return nil
-        }
-    }
-    
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        
-        switch self.displayMode {
-        case .dark:
-            self.darkModeAutomaticThresholdSlider.tintColor = UIColor.beamGreyLight()
-            self.darkModeAutomaticThresholdSlider.minimumTrackTintColor = UIColor.beamPurpleLight()
-        case .default:
-            self.darkModeAutomaticThresholdSlider.tintColor = UIColor.beamGreyLight()
-            self.darkModeAutomaticThresholdSlider.minimumTrackTintColor = UIColor.beamColor()
-        }
-    }
 }

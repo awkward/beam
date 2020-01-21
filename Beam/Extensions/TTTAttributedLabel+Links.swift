@@ -15,24 +15,24 @@ extension TTTAttributedLabel {
         return [.underlineStyle: NSNumber(value: underlineStyle.rawValue)]
     }
     
-    class func beamLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedString.Key: Any] {
+    class func beamLinkAttributesWithStyle(_ style: UIUserInterfaceStyle) -> [NSAttributedString.Key: Any] {
         var linkAttributes = TTTAttributedLabel.baseBeamLinkAttributes()
-        switch mode {
+        switch style {
         case .dark:
-            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamPurpleLight()
-        case .default:
-            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamColor()
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamPurpleLight
+        default:
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beam
         }
         return linkAttributes
     }
     
-    class func beamActiveLinkAttributesForMode(_ mode: DisplayMode) -> [NSAttributedString.Key: Any] {
+    class func beamActiveLinkAttributesWithStyle(_ style: UIUserInterfaceStyle) -> [NSAttributedString.Key: Any] {
         var linkAttributes = TTTAttributedLabel.baseBeamLinkAttributes()
-        switch mode {
+        switch style {
         case .dark:
-            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamPurpleLight().withAlphaComponent(0.8)
-        case .default:
-            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamColor().withAlphaComponent(0.8)
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beamPurpleLight.withAlphaComponent(0.8)
+        default:
+            linkAttributes[NSAttributedString.Key.foregroundColor] = UIColor.beam.withAlphaComponent(0.8)
         }
         return linkAttributes
     }

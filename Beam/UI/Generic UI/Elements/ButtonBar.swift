@@ -37,7 +37,7 @@ class ButtonBar: UIControl {
             self.buttons = items?.map({ (item: Button) -> UIButton in
                 let button = UIButton(type: UIButton.ButtonType.system)
                 button.setTitle(item.title, for: UIControl.State())
-                button.setTitleColor(UIColor.beamGrey(), for: UIControl.State())
+                button.setTitleColor(UIColor.beamGrey, for: UIControl.State())
                 button.titleLabel?.font = UIFont.systemFont(ofSize: 14, weight: UIFont.Weight.medium)
                 button.addTarget(self, action: #selector(ButtonBar.buttonTapped(_:)), for: UIControl.Event.touchUpInside)
                 return button
@@ -87,32 +87,27 @@ class ButtonBar: UIControl {
         }
     }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        registerForDisplayModeChangeNotifications()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        registerForDisplayModeChangeNotifications()
-    }
-    
-    deinit {
-        unregisterForDisplayModeChangeNotifications()
-    }
-    
     override func tintColorDidChange() {
         super.tintColorDidChange()
         
         updateColors()
-        self.setNeedsDisplay()
+        setNeedsDisplay()
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateColors()
+            setNeedsDisplay()
+        }
     }
     
     fileprivate func updateColors() {
 
         if let buttons = buttons {
             for (index, button) in buttons.enumerated() {
-                let deselectedColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+                let deselectedColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
                 button.setTitleColor(self.selectedItemIndex == index ? self.tintColor: deselectedColor, for: UIControl.State())
             }
         }
@@ -157,7 +152,7 @@ class ButtonBar: UIControl {
                 let lineHeight = 0.5 * buttonFrame.height
                 context.move(to: CGPoint(x: buttonFrame.minX, y: buttonFrame.midY - lineHeight * 0.5))
                 context.setLineWidth(1.0 / UIScreen.main.scale)
-                let strokeColor = self.displayMode == .default ? UIColor.beamSeparator() : UIColor.beamDarkTableViewSeperatorColor()
+                let strokeColor = AppearanceValue(light: .beamSeparator, dark: .beamDarkTableViewSeperator)
                 strokeColor.setStroke()
                 context.addLine(to: CGPoint(x: buttonFrame.minX, y: buttonFrame.midY + lineHeight * 0.5))
                 context.strokePath()
@@ -176,19 +171,6 @@ class ButtonBar: UIControl {
                 path.fill()
             }
         })
-    }
-
-}
-
-extension ButtonBar: DynamicDisplayModeView {
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        self.tintColor = displayMode == .dark ? UIColor.beamPurpleLight() : UIColor.beamColor()
-        updateColors()
     }
     
 }

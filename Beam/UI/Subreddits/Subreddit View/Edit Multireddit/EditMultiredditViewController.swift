@@ -246,11 +246,11 @@ final class EditMultiredditViewController: BeamTableViewController {
     
     // MARK: - Display Mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.descriptionTextView?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1))
-        self.nameTextField?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1))
-        self.descriptionTextViewPlaceholder?.textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)).withAlphaComponent(0.4)
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.descriptionTextView?.textColor = AppearanceValue(light: UIColor.beamGreyExtraDark, dark: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1))
+        self.nameTextField?.textColor = AppearanceValue(light: UIColor.beamGreyExtraDark, dark: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1))
+        self.descriptionTextViewPlaceholder?.textColor = AppearanceValue(light: UIColor.beamGreyExtraDark, dark: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)).withAlphaComponent(0.4)
         self.nameTextField.attributedPlaceholder = self.attributedPlaceholderText(self.nameTextField)
     }
     

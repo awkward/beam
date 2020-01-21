@@ -8,38 +8,19 @@
 
 import UIKit
 
-class BeamControl: UIControl, DynamicDisplayModeView {
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        self.registerForDisplayModeChangeNotifications()
-    }
-    
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-    }
-    
-    deinit {
-        self.unregisterForDisplayModeChangeNotifications()
-    }
+class BeamControl: UIControl, BeamAppearance {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.displayModeDidChange()
-        self.registerForDisplayModeChangeNotifications()
+        self.appearanceDidChange()
     }
     
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        switch self.displayMode {
+    func appearanceDidChange() {
+        switch self.userInterfaceStyle {
         case .dark:
-            self.tintColor = UIColor.beamPurpleLight()
-        case .default:
-            self.tintColor = UIColor.beamColor()
+            self.tintColor = UIColor.beamPurpleLight
+        default:
+            self.tintColor = UIColor.beam
         }
     }
 }

@@ -162,11 +162,11 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
     override func draw(_ rect: CGRect) {
         if let mediaObjects = self.post?.mediaObjects, mediaObjects.count > 1 {
             let backgroundAlbumStackPath = UIBezierPath(roundedRect: CGRect(x: 10, y: 0, width: self.bounds.width - 20, height: 2), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize(width: 1, height: 1))
-            DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.4).setFill()
+            AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.4).setFill()
             backgroundAlbumStackPath.fill()
             
             let middleAlbumStackPath = UIBezierPath(roundedRect: CGRect(x: 5, y: 3, width: self.bounds.width - 10, height: 2), byRoundingCorners: [UIRectCorner.topLeft, UIRectCorner.topRight], cornerRadii: CGSize(width: 1, height: 1))
-            DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.6).setFill()
+            AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.6).setFill()
             middleAlbumStackPath.fill()
         }
     }
@@ -190,11 +190,11 @@ final class PostTitleThumbnailView: BeamControl, MediaImageLoader, MediaCellMedi
         self.layoutMediaLabels(self)
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.mediaImageView.isOpaque = true
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1), darkValue: UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1))
+        self.mediaImageView.backgroundColor = AppearanceValue(light: UIColor(red: 0.96, green: 0.96, blue: 0.96, alpha: 1), dark: UIColor(red: 0.17, green: 0.17, blue: 0.17, alpha: 1))
         
         self.setNeedsDisplay()
     }

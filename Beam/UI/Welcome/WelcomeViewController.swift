@@ -56,7 +56,7 @@ class WelcomeViewController: BeamViewController {
     }
     
     private func setupView() {
-        let tintColor = UIColor.beamColor()
+        let tintColor = UIColor.beam
         let cornerRadius: CGFloat = 3
         
         //Title
@@ -116,8 +116,8 @@ class WelcomeViewController: BeamViewController {
         self.backgroundView.paused = (UIApplication.shared.applicationState != .active)
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.view.backgroundColor = UIColor.clear
     }

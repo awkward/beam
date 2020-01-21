@@ -53,15 +53,15 @@ enum CommentCellAction {
     func backgroundColor() -> UIColor {
         switch self {
         case CommentCellAction.none:
-            return DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
+            return AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
         case CommentCellAction.reply:
-            return UIColor.beamYellow()
+            return UIColor.beamYellow
         case CommentCellAction.more:
             return UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1)
         case CommentCellAction.downvote:
-            return UIColor.beamBlue()
+            return UIColor.beamBlue
         case CommentCellAction.upvote:
-            return UIColor.beamRed()
+            return UIColor.beamRed
         }
     }
     
@@ -160,7 +160,7 @@ class CommentCell: BaseCommentCell {
         self.reloadAuthorTextColor()
         self.reloadMetaData()
         
-        self.displayModeDidChange()
+        self.appearanceDidChange()
         
         let links = self.contentLabel.linksWithSchemes(schemes: ["http", "https"])
         
@@ -194,7 +194,7 @@ class CommentCell: BaseCommentCell {
     }
     
     fileprivate var contentStylesheet: MarkdownStylesheet {
-        return MarkdownStylesheet.beamCommentsStyleSheet(self.displayMode == .dark)
+        return MarkdownStylesheet.beamCommentsStyleSheet(self.userInterfaceStyle == .dark)
     }
     
     override func updateConstraints() {
@@ -209,8 +209,8 @@ class CommentCell: BaseCommentCell {
         self.scrollView.contentOffset = CGPoint(x: self.contentView.bounds.width, y: 0)
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         let alphaValue: CGFloat = self.isCollapsed ? 0.5: 1.0
         self.gildCountView.alpha = alphaValue
@@ -221,7 +221,7 @@ class CommentCell: BaseCommentCell {
         self.gildCountSeperatorView.alpha = alphaValue
         self.flairLabelSeperatorView.alpha = alphaValue
         
-        let imageTintColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.3)
+        let imageTintColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.3)
         if imageTintColor != self.collapseIconImageView.tintColor {
             self.collapseIconImageView.tintColor = imageTintColor
         }
@@ -238,7 +238,7 @@ class CommentCell: BaseCommentCell {
         self.metadataLabel.backgroundColor = self.contentView.backgroundColor
         self.metadataLabel.isOpaque = true
 
-        self.stickiedLabel.textColor = DisplayModeValue(UIColor(red: 68 / 255, green: 156 / 255, blue: 57 / 255, alpha: 1), darkValue: UIColor(red: 90 / 255, green: 156 / 255, blue: 81 / 255, alpha: 1))
+        self.stickiedLabel.textColor = AppearanceValue(light: UIColor(red: 68 / 255, green: 156 / 255, blue: 57 / 255, alpha: 1), dark: UIColor(red: 90 / 255, green: 156 / 255, blue: 81 / 255, alpha: 1))
         self.stickiedLabel.text = "- " + AWKLocalizedString("stickied-comment")
         self.stickiedLabel.backgroundColor = self.contentView.backgroundColor
         self.stickiedLabel.isOpaque = true
@@ -256,8 +256,8 @@ class CommentCell: BaseCommentCell {
         self.reloadMetaData()
 
         if self.isCollapsed == false {
-            self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
-            self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)
+            self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesWithStyle(userInterfaceStyle)
+            self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesWithStyle(userInterfaceStyle)
             if let comment = comment, let contentString = comment.content {
                 if comment.markdownString == nil {
                     comment.markdownString = MarkdownString(string: contentString.stringByTrimmingTrailingWhitespacesAndNewLines())
@@ -280,16 +280,16 @@ class CommentCell: BaseCommentCell {
             self.metadataLabel.text = nil
             return
         }
-        var textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        var textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         var pointsTextColor = textColor
         
         if VoteStatus(rawValue: self.comment?.voteStatus?.intValue ?? 0) == .up {
-            pointsTextColor = UIColor.beamRed()
+            pointsTextColor = UIColor.beamRed
         } else if VoteStatus(rawValue: self.comment?.voteStatus?.intValue ?? 0) == .down {
-            pointsTextColor = UIColor.beamBlue()
+            pointsTextColor = UIColor.beamBlue
         }
         
-        if self.displayMode == .dark {
+        if self.userInterfaceStyle == .dark {
             textColor = UIColor(red: 158 / 255, green: 156 / 255, blue: 166 / 255, alpha: 1.0)
         }
         
@@ -336,7 +336,7 @@ class CommentCell: BaseCommentCell {
     
     fileprivate func reloadAuthorTextColor() {
         let authorIsOriginalPoster = (comment?.author == comment?.post?.author)
-        var titleColor = DisplayModeValue(UIColor(red: 12 / 255, green: 11 / 255, blue: 13 / 255, alpha: 1), darkValue: UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1.0))
+        var titleColor = AppearanceValue(light: UIColor(red: 12 / 255, green: 11 / 255, blue: 13 / 255, alpha: 1), dark: UIColor(red: 217 / 255, green: 217 / 255, blue: 217 / 255, alpha: 1.0))
         if authorIsOriginalPoster && !self.isCollapsed {
             titleColor = UIColor(red: 0.18823, green: 0.56471, blue: 0.97647, alpha: 1.00000)
         }
@@ -495,7 +495,7 @@ extension CommentCell: UIScrollViewDelegate {
     }
     
     func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
-        self.scrollView.backgroundColor = DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
+        self.scrollView.backgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
         self.leftIconImageView.alpha = 0
         self.rightIconImageView.alpha = 0
     }

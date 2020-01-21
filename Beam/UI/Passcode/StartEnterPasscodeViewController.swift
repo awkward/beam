@@ -90,10 +90,10 @@ class StartEnterPasscodeViewController: EnterPasscodeViewController {
         return UIStatusBarStyle.lightContent
     }
 
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.titleLabel?.textColor = UIColor.white
-        self.view.backgroundColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+        self.view.backgroundColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
         self.view.tintColor = UIColor.white
     }
     

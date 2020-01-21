@@ -58,10 +58,10 @@ class BadgeView: BeamView {
         self.addConstraints(NSLayoutConstraint.constraints(withVisualFormat: "V:|[textLabel]|", options: [], metrics: nil, views: ["textLabel": self.textLabel]))
     }
 
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.backgroundColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        self.backgroundColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         self.textLabel.textColor = UIColor.white
     }
 

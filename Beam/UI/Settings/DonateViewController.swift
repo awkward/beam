@@ -51,21 +51,20 @@ class DonateViewController: BeamViewController {
         NotificationCenter.default.removeObserver(self)
     }
     
-    override func displayModeDidChange() {
-        
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.reloadDonateButtons()
         
-        switch self.displayMode {
-        case .default:
-            self.titleLabel.textColor = UIColor.beamGreyExtraDark()
-            self.textLabel.textColor = UIColor.beamGreyDark()
-            self.imageView.image = UIImage(named: "donate_image")
+        switch self.userInterfaceStyle {
         case .dark:
             self.titleLabel.textColor = UIColor.white
-            self.textLabel.textColor = UIColor.beamGreyLight()
+            self.textLabel.textColor = UIColor.beamGreyLight
             self.imageView.image = UIImage(named: "donate_image_darkmode")
+        default:
+            self.titleLabel.textColor = UIColor.beamGreyExtraDark
+            self.textLabel.textColor = UIColor.beamGreyDark
+            self.imageView.image = UIImage(named: "donate_image")
         }
         
     }

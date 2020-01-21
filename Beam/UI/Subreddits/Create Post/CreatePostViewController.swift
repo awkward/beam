@@ -254,9 +254,9 @@ class CreatePostViewController: BeamViewController {
     
     // MARK: Display Mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.view.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.view.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
     }
     
     // MARK: Post submitting

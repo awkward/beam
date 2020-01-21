@@ -332,7 +332,7 @@ extension MessagesViewController {
         if let post = comment.post {
             let detailViewController = PostDetailViewController(post: post, contextSubreddit: nil)
             let commentsViewController = self.commentsViewControllerWithParentComment(comment)
-            let navigationController = SubredditNavigationController(navigationBarClass: BeamNavigationBar.self, toolbarClass: nil)
+            let navigationController = BeamNavigationController(navigationBarClass: BeamNavigationBar.self, toolbarClass: nil)
             navigationController.viewControllers = [detailViewController, commentsViewController]
             self.present(navigationController, animated: true, completion: nil)
         } else {

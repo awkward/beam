@@ -186,19 +186,19 @@ class CommentLinkPreviewView: BeamControl {
         
         self.reloadDomainName()
         
-        self.displayModeDidChange()
+        self.appearanceDidChange()
         self.setNeedsLayout()
     }
     
     override var isHighlighted: Bool {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
     override var isSelected: Bool {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -231,24 +231,24 @@ class CommentLinkPreviewView: BeamControl {
         self.domainLabel.text = self.link?.host?.stringByRemovingStrings(["www."])
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        self.titleLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         
-        var containerBackgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
+        var containerBackgroundColor = AppearanceValue(light: UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), dark: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         if self.isHighlighted || self.isSelected {
-            containerBackgroundColor = DisplayModeValue(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), darkValue: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
+            containerBackgroundColor = AppearanceValue(light: UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), dark: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
         }
         self.backgroundColor = containerBackgroundColor
         self.thumbnailImageView.backgroundColor = containerBackgroundColor
         self.titleLabel.backgroundColor = containerBackgroundColor
         self.domainLabel.backgroundColor = containerBackgroundColor
         
-        let borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        let borderColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         
         self.layer.borderColor = borderColor.cgColor
-        self.domainLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        self.domainLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
     }
     
     // MARK: - Layout

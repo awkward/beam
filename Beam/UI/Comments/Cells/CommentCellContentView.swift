@@ -34,7 +34,7 @@ class CommentCellContentView: BeamView {
     fileprivate var replyBorderColors: [UIColor] = [UIColor]()
 
     fileprivate func createReplyBorderColors() {
-        let baseColor = DisplayModeValue(UIColor.beamTableViewSeperatorColor(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
+        let baseColor = AppearanceValue(light: UIColor.beamTableViewSeperator, dark: UIColor.beamDarkTableViewSeperator)
         let minimumAlphaValue: CGFloat = 0.1
         let alphaStepValue: CGFloat = (1.0 - minimumAlphaValue) / CGFloat(self.maxNumberOfReplyBorders)
         
@@ -69,11 +69,11 @@ class CommentCellContentView: BeamView {
         self.clipsToBounds = true
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.createReplyBorderColors()
         
-        self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+        self.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
         
         self.setNeedsDisplay()
     }
@@ -96,7 +96,7 @@ class CommentCellContentView: BeamView {
             }
         }
         
-        let seperatorColor = DisplayModeValue(UIColor.beamTableViewSeperatorColor(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
+        let seperatorColor = AppearanceValue(light: UIColor.beamTableViewSeperator, dark: UIColor.beamDarkTableViewSeperator)
         let seperatorHeight = 1 / UIScreen.main.scale
         if self.showTopSeperator {
             

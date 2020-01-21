@@ -11,15 +11,15 @@ import UIKit
 @IBDesignable
 class AddImagesIconView: BeamView {
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.setNeedsDisplay()
     }
     
     override func draw(_ rect: CGRect) {
         //// Color Declarations
-        let fillColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+        let fillColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
         
         //// Plus Drawing
         let plusPath = UIBezierPath()
@@ -52,10 +52,10 @@ class AddImagesCollectionViewCell: BeamCollectionViewCell {
     
     @IBOutlet var iconView: AddImagesIconView!
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let backgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
+        let backgroundColor = AppearanceValue(light: UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), dark: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         self.iconView.isOpaque = true
         self.iconView.backgroundColor = backgroundColor
         

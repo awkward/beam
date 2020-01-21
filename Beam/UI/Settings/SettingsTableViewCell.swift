@@ -10,9 +10,9 @@ import UIKit
 
 class SettingsTableViewCell: BeamTableViewCell {
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.detailTextLabel?.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.detailTextLabel?.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
     }
 
 }

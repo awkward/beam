@@ -12,7 +12,7 @@ class OutlinedButton: BeamButton {
     
     @IBInspectable var titleColor: UIColor = UIColor.white {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -31,8 +31,8 @@ class OutlinedButton: BeamButton {
         }
     }
 
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.layer.borderColor = self.titleColor.cgColor
         if self.titleColor(for: UIControl.State()) != nil {
@@ -44,7 +44,7 @@ class OutlinedButton: BeamButton {
     override func tintColorDidChange() {
         super.tintColorDidChange()
         
-        self.displayModeDidChange()
+        self.appearanceDidChange()
     }
     
 }

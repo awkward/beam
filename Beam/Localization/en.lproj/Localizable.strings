@@ -1143,7 +1143,7 @@
 "add-account-unlock-text" = "Unlock multiple accounts by purchasing\nthe Identity Pack";
 
 /* Header used in the display options view in settings */
-"display-options-header-night-mode" = "Night mode";
+"display-options-header-night-mode" = "Appearance";
 
 /* Header used in the display options view in settings */
 "display-options-header-image-thumbnails" = "Image thumbnails";
@@ -1155,10 +1155,10 @@
 "display-options-footer-night-mode" = "Night mode will automatically switch on or off based on your display brightness. You can set the threshold where the switch should happen.";
 
 /* Cell used in the display options view in settings */
-"display-options-cell-night-mode-manual" = "Manual";
+"display-options-cell-night-mode-manual" = "Use dark mode";
 
 /* Cell used in the display options view in settings */
-"display-options-cell-night-mode-automatic" = "Switch automatically";
+"display-options-cell-night-mode-automatic" = "Match system";
 
 /* Cell used in the display options view in settings */
 "display-options-cell-thumbnail-default" = "Default";

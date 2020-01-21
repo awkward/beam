@@ -28,8 +28,8 @@ class ImgurGalleryToolbar: BeamView {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.backgroundColor = UIColor.clear
         self.deleteButton.tintColor = UIColor.white
         self.linkLabel.textColor = UIColor.white

@@ -8,49 +8,34 @@
 
 import UIKit
 
-class BeamPlainTableViewHeaderFooterView: UITableViewHeaderFooterView, DynamicDisplayModeView {
+class BeamPlainTableViewHeaderFooterView: UITableViewHeaderFooterView, BeamAppearance {
     
     var titleFont: UIFont = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold) {
         didSet {
-            self.displayModeDidChange()
+            setupStyle()
         }
     }
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
-        self.registerForDisplayModeChangeNotifications()
-        self.displayModeDidChange()
+        setupStyle()
     }
 
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
-        self.registerForDisplayModeChangeNotifications()
-        self.displayModeDidChange()
+        setupStyle()
     }
     
-    deinit {
-        self.unregisterForDisplayModeChangeNotifications()
-    }
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        switch self.displayMode {
-        case .default:
-            self.contentView.backgroundColor = UIColor.beamPlainSectionHeaderColor()
-        case .dark:
-            self.contentView.backgroundColor = UIColor.beamDarkBackgroundColor()
-        }
-        self.textLabel?.textColor = UIColor.beamGreyLight()
-        self.textLabel?.font = self.titleFont
+    private func setupStyle() {
+        contentView.backgroundColor = .beamPlainSectionHeader
+        textLabel?.textColor = .beamGreyLight
+        textLabel?.font = self.titleFont
     }
     
     //This fixes a bug where the font is never changed
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.displayModeDidChange()
+        setupStyle()
     }
 
 }

@@ -10,35 +10,22 @@ import UIKit
 
 private let reuseIdentifier = "Cell"
 
-class BeamCollectionViewController: UICollectionViewController, DynamicDisplayModeView, NoticeHandling {
-
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        registerForDisplayModeChangeNotifications()
-    }
+class BeamCollectionViewController: UICollectionViewController, BeamAppearance, NoticeHandling {
     
-    override func viewDidDisappear(_ animated: Bool) {
-        super.viewDidDisappear(animated)
-        unregisterForDisplayModeChangeNotifications()
-    }
-
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        switch displayMode {
-        case .default:
-            collectionView?.backgroundColor = .systemGroupedBackground
-        case .dark:
-            collectionView?.backgroundColor = UIColor.beamDarkBackgroundColor()
-        }
+    override func viewDidLoad() {
+        super.viewDidLoad()
         
-        setNeedsStatusBarAppearanceUpdate()
+        collectionView.backgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
+        
+        appearanceDidChange()
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appearanceDidChange()
+        }
     }
     
     override var supportedInterfaceOrientations: UIInterfaceOrientationMask {

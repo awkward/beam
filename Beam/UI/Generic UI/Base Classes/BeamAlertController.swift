@@ -23,7 +23,7 @@ class BeamAlertController: UIAlertController {
         super.viewDidLayoutSubviews()
         
         //Setting the tintColor is broken in iOS 9, we have to change the tintColor everytime the view layout changes
-        self.view.tintColor = UIColor.beamColor()
+        self.view.tintColor = UIColor.beam
     }
 
 }

@@ -301,10 +301,6 @@ class ProfileViewController: BeamViewController {
         
         self.navigationItem.backBarButtonItem = UIBarButtonItem(title: NSLocalizedString("navigation-item-back", comment: "A generic back button, in case the previous view title isn't wanted"), style: .plain, target: nil, action: nil)
         
-        if let colorizedNavigationController = self.navigationController as? BeamColorizedNavigationController, self.isModallyPresentedRootViewController() {
-            colorizedNavigationController.usesRoundedCorners = UIDevice.current.userInterfaceIdiom == .phone
-        }
-        
         self.updateTitle()
         
         self.linkKarmaLabel.attributedText = self.karmaStringFromValue(self.user?.commentKarmaCount?.intValue ?? 0)
@@ -368,17 +364,6 @@ class ProfileViewController: BeamViewController {
     
     override var preferredStatusBarStyle: UIStatusBarStyle {
         return .lightContent
-    }
-    
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        
-        switch displayMode {
-        case .dark:
-            headerView.backgroundColor = UIColor.beamDarkContentBackgroundColor()
-        case .default:
-            headerView.backgroundColor = UIColor.beamPurple()
-        }
     }
     
     // MARK: - Actions

@@ -75,7 +75,7 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
             default:
                 self.collectionView!.backgroundView = nil
             }
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -340,8 +340,8 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
     
     // MARK: - Display Mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         //Collectionview sets the backgroundViews color to white when it's set. This is to fix that
         var backgroundView: UIView? = self.collectionView
@@ -350,13 +350,13 @@ class SubredditMediaOverviewViewController: BeamViewController, SubredditTabItem
         }
         
         if let backgroundView = backgroundView {
-            switch displayMode {
-            case .default:
-                toolbar.barTintColor = UIColor.beamBarColor()
-                backgroundView.backgroundColor = UIColor.systemGroupedBackground
+            switch userInterfaceStyle {
             case .dark:
-                backgroundView.backgroundColor = UIColor.beamDarkBackgroundColor()
-                toolbar.barTintColor = UIColor.beamDarkContentBackgroundColor()
+                backgroundView.backgroundColor = UIColor.beamDarkBackground
+                toolbar.barTintColor = UIColor.beamDarkContentBackground
+            default:
+                toolbar.barTintColor = UIColor.beamBar
+                backgroundView.backgroundColor = UIColor.systemGroupedBackground
             }
         }
     }

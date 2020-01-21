@@ -138,7 +138,7 @@ final class SubredditTableViewCell: BeamTableViewCell {
             
             self.subtitleLabel.isHidden = !((self.displayProminently || self.subreddit is Multireddit) && self.subtitleLabel.text != nil)
             
-            self.displayModeDidChange()
+            self.appearanceDidChange()
             self.configureStarButton()
             
         }
@@ -188,30 +188,23 @@ final class SubredditTableViewCell: BeamTableViewCell {
 
         self.starButton.isHidden = !self.showStar
         
-        self.displayModeDidChange()
+        self.appearanceDidChange()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.titleLabel.backgroundColor = self.contentView.backgroundColor
         self.subtitleLabel.backgroundColor = self.contentView.backgroundColor
         
-        self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        self.titleLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         self.titleLabel.isOpaque = true
         
         self.subtitleLabel.textColor = self.titleLabel.textColor.withAlphaComponent(0.8)
         
         let starHighlighted = self.starButton.isHighlighted || self.subreddit?.isBookmarked.boolValue == true
 
-        switch self.displayMode {
-        case .default:
-            if starHighlighted {
-                self.starButton.tintColor = UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0)
-            } else {
-                self.starButton.tintColor = UIColor(red: 201 / 255, green: 200 / 255, blue: 204 / 255, alpha: 1.0)
-            }
-            self.selectedBackgroundView = nil
+        switch self.userInterfaceStyle {
         case .dark:
             if starHighlighted {
                 self.starButton.tintColor = UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 0.6)
@@ -221,6 +214,14 @@ final class SubredditTableViewCell: BeamTableViewCell {
             let view = UIView()
             view.backgroundColor = UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 1)
             self.selectedBackgroundView = view
+        default:
+            if starHighlighted {
+                self.starButton.tintColor = UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0)
+            } else {
+                self.starButton.tintColor = UIColor(red: 201 / 255, green: 200 / 255, blue: 204 / 255, alpha: 1.0)
+            }
+            self.selectedBackgroundView = nil
+
         }
         if self.subreddit?.isPrepopulated == true {
             self.starButton.tintColor = UIColor(red: 0.4, green: 0.7, blue: 1, alpha: 1)

@@ -8,7 +8,7 @@
 
 import UIKit
 
-class BeamToolbar: UIToolbar, DynamicDisplayModeView {
+class BeamToolbar: UIToolbar, BeamAppearance {
     
     //Overriding drawRect in UIToolbar, UITabBar or UINavigationBar disables the background blur. That's why I use views that overlay the border
     var topBorderOverlay: UIView = {
@@ -20,27 +20,11 @@ class BeamToolbar: UIToolbar, DynamicDisplayModeView {
         let view = UIView()
         return view
     }()
-
-    required init?(coder aDecoder: NSCoder) {
-        super.init(coder: aDecoder)
-        
-        self.registerForDisplayModeChangeNotifications()
-    }
     
-    override init(frame: CGRect) {
-        super.init(frame: frame)
+    func appearanceDidChange() {
+        self.barTintColor = self.userInterfaceStyle == .dark ? UIColor.beamDarkBackground : UIColor.beamBar
         
-        self.registerForDisplayModeChangeNotifications()
-    }
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        self.barTintColor = self.displayMode == .dark ? UIColor.beamDarkBackgroundColor() : UIColor.beamBarColor()
-        
-        let borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        let borderColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         self.topBorderOverlay.backgroundColor = borderColor
         self.bottomBorderOverlay.backgroundColor = borderColor
     }

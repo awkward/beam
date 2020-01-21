@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="49e-Tb-3d3">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -419,7 +419,7 @@
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>
-                                <color key="backgroundColor" red="0.47026920150000001" green="0.11250069629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="backgroundColor" name="colorized_bar"/>
                                 <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstItem="MeO-pD-VSI" firstAttribute="centerY" secondItem="Lit-6M-n9p" secondAttribute="centerY" multiplier="0.75" id="1KY-wR-xnx"/>
@@ -448,6 +448,7 @@
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="fM0-03-j17"/>
                                 </items>
                                 <color key="tintColor" red="0.47026920150000001" green="0.11250069629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                <color key="barTintColor" name="bar"/>
                                 <connections>
                                     <outlet property="delegate" destination="fDT-vt-vSC" id="vWP-qJ-OvH"/>
                                 </connections>
@@ -691,6 +692,7 @@
                             <constraint firstAttribute="bottom" secondItem="91Y-0s-cC7" secondAttribute="bottom" id="xej-gL-YCy"/>
                         </constraints>
                         <edgeInsets key="layoutMargins" top="30" left="40" bottom="30" right="40"/>
+                        <viewLayoutGuide key="safeArea" id="pIh-gg-BFF"/>
                         <variation key="default">
                             <mask key="constraints">
                                 <exclude reference="BWO-eK-mrX"/>
@@ -715,11 +717,11 @@
             <objects>
                 <navigationController storyboardIdentifier="profile-navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="icP-IY-1Jj" userLabel="Profile Navigation" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Profile" image="tabbar_profile" id="7VY-dT-qH1"/>
-                    <navigationBar key="navigationBar" clipsSubviews="YES" contentMode="scaleToFill" barStyle="black" translucent="NO" id="Zql-nE-BrH">
+                    <navigationBar key="navigationBar" clipsSubviews="YES" contentMode="scaleToFill" translucent="NO" id="Zql-nE-BrH">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                        <color key="barTintColor" red="0.47026920150000001" green="0.11250069629999999" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <color key="barTintColor" name="colorized_bar"/>
                         <textAttributes key="titleTextAttributes">
                             <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         </textAttributes>
@@ -755,6 +757,7 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="VBT-JB-spv">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="colorized_bar"/>
                     </navigationBar>
                     <connections>
                         <segue destination="4yP-RM-RcD" kind="relationship" relationship="rootViewController" id="V56-G5-g7W"/>
@@ -779,7 +782,7 @@
                                     <constraint firstAttribute="height" constant="44" id="03a-Ll-91J"/>
                                 </constraints>
                             </view>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="hTE-0l-bBX" customClass="DarkerBeamToolbar" customModule="beam" customModuleProvider="target">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="hTE-0l-bBX" customClass="DarkerBeamToolbar" customModule="beam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="44" width="375" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="Tb8-s3-KCD"/>
@@ -795,6 +798,7 @@
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="hYG-vG-lpE"/>
                                 </items>
+                                <color key="barTintColor" name="bar"/>
                                 <connections>
                                     <outlet property="delegate" destination="4yP-RM-RcD" id="zcd-DF-ITw"/>
                                 </connections>
@@ -1046,6 +1050,12 @@
         <image name="tabbar_profile" width="21" height="20"/>
         <image name="tabbar_search" width="20" height="20"/>
         <image name="tabbar_subreddits" width="22" height="20"/>
+        <namedColor name="bar">
+            <color red="0.9882352941176471" green="0.9882352941176471" blue="0.9882352941176471" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <namedColor name="colorized_bar">
+            <color red="0.49411764705882355" green="0.36078431372549019" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
     </resources>
-    <color key="tintColor" red="0.41176470590000003" green="0.2784313725" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" name="beam"/>
 </document>

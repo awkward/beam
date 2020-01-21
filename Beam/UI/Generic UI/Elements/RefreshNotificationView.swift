@@ -58,10 +58,10 @@ class RefreshNotificationView: BeamControl, NavigationBarNotification {
         self.addTarget(self, action: #selector(RefreshNotificationView.hasBeenTapped(_:)), for: .touchUpInside)
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let backgroundColor: UIColor = self.displayMode == .default ? UIColor.beamColor() : UIColor.beamPurpleLight()
+        let backgroundColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
         self.backgroundColor = backgroundColor
         self.textLabel.backgroundColor = backgroundColor
         self.iconImageView.backgroundColor = backgroundColor

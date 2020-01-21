@@ -44,7 +44,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
     override var isOpaque: Bool {
         didSet {
             if self.mediaImageView != nil {
-                self.displayModeDidChange()
+                self.appearanceDidChange()
             }
         }
     }
@@ -61,7 +61,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
             self.mediaImageView.image = nil
             self.fetchImage()
             self.setNeedsUpdateConstraints()
-            self.displayModeDidChange()
+            self.appearanceDidChange()
             self.reloadAlbumIdicators()
             self.reloadSpoilerOverlay()
             self.reloadMediaLabels()
@@ -112,17 +112,17 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
         super.updateConstraints()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.captionLabel?.attributedText = MediaOverviewCollectionViewCell.attributedContentForMediaObject(self.mediaObject)
         
         if self.albumStackBottomView != nil {
-            switch self.displayMode {
+            switch self.userInterfaceStyle {
             case .dark:
                 self.albumStackUpperView?.backgroundColor = UIColor.white
                 self.albumStackBottomView?.backgroundColor = UIColor.white
-            case .default:
+            default:
                 self.albumStackUpperView?.backgroundColor = UIColor.black
                 self.albumStackUpperView?.backgroundColor = UIColor.black
             }
@@ -132,13 +132,13 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
             self.contentView.backgroundColor = UIColor.clear
             self.backgroundColor = UIColor.clear
         } else {
-            self.contentView.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-            self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+            self.contentView.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+            self.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
         }
         
         self.mediaImageView.isOpaque = self.isOpaque
         
-        self.mediaImageView.backgroundColor = DisplayModeValue(UIColor(red: 209 / 255, green: 208 / 255, blue: 212 / 255, alpha: 1.0), darkValue: UIColor(red: 56 / 255, green: 56 / 255, blue: 56 / 255, alpha: 1.0))
+        self.mediaImageView.backgroundColor = AppearanceValue(light: UIColor(red: 209 / 255, green: 208 / 255, blue: 212 / 255, alpha: 1.0), dark: UIColor(red: 56 / 255, green: 56 / 255, blue: 56 / 255, alpha: 1.0))
     }
     
     // MARK: - Content
@@ -188,7 +188,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
             paragraphStyle.minimumLineHeight = 21
             paragraphStyle.maximumLineHeight = 21
             
-            let string = NSAttributedString(string: captionTitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+            let string = NSAttributedString(string: captionTitle, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold), NSAttributedString.Key.foregroundColor: AppearanceValue(light: UIColor.black, dark: UIColor.white), NSAttributedString.Key.paragraphStyle: paragraphStyle])
             contentStrings.append(string)
         }
         if let captionDescription = mediaObject?.captionDescription {
@@ -196,7 +196,7 @@ class MediaOverviewCollectionViewCell: BeamCollectionViewCell, MediaCellMediaLab
             paragraphStyle.minimumLineHeight = 26
             paragraphStyle.maximumLineHeight = 26
             
-            let string = NSAttributedString(string: captionDescription, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.8), NSAttributedString.Key.paragraphStyle: paragraphStyle])
+            let string = NSAttributedString(string: captionDescription, attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 16), NSAttributedString.Key.foregroundColor: AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.8), NSAttributedString.Key.paragraphStyle: paragraphStyle])
             contentStrings.append(string)
         }
         

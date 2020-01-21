@@ -116,24 +116,20 @@ class MarkdownActionBar: BeamView {
     override func draw(_ rect: CGRect) {
         let height = 1 / UIScreen.main.scale
         let path = UIBezierPath(rect: CGRect(x: 0, y: 0, width: rect.width, height: height))
-        let borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        let borderColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
         borderColor.setFill()
         path.fill()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let placeholderColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        let placeholderColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         self.linkTextField.attributedPlaceholder = NSAttributedString(string: AWKLocalizedString("link-field-placeholder"), attributes: [NSAttributedString.Key.foregroundColor: placeholderColor])
         
-        self.linkTextField.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        if self.tintColor != tintColor {
-            self.tintColor = tintColor
-        }
-        
-        self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.black)
+        self.linkTextField.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
+        self.tintColor = .beam
+        self.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.black)
     }
 
 }

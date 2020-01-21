@@ -8,24 +8,18 @@
 
 import UIKit
 
-class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDisplayModeView {
+class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, BeamAppearance {
 
     override init(reuseIdentifier: String?) {
         super.init(reuseIdentifier: reuseIdentifier)
         
         setupView()
-        registerForDisplayModeChangeNotifications()
     }
     
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
         
         setupView()
-        registerForDisplayModeChangeNotifications()
-    }
-    
-    deinit {
-        unregisterForDisplayModeChangeNotifications()
     }
     
     let clearButton = ClearButton(frame: CGRect(x: 0, y: 0, width: 16, height: 16))
@@ -37,7 +31,7 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
         self.titleLabel.setContentHuggingPriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
         self.titleLabel.setContentCompressionResistancePriority(UILayoutPriority.defaultLow, for: NSLayoutConstraint.Axis.horizontal)
         self.titleLabel.font = UIFont.systemFont(ofSize: 11)
-        self.titleLabel.textColor = UIColor.beamGreyDark()
+        self.titleLabel.textColor = UIColor.beamGreyDark
         
         self.clearButton.translatesAutoresizingMaskIntoConstraints = false
         self.contentView.addSubview(self.clearButton)
@@ -59,19 +53,22 @@ class ClearableTableSectionHeaderView: UITableViewHeaderFooterView, DynamicDispl
         return super.hitTest(point, with: event)
     }
     
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        displayModeDidChangeAnimated(true)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appearanceDidChange()
+        }
     }
     
-    func displayModeDidChange() {
-        switch displayMode {
+    func appearanceDidChange() {
+        switch userInterfaceStyle {
         case .dark:
-            titleLabel.textColor = UIColor.beamGrey()
-            clearButton.backgroundColor = UIColor.beamGreyLighter()
-            clearButton.foregroundColor = UIColor.beamDarkBackgroundColor()
-        case .default:
-            titleLabel.textColor = UIColor.beamGreyDark()
-            clearButton.backgroundColor = UIColor.beamGreyLighter()
+            titleLabel.textColor = UIColor.beamGrey
+            clearButton.backgroundColor = UIColor.beamGreyLighter
+            clearButton.foregroundColor = UIColor.beamDarkBackground
+        default:
+            titleLabel.textColor = UIColor.beamGreyDark
+            clearButton.backgroundColor = UIColor.beamGreyLighter
             clearButton.foregroundColor = UIColor.systemGroupedBackground
         }
     }

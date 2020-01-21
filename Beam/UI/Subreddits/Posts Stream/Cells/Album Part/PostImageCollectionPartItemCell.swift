@@ -68,9 +68,9 @@ class PostImageCollectionPartItemCell: BeamCollectionViewCell, MediaImageLoader,
         self.progressView.progress = progress
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.progressView.color = displayMode == .dark ?  UIColor.white: UIColor.beamGreyExtraLight()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.progressView.color = userInterfaceStyle == .dark ?  UIColor.white: UIColor.beamGreyExtraLight
     }
     
     @IBOutlet var progressView: CircularProgressView!

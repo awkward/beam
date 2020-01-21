@@ -155,8 +155,8 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
 
         self.reloadTitleColor()
         
@@ -165,15 +165,15 @@ final class PostTitlePartCell: BeamTableViewCell, PostCell {
         
         self.thumbnailView?.backgroundColor = self.contentView.backgroundColor
         
-        self.topSeperatorView?.backgroundColor = DisplayModeValue(UIColor.beamGreyExtraExtraLight(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
+        self.topSeperatorView?.backgroundColor = AppearanceValue(light: UIColor.beamGreyExtraExtraLight, dark: UIColor.beamDarkTableViewSeperator)
         
     }
     
     func reloadTitleColor() {
         if self.post?.isVisited == true && UserSettings[.postMarking] && self.onDetailView == false {
-            self.titleLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+            self.titleLabel.textColor = AppearanceValue(light: UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), dark: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         } else {
-            self.titleLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+            self.titleLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         }
     }
 

@@ -28,11 +28,11 @@ class GildCountView: BeamView {
         self.addSubview(self.textlabel)
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.textlabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
-        self.iconImageView.tintColor = DisplayModeValue(UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0), darkValue: UIColor(red: 170 / 255, green: 147 / 255, blue: 35 / 255, alpha: 1.0))
+        self.textlabel.textColor = AppearanceValue(light: UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), dark: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        self.iconImageView.tintColor = AppearanceValue(light: UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0), dark: UIColor(red: 170 / 255, green: 147 / 255, blue: 35 / 255, alpha: 1.0))
     }
     
     var count: Int = 0 {

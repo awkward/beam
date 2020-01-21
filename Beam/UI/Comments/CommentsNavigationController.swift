@@ -13,12 +13,7 @@ class CommentsNavigationController: BeamNavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.usesRoundedCorners = true
         self.useInteractiveDismissal = true
-    }
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.topViewController?.preferredStatusBarStyle ?? .default
     }
     
 }

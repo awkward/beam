@@ -56,15 +56,13 @@ class ImagePostCollectionHeaderView: BeamCollectionReusableView {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        
-        let backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+    func appearanceDidChange() {
+        let backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
         self.titleTextFieldHolder.backgroundColor = backgroundColor
         self.descriptionTextFieldHolder.backgroundColor = backgroundColor
         self.backgroundColor = backgroundColor
         
-        self.seperatorView.backgroundColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
+        self.seperatorView.backgroundColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
     }
     
 }

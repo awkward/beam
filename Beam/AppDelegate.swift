@@ -53,7 +53,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     fileprivate weak var authenticationViewController: UIViewController?
     lazy var cherryController = { CherryController() }()
     lazy var productStoreController = { ProductStoreController() }()
-    var displayModeController = DisplayModeController()
+    let appearanceController = AppearanceController()
     let fontSizeController = FontSizeController()
     let passcodeController = PasscodeController()
     let userNotificationsHandler = UserNotificationsHandler()
@@ -128,9 +128,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         
         self.cherryController.requestCherryFeatures()
         
-        self.displayModeController.updateSettings()
-        self.displayModeController.updateCurrentMode()
-        
         let cacheConfig = SDImageCache.shared.config
         //Max cache size: 400MB
         cacheConfig.maxDiskSize = UInt(400 * 1000 * 1000)
@@ -142,7 +139,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: self.authenticationController)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.messageDidChangeUnreadState(_:)), name: .RedditMessageDidChangeUnreadState, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.applicationWindowDidBecomeVisible(_:)), name: UIWindow.didBecomeVisibleNotification, object: self.window)
-        NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.displayModeDidChangeNotification(_:)), name: .DisplayModeDidChange, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.contentSizeCategoryDidChange(_:)), name: UIContentSizeCategory.didChangeNotification, object: nil)
         NotificationCenter.default.addObserver(self, selector: #selector(AppDelegate.userSettingDidChange(_:)), name: .SettingsDidChangeSetting, object: nil)
         
@@ -916,11 +912,6 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         return nil
     }
     
-    @objc private func displayModeDidChangeNotification(_ notification: Notification) {
-        self.configureTabBarItems()
-        self.setupStyle()
-    }
-    
     private func configureTabBarItems() {
         
         let subscriptionsNavigation: UIViewController = self.viewControllerForAppTabContent(AppTabContent.SubscriptionsNavigation)!
@@ -944,7 +935,7 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
         var selectedImage: UIImage?
         if currentUser?.hasMail == true && self.authenticationController.isAuthenticated {
             var extraString = ""
-            if self.displayModeController.currentMode == DisplayMode.dark {
+            if window?.traitCollection.userInterfaceStyle == .dark {
                 extraString = "_dark"
             }
             image = UIImage(named: "tabbar_inbox\(extraString)_badge")?.withRenderingMode(UIImage.RenderingMode.alwaysOriginal)
@@ -1007,13 +998,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     private func setupStyle() {
-        let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
-        if self.window?.tintColor != tintColor {
-            self.window?.tintColor = tintColor
-        }
-        
-        //Set the tintColor of buttons in UIActivityViewController
-        UIView.appearance(whenContainedInInstancesOf: [UIActivityViewController.self]).tintColor = UIColor.beamColor()
+        appearanceController.window = window
+        window?.tintColor = .beam
+        UIView.appearance(whenContainedInInstancesOf: [UIActivityViewController.self]).tintColor = UIColor.beam
     }
     
     @objc func contentSizeCategoryDidChange(_ notification: Notification) {

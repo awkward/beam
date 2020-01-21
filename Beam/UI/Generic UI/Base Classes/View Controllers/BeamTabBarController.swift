@@ -14,7 +14,7 @@ protocol TabBarItemLongPressActionable {
     
 }
 
-class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
+class BeamTabBarController: UITabBarController, BeamAppearance {
     
     lazy private var longPressGestureRecognizer: UILongPressGestureRecognizer = {
         let gestureRecognizer = UILongPressGestureRecognizer(target: self, action: #selector(handleLongPressGesture(gestureRecognizer:)))
@@ -25,36 +25,28 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
         super.init(coder: aDecoder)
         
         self.delegate = self
-        
-        registerForDisplayModeChangeNotifications()
     }
     
     override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
         
         self.delegate = self
-        
-        registerForDisplayModeChangeNotifications()
-    }
-    
-    deinit {
-        unregisterForDisplayModeChangeNotifications()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.tabBar.addGestureRecognizer(self.longPressGestureRecognizer)
+        tabBar.addGestureRecognizer(self.longPressGestureRecognizer)
+        tabBar.barTintColor = .beamBar
+        
+        appearanceDidChange()
     }
     
-    func displayModeDidChange() {
-        switch displayMode {
-        case .dark:
-            tabBar.barTintColor = UIColor.beamDarkContentBackgroundColor()
-            tabBar.tintColor = UIColor.beamPurpleLight()
-        case .default:
-            tabBar.barTintColor = UIColor.beamBarColor()
-            tabBar.tintColor = UIColor.beamColor()
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appearanceDidChange()
         }
     }
     
@@ -65,18 +57,8 @@ class BeamTabBarController: UITabBarController, DynamicDisplayModeView {
         return .portrait
     }
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return self.selectedViewController?.preferredStatusBarStyle ?? (self.displayMode == .dark ? UIStatusBarStyle.lightContent: UIStatusBarStyle.default)
-    }
-    
     override var shouldAutorotate: Bool {
         return UIDevice.current.userInterfaceIdiom == UIUserInterfaceIdiom.pad
-    }
-    
-    // MARK: - Notifications
-    
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
     }
     
     // MARK: - Actions

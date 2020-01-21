@@ -31,13 +31,13 @@ class PostMetdataSeperatorView: BeamView {
     
     override func draw(_ rect: CGRect) {
         let path = UIBezierPath(ovalIn: rect)
-        let fillColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        let fillColor = AppearanceValue(light: UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), dark: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         fillColor.setFill()
         path.fill()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.setNeedsDisplay()
     }
     
@@ -70,11 +70,11 @@ class PostMetadataGildedView: BeamView {
         self.addSubview(self.textlabel)
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.textlabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
-        self.iconImageView.tintColor = DisplayModeValue(UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0), darkValue: UIColor(red: 170 / 255, green: 147 / 255, blue: 35 / 255, alpha: 1.0))
+        self.textlabel.textColor = AppearanceValue(light: UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), dark: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        self.iconImageView.tintColor = AppearanceValue(light: UIColor(red: 250 / 255, green: 212 / 255, blue: 25 / 255, alpha: 1.0), dark: UIColor(red: 170 / 255, green: 147 / 255, blue: 35 / 255, alpha: 1.0))
     }
     
     var count: Int = 0 {
@@ -151,7 +151,7 @@ class PostMetadataView: BeamView {
     
     override var isOpaque: Bool {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -199,7 +199,7 @@ class PostMetadataView: BeamView {
     
     var highlightButtons = true {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -329,19 +329,19 @@ class PostMetadataView: BeamView {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.dateLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
-        self.domainLabel.textColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
-        self.stickiedLabel.textColor = DisplayModeValue(UIColor(red: 68 / 255, green: 156 / 255, blue: 57 / 255, alpha: 1), darkValue: UIColor(red: 90 / 255, green: 156 / 255, blue: 81 / 255, alpha: 1))
+        self.dateLabel.textColor = AppearanceValue(light: UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), dark: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        self.domainLabel.textColor = AppearanceValue(light: UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), dark: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        self.stickiedLabel.textColor = AppearanceValue(light: UIColor(red: 68 / 255, green: 156 / 255, blue: 57 / 255, alpha: 1), dark: UIColor(red: 90 / 255, green: 156 / 255, blue: 81 / 255, alpha: 1))
         
-        let lockedTintColor = DisplayModeValue(UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), darkValue: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
+        let lockedTintColor = AppearanceValue(light: UIColor(red: 127 / 225, green: 127 / 225, blue: 127 / 225, alpha: 1.0), dark: UIColor(red: 153 / 225, green: 153 / 225, blue: 153 / 225, alpha: 1.0))
         if self.lockedIconImageView.tintColor != lockedTintColor {
             self.lockedIconImageView.tintColor = lockedTintColor
         }
 
-        let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+        let tintColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
         if self.tintColor != tintColor {
             self.tintColor = tintColor
         }
@@ -352,8 +352,8 @@ class PostMetadataView: BeamView {
         let opaqueViews: [UIView] = [self.dateLabel, self.subredditButton, self.userButton, self.gildedView, self.domainLabel, self.stickiedLabel, self.lockedIconImageView] + self.seperatorViews
         
         var backgroundColor = UIColor.white
-        if self.displayMode == .dark {
-            backgroundColor = UIColor.beamDarkContentBackgroundColor()
+        if self.userInterfaceStyle == .dark {
+            backgroundColor = UIColor.beamDarkContentBackground
         }
         if !self.isOpaque {
             backgroundColor = UIColor.clear
@@ -375,8 +375,8 @@ class PostMetadataView: BeamView {
     }
     
     fileprivate func updateButtonTitleColorsAndState() {
-        self.userButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight(), for: UIControl.State())
-        self.subredditButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight(), for: UIControl.State())
+        self.userButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight, for: UIControl.State())
+        self.subredditButton.setTitleColor(self.highlightButtons ? self.tintColor.withAlphaComponent(1) : UIColor.beamPurpleLight, for: UIControl.State())
     }
     
     // MARK: - Sizing

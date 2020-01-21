@@ -13,7 +13,7 @@ class RecentLinkPopupButton: BeamControl {
     
     @IBInspectable var link: String? {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -54,7 +54,7 @@ class RecentLinkPopupButton: BeamControl {
             
             self.addSubviewConstraints()
             
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -73,12 +73,12 @@ class RecentLinkPopupButton: BeamControl {
         
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.closeButton.tintColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+        self.closeButton.tintColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
         
-        let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        let textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         
         let attributedString = NSMutableAttributedString(string: "\(AWKLocalizedString("add-recent-link-to-post"))\n", attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: UIFont.systemFont(ofSize: 13)])
         if let link = self.link {
@@ -98,16 +98,16 @@ class RecentLinkPopupButton: BeamControl {
     
     override func draw(_ rect: CGRect) {
         var image: UIImage?
-        if self.displayMode == DisplayMode.dark {
+        switch userInterfaceStyle {
+        case .dark:
             image = UIImage(named: "popup-background-dark")
-        } else {
+        default:
             image = UIImage(named: "popup-background")
         }
         
         if let image = image {
             image.draw(in: rect)
-        }
-        
+        }        
     }
     
 }

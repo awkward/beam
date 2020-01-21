@@ -183,16 +183,11 @@ class MainSearchViewController: BeamTableViewController {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        
-        switch displayMode {
-        case .dark:
-            searchBar.keyboardAppearance = .dark
-        case .default:
-            searchBar.keyboardAppearance = .default
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            searchBar.applyBeamNavigationBarStyle()
         }
-        searchBar.applyBeamNavigationBarStyle()
     }
     
     @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {

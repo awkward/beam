@@ -110,7 +110,7 @@ class CommentComposeViewController: BeamViewController {
         }
         
         let labelText = NSLocalizedString("in-reply-to-compose-comment-label", comment: "The \"In reply to\" label on the comment compose view, followed by the user's username")
-        let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        let textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         let font = UIFont.systemFont(ofSize: 12, weight: UIFont.Weight.semibold)
         var attributedText: NSMutableAttributedString = NSMutableAttributedString(string: labelText, attributes: [NSAttributedString.Key.foregroundColor: textColor.withAlphaComponent(0.5), NSAttributedString.Key.font: font])
         if let username = username {
@@ -124,15 +124,15 @@ class CommentComposeViewController: BeamViewController {
     
     // MARK: - Display Mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.view.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-        self.textView.superview?.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-        self.textView.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-        self.textView.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        self.textView.keyboardAppearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
-        self.textView.tintColor = DisplayModeValue(UIColor.beamPurple(), darkValue: UIColor.beamPurpleLight())
+        self.view.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+        self.textView.superview?.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+        self.textView.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+        self.textView.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
+        self.textView.keyboardAppearance = AppearanceValue(light: UIKeyboardAppearance.default, dark: UIKeyboardAppearance.dark)
+        self.textView.tintColor = AppearanceValue(light: UIColor.beamPurple, dark: UIColor.beamPurpleLight)
         
         self.updateReplyLabel()
     }

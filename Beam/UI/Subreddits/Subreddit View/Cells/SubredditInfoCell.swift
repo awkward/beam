@@ -12,12 +12,12 @@ class SubredditInfoCell: BeamTableViewCell {
     
     var rowType: SubredditInfoRowType? {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.textLabel?.textColor = self.rowType?.textColor
         self.textLabel?.textAlignment = .left

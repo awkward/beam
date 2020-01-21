@@ -21,7 +21,7 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
     var sentMessage = false
     
     fileprivate var contentStylesheet: MarkdownStylesheet {
-        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.subheadline, darkmode: self.displayMode == .dark)
+        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.subheadline, darkmode: self.userInterfaceStyle == .dark)
     }
     
     var message: Message? {
@@ -32,11 +32,11 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
             }
             
             if self.sentMessage {
-                let textColor = DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor.white)
+                let textColor = AppearanceValue(light: UIColor.beamGreyExtraDark, dark: UIColor.white)
                 let fontSize: CGFloat = FontSizeController.adjustedFontSize(17)
                 let textFont = UIFont.systemFont(ofSize: fontSize, weight: UIFont.Weight.semibold)
                 
-                let typeTextColor = DisplayModeValue(UIColor.beamGreyExtraDark().withAlphaComponent(0.5), darkValue: UIColor.white.withAlphaComponent(0.5))
+                let typeTextColor = AppearanceValue(light: UIColor.beamGreyExtraDark.withAlphaComponent(0.5), dark: UIColor.white.withAlphaComponent(0.5))
                 let typeTextFont = UIFont.systemFont(ofSize: fontSize, weight: UIFont.Weight.semibold)
                 
                 let authorAttributedString = NSAttributedString(string: author, attributes: [NSAttributedString.Key.foregroundColor: textColor, NSAttributedString.Key.font: textFont])
@@ -47,7 +47,7 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
                 self.authorButton.setTitle(author, for: UIControl.State.normal)
             }
             
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
@@ -63,13 +63,13 @@ class MessageDetailCell: BeamTableViewCell, MessageObjectCell {
         }
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.authorButton.setTitleColor(DisplayModeValue(UIColor.beamGreyExtraDark(), darkValue: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)), for: UIControl.State())
+        self.authorButton.setTitleColor(AppearanceValue(light: UIColor.beamGreyExtraDark, dark: UIColor(red: 217 / 255.0, green: 217 / 255.0, blue: 217 / 255.0, alpha: 1)), for: UIControl.State())
         
-        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
-        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)
+        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesWithStyle(userInterfaceStyle)
+        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesWithStyle(userInterfaceStyle)
         self.contentLabel.setText(self.message?.markdownString?.attributedStringWithStylesheet(self.contentStylesheet))
     }
 

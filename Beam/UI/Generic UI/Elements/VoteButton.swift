@@ -152,11 +152,11 @@ class VoteButton: UIControl {
             face.strokeColor = self.color
             face.arrowColor = self.color
         } else if self.arrowDirection == .up {
-            face.faceColor = UIColor.beamRed()
+            face.faceColor = UIColor.beamRed
             face.strokeColor = UIColor.clear
             face.arrowColor = UIColor.white
         } else {
-            face.faceColor = UIColor.beamBlue()
+            face.faceColor = UIColor.beamBlue
             face.strokeColor = UIColor.clear
             face.arrowColor = UIColor.white
         }
@@ -309,7 +309,7 @@ class VoteButtonFace: UIView {
     
     var arrowView: VoteButtonArrow = {
         let arrow = VoteButtonArrow(frame: CGRect(x: 0, y: 0, width: 10, height: 6))
-        arrow.fillColor = UIColor.beamGreyLighter()
+        arrow.fillColor = UIColor.beamGreyLighter
         return arrow
         }()
     

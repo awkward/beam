@@ -12,111 +12,111 @@ extension UIColor {
     
     // MARK: - Purple
     
-    static func beamColor() -> UIColor {
-        return UIColor(red: 126 / 255.0, green: 92 / 255.0, blue: 230 / 255.0, alpha: 1.0)
+    static var beam: UIColor {
+        UIColor(named: "beam")!
     }
     
-    static func beamPurple() -> UIColor {
-        return UIColor(red: 126.0 / 255.0, green: 92.0 / 255.0, blue: 230.0 / 255.0, alpha: 1)
+    static var beamPurple: UIColor {
+        UIColor(named: "purple")!
     }
     
-    static func beamPurpleLight() -> UIColor {
-        return UIColor(red: 192 / 255.0, green: 175 / 255.0, blue: 250 / 255.0, alpha: 1)
+    static var beamPurpleLight: UIColor {
+        UIColor(named: "purple_light")!
     }
     
     // MARK: - Blue
     
-    static func beamBlue() -> UIColor {
-        return UIColor(red: 150 / 255.0, green: 205 / 255.0, blue: 255 / 255.0, alpha: 1)
-    }
-    
-    static func beamBlueDarker() -> UIColor {
-        return UIColor(red: 102.0 / 255.0, green: 179.0 / 255.0, blue: 255.0 / 255.0, alpha: 1)
+    static var beamBlue: UIColor {
+        UIColor(named: "blue")!
     }
     
     // MARK: - Red
     
-    static func beamRed() -> UIColor {
-        return UIColor(red: 255 / 255.0, green: 99 / 255.0, blue: 51 / 255.0, alpha: 1)
+    static var beamRed: UIColor {
+        UIColor(named: "red")!
     }
     
-    static func beamRedDarker() -> UIColor {
-        return UIColor(red: 227 / 255.0, green: 88 / 255.0, blue: 45 / 255.0, alpha: 1)
+    static var beamRedDarker: UIColor {
+        UIColor(named: "red_darker")!
     }
     
     // MARK: - Yellow
     
-    static func beamYellow() -> UIColor {
-        return UIColor(red: 250 / 255.0, green: 212 / 255.0, blue: 25 / 255.0, alpha: 1)
+    static var beamYellow: UIColor {
+        UIColor(named: "yellow")!
     }
     
     // MARK: - Grey
     
-    static func beamGreyExtraDark() -> UIColor {
-        return UIColor(red: 12 / 255.0, green: 11 / 255.0, blue: 13 / 255.0, alpha: 1)
+    static var beamGreyExtraDark: UIColor {
+        UIColor(named: "grey_extra_dark")!
     }
     
-    static func beamGreyDark() -> UIColor {
-        return UIColor(red: 47 / 255.0, green: 46 / 255.0, blue: 51 / 255.0, alpha: 1)
+    static var beamGreyDark: UIColor {
+        UIColor(named: "grey_dark")!
     }
     
-    static func beamGrey() -> UIColor {
-        return UIColor(red: 96 / 255.0, green: 94 / 255.0, blue: 102 / 255.0, alpha: 1)
+    static var beamGrey: UIColor {
+        UIColor(named: "grey")!
     }
     
-    static func beamGreyLight() -> UIColor {
-        return UIColor(red: 158 / 255.0, green: 156 / 255.0, blue: 166 / 255.0, alpha: 1)
+    static var beamGreyLight: UIColor {
+        UIColor(named: "grey_light")!
     }
     
-    static func beamGreyLighter() -> UIColor {
-        return UIColor(red: 173 / 255.0, green: 171 / 255.0, blue: 179 / 255.0, alpha: 1)
+    static var beamGreyLighter: UIColor {
+        UIColor(named: "grey_lighter")!
     }
     
-    static func beamGreyExtraLight() -> UIColor {
-        return UIColor(red: 201 / 255.0, green: 200 / 255.0, blue: 204 / 255.0, alpha: 1)
+    static var beamGreyExtraLight: UIColor {
+        UIColor(named: "grey_extra_light")!
     }
     
-    static func beamGreyExtraExtraLight() -> UIColor {
-        return UIColor(red: 226 / 255.0, green: 225 / 255.0, blue: 230 / 255.0, alpha: 1)
+    static var beamGreyExtraExtraLight: UIColor {
+        UIColor(named: "grey_extra_extra_light")!
     }
     
-    static func beamSeperatorColor() -> UIColor {
-        return UIColor(red: 201 / 255, green: 200 / 255, blue: 204 / 255, alpha: 1.0)
+    static var beamSeparator: UIColor {
+        beamGreyExtraLight
     }
     
     // MARK: - Dark style
     
-    static func beamDarkBackgroundColor() -> UIColor {
-        return UIColor(red: 38 / 255.0, green: 38 / 255.0, blue: 38 / 255.0, alpha: 1)
+    static var beamDarkBackground: UIColor {
+        beamBackground.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
     }
     
-    static func beamDarkContentBackgroundColor() -> UIColor {
-        return UIColor(red: 51 / 255.0, green: 51 / 255.0, blue: 51 / 255.0, alpha: 1)
+    static var beamDarkContentBackground: UIColor {
+        beamContentBackground.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
     }
     
-    static func beamDarkTableViewSeperatorColor() -> UIColor {
-        return UIColor(red: 61 / 255.0, green: 61 / 255.0, blue: 61 / 255.0, alpha: 1)
+    static var beamDarkTableViewSeperator: UIColor {
+        beamTableViewSeperator.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
     }
     
     // MARK: - Functional colors
     
-    static func beamTableViewSeperatorColor() -> UIColor {
-        return UIColor(red: 201 / 255, green: 200 / 255, blue: 204 / 255, alpha: 1.0)
+    static var beamContentBackground: UIColor {
+        UIColor(named: "content_background")!
     }
     
-    static func beamSeparator() -> UIColor {
-        return beamGreyExtraExtraLight()
+    static var beamTableViewSeperator: UIColor {
+        UIColor(named: "table_separator")!
     }
     
-    static func beamBackground() -> UIColor {
-        return UIColor(red: 236 / 255.0, green: 236 / 255.0, blue: 239 / 255.0, alpha: 1)
+    static var beamTableSeparator: UIColor {
+        beamGreyExtraExtraLight
     }
     
-    static func beamBarColor() -> UIColor {
-        return UIColor(red: 252 / 255.0, green: 252 / 255.0, blue: 252 / 255.0, alpha: 1)
+    static var beamBackground: UIColor {
+        UIColor(named: "background")!
     }
     
-    static func beamPlainSectionHeaderColor() -> UIColor {
-        return UIColor(red: 240 / 255.0, green: 240 / 255.0, blue: 242 / 255.0, alpha: 1)
+    static var beamBar: UIColor {
+        UIColor(named: "bar")!
+    }
+    
+    static var beamPlainSectionHeader: UIColor {
+        UIColor(named: "plain_section_header")!
     }
 }

@@ -52,8 +52,8 @@ final class PostToolbarPartCell: BeamTableViewCell, PostCell {
         
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
     }
     
     override var intrinsicContentSize: CGSize {

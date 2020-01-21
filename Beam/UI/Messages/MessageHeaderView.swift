@@ -35,25 +35,26 @@ class MessageHeaderView: BeamView {
 
     override func draw(_ rect: CGRect) {
         let seperatorPath = UIBezierPath(rect: CGRect(x: 12, y: rect.height - 0.5, width: rect.width - 22, height: 0.5))
-        let seperatorColor = DisplayModeValue(UIColor.beamSeperatorColor(), darkValue: UIColor.beamDarkTableViewSeperatorColor())
+        let seperatorColor = AppearanceValue(light: UIColor.beamSeparator, dark: UIColor.beamDarkTableViewSeperator)
         seperatorColor.setFill()
         seperatorPath.fill()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.setNeedsDisplay()
         
-        switch self.displayMode {
-        case .default:
-            self.backgroundColor = UIColor.white
-            self.titleLabel.textColor = UIColor.beamGreyExtraDark()
-            self.dateLabel.textColor = UIColor(red: 127 / 255, green: 127 / 255, blue: 127 / 255, alpha: 1)
+        switch self.userInterfaceStyle {
         case .dark:
-            self.backgroundColor = UIColor.beamDarkContentBackgroundColor()
+            self.backgroundColor = UIColor.beamDarkContentBackground
             self.titleLabel.textColor = UIColor.white
             self.dateLabel.textColor = UIColor.white.withAlphaComponent(0.5)
+        default:
+            self.backgroundColor = UIColor.white
+            self.titleLabel.textColor = UIColor.beamGreyExtraDark
+            self.dateLabel.textColor = UIColor(red: 127 / 255, green: 127 / 255, blue: 127 / 255, alpha: 1)
+
         }
     }
 }

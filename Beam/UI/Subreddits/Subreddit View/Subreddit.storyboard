@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="khG-ma-kw8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="khG-ma-kw8">
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
-        <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -39,7 +38,7 @@
         <!--Search-->
         <scene sceneID="TC0-n3-dhC">
             <objects>
-                <navigationController id="27P-PK-s12" customClass="SubredditNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="27P-PK-s12" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="tabbar_search" id="KJ4-Gb-Rnl"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="E3u-Rc-Yfg" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
@@ -57,7 +56,7 @@
         <!--Info-->
         <scene sceneID="AWn-d0-cRJ">
             <objects>
-                <navigationController id="mL6-27-ESc" customClass="SubredditNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="mL6-27-ESc" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Info" image="tabbar_info" id="D4B-Df-Erd"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="yYV-Qv-N45" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -430,7 +429,7 @@
         <!--Posts-->
         <scene sceneID="3wU-wg-Ypu">
             <objects>
-                <navigationController id="wsu-E8-dCP" customClass="SubredditNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                <navigationController id="wsu-E8-dCP" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Posts" image="tabbar_stream" id="XmG-26-XXz"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="ix1-8F-oDc" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
@@ -573,5 +572,5 @@
         <image name="tabbar_search" width="20" height="20"/>
         <image name="tabbar_stream" width="20" height="20"/>
     </resources>
-    <color key="tintColor" red="0.41176470590000003" green="0.2784313725" blue="0.80000000000000004" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+    <color key="tintColor" name="beam"/>
 </document>

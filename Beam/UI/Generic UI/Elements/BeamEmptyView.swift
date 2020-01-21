@@ -187,24 +187,12 @@ class BeamEmptyView: BeamView {
     
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.button.addTarget(self, action: #selector(BeamEmptyView.buttonTapped(_:)), for: .touchUpInside)
-    }
-    
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
         
-        switch self.displayMode {
-        case .default:
-            self.titleLabel.textColor = UIColor.black
-            self.textLabel.textColor = UIColor.black.withAlphaComponent(0.8)
-            self.activityIndicator.color = nil
-        case .dark:
-            self.titleLabel.textColor = UIColor.white
-            self.textLabel.textColor = UIColor.white.withAlphaComponent(0.8)
-            self.activityIndicator.color = UIColor.white
-        }
+        button.addTarget(self, action: #selector(BeamEmptyView.buttonTapped(_:)), for: .touchUpInside)
         
-        self.backgroundColor = DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkContentBackgroundColor())
+        titleLabel.textColor = .label
+        textLabel.textColor = .secondaryLabel
+        backgroundColor = .beamContentBackground
     }
     
     @objc func buttonTapped(_ sender: UIButton?) {

@@ -12,9 +12,9 @@ class LoaderFooterView: BeamView {
 
     @IBOutlet fileprivate var activityIndicatorView: UIActivityIndicatorView!
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        if self.displayMode == .dark {
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        if self.userInterfaceStyle == .dark {
             self.activityIndicatorView?.color = UIColor.white
         } else {
             self.activityIndicatorView?.color = UIColor.lightGray

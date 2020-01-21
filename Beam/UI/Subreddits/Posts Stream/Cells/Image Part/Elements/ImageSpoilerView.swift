@@ -22,7 +22,7 @@ final class ImageSpoilerView: BeamView {
         let layer = CAShapeLayer()
         layer.backgroundColor = UIColor.clear.cgColor
         layer.fillColor = UIColor.clear.cgColor
-        layer.strokeColor = UIColor.beamGreyLighter().cgColor
+        layer.strokeColor = UIColor.beamGreyLighter.cgColor
         layer.lineWidth = 1
         return layer
     }()
@@ -33,7 +33,7 @@ final class ImageSpoilerView: BeamView {
         let label = UILabel(frame: CGRect())
         label.backgroundColor = UIColor.clear
         label.font = UIFont.boldSystemFont(ofSize: 18)
-        label.textColor = UIColor.beamGreyLighter()
+        label.textColor = UIColor.beamGreyLighter
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = AWKLocalizedString("nsfw")
         return label
@@ -81,16 +81,16 @@ final class ImageSpoilerView: BeamView {
         
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         self.backgroundColor = UIColor.clear
         
-        switch self.displayMode {
+        switch self.userInterfaceStyle {
         case .dark:
             self.backgroundLayer.backgroundColor = UIColor(red: 31 / 255.0, green: 31 / 255.0, blue: 31 / 255.0, alpha: 1).cgColor
         default:
-            self.backgroundLayer.backgroundColor = UIColor.beamGreyExtraExtraLight().cgColor
+            self.backgroundLayer.backgroundColor = UIColor.beamGreyExtraExtraLight.cgColor
         }
     }
 

@@ -21,7 +21,7 @@ class ShareActivityViewController: UIActivityViewController {
     
     private func setupView() {
         //Set the share tintColor on iOS 9 (UIAppearance doesn't always work)
-        self.view.tintColor = UIColor.beamColor()
+        self.view.tintColor = UIColor.beam
     }
     
     init(object: SyncObject) {

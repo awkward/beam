@@ -49,12 +49,12 @@ class TableViewHeaderBannerView: BeamView {
         return bannerView
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.textLabel.textColor = DisplayModeValue(UIColor(red: 62 / 255, green: 61 / 255, blue: 66 / 255, alpha: 1.0), darkValue: UIColor.white.withAlphaComponent(0.8))
-        self.closeButton.tintColor = DisplayModeValue(UIColor.black.withAlphaComponent(0.4), darkValue: UIColor.white.withAlphaComponent(0.4))
-        self.backgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 248 / 255, alpha: 1.0), darkValue: UIColor.beamDarkBackgroundColor())
+        self.textLabel.textColor = AppearanceValue(light: UIColor(red: 62 / 255, green: 61 / 255, blue: 66 / 255, alpha: 1.0), dark: UIColor.white.withAlphaComponent(0.8))
+        self.closeButton.tintColor = AppearanceValue(light: UIColor.black.withAlphaComponent(0.4), dark: UIColor.white.withAlphaComponent(0.4))
+        self.backgroundColor = AppearanceValue(light: UIColor(red: 245 / 255, green: 245 / 255, blue: 248 / 255, alpha: 1.0), dark: UIColor.beamDarkBackground)
         
         self.setNeedsDisplay()
     }
@@ -69,7 +69,7 @@ class TableViewHeaderBannerView: BeamView {
         super.draw(rect)
         let seperatorHeight = 1 / UIScreen.main.scale
         let seperatorRect = CGRect(x: 0, y: rect.maxY - seperatorHeight, width: rect.width, height: seperatorHeight)
-        let seperatorColor = self.displayMode == .dark ? UIColor(red: 0.24, green: 0.24, blue: 0.24, alpha: 1) : UIColor(red: 0.84, green: 0.83, blue: 0.85, alpha: 1)
+        let seperatorColor = self.userInterfaceStyle == .dark ? UIColor(red: 0.24, green: 0.24, blue: 0.24, alpha: 1) : UIColor(red: 0.84, green: 0.83, blue: 0.85, alpha: 1)
         
         let seperatorPath = UIBezierPath(rect: seperatorRect)
         seperatorColor.setFill()

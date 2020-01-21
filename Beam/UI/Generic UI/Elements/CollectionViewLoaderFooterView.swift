@@ -12,10 +12,8 @@ class CollectionViewLoaderFooterView: BeamCollectionReusableView {
     
     @IBOutlet var activityIndicatorView: UIActivityIndicatorView!
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        
-        self.activityIndicatorView.color = DisplayModeValue(UIColor.lightGray, darkValue: UIColor.white)
+    func appearanceDidChange() {
+        self.activityIndicatorView.color = AppearanceValue(light: UIColor.lightGray, dark: UIColor.white)
     }
 
 }

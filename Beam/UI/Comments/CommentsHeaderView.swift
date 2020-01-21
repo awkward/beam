@@ -73,12 +73,12 @@ class CommentsHeaderView: BeamView {
         self.delegate?.commentsHeaderView(self, didChangeSortType: sortType)
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         self.backgroundColor = UIColor.clear
         
-        self.sortBarBackgroundView.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-        self.sortBar.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+        self.sortBarBackgroundView.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+        self.sortBar.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
     }
     
 }

@@ -92,10 +92,10 @@ class AboutViewController: BeamTableViewController {
         return cell
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        self.backgroundImageView.image = DisplayModeValue(UIImage(named: "about_view_background"), darkValue: UIImage(named: "about_view_background_darkmode"))
+        self.backgroundImageView.image = AppearanceValue(light: UIImage(named: "about_view_background"), dark: UIImage(named: "about_view_background_darkmode"))
     }
     
     @IBAction fileprivate func tappedAppIcon(_ sender: UIButton) {

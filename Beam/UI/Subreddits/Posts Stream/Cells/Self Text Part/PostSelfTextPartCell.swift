@@ -15,9 +15,9 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
     
     fileprivate var contentStylesheet: MarkdownStylesheet {
         if !self.showsSummary {
-            return MarkdownStylesheet.beamSelfPostStyleSheet(self.displayMode == .dark)
+            return MarkdownStylesheet.beamSelfPostStyleSheet(self.userInterfaceStyle == .dark)
         }
-        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.footnote, darkmode: self.displayMode == .dark)
+        return MarkdownStylesheet.beamStyleSheet(UIFont.TextStyle.footnote, darkmode: self.userInterfaceStyle == .dark)
     }
     
     var onDetailView: Bool = false {
@@ -118,7 +118,7 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
         
         self.layoutIfNeeded()
         
-        self.displayModeDidChange()
+        self.appearanceDidChange()
     }
     
     func reloadLayoutInsets() {
@@ -131,33 +131,33 @@ final class PostSelfTextPartCell: BeamTableViewCell, PostCell {
     
     override func setHighlighted(_ highlighted: Bool, animated: Bool) {
         super.setHighlighted(highlighted, animated: animated)
-        self.displayModeDidChange()
+        self.appearanceDidChange()
     }
     
     override func setSelected(_ selected: Bool, animated: Bool) {
         super.setSelected(selected, animated: animated)
-        self.displayModeDidChange()
+        self.appearanceDidChange()
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesForMode(self.displayMode)
-        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesForMode(self.displayMode)
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.contentLabel.linkAttributes = TTTAttributedLabel.beamLinkAttributesWithStyle(userInterfaceStyle)
+        self.contentLabel.activeLinkAttributes = TTTAttributedLabel.beamActiveLinkAttributesWithStyle(userInterfaceStyle)
         self.contentLabel.setText(post?.markdownString?.attributedStringWithStylesheet(self.contentStylesheet))
-        self.readAllLabel.textColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+        self.readAllLabel.textColor = AppearanceValue(light: UIColor.beam, dark: UIColor.beamPurpleLight)
         
-        var containerBackgroundColor = DisplayModeValue(UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), darkValue: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
+        var containerBackgroundColor = AppearanceValue(light: UIColor(red: 245 / 255, green: 245 / 255, blue: 245 / 255, alpha: 1.0), dark: UIColor(red: 38 / 255, green: 38 / 255, blue: 38 / 255, alpha: 1.0))
         if self.isHighlighted || self.isSelected {
-            containerBackgroundColor = DisplayModeValue(UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), darkValue: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
+            containerBackgroundColor = AppearanceValue(light: UIColor(red: 0.9, green: 0.9, blue: 0.9, alpha: 1), dark: UIColor(red: 0.23, green: 0.23, blue: 0.23, alpha: 1))
         }
         self.spoilerOverlay.backgroundColor = containerBackgroundColor
         self.spoilerOverlayTextLabel.backgroundColor = containerBackgroundColor
-        self.spoilerOverlayTextLabel.textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        self.spoilerOverlayTextLabel.textColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         
-        self.spoilerOverlay.layer.borderColor = DisplayModeValue(UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), darkValue: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1)).cgColor
+        self.spoilerOverlay.layer.borderColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1)).cgColor
         
         if !self.spoilerOverlay.isHidden {
-            self.selectedBackgroundView?.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
+            self.selectedBackgroundView?.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
         }
         
         self.contentLabel.backgroundColor = self.contentView.backgroundColor

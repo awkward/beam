@@ -402,12 +402,12 @@ final class SubredditsViewController: BeamTableViewController, BeamViewControlle
     
     // MARK: - Display mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
         if self.traitCollection.userInterfaceIdiom == .pad {
-            self.tableView.backgroundColor = DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
-            self.tableView.sectionIndexBackgroundColor = DisplayModeValue(.systemGroupedBackground, darkValue: .beamDarkBackgroundColor())
+            self.tableView.backgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
+            self.tableView.sectionIndexBackgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
         }
     }
     

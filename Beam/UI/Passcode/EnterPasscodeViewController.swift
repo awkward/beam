@@ -231,14 +231,14 @@ class EnterPasscodeViewController: BeamViewController {
     
     // MARK: - Display Mode
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
         
-        let tintColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
+        let tintColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
         
         self.titleLabel?.textColor = tintColor
         self.view.tintColor = tintColor
-        self.keyboard?.appearance = DisplayModeValue(UIKeyboardAppearance.default, darkValue: UIKeyboardAppearance.dark)
+        self.keyboard?.appearance = AppearanceValue(light: UIKeyboardAppearance.default, dark: UIKeyboardAppearance.dark)
     }
 }
 

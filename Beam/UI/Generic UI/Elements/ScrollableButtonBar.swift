@@ -108,7 +108,7 @@ class ScrollableButtonBar: BeamControl {
             if index == self.selectedItemIndex {
                 button.setTitleColor(self.tintColor, for: UIControl.State())
             } else {
-                let titleColor = DisplayModeValue(UIColor(red: 125 / 255, green: 125 / 255, blue: 125 / 255, alpha: 1), darkValue: UIColor(red: 151 / 255, green: 151 / 255, blue: 151 / 255, alpha: 1))
+                let titleColor = AppearanceValue(light: UIColor(red: 125 / 255, green: 125 / 255, blue: 125 / 255, alpha: 1), dark: UIColor(red: 151 / 255, green: 151 / 255, blue: 151 / 255, alpha: 1))
                 button.setTitleColor(titleColor, for: UIControl.State())
             }
             index += 1

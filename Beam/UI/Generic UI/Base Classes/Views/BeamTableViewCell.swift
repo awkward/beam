@@ -15,37 +15,40 @@ enum BeamTableViewCellTextColorType {
     case destructive
 }
 
-class BeamTableViewCell: UITableViewCell, DynamicDisplayModeView {
+class BeamTableViewCell: UITableViewCell, BeamAppearance {
     
     var textColorType = BeamTableViewCellTextColorType.default {
         didSet {
-            self.displayModeDidChange()
+            self.appearanceDidChange()
         }
     }
     
+    override func awakeFromNib() {
+        super.awakeFromNib()
+        
+        appearanceDidChange()
+    }
     override func didMoveToWindow() {
         super.didMoveToWindow()
         
         if self.window != nil {
             self.selectedBackgroundView = UIView(frame: bounds)
             self.selectedBackgroundView?.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
-            self.registerForDisplayModeChangeNotifications()
         } else {
             self.selectedBackgroundView = nil
-            self.unregisterForDisplayModeChangeNotifications()
         }
     }
     
-    deinit {
-        self.unregisterForDisplayModeChangeNotifications()
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appearanceDidChange()
+        }
     }
     
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        self.displayModeDidChangeAnimated(true)
-    }
-    
-    func displayModeDidChange() {
-        let tintColor = DisplayModeValue(UIColor.beamColor(), darkValue: UIColor.beamPurpleLight())
+    func appearanceDidChange() {
+        let tintColor = UIColor.beam
         
         if self.tintColor != tintColor {
             //Changing the tintColor of a view while it's already that color causes UILabel, UIButton and UIImageView to redraw, even when it's not needed. Expecially for UIButton and UIImageView this is a big performance hit
@@ -55,12 +58,12 @@ class BeamTableViewCell: UITableViewCell, DynamicDisplayModeView {
         self.isOpaque = true
         self.contentView.isOpaque = true
         
-        self.backgroundColor = DisplayModeValue(UIColor.white, darkValue: UIColor.beamDarkContentBackgroundColor())
-        self.selectedBackgroundView?.backgroundColor = DisplayModeValue(UIColor.beamGreyExtraExtraLight(), darkValue: UIColor.beamGreyDark())
+        self.backgroundColor = AppearanceValue(light: UIColor.white, dark: UIColor.beamDarkContentBackground)
+        self.selectedBackgroundView?.backgroundColor = AppearanceValue(light: UIColor.beamGreyExtraExtraLight, dark: UIColor.beamGreyDark)
         self.contentView.backgroundColor = self.backgroundColor
         
-        let textColor = DisplayModeValue(UIColor.black, darkValue: UIColor.white)
-        let detailTextColor = textColor.withAlphaComponent(0.8)
+        let textColor = UIColor.label
+        let detailTextColor = UIColor.secondaryLabel
         if self.detailTextLabel?.textColor != detailTextColor {
             self.detailTextLabel?.textColor = detailTextColor
         }
@@ -74,12 +77,12 @@ class BeamTableViewCell: UITableViewCell, DynamicDisplayModeView {
                 self.textLabel?.textColor = tintColor
             }
         case .disabled:
-            let disabledTextColor = textColor.withAlphaComponent(0.5)
+            let disabledTextColor = UIColor.tertiaryLabel
             if self.textLabel?.textColor != disabledTextColor {
                 self.textLabel?.textColor = disabledTextColor
             }
         case .destructive:
-            let destructiveTextColor = DisplayModeValue(UIColor.beamRedDarker(), darkValue: UIColor.beamRed())
+            let destructiveTextColor = AppearanceValue(light: UIColor.beamRedDarker, dark: UIColor.beamRed)
             if self.textLabel?.textColor != destructiveTextColor {
                 self.textLabel?.textColor = destructiveTextColor
             }

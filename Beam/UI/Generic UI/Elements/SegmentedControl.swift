@@ -9,32 +9,27 @@
 import UIKit
 
 /// A beam styled segmented control
-class SegmentedControl: UISegmentedControl, DynamicDisplayModeView {
+class SegmentedControl: UISegmentedControl, BeamAppearance {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         
-        registerForDisplayModeChangeNotifications()
         updateAppearance()
-    }
-    
-    deinit {
-        unregisterForDisplayModeChangeNotifications()
     }
     
     private func textColor(for state: UIControl.State) -> UIColor {
         switch state {
         case .selected:
-            return DisplayModeValue(.beamPurple(), darkValue: .beamPurpleLight())
+            return .beam
         case .highlighted:
             return textColor(for: .normal).withAlphaComponent(0.25)
         default:
-            return DisplayModeValue(UIColor.black, darkValue: UIColor.white).withAlphaComponent(0.5)
+            return .secondaryLabel
         }
     }
     
     private var dividerColor: UIColor {
-        DisplayModeValue(.beamSeparator(), darkValue: .beamDarkTableViewSeperatorColor())
+        AppearanceValue(light: .beamSeparator, dark: .beamDarkTableViewSeperator)
     }
     
     private func updateAppearance() {
@@ -45,6 +40,7 @@ class SegmentedControl: UISegmentedControl, DynamicDisplayModeView {
                                     .font: font], for: state)
         }
         
+        backgroundColor = .clear
         setBackgroundImage(UIImage(), for: .normal, barMetrics: .default)
         
         let size = CGSize(width: 1, height: bounds.height)
@@ -58,14 +54,6 @@ class SegmentedControl: UISegmentedControl, DynamicDisplayModeView {
             path.stroke()
         }
         setDividerImage(divider, forLeftSegmentState: .normal, rightSegmentState: .normal, barMetrics: .default)
-    }
-
-    @objc func displayModeDidChangeNotification(_ notification: Notification) {
-        displayModeDidChange()
-    }
-    
-    func displayModeDidChange() {
-        updateAppearance()
     }
     
 }

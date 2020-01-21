@@ -23,7 +23,6 @@ public let UserSettings = Settings(allKeys: [
     .cherryImageURLPatterns,
     .nightModeEnabled,
     .nightModeAutomaticEnabled,
-    .nightModeAutomaticThreshold,
     .userHasDonated,
     .hasBeenShownTheAddAccountWarning,
     .hasBeenShownTheWelcomeScreen,

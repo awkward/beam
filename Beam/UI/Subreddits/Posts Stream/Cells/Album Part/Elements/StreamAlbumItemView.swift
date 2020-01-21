@@ -172,9 +172,9 @@ final class StreamAlbumItemView: BeamView, MediaImageLoader, MediaCellMediaLabel
         self.progressView.progress = progress
     }
     
-    override func displayModeDidChange() {
-        super.displayModeDidChange()
-        self.progressView.color = DisplayModeValue(UIColor.beamGreyExtraLight(), darkValue: UIColor.white)
+    override func appearanceDidChange() {
+        super.appearanceDidChange()
+        self.progressView.color = AppearanceValue(light: UIColor.beamGreyExtraLight, dark: UIColor.white)
     }
     
     override func layoutSubviews() {

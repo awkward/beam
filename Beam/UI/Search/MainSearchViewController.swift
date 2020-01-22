@@ -92,7 +92,6 @@ class MainSearchViewController: BeamTableViewController {
             searchBar.endEditing(true)
             self.navigationController?.pushViewController(searchResultsViewController, animated: true)
         }
-        
     }
     
     func searchSubreddits(_ keywords: String) {
@@ -180,13 +179,6 @@ class MainSearchViewController: BeamTableViewController {
             }
             
             self.tableView.endUpdates()
-        }
-    }
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-            searchBar.applyBeamNavigationBarStyle()
         }
     }
     

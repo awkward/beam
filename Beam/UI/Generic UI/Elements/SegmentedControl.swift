@@ -9,7 +9,7 @@
 import UIKit
 
 /// A beam styled segmented control
-class SegmentedControl: UISegmentedControl, BeamAppearance {
+class SegmentedControl: UISegmentedControl {
     
     required init?(coder: NSCoder) {
         super.init(coder: coder)
@@ -30,6 +30,14 @@ class SegmentedControl: UISegmentedControl, BeamAppearance {
     
     private var dividerColor: UIColor {
         AppearanceValue(light: .beamSeparator, dark: .beamDarkTableViewSeperator)
+    }
+    
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            updateAppearance()
+        }
     }
     
     private func updateAppearance() {

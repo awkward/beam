@@ -97,29 +97,34 @@ extension BeamViewControllerLoading where Self: UIViewController {
     }
 
     func presentLoadingError(_ error: Error) {
+        let messageType: String = {
+            switch self.collectionController.query {
+            case is SubredditsCollectionQuery:
+                return "subreddits"
+            case is MultiredditCollectionQuery:
+                return "multireddits"
+            default:
+                return "posts"
+            }
+        }()
         
-        let message: String!
-        var messageType = "posts"
-        if self.collectionController.query is SubredditsCollectionQuery {
-            messageType = "subreddits"
-        } else if self.collectionController.query is MultiredditCollectionQuery {
-            messageType = "multireddits"
-        }
         let nsError = error as NSError
-        if nsError.code == NSURLErrorNotConnectedToInternet && nsError.domain == NSURLErrorDomain {
-            message = AWKLocalizedString("error-loading-\(messageType)-internet")
-        } else {
-            message = AWKLocalizedString("error-loading-\(messageType)")
-        }
+        let message: String = {
+            if nsError.code == NSURLErrorNotConnectedToInternet && nsError.domain == NSURLErrorDomain {
+                return AWKLocalizedString("error-loading-\(messageType)-internet")
+            } else {
+                return AWKLocalizedString("error-loading-\(messageType)")
+            }
+        }()
         
-        if let selfNoticing = self as? NoticeHandling {
+        
+        if let selfNoticing = self as? (UIViewController & NoticeHandling) {
             selfNoticing.presentErrorMessage(message)
         } else {
             let alert = BeamAlertController(title: message, message: nil, preferredStyle: UIAlertController.Style.alert)
             alert.addCloseAction()
-            self.present(alert, animated: true, completion: nil)
+            present(alert, animated: true, completion: nil)
         }
-        
     }
     
     func handleCollectionControllerResponse(_ error: Error?) {

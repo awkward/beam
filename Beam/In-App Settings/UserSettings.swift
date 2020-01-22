@@ -90,7 +90,7 @@ extension SettingsKeys {
     static let nightModeEnabled = SettingsKey<Bool>("DarkModeActive", defaultValue: false)
     
     /// If automatic night mode is enabled
-    static let nightModeAutomaticEnabled = SettingsKey<Bool>("DarkModeAutomatic", defaultValue: false)
+    static let nightModeAutomaticEnabled = SettingsKey<Bool>("DarkModeAutomatic", defaultValue: true)
     
     /// The screen brightness threshold set by the user. Used to determine when automatic night mode should kick in
     static let nightModeAutomaticThreshold = SettingsKey<Float>("DarkModeAutomaticThreshold", defaultValue: 0.4)

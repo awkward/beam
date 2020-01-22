@@ -30,7 +30,6 @@ class BeamNavigationController: UINavigationController, BeamAppearance, UIViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.presentationController?.delegate = self
         self.delegate = self
         
         self.navigationBar.backIndicatorImage = UIImage(named: "navigationbar_arrow_back")
@@ -97,19 +96,6 @@ class BeamNavigationController: UINavigationController, BeamAppearance, UIViewCo
     
     override var shouldAutorotate: Bool {
         return self.topViewController?.shouldAutorotate ?? true
-    }
-    
-}
-
-extension BeamNavigationController: UIAdaptivePresentationControllerDelegate {
-    
-    func adaptivePresentationStyle(for controller: UIPresentationController, traitCollection: UITraitCollection) -> UIModalPresentationStyle {
-        switch traitCollection.horizontalSizeClass {
-        case .regular:
-            return .fullScreen
-        default:
-            return .automatic
-        }
     }
     
 }

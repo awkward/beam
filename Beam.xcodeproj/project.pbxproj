@@ -130,7 +130,6 @@
 		0C12654C1E4C7824006964A7 /* PostLinkPreviewView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C12654B1E4C7824006964A7 /* PostLinkPreviewView.swift */; };
 		0C1265C01E4E0771006964A7 /* biem.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = 0C1265BF1E4E0771006964A7 /* biem.mp3 */; };
 		0C1265F41E4E0CFA006964A7 /* AboutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1265F31E4E0CFA006964A7 /* AboutViewController.swift */; };
-		0C1362D81C070FE6002C7529 /* UISearchBar+Background.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1362D71C070FE6002C7529 /* UISearchBar+Background.swift */; };
 		0C1362E81C07425E002C7529 /* UIAlertController+Unauthenticated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C1362E71C07425E002C7529 /* UIAlertController+Unauthenticated.swift */; };
 		0C145E391BDE2FD700C74100 /* Report.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0C145E381BDE2FD700C74100 /* Report.storyboard */; };
 		0C145E491BDE642100C74100 /* String+Trimming.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0C145E481BDE642100C74100 /* String+Trimming.swift */; };
@@ -511,7 +510,6 @@
 		76FE600D1B53C28600DB8740 /* AddToMultiredditViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FE600C1B53C28600DB8740 /* AddToMultiredditViewController.swift */; };
 		76FE99FD1B85E210000BB67B /* Content+Markdown.swift in Sources */ = {isa = PBXBuildFile; fileRef = 76FE99FC1B85E210000BB67B /* Content+Markdown.swift */; };
 		9A0B160A1B84D1D8004FF4C3 /* MediaOverview.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A0B16091B84D1D8004FF4C3 /* MediaOverview.storyboard */; };
-		9A6BA40B1BCED7180036A310 /* UISearchBar+UITextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A6BA40A1BCED7180036A310 /* UISearchBar+UITextField.swift */; };
 		9A7945811C04BF5200B72F27 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 7660741C1B38073100F4C777 /* Main.storyboard */; };
 /* End PBXBuildFile section */
 
@@ -948,7 +946,6 @@
 		0C12654B1E4C7824006964A7 /* PostLinkPreviewView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PostLinkPreviewView.swift; sourceTree = "<group>"; };
 		0C1265BF1E4E0771006964A7 /* biem.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = biem.mp3; sourceTree = "<group>"; };
 		0C1265F31E4E0CFA006964A7 /* AboutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AboutViewController.swift; sourceTree = "<group>"; };
-		0C1362D71C070FE6002C7529 /* UISearchBar+Background.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UISearchBar+Background.swift"; path = "beam/Extensions/UISearchBar+Background.swift"; sourceTree = SOURCE_ROOT; };
 		0C1362E71C07425E002C7529 /* UIAlertController+Unauthenticated.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIAlertController+Unauthenticated.swift"; path = "beam/Extensions/UIAlertController+Unauthenticated.swift"; sourceTree = SOURCE_ROOT; };
 		0C145E381BDE2FD700C74100 /* Report.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; path = Report.storyboard; sourceTree = "<group>"; };
 		0C145E481BDE642100C74100 /* String+Trimming.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "String+Trimming.swift"; sourceTree = "<group>"; };
@@ -1332,7 +1329,6 @@
 		76FE600C1B53C28600DB8740 /* AddToMultiredditViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = AddToMultiredditViewController.swift; path = "Beam/UI/Subreddits/Subreddit View/AddToMultiredditViewController.swift"; sourceTree = SOURCE_ROOT; };
 		76FE99FC1B85E210000BB67B /* Content+Markdown.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "Content+Markdown.swift"; path = "Beam/Models/Content+Markdown.swift"; sourceTree = SOURCE_ROOT; };
 		9A0B16091B84D1D8004FF4C3 /* MediaOverview.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = MediaOverview.storyboard; path = "Beam/UI/Subreddits/Media Overview/MediaOverview.storyboard"; sourceTree = SOURCE_ROOT; };
-		9A6BA40A1BCED7180036A310 /* UISearchBar+UITextField.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UISearchBar+UITextField.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2015,8 +2011,6 @@
 				00B1C4621BFF1CE300DDA4F8 /* UIImage+Downscaling.swift */,
 				76C550E21BBF05B600DD5FA3 /* UIInterpolatingMotionEffects+Effects.swift */,
 				0C3D7DAA1DF97176003CD8CF /* UIScrollView+ScrollArea.swift */,
-				0C1362D71C070FE6002C7529 /* UISearchBar+Background.swift */,
-				9A6BA40A1BCED7180036A310 /* UISearchBar+UITextField.swift */,
 				00CE11331BE2111300234900 /* UIView+PrivateViews.swift */,
 				0CC2BA481DF965F4004FFFA4 /* UIView+Viewport.swift */,
 				761079061BA81706004B7887 /* UIViewController+Dismissable.swift */,
@@ -3734,7 +3728,6 @@
 				0C87AAC41C846FAF00D5A3A5 /* LoadMoreCommentsCell.swift in Sources */,
 				761078F71BA8084B004B7887 /* SubredditListViewController.swift in Sources */,
 				766074171B38073100F4C777 /* AppDelegate.swift in Sources */,
-				0C1362D81C070FE6002C7529 /* UISearchBar+Background.swift in Sources */,
 				0C5566EB1C170AB30020D459 /* ReplyBarView.swift in Sources */,
 				761078EA1BA6E9C9004B7887 /* Array+Limit.swift in Sources */,
 				0C31876B1BD7D105006CE2F1 /* NoticeHandling.swift in Sources */,
@@ -3767,7 +3760,6 @@
 				76417D081B4BD10700FBD14D /* SubredditInfoViewController.swift in Sources */,
 				0C87AAC61C84719B00D5A3A5 /* BaseCommentCell.swift in Sources */,
 				769E1FA31BA97A3500AD279A /* BeamTableViewController.swift in Sources */,
-				9A6BA40B1BCED7180036A310 /* UISearchBar+UITextField.swift in Sources */,
 				0C4A37CF1DCB547F00519D58 /* PostImagePartCell.swift in Sources */,
 				0CC3ED381BF4C7A6002D05A3 /* StarsBackgroundView.swift in Sources */,
 				0C689FFF1BE227D6002B179E /* BeamViewControllerLoading.swift in Sources */,

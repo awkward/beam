@@ -13,13 +13,6 @@ import CoreData
 let MultiredditSubCellIdentifier = "subreddit-edit"
 let MultiredditMaxSubredditsCount = 50
 
-class MultiredditSubsSearchController: UISearchController {
-    
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return AppearanceValue(light: UIStatusBarStyle.default, dark: UIStatusBarStyle.lightContent)
-    }
-}
-
 class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsControllerDelegate, UISearchControllerDelegate, MultiredditSubsSearchViewControllerDelegate {
     
     var multireddit: Multireddit! {
@@ -37,8 +30,6 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
     var suggestions: [Subreddit]?
     
     fileprivate var collectionController = CollectionController(authentication: AppDelegate.shared.authenticationController, context: AppDelegate.shared.managedObjectContext)
-    
-    fileprivate var searchController: UISearchController!
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -46,11 +37,13 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
         let multiredditSubsSearch = MultiredditSubsSearchViewController(style: UITableView.Style.plain)
         multiredditSubsSearch.multireddit = self.multireddit
         multiredditSubsSearch.delegate = self
-        self.searchController = MultiredditSubsSearchController(searchResultsController: multiredditSubsSearch)
-        self.searchController.searchResultsUpdater = self.searchController.searchResultsController as? SubredditsSearchViewController
-        self.searchController.searchBar.scopeButtonTitles = [AWKLocalizedString("search-scope-subscribed"), AWKLocalizedString("search-scope-all")]
-        self.searchController.searchBar.selectedScopeButtonIndex = 0
-        self.tableView.tableHeaderView = self.searchController.searchBar
+        
+        let searchController = UISearchController(searchResultsController: multiredditSubsSearch)
+        navigationItem.searchController = searchController
+        searchController.searchResultsUpdater = searchController.searchResultsController as? SubredditsSearchViewController
+        searchController.searchBar.scopeButtonTitles = [AWKLocalizedString("search-scope-subscribed"), AWKLocalizedString("search-scope-all")]
+        searchController.searchBar.selectedScopeButtonIndex = 0
+
         self.definesPresentationContext = true
         
         self.tableView.rowHeight = UITableView.automaticDimension
@@ -141,15 +134,6 @@ class MultiredditSubsViewController: BeamTableViewController, NSFetchedResultsCo
                 }
                 
             })
-        }
-    }
-    
-    // MARK: - Display Mode
-    
-    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
-        super.traitCollectionDidChange(previousTraitCollection)
-        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
-            searchController.searchBar.applyBeamBarStyleWithoutBorder()
         }
     }
 

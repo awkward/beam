@@ -11,9 +11,6 @@ import Snoo
 
 class SubredditSearchViewSearchController: UISearchController {
     
-    override var preferredStatusBarStyle: UIStatusBarStyle {
-        return AppearanceValue(light: UIStatusBarStyle.default, dark: UIStatusBarStyle.lightContent)
-    }
 }
 
 class SubredditSearchViewController: BeamTableViewController, SubredditTabItemViewController {
@@ -33,44 +30,31 @@ class SubredditSearchViewController: BeamTableViewController, SubredditTabItemVi
     var requestTimer: Timer?
     
     lazy var resultsController: SubredditSearchResultsViewController = {
-        let resultViewController = self.storyboard!.instantiateViewController(withIdentifier: "subredditSearchResults") as! SubredditSearchResultsViewController
-        resultViewController.subreddit = self.subreddit
+        guard let storyboard = self.storyboard else {
+            fatalError("Cannot find storyboard for subreddit search")
+        }
+        guard let resultViewController = storyboard.instantiateViewController(withIdentifier: "subredditSearchResults") as? SubredditSearchResultsViewController else {
+            fatalError("Cannot find subreddit search results scene in storyboard")
+        }
+        resultViewController.subreddit = subreddit
         return resultViewController
     }()
     
-    lazy var searchController: SubredditSearchViewSearchController = {
-        let controller = SubredditSearchViewSearchController(searchResultsController: self.resultsController)
-        return controller
-    }()
+    lazy var searchController = UISearchController(searchResultsController: self.resultsController)
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        (self.navigationController?.navigationBar as? BeamNavigationBar)?.showBottomBorder = false
-        
         self.tableView.scrollsToTop = false
         
-        //Fix for the black screen bug
-        self.definesPresentationContext = true
-        
-        self.searchController.searchBar.delegate = self
-        self.searchController.searchResultsUpdater = self.resultsController
-        self.searchController.searchBar.searchBarStyle = UISearchBar.Style.default
-        
-        self.resultsController.customNavigationController = self.navigationController
+        searchController.searchBar.delegate = self
+        searchController.searchResultsUpdater = resultsController
+        resultsController.customNavigationController = navigationController
         
         self.updateNavigationItem()
         
-        self.navigationItem.hidesSearchBarWhenScrolling = false
-        self.navigationItem.searchController = self.searchController
-        
-    }
-    
-    override func appearanceDidChange() {
-        super.appearanceDidChange()
-        
-        let searchBar = self.searchController.searchBar
-        searchBar.applyBeamBarStyle()
+        navigationItem.hidesSearchBarWhenScrolling = false
+        navigationItem.searchController = searchController
     }
 
 }

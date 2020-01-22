@@ -155,10 +155,6 @@ class CreateLinkPostViewController: CreatePostViewController {
         self.titleTextField?.textColor = textColor
         self.linkTextField?.textColor = textColor
         
-        let keyboardAppearance = AppearanceValue(light: UIKeyboardAppearance.default, dark: UIKeyboardAppearance.dark)
-        self.titleTextField?.keyboardAppearance = keyboardAppearance
-        self.linkTextField?.keyboardAppearance = keyboardAppearance
-        
         self.seperatorView.backgroundColor = AppearanceValue(light: UIColor(red: 216 / 255, green: 216 / 255, blue: 216 / 255, alpha: 1), dark: UIColor(red: 61 / 255, green: 61 / 255, blue: 61 / 255, alpha: 1))
     }
     

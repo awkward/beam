@@ -18,6 +18,7 @@ extension UIBarAppearance {
     @objc func configureColorizedBeamAppearance() {
         configureWithOpaqueBackground()
         backgroundColor = .beamColorizedBar
+        shadowColor = nil
     }
     
 }
@@ -27,11 +28,13 @@ extension UINavigationBarAppearance {
     override func configureBeamAppearance() {
         super.configureBeamAppearance()
         titleTextAttributes = [.foregroundColor: UIColor.label]
+        largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
     override func configureColorizedBeamAppearance() {
         super.configureColorizedBeamAppearance()
         titleTextAttributes = [.foregroundColor: UIColor.white]
+        largeTitleTextAttributes = [.foregroundColor: UIColor.white]
     }
     
 }

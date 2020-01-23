@@ -557,11 +557,18 @@
         <scene sceneID="Jyn-Cx-nex">
             <objects>
                 <navigationController storyboardIdentifier="search-navigation" useStoryboardIdentifierAsRestorationIdentifier="YES" id="CIb-ID-R66" userLabel="Search Navigation" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
                     <tabBarItem key="tabBarItem" title="Search" image="tabbar_search" id="fBs-wp-ykB"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="gMd-Nu-0A8">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="colorized_bar"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
+                        <textAttributes key="largeTitleTextAttributes">
+                            <color key="textColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        </textAttributes>
                     </navigationBar>
                     <connections>
                         <segue destination="XuF-DX-9dg" kind="relationship" relationship="rootViewController" id="uwF-6y-EjX"/>
@@ -571,14 +578,15 @@
             </objects>
             <point key="canvasLocation" x="854" y="2406"/>
         </scene>
-        <!--Main Search View Controller-->
+        <!--Search-->
         <scene sceneID="khU-cv-aoy">
             <objects>
                 <tableViewController id="XuF-DX-9dg" customClass="MainSearchViewController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
-                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" sectionHeaderHeight="18" sectionFooterHeight="18" id="yKK-5s-lgk">
+                    <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" layoutMarginsFollowReadableWidth="YES" alwaysBounceVertical="YES" contentInsetAdjustmentBehavior="always" keyboardDismissMode="onDrag" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="60" estimatedRowHeight="60" sectionHeaderHeight="18" estimatedSectionHeaderHeight="18" sectionFooterHeight="18" estimatedSectionFooterHeight="18" id="yKK-5s-lgk">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <viewLayoutGuide key="safeArea" id="wU7-in-v02"/>
                         <prototypes>
                             <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="cell" textLabel="YK0-0r-1zd" style="IBUITableViewCellStyleDefault" id="kgH-Yn-FmT" customClass="SubredditListTableViewCell" customModule="beam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="55.5" width="375" height="60"/>
@@ -603,13 +611,12 @@
                             <outlet property="delegate" destination="XuF-DX-9dg" id="tu6-rC-qap"/>
                         </connections>
                     </tableView>
-                    <navigationItem key="navigationItem" id="z4P-Mx-I8h">
-                        <nil key="title"/>
-                    </navigationItem>
+                    <extendedEdge key="edgesForExtendedLayout" bottom="YES"/>
+                    <navigationItem key="navigationItem" title="Search" largeTitleDisplayMode="never" id="z4P-Mx-I8h"/>
                 </tableViewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OlO-Zr-DPR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1553" y="2402"/>
+            <point key="canvasLocation" x="1552.8" y="2401.3493253373317"/>
         </scene>
         <!--Welcome View Controller-->
         <scene sceneID="NOK-sF-1v2">

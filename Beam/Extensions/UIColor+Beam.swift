@@ -123,4 +123,8 @@ extension UIColor {
     static var beamPlainSectionHeader: UIColor {
         UIColor(named: "plain_section_header")!
     }
+    
+    static var beamSearchBarBackground: UIColor {
+        UIColor(named: "searchbar_background")!
+    }
 }

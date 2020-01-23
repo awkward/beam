@@ -1004,7 +1004,7 @@
 "search-placeholder" = "Search";
 
 /* The text placed in the searchbar where there is no search query */
-"search-reddit-placeholder" = "Search reddit";
+"search-reddit-placeholder" = "Subreddit, post or user";
 
 /* The text placed in the searchbar where there is no search query, [SUBREDDIT] is replaced with the subreddit name */
 "search-subreddit-placeholder" = "Search /r/[SUBREDDIT]";

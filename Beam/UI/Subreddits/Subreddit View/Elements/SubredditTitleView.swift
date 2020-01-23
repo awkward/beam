@@ -10,12 +10,15 @@ import UIKit
 import Snoo
 import CoreData
 
-class SubredditTitleView: BeamView {
+class SubredditTitleView: UIView {
     
-    @IBOutlet fileprivate var contentLabel: UILabel!
+    @IBOutlet private var titleLabel: UILabel!
+    @IBOutlet private var subtitleLabel: UILabel!
     
     class func titleViewWithSubreddit(_ subreddit: Subreddit?) -> SubredditTitleView {
-        return UINib(nibName: "SubredditTitleView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! SubredditTitleView
+        let view = UINib(nibName: "SubredditTitleView", bundle: nil).instantiate(withOwner: nil, options: nil).first as! SubredditTitleView
+        view.subreddit = subreddit
+        return view
     }
     
     override func awakeFromNib() {
@@ -29,62 +32,49 @@ class SubredditTitleView: BeamView {
     
     weak var subreddit: Subreddit? {
         didSet {
-            self.contentLabel.attributedText = self.attributedContent
+            updateContent()
         }
     }
     
-    var attributedContent: NSAttributedString? {
-        let fullContent = NSMutableAttributedString()
-        
-        let titleColor = AppearanceValue(light: UIColor.black, dark: UIColor.white)
-        let subtitleColor = AppearanceValue(light: UIColor.black, dark: UIColor.white).withAlphaComponent(0.5)
-        
-        if let title = self.subreddit?.displayName {
-            let titleFont = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.semibold)
-            
-            let titleString = NSAttributedString(string: title, attributes: [NSAttributedString.Key.font: titleFont, NSAttributedString.Key.foregroundColor: titleColor])
-            fullContent.append(titleString)
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.verticalSizeClass != previousTraitCollection?.verticalSizeClass {
+            updateContent()
         }
-        
-        if let multireddit = self.subreddit as? Multireddit {
-            fullContent.append(NSAttributedString(string: "\n"))
-            
+    }
+    
+    private func updateContent() {
+        titleLabel.text = title
+        subtitleLabel.text = subtitle
+        subtitleLabel.isHidden = subtitleLabel.text == nil || traitCollection.verticalSizeClass == .compact
+    }
+    
+    var title: String {
+        subreddit?.displayName ?? AWKLocalizedString("subreddit")
+    }
+    
+    var subtitle: String? {
+        if let multireddit = subreddit as? Multireddit {
             let subredditCount = multireddit.subreddits?.count ?? 0
             let localizedSubredditsString = subredditCount == 1 ? AWKLocalizedString("subreddit").lowercased() : AWKLocalizedString("subreddits").lowercased()
-            var subtitle = "\(subredditCount) \(localizedSubredditsString)"
+            var localizedSubtitle = "\(subredditCount) \(localizedSubredditsString)"
             let localizedVisibilityString = multireddit.visibility == SubredditVisibility.Public ? AWKLocalizedString("public").capitalized(with: Locale.current) : AWKLocalizedString("private").capitalized(with: Locale.current)
-            subtitle += " - \(localizedVisibilityString)"
-            
-            let subtitleFont = UIFont.systemFont(ofSize: 12)
-            
-            let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedString.Key.font: subtitleFont, NSAttributedString.Key.foregroundColor: subtitleColor])
-            fullContent.append(subtitleString)
-        } else if let subreddit = self.subreddit, !subreddit.isPrepopulated && subreddit.visibility == SubredditVisibility.Private {
-            fullContent.append(NSAttributedString(string: "\n"))
-            let subtitle = subreddit.visibility == SubredditVisibility.Public ? AWKLocalizedString("public").capitalized(with: Locale.current) : AWKLocalizedString("private").capitalized(with: Locale.current)
-            
-            let subtitleFont = UIFont.systemFont(ofSize: 12)
-            let subtitleString = NSAttributedString(string: subtitle, attributes: [NSAttributedString.Key.font: subtitleFont, NSAttributedString.Key.foregroundColor: subtitleColor])
-            fullContent.append(subtitleString)
+            localizedSubtitle += " - \(localizedVisibilityString)"
+            return localizedSubtitle
+        } else if let subreddit = self.subreddit, !subreddit.isPrepopulated && subreddit.visibility == .Private {
+            return subreddit.visibility == .Public ? AWKLocalizedString("public").capitalized(with: Locale.current) : AWKLocalizedString("private").capitalized(with: Locale.current)
+        } else {
+            return nil
         }
-        
-        return fullContent
     }
     
     @objc fileprivate func objectsDidChangeInContextNotification(_ notification: Notification) {
-        DispatchQueue.main.async { () -> Void in
+        DispatchQueue.main.async {
             let updatedObjects = (notification as NSNotification).userInfo?[NSUpdatedObjectsKey] as? NSSet
             if let subreddit = self.subreddit, updatedObjects?.contains(subreddit) == true && subreddit is Multireddit {
-                self.contentLabel.attributedText = self.attributedContent
+                self.updateContent()
             }
         }
-    }
-    
-    override func appearanceDidChange() {
-        super.appearanceDidChange()
-        
-        self.backgroundColor = UIColor.clear
-        self.contentLabel.attributedText = self.attributedContent
     }
 
 }

@@ -13,13 +13,8 @@ class BeamColorizedNavigationController: BeamNavigationController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        navigationBar.isTranslucent = false
         navigationBar.tintColor = AppearanceValue(light: .white, dark: .beamPurpleLight)
-        navigationBar.barTintColor = UIColor(named: "colorized_bar")
-        
-        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedString.Key: Any]()
-        titleAttributes[NSAttributedString.Key.foregroundColor] = UIColor.white
-        navigationBar.titleTextAttributes = titleAttributes
+        navigationBar.standardAppearance.configureColorizedBeamAppearance()
     }
 
     override var preferredStatusBarStyle: UIStatusBarStyle {

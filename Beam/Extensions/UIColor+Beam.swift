@@ -116,6 +116,10 @@ extension UIColor {
         UIColor(named: "bar")!
     }
     
+    static var beamColorizedBar: UIColor {
+        UIColor(named: "colorized_bar")!
+    }
+    
     static var beamPlainSectionHeader: UIColor {
         UIColor(named: "plain_section_header")!
     }

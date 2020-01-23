@@ -30,19 +30,9 @@ class BeamNavigationController: UINavigationController, BeamAppearance, UIViewCo
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.delegate = self
-        
-        self.navigationBar.backIndicatorImage = UIImage(named: "navigationbar_arrow_back")
-        self.navigationBar.backIndicatorTransitionMaskImage = UIImage(named: "navigationbar_arrow_back_mask")
-        
+        delegate = self
         view.backgroundColor = AppearanceValue(light: .systemGroupedBackground, dark: .beamDarkBackground)
-
-        var titleAttributes = navigationBar.titleTextAttributes ?? [NSAttributedString.Key: Any]()
-        titleAttributes[NSAttributedString.Key.foregroundColor] = AppearanceValue(light: .black, dark: UIColor(red: 245 / 255.0, green: 245 / 255.0, blue: 247 / 255.0, alpha: 1))
-        
-        self.navigationBar.barTintColor = .beamBar
-        self.navigationBar.titleTextAttributes = titleAttributes
-        
+        navigationBar.standardAppearance.configureBeamAppearance()
         appearanceDidChange()
     }
     

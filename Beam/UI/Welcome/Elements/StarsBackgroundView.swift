@@ -35,32 +35,34 @@ class StarsBackgroundView: UIView {
     }
     
     fileprivate func setupSpriteKitAnimations() {
-        
         //Disable the stars on the simulator
         #if (arch(i386) || arch(x86_64))
-            print("Stars background will not work, causing issues on the simulator")
+            print("Stars background disabled as it causes issues on the simulator.")
         #else
-        self.spriteView.allowsTransparency = true
-        self.spriteView.backgroundColor = UIColor.clear
-        self.spriteScene.backgroundColor = UIColor.clear
+        spriteView.allowsTransparency = true
+        spriteView.backgroundColor = .clear
+        spriteScene.backgroundColor = .clear
         
-        self.spriteView.presentScene(self.spriteScene, transition: SKTransition())
-        self.addSubview(self.spriteView)
+        spriteView.presentScene(spriteScene, transition: SKTransition())
+        addSubview(spriteView)
         
-        let starsLevel0Path: String = Bundle.main.path(forResource: "stars_level_0", ofType: "sks")!
-            if let stars = NSKeyedUnarchiver.unarchiveObject(withFile: starsLevel0Path) as? SKEmitterNode {
-            stars.position = CGPoint(x: 0, y: -150)
-            self.spriteScene.addChild(stars)
-            stars.advanceSimulationTime(400)
-        }
-        
-        let starsLevel1Path: String = Bundle.main.path(forResource: "stars_level_1", ofType: "sks")!
-        if let stars = NSKeyedUnarchiver.unarchiveObject(withFile: starsLevel1Path) as? SKEmitterNode {
-            stars.position = CGPoint(x: 0, y: -150)
-            self.spriteScene.addChild(stars)
-            stars.advanceSimulationTime(400)
+        do {
+            try addStars(level: 0)
+            try addStars(level: 1)
+        } catch {
+            print("Error loading stars background: \(error)")
         }
         #endif
+    }
+    
+    private func addStars(level: Int) throws {
+        let resourceName = "stars_level_\(level)"
+        guard let emitter = SKEmitterNode(fileNamed: resourceName) else {
+            throw NSError(domain: NSCocoaErrorDomain, code: NSCoderReadCorruptError, userInfo: nil)
+        }
+        emitter.position = CGPoint(x: 0, y: -150)
+        spriteScene.addChild(emitter)
+        emitter.advanceSimulationTime(400)
     }
     
     fileprivate func setupGradient() {

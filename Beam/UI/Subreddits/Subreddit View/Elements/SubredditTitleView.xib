@@ -9,21 +9,21 @@
         <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
         <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
         <view opaque="NO" contentMode="scaleToFill" id="jdV-zr-NHw" customClass="SubredditTitleView" customModule="beam" customModuleProvider="target">
-            <rect key="frame" x="0.0" y="0.0" width="164" height="45"/>
+            <rect key="frame" x="0.0" y="0.0" width="164" height="33"/>
             <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
             <subviews>
-                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="10" translatesAutoresizingMaskIntoConstraints="NO" id="aUc-Cx-ADk">
-                    <rect key="frame" x="0.0" y="0.0" width="164" height="45"/>
+                <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="aUc-Cx-ADk">
+                    <rect key="frame" x="0.0" y="0.0" width="164" height="33"/>
                     <subviews>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" horizontalCompressionResistancePriority="740" verticalCompressionResistancePriority="740" text="Multireddit" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="drT-ND-PNc">
-                            <rect key="frame" x="38.5" y="0.0" width="87.5" height="20.5"/>
+                            <rect key="frame" x="38.5" y="0.0" width="87.5" height="18.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleHeadline"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="8 subreddits - private" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="CEL-Ls-43p">
-                            <rect key="frame" x="21" y="30.5" width="122.5" height="14.5"/>
+                            <rect key="frame" x="21" y="18.5" width="122.5" height="14.5"/>
                             <fontDescription key="fontDescription" style="UICTFontTextStyleCaption1"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" systemColor="secondaryLabelColor" red="0.23529411759999999" green="0.23529411759999999" blue="0.26274509800000001" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                     </subviews>
@@ -42,7 +42,7 @@
                 <outlet property="subtitleLabel" destination="CEL-Ls-43p" id="nqP-wh-XIJ"/>
                 <outlet property="titleLabel" destination="drT-ND-PNc" id="pVH-cQ-RED"/>
             </connections>
-            <point key="canvasLocation" x="846.37681159420299" y="-134.93303571428569"/>
+            <point key="canvasLocation" x="849.27536231884062" y="-139.28571428571428"/>
         </view>
     </objects>
 </document>

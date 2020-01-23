@@ -8,7 +8,6 @@
 
 import UIKit
 
-@available(*, deprecated, message: "Use stock iOS navigation bar.")
 class BeamNavigationBar: UINavigationBar, BeamAppearance {
     
     var showProgressView = false {

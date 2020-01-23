@@ -163,14 +163,15 @@ struct SubredditInfoSection {
 
 class SubredditInfoViewController: BeamTableViewController, SubredditTabItemViewController {
     
-    lazy var privacyOverlaySwitch: UISwitch = { UISwitch() }()
-    lazy var spoilerOverlaySwitch: UISwitch = { UISwitch() }()
-    lazy var privateSwitch: UISwitch = { UISwitch() }()
+    lazy var privacyOverlaySwitch = UISwitch()
+    lazy var spoilerOverlaySwitch = UISwitch()
+    lazy var privateSwitch = UISwitch()
     
-    var titleView = SubredditTitleView.titleViewWithSubreddit(nil)
+    let titleView = SubredditTitleView.titleViewWithSubreddit(nil)
     
     weak var subreddit: Subreddit? {
         didSet {
+            self.title = subreddit?.title
             self.updateNavigationItem()
             self.createSections()
         }
@@ -207,6 +208,8 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
+        
+        navigationController?.navigationBar.standardAppearance.configureBeamAppearance()
         
         NotificationCenter.default.addObserver(self, selector: #selector(SubredditInfoViewController.objectContextObjectsDidChange(_:)), name: NSNotification.Name.NSManagedObjectContextObjectsDidChange, object: AppDelegate.shared.managedObjectContext)
         self.tableView.reloadData()

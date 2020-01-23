@@ -188,9 +188,8 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
                         tabBarItemViewController.subreddit = self.subreddit
                     }
                     
-                    let navigationController = BeamNavigationController(navigationBarClass: BeamNavigationBar.self, toolbarClass: nil)
+                    let navigationController = BeamNavigationController()
                     navigationController.setViewControllers([viewController], animated: false)
-                    
                     navigationController.tabBarItem = tabBarItem
                     self.viewControllers?.insert(navigationController, at: mediaViewIndex)
                     if shouldSelectMediaView {
@@ -238,7 +237,8 @@ class SubredditTabBarController: SmallTabBarController, UIAdaptivePresentationCo
         
         //Update the subreddit on the view controllers
         for viewController in viewControllers {
-            if let navigationController = viewController as? UINavigationController, let subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController,
+            if let navigationController = viewController as? UINavigationController,
+                let subredditTabItemViewController = navigationController.topViewController as? SubredditTabItemViewController,
                 subredditTabItemViewController.subreddit?.identifier != self.subreddit?.identifier {
                 subredditTabItemViewController.updateNavigationItem()
             }

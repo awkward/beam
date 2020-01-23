@@ -27,6 +27,7 @@
 		00B1C4041BFE166000DDA4F8 /* NSURL+Services.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1C4031BFE166000DDA4F8 /* NSURL+Services.swift */; };
 		00B1C4631BFF1CE300DDA4F8 /* UIImage+Downscaling.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B1C4621BFF1CE300DDA4F8 /* UIImage+Downscaling.swift */; };
 		00B980E51BCE5C10002F93B4 /* VoteButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00B980E41BCE5C10002F93B4 /* VoteButton.swift */; };
+		00C3FFD023D8967B00317623 /* UIBarAppearance+Beam.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00C3FFCF23D8967B00317623 /* UIBarAppearance+Beam.swift */; };
 		00CE11341BE2111300234900 /* UIView+PrivateViews.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00CE11331BE2111300234900 /* UIView+PrivateViews.swift */; };
 		00D470E31BD11263001125B0 /* ImageSpoilerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00D470E21BD11263001125B0 /* ImageSpoilerView.swift */; };
 		00FD3FA923CC7C3500DD353A /* BasicViewControllerTransition.swift in Sources */ = {isa = PBXBuildFile; fileRef = 00FD3F9923CC7C3500DD353A /* BasicViewControllerTransition.swift */; };
@@ -826,6 +827,7 @@
 		00B1C4031BFE166000DDA4F8 /* NSURL+Services.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "NSURL+Services.swift"; sourceTree = "<group>"; };
 		00B1C4621BFF1CE300DDA4F8 /* UIImage+Downscaling.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "UIImage+Downscaling.swift"; path = "beam/Extensions/UIImage+Downscaling.swift"; sourceTree = SOURCE_ROOT; };
 		00B980E41BCE5C10002F93B4 /* VoteButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = VoteButton.swift; path = "Beam/UI/Generic UI/Elements/VoteButton.swift"; sourceTree = SOURCE_ROOT; };
+		00C3FFCF23D8967B00317623 /* UIBarAppearance+Beam.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIBarAppearance+Beam.swift"; sourceTree = "<group>"; };
 		00CE11331BE2111300234900 /* UIView+PrivateViews.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+PrivateViews.swift"; sourceTree = "<group>"; };
 		00D470E21BD11263001125B0 /* ImageSpoilerView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ImageSpoilerView.swift; path = "Beam/UI/Subreddits/Posts Stream/Cells/Image Part/Elements/ImageSpoilerView.swift"; sourceTree = SOURCE_ROOT; };
 		00F9173E1F2B7D16002296E4 /* Trekker.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Trekker.xcodeproj; path = Trekker/Trekker.xcodeproj; sourceTree = "<group>"; };
@@ -2005,6 +2007,7 @@
 				0CF93CFB1C89922E006257A2 /* UIAlertController+Convience.swift */,
 				0C1362E71C07425E002C7529 /* UIAlertController+Unauthenticated.swift */,
 				764E74681B3819BF003FD2F9 /* UIColor+Beam.swift */,
+				00C3FFCF23D8967B00317623 /* UIBarAppearance+Beam.swift */,
 				0CECDB851C494A6B0055DAB7 /* UIDevice+ModelName.swift */,
 				00B1C4621BFF1CE300DDA4F8 /* UIImage+Downscaling.swift */,
 				76C550E21BBF05B600DD5FA3 /* UIInterpolatingMotionEffects+Effects.swift */,
@@ -3702,6 +3705,7 @@
 				0C09F7DF1CD247AC00E89B1A /* ImgurGalleryAlbumContentViewController.swift in Sources */,
 				76466C0D1B69096E0086B183 /* NSDate+RelativeFormatter.swift in Sources */,
 				0C6B65EB1F9A49DF005538C2 /* UITableView+Reusable.swift in Sources */,
+				00C3FFD023D8967B00317623 /* UIBarAppearance+Beam.swift in Sources */,
 				0CA73B831DAD04D4000CB712 /* ShareActivityViewController.swift in Sources */,
 				0CFEF3891C86F6E1005D7DAE /* NotificationCell.swift in Sources */,
 				0C87FA651E4B6B5D0091378B /* AuthenticationController+NSFW.swift in Sources */,

@@ -6,4 +6,32 @@
 //  Copyright © 2020 Awkward. All rights reserved.
 //
 
-import Foundation
+import UIKit
+
+extension UIBarAppearance {
+    
+    @objc func configureBeamAppearance() {
+        configureWithOpaqueBackground()
+        backgroundColor = .beamBar
+    }
+    
+    @objc func configureColorizedBeamAppearance() {
+        configureWithOpaqueBackground()
+        backgroundColor = .beamColorizedBar
+    }
+    
+}
+
+extension UINavigationBarAppearance {
+    
+    override func configureBeamAppearance() {
+        super.configureBeamAppearance()
+        titleTextAttributes = [.foregroundColor: UIColor.label]
+    }
+    
+    override func configureColorizedBeamAppearance() {
+        super.configureColorizedBeamAppearance()
+        titleTextAttributes = [.foregroundColor: UIColor.white]
+    }
+    
+}

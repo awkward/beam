@@ -42,7 +42,7 @@
                 <navigationController id="27P-PK-s12" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Search" image="tabbar_search" id="KJ4-Gb-Rnl"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="E3u-Rc-Yfg" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="E3u-Rc-Yfg">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="bar"/>
@@ -59,8 +59,9 @@
         <scene sceneID="AWn-d0-cRJ">
             <objects>
                 <navigationController id="mL6-27-ESc" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
+                    <extendedEdge key="edgesForExtendedLayout"/>
                     <tabBarItem key="tabBarItem" title="Info" image="tabbar_info" id="D4B-Df-Erd"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="yYV-Qv-N45" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="yYV-Qv-N45">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="bar"/>
@@ -302,7 +303,7 @@
             <objects>
                 <tableViewController storyboardIdentifier="MultiredditSubsViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="M3M-x8-kEJ" customClass="MultiredditSubsViewController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelectionDuringEditing="YES" rowHeight="44" sectionHeaderHeight="22" sectionFooterHeight="22" id="ptF-Q0-mtk">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <connections>
@@ -327,7 +328,7 @@
             <objects>
                 <tableViewController id="JUm-be-1Fv" customClass="AddToMultiredditViewController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tableView key="view" clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="grouped" separatorStyle="default" rowHeight="64" sectionHeaderHeight="18" sectionFooterHeight="18" id="Jon-BD-53I">
-                        <rect key="frame" x="0.0" y="0.0" width="414" height="842"/>
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="786"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="0.93725490199999995" green="0.93725490199999995" blue="0.95686274510000002" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <prototypes>
@@ -401,9 +402,10 @@
         <scene sceneID="L8z-I3-rJF">
             <objects>
                 <navigationController id="8UG-9P-Mv8" customClass="BeamColorizedNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="grk-Ov-qeu">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="grk-Ov-qeu">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="bar"/>
                     </navigationBar>
                     <connections>
                         <segue destination="JUm-be-1Fv" kind="relationship" relationship="rootViewController" id="bQD-g9-iqu"/>
@@ -417,9 +419,10 @@
         <scene sceneID="Crf-aQ-J7I">
             <objects>
                 <navigationController id="Voh-Fy-whU" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="NeX-t8-A2h">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="NeX-t8-A2h">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="56"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="barTintColor" name="bar"/>
                     </navigationBar>
                     <connections>
                         <segue destination="M3M-x8-kEJ" kind="relationship" relationship="rootViewController" id="ffV-W5-B7d"/>
@@ -434,7 +437,7 @@
             <objects>
                 <navigationController id="wsu-E8-dCP" customClass="BeamNavigationController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
                     <tabBarItem key="tabBarItem" title="Posts" image="tabbar_stream" id="XmG-26-XXz"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ix1-8F-oDc" customClass="BeamNavigationBar" customModule="beam" customModuleProvider="target">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" translucent="NO" id="ix1-8F-oDc">
                         <rect key="frame" x="0.0" y="44" width="414" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                         <color key="barTintColor" name="bar"/>
@@ -459,7 +462,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="725"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lmA-db-tVx" customClass="BeamToolbar" customModule="beam" customModuleProvider="target">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translucent="NO" translatesAutoresizingMaskIntoConstraints="NO" id="lmA-db-tVx" customClass="BeamToolbar" customModule="beam" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="414" height="44"/>
                                 <items>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="7Vg-D4-hpb"/>

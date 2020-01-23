@@ -24,13 +24,7 @@ class WelcomeViewController: BeamViewController {
     required init?(coder aDecoder: NSCoder) {
         super.init(coder: aDecoder)
 
-        self.modalPresentationStyle = UIModalPresentationStyle.custom
-        self.modalPresentationCapturesStatusBarAppearance = true
-    }
-    
-    override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
-        super.init(nibName: nibNameOrNil, bundle: nibBundleOrNil)
-        
+        self.transitioningDelegate = self
         self.modalPresentationStyle = UIModalPresentationStyle.custom
         self.modalPresentationCapturesStatusBarAppearance = true
     }
@@ -38,13 +32,11 @@ class WelcomeViewController: BeamViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.setupView()
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: AppDelegate.shared.authenticationController)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
+        setupView()
+        let notificationCenter = NotificationCenter.default
+        notificationCenter.addObserver(self, selector: #selector(WelcomeViewController.userDidChange(_:)), name: AuthenticationController.UserDidChangeNotificationName, object: AppDelegate.shared.authenticationController)
+        notificationCenter.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: UIApplication.didBecomeActiveNotification, object: nil)
+        notificationCenter.addObserver(self, selector: #selector(WelcomeViewController.applicationStateChanged(_:)), name: UIApplication.didEnterBackgroundNotification, object: nil)
     }
     
     deinit {
@@ -56,9 +48,6 @@ class WelcomeViewController: BeamViewController {
     }
     
     private func setupView() {
-        let tintColor = UIColor.beam
-        let cornerRadius: CGFloat = 3
-        
         //Title
         self.titleLabel.text = AWKLocalizedString("welcome-title")
         
@@ -66,16 +55,15 @@ class WelcomeViewController: BeamViewController {
         self.textLabel.text = AWKLocalizedString("welcome-message")
     
         //Connect button
-        self.connectWithRedditButton.backgroundColor = UIColor.white
-        self.connectWithRedditButton.setTitleColor(tintColor, for: UIControl.State())
-        self.connectWithRedditButton.layer.cornerRadius = cornerRadius
+        self.connectWithRedditButton.backgroundColor = .white
+        self.connectWithRedditButton.layer.cornerRadius = 3
         self.connectWithRedditButton.layer.masksToBounds = true
-        self.connectWithRedditButton.setTitle(AWKLocalizedString("welcome-connect-with-reddit-button"), for: UIControl.State())
+        self.connectWithRedditButton.setTitle(AWKLocalizedString("welcome-connect-with-reddit-button"), for: .normal)
         
         //Connect without account button
-        self.connectWithoutRedditButton.backgroundColor = UIColor.clear
-        self.connectWithoutRedditButton.setTitleColor(UIColor.white, for: UIControl.State())
-        self.connectWithoutRedditButton.setTitle(AWKLocalizedString("welcome-connect-without-reddit-button"), for: UIControl.State())
+        self.connectWithoutRedditButton.backgroundColor = .clear
+        self.connectWithoutRedditButton.setTitleColor(.white, for: .normal)
+        self.connectWithoutRedditButton.setTitle(AWKLocalizedString("welcome-connect-without-reddit-button"), for: .normal)
         
         self.appIconImageView.alpha = 0
         self.titleLabel.alpha = 0
@@ -146,4 +134,38 @@ class WelcomeViewController: BeamViewController {
             
         }
     }
+}
+
+extension WelcomeViewController: UIViewControllerTransitioningDelegate {
+    
+    func animationController(forPresented presented: UIViewController, presenting: UIViewController, source: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if presented == self {
+            let animator = BasicViewControllerTransition()
+            animator.animationStyle = .fade
+            return animator
+        }
+        return nil
+    }
+    
+    func animationController(forDismissed dismissed: UIViewController) -> UIViewControllerAnimatedTransitioning? {
+        if dismissed == self {
+            let animator = BasicViewControllerTransition()
+            animator.animationStyle = .fade
+            animator.isDismissal = true
+            return animator
+        }
+        return nil
+    }
+    
+    func presentationController(forPresented presented: UIViewController, presenting: UIViewController?, source: UIViewController) -> UIPresentationController? {
+        if presented == self {
+            if let presenting = presenting {
+                return BlurredDimmingPresentationController(presentedViewController: presented, presenting: presenting)
+            } else {
+                return BlurredDimmingPresentationController(presentedViewController: presented, presenting: source)
+            }
+        }
+        return nil
+    }
+    
 }

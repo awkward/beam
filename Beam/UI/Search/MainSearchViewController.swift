@@ -27,19 +27,8 @@ private let MainSearchViewControllerFooterHeight: CGFloat = 10.0
 
 class MainSearchViewController: BeamTableViewController {
     
-    let searchBar: UISearchBar = {
-        let bar = UISearchBar(frame: CGRect())
-        bar.searchBarStyle = UISearchBar.Style.default
-        bar.placeholder = AWKLocalizedString("search-placeholder")
-        bar.autoresizingMask = [UIView.AutoresizingMask.flexibleWidth, UIView.AutoresizingMask.flexibleHeight]
-        bar.autocapitalizationType = .none
-        return bar
-    }()
-    
     var searchDisplayMode = MainSearchDisplayMode.recentVisited {
         didSet {
-            let topOffset: CGFloat = self.searchDisplayMode == .resultSuggestions ? -1 * (MainSearchViewControllerHeaderHeight - 10) : 0
-            self.tableView.contentInset = UIEdgeInsets(top: topOffset, left: 0, bottom: 0, right: 0)
             self.tableView.rowHeight = self.searchDisplayMode == .recentVisited ? 60: 44
             self.tableView.reloadData()
         }
@@ -59,10 +48,19 @@ class MainSearchViewController: BeamTableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        title = AWKLocalizedString("search-title")
         tableView.register(ClearableTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
-        searchBar.delegate = self
-        searchBar.frame = CGRect(x: 0, y: 0, width: self.view.bounds.width, height: self.navigationItem.titleView?.bounds.height ?? 44)
-        navigationItem.titleView = self.searchBar
+        
+        let searchController = UISearchController(searchResultsController: nil)
+        searchController.searchBar.placeholder = AWKLocalizedString("search-reddit-placeholder")
+        searchController.searchBar.autocapitalizationType = .none
+        searchController.searchBar.delegate = self
+        searchController.searchBar.searchTextField.backgroundColor = .beamSearchBarBackground
+        searchController.searchBar.searchTextField.tintColor = .beam
+        searchController.hidesNavigationBarDuringPresentation = true
+        searchController.obscuresBackgroundDuringPresentation = false
+        navigationItem.searchController = searchController
+        navigationItem.hidesSearchBarWhenScrolling = false
         
         let tapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(MainSearchViewController.handleTapGesture(_:)))
         tapGestureRecognizer.delegate = self
@@ -74,13 +72,16 @@ class MainSearchViewController: BeamTableViewController {
         }
     }
     
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated)
-        tableView.reloadData()
-    }
-    
     @objc fileprivate func cancelTapped(_ sender: UIBarButtonItem) {
         self.dismiss(animated: true, completion: nil)
+    }
+    
+    func endSearch() {
+        navigationItem.searchController?.isActive = false
+    }
+    
+    var searchText: String? {
+        navigationItem.searchController?.searchBar.text
     }
     
     func searchPosts(_ keywords: String) {
@@ -89,8 +90,8 @@ class MainSearchViewController: BeamTableViewController {
             searchResultsViewController.searchKeywords = keywords
             
             RedditActivityController.addPostSearchKeywords(keywords)
-            searchBar.endEditing(true)
-            self.navigationController?.pushViewController(searchResultsViewController, animated: true)
+            navigationController?.pushViewController(searchResultsViewController, animated: true)
+            endSearch()
         }
     }
     
@@ -106,9 +107,8 @@ class MainSearchViewController: BeamTableViewController {
         subredditListViewController.title = keywords
         
         RedditActivityController.addSubredditSearchKeywords(keywords)
-        
-        searchBar.endEditing(true)
-        self.navigationController?.pushViewController(subredditListViewController, animated: true)
+        navigationController?.pushViewController(subredditListViewController, animated: true)
+        endSearch()
     }
     
     func openSubreddit(_ subreddit: Subreddit) {
@@ -116,14 +116,13 @@ class MainSearchViewController: BeamTableViewController {
         let storyboard = UIStoryboard(name: "Subreddit", bundle: nil)
         if let tabBarController = storyboard.instantiateInitialViewController() as? SubredditTabBarController {
             tabBarController.subreddit = subreddit
-            self.present(tabBarController, animated: true, completion: nil)
+            present(tabBarController, animated: true, completion: nil)
         }
     }
     
     func openSubredditName(_ displayName: String) {
         SubredditQuery.fetchSubreddit(displayName) { (subreddit, error) -> Void in
             DispatchQueue.main.async(execute: {
-                self.searchBar.endEditing(true)
                 if let subreddit = subreddit {
                     self.openSubreddit(subreddit)
                 } else {
@@ -146,7 +145,7 @@ class MainSearchViewController: BeamTableViewController {
         let navigationController = UIStoryboard(name: "Profile", bundle: nil).instantiateInitialViewController() as! BeamColorizedNavigationController
         let profileViewController = navigationController.viewControllers.first as! ProfileViewController
         profileViewController.username = username
-        self.present(navigationController, animated: true, completion: nil)
+        present(navigationController, animated: true, completion: nil)
     }
     
     fileprivate func clearTableSection(_ sectionType: MainSearchTableViewSectionType? = nil) {
@@ -184,7 +183,7 @@ class MainSearchViewController: BeamTableViewController {
     
     @objc func handleTapGesture(_ gesture: UITapGestureRecognizer) {
         if gesture.state == .ended {
-            self.searchBar.endEditing(false)
+            endSearch()
         }
     }
     
@@ -263,13 +262,13 @@ extension MainSearchViewController {
         case .resultSuggestions:
             
             if (indexPath as IndexPath).row == 0 {
-                cell.textLabel?.text = AWKLocalizedString("search-subreddits-with").replacingOccurrences(of: "[SEARCHTERM]", with: self.searchBar.text ?? "")
+                cell.textLabel?.text = AWKLocalizedString("search-subreddits-with").replacingOccurrences(of: "[SEARCHTERM]", with: searchText ?? "")
             } else if (indexPath as IndexPath).row == 1 {
-                cell.textLabel?.text = AWKLocalizedString("search-posts-with").replacingOccurrences(of: "[SEARCHTERM]", with: self.searchBar.text ?? "")
+                cell.textLabel?.text = AWKLocalizedString("search-posts-with").replacingOccurrences(of: "[SEARCHTERM]", with: searchText ?? "")
             } else if (indexPath as IndexPath).row == 2 {
-                cell.textLabel?.text = AWKLocalizedString("search-go-to-subreddit").replacingOccurrences(of: "[SUBREDDIT]", with: self.subredditNameFromSearchText(self.searchBar.text))
+                cell.textLabel?.text = AWKLocalizedString("search-go-to-subreddit").replacingOccurrences(of: "[SUBREDDIT]", with: self.subredditNameFromSearchText(searchText))
             } else if (indexPath as IndexPath).row == 3 {
-                cell.textLabel?.text = AWKLocalizedString("search-go-to-user").replacingOccurrences(of: "[USERNAME]", with: self.subredditNameFromSearchText(self.searchBar.text))
+                cell.textLabel?.text = AWKLocalizedString("search-go-to-user").replacingOccurrences(of: "[USERNAME]", with: self.subredditNameFromSearchText(searchText))
             }
         }
         
@@ -394,7 +393,7 @@ extension MainSearchViewController {
                 let searchText = RedditActivityController.recentlySearchedPostKeywords[(indexPath as IndexPath).row]
                 self.searchPosts(searchText)
             }
-        } else if let searchText = self.searchBar.text, self.searchDisplayMode == MainSearchDisplayMode.resultSuggestions {
+        } else if let searchText = searchText, self.searchDisplayMode == MainSearchDisplayMode.resultSuggestions {
             if (indexPath as IndexPath).row == 0 {
                 self.searchSubreddits(searchText)
             } else if (indexPath as IndexPath).row == 1 {
@@ -410,7 +409,7 @@ extension MainSearchViewController {
                 self.openUsername(self.usernameFromSearchText(searchText))
             }
         }
-        self.searchBar.resignFirstResponder()
+        endSearch()
     }
     
 }
@@ -450,12 +449,13 @@ extension MainSearchViewController: UISearchBarDelegate {
 }
 
 extension MainSearchViewController: UIGestureRecognizerDelegate {
-    
+
     func gestureRecognizerShouldBegin(_ gestureRecognizer: UIGestureRecognizer) -> Bool {
         return self.searchDisplayMode != .recentVisited
     }
-    
+
     func gestureRecognizer(_ gestureRecognizer: UIGestureRecognizer, shouldReceive touch: UITouch) -> Bool {
         return touch.view == self.tableView
     }
+
 }

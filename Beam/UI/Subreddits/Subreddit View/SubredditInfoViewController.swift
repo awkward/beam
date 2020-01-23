@@ -171,7 +171,7 @@ class SubredditInfoViewController: BeamTableViewController, SubredditTabItemView
     
     weak var subreddit: Subreddit? {
         didSet {
-            self.title = subreddit?.title
+            self.title = subreddit?.displayName
             self.updateNavigationItem()
             self.createSections()
         }

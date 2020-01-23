@@ -52,7 +52,7 @@ class MainSearchViewController: BeamTableViewController {
         tableView.register(ClearableTableSectionHeaderView.self, forHeaderFooterViewReuseIdentifier: "header")
         
         let searchController = UISearchController(searchResultsController: nil)
-        searchController.searchBar.placeholder = AWKLocalizedString("search-reddit-placeholder")
+        searchController.searchBar.placeholder = AWKLocalizedString("search-placeholder")
         searchController.searchBar.autocapitalizationType = .none
         searchController.searchBar.delegate = self
         searchController.searchBar.searchTextField.backgroundColor = .beamSearchBarBackground

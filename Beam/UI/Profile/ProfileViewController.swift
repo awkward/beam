@@ -155,8 +155,7 @@ class ProfileViewController: BeamViewController {
         self.topButtonBarConstraint.constant = 100
         self.view.layoutIfNeeded()
         self.currentSection.stream.tableView.scrollRectToVisible(CGRect(x: 0, y: 0, width: 20, height: 20), animated: true)
-
-        self.currentSection.stream.additionalSafeAreaInsets = UIEdgeInsets(top: self.headerView.frame.height + self.toolbar.frame.height, left: 0, bottom: 0, right: 0)
+        self.currentSection.stream.additionalSafeAreaInsets = UIEdgeInsets(top: headerView.frame.height + toolbar.frame.height, left: 0, bottom: 0, right: 0)
         
         self.currentSection.stream.willMove(toParent: self)
         self.view.addSubview(self.currentSection.stream.view)
@@ -394,28 +393,28 @@ class ProfileViewController: BeamViewController {
 extension ProfileViewController: HidingButtonBarDelegate {
     
     func buttonBarScrollViewDidScroll(_ scrollView: UIScrollView) {
-        let headerHeight: CGFloat = 100
-        
-        guard self.currentSection.stream.emptyView == nil && self.currentSection.stream.loadingState != .loading else {
-            return
-        }
+        // On each scroll, we want to adjust the header view and toolbar positions,
+        // to give a collapsing effect till just the toolbar is visible.
+        //
+        // This is not relevant for empty or loading states, as there's nothing to scroll there.
+        let stream = currentSection.stream
+        guard stream.emptyView == nil, stream.loadingState != .loading else { return }
+        let toolbarHeight = toolbar.frame.height
         
         switch headerState {
         case .full:
-            if scrollView.contentOffset.y < self.headerView.bounds.height + self.toolbar.bounds.height {
-                let newOffset = min(headerHeight, -1 * scrollView.contentInset.top - scrollView.contentOffset.y + headerHeight)
-                headerState = .full
-                topButtonBarConstraint.constant = newOffset
-                
-            } else {
+            // We start collapsing the header view, from contentOffset.y -144 to -44.
+            // While scrolling through this area, the topBarConstraint moves from 100 to 0.
+            let collapsingHeight = scrollView.adjustedContentInset.top - toolbarHeight
+            let scrolledDistance = scrollView.adjustedContentInset.top + scrollView.contentOffset.y
+            topButtonBarConstraint.constant = min(collapsingHeight - scrolledDistance, abs(collapsingHeight))
+            if scrollView.contentOffset.y >= 0 {
                 headerState = .bar
-                topButtonBarConstraint.constant = -1 * headerView.bounds.height - toolbar.bounds.height
             }
         case .bar:
-            if scrollView.contentOffset.y < -1 * toolbar.bounds.height {
-                let newOffset = min(headerView.bounds.height + toolbar.bounds.height, -1 * scrollView.contentInset.top - scrollView.contentOffset.y)
+            if scrollView.contentOffset.y < -1 * toolbarHeight {
                 headerState = .full
-                topButtonBarConstraint.constant = newOffset
+                buttonBarScrollViewDidScroll(scrollView)
             } else {
                 if lastButtonBarScrollViewOffset == nil {
                     lastButtonBarScrollViewOffset = scrollView.contentOffset
@@ -432,10 +431,9 @@ extension ProfileViewController: HidingButtonBarDelegate {
                 topButtonBarConstraint.constant = newOffset
                 lastButtonBarScrollViewOffset = scrollView.contentOffset
             }
-
         }
         
-        let headerControlAlpha = max(0, topButtonBarConstraint.constant / headerHeight)
+        let headerControlAlpha = max(0, topButtonBarConstraint.constant / 100)
         linkKarmaLabel.alpha = headerControlAlpha
         linkKarmaDescriptionLabel.alpha = headerControlAlpha
         commentKarmaLabel.alpha = headerControlAlpha

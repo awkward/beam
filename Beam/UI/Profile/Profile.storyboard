@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="iBZ-JQ-2bI">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="iBZ-JQ-2bI">
     <device id="retina4_7" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
         <capability name="Named colors" minToolsVersion="9.0"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
@@ -32,10 +33,6 @@
         <scene sceneID="P3V-Bx-UD5">
             <objects>
                 <viewController storyboardIdentifier="ProfileViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="2GN-uX-iXC" customClass="ProfileViewController" customModule="beam" customModuleProvider="target" sceneMemberID="viewController">
-                    <layoutGuides>
-                        <viewControllerLayoutGuide type="top" id="3w0-GE-qDi"/>
-                        <viewControllerLayoutGuide type="bottom" id="7bY-lX-kni"/>
-                    </layoutGuides>
                     <view key="view" contentMode="scaleToFill" id="hrz-4y-Uwy">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="623"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -105,13 +102,14 @@
                         <color key="tintColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="2MQ-v7-kxI" firstAttribute="leading" secondItem="hrz-4y-Uwy" secondAttribute="leading" id="2FY-fK-dEV"/>
-                            <constraint firstAttribute="trailing" secondItem="JT2-4F-NMC" secondAttribute="trailing" id="6vt-dD-wtl"/>
+                            <constraint firstItem="rx1-nf-Lsl" firstAttribute="trailing" secondItem="JT2-4F-NMC" secondAttribute="trailing" id="6vt-dD-wtl"/>
                             <constraint firstAttribute="trailing" secondItem="2MQ-v7-kxI" secondAttribute="trailing" id="TDK-ue-BaU"/>
                             <constraint firstItem="JT2-4F-NMC" firstAttribute="top" secondItem="2MQ-v7-kxI" secondAttribute="bottom" id="YYx-4D-Oll"/>
-                            <constraint firstItem="JT2-4F-NMC" firstAttribute="leading" secondItem="hrz-4y-Uwy" secondAttribute="leading" id="mev-46-xZS"/>
-                            <constraint firstItem="JT2-4F-NMC" firstAttribute="top" secondItem="3w0-GE-qDi" secondAttribute="bottom" constant="100" id="wIv-Kd-E7S"/>
-                            <constraint firstItem="2MQ-v7-kxI" firstAttribute="top" secondItem="3w0-GE-qDi" secondAttribute="bottom" priority="750" id="xhs-Qa-usC"/>
+                            <constraint firstItem="JT2-4F-NMC" firstAttribute="leading" secondItem="rx1-nf-Lsl" secondAttribute="leading" id="mev-46-xZS"/>
+                            <constraint firstItem="JT2-4F-NMC" firstAttribute="top" secondItem="rx1-nf-Lsl" secondAttribute="top" constant="100" id="wIv-Kd-E7S"/>
+                            <constraint firstItem="2MQ-v7-kxI" firstAttribute="top" secondItem="rx1-nf-Lsl" secondAttribute="top" priority="750" id="xhs-Qa-usC"/>
                         </constraints>
+                        <viewLayoutGuide key="safeArea" id="rx1-nf-Lsl"/>
                     </view>
                     <navigationItem key="navigationItem" title="Profile" id="UO6-NP-2qb"/>
                     <connections>
@@ -133,7 +131,7 @@
     </scenes>
     <resources>
         <namedColor name="colorized_bar">
-            <color red="0.49411764705882355" green="0.36078431372549019" blue="0.90196078431372551" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <color red="0.49399998784065247" green="0.36100000143051147" blue="0.90200001001358032" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </namedColor>
     </resources>
     <color key="tintColor" name="beam"/>

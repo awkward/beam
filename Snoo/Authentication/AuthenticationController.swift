@@ -241,12 +241,7 @@ public final class AuthenticationController: NSObject {
      */
     public lazy var basicURLSessionConfiguration: URLSessionConfiguration = {
         let configuration = URLSessionConfiguration.default
-        
-        configuration.timeoutIntervalForRequest = 10
-        configuration.timeoutIntervalForResource = 20
-        
-        let bundleIdentifier = Bundle.main.bundleIdentifier!
-        
+        let bundleIdentifier = Bundle.main.bundleIdentifier ?? ""
         var headers = [String: String]()
         headers["Accept"] = "application/json"
         headers["User-Agent"] = "ios:\(bundleIdentifier):v\(self.configuration.clientVersion) (by /u/beamreddit)"

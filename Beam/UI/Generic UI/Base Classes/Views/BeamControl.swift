@@ -15,6 +15,13 @@ class BeamControl: UIControl, BeamAppearance {
         self.appearanceDidChange()
     }
     
+    override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
+        super.traitCollectionDidChange(previousTraitCollection)
+        if traitCollection.userInterfaceStyle != previousTraitCollection?.userInterfaceStyle {
+            appearanceDidChange()
+        }
+    }
+    
     func appearanceDidChange() {
         switch self.userInterfaceStyle {
         case .dark:

@@ -47,6 +47,8 @@ public final class UserActivityController: NSObject {
     }
     
     fileprivate func flushVisits() {
+        assert(Thread.isMainThread)
+        
         guard self.authenticationController?.isAuthenticated == true else {
             return
         }

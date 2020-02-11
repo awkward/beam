@@ -532,31 +532,42 @@ public final class AuthenticationController: NSObject {
     }
     
     public func switchToAuthenticationSession(_ session: AuthenticationSession?, handler: ((_ error: Error?) -> Void)?) {
-        if session != nil && session?.refreshToken == nil {
+        guard let newSession = session, let refreshToken = session?.refreshToken else {
             handler?(NSError.snooError(400, localizedDescription: "The given user account is invalid, this could be because the refresh token no longer exists"))
-        } else {
-            DataController.shared.cancelAllOperations(completionHandler: {
-                guard let newSession = session, let refreshToken = newSession.refreshToken, !newSession.isValid else {
-                    self.activeSession = session
+            return
+        }
+        
+        // When switching accounts, we clear the full operation queue to
+        // start with a fresh new authentication token.
+        DataController.shared.cancelAllOperations {
+            if newSession.isValid {
+                DispatchQueue.main.async {
+                    self.activeSession = newSession
+                    
+                    // Although the session is valid, we could refresh the authentication session.
                     DataController.shared.executeAndSaveOperations(self.authenticationOperations(), handler: handler)
-                    return
                 }
-                
+            } else {
                 //The session was not valid, so we update the new session we are about to set with a new token!
                 let tokenRequest = AccessTokenRequest(grant: .refreshToken(refreshToken), clientId: self.configuration.clientID, authenticationController: self)
-                DataController.shared.executeOperations([tokenRequest], handler: { (error) in
-                    if let error = error {
-                        handler?(error)
-                    } else {
-                        newSession.accessToken = tokenRequest.authenticationSession?.accessToken
-                        newSession.expirationDate = tokenRequest.authenticationSession?.expirationDate
-                        newSession.refreshToken = tokenRequest.authenticationSession?.refreshToken ?? refreshToken
+                DataController.shared.executeOperations([tokenRequest]) { error in
+                    guard error == nil else {
+                        handler?(error!)
+                        return
+                    }
+                    
+                    newSession.accessToken = tokenRequest.authenticationSession?.accessToken
+                    newSession.expirationDate = tokenRequest.authenticationSession?.expirationDate
+                    newSession.refreshToken = tokenRequest.authenticationSession?.refreshToken ?? refreshToken
+                    
+                    DispatchQueue.main.async {
                         self.activeSession = newSession
                         DataController.shared.executeAndSaveOperations(self.authenticationOperations(), handler: handler)
                     }
-                })
-                
-            })
+                }
+            }
+            
+
         }
     }
     
